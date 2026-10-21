@@ -38,6 +38,7 @@ from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.parser_services._base import DataMatcher
+from mealie.services.recipe.mealie_export import InvalidMealieExportError
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
@@ -227,7 +228,6 @@ class RecipeService(RecipeServiceBase):
                 data.settings = RecipeSettings()
 
         rating_input = data.rating
-        data.last_made = None
         new_recipe = self.repos.recipes.create(data)
 
         # convert rating into user rating
@@ -477,6 +477,44 @@ class RecipeService(RecipeServiceBase):
         recipe = Recipe.model_validate(recipe).model_dump(mode="json")
         return self._process_recipe_data("recipe", self._replace_taken_id(recipe))
 
+    def _apply_household_visibility(self, recipe: Recipe) -> None:
+        """Make an imported recipe follow the household's `recipe_public` preference.
+
+        An export carries the visibility of the household it came from, which must not make a
+        recipe public in a household that keeps its recipes private. The other settings are kept
+        as exported.
+        """
+        if self.household.preferences is None:
+            return
+        if recipe.settings is None:
+            recipe.settings = RecipeSettings()
+        recipe.settings.public = self.household.preferences.recipe_public
+
+    def create_from_mealie_export(self, recipe: dict[str, Any], include_tags: bool, include_categories: bool) -> Recipe:
+        """Create a recipe from a pasted recipe dump produced by Mealie (see `parse_mealie_export`).
+
+        A paste carries no files, so its image key and asset entries would point at nothing, and
+        comments belong to the recipe they were written on. All three are dropped before
+        validation, so a hand-edited comment cannot fail the import.
+
+        Raises `InvalidMealieExportError` with a translated message when the dump cannot be imported.
+        """
+        recipe = {k: v for k, v in recipe.items() if k not in ("image", "assets", "comments")}
+        try:
+            cleaned = self.clean_recipe_dict(recipe)
+            if not include_tags:
+                cleaned["tags"] = []
+            if not include_categories:
+                cleaned["recipe_category"] = []
+
+            recipe_data = Recipe(**cleaned)
+            self._apply_household_visibility(recipe_data)
+            return self.create_one(recipe_data)
+        except Exception as e:
+            # the paste was recognised as a Mealie export, so falling back to the web scraper would
+            # only produce the degraded import this path exists to avoid
+            raise InvalidMealieExportError(self.t("recipe.import-errors.invalid-mealie-export")) from e
+
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """
         `create_from_zip` creates a recipe in the database from a zip file exported from Mealie. This is NOT
@@ -500,7 +538,9 @@ class RecipeService(RecipeServiceBase):
         if recipe_dict is None:
             raise exceptions.UnexpectedNone("No json data found in Zip")
 
-        recipe = self.create_one(Recipe(**self.clean_recipe_dict(recipe_dict)))
+        recipe_data = Recipe(**self.clean_recipe_dict(recipe_dict))
+        self._apply_household_visibility(recipe_data)
+        recipe = self.create_one(recipe_data)
 
         if recipe and recipe.id:
             data_service = RecipeDataService(recipe.id)
@@ -545,8 +585,6 @@ class RecipeService(RecipeServiceBase):
             if old_recipe.recipe_ingredient is None
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
-        new_recipe.last_made = None
-
         new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
         new_recipe = self.repos.recipes.create(new_recipe)

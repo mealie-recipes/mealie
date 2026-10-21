@@ -95,17 +95,26 @@ jobs:
           fi
         if: steps.cached-python-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
-      - name: Formatting (Ruff)
-        run: |
-          uv run ruff format . --check
+      # Database-independent, so only run once
+      - name: Load cached pre-commit hooks
+        if: matrix.Database == 'sqlite'
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
 
-      - name: Lint (Ruff)
+      - name: Lint and Format (pre-commit)
+        if: matrix.Database == 'sqlite'
         run: |
-          task py:lint
+          uv run pre-commit run --all-files --show-diff-on-failure --color=always
 
       - name: Mypy Typecheck
         run: |
           task py:mypy
+
+      - name: Semgrep (authz rules)
+        run: |
+          task py:semgrep
 
       - name: Pytest
         env:

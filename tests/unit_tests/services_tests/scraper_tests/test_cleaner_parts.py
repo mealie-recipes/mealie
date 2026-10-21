@@ -546,6 +546,24 @@ ingredients_test_cases = (
         test_id="multiple ingredient dictionary",
         exception=TypeError,
     ),
+    CleanerCase(
+        input=[
+            {"@type": "PronounceableText", "textValue": "1 cup of flour"},
+            {"@type": "PronounceableText", "textValue": "1 cup of sugar"},
+        ],
+        expected=["1 cup of flour", "1 cup of sugar"],
+        test_id="schema.org PronounceableText nodes",
+    ),
+    CleanerCase(
+        input=["1 cup of flour", {"@type": "PronounceableText", "textValue": "1 cup of sugar"}],
+        expected=["1 cup of flour", "1 cup of sugar"],
+        test_id="mixed strings and PronounceableText nodes",
+    ),
+    CleanerCase(
+        input=[{"name": "flour", "amount": "1 cup"}],
+        expected=[{"name": "flour", "amount": "1 cup"}],
+        test_id="dict without textValue is left untouched",
+    ),
 )
 
 
@@ -1003,6 +1021,18 @@ nutrition_test_cases = (
 def test_cleaner_clean_nutrition(case: CleanerCase):
     result = cleaner.clean_nutrition(case.input)
     assert case.expected == result
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize("value", ["g", "trace g", "negligible", "", None, 10, ["10g"]])
+def test_clean_nutrition_skips_unparseable_nutrients(key: str, value: object) -> None:
+    assert cleaner.clean_nutrition({key: value, "proteinContent": "12 g"}) == {"proteinContent": "12"}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize("value, expected", [("0 g", "0.0"), ("0.5 g", "500.0"), ("0,5 g", "500.0")])
+def test_clean_nutrition_converts_nutrients_to_milligrams(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
 
 
 clean_notes_test_cases = (

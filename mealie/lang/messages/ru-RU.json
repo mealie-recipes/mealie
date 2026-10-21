@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Название рецепта должно быть уникальным",
         "recipe-created": "Рецепт создан",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
             "ingredient-note": "1 чашка муки",
@@ -17,7 +24,7 @@
             "serving": "Порция",
             "servings": "Порций",
             "yield": "Количество порций",
-            "yields": "Можно получить порций"
+            "yields": "Количество порций"
         },
         "and-amount": "и {amount}",
         "import-errors": {
@@ -74,15 +81,15 @@
         "rate-limit-error": "Провайдер ИИ имеет ограничение трафика. Пожалуйста, повторите попытку позже",
         "integrity-error": "Ошибка целостности базы данных",
         "username-conflict-error": "Имя пользователя уже занято",
-        "email-conflict-error": "Емейл уже используется"
+        "email-conflict-error": "E-mail уже используется"
     },
     "notifications": {
-        "generic-created": "{name} создан",
-        "generic-updated": "{name} обновлён",
-        "generic-created-with-url": "{name} создан, {url}",
-        "generic-updated-with-url": "{name} обновлен, {url}",
+        "generic-created": "{name} Создан",
+        "generic-updated": "{name} Обновлён",
+        "generic-created-with-url": "{name} Создан, {url}",
+        "generic-updated-with-url": "{name} Обновлен, {url}",
         "generic-duplicated": "Копия {name} создана",
-        "generic-deleted": "{name} удален",
+        "generic-deleted": "{name} Удален",
         "logged-out": "Вы вышли из системы",
         "event-title": {
             "test-message": "Тестовое сообщение",
@@ -119,13 +126,13 @@
         "mealplan-entry-deleted": "Запись плана питания удалена на {date} для {entry_type}"
     },
     "datetime": {
-        "year": "год|лет",
-        "day": "день|дней",
-        "hour": "час|часов",
-        "minute": "минута|минут",
-        "second": "секунда|секунд",
-        "millisecond": "миллисекунда|миллисекунд",
-        "microsecond": "микросекунда|микросекунд"
+        "year": "Год|лет",
+        "day": "День|дней",
+        "hour": "Час|часов",
+        "minute": "Минута|минут",
+        "second": "Секунда|секунд",
+        "millisecond": "Миллисекунда|миллисекунд",
+        "microsecond": "Микросекунда|микросекунд"
     },
     "emails": {
         "password": {

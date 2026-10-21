@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
@@ -52,7 +53,7 @@ class MultiPurposeLabelsController(BaseCrudController):
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=MultiPurposeLabelOut)
+    @router.post("", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def create_one(self, data: MultiPurposeLabelCreate):
         try:
             new_label = self.service.create_one(data)
@@ -73,11 +74,9 @@ class MultiPurposeLabelsController(BaseCrudController):
         """Returns a list of labels that are not used by any food or shopping list item"""
         return self.repo.get_empty()
 
-    @router.post("/merge", response_model=MultiPurposeLabelOut)
+    @router.post("/merge", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def merge_labels(self, body: MultiPurposeLabelMerge):
         """Merges the from_id label into the to_id label, then deletes from_id."""
-        self.checks.can_organize()
-
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
 
@@ -92,7 +91,7 @@ class MultiPurposeLabelsController(BaseCrudController):
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=MultiPurposeLabelOut)
+    @router.put("/{item_id}", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def update_one(self, item_id: UUID4, data: MultiPurposeLabelUpdate):
         label = self.mixins.update_one(data, item_id)
         self.publish_event(
@@ -104,7 +103,7 @@ class MultiPurposeLabelsController(BaseCrudController):
         )
         return label
 
-    @router.delete("/{item_id}", response_model=MultiPurposeLabelOut)
+    @router.delete("/{item_id}", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_one(self, item_id: UUID4):
         label = self.mixins.delete_one(item_id)
         if label:

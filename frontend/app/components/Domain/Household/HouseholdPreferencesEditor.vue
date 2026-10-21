@@ -13,8 +13,16 @@
     <div class="mb-6">
       <v-checkbox v-model="local.lockRecipeEditsFromOtherHouseholds" hide-details density="compact" :label="$t('household.lock-recipe-edits-from-other-households')" color="primary" />
       <div class="ml-8">
-        <p class="text-subtitle-2 my-0 py-0">
+        <p class="text-subtitle-2 my-0 py-0 d-flex align-center">
           {{ $t("household.lock-recipe-edits-from-other-households-description") }}
+          <v-tooltip location="bottom">
+            <template #activator="{ props: tooltipProps }">
+              <v-icon v-bind="tooltipProps" size="small" class="ms-2">
+                {{ $globals.icons.informationOutline }}
+              </v-icon>
+            </template>
+            <span>{{ $t("household.lock-recipe-edits-from-other-households-admin-note") }}</span>
+          </v-tooltip>
         </p>
       </div>
     </div>

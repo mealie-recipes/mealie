@@ -6,6 +6,7 @@ from pydantic import UUID4, BaseModel, ConfigDict
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory, RecipeCategoryPagination
@@ -48,10 +49,9 @@ class RecipeCategoryController(BaseCrudController):
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", status_code=201)
+    @router.post("", status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def create_one(self, category: CategoryIn):
         """Creates a Category in the database"""
-        self.checks.can_organize()
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
         new_category = self.mixins.create_one(save_data)
         if new_category:
@@ -74,11 +74,9 @@ class RecipeCategoryController(BaseCrudController):
         """Returns a list of categories that do not contain any recipes"""
         return self.repos.categories.get_empty()
 
-    @router.post("/merge", response_model=CategoryOut)
+    @router.post("/merge", response_model=CategoryOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def merge_categories(self, body: CategoryMerge):
         """Merges the from_id category into the to_id category, then deletes from_id."""
-        self.checks.can_organize()
-
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
 
@@ -96,10 +94,9 @@ class RecipeCategoryController(BaseCrudController):
         category_obj = CategorySummary.model_validate(category_obj)
         return category_obj
 
-    @router.put("/{item_id}", response_model=CategorySummary)
+    @router.put("/{item_id}", response_model=CategorySummary, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def update_one(self, item_id: UUID4, update_data: CategoryIn):
         """Updates an existing Tag in the database"""
-        self.checks.can_organize()
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
         category = self.mixins.update_one(save_data, item_id)
 
@@ -118,14 +115,13 @@ class RecipeCategoryController(BaseCrudController):
 
         return category
 
-    @router.delete("/{item_id}")
+    @router.delete("/{item_id}", dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_one(self, item_id: UUID4):
         """
         Removes a recipe category from the database. Deleting a
         category does not impact a recipe. The category will be removed
         from any recipes that contain it
         """
-        self.checks.can_organize()
         if category := self.mixins.delete_one(item_id):
             self.publish_event(
                 event_type=EventTypes.category_deleted,

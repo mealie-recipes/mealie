@@ -169,9 +169,11 @@ const connectionMessage = computed(() => {
 
 // Capability info rather than a second pass/fail check - a text-only provider is a valid setup,
 // it just can't be used as the image provider. Appended to the connection message above.
+// supportsImages is null when image support wasn't checked (e.g. an audio-only provider that was
+// tested by transcription), so there's nothing to say about images then.
 const imageSupportMessage = computed(() => {
   const result = testResult.value;
-  if (!result?.success) return "";
+  if (!result?.success || typeof result.supportsImages !== "boolean") return "";
   return result.supportsImages
     ? ` — ${i18n.t("group.ai-provider-settings.supports-images")}`
     : ` — ${i18n.t("group.ai-provider-settings.text-only-provider")}`;

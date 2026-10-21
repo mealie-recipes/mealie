@@ -299,7 +299,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
     def count_all(self, match_key=None, match_value=None) -> int:
         q = select(func.count(self.model.id))
         if None not in [match_key, match_value]:
-            q = q.filter_by(**{match_key: match_value})
+            q = q.where(getattr(self.model, match_key) == match_value)
         return self.session.scalar(q)
 
     def _count_attribute(

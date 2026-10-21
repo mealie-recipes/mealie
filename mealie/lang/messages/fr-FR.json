@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques",
         "recipe-created": "Recette créée",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "L’image de la recette a été supprimée",
         "recipe-defaults": {
             "ingredient-note": "1 Tasse de farine",
@@ -51,7 +58,7 @@
         "entry-type": {
             "breakfast": "breakfast",
             "lunch": "lunch",
-            "dinner": "dinner",
+            "dinner": "diner",
             "side": "side",
             "snack": "snack",
             "drink": "drink",

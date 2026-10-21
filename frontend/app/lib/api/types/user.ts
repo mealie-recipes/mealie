@@ -6,7 +6,7 @@
 */
 
 export type WebhookType = "mealplan";
-export type AuthMethod = "Mealie" | "LDAP" | "OIDC";
+export type AuthMethod = "Mealie" | "LDAP" | "OIDC" | "ReverseProxy";
 
 export interface ChangePassword {
   currentPassword?: string;

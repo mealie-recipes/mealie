@@ -25,6 +25,19 @@
 
 ### Security
 
+#### Reverse proxy headers
+
+`HOST_IP` controls which connecting proxy IP addresses or CIDR ranges Uvicorn trusts for `X-Forwarded-For` and `X-Forwarded-Proto`.
+Set a comma-separated list matching your reverse proxy or Kubernetes ingress, for example `HOST_IP=127.0.0.1,10.42.1.0/24`.
+Depending on your container environment and network, the container's default gateway may not be the address of the proxy.
+
+The default is `*` for compatibility, which **trusts forwarding headers from every connecting source**.
+Use that setting only when access to the application is limited to trusted proxies!
+
+Set `HOST_IP` to an empty string to trust no forwarding proxies.
+
+#### Application security
+
 | Variables                   | Default | Description                                                                         |
 | --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
@@ -93,6 +106,21 @@ Use this only when mealie is run without a webserver or reverse proxy.
 | LDAP_NAME_ATTRIBUTE                                   |  name   | The LDAP attribute that maps to the user's name                                                                                     |
 | LDAP_MAIL_ATTRIBUTE                                   |  mail   | The LDAP attribute that maps to the user's email                                                                                    |
 
+### Reverse Proxy Auth
+
+Mealie can trust a username forwarded by a reverse proxy that has already authenticated the user (e.g. Authelia, Authentik, oauth2-proxy, Tailscale Serve). When enabled, visiting the login page will automatically sign in as the user named in the configured header, with no extra Mealie login step. Password, LDAP, and OIDC login remain available and are not affected by this setting.
+
+!!! danger "Only enable this behind a trusted reverse proxy"
+    Mealie trusts the header's value completely. If Mealie is reachable by any path that bypasses your proxy (directly hitting the container/port, a misconfigured Ingress, etc.), an attacker can set this header themselves and impersonate any user, including admins. Make sure your proxy always overwrites/strips this header for all incoming requests before adding its own, that Mealie is not otherwise reachable, and set `REVERSE_PROXY_AUTH_SECRET` so Mealie can tell your proxy's requests apart from a direct connection (checking the connecting IP isn't reliable enough for this, since it changes depending on how `HOST_IP` is configured).
+
+| Variables                          | Default            | Description                                                                                                    |
+| ----------------------------------- | :-----------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| REVERSE_PROXY_AUTH_ENABLED          |        False        | Enables authentication via a trusted reverse proxy header                                                                                                                                                                            |
+| REVERSE_PROXY_AUTH_HEADER           | X-Forwarded-User    | The name of the header your reverse proxy sets to the authenticated username (or email)                                                                                                                                              |
+| REVERSE_PROXY_AUTH_SIGNUP_ENABLED   |        False        | Enables new users to be created automatically the first time they're seen in the trusted header                                                                                                                                      |
+| REVERSE_PROXY_AUTH_SECRET           |         `""`         | Shared secret your proxy must send in `REVERSE_PROXY_AUTH_SECRET_HEADER`. Strongly recommended in production; requests missing it are rejected.                                                                                     |
+| REVERSE_PROXY_AUTH_SECRET_HEADER    | X-Mealie-Reverse-Proxy-Secret | The name of the header your reverse proxy sets to the value of `REVERSE_PROXY_AUTH_SECRET`                                                                                                                                |
+
 ### OpenID Connect (OIDC)
 
 :octicons-tag-24: v1.4.0
@@ -112,7 +140,6 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_AUTO_REDIRECT                                                                  |  False  | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL                                                                                                                     |
 | OIDC_PROVIDER_NAME                                                                  |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                                                                                                                     |
 | OIDC_REMEMBER_ME                                                                    |  False  | Because redirects bypass the login screen, you can't tick the "Remember Me" checkbox. Setting this to true treats an OIDC login as if it had been checked, so the session survives closing the browser                                                                                              |
-| OIDC_SIGNING_ALGORITHM                                                              |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                                                                                                                       |
 | OIDC_USER_CLAIM                                                                     |  email  | This is the claim which Mealie will use to look up an existing user by (e.g. "email", "preferred_username")                                                                                                                                                                                            |
 | OIDC_NAME_CLAIM                                                                     |  name   | This is the claim which Mealie will use for the users Full Name                                                                                                                                                                                                                                        |
 | OIDC_GROUPS_CLAIM                                                                   | groups  | Optional if not using `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. This is the claim Mealie will request from your IdP and will use to compare to `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP` to allow the user to log in to Mealie or is set as an admin. **Your IdP must be configured to grant this claim** |
@@ -127,10 +154,6 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 :octicons-tag-24: v1.7.0
 
 Mealie supports various integrations using AI. For more information, check out our [AI Providers documentation](./ai-providers.md).
-
-| Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
-|-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |    None.    | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
 
 Recipe import can also transcribe a video's audio with AI (e.g. to import a recipe from a cooking video). This uses yt-dlp to download the video, which you can configure with the env variables below:
 
@@ -305,6 +328,30 @@ The examples below provide copy-ready Docker Compose environment configurations 
     Browser cookies may cause the client to keep outdated settings.
     Clearing the cookies can be required for the change to take effect.
 
+### Branding
+
+Setting the following environment variables lets you replace Mealie's name and logo in the UI. Any variable left unset falls back to the default Mealie branding, so you can override just the pieces you care about.
+
+This only covers the app name (top navigation bar, browser tab title, installed PWA name) and the logo (top navigation bar, login/setup pages, favicon). It does not change every other place "Mealie" appears — translation strings, outgoing emails, and links to the project's own site/docs are unaffected.
+
+| Variables              | Default   | Description                                                          |
+| ---------------------- | :-------: | ---------------------------------------------------------------------|
+| BRANDING_NAME           | Mealie   | App name shown in the top navigation bar, browser tab title, and installed PWA name |
+| BRANDING_LOGO_PATH      | unset    | Path *inside the container* to a custom logo (svg, png, ico, webp, jpg/jpeg), used in the top navigation bar, the login/setup pages, and as the favicon |
+
+!!! info
+    `BRANDING_LOGO_PATH` points at a file path, not a URL. To use your own logo, bind-mount the file into the container and point the variable at that in-container path. If the path doesn't exist, isn't a file, or isn't a recognized image type, Mealie silently falls back to the built-in logo.
+
+    Like the theme variables, branding is read once at startup — restart the container after changing these values.
+
+```yaml
+volumes:
+  - ./branding/logo.svg:/app/branding/logo.svg:ro
+environment:
+  BRANDING_NAME: "My Recipes"
+  BRANDING_LOGO_PATH: "/app/branding/logo.svg"
+```
+
 ### Docker Secrets
 
 > <super>&dagger;</super> Starting in version `2.4.2`, any environment variable in the preceding lists with a dagger
@@ -319,6 +366,14 @@ connect it with a Docker Compose secret, per the [Docker documentation][docker-s
 
 If both the base environment variable and the secret pattern of the environment variable are set, the secret will always
 take precedence.
+
+Each configured `_FILE` path must point to a readable regular file.
+Startup stops with an error message if the file is missing, is not a regular file, or cannot be read, even when the base environment variable is also set.
+Trailing newlines are removed from the file contents. If the resulting value is empty, startup logs a warning and continues with an empty value, overriding any base environment variable.
+
+The file must be readable by the application user after the container drops privileges (UID/GID 911 by default, or your configured runtime user).
+Kubernetes Secret volume symlinks are supported when their target is a readable
+regular file. Omit the `_FILE` variable when an optional setting is unused.
 
 For example, a user that wishes to harden their operations by only giving some access to their database URL, but who
 wish to place additional security around their user access control, may have a Docker Compose configuration similar to:

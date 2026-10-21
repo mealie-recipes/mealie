@@ -1,4 +1,5 @@
 import json
+import zipfile
 from pathlib import Path
 
 import yaml
@@ -42,6 +43,35 @@ class MigrationReaders:
                     recipe_data["description"] = document
 
         return recipe_data
+
+
+MAX_EXTRACTED_ARCHIVE_SIZE = 5 * 1024**3
+"""Upper bound, in bytes, on what a single migration may unpack, nested archives included"""
+
+
+class ArchiveTooLargeError(ValueError):
+    pass
+
+
+def extract_zip(archive: Path, dest: str | Path, max_size: int | None = None) -> int:
+    """Extracts `archive` into `dest` and returns the number of bytes written.
+
+    Raises ArchiveTooLargeError, before writing anything, when the archive would unpack to more
+    than `max_size` bytes. The declared member sizes can be trusted for this: zipfile stops reading
+    each member at its declared size. Callers that unpack nested archives pass what is left of
+    the budget as `max_size`, so a zip of zips cannot multiply the limit.
+    """
+    if max_size is None:
+        max_size = MAX_EXTRACTED_ARCHIVE_SIZE
+
+    with zipfile.ZipFile(archive) as zip_file:
+        total = sum(info.file_size for info in zip_file.infolist())
+        if total > max_size:
+            raise ArchiveTooLargeError(f"Archive unpacks to {total} bytes, over the {max_size} byte limit")
+
+        zip_file.extractall(dest)
+
+    return total
 
 
 def split_by_comma(tag_string: str):
@@ -133,17 +163,19 @@ def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None
         src = Path(src)
 
     if extraction_root is not None:
-        if safe_local_path(src, extraction_root) is None:
+        safe_src = safe_local_path(src, extraction_root)
+        if safe_src is None:
             root_logger.get_logger().warning(
                 "Rejected image path outside extraction root: %s (root: %s)", src, extraction_root
             )
             return None
+        src = safe_src
 
     if not src.exists():
         return None
 
     data_service = RecipeDataService(recipe_id=recipe_id)
-    return data_service.write_image(src, src.suffix)
+    return data_service.write_image(src.read_bytes(), src.suffix)
 
 
 async def scrape_image(image_url: str, recipe_id: UUID4) -> Path | None:

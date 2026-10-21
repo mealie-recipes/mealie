@@ -1,13 +1,20 @@
 {
     "generic": {
-        "server-error": "Notikusi nezināma kļūda"
+        "server-error": "Radās neparedzēta kļūda"
     },
     "recipe": {
         "unique-name-error": "Receptes nosaukums nevar atkārtoties",
         "recipe-created": "Recepte izveidota",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Receptes attēls dzēsts",
         "recipe-defaults": {
-            "ingredient-note": "1 gl. Milti",
+            "ingredient-note": "1 gl. miltu",
             "name": "New Recipe",
             "step-text": "Receptes darbības, kā arī citi lauki receptes lapā atbalsta atzīmes sintaksi.\n\n**Pievienot saiti**\n\n[Mana saite](https://demo.mealie.io)\n"
         },

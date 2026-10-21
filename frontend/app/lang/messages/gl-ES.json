@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "Definir a sua casa como privada, desativará todas as opcións de visualización pública. Isto substitui calquer definición individual de visualización pública",
     "lock-recipe-edits-from-other-households": "Bloquear as edicións de receitas de outras casas",
     "lock-recipe-edits-from-other-households-description": "Cando esté ativado, somente os usuarios da sua casa poden editar receitas creadas por outros membros da casa",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "Preferencias de receitas da casa",
     "default-recipe-preferences-description": "Estas son as definicións predefinidas cando é creada unha nova receita na sua casa. Estas poden ser alteradas para receitas individuais no menu de definicións de receitas.",
     "household-preferences": "Preferencias da Casa"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "Axustes do Menú",
     "add-all-to-list": "Add All to List",
     "add-day-to-list": "Add Day to List",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Randomize Recipe",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "Nova Migración",
@@ -445,6 +498,7 @@
     "prep-time": "Tempo de Preparación",
     "protein-content": "Proteína",
     "public-recipe": "Receita Pública",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "Receita creada",
     "recipe-image": "Imaxe da Receita",
     "delete-image": "Delete Recipe Image",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ten a certeza de que pretende desmarcar todos os itens?",
     "are-you-sure-you-want-to-delete-checked-items": "Ten a certeza de que pretende eliminar todos os itens selecionados?",
     "no-shopping-lists-found": "Nengunha Lista de Compras Encontrada",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Copias de Seguridade",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Permisos",
     "administrator": "Administrador",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "O usuario pode convidar outros ao grupo",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "O usuario pode xestionar a casa",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "Habilitar recursos avanzados",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "Parece que este é o seu primeiro login.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non quer voltar a ver isto? Non se esqueza de alterar o seu email nas suas definicións de usuario!",
     "forgot-password": "Esquecin a miña seña",
@@ -1076,6 +1141,8 @@
     "share-recipe": "Compartir receita",
     "default-30-days": "30 Dias por Defeito",
     "expires-at": "Expira en",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Link da receita copiado para a área de transferencia"
   },
   "banner-experimental": {

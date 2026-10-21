@@ -92,9 +92,9 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdInDB, Household]):
 
     def statistics(self, group_id: UUID4, household_id: UUID4) -> HouseholdStatistics:
         def model_count(model: type[SqlAlchemyBase], *, filter_household: bool = True) -> int:
-            stmt = select(func.count(model.id)).filter_by(group_id=group_id)
+            stmt = select(func.count(model.id)).where(model.group_id == group_id)
             if filter_household:
-                stmt = stmt.filter_by(household_id=household_id)
+                stmt = stmt.where(model.household_id == household_id)
             return self.session.scalar(stmt)
 
         return HouseholdStatistics(

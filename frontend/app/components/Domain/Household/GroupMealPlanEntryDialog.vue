@@ -57,6 +57,14 @@
             :return-object="false"
             hide-details
           />
+
+          <RecipeScaleEditButton
+            v-if="isRecipe && recipe"
+            v-model="recipeScale"
+            class="mt-4"
+            :recipe-servings="recipeServings"
+            edit-scale
+          />
         </v-col>
 
         <!-- both modes fill the same pane, so the dialog doesn't resize when switching between them -->
@@ -130,6 +138,7 @@
 
 <script setup lang="ts">
 import { format } from "date-fns";
+import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import RecipeSelector from "~/components/Domain/Recipe/RecipeSelector.vue";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { buildRuleQueryFilter, useMealplanRules } from "~/composables/use-mealplan-rules";
@@ -162,6 +171,7 @@ const entryMode = ref<"recipe" | "note">("recipe");
 const selectedDate = ref(new Date());
 const entryType = ref<PlanEntryType>("dinner");
 const recipe = ref<RecipeSummary | null>(null);
+const recipeScale = ref(1);
 const title = ref("");
 const text = ref("");
 const ignoreRules = ref(false);
@@ -170,6 +180,13 @@ const isRecipe = computed(() => entryMode.value === "recipe");
 
 const applicableRuleFilter = computed(() => buildRuleQueryFilter(rules.value, selectedDate.value, entryType.value));
 const ruleQueryFilter = computed(() => ignoreRules.value ? null : applicableRuleFilter.value);
+
+const recipeServings = computed(() => recipe.value?.recipeServings || recipe.value?.recipeYieldQuantity || 1);
+
+// a scale is only meaningful for the recipe it was chosen for
+watch(() => recipe.value?.id, () => {
+  recipeScale.value = 1;
+}, { flush: "sync" });
 
 const submitDisabled = computed(() => isRecipe.value ? !recipe.value : !title.value.trim());
 
@@ -183,6 +200,7 @@ function initialize() {
   selectedDate.value = props.entry ? parseEntryDate(props.entry.date) : props.date ?? new Date();
   entryType.value = props.entry?.entryType ?? "dinner";
   recipe.value = props.entry?.recipe ?? null;
+  recipeScale.value = props.entry?.recipeScale ?? 1;
   title.value = props.entry?.title ?? "";
   text.value = props.entry?.text ?? "";
   ignoreRules.value = false;
@@ -196,6 +214,7 @@ function submit() {
     title: isRecipe.value ? "" : title.value,
     text: isRecipe.value ? "" : text.value,
     recipeId: isRecipe.value ? recipe.value?.id : null,
+    recipeScale: isRecipe.value ? recipeScale.value : 1,
   };
 
   if (props.entry) {

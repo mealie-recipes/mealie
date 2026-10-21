@@ -119,6 +119,47 @@ def h2_user(session: Session, admin_token, api_client: TestClient, unique_user: 
 
 
 @fixture(scope="module")
+def unprivileged_user(session: Session, admin_token, api_client: TestClient, unique_user: utils.TestUser):
+    """A user in the same household as `unique_user`, with every permission flag off"""
+    unique_user_data = api_client.get(api_routes.users_self, headers=unique_user.token).json()
+
+    create_data = {
+        "fullName": utils.random_string(),
+        "username": utils.random_string(),
+        "email": utils.random_email(),
+        "password": "useruser",
+        "group": unique_user_data["group"],
+        "household": unique_user_data["household"],
+        "admin": False,
+        "canInvite": False,
+        "canManage": False,
+        "canManageHousehold": False,
+        "canOrganize": False,
+        "tokens": [],
+    }
+    response = api_client.post(api_routes.admin_users, json=create_data, headers=admin_token)
+    assert response.status_code == 201
+
+    form_data = {"username": create_data["email"], "password": "useruser"}
+    token = utils.login(form_data, api_client)
+
+    user_data = api_client.get(api_routes.users_self, headers=token).json()
+    assert user_data["householdId"] == str(unique_user.household_id)
+
+    yield utils.TestUser(
+        user_id=UUID(user_data["id"]),
+        _group_id=unique_user.group_id,
+        _household_id=unique_user.household_id,
+        token=token,
+        email=create_data["email"],
+        username=create_data["username"],
+        full_name=create_data["fullName"],
+        password=create_data["password"],
+        repos=get_repositories(session, group_id=unique_user.group_id, household_id=unique_user.household_id),
+    )
+
+
+@fixture(scope="module")
 def g2_user(session: Session, admin_token, api_client: TestClient):
     group = random_string(12)
 

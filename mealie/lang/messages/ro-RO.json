@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Numele rețetei trebuie să fie unic",
         "recipe-created": "Rețetă creată",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imaginea rețetei a fost ștearsă",
         "recipe-defaults": {
             "ingredient-note": "1 Cană de Făină",
@@ -12,12 +19,12 @@
             "step-text": "Pașii rețetei precum și alte domenii din sintaxa markdown de pe pagina de rețetă.\n\n**Adăugați un link**\n\n[Link-ul meu](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Creează",
+            "makes": "Produce",
             "serves": "Servește",
             "serving": "Porție",
             "servings": "Porții",
-            "yield": "Recoltă",
-            "yields": "Producţii"
+            "yield": "Cantitate",
+            "yields": "Cantități"
         },
         "and-amount": "și {amount}",
         "import-errors": {

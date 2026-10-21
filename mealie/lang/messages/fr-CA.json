@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques",
         "recipe-created": "Recette créée",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "L'image de la recette a été supprimée",
         "recipe-defaults": {
             "ingredient-note": "1 tasse de Farine",
@@ -68,7 +75,7 @@
         "report-deleted": "Rapport supprimé."
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
+        "permission-denied": "Vous n’avez pas la permission d’effectuer cette action",
         "recursive-recipe-link": "Une recette ne peut pas se référencer elle-même, ni directement, ni indirectement",
         "no-entry-found": "La ressource demandée n'a pas été trouvée",
         "rate-limit-error": "Le fournisseur d'IA limite la fréquence des requêtes. Veuillez patienter un moment et réessayer",

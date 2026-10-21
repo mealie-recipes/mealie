@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema.group.group_seeder import SeederConfig
 from mealie.schema.response.responses import ErrorResponse, SuccessResponse
 from mealie.services.seeder.seeder_service import SeederService
@@ -25,10 +26,10 @@ class DataSeederController(BaseUserController):
 
         return SuccessResponse.respond("Seeding Successful")
 
-    @router.post("/foods", response_model=SuccessResponse)
+    @router.post("/foods", response_model=SuccessResponse, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def seed_foods(self, data: SeederConfig) -> dict:
         return self._wrap(lambda: self.service.seed_foods(data.locale))
 
-    @router.post("/units", response_model=SuccessResponse)
+    @router.post("/units", response_model=SuccessResponse, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def seed_units(self, data: SeederConfig) -> dict:
         return self._wrap(lambda: self.service.seed_units(data.locale))

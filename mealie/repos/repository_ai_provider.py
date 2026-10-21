@@ -2,10 +2,21 @@ import sqlalchemy as sa
 from fastapi import HTTPException, status
 from pydantic import UUID4
 
-from mealie.db.models.group.ai_providers import AIProvider, AIProviderSettings
-from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderOut
+from mealie.db.models.group.ai_providers import AIPromptOverride, AIProvider, AIProviderSettings
+from mealie.schema.group.ai_providers import (
+    AIPromptOverrideCreate,
+    AIPromptOverrideOut,
+    AIProviderCreate,
+    AIProviderOut,
+)
 
 from .repository_generic import GroupRepositoryGeneric
+
+
+def _get_settings_id(repo: GroupRepositoryGeneric) -> UUID4:
+    return repo.session.execute(
+        sa.select(AIProviderSettings.id).where(AIProviderSettings.group_id == repo.group_id)
+    ).scalar_one()
 
 
 class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider]):
@@ -19,9 +30,7 @@ class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider
             raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="API key cannot be empty")
 
         if not data.get("settings_id"):
-            data["settings_id"] = self.session.execute(
-                sa.select(AIProviderSettings.id).where(AIProviderSettings.group_id == self.group_id)
-            ).scalar_one()
+            data["settings_id"] = _get_settings_id(self)
 
         return super().create(data)
 
@@ -64,3 +73,14 @@ class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider
 
     def update_many(self, data):
         raise NotImplementedError
+
+
+class GroupRepositoryAIPromptOverride(GroupRepositoryGeneric[AIPromptOverrideOut, AIPromptOverride]):
+    def create(self, data: AIPromptOverrideCreate | dict):
+        if isinstance(data, AIPromptOverrideCreate):
+            data = data.model_dump()
+
+        if not data.get("settings_id"):
+            data["settings_id"] = _get_settings_id(self)
+
+        return super().create(data)

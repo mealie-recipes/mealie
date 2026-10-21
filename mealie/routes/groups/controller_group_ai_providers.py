@@ -7,7 +7,10 @@ from mealie.core.root_logger import get_logger
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema.group.ai_providers import (
+    AIPromptOverrideUpdate,
+    AIPromptsOut,
     AIProviderCreate,
     AIProviderOut,
     AIProviderSettingsOut,
@@ -20,20 +23,17 @@ from mealie.services.openai import OpenAIService
 logger = get_logger()
 settings_router = APIRouter(prefix="/groups/ai-providers/settings", tags=["Groups: AI Provider Settings"])
 providers_router = APIRouter(prefix="/groups/ai-providers/providers", tags=["Groups: AI Providers"])
+prompts_router = APIRouter(prefix="/groups/ai-providers/prompts", tags=["Groups: AI Prompts"])
 
 
 @controller(settings_router)
 class GroupAIProviderSettingsController(BaseUserController):
-    @settings_router.get("", response_model=AIProviderSettingsOut)
+    @settings_router.get("", response_model=AIProviderSettingsOut, dependencies=[require(Perm.GROUP_MANAGE)])
     def get_ai_provider_settings(self) -> AIProviderSettingsOut:
-        self.checks.can_manage()
-
         return self.repos.group_ai_provider_settings.get_one(self.group_id)
 
-    @settings_router.put("", response_model=AIProviderSettingsOut)
+    @settings_router.put("", response_model=AIProviderSettingsOut, dependencies=[require(Perm.GROUP_MANAGE)])
     def update_ai_provider_settings(self, settings: AIProviderSettingsUpdate) -> AIProviderSettingsOut:
-        self.checks.can_manage()
-
         return self.repos.group_ai_provider_settings.update(self.group_id, settings)
 
 
@@ -43,17 +43,13 @@ class GroupAIProviderController(BaseUserController):
     def mixins(self):
         return HttpRepo[AIProviderCreate, AIProviderOut, AIProviderUpdate](self.repos.group_ai_providers, self.logger)
 
-    @providers_router.post("", response_model=AIProviderOut)
+    @providers_router.post("", response_model=AIProviderOut, dependencies=[require(Perm.GROUP_MANAGE)])
     def create_ai_provider(self, data: AIProviderCreate) -> AIProviderOut:
-        self.checks.can_manage()
-
         return self.mixins.create_one(data)
 
-    @providers_router.post("/test", response_model=AIProviderTestResult)
+    @providers_router.post("/test", response_model=AIProviderTestResult, dependencies=[require(Perm.GROUP_MANAGE)])
     async def test_ai_provider(self, data: AIProviderCreate) -> AIProviderTestResult:
         """Test connectivity for a provider configuration before it has been saved."""
-        self.checks.can_manage()
-
         # Ephemeral provider, never persisted or looked up by this id
         provider = AIProviderOut(
             id=uuid4(),
@@ -67,7 +63,9 @@ class GroupAIProviderController(BaseUserController):
         )
         return await OpenAIService(self.repos).test_connection(provider)
 
-    @providers_router.post("/{provider_id}/test", response_model=AIProviderTestResult)
+    @providers_router.post(
+        "/{provider_id}/test", response_model=AIProviderTestResult, dependencies=[require(Perm.GROUP_MANAGE)]
+    )
     async def test_saved_ai_provider(
         self, provider_id: UUID4, overrides: AIProviderUpdate | None = None
     ) -> AIProviderTestResult:
@@ -80,8 +78,6 @@ class GroupAIProviderController(BaseUserController):
         it has no way to supply that key. An `overrides.apiKey` of "" is treated the same way: keep
         the saved key rather than testing with an empty one.
         """
-        self.checks.can_manage()
-
         provider = self.mixins.get_one(provider_id)
         if overrides:
             provider = provider.model_copy(
@@ -97,20 +93,35 @@ class GroupAIProviderController(BaseUserController):
             )
         return await OpenAIService(self.repos).test_connection(provider)
 
-    @providers_router.get("/{provider_id}", response_model=AIProviderOut)
+    @providers_router.get("/{provider_id}", response_model=AIProviderOut, dependencies=[require(Perm.GROUP_MANAGE)])
     def get_ai_provider(self, provider_id: UUID4) -> AIProviderOut:
-        self.checks.can_manage()
-
         return self.mixins.get_one(provider_id)
 
-    @providers_router.put("/{provider_id}", response_model=AIProviderOut)
+    @providers_router.put("/{provider_id}", response_model=AIProviderOut, dependencies=[require(Perm.GROUP_MANAGE)])
     def update_ai_provider(self, provider_id: UUID4, data: AIProviderUpdate) -> AIProviderOut:
-        self.checks.can_manage()
-
         return self.mixins.update_one(data, provider_id)
 
-    @providers_router.delete("/{provider_id}", response_model=AIProviderOut)
+    @providers_router.delete("/{provider_id}", response_model=AIProviderOut, dependencies=[require(Perm.GROUP_MANAGE)])
     def delete_ai_provider(self, provider_id: UUID4) -> AIProviderOut:
-        self.checks.can_manage()
-
         return self.mixins.delete_one(provider_id)
+
+
+@controller(prompts_router)
+class GroupAIPromptController(BaseUserController):
+    @property
+    def service(self) -> OpenAIService:
+        return OpenAIService(self.repos)
+
+    @prompts_router.get("", response_model=AIPromptsOut, dependencies=[require(Perm.GROUP_MANAGE)])
+    def get_ai_prompts(self) -> AIPromptsOut:
+        return self.service.get_prompts()
+
+    @prompts_router.put("/{prompt_name}", response_model=AIPromptsOut, dependencies=[require(Perm.GROUP_MANAGE)])
+    def update_ai_prompt(self, prompt_name: str, data: AIPromptOverrideUpdate) -> AIPromptsOut:
+        """Append to or override a prompt. The group-wide instructions (`global`) can only be appended."""
+        return self.service.save_prompt_override(prompt_name, data)
+
+    @prompts_router.delete("/{prompt_name}", response_model=AIPromptsOut, dependencies=[require(Perm.GROUP_MANAGE)])
+    def delete_ai_prompt(self, prompt_name: str) -> AIPromptsOut:
+        """Reset a prompt to the default"""
+        return self.service.delete_prompt_override(prompt_name)
