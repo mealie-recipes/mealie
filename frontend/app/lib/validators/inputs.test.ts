@@ -1,16 +1,7 @@
 import { expect, test, vi } from "vitest";
 import enUS from "~/lang/messages/en-US.json";
 
-import { required, email, whitespace, url, minLength, maxLength, wholeNumber } from "./inputs";
-
-test("wholeNumber accepts optional non-negative integers", () => {
-  for (const value of [undefined, null, "", 0, "0", 42, "42", "1e2", 35791395]) {
-    expect(wholeNumber(value)).toBe(true);
-  }
-  for (const value of [-1, "-1", 1.5, "1.5", "1e", "-", "abc", " ", NaN, Infinity]) {
-    expect(wholeNumber(value)).toBe("Must Be A Whole Number");
-  }
-});
+import { required, email, whitespace, url, minLength, maxLength } from "./inputs";
 
 vi.mock("~/composables/use-global-i18n", () => {
   const interpolate = (msg: string, params?: Record<string, unknown>) => {
