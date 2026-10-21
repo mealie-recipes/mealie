@@ -51,7 +51,7 @@ describe("instruction duration in minutes with seconds storage", () => {
     const wrapper = editor(90);
     await wrapper.find("input").setValue(value);
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
-    expect(await wrapper.findComponent(VTextField).vm.validate()).not.toEqual([]);
+    expect(await wrapper.findComponent(VTextField).vm.validate()).toEqual(["Must Be A Whole Number"]);
     wrapper.unmount();
   });
   it.each(["1e", "-"])("does not clear sanitized incomplete input %s", async (value) => {
@@ -64,7 +64,7 @@ describe("instruction duration in minutes with seconds storage", () => {
     try {
       await field.trigger("input");
       expect(wrapper.emitted("update:modelValue")).toBeUndefined();
-      expect(await wrapper.findComponent(VTextField).vm.validate()).not.toEqual([]);
+      expect(await wrapper.findComponent(VTextField).vm.validate()).toEqual(["Must Be A Whole Number"]);
       badInput.mockReturnValue(false);
       await field.trigger("input");
       expect(wrapper.emitted("update:modelValue")).toEqual([[null]]);

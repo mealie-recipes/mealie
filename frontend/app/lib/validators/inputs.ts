@@ -8,6 +8,15 @@ export function required(v: string | undefined | null) {
   return !!v || i18n.t("validators.required");
 }
 
+// Optional inputs compose this with required when a value is mandatory.
+export function wholeNumber(v: string | number | undefined | null) {
+  const i18n = useGlobalI18n();
+  if (v === "" || v === undefined || v === null) return true;
+  const number = Number(v);
+  return ((typeof v !== "string" || v.trim() !== "") && Number.isInteger(number) && number >= 0)
+    || i18n.t("validators.whole-number");
+}
+
 export function email(v: string | undefined | null) {
   const i18n = useGlobalI18n();
   return (!!v && EMAIL_REGEX.test(v)) || i18n.t("validators.invalid-email");

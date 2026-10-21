@@ -465,7 +465,6 @@
   },
   "recipe": {
     "step-duration-minutes": "Duration (minutes)",
-    "step-duration-invalid": "Enter whole minutes between 0 and 35791394",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
     "step-duration-value-seconds": "{seconds}s",
@@ -1313,6 +1312,7 @@
     }
   },
   "validators": {
+    "whole-number": "Must Be A Whole Number",
     "required": "This Field is Required",
     "invalid-email": "Email Must Be Valid",
     "invalid-url": "Must Be A Valid URL",

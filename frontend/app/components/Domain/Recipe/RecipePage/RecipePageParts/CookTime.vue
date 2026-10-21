@@ -2,6 +2,7 @@
   <v-text-field
     v-if="isEditMode"
     v-model="input"
+    class="step-duration"
     type="number"
     min="0"
     max="35791394"
@@ -24,6 +25,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import { wholeNumber } from "~/lib/validators/inputs";
 
 const props = defineProps<{
   modelValue?: number | null;
@@ -39,11 +41,8 @@ watch(() => props.modelValue, value => input.value = value ? Math.floor(value / 
 const badInput = ref(false);
 
 function validDuration(value: string | number | null) {
-  if (badInput.value) return t("recipe.step-duration-invalid");
-  if (value === "" || value === null) return true;
-  const minutes = Number(value);
-  return (Number.isInteger(minutes) && minutes >= 0 && minutes <= 35791394)
-    || t("recipe.step-duration-invalid");
+  if (badInput.value || Number(value) > 35791394) return t("validators.whole-number");
+  return wholeNumber(value);
 }
 
 function updateDuration(event: Event) {
@@ -68,3 +67,10 @@ const formattedDuration = computed(() => {
   ].filter(Boolean).join(" ");
 });
 </script>
+
+<style scoped>
+/* Override the instruction title's larger input text only for this field. */
+.step-duration.v-text-field :deep(input) {
+  font-size: 1rem;
+}
+</style>
