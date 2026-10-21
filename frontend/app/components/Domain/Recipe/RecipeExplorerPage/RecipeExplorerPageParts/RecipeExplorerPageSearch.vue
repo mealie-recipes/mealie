@@ -206,6 +206,11 @@ const sortable = computed(() => [
     value: "rating",
   },
   {
+    icon: $globals.icons.clockOutline,
+    name: i18n.t("recipe.total-time"),
+    value: "total_time_seconds",
+  },
+  {
     icon: $globals.icons.update,
     name: i18n.t("general.updated"),
     value: "updated_at",

@@ -5,6 +5,7 @@ from typing import Any
 from fastapi import Depends, HTTPException, status
 
 from mealie.core.dependencies import get_current_user
+from mealie.lang.providers import Translator, get_locale_provider
 from mealie.schema.response import ErrorResponse
 from mealie.schema.user.user import PrivateUser
 
@@ -57,9 +58,13 @@ class RequirePermission:
     def __init__(self, perm: Perm) -> None:
         self.perm = perm
 
-    def __call__(self, user: PrivateUser = Depends(get_current_user)) -> None:
+    def __call__(
+        self,
+        user: PrivateUser = Depends(get_current_user),
+        translator: Translator = Depends(get_locale_provider),
+    ) -> None:
         if not _GRANTED_BY[self.perm](user):
-            raise forbidden()
+            raise forbidden(translator.t("exceptions.permission-denied"))
 
 
 def require(perm: Perm) -> Any:

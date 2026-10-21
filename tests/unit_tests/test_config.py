@@ -66,7 +66,14 @@ def test_pg_connection_args(monkeypatch):
     monkeypatch.setenv("POSTGRES_DB", "mealie")
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
-    assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
+    assert app_settings.DB_URL == "postgresql+psycopg2://mealie:mealie@postgres:5432/mealie"
+
+
+def test_unknown_db_engine_is_rejected(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "postgress")
+    get_app_settings.cache_clear()
+    with pytest.raises(ValueError, match="DB_ENGINE"):
+        get_app_settings()
 
 
 psql_validation_cases = [
@@ -83,7 +90,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:P@ssword!@#$%%^^&&**()+;'\"'<>?{}[]@postgres:5432/mealie",
-            "postgresql://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres:5432/mealie",
+            "postgresql+psycopg2://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres:5432/mealie",
         ],
     ),
     (
@@ -91,7 +98,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:P@ssword!@#$%%^^&&**()+;'\"'<>?{}[]@postgres/mealie",
-            "postgresql://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres/mealie",
+            "postgresql+psycopg2://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres/mealie",
         ],
     ),
     (
@@ -107,7 +114,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:MyPassword@postgres:5432/mealie",
-            "postgresql://mealie:MyPassword@postgres:5432/mealie",
+            "postgresql+psycopg2://mealie:MyPassword@postgres:5432/mealie",
         ],
     ),
     (
@@ -115,7 +122,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie@postgres:5432/mealie",
-            "postgresql://mealie@postgres:5432/mealie",
+            "postgresql+psycopg2://mealie@postgres:5432/mealie",
         ],
     ),
     (
@@ -123,7 +130,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie@postgres/mealie",
-            "postgresql://mealie@postgres/mealie",
+            "postgresql+psycopg2://mealie@postgres/mealie",
         ],
     ),
     (
@@ -131,7 +138,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:@/mealie?host=/run/postgresql",
-            "postgresql://mealie:@/mealie?host=/run/postgresql",
+            "postgresql+psycopg2://mealie:@/mealie?host=/run/postgresql",
         ],
     ),
     (
@@ -139,7 +146,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie@/mealie?host=/run/postgresql",
-            "postgresql://mealie@/mealie?host=/run/postgresql",
+            "postgresql+psycopg2://mealie@/mealie?host=/run/postgresql",
         ],
     ),
     (
@@ -147,7 +154,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql:///mealie?host=/run/postgresql",
-            "postgresql:///mealie?host=/run/postgresql",
+            "postgresql+psycopg2:///mealie?host=/run/postgresql",
         ],
     ),
     (
@@ -155,7 +162,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://user@host/db?sslmode=require&connect_timeout=10",
-            "postgresql://user@host/db?sslmode=require&connect_timeout=10",
+            "postgresql+psycopg2://user@host/db?sslmode=require&connect_timeout=10",
         ],
     ),
 ]
@@ -176,8 +183,8 @@ def test_pg_connection_url_encode_password(data, monkeypatch):
     pg_provider = app_settings.DB_PROVIDER
     expected = (
         expected
-        if expected.startswith("postgresql://")
-        else f"postgresql://{pg_provider.POSTGRES_USER}:{expected}@{pg_provider.POSTGRES_SERVER}:5432/{pg_provider.POSTGRES_DB}"
+        if expected.startswith("postgresql+psycopg2://")
+        else f"postgresql+psycopg2://{pg_provider.POSTGRES_USER}:{expected}@{pg_provider.POSTGRES_SERVER}:5432/{pg_provider.POSTGRES_DB}"
     )
 
     assert app_settings.DB_URL == expected

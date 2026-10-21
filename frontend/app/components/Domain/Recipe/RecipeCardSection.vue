@@ -83,6 +83,14 @@
               <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
             </div>
           </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.totalTime)">
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.clockOutline }}
+              </v-icon>
+              <v-list-item-title>{{ $t("recipe.total-time") }}</v-list-item-title>
+            </div>
+          </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.shuffle)">
             <div class="d-flex align-center flex-nowrap">
               <v-icon class="mr-2" inline>
@@ -211,8 +219,12 @@ const EVENTS = {
   created: "created",
   updated: "updated",
   lastMade: "lastMade",
+  totalTime: "totalTime",
   shuffle: "shuffle",
 };
+
+// recipes without a value can't be ranked by these, so they always go to the end regardless of direction
+const NULLS_LAST_ORDER_BY = ["total_time_seconds"];
 
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
@@ -275,8 +287,9 @@ const queryFilter = computed(() => {
 
 async function fetchRecipes(pageCount = 1) {
   const orderDir = props.query?.orderDirection || preferences.value.orderDirection;
-  const orderByNullPosition = props.query?.orderByNullPosition || orderDir === "asc" ? "first" : "last";
   const orderBy = effectiveOrderBy.value;
+  const orderByNullPosition = props.query?.orderByNullPosition
+    || (NULLS_LAST_ORDER_BY.includes(orderBy) || orderDir !== "asc" ? "last" : "first");
   const localQuery = { ...props.query };
   if (orderBy === "random") {
     localQuery._searchSeed = randomSeed.value;
@@ -432,6 +445,15 @@ async function sortRecipes(sortType: string) {
         $globals.icons.sortCalendarAscending,
         $globals.icons.sortCalendarDescending,
         "desc",
+        true,
+      );
+      break;
+    case EVENTS.totalTime:
+      setter(
+        "total_time_seconds",
+        $globals.icons.sortAscending,
+        $globals.icons.sortDescending,
+        "asc",
         true,
       );
       break;

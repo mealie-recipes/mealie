@@ -19,7 +19,21 @@ class ImageFormat:
 
 JPG = ImageFormat(".jpg", "JPEG", ["RGB"])
 WEBP = ImageFormat(".webp", "WEBP", ["RGB", "RGBA"])
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".heic", ".avif"}
+# Formats Pillow can open, which the minifier converts to webp
+IMAGE_EXTENSIONS = {
+    ".jpg",
+    ".jpeg",
+    ".jpe",
+    ".jfif",
+    ".png",
+    ".webp",
+    ".heic",
+    ".avif",
+    ".gif",
+    ".bmp",
+    ".tif",
+    ".tiff",
+}
 
 
 def sizeof_fmt(file_path: Path, decimal_places=2):

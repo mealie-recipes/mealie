@@ -9,12 +9,12 @@ dependencies = [
     "Jinja2==3.1.6",
     "Pillow==12.3.0",
     "PyYAML==6.0.3",
-    "SQLAlchemy==2.0.54",
+    "SQLAlchemy==2.1.4",
     "alembic==1.20.0",
     "apprise==2.0.1",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.143.1",
+    "fastapi==0.143.3",
     "httpx==0.28.1",
     "lxml==6.1.3",
     "orjson==3.13.0",
@@ -33,7 +33,7 @@ dependencies = [
     "isodate==0.7.2",
     "text-unidecode==1.3",
     "rapidfuzz==3.14.6",
-    "authlib==1.9.0",
+    "authlib==1.9.1",
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.16.0",
@@ -43,7 +43,7 @@ dependencies = [
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
-    "ingredient-parser-nlp==2.8.0",
+    "ingredient-parser-nlp==2.9.1",
     "pint==0.26.1",
     "httpx-curl-cffi==0.1.5",
 ]
@@ -58,7 +58,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.0.70",
+    "zensical==0.0.71",
 ]
 dev = [
     "coverage==7.16.2",
@@ -69,7 +69,7 @@ dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
-    "ruff==0.17.0",
+    "ruff==0.17.1",
     "types-PyYAML==6.0.12.20260906",
     "types-python-dateutil==2.9.0.20260807",
     "types-python-slugify==8.0.2.20240310",
@@ -78,7 +78,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.13.1",
-    "zensical==0.0.70",
+    "zensical==0.0.71",
     "pytest-xdist==3.8.0",
 ]
 
