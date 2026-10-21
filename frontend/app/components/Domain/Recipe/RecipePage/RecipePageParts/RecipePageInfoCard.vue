@@ -21,6 +21,17 @@
               :recipe-id="recipe.id"
               :slug="recipe.slug"
             />
+            <div
+              v-if="isOwnGroup && owner"
+              class="d-flex align-center ga-2 my-1"
+            >
+              <UserAvatar
+                :user-id="owner.id"
+                :tooltip="false"
+                size="32"
+              />
+              {{ owner.fullName }}
+            </div>
           </div>
           <v-divider class="my-2" />
           <SafeMarkdown :source="recipe.description" class="my-3" />
@@ -86,6 +97,8 @@ import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCardImage.vue";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import { useUserStore } from "~/composables/store/use-user-store";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
@@ -100,6 +113,9 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const { isOwnGroup } = useLoggedInState();
+
+const { store: users } = useUserStore();
+const owner = computed(() => users.value.find(u => u.id === props.recipe.userId));
 
 const hasTime = computed(() => {
   const { prepTime, totalTime, performTime, prepTimeSeconds, totalTimeSeconds, performTimeSeconds } = props.recipe;
