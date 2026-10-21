@@ -23,12 +23,13 @@
             />
             <div
               v-if="isOwnGroup && owner"
-              class="d-flex align-center ga-2 my-1"
+              class="d-flex align-center my-1"
             >
               <UserAvatar
                 :user-id="owner.id"
                 :tooltip="false"
                 size="32"
+                class="mr-2"
               />
               {{ owner.fullName }}
             </div>
