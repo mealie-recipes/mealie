@@ -34,7 +34,8 @@ for (const { name, width } of [{ name: 'desktop', width: 1400 }, { name: 'mobile
 
         try {
             await page.goto('/g/home');
-            expect(await actionsOffset(page, untaggedName)).toBe(await actionsOffset(page, taggedName));
+            // Firefox lays out at sub-pixel precision, so compare to the nearest pixel
+            expect(await actionsOffset(page, untaggedName)).toBeCloseTo(await actionsOffset(page, taggedName), 0);
         }
         finally {
             await page.request.delete(`/api/recipes/${await untagged.json()}`);
