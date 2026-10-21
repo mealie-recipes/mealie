@@ -270,7 +270,7 @@
                   </v-text-field>
                   <div
                     v-else
-                    class="summary-wrapper"
+                    class="summary-wrapper d-flex justify-space-between"
                   >
                     <template v-if="step.summary">
                       <SafeMarkdown
@@ -283,6 +283,7 @@
                         {{ $t('recipe.step-index', { step: index + 1 }) }}
                       </span>
                     </template>
+                    <CookTime :model-value="step.durationSeconds ?? null" :is-edit-mode="false" />
                   </div>
                   <template v-if="isEditForm">
                     <div class="ml-auto">
@@ -410,7 +411,7 @@
                   />
                   <div
                     v-if="step.ingredientReferences && step.ingredientReferences.length"
-                    class="linked-ingredients-editor"
+                    class="linked-ingredients-editor pb-2"
                   >
                     <div
                       v-for="(linkRef, i) in step.ingredientReferences"
@@ -439,8 +440,14 @@
                       {{ noteRef.referenceId != null ? (noteLookup[noteRef.referenceId] || $t('recipe.note')) : '' }}
                     </div>
                   </div>
+                  <CookTime
+                    :model-value="step.durationSeconds ?? null"
+                    :is-edit-mode="isEditForm"
+                    @update:model-value="step.durationSeconds = $event"
+                  />
                 </v-card-text>
               </DropZone>
+
               <v-expand-transition>
                 <div
                   v-if="!isChecked(index) && !isEditForm"
@@ -526,6 +533,7 @@ import DropZone from "~/components/global/DropZone.vue";
 import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
+import CookTime from "./CookTime.vue";
 
 interface MergerHistory {
   target: number;
