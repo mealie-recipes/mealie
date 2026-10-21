@@ -464,6 +464,12 @@
     "an-error-occurred": "Vyskytla sa chyba"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
+    "step-duration-placeholder": "Minutes",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "Pridať do obľúbených",
     "api-extras": "API doplnky",
     "calories": "Kalórie",
