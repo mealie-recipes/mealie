@@ -23,7 +23,7 @@
             />
             <div
               v-if="isOwnGroup && owner"
-              class="d-flex align-center my-1"
+              class="d-flex align-center mb-2"
             >
               <UserAvatar
                 :user-id="owner.id"
