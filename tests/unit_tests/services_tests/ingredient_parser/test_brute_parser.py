@@ -81,6 +81,7 @@ def build_parsed_ing(food: str | None, unit: str | None) -> ParsedIngredient:
         ),
         pytest.param("red pepper flakes", 0, "", "red pepper flakes", "", id="red pepper flakes"),
         pytest.param("1 bell peppers", 1, "", "bell peppers", "", id="1 bell peppers"),
+        pytest.param("1 green onion", 1, "", "green onion", "", id="1 green onion"),
         pytest.param("1 stalk bell peppers", 1, "Stalk", "bell peppers", "", id="1 big stalk bell peppers"),
         pytest.param("a big stalk bell peppers", 0, "Stalk", "bell peppers", "", id="a big stalk bell peppers"),
         pytest.param(
@@ -226,6 +227,22 @@ def test_brute_parser_confidence(
             False,
             True,
             id="no unit match",
+        ),
+        pytest.param(
+            build_parsed_ing(unit="green", food="onion"),
+            None,
+            "green onion",
+            False,
+            True,
+            id="multi-word food split into unit and food",
+        ),
+        pytest.param(
+            build_parsed_ing(unit="gren", food="onion"),
+            "gren",
+            "onion",
+            False,
+            True,
+            id="matched food not replaced by fuzzy multi-word match",
         ),
         pytest.param(
             build_parsed_ing(unit=None, food="potatoes"),

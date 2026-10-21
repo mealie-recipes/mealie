@@ -92,6 +92,26 @@ class GroupRecipeActionController(BaseUserController):
             raise not_found("Not found.") from e
 
         settings = get_app_settings()
+        # The POST runs as a background task, where a blocked target fails without the user
+        # ever seeing it. Check the target here so a blocked URL gets an error response.
+        try:
+            safehttp.validate_url(
+                recipe_action.url,
+                allow_hosts=settings.http_allow_list,
+                deny_hosts=settings.http_disallow_list,
+                log=self.logger,
+            )
+        except safehttp.InvalidDomainError as e:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                detail=ErrorResponse.respond(
+                    message=(
+                        "The action URL can't be used: it doesn't resolve, or it points to a local or "
+                        "disallowed address. To allow a trusted local host, add it to HTTP_ALLOW_LIST."
+                    )
+                ),
+            ) from e
+
         payload = GroupRecipeActionPayload(action=recipe_action, content=recipe, recipe_scale=recipe_scale)
         bg_tasks.add_task(
             task_action,
