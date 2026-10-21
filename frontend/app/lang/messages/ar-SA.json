@@ -464,6 +464,12 @@
     "an-error-occurred": "حصل خطأ ما"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
+    "step-duration-placeholder": "Minutes",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "أضف إلى المفضلة",
     "api-extras": "يستخدم \"ميلي\"  مكتبة \"Apprise\" لإرسال الإشعارات. وهي تقدم العديد من الخيارات و للخدمات لاستخدامها في إرسال الإشعارات. يرجى الرجوع إلى التعليمات الخاصة بهم للحصول على دليل شامل حول كيفية إنشاء عنوان URL لمخدمك المفضل. قد يتضمن تحديد نوع الإشعار الخاص بك ميزات إضافية، إذا كان متاحا.",
     "calories": "كيلو كالوري",

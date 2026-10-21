@@ -464,6 +464,12 @@
     "an-error-occurred": "发生错误"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
+    "step-duration-placeholder": "Minutes",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "添加到收藏夹",
     "api-extras": "API附加功能",
     "calories": "卡路里",

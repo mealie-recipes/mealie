@@ -464,6 +464,12 @@
     "an-error-occurred": "Houbo un erro"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
+    "step-duration-placeholder": "Minutes",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "Engadir a Favoritos",
     "api-extras": "Extras da API",
     "calories": "Calorías",

@@ -373,13 +373,13 @@
     "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
     "calendar-feed-off": "The calendar link is turned off for your household.",
     "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
-    "calendar-feed-turn-on": "Turn On",
-    "calendar-feed-turn-off": "Turn Off",
-    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-turn-on": "Bekapcsolás",
+    "calendar-feed-turn-off": "Kikapcsolás",
+    "calendar-feed-reset-hint": "A kapcsolat visszaállítása vagy kikapcsolása megakadályozza a meglévő előfizetések frissítését.",
     "calendar-feed-include-notes": "Include notes",
-    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
-    "calendar-feed-timezone": "Timezone",
-    "calendar-feed-url": "Calendar Link"
+    "calendar-feed-times-hint": "Az időponttal nem jelölt étkezések egész napos eseményként jelennek meg.",
+    "calendar-feed-timezone": "Időzóna",
+    "calendar-feed-url": "Naptár linkje"
   },
   "migration": {
     "new-migration": "Új migráció",
@@ -464,6 +464,12 @@
     "an-error-occurred": "Hiba történt"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
+    "step-duration-placeholder": "Minutes",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "Hozzáadás a kedvencekhez",
     "api-extras": "API Extrák",
     "calories": "Kalória",
@@ -850,9 +856,9 @@
     "new-list-name": "Lista neve",
     "failed-to-create-shopping-list": "Nem sikerült létrehozni a bevásárlólistát",
     "item-checked-off": "{item} leellenőrzve",
-    "more-options": "More options",
-    "fewer-options": "Fewer options",
-    "save-as-new-food": "Save \"{text}\" as a new food"
+    "more-options": "További opciók",
+    "fewer-options": "Kevesebb lehetőség",
+    "save-as-new-food": "„{text}” elmentése új ételként"
   },
   "sidebar": {
     "backups": "Biztonsági mentések",
