@@ -1312,7 +1312,6 @@
     }
   },
   "validators": {
-    "whole-number": "Must Be A Whole Number",
     "required": "This Field is Required",
     "invalid-email": "Email Must Be Valid",
     "invalid-url": "Must Be A Valid URL",
