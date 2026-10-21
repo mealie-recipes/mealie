@@ -45,9 +45,7 @@
             @click="handleEditCookbook"
           />
         </div>
-        <SafeMarkdown v-if="book.description" :source="book.description" class="subtitle-1 text-grey-lighten-1 mb-2">
-          {{ book.description }}
-        </SafeMarkdown>
+        <SafeMarkdown v-if="book.description" :source="book.description" class="subtitle-1 text-grey-lighten-1 mb-2" />
       </v-sheet>
 
       <v-container class="pa-0">
