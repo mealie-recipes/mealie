@@ -1,23 +1,17 @@
 import { mount } from "@vue/test-utils";
-import { defineComponent, h } from "vue";
 import { createI18n } from "vue-i18n";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import { createVuetify } from "vuetify";
+import { VTextField } from "vuetify/components/VTextField";
 import messages from "@/lang/messages/en-US.json";
 import CookTime from "./CookTime.vue";
 
-const Field = defineComponent({
-  props: ["modelValue", "label", "rules", "placeholder"],
-  emits: ["update:modelValue"],
-  setup(props, { emit }) {
-    return () => h("input", { "value": props.modelValue, "placeholder": props.placeholder, "aria-label": props.label, "onInput": (event: Event) => emit("update:modelValue", (event.target as HTMLInputElement).value) });
-  },
-});
 function editor(value: number | null = null) {
   return mount(CookTime, {
     props: { modelValue: value, isEditMode: true },
     global: {
-      plugins: [createI18n({ legacy: false, locale: "en-US", messages: { "en-US": messages } })],
-      stubs: { VTextField: Field },
+      plugins: [createVuetify(), createI18n({ legacy: false, locale: "en-US", messages: { "en-US": messages } })],
+      components: { VTextField },
     },
   });
 }
@@ -41,10 +35,13 @@ describe("instruction duration in minutes with seconds storage", () => {
     expect(wrapper.find("input").element.value).toBe("2");
     wrapper.unmount();
   });
-  it.each([1, 61, 3661, 2147483647])("preserves exact imported %s seconds on editing", async (value) => {
+  it.each([1, 61, 3661, 1048708914, 2094174799, 2147483647])("preserves exact imported %s seconds on editing", async (value) => {
     const wrapper = editor(value);
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
     expect(wrapper.find("input").element.value).toBe(String(Math.floor(value / 60)));
+    expect(wrapper.find("input").attributes("type")).toBe("number");
+    expect(wrapper.text()).toContain("Saved duration:");
+    expect(await wrapper.findComponent(VTextField).vm.validate()).toEqual([]);
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
     await wrapper.find("input").setValue("2");
     expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([120]);
@@ -54,8 +51,29 @@ describe("instruction duration in minutes with seconds storage", () => {
     const wrapper = editor(90);
     await wrapper.find("input").setValue(value);
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
-    expect(wrapper.findComponent(Field).props("rules")[0](value)).not.toBe(true);
+    expect(await wrapper.findComponent(VTextField).vm.validate()).not.toEqual([]);
     wrapper.unmount();
+  });
+  it.each(["1e", "-"])("does not clear sanitized incomplete input %s", async (value) => {
+    const wrapper = editor(90);
+    const field = wrapper.find("input");
+    field.element.value = value;
+    expect(field.element.value).toBe("");
+    // jsdom sanitizes number input but does not implement keyboard-driven badInput.
+    const badInput = vi.spyOn(field.element.validity, "badInput", "get").mockReturnValue(true);
+    try {
+      await field.trigger("input");
+      expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+      expect(await wrapper.findComponent(VTextField).vm.validate()).not.toEqual([]);
+      badInput.mockReturnValue(false);
+      await field.trigger("input");
+      expect(wrapper.emitted("update:modelValue")).toEqual([[null]]);
+      expect(await wrapper.findComponent(VTextField).vm.validate()).toEqual([]);
+    }
+    finally {
+      badInput.mockRestore();
+      wrapper.unmount();
+    }
   });
   it.each([[3661, "1h 1m 1s"], [90, "1m 30s"], [60, "1m"], [30, "30s"], [null, ""]] as const)("displays %s with units", async (value, text) => {
     const wrapper = editor(value);

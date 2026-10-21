@@ -246,7 +246,7 @@ import {
 } from "~/composables/recipe-page/shared-state";
 import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeIngredient, RecipeStep, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -532,15 +532,18 @@ function addStep(steps: Array<string> | null = null) {
     return;
   }
 
+  // New steps use the API's nullable fields, not the populated-view helper type.
+  const instructions: RecipeStep[] = recipe.value.recipeInstructions;
+
   if (steps) {
     const cleanedSteps = steps.map((step) => {
       return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [], noteReferences: [], durationSeconds: null };
     });
 
-    recipe.value.recipeInstructions.push(...cleanedSteps);
+    instructions.push(...cleanedSteps);
   }
   else {
-    recipe.value.recipeInstructions.push({
+    instructions.push({
       id: uuid4(),
       text: "",
       title: "",

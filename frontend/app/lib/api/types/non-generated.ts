@@ -1,10 +1,6 @@
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 
-// Instruction durations are explicitly nullable even in fully populated recipe views.
-// Keep the existing non-null treatment of other fields unchanged.
-export type NoUndefinedField<T> = {
-  [P in keyof T]-?: P extends "durationSeconds" ? Exclude<T[P], undefined> : NoUndefinedField<NonNullable<T[P]>>;
-};
+export type NoUndefinedField<T> = { [P in keyof T]-?: NoUndefinedField<NonNullable<T[P]>> };
 
 export interface RequestResponse<T> {
   response: AxiosResponse<T> | null;
