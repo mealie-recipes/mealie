@@ -31,6 +31,7 @@
             "ai-not-enabled": "Los servicios de IA no están activado",
             "ai-request-failed": "El proveedor de IA no pudo completar la solicitud. Por favor, inténtelo de nuevo",
             "image-provider-not-enabled": "Los servicios de imágenes IA no están habilitados",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No se encontró ninguna receta en la fuente proporcionada",
             "no-source": "No se proporcionaron contenidos, imágenes o URL",
             "provider-returned-nothing": "El proveedor de IA no devolvió una receta",
