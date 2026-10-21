@@ -21,6 +21,18 @@
               :recipe-id="recipe.id"
               :slug="recipe.slug"
             />
+            <div
+              v-if="isOwnGroup && owner"
+              class="d-flex align-center mb-2"
+            >
+              <UserAvatar
+                :user-id="owner.id"
+                :tooltip="false"
+                size="32"
+                class="mr-2"
+              />
+              {{ owner.fullName }}
+            </div>
           </div>
           <v-divider class="my-2" />
           <SafeMarkdown :source="recipe.description" class="my-3" />
@@ -86,7 +98,10 @@ import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCardImage.vue";
+import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import { useUserStore } from "~/composables/store/use-user-store";
 import type { Recipe } from "~/lib/api/types/recipe";
+import type { UserSummary } from "~/lib/api/types/user";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
 interface Props {
@@ -100,6 +115,10 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const { isOwnGroup } = useLoggedInState();
+
+// group members aren't visible outside the group, so don't fetch them
+const users = isOwnGroup.value ? useUserStore().store : ref<UserSummary[]>([]);
+const owner = computed(() => users.value.find(u => u.id === props.recipe.userId));
 
 const hasTime = computed(() => {
   const { prepTime, totalTime, performTime, prepTimeSeconds, totalTimeSeconds, performTimeSeconds } = props.recipe;
