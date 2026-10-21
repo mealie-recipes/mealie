@@ -31,6 +31,7 @@
             "ai-not-enabled": "خدمات الذكاء الاصطناعي غير مفعلة",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "خدمات الصور AI غير مفعلة",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "لم يتم العثور على وصفة في المصدر المقدم",
             "no-source": "لم يتم توفير أي محتوى أو صور أو عنوان URL",
             "provider-returned-nothing": "The AI provider did not return a recipe",
