@@ -7,7 +7,7 @@ license = "AGPL-3.0-only"
 requires-python = ">=3.14,<3.15"
 dependencies = [
     "Jinja2==3.1.6",
-    "Pillow==12.3.0",
+    "Pillow==13.0.0",
     "PyYAML==6.0.3",
     "SQLAlchemy==2.1.4",
     "alembic==1.20.0",
@@ -192,3 +192,5 @@ add-bounds = "exact"
 # supply-chain attacks (compromised releases are usually caught and yanked
 # within days). Evaluated at resolve time as a rolling window.
 exclude-newer = "5 days"
+# Security fix (CVE-2026-112403); drop once Pillow 13.0.0 clears the window.
+exclude-newer-package = { pillow = false }
