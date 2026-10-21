@@ -68,8 +68,46 @@
           :disabled="state.loading"
         />
 
+        <div class="mt-6">
+          <AppButtonUpload
+            url="none"
+            file-name="files"
+            :accept="uploadAccept"
+            :text="$t('recipe.import-with-ai-upload-files')"
+            :text-btn="false"
+            :post="false"
+            :multiple="true"
+            :disabled="state.loading"
+            @uploaded="handleFilesUploaded"
+          />
+          <p class="text-caption mt-1">
+            {{ $t('recipe.import-with-ai-upload-files-hint') }}
+          </p>
+          <ul v-if="documentFiles.length" class="mt-2">
+            <li v-for="(file, index) in documentFiles" :key="index">
+              {{ file.name }}
+              <v-btn
+                icon
+                size="x-small"
+                variant="text"
+                :disabled="state.loading"
+                @click="removeDocumentFile(index)"
+              >
+                <v-icon size="small">
+                  {{ $globals.icons.close }}
+                </v-icon>
+              </v-btn>
+            </li>
+          </ul>
+        </div>
+
         <div v-if="imagesEnabled" class="mt-6">
-          <RecipeImportImages v-model="uploadedImages" :disabled="state.loading" />
+          <RecipeImportImages
+            ref="recipeImportImages"
+            v-model="uploadedImages"
+            hide-upload-button
+            :disabled="state.loading"
+          />
         </div>
         <v-alert
           v-else
@@ -169,8 +207,13 @@ import { useUserApi } from "~/composables/api";
 import { useGroupSelf } from "~/composables/use-groups";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
+import { alert } from "~/composables/use-toast";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
+
+// keep in sync with the extensions handled by mealie/services/recipe/document_text_extraction.py
+const DOCUMENT_EXTENSIONS = [".pdf", ".docx", ".odt", ".md", ".txt", ".rtf", ".html"];
+const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".avif", ".heic", ".heif", ".tif", ".tiff"];
 
 definePageMeta({
   key: route => route.path,
@@ -201,7 +244,17 @@ const domUrlForm = ref<VForm | null>(null);
 const recipeUrl = ref<string | null>(null);
 const newRecipeData = ref<string | object | null>(null);
 const uploadedImages = ref<(Blob | File)[]>([]);
+const documentFiles = ref<File[]>([]);
 const createStatus = ref<string | null>(null);
+const recipeImportImages = ref<{ uploadImages: (files: File[]) => void } | null>(null);
+
+const uploadAccept = computed(() => {
+  const accept = [...DOCUMENT_EXTENSIONS];
+  if (imagesEnabled.value) {
+    accept.push("image/*");
+  }
+  return accept.join(",");
+});
 
 const {
   stayInEditMode,
@@ -225,7 +278,48 @@ const contentAsString = computed(() => {
   return typeof data === "string" ? data : JSON.stringify(data);
 });
 
-const hasSource = computed(() => !!(recipeUrl.value || contentAsString.value || uploadedImages.value.length));
+const hasSource = computed(() => !!(recipeUrl.value || contentAsString.value || uploadedImages.value.length || documentFiles.value.length));
+
+function isDocumentFile(file: File): boolean {
+  const name = file.name.toLowerCase();
+  return DOCUMENT_EXTENSIONS.some(extension => name.endsWith(extension));
+}
+
+function isImageFile(file: File): boolean {
+  const name = file.name.toLowerCase();
+  return file.type.startsWith("image/") || IMAGE_EXTENSIONS.some(extension => name.endsWith(extension));
+}
+
+function handleFilesUploaded(files: File[]) {
+  const newDocumentFiles: File[] = [];
+  const newImageFiles: File[] = [];
+
+  for (const file of files) {
+    if (isDocumentFile(file)) {
+      newDocumentFiles.push(file);
+    }
+    else if (isImageFile(file) && imagesEnabled.value) {
+      newImageFiles.push(file);
+    }
+    else if (!isImageFile(file)) {
+      const key = file.name.toLowerCase().endsWith(".doc")
+        ? "recipe.import-with-ai-unsupported-file"
+        : "recipe.import-with-ai-unsupported-file-generic";
+      alert.error(i18n.t(key, { name: file.name }));
+    }
+  }
+
+  if (newDocumentFiles.length) {
+    documentFiles.value = [...documentFiles.value, ...newDocumentFiles];
+  }
+  if (newImageFiles.length) {
+    recipeImportImages.value?.uploadImages(newImageFiles);
+  }
+}
+
+function removeDocumentFile(index: number) {
+  documentFiles.value.splice(index, 1);
+}
 
 function handleIsEditJson() {
   if (state.isEditJSON) {
@@ -269,6 +363,7 @@ async function createRecipe() {
       content: contentAsString.value,
       url: recipeUrl.value,
       images: uploadedImages.value,
+      documents: documentFiles.value,
       translateLanguage: translateRecipe.value ? i18n.locale.value : null,
       createNewOrganizers: createNewOrganizers.value,
     },
