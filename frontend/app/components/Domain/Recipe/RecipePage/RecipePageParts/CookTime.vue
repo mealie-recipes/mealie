@@ -1,20 +1,20 @@
 <template>
-  <v-text-field
+  <v-number-input
     v-if="isEditMode"
-    v-model="input"
+    :model-value="inputMinutes"
     class="step-duration"
-    type="number"
-    min="0"
-    max="35791394"
-    step="1"
+    :min="0"
+    :max="35791394"
+    :precision="0"
     :hint="modelValue && modelValue % 60 ? $t('recipe.step-duration-saved', { duration: formattedDuration }) : undefined"
     persistent-hint
     :label="$t('recipe.step-duration-minutes')"
     :placeholder="$t('recipe.step-duration-placeholder')"
-    :rules="[validDuration]"
     density="compact"
+    inset
     hide-details="auto"
-    @input="updateDuration"
+    @update:model-value="updateDuration"
+    @keypress="e => e.key === '-' && e.preventDefault()"
     @click.stop
   />
   <span v-else-if="modelValue" class="text-body-2">
@@ -23,9 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { wholeNumber } from "~/lib/validators/inputs";
 
 const props = defineProps<{
   modelValue?: number | null;
@@ -33,26 +32,13 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ "update:modelValue": [value: number | null] }>();
 const { t } = useI18n();
-// Display whole minutes only; keep imported seconds untouched until an input event.
+// Display whole minutes only; keep imported seconds untouched until the minutes change.
 // The hint exposes any remainder before the user deliberately replaces it.
-const input = ref<string | number>(props.modelValue ? Math.floor(props.modelValue / 60) : "");
-watch(() => props.modelValue, value => input.value = value ? Math.floor(value / 60) : "");
+const inputMinutes = computed(() => props.modelValue ? Math.floor(props.modelValue / 60) : null);
 
-const badInput = ref(false);
-
-function validDuration(value: string | number | null) {
-  if (badInput.value || Number(value) > 35791394) return t("validators.whole-number");
-  return wholeNumber(value);
-}
-
-function updateDuration(event: Event) {
-  const field = event.target as HTMLInputElement;
-  // Number inputs expose incomplete entries (e.g. "1e" or "-") as "".
-  // Keep this state separate from a deliberate empty entry, including on Save.
-  badInput.value = field.validity.badInput;
-  const value = field.value;
-  if (validDuration(value) !== true) return;
-  emit("update:modelValue", Number(value) * 60 || null);
+function updateDuration(value: number | null) {
+  if (value === inputMinutes.value) return;
+  emit("update:modelValue", (value ?? 0) * 60 || null);
 }
 
 const formattedDuration = computed(() => {
