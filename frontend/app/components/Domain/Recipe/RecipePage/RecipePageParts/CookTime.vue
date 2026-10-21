@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
@@ -34,11 +34,26 @@ const emit = defineEmits<{ "update:modelValue": [value: number | null] }>();
 const { t } = useI18n();
 // Display whole minutes only; keep imported seconds untouched until the minutes change.
 // The hint exposes any remainder before the user deliberately replaces it.
-const inputMinutes = computed(() => props.modelValue ? Math.floor(props.modelValue / 60) : null);
+const inputMinutes = ref<number | null>(null);
+
+function toSeconds(minutes: number | null) {
+  return (minutes ?? 0) * 60 || null;
+}
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    // Only re-sync outside changes, so stepping down to 0 (saved as no duration) keeps showing 0
+    if ((value ?? null) === toSeconds(inputMinutes.value)) return;
+    inputMinutes.value = value ? Math.floor(value / 60) : null;
+  },
+  { immediate: true },
+);
 
 function updateDuration(value: number | null) {
   if (value === inputMinutes.value) return;
-  emit("update:modelValue", (value ?? 0) * 60 || null);
+  inputMinutes.value = value;
+  emit("update:modelValue", toSeconds(value));
 }
 
 const formattedDuration = computed(() => {

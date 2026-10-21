@@ -42,10 +42,12 @@ describe("instruction duration in minutes with seconds storage", () => {
     expect(event.defaultPrevented).toBe(true);
     wrapper.unmount();
   });
-  it("clears the duration for 0 minutes", async () => {
+  it("clears the duration for 0 minutes but keeps showing 0", async () => {
     const wrapper = editor(120);
     await wrapper.find("input").setValue("0");
     expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([null]);
+    await wrapper.setProps({ modelValue: null });
+    expect(wrapper.find("input").element.value).toBe("0");
     wrapper.unmount();
   });
   it.each([1, 61, 3661, 1048708914, 2094174799, 2147483647])("preserves exact imported %s seconds until edited", async (value) => {
