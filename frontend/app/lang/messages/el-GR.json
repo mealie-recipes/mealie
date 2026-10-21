@@ -292,11 +292,11 @@
       "prompt-descriptions": {
         "recipes-build-recipe": "Μετατρέπει το αρχικό υλικό που διαβάζεται από μια ιστοσελίδα, μια φωτογραφία ή ένα κείμενο σε μια δομημένη συνταγή.",
         "recipes-parse-recipe-ingredients": "Χρησιμοποιείται από τον αναλυτή συστατικών τεχνητής νοημοσύνης για να χωρίσει κάθε συστατικό σε ποσότητα, μονάδα, φαγητό και σημείωση.",
-        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
-        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
-        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
-        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
-        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+        "recipes-parse-recipe-video": "Μετατρέπει τη μεταγραφή και τη λεζάντα ενός βίντεο σε μια συνταγή.",
+        "recipes-resolve-organizers": "Επιλέγει τις ετικέτες, τις κατηγορίες, και τα εργαλεία για μια εισαγμένη συνταγή.",
+        "recipes-translate-recipe": "Μεταφράζει μια εισαγμένη συνταγή στη γλώσσα που θα επιλέξετε.",
+        "system-compile-source": "Διαβάζει ιστοσελίδες, φωτογραφίες και κείμενο σε μια εγγραφή απλού κειμένου της συνταγής.",
+        "system-transcribe-audio": "Απομαγνητοφωνεί ήχο όταν ο πάροχος ήχου δεν μπορεί να τον απομαγνητοφωνήσει άμεσα."
       }
     }
   },
@@ -947,8 +947,8 @@
     "user-can-manage-group-hint": "Ο χρήστης μπορεί να διαχειριστεί τις κοινόχρηστες ρυθμίσεις της ομάδας, όπως οι πάροχοι AI, και να επεξεργαστεί τα δικαιώματα για τα μέλη του νοικοκυριού τους.",
     "user-can-manage-household": "Ο χρήστης μπορεί να διαχειριστεί το νοικοκυριό",
     "user-can-manage-household-hint": "Ο χρήστης μπορεί να διαχειριστεί τις ρυθμίσεις του νοικοκυριού στο οποίο ανήκει, όπως το όνομα, το απόρρητο του, και τους κανόνες επεξεργασίας συνταγών.",
-    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
-    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
+    "user-can-organize-group-data": "Ο χρήστης μπορεί να διαχειριστεί δεδομένα ομάδας, όπως τρόφιμα, μονάδες, ετικέτες και κατηγορίες",
+    "user-can-organize-group-data-hint": "Δημιουργήστε, επεξεργαστείτε και διαγράψτε τρόφιμα, μονάδες, ετικέτες, ετικέτες, κατηγορίες, εργαλεία, ετικέτες και ενέργειες συνταγών που μοιράζονται σε όλη την ομάδα.",
     "enable-advanced-features": "Ενεργοποίηση χαρακτηριστικών για προχωρημένους",
     "enable-advanced-features-hint": "Ενεργοποιεί Webhooks, Ειδοποιητές και Μετεγκατάσταση Δεδομένων",
     "it-looks-like-this-is-your-first-time-logging-in": "Φαίνεται ότι αυτή είναι η πρώτη φορά που συνδέεστε.",
@@ -983,8 +983,8 @@
       "food-data": "Δεδομένα τροφίμου",
       "label-overwrite-warning": "Αυτό θα αντιστοιχίσει την επιλεγμένη ετικέτα σε όλα τα επιλεγμένα τρόφιμα και ενδεχομένως να αντικαταστήσει τις υπάρχουσες ετικέτες σας.",
       "on-hand-checkbox-label": "Η ρύθμιση αυτής της σημαίας θα κάνει αυτό το τρόφιμο αποεπιλεγμένο από προεπιλογή κατά την προσθήκη μιας συνταγής σε μια λίστα για ψώνια.",
-      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
-      "no-unused-foods": "No unused foods to delete",
+      "delete-unused-confirm": "Θέλετε να διαγραφεί αυτό το αχρησιμοποίητο τρόφιμο; Δεν είναι δυνατή η αναίρεση αυτής της ενέργειας. | Θέλετε να διαγραφούν αυτά τα {count} αχρησιμοποίητα τρόφιμα; Δεν είναι δυνατή η αναίρεση αυτής της ενέργειας.",
+      "no-unused-foods": "Δεν υπάρχουν αχρησιμοποίητα τρόφιμα για διαγραφή",
       "substitutions": "Υποκατάστατα",
       "manage-substitutions": "Διαχείριση υποκατάστατων",
       "substitution-dialog-text": "Προτείνετε τρόφιμα που μπορούν να χρησιμοποιηθούν στη θέση του {food}. Ενα υποκατάσταυο μπορεί να είναι ένα φαγητό, μια σημείωση, ή και τα δύο.",
@@ -1024,13 +1024,13 @@
       "new-label": "Νέα ετικέτα",
       "labels": "Ετικέτες",
       "assign-label": "Ορισμός Ετικέτας",
-      "combine-label": "Combine Label",
-      "source-label": "Source Label",
-      "target-label": "Target Label",
-      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
-      "merge-label-example": "Merging {label1} into {label2}",
-      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
-      "no-unused-labels": "No unused labels to delete"
+      "combine-label": "Συνδυασμός ετικέτας",
+      "source-label": "Ετικέτα-πηγή",
+      "target-label": "Ετικέτα-στόχος",
+      "merge-dialog-text": "Ο συνδυασμός των επιλεγμένων ετικετών θα συγχωνεύσει την ετικέτα-πηγή και την ετικέτα-στόχο σε μία μόνο ετικέτα. Η ετικέτα-πηγή θα διαγραφεί και όλες οι αναφορές στην ετικέτα-πηγή θα ενημερωθούν ώστε να δείχνουν στην ετικέτα-στόχο.",
+      "merge-label-example": "Συγχώνευση {label1} σε {label2}",
+      "delete-unused-confirm": "Θέλετε να διαγραφεί αυτή η αχρησιμοποίητη ετικέτα; Δεν είναι δυνατή η αναίρεση αυτής της ενέργειας. | Θέλετε να διαγραφούν αυτές οι {count} αχρησιμοποίητες ετικέτες; Δεν είναι δυνατή η αναίρεση αυτής της ενέργειας.",
+      "no-unused-labels": "Δεν υπάρχουν αχρησιμοποίητες ετικέτες για διαγραφή"
     },
     "recipes": {
       "purge-exports": "Εκκαθάριση εξαγωγών",
@@ -1104,13 +1104,13 @@
       "new-tool": "Νέο εργαλείο",
       "edit-tool": "Επεξεργασία εργαλείου",
       "tool-data": "Δεδομένα εργαλείου",
-      "combine-tool": "Combine Tool",
-      "source-tool": "Source Tool",
-      "target-tool": "Target Tool",
-      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
-      "merge-tool-example": "Merging {tool1} into {tool2}",
-      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "combine-tool": "Συνδυασμός εργαλείου",
+      "source-tool": "Εργαλείο-πηγή",
+      "target-tool": "Εργαλείο-στόχος",
+      "merge-dialog-text": "Ο συνδυασμός των επιλεγμένων εργαλείων θα συγχωνεύσει το εργαλείο-πηγή και το εργαλείο-στόχος σε ένα μόνο εργαλείο. Το εργαλείο-πηγή θα διαγραφεί και όλες οι αναφορές σε αυτό θα ενημερωθούν ώστε να δείχνουν στο εργαλείο-στόχο.",
+      "merge-tool-example": "Συγχώνευση {tool1} σε {tool2}",
+      "delete-unused-confirm": "Θέλετε να διαγραφεί αυτό το αχρησιμοποίητο εργαλείο; Δεν είναι δυνατή η αναίρεση αυτής της ενέργειας. | Θέλετε να διαγραφούν αυτά τα {count} αχρησιμοποίητα εργαλεία; Δεν είναι δυνατή η αναίρεση αυτής της ενέργειας.",
+      "no-unused-tools": "Δεν υπάρχουν αχρησιμοποίητα εργαλεία για διαγραφή"
     }
   },
   "user-registration": {
