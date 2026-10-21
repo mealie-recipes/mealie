@@ -61,6 +61,8 @@ class AIRecipeService(RecipeService):
             if local_images:
                 with open(local_images[0], "rb") as f:
                     RecipeDataService(recipe.id).write_image(f.read(), "webp")
+                # write_image only writes the files; record the cover on the recipe as the image upload route does
+                recipe.image = self.group_recipes.update_image(recipe.slug, "webp")
 
             return recipe
 

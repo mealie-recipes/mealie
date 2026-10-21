@@ -65,7 +65,7 @@
             </v-list-item-subtitle>
             <div
               class="d-flex flex-nowrap justify-start ma-0 pt-2 pb-0"
-              style="overflow-x: hidden; overflow-y: hidden; white-space: nowrap;"
+              style="overflow-x: hidden; overflow-y: hidden; white-space: nowrap; min-height: 38px;"
             >
               <RecipeChips
                 :truncate="true"

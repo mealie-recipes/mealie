@@ -163,6 +163,9 @@ class ABCIngredientParser(ABC):
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]: ...
 
     def find_ingredient_match(self, ingredient: ParsedIngredient) -> ParsedIngredient:
+        # Matching replaces the food with the database object, so keep the parsed name
+        parsed_food_name = ingredient.ingredient.food.name if ingredient.ingredient.food else ""
+
         if ingredient.ingredient.food and (food_match := self.data_matcher.find_food_match(ingredient.ingredient.food)):
             ingredient.ingredient.food = food_match
 
@@ -172,11 +175,15 @@ class ABCIngredientParser(ABC):
         # Parser might have wrongly split a food into a unit and food.
         food_is_matched = bool(ingredient.ingredient.food and ingredient.ingredient.food.id)
         unit_is_matched = bool(ingredient.ingredient.unit and ingredient.ingredient.unit.id)
-        food_name = ingredient.ingredient.food.name if ingredient.ingredient.food else ""
         unit_name = ingredient.ingredient.unit.name if ingredient.ingredient.unit else ""
 
-        if not food_is_matched and not unit_is_matched and food_name and unit_name:
-            food_match = self.data_matcher.find_food_match(f"{unit_name} {food_name}")
+        if not unit_is_matched and parsed_food_name and unit_name:
+            whole_food_name = f"{unit_name} {parsed_food_name}"
+            if food_is_matched:
+                # e.g. "white wine" split into "white" + "wine": only an exact match may replace "wine"
+                food_match = self.data_matcher.foods_by_alias.get(IngredientFoodModel.normalize(whole_food_name))
+            else:
+                food_match = self.data_matcher.find_food_match(whole_food_name)
 
             if food_match:
                 ingredient.ingredient.food = food_match
