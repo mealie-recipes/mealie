@@ -31,6 +31,7 @@
             "ai-not-enabled": "AI služby nejsou povoleny",
             "ai-request-failed": "Poskytovatel AI nemohl požadavek dokončit. Zkuste to prosím znovu",
             "image-provider-not-enabled": "AI obrazové služby nejsou povoleny",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "V poskytnutém zdroji nebyl nalezen žádný recept",
             "no-source": "Nebyl poskytnut žádný obsah, obrázky nebo URL",
             "provider-returned-nothing": "Poskytovatel AI nevrátil recept",
