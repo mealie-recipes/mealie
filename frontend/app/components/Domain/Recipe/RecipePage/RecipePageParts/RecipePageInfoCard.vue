@@ -101,6 +101,7 @@ import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/Recip
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { useUserStore } from "~/composables/store/use-user-store";
 import type { Recipe } from "~/lib/api/types/recipe";
+import type { UserSummary } from "~/lib/api/types/user";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
 interface Props {
@@ -115,7 +116,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { isOwnGroup } = useLoggedInState();
 
-const { store: users } = useUserStore();
+// group members aren't visible outside the group, so don't fetch them
+const users = isOwnGroup.value ? useUserStore().store : ref<UserSummary[]>([]);
 const owner = computed(() => users.value.find(u => u.id === props.recipe.userId));
 
 const hasTime = computed(() => {
