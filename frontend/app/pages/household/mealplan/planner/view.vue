@@ -9,9 +9,14 @@
     />
     <MealPlanLayout :mealplans="mealplans">
       <template #default="{ day }">
-        <MealPlanDay :day="day.date" :actions="actions" :recipes="day.recipes">
+        <MealPlanDay :day="day.date" :end-date="day.endDate" :actions="actions" :recipes="day.recipes">
           <SpinTransition>
-            <v-card v-if="day.sections.length" variant="flat" class="pl-4 pr-2">
+            <v-card
+              v-if="day.sections.length"
+              variant="flat"
+              class="pl-4 pr-2"
+              :color="day.endDate ? 'transparent' : undefined"
+            >
               <SpinTransition>
                 <div v-for="section in day.sections" :key="section.title">
                   <div class="py-2 d-flex flex-column">
@@ -19,52 +24,63 @@
                       {{ section.title }}
                     </p>
                   </div>
-                  <SpinTransition>
-                    <div
-                      v-for="mealplan in section.meals"
-                      :key="mealplan.id"
-                      class="mb-2"
-                    >
-                      <RecipeCardMobile
-                        :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
-                        :scale="mealplan.recipeScale ?? 1"
-                        :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
-                        :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
-                        :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
-                        :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
-                        :image="mealplan.recipe ? mealplan.recipe.image! : undefined"
-                        :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
-                        :context-menu-leading-items="[
-                          {
-                            title: $t('meal-plan.remove-from-plan'),
-                            icon: $globals.icons.calendarRemove,
-                            color: undefined,
-                            event: 'mealplanRemove',
-                            isPublic: false,
-                          },
-                          {
-                            title: $t('meal-plan.edit-meal-plan'),
-                            icon: $globals.icons.calendarEdit,
-                            color: undefined,
-                            event: 'mealplanEdit',
-                            isPublic: false,
-                          },
-                        ]"
-                        @mealplan-remove="actions.deleteOne(mealplan.id)"
-                        @mealplan-edit="editMeal(mealplan)"
+                  <div :class="{ 'week-meals': day.endDate }">
+                    <SpinTransition>
+                      <div
+                        v-for="mealplan in section.meals"
+                        :key="mealplan.id"
+                        class="mb-2"
                       >
-                        <template v-if="!mealplan.recipe" #context-menu>
-                          <MealPlanNoteMenu
-                            @mealplan-remove="actions.deleteOne(mealplan.id)"
-                            @mealplan-edit="editMeal(mealplan)"
-                          />
-                        </template>
-                      </RecipeCardMobile>
-                      <div v-if="mealplan.recipe" class="d-flex justify-end pt-1">
-                        <MealPlanScaleControl :meal="mealplan" :actions="actions" />
+                        <RecipeCardMobile
+                          :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
+                          :scale="mealplan.recipeScale ?? 1"
+                          :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
+                          :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
+                          :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
+                          :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
+                          :image="mealplan.recipe ? mealplan.recipe.image! : undefined"
+                          :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
+                          :context-menu-leading-items="[
+                            {
+                              title: $t('meal-plan.remove-from-plan'),
+                              icon: $globals.icons.calendarRemove,
+                              color: undefined,
+                              event: 'mealplanRemove',
+                              isPublic: false,
+                            },
+                            {
+                              title: $t('meal-plan.edit-meal-plan'),
+                              icon: $globals.icons.calendarEdit,
+                              color: undefined,
+                              event: 'mealplanEdit',
+                              isPublic: false,
+                            },
+                          ]"
+                          @mealplan-remove="actions.deleteOne(mealplan.id)"
+                          @mealplan-edit="editMeal(mealplan)"
+                        >
+                          <template v-if="!mealplan.recipe" #context-menu>
+                            <MealPlanNoteMenu
+                              @mealplan-remove="actions.deleteOne(mealplan.id)"
+                              @mealplan-edit="editMeal(mealplan)"
+                            />
+                          </template>
+                        </RecipeCardMobile>
+                        <div v-if="mealplan.recipe || mealplan.endDate" class="d-flex flex-wrap align-center ga-2 pt-1">
+                          <v-btn
+                            v-if="mealplan.endDate"
+                            color="primary"
+                            density="comfortable"
+                            :prepend-icon="$globals.icons.potSteam"
+                            @click="cookToday(mealplan)"
+                          >
+                            {{ $t("meal-plan.cooking-it-today") }}
+                          </v-btn>
+                          <MealPlanScaleControl v-if="mealplan.recipe" class="ms-auto flex-shrink-0" :meal="mealplan" :actions="actions" />
+                        </div>
                       </div>
-                    </div>
-                  </SpinTransition>
+                    </SpinTransition>
+                  </div>
                 </div>
               </SpinTransition>
             </v-card>
@@ -76,13 +92,14 @@
 </template>
 
 <script setup lang="ts">
+import { format } from "date-fns";
 import MealPlanNoteMenu from "~/components/Domain/Mealplan/MealPlanNoteMenu.vue";
 import MealPlanScaleControl from "~/components/Domain/Mealplan/MealPlanScaleControl.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 import type { MealsByDate } from "~/composables/use-group-mealplan";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 
-defineProps<{
+const props = defineProps<{
   mealplans: MealsByDate[];
   actions: ReturnType<typeof useMealplans>["actions"];
 }>();
@@ -99,6 +116,11 @@ function editMeal(mealplan: ReadPlanEntry) {
   dialog.entry = mealplan;
   dialog.date = null;
   dialog.open = true;
+}
+
+/** Moves a week entry onto today, so it's treated like any other meal made today */
+function cookToday(mealplan: ReadPlanEntry) {
+  props.actions.updateOne({ ...mealplan, date: format(new Date(), "yyyy-MM-dd"), endDate: null });
 }
 </script>
 
