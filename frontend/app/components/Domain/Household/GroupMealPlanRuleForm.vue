@@ -13,6 +13,8 @@
         v-model="day"
         :items="MEAL_DAY_OPTIONS"
         :label="$t('meal-plan.rule-day')"
+        :hint="day === 'unset' ? '' : $t('meal-plan.weekday-rules-skip-week-entries')"
+        persistent-hint
       />
       <v-select
         v-model="entryType"

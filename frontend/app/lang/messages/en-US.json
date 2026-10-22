@@ -349,6 +349,8 @@
     "meal-note": "Meal Note",
     "note": "Note",
     "ignore-rules": "Ignore Planner Rules",
+    "plan-for-the-week": "Any day that week",
+    "weekday-rules-skip-week-entries": "Rules for a specific day don't apply to meals planned for a whole week.",
     "no-recipes-match-your-rules": "No recipes match your meal plan rules",
     "random-meal": "Random Meal",
     "random-dinner": "Random Dinner",

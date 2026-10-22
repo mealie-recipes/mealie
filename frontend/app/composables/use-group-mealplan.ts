@@ -1,4 +1,6 @@
-import { format } from "date-fns";
+import { addDays, format, startOfWeek } from "date-fns";
+import type { Day } from "date-fns";
+import { useHouseholdSelf } from "./use-households";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
 import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, RecipeSummary, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
@@ -28,6 +30,56 @@ export function getEntryTypeText(value: PlanEntryType) {
 export interface DateRange {
   start: Date;
   end: Date;
+}
+
+/**
+ * The week containing `date`, used as the `date` and `endDate` of a meal plan entry planned for that week.
+ * `firstDayOfWeek` is the household preference (0 is Sunday).
+ */
+export function getWeekRange(date: Date, firstDayOfWeek: number): DateRange {
+  const start = startOfWeek(date, { weekStartsOn: firstDayOfWeek as Day });
+  return { start, end: addDays(start, 6) };
+}
+
+/**
+ * Date state for a meal plan entry form: either the selected day, or the week containing it.
+ */
+export function useMealPlanEntryDates() {
+  const { household } = useHouseholdSelf();
+
+  const selectedDate = ref(new Date());
+  const isWeekEntry = ref(false);
+
+  const weekRange = computed(() => getWeekRange(selectedDate.value, household.value?.preferences?.firstDayOfWeek || 0));
+
+  const entryDates = computed(() => isWeekEntry.value
+    ? { date: weekRange.value.start, endDate: weekRange.value.end }
+    : { date: selectedDate.value, endDate: null },
+  );
+
+  /** `date` and `endDate` formatted for the API */
+  const entryDatesPayload = computed(() => ({
+    date: format(entryDates.value.date, "yyyy-MM-dd"),
+    endDate: entryDates.value.endDate ? format(entryDates.value.endDate, "yyyy-MM-dd") : null,
+  }));
+
+  /**
+   * `v-model` for `MealPlanDatePicker`, used with `pickerMultiple`. For a week entry it's the whole week, so the
+   * picker highlights it as a range. Clicking a day in range mode replaces the range with just that day, which
+   * selects the week containing it.
+   */
+  const pickerModel = computed<Date | [Date, Date]>({
+    get: () => isWeekEntry.value ? [weekRange.value.start, weekRange.value.end] : selectedDate.value,
+    set: (value) => {
+      const date = Array.isArray(value) ? value[0] : value;
+      if (date) {
+        selectedDate.value = date;
+      }
+    },
+  });
+  const pickerMultiple = computed(() => isWeekEntry.value ? "range" as const : false);
+
+  return { selectedDate, isWeekEntry, weekRange, entryDates, entryDatesPayload, pickerModel, pickerMultiple };
 }
 export type DaySection = {
   title: string;

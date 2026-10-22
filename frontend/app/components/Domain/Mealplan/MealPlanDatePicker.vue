@@ -65,7 +65,8 @@ function updateYear(year: number) {
 
 function hasMealPlanned(date: string): DatePickerEventColorValue {
   const planned = mealplans.value ?? [];
-  const dateMatched = planned.filter(meal => meal.date === date);
+  // date range entries (e.g. a week) aren't on a specific day
+  const dateMatched = planned.filter(meal => meal.date === date && !meal.endDate);
   const typeMatched = dateMatched.filter(meal => !props.entryType || meal.entryType === props.entryType);
   const earlierDate = isDate(selectedDate.value) ? selectedDate.value : selectedDate.value?.[0];
   const laterDate = isDate(selectedDate.value) ? selectedDate.value : selectedDate.value?.[1];
