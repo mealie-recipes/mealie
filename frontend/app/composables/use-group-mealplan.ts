@@ -90,6 +90,8 @@ export type ScaledRecipe = RecipeSummary & { scale: number };
 
 export type Days = {
   date: Date;
+  /** Set for a week, whose meals aren't planned for a specific day */
+  endDate?: Date | null;
   sections: DaySection[];
   recipes: ScaledRecipe[];
 };
@@ -104,6 +106,8 @@ export function getScaledRecipes(meals: ReadPlanEntry[]): ScaledRecipe[] {
 
 export type MealsByDate = {
   date: Date;
+  /** Set for a week, whose meals aren't planned for a specific day */
+  endDate?: Date | null;
   meals: ReadPlanEntry[];
 };
 
@@ -133,7 +137,11 @@ export const useMealplans = function (range: Ref<DateRange>) {
           start_date: format(range.value.start, "yyyy-MM-dd"),
           end_date: format(range.value.end, "yyyy-MM-dd"),
         };
-        const { data } = await api.mealplans.getAll(1, -1, { start_date: query.start_date, end_date: query.end_date });
+        const { data } = await api.mealplans.getAll(1, -1, {
+          start_date: query.start_date,
+          end_date: query.end_date,
+          include_week_entries: true,
+        });
 
         if (data) {
           return data.items;
@@ -152,7 +160,11 @@ export const useMealplans = function (range: Ref<DateRange>) {
         start_date: format(range.value.start, "yyyy-MM-dd"),
         end_date: format(range.value.end, "yyyy-MM-dd"),
       };
-      const { data } = await api.mealplans.getAll(1, -1, { start_date: query.start_date, end_date: query.end_date });
+      const { data } = await api.mealplans.getAll(1, -1, {
+        start_date: query.start_date,
+        end_date: query.end_date,
+        include_week_entries: true,
+      });
 
       if (data && data.items) {
         mealplans.value = data.items;

@@ -157,10 +157,13 @@ import type { RecipeSummary } from "~/lib/api/types/recipe";
 interface Props {
   entry?: ReadPlanEntry | null;
   date?: Date | null;
+  /** Set when creating an entry for a week rather than a specific day */
+  endDate?: Date | null;
 }
 const props = withDefaults(defineProps<Props>(), {
   entry: null,
   date: null,
+  endDate: null,
 });
 
 const emit = defineEmits<{
@@ -212,7 +215,7 @@ function parseEntryDate(date: string) {
 function initialize() {
   entryMode.value = props.entry && !props.entry.recipeId ? "note" : "recipe";
   selectedDate.value = props.entry ? parseEntryDate(props.entry.date) : props.date ?? new Date();
-  isWeekEntry.value = !!props.entry?.endDate;
+  isWeekEntry.value = props.entry ? !!props.entry.endDate : !!props.endDate;
   entryType.value = props.entry?.entryType ?? "dinner";
   recipe.value = props.entry?.recipe ?? null;
   recipeScale.value = props.entry?.recipeScale ?? 1;
