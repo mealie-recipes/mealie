@@ -1,3 +1,4 @@
+import datetime
 from datetime import date, timedelta
 from enum import StrEnum
 from typing import Annotated
@@ -41,7 +42,7 @@ def validate_end_date(value: date | None, info: ValidationInfo) -> date | None:
 
 class CreateRandomEntry(MealieModel):
     date: date
-    end_date: date | None = None
+    end_date: datetime.date | None = None
     entry_type: PlanEntryType = PlanEntryType.dinner
 
     _validate_end_date = field_validator("end_date")(validate_end_date)
@@ -49,7 +50,7 @@ class CreateRandomEntry(MealieModel):
 
 class CreatePlanEntry(MealieModel):
     date: date
-    end_date: date | None = None
+    end_date: datetime.date | None = None
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
