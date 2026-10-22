@@ -464,7 +464,7 @@
     "an-error-occurred": "Παρουσιάστηκε ένα σφάλμα"
   },
   "recipe": {
-    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-minutes": "Διάρκεια (λεπτά)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
     "step-duration-value-seconds": "{seconds}s",
