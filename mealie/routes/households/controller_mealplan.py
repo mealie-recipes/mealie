@@ -26,6 +26,13 @@ from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = APIRouter(prefix="/households/mealplans", tags=["Households: Meal Plans"])
 
+MEALPLAN_NOTIFICATION_KEYS: dict[EventOperation, tuple[str, str]] = {
+    EventOperation.create: ("notifications.mealplan-entry-created", "notifications.mealplan-range-entry-created"),
+    EventOperation.update: ("notifications.mealplan-entry-updated", "notifications.mealplan-range-entry-updated"),
+    EventOperation.delete: ("notifications.mealplan-entry-deleted", "notifications.mealplan-range-entry-deleted"),
+}
+"""Notification message translation keys per operation, as `(day entry key, date range entry key)`"""
+
 
 @controller(router)
 class GroupMealplanController(BaseCrudController):
@@ -36,6 +43,15 @@ class GroupMealplanController(BaseCrudController):
     def _translated_entry_type(self, entry_type) -> str:
         value = getattr(entry_type, "value", entry_type)
         return self.t(f"mealplan.entry-type.{value}", default=str(value))
+
+    def _notification_message(self, operation: EventOperation, entry: ReadPlanEntry) -> str:
+        day_key, range_key = MEALPLAN_NOTIFICATION_KEYS[operation]
+        return self.t(
+            range_key if entry.end_date else day_key,
+            date=entry.date,
+            end_date=entry.end_date,
+            entry_type=self._translated_entry_type(entry.entry_type),
+        )
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
@@ -120,11 +136,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-created",
-                date=data.date,
-                entry_type=self._translated_entry_type(data.entry_type),
-            ),
+            message=self._notification_message(EventOperation.create, result),
         )
 
         return result
@@ -173,11 +185,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-created",
-                date=data.date,
-                entry_type=self._translated_entry_type(data.entry_type),
-            ),
+            message=self._notification_message(EventOperation.create, result),
         )
 
         return result
@@ -203,11 +211,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-updated",
-                date=result.date,
-                entry_type=self._translated_entry_type(result.entry_type),
-            ),
+            message=self._notification_message(EventOperation.update, result),
         )
 
         return result
@@ -229,11 +233,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-deleted",
-                date=result.date,
-                entry_type=self._translated_entry_type(result.entry_type),
-            ),
+            message=self._notification_message(EventOperation.delete, result),
         )
 
         return result
