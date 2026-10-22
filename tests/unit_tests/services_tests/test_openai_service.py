@@ -1,3 +1,4 @@
+import base64
 import io
 import json
 import wave
@@ -396,6 +397,10 @@ async def test_get_response_sends_schema_as_response_format(settings_stub):
     call = completions.parse_calls[0]
     assert call["response_format"] is _SampleSchema
     assert call["model"] == "test-model"
+    assert call["messages"] == [
+        {"role": "system", "content": "system prompt"},
+        {"role": "user", "content": [{"type": "text", "text": "hello"}]},
+    ]
 
 
 @pytest.mark.asyncio
@@ -477,6 +482,47 @@ class _FakeTranscriptions:
         if self.error:
             raise self.error
         return SimpleNamespace(text="")
+
+
+@pytest.mark.parametrize("override_prompt", [False, True])
+@pytest.mark.asyncio
+async def test_transcribe_audio_fallback_uses_user_prompt(settings_stub, tmp_path, override_prompt):
+    (settings_stub / "system").mkdir()
+    (settings_stub / "system" / "transcribe-audio.txt").write_text("Transcribe this audio")
+    overrides = (
+        [_make_override("system.transcribe-audio", AIPromptMode.override, "Custom transcription")]
+        if override_prompt
+        else []
+    )
+    repos = _make_repos_with_overrides(*overrides)
+    svc = OpenAIService(repos)
+    svc.audio_provider = _make_test_provider()
+    completions = _FakeCompletions(parse_result=_make_body('{"text": "transcribed audio"}'))
+    transcriptions = _FakeTranscriptions(error=RuntimeError("no transcription endpoint"))
+    client = _FakeClient(completions)
+    client.audio = SimpleNamespace(transcriptions=transcriptions)
+    svc.get_client = MagicMock(return_value=client)
+    audio_path = tmp_path / "audio.mp3"
+    audio_path.write_bytes(b"test audio")
+
+    result = await svc.transcribe_audio(audio_path)
+
+    assert result == "transcribed audio"
+    assert len(transcriptions.calls) == 1
+    assert len(completions.parse_calls) == 1
+    prompt = "Custom transcription" if override_prompt else "Transcribe this audio"
+    assert completions.parse_calls[0]["messages"] == [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": f"{prompt}\n\nAttached is the audio data."},
+                {
+                    "type": "input_audio",
+                    "input_audio": {"data": base64.b64encode(b"test audio").decode(), "format": "mp3"},
+                },
+            ],
+        }
+    ]
 
 
 def _patch_transcription(monkeypatch, *, error: Exception | None = None) -> _FakeTranscriptions:
