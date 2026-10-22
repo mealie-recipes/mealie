@@ -84,19 +84,21 @@ class GroupMealplanController(BaseCrudController):
         q: PaginationQuery = Depends(PaginationQuery),
         start_date: date | None = None,
         end_date: date | None = None,
+        include_week_entries: bool = False,
     ):
+        # week entries are opt-in so existing API clients, which expect every entry to be on a specific day,
+        # aren't handed them
+        week_filter = None if include_week_entries else "end_date IS NULL"
+
         # merge start and end dates into pagination query only if either is provided
-        if start_date or end_date:
-            if not start_date:
-                date_filter = f"date <= {end_date}"
+        date_filters: list[str] = []
+        if start_date:
+            # a week entry starting before `start_date` still overlaps the range if it ends on or after it
+            date_filters.append(f"(date >= {start_date} OR end_date >= {start_date})")
+        if end_date:
+            date_filters.append(f"date <= {end_date}")
 
-            elif not end_date:
-                date_filter = f"date >= {start_date}"
-
-            else:
-                date_filter = f"date >= {start_date} AND date <= {end_date}"
-
-            q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, date_filter)
+        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, week_filter, *date_filters)
 
         return self.repo.page_all(pagination=q)
 
@@ -114,6 +116,7 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=result.recipe.name if result.recipe else None,
                 recipe_slug=result.recipe.slug if result.recipe else None,
                 date=data.date,
+                end_date=data.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
@@ -149,6 +152,7 @@ class GroupMealplanController(BaseCrudController):
         result = self.mixins.create_one(
             SavePlanEntry(
                 date=data.date,
+                end_date=data.end_date,
                 entry_type=data.entry_type,
                 recipe_id=recipe.id,
                 group_id=self.group_id,
@@ -165,6 +169,7 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=recipe.name,
                 recipe_slug=recipe.slug,
                 date=data.date,
+                end_date=data.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
@@ -194,6 +199,7 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=result.recipe.name if result.recipe else None,
                 recipe_slug=result.recipe.slug if result.recipe else None,
                 date=result.date,
+                end_date=result.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
@@ -219,6 +225,7 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=result.recipe.name if result.recipe else None,
                 recipe_slug=result.recipe.slug if result.recipe else None,
                 date=result.date,
+                end_date=result.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
