@@ -10,14 +10,23 @@
   >
     <v-card-text>
       <MealPlanDatePicker v-model="pickerModel" :multiple="pickerMultiple" :entry-type="newMealType" />
+      <!-- the dates are part of the label, so they stay with the switch instead of floating above the next field -->
       <v-switch
         v-model="isWeekEntry"
         color="primary"
         density="compact"
-        :label="$t('meal-plan.plan-for-the-week')"
-        :hint="isWeekEntry ? `${$d(weekRange.start, 'short')} - ${$d(weekRange.end, 'short')}` : ''"
-        persistent-hint
-      />
+        hide-details
+        class="mb-2"
+      >
+        <template #label>
+          <div>
+            <div>{{ $t("meal-plan.plan-for-the-week") }}</div>
+            <div v-if="isWeekEntry" class="text-caption text-medium-emphasis">
+              {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+            </div>
+          </div>
+        </template>
+      </v-switch>
       <v-select
         v-model="newMealType"
         :return-object="false"
