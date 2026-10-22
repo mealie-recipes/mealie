@@ -100,6 +100,7 @@ class EventMealplanData(EventDocumentDataBase):
     document_type: EventDocumentType = EventDocumentType.mealplan
     mealplan_id: int
     date: date
+    end_date: date | None = None
     recipe_id: UUID4 | None = None
     recipe_name: str | None = None
     recipe_slug: str | None = None
