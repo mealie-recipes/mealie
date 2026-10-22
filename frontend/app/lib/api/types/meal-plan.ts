@@ -14,6 +14,7 @@ export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
 export interface CreatePlanEntry {
   date: string;
+  endDate?: string | null;
   entryType?: PlanEntryType;
   title?: string;
   text?: string;
@@ -22,6 +23,7 @@ export interface CreatePlanEntry {
 }
 export interface CreateRandomEntry {
   date: string;
+  endDate?: string | null;
   entryType?: PlanEntryType;
 }
 export interface ListItem {
@@ -69,6 +71,7 @@ export interface ReadMealPlanICalToken {
 }
 export interface ReadPlanEntry {
   date: string;
+  endDate?: string | null;
   entryType?: PlanEntryType;
   title?: string;
   text?: string;
@@ -133,6 +136,7 @@ export interface RecipeTool {
 }
 export interface SavePlanEntry {
   date: string;
+  endDate?: string | null;
   entryType?: PlanEntryType;
   title?: string;
   text?: string;
@@ -154,6 +158,7 @@ export interface ShoppingListOut {
 }
 export interface UpdatePlanEntry {
   date: string;
+  endDate?: string | null;
   entryType?: PlanEntryType;
   title?: string;
   text?: string;
