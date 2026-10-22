@@ -14,7 +14,6 @@
       <v-switch
         v-model="isWeekEntry"
         color="primary"
-        density="compact"
         hide-details
         class="mb-2"
       >

@@ -51,7 +51,6 @@
           <v-switch
             v-model="isWeekEntry"
             color="primary"
-            density="compact"
             hide-details
           >
             <template #label>
