@@ -64,6 +64,14 @@ describe("getApplicableRules", () => {
 
     expect(getApplicableRules([otherDay, otherType], wednesday, "dinner")).toEqual([]);
   });
+
+  test("skips weekday-specific rules for date range entries", () => {
+    const anyDay = createRule("unset", "dinner");
+    const sameDay = createRule("wednesday", "dinner");
+    const endDate = new Date(2026, 7, 25);
+
+    expect(getApplicableRules([anyDay, sameDay], wednesday, "dinner", endDate)).toEqual([anyDay]);
+  });
 });
 
 describe("buildRuleQueryFilter", () => {
