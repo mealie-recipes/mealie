@@ -106,6 +106,20 @@ def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scop
     assert get_feed(api_client, token, {"types": ["brunch"]}).status_code == 422
 
 
+def test_ical_feed_date_range_entry(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    end_date = JULY_1 + timedelta(days=6)
+    create_entry(api_client, user, date=JULY_1, end_date=end_date, entry_type="dinner", title=random_string())
+    token = enable_feed(api_client, user)
+
+    # date range entries are all-day events spanning the range, even when their type has a time;
+    # DTEND is exclusive, so it's the day after the last day
+    feed = unfold(get_feed(api_client, token, {"tz": "Europe/Berlin", "dinner": "18:30"}).text)
+    assert feed.count("BEGIN:VEVENT") == 1
+    last_day_exclusive = end_date + timedelta(days=1)
+    assert f"DTSTART;VALUE=DATE:{JULY_1:%Y%m%d}\r\nDTEND;VALUE=DATE:{last_day_exclusive:%Y%m%d}\r\n" in feed
+
+
 def test_ical_feed_skips_old_entries(api_client: TestClient, unique_user_fn_scoped: TestUser):
     user = unique_user_fn_scoped
     oldest = datetime.now(UTC).date() - timedelta(days=FEED_HISTORY_DAYS)
