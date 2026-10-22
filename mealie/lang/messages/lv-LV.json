@@ -31,6 +31,7 @@
             "ai-not-enabled": "AI pakalpojumi nav ieslēgti",
             "ai-request-failed": "Mākslīgā intelekta pakalpojuma sniedzējs nevarēja izpildīt pieprasījumu. Lūdzu, mēģiniet vēlreiz",
             "image-provider-not-enabled": "AI attēlu pakalpojumi nav ieslēgti",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Norādītajā avotā netika atrasta neviena recepte",
             "no-source": "Netika norādīts ne saturs, ne attēli, ne URL",
             "provider-returned-nothing": "Mākslīgā intelekta pakalpojumu sniedzējs neatsūtīja recepti",

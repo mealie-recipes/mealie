@@ -18,8 +18,8 @@
         "abbreviation": "tasses"
     },
     "fluid-ounce": {
-        "name": "centilitre",
-        "plural_name": "centilitres",
+        "name": "fl oz",
+        "plural_name": "fl oz",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -46,6 +46,12 @@
         "plural_name": "millilitres",
         "description": "",
         "abbreviation": "ml"
+    },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
     },
     "liter": {
         "name": "litre",

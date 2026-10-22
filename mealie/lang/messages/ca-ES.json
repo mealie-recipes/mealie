@@ -31,6 +31,7 @@
             "ai-not-enabled": "Els serveis d'IA no estan habilitats",
             "ai-request-failed": "El proveïdor d'IA no ha pogut completar la sol·licitud. Torna-ho a provar",
             "image-provider-not-enabled": "Els serveis d'imatge d'IA no estan habilitats",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No s'ha trobat cap recepta a la font proporcionada",
             "no-source": "No s'ha proporcionat cap contingut, imatge ni URL",
             "provider-returned-nothing": "El proveïdor d'IA no ha retornat cap recepta",

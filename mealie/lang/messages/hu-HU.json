@@ -31,6 +31,7 @@
             "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "Az AI képszolgáltatások nem engedélyezettek",
+            "invalid-mealie-export": "Úgy tűnik, ez egy a Mealie-ből exportált recept, de nem sikerült importálni",
             "no-recipe-found": "A megadott forrásban nem található recept",
             "no-source": "Nincs tartalom, kép vagy URL megadva",
             "provider-returned-nothing": "Az AI szolgáltató nem adott vissza receptet",

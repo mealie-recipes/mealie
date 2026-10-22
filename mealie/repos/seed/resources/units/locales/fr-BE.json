@@ -18,10 +18,10 @@
         "abbreviation": "tasses"
     },
     "fluid-ounce": {
-        "name": "centilitre",
+        "name": "fl oz",
         "plural_name": "onces liquides",
         "description": "",
-        "abbreviation": "cl"
+        "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pinte",
@@ -46,6 +46,12 @@
         "plural_name": "millilitres",
         "description": "",
         "abbreviation": "mL"
+    },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
     },
     "liter": {
         "name": "litre",

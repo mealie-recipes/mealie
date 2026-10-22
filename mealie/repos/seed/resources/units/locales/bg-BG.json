@@ -47,6 +47,12 @@
         "description": "",
         "abbreviation": "мл"
     },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
+    },
     "liter": {
         "name": "литър",
         "plural_name": "литра",

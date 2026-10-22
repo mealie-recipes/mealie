@@ -31,6 +31,7 @@
             "ai-not-enabled": "AI 服务未启用",
             "ai-request-failed": "AI 提供商无法完成请求。请重试",
             "image-provider-not-enabled": "AI 图像服务未启用",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "在提供的源中没有找到食谱",
             "no-source": "未提供任何内容、图像或网址",
             "provider-returned-nothing": "AI 提供者没有返回食谱",

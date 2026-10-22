@@ -31,6 +31,7 @@
             "ai-not-enabled": "ИИ сервисы выключены",
             "ai-request-failed": "Провайдер ИИ не смог выполнить запрос. Пожалуйста, попробуйте еще раз",
             "image-provider-not-enabled": "ИИ службы изображений выключены",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Рецепт не найден в указанном источнике",
             "no-source": "Нет содержимого, изображений или URL-адреса",
             "provider-returned-nothing": "Провайдер ИИ не вернул рецепт",
