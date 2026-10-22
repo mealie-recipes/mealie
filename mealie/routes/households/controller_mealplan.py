@@ -68,7 +68,7 @@ class GroupMealplanController(BaseCrudController):
         )
 
     def _get_random_recipes_from_mealplan(
-        self, plan_date: date, entry_type: PlanEntryType, limit: int = 1
+        self, plan_date: date, entry_type: PlanEntryType, limit: int = 1, end_date: date | None = None
     ) -> list[Recipe]:
         """
         Gets rules for a mealplan and returns a list of random recipes based on the rules.
@@ -77,7 +77,9 @@ class GroupMealplanController(BaseCrudController):
         Recipes from all households are included unless the rules specify a household filter.
         """
 
-        rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
+        # date range entries (e.g. a week) aren't on a specific weekday, so only rules for all days apply to them
+        day = PlanRulesDay.unset if end_date else PlanRulesDay.from_date(plan_date)
+        rules = self.repos.group_meal_plan_rules.get_rules(day, entry_type.value)
         cross_household_recipes = get_repositories(
             self.session, group_id=self.group_id, household_id=None
         ).recipes.by_user(self.user.id)
@@ -156,7 +158,7 @@ class GroupMealplanController(BaseCrudController):
         Refer to the meal plan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
-        random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
+        random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type, end_date=data.end_date)
         if not random_recipes:
             raise not_found(self.t("mealplan.no-recipes-match-your-rules"))
 

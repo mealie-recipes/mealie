@@ -442,6 +442,50 @@ def test_get_mealplan_with_rules_date_and_type_filter(api_client: TestClient, un
             unique_user.repos.group_meal_plan_rules.delete(rule.id)
 
 
+def test_get_rules_for_unset_day_skips_weekday_specific_rules(unique_user: TestUser):
+    any_day_rule = create_rule(unique_user, day=PlanRulesDay.unset, entry_type=PlanRulesType.unset)
+    saturday_rule = create_rule(unique_user, day=PlanRulesDay.saturday, entry_type=PlanRulesType.unset)
+
+    try:
+        rules = unique_user.repos.group_meal_plan_rules.get_rules(PlanRulesDay.unset, PlanRulesType.breakfast)
+        assert {rule.id for rule in rules} == {any_day_rule.id}
+
+        rules = unique_user.repos.group_meal_plan_rules.get_rules(PlanRulesDay.saturday, PlanRulesType.breakfast)
+        assert {rule.id for rule in rules} == {any_day_rule.id, saturday_rule.id}
+    finally:
+        unique_user.repos.group_meal_plan_rules.delete(any_day_rule.id)
+        unique_user.repos.group_meal_plan_rules.delete(saturday_rule.id)
+
+
+def test_get_mealplan_with_rules_week_entry_skips_weekday_specific_rules(api_client: TestClient, unique_user: TestUser):
+    any_day_tag, saturday_tag = [
+        unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id)) for _ in range(2)
+    ]
+    recipe = create_recipe(unique_user, tags=[any_day_tag])
+    [create_recipe(unique_user) for _ in range(5)]
+
+    rules = [
+        create_rule(unique_user, day=PlanRulesDay.unset, entry_type=PlanRulesType.breakfast, tags=[any_day_tag]),
+        create_rule(unique_user, day=PlanRulesDay.saturday, entry_type=PlanRulesType.breakfast, tags=[saturday_tag]),
+    ]
+
+    try:
+        # a day entry on a Saturday gets both rules, which no recipe satisfies
+        payload = {"date": "2023-02-25", "entryType": "breakfast"}
+        response = api_client.post(api_routes.households_mealplans_random, json=payload, headers=unique_user.token)
+        assert response.status_code == 404
+
+        # a week entry starting on that Saturday isn't on a specific weekday, so the Saturday rule is skipped
+        payload = {"date": "2023-02-25", "endDate": "2023-03-03", "entryType": "breakfast"}
+        response = api_client.post(api_routes.households_mealplans_random, json=payload, headers=unique_user.token)
+        assert response.status_code == 200
+        assert response.json()["recipe"]["slug"] == recipe.slug
+        assert response.json()["endDate"] == "2023-03-03"
+    finally:
+        for rule in rules:
+            unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
 def test_get_mealplan_with_rules_includes_other_households(
     api_client: TestClient, unique_user: TestUser, h2_user: TestUser
 ):
