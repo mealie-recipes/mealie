@@ -20,6 +20,7 @@ from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.openai import OpenAIService, transcription
+from mealie.services.openai.content import is_facebook_url
 from mealie.services.recipe.import_workflow import (
     RecipeImportWorkflow,
     WorkflowContext,
@@ -395,6 +396,10 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     def can_scrape(self) -> bool:
         if not self.url:
+            return False
+
+        # The shared workflow reads Facebook captions before trying audio.
+        if is_facebook_url(self.resource_url):
             return False
 
         settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
