@@ -33,10 +33,13 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     user_id: UUID4 | None = None
+    _last_made_household_id: UUID4 | None = None
 
     @property
     def column_aliases(self):
         if not self.user_id:
+            if self._last_made_household_id:
+                return {"last_made": self._get_last_made_col_alias()}
             return {}
 
         return {
@@ -51,16 +54,20 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
     def _get_last_made_col_alias(self) -> sa.ColumnElement | None:
         """
-        Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household,
-        otherwise an arbitrarily low date
+        Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household (without a user,
+        for the household of the public cookbook being read), otherwise an arbitrarily low date
         """
 
-        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+        household_id = (
+            sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+            if self.user_id
+            else self._last_made_household_id
+        )
         last_made_subquery = (
             sa.select(HouseholdToRecipe.last_made)
             .where(
                 HouseholdToRecipe.recipe_id == self.model.id,
-                HouseholdToRecipe.household_id == user_household_subquery,
+                HouseholdToRecipe.household_id == household_id,
             )
             .correlate(self.model)
             .scalar_subquery()
@@ -355,6 +362,9 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
 
+        # Checked before the cookbook's own filter is added: only that one may use last_made without a user
+        self._validate_last_made_query(pagination_result)
+
         if cookbook:
             pagination_result.query_filter = QueryFilterBuilder.combine_filters(
                 pagination_result.query_filter, cookbook.query_filter_string
@@ -379,13 +389,17 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         if search:
             q = self.add_search_to_query(q, self.schema, search)
 
-        self._validate_last_made_query(pagination_result)
-
         if not pagination_result.order_by and not search:
             # default ordering if not searching
             pagination_result.order_by = "created_at"
 
-        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        # Without a user, a public cookbook's filter resolves last_made against the cookbook's household
+        if cookbook and not self.user_id:
+            self._last_made_household_id = cookbook.household_id
+        try:
+            q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        finally:
+            self._last_made_household_id = None
 
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())

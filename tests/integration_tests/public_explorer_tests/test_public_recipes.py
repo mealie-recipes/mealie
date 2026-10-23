@@ -1,4 +1,5 @@
 import random
+from datetime import UTC, datetime, timedelta
 from typing import Any
 from uuid import uuid4
 
@@ -46,7 +47,13 @@ def test_public_recipes_reject_household_last_made_queries(api_client: TestClien
     assert response.status_code == 200
 
 
-def test_public_cookbook_rejects_household_last_made_filter(api_client: TestClient, unique_user: TestUser):
+def test_public_cookbook_last_made_filter_uses_cookbook_household(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    """
+    A logged-out visitor can read a public "not made recently" cookbook: the cookbook's own last_made
+    filter uses the cookbook's household. last_made in the visitor's own filter or sort is still rejected.
+    """
     group = unique_user.repos.groups.get_one(unique_user.group_id)
     assert group and group.preferences
     group.preferences.private_group = False
@@ -55,7 +62,33 @@ def test_public_cookbook_rejects_household_last_made_filter(api_client: TestClie
     household = unique_user.repos.households.get_one(unique_user.household_id)
     assert household and household.preferences
     household.preferences.private_household = False
+    household.preferences.recipe_public = True
     unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+    def create_recipe() -> Recipe:
+        response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+        assert response.status_code == 201
+        recipe = unique_user.repos.recipes.get_one(response.json())
+        assert recipe and recipe.settings and recipe.settings.public
+        return recipe
+
+    def mark_made(recipe: Recipe, when: datetime, token: dict) -> None:
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(recipe.slug),
+            json={"timestamp": when.isoformat()},
+            headers=token,
+        )
+        assert response.status_code == 200
+
+    now = datetime.now(tz=UTC)
+    made_recently = create_recipe()
+    made_long_ago = create_recipe()
+    never_made = create_recipe()
+    made_recently_by_other_household = create_recipe()
+
+    mark_made(made_recently, now - timedelta(days=3), unique_user.token)
+    mark_made(made_long_ago, now - timedelta(days=90), unique_user.token)
+    mark_made(made_recently_by_other_household, now - timedelta(days=3), h2_user.token)
 
     cookbook = unique_user.repos.cookbooks.create(
         SaveCookBook(
@@ -63,12 +96,24 @@ def test_public_cookbook_rejects_household_last_made_filter(api_client: TestClie
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
             public=True,
-            query_filter_string="lastMade IS NOT NULL",
+            query_filter_string='last_made <= "$NOW-30d"',
         )
     )
-    response = api_client.get(
-        api_routes.explore_groups_group_slug_recipes(group.slug), params={"cookbook": cookbook.id}
-    )
+    route = api_routes.explore_groups_group_slug_recipes(group.slug)
+
+    response = api_client.get(route, params={"cookbook": cookbook.id})
+    assert response.status_code == 200
+    fetched_recipe_ids = {item["id"] for item in response.json()["items"]}
+
+    assert str(made_long_ago.id) in fetched_recipe_ids
+    assert str(never_made.id) in fetched_recipe_ids
+    assert str(made_recently_by_other_household.id) in fetched_recipe_ids
+    assert str(made_recently.id) not in fetched_recipe_ids
+
+    response = api_client.get(route, params={"cookbook": cookbook.id, "queryFilter": "lastMade IS NOT NULL"})
+    assert response.status_code == 400
+
+    response = api_client.get(route, params={"cookbook": cookbook.id, "orderBy": "lastMade"})
     assert response.status_code == 400
 
 
