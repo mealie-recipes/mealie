@@ -1,4 +1,5 @@
-from datetime import date
+import datetime
+from datetime import date, timedelta
 from enum import StrEnum
 from typing import Annotated
 from uuid import UUID
@@ -26,13 +27,30 @@ class PlanEntryType(StrEnum):
     dessert = "dessert"
 
 
+WEEK_ENTRY_LENGTH = timedelta(days=6)
+"""How far `end_date` is from `date` on an entry planned for a week instead of a specific day"""
+
+
+def validate_end_date(value: date | None, info: ValidationInfo) -> date | None:
+    """Only single-day entries (no `end_date`) and week entries are supported"""
+    start = info.data.get("date")
+    if value is not None and start is not None and value != start + WEEK_ENTRY_LENGTH:
+        raise ValueError(f"`end_date` must be empty or {WEEK_ENTRY_LENGTH.days} days after `date`")
+
+    return value
+
+
 class CreateRandomEntry(MealieModel):
     date: date
+    end_date: datetime.date | None = None
     entry_type: PlanEntryType = PlanEntryType.dinner
+
+    _validate_end_date = field_validator("end_date")(validate_end_date)
 
 
 class CreatePlanEntry(MealieModel):
     date: date
+    end_date: datetime.date | None = None
     entry_type: PlanEntryType = PlanEntryType.breakfast
     title: str = ""
     text: str = ""
@@ -46,6 +64,8 @@ class CreatePlanEntry(MealieModel):
             raise ValueError(f"`recipe_id={value}` or `title={info.data['title']}` must be provided")
 
         return value
+
+    _validate_end_date = field_validator("end_date")(validate_end_date)
 
 
 class UpdatePlanEntry(CreatePlanEntry):

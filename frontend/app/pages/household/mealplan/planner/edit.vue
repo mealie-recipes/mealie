@@ -9,9 +9,9 @@
     />
     <MealPlanLayout :mealplans="mealplans">
       <template #default="{ plan, index, day }">
-        <MealPlanDay :day="day.date" :recipes="day.recipes" :actions="actions" inline-actions>
+        <MealPlanDay :day="day.date" :end-date="day.endDate" :recipes="day.recipes" :actions="actions" inline-actions>
           <VueDraggable
-            v-model="mealplansByDate[plan.date.toString()]!"
+            v-model="mealplansByDate[planKey(plan)]!"
             tag="div"
             handle=".handle"
             :delay="250"
@@ -19,12 +19,13 @@
             group="meals"
             :data-index="index"
             :data-box="plan.date"
-            style="min-height: 150px"
+            :class="{ 'week-meals': plan.endDate }"
+            :style="{ minHeight: plan.endDate ? '48px' : '150px' }"
             @end="onMoveCallback"
           >
             <SpinTransition>
               <v-card
-                v-for="mealplan in mealplansByDate[plan.date.toString()]"
+                v-for="mealplan in mealplansByDate[planKey(plan)]"
                 :key="mealplan.id"
                 class="my-2 ml-4 mr-1"
                 :class="{ handle: $vuetify.display.smAndUp }"
@@ -140,18 +141,23 @@ const props = defineProps<{
 const api = useUserApi();
 const planTypeOptions = usePlanTypeOptions();
 
+// a week and the day it starts on share a date, so weeks get their own keys
+function planKey(plan: MealsByDate) {
+  return `${plan.endDate ? "week-" : ""}${plan.date.toString()}`;
+}
+
 // Local mutable meals object
-const mealplansByDate = reactive<{ [date: string]: ReadPlanEntry[] }>({});
+const mealplansByDate = reactive<{ [key: string]: ReadPlanEntry[] }>({});
 watch(
   () => props.mealplans,
   (plans) => {
     for (const plan of plans) {
-      mealplansByDate[plan.date.toString()] = plan.meals ? [...plan.meals] : [];
+      mealplansByDate[planKey(plan)] = plan.meals ? [...plan.meals] : [];
     }
     // Remove any dates that no longer exist
-    Object.keys(mealplansByDate).forEach((date) => {
-      if (!plans.find(p => p.date.toString() === date)) {
-        mealplansByDate[date] = [];
+    Object.keys(mealplansByDate).forEach((key) => {
+      if (!plans.find(p => planKey(p) === key)) {
+        mealplansByDate[key] = [];
       }
     });
   },
@@ -164,10 +170,12 @@ function onMoveCallback(evt: SortableEvent) {
   const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
   if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-    const destDate = props.mealplans[toMealsByIndex].date;
-    const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
+    const dest = props.mealplans[toMealsByIndex];
+    const mealData = mealplansByDate[planKey(dest)][evt.newIndex as number];
 
-    mealData.date = format(destDate, "yyyy-MM-dd");
+    // moving between a week and a day schedules or unschedules the meal
+    mealData.date = format(dest.date, "yyyy-MM-dd");
+    mealData.endDate = dest.endDate ? format(dest.endDate, "yyyy-MM-dd") : null;
 
     props.actions.updateOne(mealData);
   }
@@ -198,6 +206,7 @@ async function randomizeMeal(mealplan: ReadPlanEntry) {
   // Create the new random entry first, so a failure here doesn't lose the current entry
   const { data: created } = await api.mealplans.setRandom({
     date: mealplan.date,
+    endDate: mealplan.endDate,
     entryType: mealplan.entryType,
   });
 

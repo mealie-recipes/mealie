@@ -26,6 +26,13 @@ from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = APIRouter(prefix="/households/mealplans", tags=["Households: Meal Plans"])
 
+MEALPLAN_NOTIFICATION_KEYS: dict[EventOperation, tuple[str, str]] = {
+    EventOperation.create: ("notifications.mealplan-entry-created", "notifications.mealplan-range-entry-created"),
+    EventOperation.update: ("notifications.mealplan-entry-updated", "notifications.mealplan-range-entry-updated"),
+    EventOperation.delete: ("notifications.mealplan-entry-deleted", "notifications.mealplan-range-entry-deleted"),
+}
+"""Notification message translation keys per operation, as `(day entry key, date range entry key)`"""
+
 
 @controller(router)
 class GroupMealplanController(BaseCrudController):
@@ -36,6 +43,15 @@ class GroupMealplanController(BaseCrudController):
     def _translated_entry_type(self, entry_type) -> str:
         value = getattr(entry_type, "value", entry_type)
         return self.t(f"mealplan.entry-type.{value}", default=str(value))
+
+    def _notification_message(self, operation: EventOperation, entry: ReadPlanEntry) -> str:
+        day_key, range_key = MEALPLAN_NOTIFICATION_KEYS[operation]
+        return self.t(
+            range_key if entry.end_date else day_key,
+            date=entry.date,
+            end_date=entry.end_date,
+            entry_type=self._translated_entry_type(entry.entry_type),
+        )
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
@@ -52,7 +68,7 @@ class GroupMealplanController(BaseCrudController):
         )
 
     def _get_random_recipes_from_mealplan(
-        self, plan_date: date, entry_type: PlanEntryType, limit: int = 1
+        self, plan_date: date, entry_type: PlanEntryType, limit: int = 1, end_date: date | None = None
     ) -> list[Recipe]:
         """
         Gets rules for a mealplan and returns a list of random recipes based on the rules.
@@ -61,7 +77,9 @@ class GroupMealplanController(BaseCrudController):
         Recipes from all households are included unless the rules specify a household filter.
         """
 
-        rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
+        # date range entries (e.g. a week) aren't on a specific weekday, so only rules for all days apply to them
+        day = PlanRulesDay.unset if end_date else PlanRulesDay.from_date(plan_date)
+        rules = self.repos.group_meal_plan_rules.get_rules(day, entry_type.value)
         cross_household_recipes = get_repositories(
             self.session, group_id=self.group_id, household_id=None
         ).recipes.by_user(self.user.id)
@@ -84,19 +102,21 @@ class GroupMealplanController(BaseCrudController):
         q: PaginationQuery = Depends(PaginationQuery),
         start_date: date | None = None,
         end_date: date | None = None,
+        include_week_entries: bool = False,
     ):
+        # week entries are opt-in so existing API clients, which expect every entry to be on a specific day,
+        # aren't handed them
+        week_filter = None if include_week_entries else "end_date IS NULL"
+
         # merge start and end dates into pagination query only if either is provided
-        if start_date or end_date:
-            if not start_date:
-                date_filter = f"date <= {end_date}"
+        date_filters: list[str] = []
+        if start_date:
+            # a week entry starting before `start_date` still overlaps the range if it ends on or after it
+            date_filters.append(f"(date >= {start_date} OR end_date >= {start_date})")
+        if end_date:
+            date_filters.append(f"date <= {end_date}")
 
-            elif not end_date:
-                date_filter = f"date >= {start_date}"
-
-            else:
-                date_filter = f"date >= {start_date} AND date <= {end_date}"
-
-            q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, date_filter)
+        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, week_filter, *date_filters)
 
         return self.repo.page_all(pagination=q)
 
@@ -114,14 +134,11 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=result.recipe.name if result.recipe else None,
                 recipe_slug=result.recipe.slug if result.recipe else None,
                 date=data.date,
+                end_date=data.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-created",
-                date=data.date,
-                entry_type=self._translated_entry_type(data.entry_type),
-            ),
+            message=self._notification_message(EventOperation.create, result),
         )
 
         return result
@@ -141,7 +158,7 @@ class GroupMealplanController(BaseCrudController):
         Refer to the meal plan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
-        random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
+        random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type, end_date=data.end_date)
         if not random_recipes:
             raise not_found(self.t("mealplan.no-recipes-match-your-rules"))
 
@@ -149,6 +166,7 @@ class GroupMealplanController(BaseCrudController):
         result = self.mixins.create_one(
             SavePlanEntry(
                 date=data.date,
+                end_date=data.end_date,
                 entry_type=data.entry_type,
                 recipe_id=recipe.id,
                 group_id=self.group_id,
@@ -165,14 +183,11 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=recipe.name,
                 recipe_slug=recipe.slug,
                 date=data.date,
+                end_date=data.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-created",
-                date=data.date,
-                entry_type=self._translated_entry_type(data.entry_type),
-            ),
+            message=self._notification_message(EventOperation.create, result),
         )
 
         return result
@@ -194,14 +209,11 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=result.recipe.name if result.recipe else None,
                 recipe_slug=result.recipe.slug if result.recipe else None,
                 date=result.date,
+                end_date=result.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-updated",
-                date=result.date,
-                entry_type=self._translated_entry_type(result.entry_type),
-            ),
+            message=self._notification_message(EventOperation.update, result),
         )
 
         return result
@@ -219,14 +231,11 @@ class GroupMealplanController(BaseCrudController):
                 recipe_name=result.recipe.name if result.recipe else None,
                 recipe_slug=result.recipe.slug if result.recipe else None,
                 date=result.date,
+                end_date=result.end_date,
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=self.t(
-                "notifications.mealplan-entry-deleted",
-                date=result.date,
-                entry_type=self._translated_entry_type(result.entry_type),
-            ),
+            message=self._notification_message(EventOperation.delete, result),
         )
 
         return result

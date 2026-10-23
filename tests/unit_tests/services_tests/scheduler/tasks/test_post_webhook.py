@@ -319,3 +319,32 @@ def test_get_meals_by_date_range_invalid_date_range(unique_user: TestUser):
     meals_in_range = meal_repo.get_meals_by_date_range(start_date, end_date)
 
     assert len(meals_in_range) == 0
+
+
+def test_get_meals_by_date_range_skips_week_entries(unique_user: TestUser):
+    """
+    Test that get_meals_by_date_range leaves out week entries, since they aren't planned for a specific day.
+    """
+    meal_repo = unique_user.repos.meals
+
+    today = datetime.now(UTC)
+
+    week_meal = meal_repo.create(
+        {
+            "date": today,
+            "end_date": (today + timedelta(days=6)).date(),
+            "entry_type": "dinner",
+            "title": "Week Meal",
+            "text": "Test meal for a week",
+            "group_id": unique_user.group_id,
+            "household_id": unique_user.household_id,
+            "user_id": unique_user.user_id,
+        }
+    )
+
+    try:
+        meals_in_range = meal_repo.get_meals_by_date_range(today, today)
+        assert week_meal.id not in [meal.id for meal in meals_in_range]
+
+    finally:
+        meal_repo.delete(week_meal.id)
