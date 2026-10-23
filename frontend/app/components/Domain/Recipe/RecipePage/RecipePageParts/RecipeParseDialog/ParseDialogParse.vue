@@ -27,6 +27,7 @@
     </div>
     <RecipeIngredientEditor
       v-model="currentIng.ingredient"
+      stacked
       :unit-error="!!currentMissingUnit"
       :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
       :food-error="!!currentMissingFood"
