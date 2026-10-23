@@ -1,11 +1,9 @@
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, ForeignKey, UniqueConstraint, event
-from sqlalchemy.engine.base import Connection
+from sqlalchemy import Column, ForeignKey, UniqueConstraint
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy.orm.session import Session
 
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 
@@ -34,27 +32,3 @@ class HouseholdToRecipe(SqlAlchemyBase, BaseMixins):
     @auto_init()
     def __init__(self, **_) -> None:
         pass
-
-
-def update_recipe_last_made(session: Session, target: HouseholdToRecipe):
-    if not target.last_made:
-        return
-
-    from mealie.db.models.recipe.recipe import RecipeModel
-
-    recipe = session.query(RecipeModel).filter(RecipeModel.id == target.recipe_id).first()
-    if not recipe:
-        return
-
-    recipe.last_made = recipe.last_made or target.last_made
-    recipe.last_made = max(recipe.last_made, target.last_made)
-
-
-@event.listens_for(HouseholdToRecipe, "after_insert")
-@event.listens_for(HouseholdToRecipe, "after_update")
-@event.listens_for(HouseholdToRecipe, "after_delete")
-def update_recipe_rating_on_insert_or_delete(_, connection: Connection, target: HouseholdToRecipe):
-    session = Session(bind=connection)
-
-    update_recipe_last_made(session, target)
-    session.commit()

@@ -163,7 +163,7 @@
         "plural_name": "pastinakker"
       },
       "poblano pepper": {
-        "name": "poblano peber",
+        "name": "poblanopeber",
         "plural_name": "poblanopeber"
       },
       "green tomato": {
@@ -697,7 +697,7 @@
         "plural_name": "ribbensstege"
       },
       "beef sirloin": {
-        "name": "okseryg",
+        "name": "oksetyndsteg",
         "plural_name": "oksetyndsteg"
       },
       "brisket": {
@@ -709,7 +709,7 @@
         "plural_name": "lammekøller"
       },
       "beef short rib": {
-        "name": "okse‑short ribs",
+        "name": "okse‑\"short rib\"",
         "plural_name": "okse‑\"short ribs\""
       },
       "pork belly": {
@@ -733,7 +733,7 @@
         "plural_name": "kyllingebryster"
       },
       "chicken thigh": {
-        "name": "kyllingelår",
+        "name": "kyllingeoverlår",
         "plural_name": "kyllingeoverlår"
       },
       "ground turkey": {
@@ -749,7 +749,7 @@
         "plural_name": "hele kalkuner"
       },
       "chicken leg": {
-        "name": "kyllingelår",
+        "name": "kyllingeunderlår",
         "plural_name": "kyllingeunderlår"
       },
       "chicken wing": {
@@ -1282,7 +1282,7 @@
         "plural_name": "dåse-kidneybønner"
       },
       "refried bean": {
-        "name": "refried bean",
+        "name": "genopvarmede bønner",
         "plural_name": "genopvarmede bønner"
       },
       "canned whole tomato": {
@@ -2196,7 +2196,7 @@
         "plural_name": "grahams-kiks"
       },
       "cracker": {
-        "name": "knækbrød",
+        "name": "kiks",
         "plural_name": "kiks"
       },
       "tortilla chip": {

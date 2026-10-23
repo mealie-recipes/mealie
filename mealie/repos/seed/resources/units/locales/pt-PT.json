@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "onça fluida",
-        "plural_name": "onças fluídas",
+        "plural_name": "onças líquidas",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -46,6 +46,12 @@
         "plural_name": "mililitros",
         "description": "",
         "abbreviation": "ml"
+    },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
     },
     "liter": {
         "name": "litro",
@@ -92,7 +98,7 @@
     },
     "dash": {
         "name": "pitada",
-        "plural_name": "traços",
+        "plural_name": "pitadas",
         "description": "",
         "abbreviation": ""
     },

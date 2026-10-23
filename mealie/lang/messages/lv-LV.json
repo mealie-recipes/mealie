@@ -1,13 +1,20 @@
 {
     "generic": {
-        "server-error": "Notikusi nezināma kļūda"
+        "server-error": "Radās neparedzēta kļūda"
     },
     "recipe": {
         "unique-name-error": "Receptes nosaukums nevar atkārtoties",
         "recipe-created": "Recepte izveidota",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Receptes attēls dzēsts",
         "recipe-defaults": {
-            "ingredient-note": "1 gl. Milti",
+            "ingredient-note": "1 gl. miltu",
             "name": "New Recipe",
             "step-text": "Receptes darbības, kā arī citi lauki receptes lapā atbalsta atzīmes sintaksi.\n\n**Pievienot saiti**\n\n[Mana saite](https://demo.mealie.io)\n"
         },
@@ -24,6 +31,7 @@
             "ai-not-enabled": "AI pakalpojumi nav ieslēgti",
             "ai-request-failed": "Mākslīgā intelekta pakalpojuma sniedzējs nevarēja izpildīt pieprasījumu. Lūdzu, mēģiniet vēlreiz",
             "image-provider-not-enabled": "AI attēlu pakalpojumi nav ieslēgti",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Norādītajā avotā netika atrasta neviena recepte",
             "no-source": "Netika norādīts ne saturs, ne attēli, ne URL",
             "provider-returned-nothing": "Mākslīgā intelekta pakalpojumu sniedzējs neatsūtīja recepti",
@@ -68,7 +76,7 @@
         "report-deleted": "Pārskats izdzēsts."
     },
     "exceptions": {
-        "permission_denied": "Jums nav atļaujas veikt šo darbību",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Recepte nevar atsaukties uz sevi pašu, ne tieši, ne netieši",
         "no-entry-found": "Pieprasītais resurss netika atrasts",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

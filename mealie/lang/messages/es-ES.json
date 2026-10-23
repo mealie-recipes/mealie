@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "El nombre de la receta debe ser único",
         "recipe-created": "Receta creada",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imagen de receta eliminada",
         "recipe-defaults": {
             "ingredient-note": "1 Taza de harina",
@@ -24,6 +31,7 @@
             "ai-not-enabled": "Los servicios de IA no están activado",
             "ai-request-failed": "El proveedor de IA no pudo completar la solicitud. Por favor, inténtelo de nuevo",
             "image-provider-not-enabled": "Los servicios de imágenes IA no están habilitados",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No se encontró ninguna receta en la fuente proporcionada",
             "no-source": "No se proporcionaron contenidos, imágenes o URL",
             "provider-returned-nothing": "El proveedor de IA no devolvió una receta",
@@ -68,7 +76,7 @@
         "report-deleted": "El informe fue eliminado."
     },
     "exceptions": {
-        "permission_denied": "No tiene permiso para realizar esta acción",
+        "permission-denied": "No tiene permiso para realizar esta acción",
         "recursive-recipe-link": "Una receta no puede referenciarse, sea directa o indirectamente",
         "no-entry-found": "No se ha encontrado el recurso solicitado",
         "rate-limit-error": "El proveedor de IA está limitando las solicitudes. Por favor, espere un momento y vuelva a intentarlo",

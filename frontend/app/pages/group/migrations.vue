@@ -249,24 +249,28 @@ const _content: Record<string, MigrationContent> = {
     tree: [
       {
         icon: $globals.icons.zip,
-        title: "nextcloud.zip",
+        title: "chowdown-gh-pages.zip",
         children: [
           {
-            title: i18n.t("migration.recipe-1"),
+            title: "chowdown-gh-pages",
             icon: $globals.icons.folderOutline,
             children: [
-              { title: "recipe.json", icon: $globals.icons.codeJson },
-              { title: "full.jpg", icon: $globals.icons.fileImage },
-              { title: "thumb.jpg", icon: $globals.icons.fileImage },
-            ],
-          },
-          {
-            title: i18n.t("migration.recipe-2"),
-            icon: $globals.icons.folderOutline,
-            children: [
-              { title: "recipe.json", icon: $globals.icons.codeJson },
-              { title: "full.jpg", icon: $globals.icons.fileImage },
-              { title: "thumb.jpg", icon: $globals.icons.fileImage },
+              {
+                title: "_recipes",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { title: "recipe-one.md", icon: $globals.icons.codeJson },
+                  { title: "recipe-two.md", icon: $globals.icons.codeJson },
+                ],
+              },
+              {
+                title: "images",
+                icon: $globals.icons.folderOutline,
+                children: [
+                  { title: "recipe-one.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe-two.jpg", icon: $globals.icons.fileImage },
+                ],
+              },
             ],
           },
         ],

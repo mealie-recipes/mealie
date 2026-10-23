@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 
 from mealie.core.config import get_app_settings
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BasePublicController, controller
-from mealie.schema.response import ErrorResponse
+from mealie.routes._base.permissions import forbidden
 from mealie.schema.user.registration import CreateUserRegistration
 from mealie.schema.user.user import UserOut
 from mealie.services.event_bus_service.event_bus_service import EventBusService
@@ -22,10 +22,7 @@ class RegistrationController(BasePublicController):
         settings = get_app_settings()
 
         if not settings.ALLOW_SIGNUP and data.group_token is None or data.group_token == "":
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail=ErrorResponse.respond("User Registration is Disabled"),
-            )
+            raise forbidden("User Registration is Disabled")
 
         registration_service = RegistrationService(
             self.logger,

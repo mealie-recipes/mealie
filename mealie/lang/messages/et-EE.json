@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Retseptide nimed peavad olema unikaalsed",
         "recipe-created": "Retsept loodud",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Retsepti pilt kustutatud",
         "recipe-defaults": {
             "ingredient-note": "1 tass jahu",
@@ -13,7 +20,7 @@
         },
         "servings-text": {
             "makes": "Teeb",
-            "serves": "Jätkub",
+            "serves": "Serveerib",
             "serving": "Portsjon",
             "servings": "Portsioneid",
             "yield": "Saagikus",
@@ -24,6 +31,7 @@
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
@@ -68,7 +76,7 @@
         "report-deleted": "Raport kustutatud."
     },
     "exceptions": {
-        "permission_denied": "Sul puuduvad selle toimingu tegemiseks õigused",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Retsept ei saa viidata iseendale ei otseselt ega kaudselt",
         "no-entry-found": "Soovitud ressurssi ei leitud",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

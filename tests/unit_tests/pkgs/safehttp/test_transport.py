@@ -195,6 +195,29 @@ async def test_async_transport_falls_back_to_a_reachable_address(monkeypatch, ip
         assert resp.text == "OK"
 
 
+def test_validate_url_blocks_private_target(monkeypatch):
+    _patch_resolver(monkeypatch, ["10.0.0.5"])
+    with pytest.raises(InvalidDomainError):
+        safehttp.validate_url("https://evil.example/hook")
+
+
+def test_validate_url_blocks_loopback_literal():
+    with pytest.raises(InvalidDomainError):
+        safehttp.validate_url("http://127.0.0.1:8742/")
+
+
+def test_validate_url_allows_public_target(monkeypatch):
+    _patch_resolver(monkeypatch, ["93.184.216.34"])
+    assert safehttp.validate_url("https://example.test/hook") is None
+
+
+def test_validate_url_respects_allow_and_deny_lists(monkeypatch):
+    _patch_resolver(monkeypatch, ["10.0.0.5"])
+    assert safehttp.validate_url("https://internal.example/", allow_hosts=["internal.example"]) is None
+    with pytest.raises(InvalidDomainError):
+        safehttp.validate_url("https://internal.example/", allow_hosts=["internal.example"], deny_hosts=["10.0.0.0/8"])
+
+
 def test_sync_post_blocks_loopback_by_default():
     with _LocalServer() as server:
         with pytest.raises(InvalidDomainError):

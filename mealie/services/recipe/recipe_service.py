@@ -32,11 +32,13 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
+from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.parser_services._base import DataMatcher
+from mealie.services.recipe.mealie_export import InvalidMealieExportError
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
@@ -226,7 +228,6 @@ class RecipeService(RecipeServiceBase):
                 data.settings = RecipeSettings()
 
         rating_input = data.rating
-        data.last_made = None
         new_recipe = self.repos.recipes.create(data)
 
         # convert rating into user rating
@@ -260,10 +261,12 @@ class RecipeService(RecipeServiceBase):
             # default to the current user
             return str(self.user.id)
 
-    def _transform_category_or_tag(self, data: dict, repo: RepositoryGeneric) -> dict:
+    def _transform_category_or_tag(self, data: dict, repo: RepositoryGeneric) -> dict | None:
         slug = data.get("slug")
         if not slug:
-            return data
+            # nothing to resolve by, and passing the incoming id through would let the recipe model
+            # link, and overwrite, an organizer from another group
+            return None
 
         # if the item exists, return the actual data
         query = repo.get_one(slug, "slug")
@@ -273,6 +276,37 @@ class RecipeService(RecipeServiceBase):
         # otherwise, create the item
         new_item = repo.create(data)
         return new_item.model_dump()
+
+    def _transform_tool(self, data: dict) -> dict | None:
+        """Resolve a tool within the importing group, never through an id from another group.
+
+        The recipe model links tools by primary key and copies the incoming fields onto the row it
+        finds, so passing a foreign id through would move and rename another group's tool.
+        """
+        tool = None
+        if tool_id := self._parse_uuid(data.get("id")):
+            tool = self.repos.tools.get_one(tool_id)
+        if tool is None and (slug := data.get("slug")):
+            tool = self.repos.tools.get_one(slug, "slug")
+        if tool is None:
+            name = self._non_empty_str(data.get("name"))
+            if not name:
+                return None
+            tool = self.repos.tools.create(RecipeToolSave(name=name, group_id=self.user.group_id))
+
+        return {"id": str(tool.id), "group_id": str(tool.group_id), "name": tool.name, "slug": tool.slug}
+
+    def _transform_referenced_recipe(self, data: dict) -> dict | None:
+        """Keep a sub-recipe reference only when that recipe belongs to the importing group.
+
+        The reference is resolved by primary key without a group filter, and reading the recipe
+        serializes the referenced recipe in full, so a foreign id would expose another group's recipe.
+        """
+        recipe_id = self._parse_uuid(data.get("id"))
+        if recipe_id and self.group_recipes.get_one(recipe_id, key="id"):
+            return data
+
+        return None
 
     def _get_data_matcher(self) -> DataMatcher:
         if self._data_matcher is None:
@@ -366,7 +400,11 @@ class RecipeService(RecipeServiceBase):
 
     def _process_recipe_data(self, key: str, data: list | dict | Any) -> Any:
         if isinstance(data, list):
-            return [self._process_recipe_data(key, item) for item in data]
+            items = [self._process_recipe_data(key, item) for item in data]
+            if key in ("recipe_category", "tags", "tools"):
+                # organizers that could not be resolved within the importing group are dropped
+                items = [item for item in items if item is not None]
+            return items
 
         elif isinstance(data, str):
             # make sure the user is valid
@@ -396,6 +434,10 @@ class RecipeService(RecipeServiceBase):
             return self._transform_food(data)
         elif key == "unit":
             return self._transform_unit(data)
+        elif key == "tools":
+            return self._transform_tool(data)
+        elif key == "referenced_recipe":
+            return self._transform_referenced_recipe(data)
         # recursively process other objects
         for k, v in data.items():
             data[k] = self._process_recipe_data(k, v)
@@ -410,13 +452,8 @@ class RecipeService(RecipeServiceBase):
         so the lookup deliberately runs without the group and household filters, and matches on
         `id` because the recipe repository is keyed by slug.
         """
-        recipe_id = recipe.get("id")
+        recipe_id = self._parse_uuid(recipe.get("id"))
         if not recipe_id:
-            return recipe
-
-        try:
-            recipe_id = UUID(str(recipe_id))
-        except ValueError:
             return recipe
 
         all_recipes = get_repositories(self.repos.session, group_id=None, household_id=None).recipes
@@ -425,8 +462,58 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    @staticmethod
+    def _parse_uuid(value: Any) -> UUID | None:
+        if not value:
+            return None
+        try:
+            return UUID(str(value))
+        except ValueError:
+            return None
+
     def clean_recipe_dict(self, recipe: dict[str, Any]) -> dict[str, Any]:
+        # The checks below only recognise snake_case keys. camelCase input would skip them, and its
+        # `groupId` would win over the group stamped on each object, so normalise the keys first.
+        recipe = Recipe.model_validate(recipe).model_dump(mode="json")
         return self._process_recipe_data("recipe", self._replace_taken_id(recipe))
+
+    def _apply_household_visibility(self, recipe: Recipe) -> None:
+        """Make an imported recipe follow the household's `recipe_public` preference.
+
+        An export carries the visibility of the household it came from, which must not make a
+        recipe public in a household that keeps its recipes private. The other settings are kept
+        as exported.
+        """
+        if self.household.preferences is None:
+            return
+        if recipe.settings is None:
+            recipe.settings = RecipeSettings()
+        recipe.settings.public = self.household.preferences.recipe_public
+
+    def create_from_mealie_export(self, recipe: dict[str, Any], include_tags: bool, include_categories: bool) -> Recipe:
+        """Create a recipe from a pasted recipe dump produced by Mealie (see `parse_mealie_export`).
+
+        A paste carries no files, so its image key and asset entries would point at nothing, and
+        comments belong to the recipe they were written on. All three are dropped before
+        validation, so a hand-edited comment cannot fail the import.
+
+        Raises `InvalidMealieExportError` with a translated message when the dump cannot be imported.
+        """
+        recipe = {k: v for k, v in recipe.items() if k not in ("image", "assets", "comments")}
+        try:
+            cleaned = self.clean_recipe_dict(recipe)
+            if not include_tags:
+                cleaned["tags"] = []
+            if not include_categories:
+                cleaned["recipe_category"] = []
+
+            recipe_data = Recipe(**cleaned)
+            self._apply_household_visibility(recipe_data)
+            return self.create_one(recipe_data)
+        except Exception as e:
+            # the paste was recognised as a Mealie export, so falling back to the web scraper would
+            # only produce the degraded import this path exists to avoid
+            raise InvalidMealieExportError(self.t("recipe.import-errors.invalid-mealie-export")) from e
 
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """
@@ -451,7 +538,9 @@ class RecipeService(RecipeServiceBase):
         if recipe_dict is None:
             raise exceptions.UnexpectedNone("No json data found in Zip")
 
-        recipe = self.create_one(Recipe(**self.clean_recipe_dict(recipe_dict)))
+        recipe_data = Recipe(**self.clean_recipe_dict(recipe_dict))
+        self._apply_household_visibility(recipe_data)
+        recipe = self.create_one(recipe_data)
 
         if recipe and recipe.id:
             data_service = RecipeDataService(recipe.id)
@@ -496,8 +585,6 @@ class RecipeService(RecipeServiceBase):
             if old_recipe.recipe_ingredient is None
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
-        new_recipe.last_made = None
-
         new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
         new_recipe = self.repos.recipes.create(new_recipe)

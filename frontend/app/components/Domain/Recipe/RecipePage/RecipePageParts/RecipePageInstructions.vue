@@ -232,6 +232,8 @@
                 :placeholder="$t('recipe.section-title')"
                 bg-color="primary"
                 hide-details
+                :autofocus="autofocusSectionId === step.id"
+                @update:focused="onSectionTitleFocused(step.id, $event)"
               />
             </template>
             <template v-else>
@@ -268,7 +270,7 @@
                   </v-text-field>
                   <div
                     v-else
-                    class="summary-wrapper"
+                    class="summary-wrapper d-flex justify-space-between"
                   >
                     <template v-if="step.summary">
                       <SafeMarkdown
@@ -281,6 +283,7 @@
                         {{ $t('recipe.step-index', { step: index + 1 }) }}
                       </span>
                     </template>
+                    <CookTime :model-value="step.durationSeconds ?? null" :is-edit-mode="false" />
                   </div>
                   <template v-if="isEditForm">
                     <div class="ml-auto">
@@ -408,7 +411,7 @@
                   />
                   <div
                     v-if="step.ingredientReferences && step.ingredientReferences.length"
-                    class="linked-ingredients-editor"
+                    class="linked-ingredients-editor pb-2"
                   >
                     <div
                       v-for="(linkRef, i) in step.ingredientReferences"
@@ -437,8 +440,14 @@
                       {{ noteRef.referenceId != null ? (noteLookup[noteRef.referenceId] || $t('recipe.note')) : '' }}
                     </div>
                   </div>
+                  <CookTime
+                    :model-value="step.durationSeconds ?? null"
+                    :is-edit-mode="isEditForm"
+                    @update:model-value="step.durationSeconds = $event"
+                  />
                 </v-card-text>
               </DropZone>
+
               <v-expand-transition>
                 <div
                   v-if="!isChecked(index) && !isEditForm"
@@ -524,6 +533,7 @@ import DropZone from "~/components/global/DropZone.vue";
 import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
+import CookTime from "./CookTime.vue";
 
 interface MergerHistory {
   target: number;
@@ -562,6 +572,9 @@ const unusedIngredients = ref<RecipeIngredient[]>([]);
 const usedIngredients = ref<RecipeIngredient[]>([]);
 
 const showTitleEditor = ref<{ [key: string]: boolean }>({});
+// set when a section is opened from the toolbar, cleared once its field takes focus, so that
+// scrolling an already-open section back into view does not pull focus again
+const autofocusSectionId = ref<string | null>(null);
 
 // ===============================================================
 // UI State Helpers
@@ -574,8 +587,11 @@ watch(instructionList, (v) => {
   disabledSteps.value = [];
 
   v.forEach((element: RecipeStep) => {
-    if (element.id !== undefined) {
-      showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
+    // Only derive visibility for steps we have not seen yet. This watcher is deep, so it also
+    // fires while the user is typing a section title, and re-deriving would close the editor
+    // the moment they cleared the text they had just entered.
+    if (element.id !== undefined && !(element.id in showTitleEditor.value)) {
+      showTitleEditor.value[element.id] = hasSectionTitle(element.title!);
     }
   });
 }, { deep: true });
@@ -627,6 +643,12 @@ function sectionTitleLabel(id?: string) {
     : i18n.t("recipe.add-section");
 }
 
+function onSectionTitleFocused(id: string | undefined, focused: boolean) {
+  if (focused && id && autofocusSectionId.value === id) {
+    autofocusSectionId.value = null;
+  }
+}
+
 function toggleShowTitle(id?: string) {
   if (!id) {
     return;
@@ -634,12 +656,15 @@ function toggleShowTitle(id?: string) {
 
   const showing = showTitleEditor.value[id];
   if (showing) {
-    // visibility is re-derived from the title whenever the list changes, so hiding a section
-    // only sticks if the title goes with it
+    // the button clears the section rather than just hiding it, so drop the title with it
     const step = instructionList.value.find(element => element.id === id);
     if (step) {
       step.title = "";
     }
+  }
+  else {
+    // the field is rendered by the line below, so ask for focus and let it claim it on mount
+    autofocusSectionId.value = id;
   }
 
   showTitleEditor.value[id] = !showing;

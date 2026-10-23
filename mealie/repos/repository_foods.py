@@ -1,18 +1,51 @@
+from collections.abc import Sequence
+
 from pydantic import UUID4
-from sqlalchemy import select, update
-from sqlalchemy.orm import joinedload
+from sqlalchemy import func, select, update
+from sqlalchemy.orm import joinedload, with_expression
 
 from mealie.db.models.household.shopping_list import ShoppingListItem
-from mealie.db.models.recipe.ingredient import IngredientFoodModel, RecipeIngredientSubstitutionModel
+from mealie.db.models.recipe.ingredient import (
+    IngredientFoodModel,
+    RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
+)
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 
 from .repository_generic import GroupRepositoryGeneric
 
 
 class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]):
+    def _query(self, override_schema=None, with_options=True):
+        q = super()._query(override_schema=override_schema, with_options=with_options)
+        count_sq = (
+            select(func.count(func.distinct(RecipeIngredientModel.recipe_id)))
+            .where(RecipeIngredientModel.food_id == IngredientFoodModel.id)
+            .correlate(IngredientFoodModel)
+            .scalar_subquery()
+        )
+        return q.options(with_expression(IngredientFoodModel.recipe_count, count_sq))
+
     def _get_food(self, id: UUID4) -> IngredientFoodModel:
         stmt = select(self.model).filter_by(**self._filter_builder(**{"id": id}))
         return self.session.execute(stmt).scalars().one()
+
+    def get_empty(self) -> Sequence[IngredientFoodModel]:
+        # a food is only "unused" if it's absent from both recipe ingredients and
+        # shopping list items; IngredientFoodModel has no ORM relationship to
+        # ShoppingListItem, so we check the latter via an EXISTS subquery
+        used_in_shopping_lists = (
+            select(ShoppingListItem.id)
+            .where(ShoppingListItem.food_id == IngredientFoodModel.id)
+            .correlate(IngredientFoodModel)
+            .exists()
+        )
+        stmt = (
+            select(IngredientFoodModel)
+            .filter(~IngredientFoodModel.ingredients.any(), ~used_in_shopping_lists)
+            .filter_by(**self._filter_builder())
+        )
+        return self.session.execute(stmt).scalars().all()
 
     def _merge_substitutions(self, from_model: IngredientFoodModel, to_model: IngredientFoodModel) -> None:
         """
@@ -77,22 +110,24 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
         # the recipe tier has no unique constraint to lean on, so duplicates are collapsed here,
         # keeping the first the same way the schema does when it prunes a payload
         repointed_ingredient_ids: set[int] = set()
-        repointed_rows: list[RecipeIngredientSubstitutionModel] = []
+        repointed_ids: list[UUID4] = []
         for row in self.session.execute(stmt).unique().scalars().all():
             if row.ingredient.food_id in merged_food_ids or row.ingredient_id in repointed_ingredient_ids:
                 self.session.delete(row)
                 continue
 
             repointed_ingredient_ids.add(row.ingredient_id)
-            row.substitute_food_id = to_food
-            repointed_rows.append(row)
+            repointed_ids.append(row.id)
 
         # the session doesn't autoflush, and deleting the food actively loads its substitution rows
-        # to cascade over them, so an unwritten repoint is read back off the database still pointing
-        # at the old food and deleted with it. Only these rows are written: a full flush would also
-        # write the ingredient move, which the delete then undoes by clearing their food.
-        if repointed_rows:
-            self.session.flush(repointed_rows)
+        # to cascade over them, so the repoint is written straight to the database rather than left
+        # pending on the rows, where it would be read back still pointing at the old food
+        if repointed_ids:
+            self.session.execute(
+                update(RecipeIngredientSubstitutionModel)
+                .where(RecipeIngredientSubstitutionModel.id.in_(repointed_ids))
+                .values(substitute_food_id=to_food)
+            )
 
     def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
         from_model = self._get_food(from_food)

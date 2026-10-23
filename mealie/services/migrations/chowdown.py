@@ -1,10 +1,9 @@
 import tempfile
-import zipfile
 from pathlib import Path
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import MigrationReaders, safe_local_path, split_by_comma
+from .utils.migration_helpers import MigrationReaders, extract_zip, safe_local_path, split_by_comma
 
 
 class ChowdownMigrator(BaseMigrator):
@@ -34,8 +33,7 @@ class ChowdownMigrator(BaseMigrator):
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            extract_zip(self.archive, tmpdir)
 
             temp_path = self.get_zip_base_path(Path(tmpdir))
 

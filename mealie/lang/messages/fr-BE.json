@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques",
         "recipe-created": "Recette créée",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "L’image de la recette a été supprimée",
         "recipe-defaults": {
             "ingredient-note": "100 g de farine",
@@ -24,6 +31,7 @@
             "ai-not-enabled": "Les services IA ne sont pas activés",
             "ai-request-failed": "Le fournisseur d'IA n'a pas pu répondre à la demande. Veuillez réessayer",
             "image-provider-not-enabled": "Les services d'images d'IA ne sont pas activés",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Aucune recette n'a été trouvée dans la source fournie",
             "no-source": "Aucun contenu, image ou URL n'a été fourni",
             "provider-returned-nothing": "Le fournisseur d'IA n'a pas renvoyé de recette",
@@ -68,7 +76,7 @@
         "report-deleted": "Rapport supprimé."
     },
     "exceptions": {
-        "permission_denied": "Vous n’avez pas la permission d’effectuer cette action",
+        "permission-denied": "Vous n’avez pas la permission d’effectuer cette action",
         "recursive-recipe-link": "Une recette ne peut pas se référencer elle-même, directement ou indirectement",
         "no-entry-found": "La ressource demandée est introuvable",
         "rate-limit-error": "Le fournisseur d'IA limite la fréquence des requêtes. Veuillez patienter un moment et réessayer",

@@ -74,6 +74,84 @@ def _matches(host: str, ips: Sequence[IPAddress], hosts: set[str], networks: lis
     return False
 
 
+def _check_target(
+    url: httpx.URL,
+    allow: tuple[set[str], list[IPNetwork]],
+    deny: tuple[set[str], list[IPNetwork]],
+    log: logging.Logger | None = None,
+) -> list[str] | None:
+    """Resolve and validate a target URL. Returns the curl RESOLVE pins, or None for an IP literal."""
+    host = url.host
+    port = url.port or (443 if url.scheme == "https" else 80)
+
+    try:
+        literal: IPAddress | None = ipaddress.ip_address(host)
+    except ValueError:
+        literal = None
+
+    if literal is not None:
+        ips: list[IPAddress] = [literal]
+    else:
+        try:
+            infos = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+        except (socket.gaierror, UnicodeError) as e:
+            # An unencodable hostname (e.g. an over-long label) raises UnicodeError, not
+            # gaierror. Either way the host is unusable, so it fails as an invalid domain.
+            raise InvalidDomainError(f"could not resolve host: {host}") from e
+
+        ips = []
+        seen: set[str] = set()
+        for info in infos:
+            addr = str(info[4][0]).split("%")[0]  # drop any IPv6 scope id
+            if addr not in seen:
+                seen.add(addr)
+                ips.append(ipaddress.ip_address(addr))
+
+    deny_hosts, deny_networks = deny
+    if _matches(host, ips, deny_hosts, deny_networks):
+        _warn(log, url, "target is on the disallow list")
+        raise InvalidDomainError(f"request blocked by disallow list: {url}")
+
+    allow_hosts, allow_networks = allow
+    if not _matches(host, ips, allow_hosts, allow_networks):
+        for ip in ips:
+            if is_blocked_ip(ip):
+                _warn(log, url, f"resolves to non-public address {ip}")
+                raise InvalidDomainError(f"invalid request on local resource: {url} -> {ip}")
+
+    if literal is not None:
+        # curl connects straight to the literal address; nothing to pin.
+        return None
+    # Every address goes in one entry: curl keeps a single cached entry per host:port
+    # ("old addresses discarded"), so separate entries would leave only the last address
+    # and strand hosts whose first-choice family isn't routable here (e.g. AAAA records
+    # on a host without IPv6). One comma-joined entry lets curl try them all in order.
+    # IPv6 addresses are bracketed so their colons can't be read as field separators.
+    addresses = ",".join(f"[{ip}]" if ip.version == 6 else str(ip) for ip in ips)
+    return [f"{host}:{port}:{addresses}"]
+
+
+def _warn(log: logging.Logger | None, url: httpx.URL, reason: str) -> None:
+    if log:
+        log.warning(f"[safehttp] blocked request to {url}: {reason}")
+
+
+def validate_url(
+    url: str,
+    *,
+    allow_hosts: Sequence[str] = (),
+    deny_hosts: Sequence[str] = (),
+    log: logging.Logger | None = None,
+) -> None:
+    """Raise InvalidDomainError if a request to `url` would be blocked, without sending anything.
+
+    For callers that send in the background: checking up front lets them report a blocked
+    target to the user, instead of the request being dropped where nobody sees it. The
+    transport still validates and pins at send time, so this does not replace it.
+    """
+    _check_target(httpx.URL(url), _parse_host_list(allow_hosts), _parse_host_list(deny_hosts), log)
+
+
 class _SafeTransportMixin:
     """
     Shared SSRF protection for the sync and async curl transports.
@@ -119,59 +197,7 @@ class _SafeTransportMixin:
         """Validate the request target. Returns the curl RESOLVE pins, or None for an IP literal."""
         # Force our timeout onto every request.
         request.extensions["timeout"] = httpx.Timeout(self.timeout, pool=self.timeout).as_dict()
-
-        host = request.url.host
-        port = request.url.port or (443 if request.url.scheme == "https" else 80)
-
-        try:
-            literal: IPAddress | None = ipaddress.ip_address(host)
-        except ValueError:
-            literal = None
-
-        if literal is not None:
-            ips: list[IPAddress] = [literal]
-        else:
-            try:
-                infos = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
-            except (socket.gaierror, UnicodeError) as e:
-                # An unencodable hostname (e.g. an over-long label) raises UnicodeError, not
-                # gaierror. Either way the host is unusable, so it fails as an invalid domain.
-                raise InvalidDomainError(f"could not resolve host: {host}") from e
-
-            ips = []
-            seen: set[str] = set()
-            for info in infos:
-                addr = str(info[4][0]).split("%")[0]  # drop any IPv6 scope id
-                if addr not in seen:
-                    seen.add(addr)
-                    ips.append(ipaddress.ip_address(addr))
-
-        deny_hosts, deny_networks = self._deny
-        if _matches(host, ips, deny_hosts, deny_networks):
-            self._warn(request, "target is on the disallow list")
-            raise InvalidDomainError(f"request blocked by disallow list: {request.url}")
-
-        allow_hosts, allow_networks = self._allow
-        if not _matches(host, ips, allow_hosts, allow_networks):
-            for ip in ips:
-                if is_blocked_ip(ip):
-                    self._warn(request, f"resolves to non-public address {ip}")
-                    raise InvalidDomainError(f"invalid request on local resource: {request.url} -> {ip}")
-
-        if literal is not None:
-            # curl connects straight to the literal address; nothing to pin.
-            return None
-        # Every address goes in one entry: curl keeps a single cached entry per host:port
-        # ("old addresses discarded"), so separate entries would leave only the last address
-        # and strand hosts whose first-choice family isn't routable here (e.g. AAAA records
-        # on a host without IPv6). One comma-joined entry lets curl try them all in order.
-        # IPv6 addresses are bracketed so their colons can't be read as field separators.
-        addresses = ",".join(f"[{ip}]" if ip.version == 6 else str(ip) for ip in ips)
-        return [f"{host}:{port}:{addresses}"]
-
-    def _warn(self, request: httpx.Request, reason: str) -> None:
-        if self._log:
-            self._log.warning(f"[safehttp] blocked request to {request.url}: {reason}")
+        return _check_target(request.url, self._allow, self._deny, self._log)
 
     def _apply_pin(self, resolve: list[str] | None) -> None:
         # curl_cffi applies the session's curl_options to each request, so setting

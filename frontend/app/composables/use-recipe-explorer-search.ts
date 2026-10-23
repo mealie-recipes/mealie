@@ -112,6 +112,10 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   }
 
   function calcPassedQuery(): RecipeSearchQuery {
+    const orderBy = !isOwnGroup.value && state.value.orderBy === "last_made"
+      ? queryDefaults.orderBy
+      : state.value.orderBy;
+
     return {
       search: state.value.search ? state.value.search : "",
       categories: toIDArray(selectedCategories.value),
@@ -123,7 +127,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       requireAllTags: state.value.requireAllTags,
       requireAllTools: state.value.requireAllTools,
       requireAllFoods: state.value.requireAllFoods,
-      orderBy: state.value.orderBy,
+      orderBy,
       orderDirection: state.value.orderDirection,
     };
   }
@@ -197,6 +201,10 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   }
 
   function setOrderBy(value: string) {
+    if (!isOwnGroup.value && value === "last_made") {
+      value = queryDefaults.orderBy;
+    }
+
     state.value.orderBy = value;
     sortPreferences.value.orderBy = value;
   }

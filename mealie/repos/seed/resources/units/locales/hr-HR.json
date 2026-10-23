@@ -6,7 +6,7 @@
         "abbreviation": "žlič"
     },
     "tablespoon": {
-        "name": "žlica",
+        "name": "velika žlica",
         "plural_name": "žlice",
         "description": "",
         "abbreviation": "žlic"
@@ -46,6 +46,12 @@
         "plural_name": "mililitri",
         "description": "",
         "abbreviation": "ml"
+    },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
     },
     "liter": {
         "name": "litra",

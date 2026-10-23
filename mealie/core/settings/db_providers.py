@@ -47,6 +47,8 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
         if not url.startswith("postgresql://"):
             raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
 
+        # SQLAlchemy resolves a bare postgresql:// to psycopg 3, so the installed driver is named explicitly
+        url = "postgresql+psycopg2://" + url.removeprefix("postgresql://")
         scheme, remainder = url.split("://", 1)
         if "@" in remainder and ":" in remainder.split("@")[0]:
             credentials, host_part = remainder.rsplit("@", 1)
@@ -62,7 +64,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
         return str(
             PostgresDsn.build(
-                scheme="postgresql",
+                scheme="postgresql+psycopg2",
                 username=self.POSTGRES_USER,
                 password=urlparse.quote(self.POSTGRES_PASSWORD),
                 host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
@@ -79,7 +81,11 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
 
 def db_provider_factory(provider_name: str, data_dir: Path, env_file: Path, env_encoding="utf-8") -> AbstractDBProvider:
+    # Documented engines are only sqlite and postgres. Anything else used to
+    # fall through to SQLite, so a typo such as "postgress" started a Postgres
+    # deployment on a local file and reported success.
     if provider_name == "postgres":
         return PostgresProvider(_env_file=env_file, _env_file_encoding=env_encoding)
-    else:
+    if provider_name == "sqlite":
         return SQLiteProvider(data_dir=data_dir)
+    raise ValueError(f"DB_ENGINE must be 'sqlite' or 'postgres', got {provider_name!r}")

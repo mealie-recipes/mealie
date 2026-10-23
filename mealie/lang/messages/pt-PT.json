@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Os nomes de receitas devem ser únicos",
         "recipe-created": "Receita criada",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imagem da receita eliminada",
         "recipe-defaults": {
             "ingredient-note": "1 Chávena de Farinha",
@@ -24,6 +31,7 @@
             "ai-not-enabled": "Serviços IA não estão ativados",
             "ai-request-failed": "O fornecedor de IA não conseguiu concluir o pedido. Tente novamente",
             "image-provider-not-enabled": "Os serviços de imagem por IA não estão ativados",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Não foi encontrada nenhuma receita na fonte fornecida",
             "no-source": "Nenhum conteúdo, imagem ou URL foi fornecido",
             "provider-returned-nothing": "O fornecedor de IA não retornou uma receita",
@@ -68,7 +76,7 @@
         "report-deleted": "Relatório eliminado."
     },
     "exceptions": {
-        "permission_denied": "Não tem permissões para efetuar esta ação",
+        "permission-denied": "Não tem permissão para realizar esta ação",
         "recursive-recipe-link": "Uma receita não pode referenciar-se a si própria, direta ou indiretamente",
         "no-entry-found": "O recurso solicitado não foi encontrado",
         "rate-limit-error": "O fornecedor de IA está a limitar a taxa de pedidos. Por favor, aguarde um momento e tente novamente",

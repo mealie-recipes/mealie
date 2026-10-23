@@ -31,15 +31,6 @@ def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser
     assert str(h2_user.user_id) not in all_ids
 
 
-def test_get_household_members_unauthorized(api_client: TestClient, unique_user: TestUser):
-    user = unique_user.repos.users.get_one(unique_user.user_id)
-    user.can_manage = False
-    unique_user.repos.users.update(user.id, user)
-
-    response = api_client.get(api_routes.households_members, headers=unique_user.token)
-    assert response.status_code == 403
-
-
 def test_get_household_recipe_default(api_client: TestClient, unique_user: TestUser):
     recipe = unique_user.repos.recipes.create(
         Recipe(
@@ -96,3 +87,22 @@ def test_get_household_recipe_invalid_recipe(api_client: TestClient, unique_user
         api_routes.households_self_recipes_recipe_slug(random_string()), headers=unique_user.token
     )
     assert response.status_code == 404
+
+
+def test_get_household_statistics(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    def get_statistics(user: TestUser) -> dict:
+        response = api_client.get(api_routes.households_statistics, headers=user.token)
+        assert response.status_code == 200
+        return response.json()
+
+    before = get_statistics(unique_user)
+    h2_before = get_statistics(h2_user)
+
+    unique_user.repos.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=UUID(unique_user.group_id), name=random_string())
+    )
+
+    after = get_statistics(unique_user)
+    h2_after = get_statistics(h2_user)
+    assert after["totalRecipes"] == before["totalRecipes"] + 1
+    assert h2_after["totalRecipes"] == h2_before["totalRecipes"]

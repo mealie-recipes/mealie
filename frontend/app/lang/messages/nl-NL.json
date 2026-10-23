@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "Instellen van je groep op privé, zet alle publieke weergaveopties naar standaard. Dit overschrijft de instellingen per recept",
     "lock-recipe-edits-from-other-households": "Vergrendel recept bewerkingen van andere huishoudens",
     "lock-recipe-edits-from-other-households-description": "Wanneer ingeschakeld kunnen alleen gebruikers in uw huishouden recepten bewerken die zijn gemaakt door uw huishouden",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "Receptvoorkeuren voor groep",
     "default-recipe-preferences-description": "Dit zijn de standaardinstellingen als er een nieuw recept in je groep wordt gemaakt. Deze kunnen worden gewijzigd voor individuele recepten in het menu recepteninstellingen.",
     "household-preferences": "Voorkeuren huishouden"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "Maaltijdplan-instellingen",
     "add-all-to-list": "Alles aan lijst toevoegen",
     "add-day-to-list": "Dag aan lijst toevoegen",
-    "randomize-recipe": "Willekeurig recept"
+    "randomize-recipe": "Willekeurig recept",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "Nieuwe migratie",
@@ -352,7 +405,7 @@
       "title": "Paprika receptenbeheerder"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie kan recepten importeren uit de Mealie toepassing uit een pre v1.0 release. Exporteer uw recepten vanaf uw oude instantie en upload het zip-bestand hieronder. Merk op dat alleen recepten uit de export kunnen worden geïmporteerd. Dit geldt alleen voor gevallen ouder dan v1. Een reservekopie van v1.0 of hoger moet worden hersteld met de back-up en herstel middelen.",
       "title": "Oude versies van Mealie (vóór versie 1.0)"
     },
     "tandoor": {
@@ -364,7 +417,7 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Receptmigratie",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "recipe-data-migrations-explanation": "Recepten kunnen vanuit een andere ondersteunde applicatie naar Mealie worden overgezet. Dat is een uitstekende manier om met Mealie aan de slag te gaan. Gegevens overzetten tussen Mealie instanties of een eerdere Mealie back-up terugzetten doe je met de tools voor back-up en herstel.",
     "migration-description": "Kom je van een andere toepassing of een oudere versie van Mealie? Kijk eens naar de migraties. Misschien kunnen we je gegevens importeren.",
     "choose-migration-type": "Kies het migratietype",
     "tag-all-recipes": "Label alle recepten met het label {tag-name}",
@@ -411,6 +464,12 @@
     "an-error-occurred": "Er is een fout opgetreden"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
+    "step-duration-placeholder": "Minutes",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "Toevoegen aan favorieten",
     "api-extras": "API-extra's",
     "calories": "Calorieën",
@@ -445,6 +504,7 @@
     "prep-time": "Voorbereidingstijd",
     "protein-content": "Eiwitten",
     "public-recipe": "Openbaar recept",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "Recept aangemaakt op",
     "recipe-image": "Receptafbeelding",
     "delete-image": "Verwijder Recept Afbeelding",
@@ -457,7 +517,7 @@
     "save-recipe-before-use": "Recept opslaan vóór gebruik",
     "section-title": "Sectietitel",
     "servings": "Porties",
-    "serves-amount": "Genoeg voor {amount}",
+    "serves-amount": "{amount} Porties",
     "show-nutrition-values": "Toon voedingswaarden",
     "sodium-content": "Zout",
     "step-index": "Stap: {step}",
@@ -487,12 +547,12 @@
     "notes": "Notities",
     "add-section": "Add Section",
     "clear-section": "Clear Section",
-    "add-substitutions": "Add Substitutions",
-    "clear-substitutions": "Clear Substitutions",
-    "substitutions": "Substitutions",
+    "add-substitutions": "Alternatieven toevoegen",
+    "clear-substitutions": "Alternatieven weghalen",
+    "substitutions": "Alternatieven",
     "commonly-substituted-with": "Commonly substituted with",
-    "substitutions-with-value": "Substitutions: {substitutions}",
-    "choose-substitute-food": "Choose Substitute Food",
+    "substitutions-with-value": "Alternatieven: {substitutions}",
+    "choose-substitute-food": "Kies alternatief voedingsmiddel",
     "original-text-with-value": "Oorspronkelijke tekst: {originalText}",
     "unlinked": "Nog niet gelinkt",
     "linked-to-other-step": "Gekoppeld aan andere stap",
@@ -590,8 +650,8 @@
     "report-deletion-failed": "Rapport verwijderen is mislukt",
     "recipe-debugger": "Recept debugger",
     "recipe-debugger-description": "Pak de URL van het recept dat u wilt debuggen en plak die hier. De URL zal door de receptenscraper worden gescrapet en de resultaten zullen worden weergegeven. Als u geen gegevens ziet, wordt de site die u probeert te scrapen niet ondersteund door Mealie of zijn scraperbibliotheek.",
-    "use-openai": "Gebruik OpenAI",
-    "recipe-debugger-use-openai-description": "Gebruik OpenAI om de resultaten te verwerken in plaats van te vertrouwen op de scraper-bibliotheek. Bij het maken van een recept via een URL wordt dit automatisch gedaan als de scraper-bibliotheek mislukt, maar u kunt het hier handmatig testen.",
+    "use-ai": "Gebruik AI",
+    "recipe-debugger-use-ai-description": "Gebruik AI om de resultaten te parsen in plaats van te vertrouwen op de scraper-bibliotheek. Bij het maken van een recept via een URL wordt dit automatisch gedaan als de scraper-bibliotheek mislukt, maar u kunt het hier handmatig testen.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
     "recipe-servings": "Recept porties",
@@ -606,9 +666,9 @@
     "unit-system": {
       "as-written": "Zoals geschreven",
       "metric": "Waarde",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "metric-with-hint": "Metrisch (g, ml)",
+      "imperial": "Imperiaal",
+      "imperial-with-hint": "Imperiaal (kopjes, oz)"
     },
     "parser": {
       "ingredient-parser": "Ingrediëntenontleder",
@@ -616,9 +676,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natuurlijke taalverwerker",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "De Natural Language Processor is getraind op Engelse recepten. Bij recepten in andere talen herkent deze meestal wel de hoeveelheid, maar niet de eenheid, waardoor de Brute Parser of de AI Parser doorgaans betere resultaten oplevert.",
       "brute-parser": "Ruwe ontleder",
-      "openai-parser": "OpenAI ontleder",
+      "ai-parser": "AI Parser",
       "missing-unit": "Maak ontbrekende eenheid aan: {unit}",
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "this-unit-could-not-be-parsed-automatically": "Mealie kon deze meeteenheid niet automatisch verwerken",
@@ -656,9 +716,9 @@
     "no-recipes-found-description": "Probeer meer ingrediënten toe te voegen aan uw zoekopdracht of pas uw filters aan",
     "include-ingredients-on-hand": "Inclusief ingrediënten in huis",
     "include-tools-on-hand": "Inclusief keukengerei in huis",
-    "include-substitutions": "Include Substitutions",
+    "include-substitutions": "Inclusief alternatieven",
     "substituting": "Substituting",
-    "substitute-for-food": "{substitute} for {food}",
+    "substitute-for-food": "{substitute} voor {food}",
     "max-missing-ingredients": "Maximum ontbrekende ingrediënten",
     "max-missing-tools": "Maximum ontbrekend keukengerei",
     "selected-tools": "Geselecteerd keukengerei",
@@ -738,7 +798,7 @@
     "email-configured": "E-mail geconfigureerd",
     "email-test-results": "E-mail testresultaten",
     "ready": "Klaar",
-    "not-ready": "Niet klaar – Controleer omgevingsvariabelen",
+    "not-ready": "Niet Gereed – Controleer de omgevingsvariabelen",
     "succeeded": "Geslaagd",
     "failed": "Mislukt",
     "general-about": "Algemene informatie",
@@ -750,7 +810,7 @@
     "secure-site-success-text": "Site wordt geopend door localhost of https",
     "server-side-base-url": "Server-side basis-URL",
     "server-side-base-url-error-text": "`BASE_URL` is nog steeds de standaard waarde op de API Server. Dit geeft problemen met notificatielinks in e-mails etc.",
-    "server-side-base-url-success-text": "Server-side URL komt niet overeen met de standaard",
+    "server-side-base-url-success-text": "Server-side URL komt niet overeen met de standaardinstelling",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",
@@ -793,7 +853,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Weet je zeker dat je alle items wilt deselecteren?",
     "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?",
     "no-shopping-lists-found": "Geen boodschappenlijsten gevonden",
-    "item-checked-off": "Uitgevinkt {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Uitgevinkt {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Back-ups",
@@ -881,11 +946,17 @@
     "authentication-method-hint": "Dit bepaalt hoe een gebruiker zich aanmeldt bij Mealie. Als je het niet zeker weet, kies dan voor 'Mealie'",
     "permissions": "Gebruikersrechten",
     "administrator": "Beheerder",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "Gebruiker kan anderen uitnodigen voor zijn groep",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "Gebruiker kan de groepsinstellingen beheren",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "Gebruiker kan huishouden beheren",
-    "user-can-organize-group-data": "Gebruiker kan ingrediënten, tags en categorieën beheren",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "Geavanceerde functies inschakelen",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "Het lijkt erop dat je voor het eerst inlogt.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
     "forgot-password": "Wachtwoord vergeten",
@@ -918,10 +989,12 @@
       "food-data": "Levensmiddel-gegevens",
       "label-overwrite-warning": "Dit geeft alle geselecteerde levensmiddelen het gekozen label. Het kan bestaande labels overschrijven.",
       "on-hand-checkbox-label": "Door deze vlag in te stellen, wordt dit voedsel standaard niet aangevinkt bij het toevoegen van een recept aan een boodschappenlijst.",
-      "substitutions": "Substitutions",
-      "manage-substitutions": "Manage Substitutions",
-      "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
-      "reverse-substitution-add": "Also use {food} in place of {substitute}"
+      "delete-unused-confirm": "Weet je zeker dat je dit ongebruikte voedingsmiddel wilt verwijderen? Dit kan niet ongedaan worden gemaakt. | Weet je zeker dat je deze {count} ongebruikte voedingsmiddelen wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "no-unused-foods": "Geen ongebruikte voedingsmiddelen om te verwijderen",
+      "substitutions": "Alternatieven",
+      "manage-substitutions": "Alternatieven beheren",
+      "substitution-dialog-text": "Stel voedingsmiddelen voor die in plaats van {food} gebruikt kunnen worden. Alternatieven kunnen een voedingsmiddel, een notitie of beide zijn.",
+      "reverse-substitution-add": "Ook {food} gebruiken in plaats van {substitute}"
     },
     "units": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende eenheden, gebaseerd op je lokale taal.",
@@ -942,7 +1015,7 @@
       "standard-unit": "Standaard eenheid",
       "standard-quantity": "Standaard hoeveelheid",
       "standard-unit-labels": {
-        "fluid-ounce": "vloeibare ons",
+        "fluid-ounce": "fluid ounce (USA specifiek)",
         "cup": "kop",
         "ounce": "ons",
         "pound": "pond",
@@ -956,7 +1029,14 @@
       "edit-label": "Bewerk label",
       "new-label": "Nieuw label",
       "labels": "Labels",
-      "assign-label": "Label toevoegen"
+      "assign-label": "Label toevoegen",
+      "combine-label": "Label samenvoegen",
+      "source-label": "Bron label",
+      "target-label": "Doel label",
+      "merge-dialog-text": "Door de geselecteerde labels samen te voegen, worden het bron label en het doel label samengevoegd tot één label. Het bron label wordt verwijderd en alle verwijzingen naar het bron label worden bijgewerkt zodat ze naar het doel label verwijzen.",
+      "merge-label-example": "{label1} wordt samengevoegd met {label2}",
+      "delete-unused-confirm": "Weet je zeker dat je dit ongebruikte label wilt verwijderen? Dit kan niet ongedaan worden gemaakt. | Weet je zeker dat je deze {count} ongebruikte labels wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "no-unused-labels": "Geen ongebruikte labels te verwijderen"
     },
     "recipes": {
       "purge-exports": "Verwijder exports",
@@ -1029,7 +1109,14 @@
     "tools": {
       "new-tool": "Keukengerei Toevoegen",
       "edit-tool": "Keukengerei Bewerken",
-      "tool-data": "Keukengerei Overzicht"
+      "tool-data": "Keukengerei Overzicht",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "Geen ongebruikte gereedschappen om te verwijderen"
     }
   },
   "user-registration": {
@@ -1060,6 +1147,8 @@
     "share-recipe": "Deel recept",
     "default-30-days": "Standaard 30 dagen",
     "expires-at": "Vervalt op",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Link gekopieerd naar klembord"
   },
   "banner-experimental": {
@@ -1111,7 +1200,7 @@
     "ingredients-natural-language-processor-explanation-2": "Het is niet perfect, maar het levert over het algemeen uitstekende resultaten op en is een goed uitgangspunt voor het handmatig ontleden van ingrediënten in afzonderlijke velden. Je kunt ook de \"Ruwe\" ontleder gebruiken die een patroonovereenkomende techniek gebruikt om ingrediënten te identificeren.",
     "nlp": "NLP",
     "brute": "Ruw",
-    "openai": "OpenAI kunstmatige intelligentie",
+    "ai-providers": "AI aanbieders",
     "show-individual-confidence": "Individuele overtuiging tonen",
     "ingredient-text": "Ingrediënttekst",
     "average-confident": "{0} overtuigd",
@@ -1128,8 +1217,8 @@
       "restore-from-v1-backup": "Heb je een back-up van een vorig exemplaar van Mealie v1? Deze kan je hier terugzetten.",
       "manage-profile-or-get-invite-link": "Beheer je eigen profiel, of gebruik een uitnodigingslink om te delen met anderen."
     },
-    "debug-openai-services": "Debug OpenAI diensten",
-    "debug-openai-services-description": "Gebruik deze pagina om de OpenAI-diensten te debuggen. U kunt uw OpenAI-verbinding testen en de resultaten hier bekijken. Als u afbeeldingsdiensten hebt ingeschakeld, kunt u ook een afbeelding geven.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Test starten",
     "test-results": "Resultaten van de test",
     "group-delete-note": "Groepen met gebruikers of huishoudens kunnen niet worden verwijderd",
@@ -1205,7 +1294,9 @@
       "is-less-than": "is kleiner dan",
       "is-less-than-or-equal-to": "is kleiner dan of gelijk aan",
       "is-older-than": "is ouder dan",
-      "is-newer-than": "is nieuwer dan"
+      "is-newer-than": "is nieuwer dan",
+      "has-a-value": "heeft een waarde",
+      "has-no-value": "heeft geen waarde"
     },
     "relational-keywords": {
       "is": "is",

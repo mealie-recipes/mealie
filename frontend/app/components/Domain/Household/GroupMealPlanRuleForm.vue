@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <QueryFilterSummary
+    v-if="readonly"
+    :field-defs="fieldDefs"
+    :query-filter="props.queryFilter"
+  />
+  <div v-else>
     <div
       class="d-md-flex"
       style="gap: 10px"
@@ -38,16 +43,19 @@
 
 <script setup lang="ts">
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
+import QueryFilterSummary from "~/components/Domain/QueryFilterSummary.vue";
 import { useRecipeFilterFields } from "~/composables/use-recipe-filter-fields";
 import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 
 interface Props {
   queryFilter?: QueryFilterJSON | null;
   showHelp?: boolean;
+  readonly?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   queryFilter: null,
   showHelp: false,
+  readonly: false,
 });
 
 const day = defineModel<string>("day", { default: "unset" });

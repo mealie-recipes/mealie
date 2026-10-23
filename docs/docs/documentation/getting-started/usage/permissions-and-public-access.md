@@ -15,9 +15,9 @@ Each user can be configured to have varying levels of access. Some of these perm
 | Administrator | Access to administrator tools |
 | Invite | Generating invitation links for other users |
 | Manage group | Access to group management areas and settings |
-| Organize group data | Creating, updating, deleting, and merging group data such as foods, tags, and categories |
+| Organize group data | Creating, updating, deleting, and merging group data such as foods, units, tags, categories, tools, labels, and recipe actions |
 
-The **Manage group** and **Organize group data** permissions are separate. Users need **Organize group data** to add new foods, tags, or categories, including when creating missing ingredients during recipe parsing.
+The **Manage group** and **Organize group data** permissions are separate. Users need **Organize group data** to add new foods, units, tags, categories, or tools, including when creating missing ingredients during recipe parsing.
 
 Administrators can configure these settings on the User Management page (navigate to Settings > Admin Settings > Users or append `/admin/manage/users` to your instance URL).
 

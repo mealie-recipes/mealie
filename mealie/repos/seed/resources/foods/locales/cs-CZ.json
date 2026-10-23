@@ -8,7 +8,7 @@
       },
       "onion": {
         "name": "cibule",
-        "plural_name": "onions"
+        "plural_name": "cibule"
       },
       "bell pepper": {
         "name": "paprika",
@@ -88,7 +88,7 @@
       },
       "pumpkin": {
         "name": "dýně",
-        "plural_name": "pumpkins"
+        "plural_name": "dýně"
       },
       "cauliflower": {
         "name": "květák",
@@ -136,7 +136,7 @@
       },
       "brussels sprout": {
         "name": "růžičková kapusta",
-        "plural_name": "brussels sprouts"
+        "plural_name": "růžičkové kapusty"
       },
       "fennel": {
         "name": "fenykl",
@@ -152,7 +152,7 @@
       },
       "red cabbage": {
         "name": "červené zelí",
-        "plural_name": "red cabbages"
+        "plural_name": "červené zelí"
       },
       "artichoke": {
         "name": "artyčok",
@@ -192,7 +192,7 @@
       },
       "turnip": {
         "name": "vodnice",
-        "plural_name": "turnips"
+        "plural_name": "tuříny"
       },
       "bok choy": {
         "name": "brukev čínská",
@@ -264,7 +264,7 @@
       },
       "date": {
         "name": "datle",
-        "plural_name": "dates"
+        "plural_name": "datle"
       },
       "coconut": {
         "name": "kokos",
@@ -292,7 +292,7 @@
       },
       "kiwi": {
         "name": "kivi",
-        "plural_name": "kiwis"
+        "plural_name": "kiwi"
       },
       "grapefruit": {
         "name": "grep",
@@ -332,7 +332,7 @@
       },
       "portobello mushroom": {
         "name": "žampiony portobello",
-        "plural_name": "portobello mushrooms"
+        "plural_name": "žampiony portobello"
       },
       "pea": {
         "name": "pea",
@@ -774,7 +774,7 @@
       },
       "chicken liver": {
         "name": "kuřecí játra",
-        "plural_name": "chicken livers"
+        "plural_name": "kuřecí játra"
       },
       "cornish hen": {
         "name": "cornish hen",
@@ -1142,7 +1142,7 @@
       },
       "bread crumb": {
         "name": "strouhanka",
-        "plural_name": "bread crumbs"
+        "plural_name": "strouhanky"
       },
       "panko": {
         "name": "panko",
@@ -2116,7 +2116,7 @@
       },
       "cookie": {
         "name": "sušenka",
-        "plural_name": "cookies"
+        "plural_name": "sušenky"
       },
       "lady finger": {
         "name": "lady finger",
@@ -2153,7 +2153,7 @@
       },
       "almond": {
         "name": "mandle",
-        "plural_name": "almonds"
+        "plural_name": "mandle"
       },
       "sesame seed": {
         "name": "sezamové semínko",
@@ -2161,7 +2161,7 @@
       },
       "cashew": {
         "name": "kešu",
-        "plural_name": "cashews"
+        "plural_name": "kešu"
       },
       "pine nut": {
         "name": "piniový ořech",
@@ -2169,7 +2169,7 @@
       },
       "pistachio": {
         "name": "pistácie",
-        "plural_name": "pistachios"
+        "plural_name": "pistácie"
       },
       "peanut": {
         "name": "arašíd",
@@ -2181,7 +2181,7 @@
       },
       "pumpkin seed": {
         "name": "dýňové semínko",
-        "plural_name": "pumpkin seeds"
+        "plural_name": "dýňová semínka"
       },
       "hazelnut": {
         "name": "lískový ořech",

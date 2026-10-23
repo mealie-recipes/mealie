@@ -161,6 +161,7 @@ export interface IngredientFood {
   substitutions?: IngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
   label?: MultiPurposeLabelSummary | null;
+  recipeCount?: number;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -284,7 +285,6 @@ export interface Recipe {
   dateUpdated?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  lastMade?: string | null;
   recipeIngredient?: RecipeIngredient[];
   recipeInstructions?: RecipeStep[] | null;
   nutrition?: Nutrition | null;
@@ -311,6 +311,7 @@ export interface RecipeStep {
   text: string;
   ingredientReferences?: IngredientReferences[];
   noteReferences?: NoteReference[];
+  durationSeconds?: number | null;
 }
 export interface RecipeAsset {
   name: string;
@@ -341,13 +342,6 @@ export interface RecipeIngredientSubstitution {
   substituteFoodId?: string | null;
   note?: string | null;
   substituteFood?: IngredientFoodSummary | null;
-}
-export interface RecipeCategoryIn {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug?: string | null;
-  recipeCount?: number;
 }
 export interface RecipeCategoryResponse {
   name: string;
@@ -384,7 +378,6 @@ export interface RecipeSummary {
   dateUpdated?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  lastMade?: string | null;
 }
 export interface RecipeCommentCreate {
   recipeId: string;
@@ -401,58 +394,6 @@ export interface RecipeCommentUpdate {
 }
 export interface RecipeDuplicate {
   name?: string | null;
-}
-export interface RecipeIn {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  cookTime?: string | null;
-  performTime?: string | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategoryIn[] | null;
-  tags?: RecipeTagIn[] | null;
-  tools?: RecipeToolIn[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  lastMade?: string | null;
-  recipeIngredient?: RecipeIngredient[];
-  recipeInstructions?: RecipeStep[] | null;
-  nutrition?: Nutrition | null;
-  settings?: RecipeSettings | null;
-  assets?: RecipeAsset[] | null;
-  notes?: RecipeNote[] | null;
-  extras?: {
-    [k: string]: unknown;
-  } | null;
-  comments?: RecipeCommentOut[] | null;
-}
-export interface RecipeTagIn {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug?: string | null;
-  recipeCount?: number;
-}
-export interface RecipeToolIn {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug?: string | null;
-  recipeCount?: number;
-  householdsWithTool?: string[];
 }
 export interface RecipeIngredientBase {
   quantity?: number | null;
@@ -566,12 +507,17 @@ export interface RecipeToolCreate {
   name: string;
   householdsWithTool?: string[];
 }
+export interface RecipeToolMerge {
+  fromId: string;
+  toId: string;
+}
 export interface RecipeToolOut {
   name: string;
   householdsWithTool?: string[];
   id: string;
   groupId: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeToolResponse {
   name: string;
@@ -579,6 +525,7 @@ export interface RecipeToolResponse {
   id: string;
   groupId: string;
   slug: string;
+  recipeCount?: number;
   recipes?: RecipeSummary[];
 }
 export interface RecipeToolSave {
@@ -676,6 +623,67 @@ export interface UnitFoodBase {
 }
 export interface UpdateImageResponse {
   image: string;
+}
+export interface RecipeCategoryIn {
+  id?: string | null;
+  groupId?: string | null;
+  name: string;
+  slug?: string | null;
+  recipeCount?: number;
+}
+export interface RecipeIn {
+  id?: string | null;
+  userId?: string;
+  householdId?: string;
+  groupId?: string;
+  name?: string | null;
+  slug?: string;
+  image?: unknown;
+  recipeServings?: number;
+  recipeYieldQuantity?: number;
+  recipeYield?: string | null;
+  totalTime?: string | null;
+  prepTime?: string | null;
+  cookTime?: string | null;
+  performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
+  description?: string | null;
+  recipeCategory?: RecipeCategoryIn[] | null;
+  tags?: RecipeTagIn[] | null;
+  tools?: RecipeToolIn[];
+  rating?: number | null;
+  orgURL?: string | null;
+  dateAdded?: string | null;
+  dateUpdated?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  recipeIngredient?: RecipeIngredient[];
+  recipeInstructions?: RecipeStep[] | null;
+  nutrition?: Nutrition | null;
+  settings?: RecipeSettings | null;
+  assets?: RecipeAsset[] | null;
+  notes?: RecipeNote[] | null;
+  extras?: {
+    [k: string]: unknown;
+  } | null;
+  comments?: RecipeCommentOut[] | null;
+}
+export interface RecipeTagIn {
+  id?: string | null;
+  groupId?: string | null;
+  name: string;
+  slug?: string | null;
+  recipeCount?: number;
+}
+export interface RecipeToolIn {
+  id?: string | null;
+  groupId?: string | null;
+  name: string;
+  slug?: string | null;
+  recipeCount?: number;
+  householdsWithTool?: string[];
 }
 export interface RequestQuery {
   orderBy?: string | null;

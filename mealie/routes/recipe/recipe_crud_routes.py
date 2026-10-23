@@ -23,6 +23,7 @@ from fastapi import (
 )
 from fastapi.datastructures import UploadFile
 from fastapi.sse import EventSourceResponse, ServerSentEvent
+from PIL import UnidentifiedImageError
 from pydantic import UUID4
 from slugify import slugify
 
@@ -30,9 +31,10 @@ from mealie.core import exceptions
 from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
-from mealie.pkgs import cache, safehttp
+from mealie.pkgs import cache, img, safehttp
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
+from mealie.routes._base.permissions import forbidden, not_found
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
@@ -71,6 +73,7 @@ from mealie.services.event_bus_service.event_types import (
 from mealie.services.openai import OpenAINotEnabledException
 from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService
 from mealie.services.recipe.import_workflow.exceptions import NoRecipeDataError
+from mealie.services.recipe.mealie_export import InvalidMealieExportError, parse_mealie_export
 from mealie.services.recipe.recipe_data_service import (
     InvalidDomainError,
     NotAnImageError,
@@ -87,7 +90,36 @@ from mealie.services.scraper.scraper_strategies import (
 
 from ._base import BaseRecipeController, JSONBytes
 
-ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+ASSET_ALLOWED_EXTENSIONS = {
+    # image
+    "avif",
+    "bmp",
+    "gif",
+    "heic",
+    "heif",
+    "jpg",
+    "jpeg",
+    "png",
+    "webp",
+    # video
+    "m4v",
+    "mov",
+    "mp4",
+    "webm",
+    # audio
+    "m4a",
+    "mp3",
+    # document
+    "docx",
+    "md",
+    "odt",
+    "pdf",
+    "rtf",
+    "txt",
+    # data
+    "csv",
+    "json",
+}
 
 # A downloaded asset is stored as-is rather than re-encoded, so the download needs its own
 # ceiling. Matches the budget `openid_provider` uses for remotely-fetched profile images.
@@ -113,14 +145,10 @@ class RecipeController(BaseRecipeController):
 
         if thrownType == exceptions.PermissionDenied:
             self.logger.error("Permission Denied on recipe controller action")
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond(message="Permission Denied")
-            )
+            raise forbidden("Permission Denied")
         elif thrownType == exceptions.NoEntryFound:
             self.logger.error("No Entry Found on recipe controller action")
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND, detail=ErrorResponse.respond(message="No Entry Found")
-            )
+            raise not_found("No Entry Found")
         elif thrownType == sqlalchemy.exc.IntegrityError:
             self.logger.error("SQL Integrity Error on recipe controller action")
             raise HTTPException(
@@ -184,12 +212,14 @@ class RecipeController(BaseRecipeController):
 
     @router.post("/create/html-or-json", status_code=201, response_model=str)
     async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData) -> str:
-        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
+        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL.
 
-        if req.data.startswith("{"):
-            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
+        A complete recipe exported from Mealie (the JSON from an export zip, or the recipe as
+        returned by the API) is imported with its full structure instead of being parsed as
+        schema.org.
+        """
 
-        async for event in self._create_recipe_from_web(req):
+        async for event in self._create_recipe_from_html_or_json(req):
             if isinstance(event.data, SSEDataEventDone):
                 return event.data.slug
             if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
@@ -202,13 +232,14 @@ class RecipeController(BaseRecipeController):
     async def create_recipe_from_html_or_json_stream(self, req: ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
         """
         Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL,
-        streaming progress via SSE
+        streaming progress via SSE.
+
+        A complete recipe exported from Mealie (the JSON from an export zip, or the recipe as
+        returned by the API) is imported with its full structure instead of being parsed as
+        schema.org.
         """
 
-        if req.data.startswith("{"):
-            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
-
-        async for event in self._create_recipe_from_web(req):
+        async for event in self._create_recipe_from_html_or_json(req):
             yield event
 
     @router.post("/create/url", status_code=201, response_model=str)
@@ -247,7 +278,7 @@ class RecipeController(BaseRecipeController):
         if isinstance(ex, exceptions.RateLimitError):
             return self.t("exceptions.rate-limit-error")
 
-        if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError):
+        if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError | InvalidMealieExportError):
             # these are raised with an already-translated message
             if message := str(ex):
                 return message
@@ -343,6 +374,31 @@ class RecipeController(BaseRecipeController):
                 include_categories=req.include_categories,
             )
             return self._finish_recipe_from_web(req, recipe, extras)
+
+        return self._stream_recipe_creation(create)
+
+    def _create_recipe_from_html_or_json(self, req: ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+        """Import pasted HTML or JSON, sending a recipe that Mealie itself produced to its own importer.
+
+        The web scraper only reads schema.org data and rebuilds the recipe from it, which would
+        lose the structure a Mealie export carries (ingredient foods and units, step links,
+        organizers), so a recognised export never reaches it.
+        """
+        if (export := parse_mealie_export(req.data)) is not None:
+            return self._create_recipe_from_mealie_export(req, export)
+
+        if req.data.startswith("{"):
+            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
+
+        return self._create_recipe_from_web(req)
+
+    def _create_recipe_from_mealie_export(
+        self, req: ScrapeRecipeData, recipe: dict[str, Any]
+    ) -> AsyncIterable[ServerSentEvent]:
+        async def create(_: Callable[[str], Awaitable[None]]) -> str:
+            new_recipe = self.service.create_from_mealie_export(recipe, req.include_tags, req.include_categories)
+            self._publish_recipe_created(new_recipe)
+            return new_recipe.slug
 
         return self._stream_recipe_creation(create)
 
@@ -812,9 +868,25 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
+        # Validated outside the try below: handle_exceptions turns any HTTPException raised inside it into a 500
+        normalized = extension.strip().lower().lstrip(".")
+        if f".{normalized}" not in img.IMAGE_EXTENSIONS:
+            supported = ", ".join(sorted(ext.lstrip(".") for ext in img.IMAGE_EXTENSIONS))
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(
+                    f"Unsupported image file type '{normalized}'. Supported types: {supported}"
+                ),
+            )
+
         try:
-            new_version = self.service.update_recipe_image(slug, image, extension)
+            new_version = self.service.update_recipe_image(slug, image, normalized)
             return UpdateImageResponse(image=new_version)
+        except UnidentifiedImageError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Uploaded file is not a valid image"),
+            ) from e
         except Exception as e:
             self.handle_exceptions(e)
             return None
@@ -842,11 +914,11 @@ class RecipeController(BaseRecipeController):
 
         extension = extension.lower()
         if extension not in ASSET_ALLOWED_EXTENSIONS:
-            raise HTTPException(status_code=400, detail="Unsupported file extension")
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond("Unsupported file extension"))
 
         file_slug = slugify(name)
         if not extension or not file_slug:
-            raise HTTPException(status_code=400, detail="Missing required fields")
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond("Missing required fields"))
 
         file_name = f"{file_slug}.{extension}"
 
@@ -864,7 +936,7 @@ class RecipeController(BaseRecipeController):
         if dest.absolute().parent != recipe.asset_dir:
             raise HTTPException(
                 status_code=400,
-                detail=f"File name {file_name} or extension {extension} not valid",
+                detail=ErrorResponse.respond(f"File name {file_name} or extension {extension} not valid"),
             )
 
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)

@@ -116,12 +116,12 @@ export function useQueryFilterBuilder() {
     } as FieldRelationalOperator;
 
     const IS = {
-      label: i18n.t("query-filter.relational-keywords.is"),
+      label: i18n.t("query-filter.relational-operators.has-no-value"),
       value: "IS",
     } as FieldRelationalOperator;
 
     const IS_NOT = {
-      label: i18n.t("query-filter.relational-keywords.is-not"),
+      label: i18n.t("query-filter.relational-operators.has-a-value"),
       value: "IS NOT",
     } as FieldRelationalOperator;
 
@@ -197,6 +197,25 @@ export function useQueryFilterBuilder() {
     }
   }
 
+  function isNullOperator(operator: FieldRelationalOperator | undefined): boolean {
+    return operator?.value === "IS" || operator?.value === "IS NOT";
+  }
+
+  function updateRelationalOperator(field: Field, value: RelationalKeyword | RelationalOperator): void {
+    const nextOperator = getRelOps(field.type).value[value];
+
+    if (isNullOperator(field.relationalOperatorValue) && !isNullOperator(nextOperator)) {
+      if (field.type === "relativeDate") {
+        field.value = "$NOW-30d";
+      }
+      else if (field.type === "duration") {
+        field.value = 30 * 60;
+      }
+    }
+
+    field.relationalOperatorValue = nextOperator;
+  }
+
   function isOrganizerType(type: FieldType): type is Organizer {
     return (
       type === Organizer.Category
@@ -231,6 +250,8 @@ export function useQueryFilterBuilder() {
             relOps.value["<>"],
             relOps.value["LIKE"],
             relOps.value["NOT LIKE"],
+            relOps.value.IS,
+            relOps.value["IS NOT"],
           ];
           break;
         case "number":
@@ -241,6 +262,8 @@ export function useQueryFilterBuilder() {
             relOps.value[">="],
             relOps.value["<"],
             relOps.value["<="],
+            relOps.value.IS,
+            relOps.value["IS NOT"],
           ];
           break;
         case "boolean":
@@ -261,6 +284,8 @@ export function useQueryFilterBuilder() {
             // "<=" is first since "older than" is the most common operator
             relativeDateRelOps.value["<="],
             relativeDateRelOps.value[">="],
+            relativeDateRelOps.value.IS,
+            relativeDateRelOps.value["IS NOT"],
           ];
           break;
         case "duration":
@@ -270,6 +295,8 @@ export function useQueryFilterBuilder() {
             relOps.value[">="],
             relOps.value["<"],
             relOps.value[">"],
+            relOps.value.IS,
+            relOps.value["IS NOT"],
           ];
           break;
         default:
@@ -328,7 +355,10 @@ export function useQueryFilterBuilder() {
         isValid = false;
       }
 
-      if (field.fieldChoices?.length || isOrganizerType(field.type)) {
+      if (isNullOperator(field.relationalOperatorValue)) {
+        parts.push("NULL");
+      }
+      else if (field.fieldChoices?.length || isOrganizerType(field.type)) {
         if (field.values?.length) {
           let val: string;
           if (field.type === "string" || field.type === "date" || isOrganizerType(field.type)) {
@@ -378,5 +408,7 @@ export function useQueryFilterBuilder() {
     buildQueryFilterString,
     getFieldFromFieldDef,
     isOrganizerType,
+    isNullOperator,
+    updateRelationalOperator,
   };
 }

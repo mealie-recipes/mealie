@@ -47,6 +47,12 @@
         "description": "",
         "abbreviation": "ml"
     },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
+    },
     "liter": {
         "name": "liter",
         "plural_name": "liter",
@@ -74,7 +80,7 @@
     },
     "kilogram": {
         "name": "kilo",
-        "plural_name": "kilogram",
+        "plural_name": "kilo",
         "description": "",
         "abbreviation": "kg"
     },

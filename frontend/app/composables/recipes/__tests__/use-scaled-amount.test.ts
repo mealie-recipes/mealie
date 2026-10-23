@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { useScaledAmount } from "../use-scaled-amount";
+import { calculateScaleFromYield, useScaledAmount } from "../use-scaled-amount";
 
 describe("test use recipe yield", () => {
   function asFrac(numerator: number, denominator: number): string {
@@ -64,5 +64,30 @@ describe("test use recipe yield", () => {
     const { scaledAmount, scaledAmountDisplay } = useScaledAmount(1.3344559997);
     expect(scaledAmount).toStrictEqual(1.334);
     expect(scaledAmountDisplay).toStrictEqual(`1${asFrac(1, 3)}`);
+  });
+});
+
+describe("calculateScaleFromYield", () => {
+  test.each([
+    [8, 4, 2],
+    [2, 4, 0.5],
+    [4, 4, 1],
+    [1, 3, 1 / 3],
+    [0.5, 1, 0.5],
+  ])("a yield of %d from %d servings is a scale of %d", (newYield, recipeServings, expected) => {
+    expect(calculateScaleFromYield(newYield, recipeServings)).toBeCloseTo(expected);
+  });
+
+  test.each([0, -1, NaN])("keeps the current scale for an unusable yield of %d", (newYield) => {
+    expect(calculateScaleFromYield(newYield, 4)).toBeNull();
+  });
+
+  test.each([0, -2])("falls back to unscaled when the recipe has %d servings", (recipeServings) => {
+    expect(calculateScaleFromYield(6, recipeServings)).toStrictEqual(1);
+  });
+
+  test("round-trips with the scaled amount shown to the user", () => {
+    const scale = calculateScaleFromYield(5, 3)!;
+    expect(useScaledAmount(3, scale).scaledAmount).toStrictEqual(5);
   });
 });

@@ -4,6 +4,7 @@ from functools import cached_property
 from fastapi import Depends, File, Form, HTTPException
 from pydantic import UUID4
 
+from mealie.lang.providers import get_locale_provider
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
@@ -44,6 +45,26 @@ class RecipeTimelineEventsController(BaseCrudController):
             self.registered_exceptions,
         )
 
+    def _translate_event_subject(self, event: RecipeTimelineEventOut) -> None:
+        """Translate auto-generated event subjects into the request's locale.
+
+        - ``system`` events store a bare i18n key (e.g. ``recipe.recipe-created``).
+        - ``info`` events store ``<i18n-key>|<name>`` (e.g. ``recipe.made-this-for-dinner|Alice``).
+
+        Falls back to en-US when the requested locale has not been translated yet.
+        Events with plain-text subjects (created before this change) are returned unchanged.
+        """
+        if event.event_type == TimelineEventType.system.value:
+            event.subject = self.t(event.subject)
+        elif event.event_type == TimelineEventType.info.value and "|" in event.subject:
+            key, _, name = event.subject.partition("|")
+            if key.startswith("recipe."):
+                translated = self.t(key, name=name)
+                if translated == key:
+                    translated = get_locale_provider("en-US").t(key, name=name)
+                if translated != key:
+                    event.subject = translated
+
     @router.get("", response_model=RecipeTimelineEventPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         response = self.repo.page_all(
@@ -52,8 +73,7 @@ class RecipeTimelineEventsController(BaseCrudController):
         )
 
         for event in response.items:
-            if event.event_type == TimelineEventType.system.value:
-                event.subject = self.t(event.subject)
+            self._translate_event_subject(event)
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
@@ -89,8 +109,7 @@ class RecipeTimelineEventsController(BaseCrudController):
     @router.get("/{item_id}", response_model=RecipeTimelineEventOut)
     def get_one(self, item_id: UUID4):
         event = self.mixins.get_one(item_id)
-        if event.event_type == TimelineEventType.system.value:
-            event.subject = self.t(event.subject)
+        self._translate_event_subject(event)
         return event
 
     @router.put("/{item_id}", response_model=RecipeTimelineEventOut)

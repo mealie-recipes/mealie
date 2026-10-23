@@ -1,13 +1,13 @@
 {
     "teaspoon": {
-        "name": "zrnc",
+        "name": "čajna žlička",
         "plural_name": "čajne žličke",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
-        "name": "žlica",
-        "plural_name": "žlice",
+        "name": "jedilna žlica",
+        "plural_name": "jedilne žlice",
         "description": "",
         "abbreviation": "tbsp"
     },
@@ -25,18 +25,18 @@
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pol litra",
+        "plural_name": "pinte",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "četrt galone",
-        "plural_name": "četrtine",
+        "plural_name": "četrtine galon",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "galon",
+        "name": "galona",
         "plural_name": "galone",
         "description": "",
         "abbreviation": "gal"
@@ -46,6 +46,12 @@
         "plural_name": "mililitrov",
         "description": "",
         "abbreviation": "ml"
+    },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centilitrov",
+        "description": "",
+        "abbreviation": "cl"
     },
     "liter": {
         "name": "liter",
@@ -85,13 +91,13 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "pljusk",
-        "plural_name": "brizgalk",
+        "name": "brizg",
+        "plural_name": "brizgov",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "potreseno",
+        "name": "ščepec",
         "plural_name": "ščepcev",
         "description": "",
         "abbreviation": ""
@@ -121,8 +127,8 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "grozd",
-        "plural_name": "grozdov",
+        "name": "šopek",
+        "plural_name": "šopkov",
         "description": "",
         "abbreviation": ""
     },

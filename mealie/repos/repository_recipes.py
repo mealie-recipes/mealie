@@ -5,6 +5,8 @@ from typing import Self
 from uuid import UUID
 
 import sqlalchemy as sa
+from fastapi import HTTPException
+from humps import decamelize
 from pydantic import UUID4
 from sqlalchemy.exc import IntegrityError
 
@@ -20,6 +22,7 @@ from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
@@ -87,20 +90,58 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         )
         return sa.cast(effective_rating, sa.Float)
 
+    def _validate_last_made_query(self, query: PaginationQuery | RecipeSuggestionQuery) -> None:
+        if self.user_id:
+            return
+
+        if query.order_by and any(
+            decamelize(value.split(":", 1)[0].strip()) == "last_made" for value in query.order_by.split(",")
+        ):
+            raise HTTPException(400, "last_made is only available for authenticated household queries")
+
+        if query.query_filter:
+            try:
+                builder = QueryFilterBuilder(query.query_filter)
+            except ValueError:
+                # Let the existing query filter handling return the API's normal 400 response.
+                return
+
+            if any(
+                getattr(component, "attribute_name", None) == "last_made" for component in builder.filter_components
+            ):
+                raise HTTPException(400, "last_made is only available for authenticated household queries")
+
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore
+        name_suffix = 0
 
-        for i in range(1, 11):
+        for i in range(1, max_retries + 1):
             try:
                 return super().create(document)
             except IntegrityError:
                 self.session.rollback()
-                document.name = f"{original_name} ({i})"
-                document.slug = create_recipe_slug(document.name)
-
                 if i >= max_retries:
                     raise
+
+                # Existing names must not consume retries reserved for failed writes.
+                # Slugs are unique across the group, including other households.
+                while True:
+                    name_suffix += 1
+                    suffix = f"-{name_suffix}"
+                    base_slug = create_recipe_slug(original_name, max_length=250 - len(suffix)).rstrip("-")
+                    document.name = f"{original_name} ({name_suffix})"
+                    document.slug = f"{base_slug}{suffix}"
+                    exists = self.session.scalar(
+                        sa.select(
+                            sa.exists().where(
+                                self.model.group_id == document.group_id,
+                                self.model.slug == document.slug,
+                            )
+                        )
+                    )
+                    if not exists:
+                        break
 
     def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
         recipe_as_model = self.schema.model_validate(recipe)
@@ -338,6 +379,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         if search:
             q = self.add_search_to_query(q, self.schema, search)
 
+        self._validate_last_made_query(pagination_result)
+
         if not pagination_result.order_by and not search:
             # default ordering if not searching
             pagination_result.order_by = "created_at"
@@ -364,24 +407,28 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         )
 
     @staticmethod
-    def _ingredient_uses_food(food: UUID4) -> sa.ColumnElement:
+    def _recipes_using_foods(foods: list[UUID4]) -> sa.ColumnElement:
         """
-        An ingredient counts as using a food when it calls for it, or offers it as a substitute.
+        Recipes with an ingredient that uses any of `foods`: it calls for the food, or offers it as
+        a substitute.
 
         The two are the same thing as far as the recipe is concerned: both are lost if the food
         goes away, which is what makes this the right question for the food delete warning.
+
+        Built as a UNION of the two lookups rather than an OR inside `recipe_ingredient.any()`: the
+        OR can't use the food_id indexes, so it checked every ingredient of every recipe.
         """
 
-        return sa.or_(
-            RecipeIngredientModel.food_id == food,
-            RecipeIngredientModel.substitutions.any(RecipeIngredientSubstitutionModel.substitute_food_id == food),
-        )
-
-    @staticmethod
-    def _ingredient_uses_any_food(foods: list[UUID4]) -> sa.ColumnElement:
-        return sa.or_(
-            RecipeIngredientModel.food_id.in_(foods),
-            RecipeIngredientModel.substitutions.any(RecipeIngredientSubstitutionModel.substitute_food_id.in_(foods)),
+        return RecipeModel.id.in_(
+            sa.union(
+                sa.select(RecipeIngredientModel.recipe_id).where(RecipeIngredientModel.food_id.in_(foods)),
+                sa.select(RecipeIngredientModel.recipe_id)
+                .join(
+                    RecipeIngredientSubstitutionModel,
+                    RecipeIngredientSubstitutionModel.ingredient_id == RecipeIngredientModel.id,
+                )
+                .where(RecipeIngredientSubstitutionModel.substitute_food_id.in_(foods)),
+            )
         )
 
     def _build_recipe_filter(
@@ -421,9 +468,9 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tools)))
         if foods:
             if require_all_foods:
-                fltr.extend(RecipeModel.recipe_ingredient.any(self._ingredient_uses_food(food)) for food in foods)
+                fltr.extend(self._recipes_using_foods([food]) for food in foods)
             else:
-                fltr.append(RecipeModel.recipe_ingredient.any(self._ingredient_uses_any_food(foods)))
+                fltr.append(self._recipes_using_foods(foods))
         if households:
             fltr.append(RecipeModel.household_id.in_(households))
         return fltr

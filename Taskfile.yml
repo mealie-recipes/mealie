@@ -119,13 +119,23 @@ tasks:
   py:lint:
     desc: runs python linter
     cmds:
-      - uv run ruff check mealie
+      - uv run ruff check .
+
+  py:semgrep:
+    desc: runs the authz semgrep rules in .semgrep and their tests
+    vars:
+      # semgrep still imports pkg_resources and does not support every Python version uv picks.
+      SEMGREP: uvx --python 3.12 --with setuptools semgrep==1.179.0
+    cmds:
+      - "{{ .SEMGREP }} scan --test --metrics off --config .semgrep/authz.yml .semgrep/authz.py"
+      - "{{ .SEMGREP }} scan --error --metrics off --config .semgrep mealie"
 
   py:check:
     desc: runs all linters, type checkers, and formatters
     deps:
       - py:format
       - py:lint
+      - py:semgrep
       - py:mypy
       - py:test
 

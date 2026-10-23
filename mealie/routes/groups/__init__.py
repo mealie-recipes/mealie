@@ -14,6 +14,7 @@ router = APIRouter()
 
 router.include_router(controller_group_ai_providers.providers_router)
 router.include_router(controller_group_ai_providers.settings_router)
+router.include_router(controller_group_ai_providers.prompts_router)
 router.include_router(controller_group_households.router)
 router.include_router(controller_group_self_service.router)
 router.include_router(controller_migrations.router)

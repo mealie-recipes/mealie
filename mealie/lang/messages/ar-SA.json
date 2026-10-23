@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "يجب أن تكون أسماء الوصفات فريدة",
         "recipe-created": "تم إنشاء الوصفة",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "تم حذف صورة الوصفة",
         "recipe-defaults": {
             "ingredient-note": "كوب 1 طحين",
@@ -24,6 +31,7 @@
             "ai-not-enabled": "خدمات الذكاء الاصطناعي غير مفعلة",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "خدمات الصور AI غير مفعلة",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "لم يتم العثور على وصفة في المصدر المقدم",
             "no-source": "لم يتم توفير أي محتوى أو صور أو عنوان URL",
             "provider-returned-nothing": "The AI provider did not return a recipe",
@@ -68,7 +76,7 @@
         "report-deleted": "تم حذف التقرير."
     },
     "exceptions": {
-        "permission_denied": "لا يوجد لديك صلاحيات كافية لتنفيذ هذا الإجراء",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "الوصفة لا يمكن أن تشير إلى نفسها، سواء بشكل مباشر أو غير مباشر",
         "no-entry-found": "لم يتم العثور على الصفحة المطلوبة",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

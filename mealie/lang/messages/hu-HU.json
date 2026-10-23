@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük",
         "recipe-created": "Recept létrehozva",
+        "made-this-as-side": "{name} ezt főétel mellé készítette",
+        "made-this-for-breakfast": "{name} ezt készítette reggelire",
+        "made-this-for-lunch": "{name} ezt készítette ebédre",
+        "made-this-for-dinner": "{name} ezt készítette vacsorára",
+        "made-this-for-snack": "{name} ezt készítette uzsonnára",
+        "made-this-for-drink": "{name} ezt italhoz készítette",
+        "made-this-for-dessert": "{name} ezt készítette desszertnek",
         "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
             "ingredient-note": "1 csésze liszt",
@@ -24,6 +31,7 @@
             "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "Az AI képszolgáltatások nem engedélyezettek",
+            "invalid-mealie-export": "Úgy tűnik, ez egy a Mealie-ből exportált recept, de nem sikerült importálni",
             "no-recipe-found": "A megadott forrásban nem található recept",
             "no-source": "Nincs tartalom, kép vagy URL megadva",
             "provider-returned-nothing": "Az AI szolgáltató nem adott vissza receptet",
@@ -68,7 +76,7 @@
         "report-deleted": "A jelentés törlésre került."
     },
     "exceptions": {
-        "permission_denied": "Nincs engedélye a műveletet végrehajtásához",
+        "permission-denied": "Nincs jogosultsága a műveletet végrehajtásához",
         "recursive-recipe-link": "Egy recept nem hivatkozhat önmagára, sem közvetlenül, sem közvetve",
         "no-entry-found": "A kért erőforrás nem található",
         "rate-limit-error": "Az AI-szolgáltató korlátozza a kérések számát. Kérjük, várjon egy kis időt, majd próbálja meg újra",
