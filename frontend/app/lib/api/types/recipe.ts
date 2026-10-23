@@ -608,6 +608,9 @@ export interface TagOut {
   slug: string;
   recipeCount?: number;
 }
+export interface TagRecipesRemove {
+  recipeIds: string[];
+}
 export interface TagSave {
   name: string;
   groupId: string;

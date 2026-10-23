@@ -71,6 +71,7 @@
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
       :edit-form="editForm"
+      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="toolStore.actions.deleteOne"
@@ -79,6 +80,54 @@
       <template #[`item.recipeCount`]="{ item }">
         <NuxtLink v-if="groupSlug && item.recipeCount > 0" :to="`/g/${groupSlug}?tools=${item.id}`">{{ item.recipeCount }}</NuxtLink>
         <span v-else>{{ item.recipeCount || 0 }}</span>
+      </template>
+
+      <template #edit-dialog-bottom>
+        <div v-if="editRecipes.length > 0 || editRecipesLoadFailed" class="mt-4">
+          <div class="text-subtitle-2 mb-1">
+            {{ $t("data-pages.tools.associated-recipes") }}
+          </div>
+          <v-list density="compact">
+            <v-list-item
+              v-for="recipe in editRecipes"
+              :key="recipe.slug"
+              :to="`/g/${groupSlug}/r/${recipe.slug}`"
+              :title="recipe.name || recipe.slug"
+            />
+          </v-list>
+          <div v-if="editRecipesLoadFailed" class="d-flex align-center text-body-2 pl-2">
+            <span class="text-error">{{ $t("data-pages.load-recipes-failed") }}</span>
+            <v-btn
+              variant="text"
+              size="small"
+              color="primary"
+              class="ml-2"
+              :loading="editRecipesLoading"
+              @click="retryEditRecipes"
+            >
+              {{ $t("data-pages.retry") }}
+            </v-btn>
+          </div>
+          <div v-if="editRecipesTotalPages > 1" class="d-flex align-center mt-2">
+            <v-btn
+              variant="text"
+              size="small"
+              :disabled="editRecipesPage <= 1 || editRecipesLoading"
+              @click="loadEditRecipesPage(editRecipesPage - 1)"
+            >
+              {{ $t("general.previous") }}
+            </v-btn>
+            <span class="text-body-2 mx-2">{{ editRecipesPage }} / {{ editRecipesTotalPages }}</span>
+            <v-btn
+              variant="text"
+              size="small"
+              :disabled="editRecipesPage >= editRecipesTotalPages || editRecipesLoading"
+              @click="loadEditRecipesPage(editRecipesPage + 1)"
+            >
+              {{ $t("general.next") }}
+            </v-btn>
+          </div>
+        </div>
       </template>
 
       <template #[`item.onHand`]="{ item }">
@@ -116,6 +165,7 @@ import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
 import { useToolStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
+import { useEditDialogRecipes } from "~/composables/use-edit-dialog-recipes";
 import type { RecipeTool, RecipeToolCreate } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
@@ -221,6 +271,25 @@ async function handleEdit(editFormData: RecipeToolWithOnHand) {
 
   await toolStore.actions.updateOne({ ...editFormData, id: editFormData.id } as RecipeTool);
   editForm.data = {} as RecipeToolWithOnHand;
+  resetEditRecipes();
+}
+
+// ============================================================
+// Edit Dialog: Associated Recipes
+const {
+  recipes: editRecipes,
+  page: editRecipesPage,
+  totalPages: editRecipesTotalPages,
+  loading: editRecipesLoading,
+  loadFailed: editRecipesLoadFailed,
+  open: openEditRecipes,
+  reset: resetEditRecipes,
+  loadPage: loadEditRecipesPage,
+  retry: retryEditRecipes,
+} = useEditDialogRecipes("tools");
+
+async function onEditDialogOpen(item: RecipeTool) {
+  await openEditRecipes(item?.id);
 }
 
 // ============================================================
