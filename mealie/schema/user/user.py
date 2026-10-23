@@ -1,9 +1,10 @@
+import math
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Annotated, Any
 from uuid import UUID
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field, StringConstraints, field_validator
+from pydantic import UUID4, AfterValidator, BaseModel, ConfigDict, Field, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -23,6 +24,16 @@ from ..recipe import CategoryBase
 
 DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
+
+MAX_RATING = 5
+
+
+def snap_rating(value: float) -> float:
+    """Round a rating to the nearest half star (rounding halves up to match the frontend)"""
+    return math.floor(value * 2 + 0.5) / 2
+
+
+RatingValue = Annotated[float, Field(ge=0, le=MAX_RATING), AfterValidator(snap_rating)]
 
 
 class LongLiveTokenIn(MealieModel):
@@ -88,7 +99,7 @@ class UserRatingCreate(UserRatingSummary):
 
 
 class UserRatingUpdate(MealieModel):
-    rating: float | None = None
+    rating: RatingValue | None = None
     is_favorite: bool | None = None
 
 

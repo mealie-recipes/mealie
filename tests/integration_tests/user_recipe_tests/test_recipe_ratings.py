@@ -11,6 +11,11 @@ from tests.utils.factories import random_bool, random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
+def random_half_star_rating() -> float:
+    """Random rating between 1 and 5 in half-star steps, matching what the API stores"""
+    return random.randint(2, 10) / 2
+
+
 @pytest.fixture(scope="function")
 def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe]]:
     unique_user = random.choice(user_tuple)
@@ -126,7 +131,7 @@ def test_set_user_recipe_ratings(
     expected_ratings_by_recipe_id: dict[str, UserRatingUpdate] = {}
     for recipe in recipes_to_rate:
         new_rating = UserRatingUpdate(
-            rating=random.uniform(1, 5),
+            rating=random_half_star_rating(),
         )
         expected_ratings_by_recipe_id[str(recipe.id)] = new_rating
         response = api_client.post(
@@ -157,7 +162,7 @@ def test_set_user_recipe_ratings(
 
 def test_set_user_rating_invalid_recipe_404(api_client: TestClient, user_tuple: tuple[TestUser, TestUser]):
     unique_user = random.choice(user_tuple)
-    rating = UserRatingUpdate(rating=random.uniform(1, 5))
+    rating = UserRatingUpdate(rating=random_half_star_rating())
     response = api_client.post(
         api_routes.users_id_ratings_slug(unique_user.user_id, random_string()),
         json=rating.model_dump(),
@@ -170,7 +175,7 @@ def test_set_rating_and_favorite(api_client: TestClient, user_tuple: tuple[TestU
     unique_user = random.choice(user_tuple)
     recipe = random.choice(recipes)
 
-    rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=True)
+    rating = UserRatingUpdate(rating=random_half_star_rating(), is_favorite=True)
     response = api_client.post(
         api_routes.users_id_ratings_slug(unique_user.user_id, recipe.slug),
         json=rating.model_dump(),
@@ -227,7 +232,7 @@ def test_set_rating_preserve_favorite(
 def test_set_favorite_preserve_rating(
     api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
 ):
-    rating_value = random.uniform(1, 5)
+    rating_value = random_half_star_rating()
     initial_favorite_value = random_bool()
 
     unique_user = random.choice(user_tuple)
@@ -266,7 +271,7 @@ def test_set_rating_to_zero(api_client: TestClient, user_tuple: tuple[TestUser, 
     unique_user = random.choice(user_tuple)
     recipe = random.choice(recipes)
 
-    rating_value = random.uniform(1, 5)
+    rating_value = random_half_star_rating()
     rating = UserRatingUpdate(rating=rating_value)
     response = api_client.post(
         api_routes.users_id_ratings_slug(unique_user.user_id, recipe.slug),
@@ -298,7 +303,7 @@ def test_delete_recipe_deletes_ratings(
     unique_user = random.choice(user_tuple)
     database = unique_user.repos
     recipe = random.choice(recipes)
-    rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=random.choice([True, False, None]))
+    rating = UserRatingUpdate(rating=random_half_star_rating(), is_favorite=random.choice([True, False, None]))
     response = api_client.post(
         api_routes.users_id_ratings_slug(unique_user.user_id, recipe.slug),
         json=rating.model_dump(),
@@ -342,7 +347,7 @@ def test_recipe_rating_is_readonly(
     unique_user = random.choice(user_tuple)
     recipe = random.choice(recipes)
 
-    rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=random.choice([True, False, None]))
+    rating = UserRatingUpdate(rating=random_half_star_rating(), is_favorite=random.choice([True, False, None]))
     response = api_client.post(
         api_routes.users_id_ratings_slug(unique_user.user_id, recipe.slug),
         json=rating.model_dump(),
@@ -356,8 +361,9 @@ def test_recipe_rating_is_readonly(
     assert data["rating"] == rating.rating
 
     # try to update the rating manually and verify it didn't change
-    new_rating = random.uniform(1, 5)
-    assert new_rating != rating.rating
+    new_rating = random_half_star_rating()
+    while new_rating == rating.rating:
+        new_rating = random_half_star_rating()
     response = api_client.patch(
         api_routes.recipes_slug(recipe.slug), json={"rating": new_rating}, headers=unique_user.token
     )
@@ -376,7 +382,7 @@ def test_user_can_rate_recipes_in_other_households(api_client: TestClient, uniqu
     recipe = unique_user.repos.recipes.get_one(response.json())
     assert recipe and recipe.id
 
-    rating = UserRatingUpdate(rating=random.uniform(1, 5), is_favorite=True)
+    rating = UserRatingUpdate(rating=random_half_star_rating(), is_favorite=True)
     response = api_client.post(
         api_routes.users_id_ratings_slug(h2_user.user_id, recipe.slug),
         json=rating.model_dump(),
@@ -442,3 +448,72 @@ def test_can_read_own_ratings_and_favorites_via_id_route(api_client: TestClient,
 
     response = api_client.get(api_routes.users_id_favorites(unique_user.user_id), headers=unique_user.token)
     assert response.status_code == 200
+
+
+@pytest.mark.parametrize(
+    ["rating_input", "expected_rating"],
+    [
+        (3.5, 3.5),
+        (3.37, 3.5),
+        (3.74, 3.5),
+        (3.75, 4.0),
+        (4.2, 4.0),
+        (0.1, 0.0),
+        (5, 5.0),
+    ],
+)
+def test_set_user_rating_snaps_to_half_stars(
+    api_client: TestClient,
+    user_tuple: tuple[TestUser, TestUser],
+    recipes: list[Recipe],
+    rating_input: float,
+    expected_rating: float,
+):
+    unique_user = random.choice(user_tuple)
+    recipe = random.choice(recipes)
+
+    response = api_client.post(
+        api_routes.users_id_ratings_slug(unique_user.user_id, recipe.slug),
+        json={"rating": rating_input},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self_ratings_recipe_id(recipe.id), headers=unique_user.token)
+    assert response.json()["rating"] == expected_rating
+
+
+@pytest.mark.parametrize("rating_input", [-0.5, 5.5, 10])
+def test_set_user_rating_out_of_range_422(
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe], rating_input: float
+):
+    unique_user = random.choice(user_tuple)
+    recipe = random.choice(recipes)
+
+    response = api_client.post(
+        api_routes.users_id_ratings_slug(unique_user.user_id, recipe.slug),
+        json={"rating": rating_input},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422
+
+
+def test_half_star_ratings_average_into_recipe_rating(
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
+):
+    user_1, user_2 = user_tuple
+    recipe = random.choice(recipes)
+
+    for user, rating in ((user_1, 3.5), (user_2, 4.0)):
+        response = api_client.post(
+            api_routes.users_id_ratings_slug(user.user_id, recipe.slug),
+            json={"rating": rating},
+            headers=user.token,
+        )
+        assert response.status_code == 200
+
+    # the repo without a user context returns the household average rather than a user's own rating
+    user_1.repos.session.expire_all()
+    recipe_out = user_1.repos.recipes.get_one(recipe.slug)
+    assert recipe_out
+    assert recipe_out.rating == 3.75
