@@ -5,6 +5,7 @@ import { useCookModeQuery, type BooleanString } from "./use-cook-mode-query";
 
 function buildHarness(initialCookQuery: BooleanString | undefined = undefined, initialMode = PageMode.VIEW) {
   const cookQuery = ref<BooleanString | undefined>(initialCookQuery);
+  const queryWrites: (BooleanString | undefined)[] = [];
   const pageMode = ref(initialMode);
 
   const setMode = (mode: PageMode) => {
@@ -15,6 +16,7 @@ function buildHarness(initialCookQuery: BooleanString | undefined = undefined, i
     cookQuery: computed({
       get: () => cookQuery.value,
       set: (value) => {
+        queryWrites.push(value);
         cookQuery.value = value;
       },
     }),
@@ -25,6 +27,7 @@ function buildHarness(initialCookQuery: BooleanString | undefined = undefined, i
 
   return {
     cookQuery,
+    queryWrites,
     pageMode,
     setMode,
     ...sync,
@@ -62,6 +65,18 @@ function buildAsyncHarness(initialCookQuery: BooleanString | undefined = undefin
 }
 
 describe("useCookModeQuery", () => {
+  test.each([undefined, ""] as const)("does not write an absent cook query (%s) when saving edits", async (initialCookQuery) => {
+    const harness = buildHarness(initialCookQuery, PageMode.EDIT);
+
+    harness.hydrateCookMode();
+    harness.setMode(PageMode.VIEW);
+    await nextTick();
+
+    // A query write schedules navigation and can cancel the recipe rename redirect.
+    expect(harness.queryWrites).toEqual([]);
+    expect(harness.pageMode.value).toBe(PageMode.VIEW);
+  });
+
   test("hydrates cook mode from the query", async () => {
     const harness = buildHarness("true");
 
@@ -137,5 +152,32 @@ describe("useCookModeQuery", () => {
 
     expect(harness.cookQuery.value).toBeUndefined();
     expect(harness.pageMode.value).toBe(PageMode.VIEW);
+  });
+
+  test("clears cook mode while its query navigation is still pending", async () => {
+    const queryWrites: (BooleanString | undefined)[] = [];
+    const pageMode = ref(PageMode.VIEW);
+    const setMode = (mode: PageMode) => {
+      pageMode.value = mode;
+    };
+    const sync = useCookModeQuery({
+      cookQuery: computed<BooleanString | undefined>({
+        get: () => undefined,
+        // The router has not applied these writes to the current route yet.
+        set: value => queryWrites.push(value),
+      }),
+      isEditMode: computed(() => pageMode.value === PageMode.EDIT),
+      pageMode: computed(() => pageMode.value),
+      setMode,
+    });
+
+    sync.hydrateCookMode();
+    setMode(PageMode.COOK);
+    await nextTick();
+    setMode(PageMode.VIEW);
+    await nextTick();
+
+    expect(queryWrites).toEqual(["true", undefined]);
+    expect(pageMode.value).toBe(PageMode.VIEW);
   });
 });
