@@ -1239,7 +1239,7 @@ requires-dist = [
     { name = "paho-mqtt", specifier = "==1.6.1" },
     { name = "pillow", specifier = "==12.3.0" },
     { name = "pillow-heif", specifier = "==1.8.1" },
-    { name = "pint", specifier = "==0.26.1" },
+    { name = "pint", specifier = "==0.26.2" },
     { name = "psycopg2-binary", marker = "extra == 'pgsql'", specifier = "==2.9.13" },
     { name = "pydantic", specifier = "==2.14.1" },
     { name = "pydantic-settings", specifier = "==2.16.0" },
@@ -1531,7 +1531,7 @@ wheels = [
 
 [[package]]
 name = "pint"
-version = "0.26.1"
+version = "0.26.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "flexcache" },
@@ -1539,9 +1539,9 @@ dependencies = [
     { name = "platformdirs" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9f/bc/2c38c32e0fb1f966d3695f4493a3f3ce2cc0cca1bbe7c958b92261b31af9/pint-0.26.1.tar.gz", hash = "sha256:1bbde36eae57a5a289cd05081c6405618a5899814940752064ce351cd0204f71", size = 273631, upload-time = "2026-09-10T21:16:49.712Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d3/b0/cef9c8913ebe959d97b2d57b1fc2a77a4291c4f2bd4dc3fe4d3313c938ea/pint-0.26.2.tar.gz", hash = "sha256:391e5d2fc01fdb121c113b8eb47386688575542c1f5144c465ff318bf5133573", size = 295834, upload-time = "2026-10-19T19:49:31.845Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6d/5c/9507ea3c732f8a259f45ddf190a741e9bf7d3fe229b5d473917ee6efbf1e/pint-0.26.1-py3-none-any.whl", hash = "sha256:e982b129415c09c63308f314ae44697d83e5c96f253bcc0d5b833fc3329eb6d4", size = 326478, upload-time = "2026-09-10T21:16:48.316Z" },
+    { url = "https://files.pythonhosted.org/packages/b7/d5/01ea71591a29e88926582e3ca7ed32f8b933e9ebc99187a7ab100587242d/pint-0.26.2-py3-none-any.whl", hash = "sha256:c94124cdb19baa1a84bb65c8bb9a620a9636b9b9cd80f32f30ad7ff795ea2eb8", size = 351853, upload-time = "2026-10-19T19:49:29.966Z" },
 ]
 
 [[package]]
