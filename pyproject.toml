@@ -44,7 +44,7 @@ dependencies = [
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
     "ingredient-parser-nlp==2.9.1",
-    "pint==0.26.1",
+    "pint==0.26.2",
     "httpx-curl-cffi==0.1.5",
 ]
 
@@ -77,7 +77,7 @@ dev = [
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
-    "httpx2==2.14.0",
+    "httpx2==2.15.1",
     "zensical==0.0.71",
     "pytest-xdist==3.8.0",
 ]
