@@ -44,7 +44,7 @@ dependencies = [
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
     "ingredient-parser-nlp==2.9.1",
-    "pint==0.26.1",
+    "pint==0.26.2",
     "httpx-curl-cffi==0.1.5",
 ]
 
