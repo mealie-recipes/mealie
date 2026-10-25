@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { calculateScaleFromYield, useScaledAmount } from "../use-scaled-amount";
+import { calculateScaleFromIngredient, calculateScaleFromYield, useScaledAmount } from "../use-scaled-amount";
 
 describe("test use recipe yield", () => {
   function asFrac(numerator: number, denominator: number): string {
@@ -89,5 +89,25 @@ describe("calculateScaleFromYield", () => {
   test("round-trips with the scaled amount shown to the user", () => {
     const scale = calculateScaleFromYield(5, 3)!;
     expect(useScaledAmount(3, scale).scaledAmount).toStrictEqual(5);
+  });
+});
+
+describe("calculateScaleFromIngredient", () => {
+  test.each([
+    [300, 500, 0.6],
+    [1000, 500, 2],
+    [500, 500, 1],
+    [100, 300, 1 / 3],
+    [0.5, 1, 0.5],
+  ])("setting target %d for base %d yields scale of %d", (target, base, expected) => {
+    expect(calculateScaleFromIngredient(target, base)).toBeCloseTo(expected);
+  });
+
+  test.each([0, -1, NaN])("returns null for unusable target quantity of %d", (target) => {
+    expect(calculateScaleFromIngredient(target, 500)).toBeNull();
+  });
+
+  test.each([0, -1, NaN])("returns null for unusable base quantity of %d", (base) => {
+    expect(calculateScaleFromIngredient(300, base)).toBeNull();
   });
 });

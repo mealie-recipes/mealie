@@ -469,7 +469,7 @@
                               if (!step.ingredientReferences) return false
                               return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
                             })"
-                            :scale="scale"
+                            v-model:scale="scale"
                             :is-cook-mode="isCookMode"
                             :storage-key="ingredientStorageKey"
                           />
@@ -544,15 +544,12 @@ interface MergerHistory {
 
 const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
 const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: () => [] });
+const scale = defineModel<number>("scale", { default: 1 });
 
 const props = defineProps({
   recipe: {
     type: Object as () => NoUndefinedField<Recipe>,
     required: true,
-  },
-  scale: {
-    type: Number,
-    default: 1,
   },
   ingredientStorageKey: {
     type: String,
