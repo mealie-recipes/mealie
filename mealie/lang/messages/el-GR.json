@@ -117,9 +117,9 @@
             "category-created": "Δημιουργήθηκε κατηγορία",
             "category-updated": "Ενημερώθηκε κατηγορία",
             "category-deleted": "Διαγράφτηκε κατηγορία",
-            "label-created": "Δημιουργήθηκε ετικέτα",
-            "label-updated": "Ενημερώθηκε ετικέτα",
-            "label-deleted": "Διαγράφτηκε ετικέτα"
+            "label-created": "Δημιουργήθηκε ετικέτα τροφίμων",
+            "label-updated": "Ενημερώθηκε ετικέτα τροφίμων",
+            "label-deleted": "Διαγράφτηκε ετικέτα τροφίμων"
         },
         "test-message-body": "Αυτή είναι μια δοκιμαστική ειδοποίηση από το Mealie.",
         "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
