@@ -39,7 +39,7 @@ class RepositoryUsers(GroupRepositoryGeneric[PrivateUser, User]):
             users_assets.img_random_3,
         ]
         random_image = random.choice(all_images)
-        shutil.copy(random_image, new_user.directory() / "profile.webp")
+        shutil.copyfile(random_image, new_user.directory() / "profile.webp")
 
         return new_user
 

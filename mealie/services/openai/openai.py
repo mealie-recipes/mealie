@@ -233,7 +233,7 @@ class OpenAIService(BaseService):
         try:
             with get_temporary_path() as temp_path:
                 image_path = temp_path / "recipe-image.jpg"
-                shutil.copy(self.TESTING_DIR / "recipe-image.jpg", image_path)
+                shutil.copyfile(self.TESTING_DIR / "recipe-image.jpg", image_path)
 
                 response = await self.ping(
                     provider,
