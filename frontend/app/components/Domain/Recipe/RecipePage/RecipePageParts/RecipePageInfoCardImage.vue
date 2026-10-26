@@ -9,6 +9,7 @@
     :src="recipeImageUrl"
     class="d-print-none"
     :style="hideImage ? undefined : 'cursor: zoom-in'"
+    v-bind="$attrs"
     @error="hideImage = true"
     @click="openLightbox"
   />

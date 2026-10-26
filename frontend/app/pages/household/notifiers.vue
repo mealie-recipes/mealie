@@ -2,6 +2,7 @@
   <v-container class="narrow-container">
     <BaseDialog
       v-model="state.deleteDialog"
+      bottom-sheet
       color="error"
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
@@ -199,7 +200,7 @@ interface OptionSection {
 }
 
 definePageMeta({
-  middleware: ["advanced-only"],
+  middleware: ["auth", "advanced-only"],
 });
 
 const api = useUserApi();
@@ -218,7 +219,7 @@ const state = reactive({
 const { data: notifiers } = useAsyncData(useAsyncKey(), async () => {
   const { data } = await api.groupEventNotifier.getAll();
   return data?.items;
-});
+}, { deep: true });
 
 async function refreshNotifiers() {
   const { data } = await api.groupEventNotifier.getAll();

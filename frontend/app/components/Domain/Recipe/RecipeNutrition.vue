@@ -11,13 +11,12 @@
           :key="index"
         >
           <v-number-input
-            :model-value="modelValue[key]"
+            :model-value="parseNutritionValue(modelValue[key])"
             :label="labels[key].label"
             :suffix="labels[key].suffix"
             density="compact"
             autocomplete="off"
             variant="underlined"
-            control-variant="stacked"
             inset
             :precision="null"
             :min="0"
@@ -49,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNutritionLabels } from "~/composables/recipes";
+import { parseNutritionValue, useNutritionLabels } from "~/composables/recipes";
 import type { Nutrition } from "~/lib/api/types/recipe";
 import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
 
@@ -75,8 +74,8 @@ const valueNotNull = computed(() => {
 
 const showViewer = computed(() => !props.edit && valueNotNull.value);
 
-function updateValue(key: number | string, event: Event) {
-  modelValue.value = { ...modelValue.value, [key]: event };
+function updateValue(key: number | string, value: number | null) {
+  modelValue.value = { ...modelValue.value, [key]: value?.toString() ?? null };
 }
 
 // Build a new list that only contains nutritional information that has a value

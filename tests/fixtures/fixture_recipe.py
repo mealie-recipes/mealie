@@ -86,7 +86,7 @@ def recipes_ingredient_only(unique_user: TestUser):
 
 
 @fixture(scope="function")
-def recipe_categories(unique_user: TestUser) -> Generator[list[CategoryOut], None, None]:
+def recipe_categories(unique_user: TestUser) -> Generator[list[CategoryOut]]:
     database = unique_user.repos
     models: list[CategoryOut] = []
     for _ in range(3):
@@ -105,7 +105,7 @@ def recipe_categories(unique_user: TestUser) -> Generator[list[CategoryOut], Non
 
 
 @fixture(scope="function")
-def random_recipe(unique_user: TestUser) -> Generator[Recipe, None, None]:
+def random_recipe(unique_user: TestUser) -> Generator[Recipe]:
     database = unique_user.repos
     recipe = Recipe(
         user_id=unique_user.user_id,

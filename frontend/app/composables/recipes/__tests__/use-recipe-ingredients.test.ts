@@ -7,6 +7,7 @@ vi.mock("~/composables/use-locales");
 
 let parseIngredientText: (ingredient: RecipeIngredient, scale?: number, includeFormating?: boolean) => string;
 let ingredientToParserString: (ingredient: RecipeIngredient) => string;
+let useParsedIngredientText: ReturnType<typeof useIngredientTextParser>["useParsedIngredientText"];
 
 describe("parseIngredientText", () => {
   beforeEach(() => {
@@ -14,7 +15,7 @@ describe("parseIngredientText", () => {
       locales: [{ value: "en-US", pluralFoodHandling: "always" }],
       locale: { value: "en-US", pluralFoodHandling: "always" },
     } as any);
-    ({ parseIngredientText, ingredientToParserString } = useIngredientTextParser());
+    ({ parseIngredientText, ingredientToParserString, useParsedIngredientText } = useIngredientTextParser());
   });
 
   const createRecipeIngredient = (overrides: Partial<RecipeIngredient>): RecipeIngredient => ({
@@ -61,6 +62,21 @@ describe("parseIngredientText", () => {
     const ingredient = createRecipeIngredient({ note: "<script>alert('foo')</script>" });
 
     expect(parseIngredientText(ingredient)).not.toContain("<script>");
+  });
+
+  test("referenced recipe links navigate in the current page", () => {
+    const ingredient = createRecipeIngredient({
+      referencedRecipe: {
+        id: "recipe-1",
+        name: "Curry Paste",
+        slug: "curry-paste",
+      },
+    });
+
+    const result = useParsedIngredientText(ingredient, 1, true, "home");
+
+    expect(result.recipeLink).toEqual("<a href=\"/g/home/r/curry-paste\">Curry Paste</a>");
+    expect(result.recipeLink).not.toContain("target=");
   });
 
   test("plural test : plural qty : use abbreviation", () => {

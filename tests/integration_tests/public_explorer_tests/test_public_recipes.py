@@ -15,6 +15,63 @@ from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
+def test_public_recipes_reject_household_last_made_queries(api_client: TestClient, unique_user: TestUser):
+    group = unique_user.repos.groups.get_one(unique_user.group_id)
+    assert group and group.preferences
+    group.preferences.private_group = False
+    unique_user.repos.group_preferences.update(group.id, group.preferences)
+
+    route = api_routes.explore_groups_group_slug_recipes(group.slug)
+    response = api_client.get(route, params={"orderBy": "lastMade"})
+    assert response.status_code == 400
+
+    response = api_client.get(route, params={"queryFilter": "lastMade IS NOT NULL"})
+    assert response.status_code == 400
+
+    response = api_client.get(route, params={"queryFilter": 'name IS "last_made"'})
+    assert response.status_code == 400
+
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes_suggestions(group.slug), params={"orderBy": "lastMade"}
+    )
+    assert response.status_code == 400
+
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes_suggestions(group.slug),
+        params={"queryFilter": 'name IS "last_made"'},
+    )
+    assert response.status_code == 400
+
+    response = api_client.get(route, params={"queryFilter": 'name = "last_made"'})
+    assert response.status_code == 200
+
+
+def test_public_cookbook_rejects_household_last_made_filter(api_client: TestClient, unique_user: TestUser):
+    group = unique_user.repos.groups.get_one(unique_user.group_id)
+    assert group and group.preferences
+    group.preferences.private_group = False
+    unique_user.repos.group_preferences.update(group.id, group.preferences)
+
+    household = unique_user.repos.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = False
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+    cookbook = unique_user.repos.cookbooks.create(
+        SaveCookBook(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            public=True,
+            query_filter_string="lastMade IS NOT NULL",
+        )
+    )
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes(group.slug), params={"cookbook": cookbook.id}
+    )
+    assert response.status_code == 400
+
+
 @pytest.mark.parametrize("is_private_group", [True, False])
 @pytest.mark.parametrize("is_household_1_private", [True, False])
 @pytest.mark.parametrize("is_household_2_private", [True, False])
@@ -148,6 +205,39 @@ def test_get_all_public_recipes_filtered(
     recipes_data = response.json()
     fetched_ids: set[str] = {recipe["id"] for recipe in recipes_data["items"]}
     assert should_fetch is (str(random_recipe.id) in fetched_ids)
+
+
+def test_get_all_public_recipes_filter_cannot_escape_public_filter(
+    api_client: TestClient,
+    unique_user: TestUser,
+    random_recipe: Recipe,
+):
+    """A query filter must not be able to break out of its group and demote the mandatory public filter"""
+
+    database = unique_user.repos
+
+    group = database.groups.get_one(unique_user.group_id)
+    assert group and group.preferences
+
+    group.preferences.private_group = False
+    database.group_preferences.update(group.id, group.preferences)
+
+    household = database.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+
+    household.preferences.private_household = False
+    household.preferences.recipe_public = True
+    database.household_preferences.update(household.id, household.preferences)
+
+    assert random_recipe.settings
+    random_recipe.settings.public = False
+    database.recipes.update(random_recipe.slug, random_recipe.model_dump())
+
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes(group.slug),
+        params={"queryFilter": 'name <> "zzz") OR (name <> "zzz"'},
+    )
+    assert response.status_code == 400
 
 
 @pytest.mark.parametrize("is_private_group", [True, False])

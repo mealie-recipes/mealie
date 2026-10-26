@@ -1,13 +1,14 @@
 from functools import cached_property
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException
 from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_zip_path
 from mealie.core.exceptions import PermissionDenied
 from mealie.core.security import create_file_token
 from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.permissions import forbidden
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe.recipe_bulk_actions import (
     AssignCategories,
@@ -16,7 +17,7 @@ from mealie.schema.recipe.recipe_bulk_actions import (
     DeleteRecipes,
     ExportRecipes,
 )
-from mealie.schema.response.responses import ErrorResponse, SuccessResponse
+from mealie.schema.response.responses import SuccessResponse
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
 from mealie.services.recipe.recipe_service import RecipeService
 
@@ -53,9 +54,7 @@ class RecipeBulkActionsController(BaseUserController):
             self.recipe_service.delete_many(delete_recipes.recipes)
         except PermissionDenied as e:
             self.logger.error("Permission Denied on recipe controller action")
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond(message="Permission Denied")
-            ) from e
+            raise forbidden("Permission Denied") from e
 
     @router.post("/export", status_code=202)
     def bulk_export_recipes(self, export_recipes: ExportRecipes):

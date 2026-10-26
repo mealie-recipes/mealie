@@ -1,8 +1,18 @@
 import type { ModelRef } from "vue";
-import type { ShoppingListItemOut, ShoppingListItemCreate, IngredientFood } from "~/lib/api/types/household";
+import type { ShoppingListItemOut, IngredientFood } from "~/lib/api/types/household";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "../store";
+import { isExactMatch } from "../use-search";
 
-export function useShoppingListItemEditor(listItem: ModelRef<ShoppingListItemOut | ShoppingListItemCreate, string, ShoppingListItemOut | ShoppingListItemCreate, ShoppingListItemOut | ShoppingListItemCreate>) {
+/**
+ * Returns the food whose name, plural name, or alias exactly matches `text`, or
+ * undefined if none do. Fuzzy matches are deliberately excluded so free text is
+ * never silently turned into a different food.
+ */
+export function resolveFood(text: string, foods: IngredientFood[]): IngredientFood | undefined {
+  return foods.find(food => isExactMatch(food, text));
+}
+
+export function useShoppingListItemEditor(listItem: ModelRef<ShoppingListItemOut, string, ShoppingListItemOut, ShoppingListItemOut>) {
   const foodStore = useFoodStore();
   const foodData = useFoodData();
 

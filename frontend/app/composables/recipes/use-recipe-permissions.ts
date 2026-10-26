@@ -21,6 +21,9 @@ export function useRecipePermissions(
     if (user.groupId !== recipe.groupId) {
       return false;
     }
+    if (user.admin) {
+      return true;
+    }
     if (user.householdId !== recipe.householdId) {
       if (!recipeHousehold.value?.preferences) {
         return false;

@@ -46,11 +46,15 @@ def test_use_token(api_client: TestClient, long_live_token):
 
 
 def test_delete_token(api_client: TestClient, admin_token):
-    response = api_client.delete(api_routes.users_api_tokens_token_id(1), headers=admin_token)
-    assert response.status_code == 200
+    created_ids = []
+    for _ in range(2):
+        response = api_client.post(api_routes.users_api_tokens, json={"name": "Test Delete Token"}, headers=admin_token)
+        assert response.status_code == 201
+        created_ids.append(response.json()["id"])
 
-    response = api_client.delete(api_routes.users_api_tokens_token_id(2), headers=admin_token)
-    assert response.status_code == 200
+    for token_id in created_ids:
+        response = api_client.delete(api_routes.users_api_tokens_token_id(token_id), headers=admin_token)
+        assert response.status_code == 200
 
 
 def test_delete_token_denies_other_users(api_client: TestClient, unique_user: TestUser, unique_admin: TestUser):

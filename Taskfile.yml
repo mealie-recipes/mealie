@@ -33,7 +33,7 @@ tasks:
     desc: runs the documentation server
     dir: docs
     cmds:
-      - uv run python -m mkdocs serve
+      - uv run zensical serve
 
   setup:ui:
     desc: setup frontend dependencies
@@ -106,9 +106,10 @@ tasks:
       - uv run mypy mealie
 
   py:test:
-    desc: runs python tests (support args after '--')
+    desc: runs python tests in parallel across CPU cores (support args after '--')
     cmds:
-      - uv run pytest {{ .CLI_ARGS }}
+      # --dist loadfile: each test file runs in order on a single worker
+      - uv run pytest -n auto --dist loadfile {{ .CLI_ARGS }}
 
   py:format:
     desc: runs python code formatter
@@ -118,13 +119,23 @@ tasks:
   py:lint:
     desc: runs python linter
     cmds:
-      - uv run ruff check mealie
+      - uv run ruff check .
+
+  py:semgrep:
+    desc: runs the authz semgrep rules in .semgrep and their tests
+    vars:
+      # semgrep still imports pkg_resources and does not support every Python version uv picks.
+      SEMGREP: uvx --python 3.12 --with setuptools semgrep==1.179.0
+    cmds:
+      - "{{ .SEMGREP }} scan --test --metrics off --config .semgrep/authz.yml .semgrep/authz.py"
+      - "{{ .SEMGREP }} scan --error --metrics off --config .semgrep mealie"
 
   py:check:
     desc: runs all linters, type checkers, and formatters
     deps:
       - py:format
       - py:lint
+      - py:semgrep
       - py:mypy
       - py:test
 
@@ -155,8 +166,9 @@ tasks:
       before installation begins
     internal: true
     cmds:
-      - uv export --no-editable --no-emit-project --extra pgsql --format
-        requirements-txt --output-file dist/requirements.txt
+      - uv export --no-dev --no-editable --no-emit-project --extra pgsql --format
+        requirements-txt --output-file dist/dependencies.txt
+      - cp dist/dependencies.txt dist/requirements.txt
       # Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed
       - echo "mealie[pgsql]=={{.MEALIE_VERSION}} \\" >> dist/requirements.txt
       - pip hash dist/mealie-{{.MEALIE_VERSION}}-py3-none-any.whl | tail -n1 |
@@ -174,6 +186,7 @@ tasks:
       - dist/mealie-*.whl
       - dist/mealie-*.tar.gz
     generates:
+      - dist/dependencies.txt
       - dist/requirements.txt
 
   py:package:deps-parallel:

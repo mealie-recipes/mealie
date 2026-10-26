@@ -1,0 +1,23 @@
+{
+  "description": "Reference data for recipe-image.jpg, a screenshot of this recipe used to test whether an AI provider can actually read an attached image (not just respond to text). 'test_keywords' is what the code checks the provider's response against; the rest of this file is documentation only and isn't read at runtime.",
+  "recipe_name": "Tomato & Egg Stir-Fry",
+  "servings": 2,
+  "ingredients": {
+    "eggs": "3",
+    "tomatoes": "2 ripe",
+    "green_onions": "2, chopped",
+    "salt": "1 tsp",
+    "sugar": "1 tsp",
+    "vegetable_oil": "2 tbsp"
+  },
+  "instructions": [
+    "Beat the eggs in a bowl with a pinch of salt.",
+    "Cut tomatoes into wedges.",
+    "Heat 1 tbsp oil in a pan. Pour in eggs, scramble until just set. Remove and set aside.",
+    "Heat remaining oil. Add tomatoes, cook until soft, about 3 minutes.",
+    "Add sugar and salt, stir well.",
+    "Return eggs to the pan. Toss everything together for 1 minute.",
+    "Garnish with green onions. Serve hot with rice."
+  ],
+  "test_keywords": ["tomato", "egg"]
+}

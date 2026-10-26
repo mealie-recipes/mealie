@@ -103,6 +103,7 @@ import {
   mdiPotSteamOutline,
   mdiPrinter,
   mdiPrinterPosCog,
+  mdiQrcode,
   mdiRefresh,
   mdiRefreshCircle,
   mdiRobot,
@@ -123,6 +124,7 @@ import {
   mdiSortVariant,
   mdiSquareEditOutline,
   mdiStar,
+  mdiSwapHorizontal,
   mdiTableEdit,
   mdiTagArrowRight,
   mdiTagArrowUpOutline,
@@ -143,6 +145,7 @@ import {
   mdiProgressCheck,
   mdiCalendarRemove,
   mdiCalendarEdit,
+  mdiNoteTextOutline,
 
 } from "@mdi/js";
 
@@ -226,6 +229,7 @@ export const icons = {
   informationVariant: mdiInformationVariant,
   link: mdiLink,
   linkVariantPlus: mdiLinkVariantPlus,
+  noteTextOutline: mdiNoteTextOutline,
   lock: mdiLock,
   logout: mdiLogout,
   manageData: mdiTableEdit,
@@ -236,6 +240,7 @@ export const icons = {
   play: mdiPlay,
   printer: mdiPrinter,
   printerSettings: mdiPrinterPosCog,
+  qrCode: mdiQrcode,
   refreshCircle: mdiRefreshCircle,
   robot: mdiRobot,
   rotateLeft: mdiRotateLeft,
@@ -252,6 +257,7 @@ export const icons = {
   sortClockAscending: mdiSortClockAscending,
   sortClockDescending: mdiSortClockDescending,
   star: mdiStar,
+  swapHorizontal: mdiSwapHorizontal,
   testTube: mdiTestTube,
   textBox: mdiTextBoxOutline,
   textBoxCheckOutline: mdiTextBoxCheckOutline,

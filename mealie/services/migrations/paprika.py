@@ -3,21 +3,22 @@ import io
 import json
 import re
 import tempfile
-import zipfile
 from gzip import GzipFile
 from pathlib import Path
 
-from mealie.schema.recipe import RecipeNote
-
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
+from .utils.migration_helpers import extract_zip
+
+
+def split_paprika_ingredients(value: str) -> list[str]:
+    return [line for line in value.splitlines() if line.strip()]
 
 
 def paprika_recipes(file: Path):
     """Yields all recipes inside the export file as JSON"""
     with tempfile.TemporaryDirectory() as tmpdir:
-        with zipfile.ZipFile(file) as zip_file:
-            zip_file.extractall(tmpdir)
+        extract_zip(file, tmpdir)
 
         for name in Path(tmpdir).glob("**/[!.]*.paprikarecipe"):
             with open(name, "rb") as fd:
@@ -35,7 +36,7 @@ class PaprikaMigrator(BaseMigrator):
         re_num_list = re.compile(r"^\d+\.\s")
 
         self.key_aliases = [
-            MigrationAlias(key="recipeIngredient", alias="ingredients", func=lambda x: x.split("\n") if x else ""),
+            MigrationAlias(key="recipeIngredient", alias="ingredients", func=split_paprika_ingredients),
             MigrationAlias(key="orgURL", alias="source_url", func=None),
             MigrationAlias(key="totalTime", alias="total_time", func=None),
             MigrationAlias(key="prepTime", alias="prep_time", func=None),
@@ -49,7 +50,8 @@ class PaprikaMigrator(BaseMigrator):
             MigrationAlias(
                 key="notes",
                 alias="notes",
-                func=lambda x: [z for z in [RecipeNote(title="", text=x) if x else None] if z],
+                # the cleaner only accepts strings and dicts, so a RecipeNote here is silently dropped
+                func=lambda x: [{"title": "", "text": x}] if x else [],
             ),
             MigrationAlias(
                 key="recipeCategory",

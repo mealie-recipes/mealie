@@ -47,6 +47,12 @@
         "description": "",
         "abbreviation": "ml"
     },
+    "centiliter": {
+        "name": "centilitre",
+        "plural_name": "centilitres",
+        "description": "",
+        "abbreviation": "cl"
+    },
     "liter": {
         "name": "litre/s",
         "plural_name": "litres",

@@ -20,7 +20,6 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 app_dirs = get_app_dirs()
 settings = get_app_settings()
@@ -139,7 +138,10 @@ async def get_current_user(
     return user
 
 
-async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
+async def get_integration_id(token: str = Depends(get_auth_token)) -> str:
+    # Shares get_current_user's token source, cookie fallback included. Reading the header directly
+    # would 401 every cookie-authenticated request to a BaseUserController route, which depends on
+    # both.
     try:
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         return decoded_token.get("integration_id", DEFAULT_INTEGRATION_ID)
@@ -204,7 +206,7 @@ def validate_file_token(token: str | None = None) -> Path:
 
 
 @contextmanager
-def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
+def get_temporary_zip_path(auto_unlink=True) -> Generator[Path]:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     temp_path = app_dirs.TEMP_DIR / f"{uuid4().hex}.zip"
     try:
@@ -215,7 +217,7 @@ def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
 
 
 @contextmanager
-def get_temporary_path(auto_unlink=True) -> Generator[Path, None, None]:
+def get_temporary_path(auto_unlink=True) -> Generator[Path]:
     temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
     temp_path.mkdir(exist_ok=True, parents=True)
     try:
@@ -225,7 +227,7 @@ def get_temporary_path(auto_unlink=True) -> Generator[Path, None, None]:
             rmtree(temp_path)
 
 
-def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper, None, None]]:
+def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper]]:
     """
     Returns a temporary file with the specified extension
     """

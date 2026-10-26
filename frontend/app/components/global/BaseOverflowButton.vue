@@ -158,23 +158,22 @@ const modelValue = defineModel({
   default: "",
 });
 
-const activeObj = ref<MenuItem>({
-  text: "DEFAULT",
-  value: "",
-});
+const activeObj = computed<MenuItem>(() =>
+  props.items.find(item => item.value === modelValue.value) ?? {
+    text: "DEFAULT",
+    value: "",
+  },
+);
 
 let startIndex = 0;
 props.items.forEach((item, index) => {
   if (item.value === modelValue.value) {
     startIndex = index;
-
-    activeObj.value = item;
   }
 });
 const itemGroup = ref(startIndex);
 
 function setValue(v: MenuItem) {
   modelValue.value = v.value || "";
-  activeObj.value = v;
 }
 </script>

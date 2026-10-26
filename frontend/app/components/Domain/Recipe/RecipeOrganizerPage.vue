@@ -8,6 +8,7 @@
     <BaseDialog
       v-if="deleteTarget"
       v-model="dialogs.delete"
+      bottom-sheet
       :title="$t('general.delete-with-name', { name: $t(translationKey) })"
       color="error"
       :icon="$globals.icons.alertCircle"

@@ -83,6 +83,8 @@ async def finalize_scraped_recipe(
 
     recipe_data_service = RecipeDataService(recipe.id)
 
+    image_written = False
+
     try:
         if isinstance(recipe.image, list):
             recipe.image = recipe.image[0] if recipe.image else None
@@ -91,16 +93,20 @@ async def finalize_scraped_recipe(
         if recipe.image and recipe.image != NO_IMAGE:
             if on_progress:
                 await on_progress(translator.t("recipe.create-progress.downloading-image"))
-            await recipe_data_service.scrape_image(recipe.image)  # type: ignore
+            image_written = await recipe_data_service.scrape_image(recipe.image) is not None  # type: ignore
 
         if recipe.name is None:
             recipe.name = "Untitled"
 
         recipe.slug = create_recipe_slug(recipe.name)
-        recipe.image = cache.new_key(4)
     except Exception as e:
         recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
-        recipe.image = NO_IMAGE
+        image_written = False
+
+    # `image` is the cache key the frontend uses to decide whether to request an image at
+    # all, so it must stay empty unless a file actually landed on disk. Stamping a key for
+    # a recipe with no image is what makes every render ask for a file that 404s.
+    recipe.image = cache.new_key(4) if image_written else None
 
     if recipe.name is None or recipe.name == "":
         recipe.name = f"No Recipe Name Found - {uuid4()!s}"

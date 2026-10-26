@@ -1,39 +1,37 @@
 import re as re
 from collections.abc import Iterable, Sequence
 from datetime import UTC, datetime
-from random import randint
-from typing import Self, cast
+from typing import Self
 from uuid import UUID
 
 import sqlalchemy as sa
 from fastapi import HTTPException
+from humps import decamelize
 from pydantic import UUID4
-from sqlalchemy import orm
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import RecipeIngredientModel, households_to_ingredient_foods
+from mealie.db.models.recipe.ingredient import RecipeIngredientModel, RecipeIngredientSubstitutionModel
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
-from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_tools
+from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
+from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
-from mealie.schema.recipe.recipe_ingredient import IngredientFood
-from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
-from mealie.schema.recipe.recipe_tool import RecipeToolOut
+from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
 from ..db.models._model_base import SqlAlchemyBase
+from ._recipe_suggestions import RecipeSuggestionMixin
 from .repository_generic import HouseholdRepositoryGeneric
 
 
-class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
+class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     user_id: UUID4 | None = None
 
     @property
@@ -92,20 +90,58 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         )
         return sa.cast(effective_rating, sa.Float)
 
+    def _validate_last_made_query(self, query: PaginationQuery | RecipeSuggestionQuery) -> None:
+        if self.user_id:
+            return
+
+        if query.order_by and any(
+            decamelize(value.split(":", 1)[0].strip()) == "last_made" for value in query.order_by.split(",")
+        ):
+            raise HTTPException(400, "last_made is only available for authenticated household queries")
+
+        if query.query_filter:
+            try:
+                builder = QueryFilterBuilder(query.query_filter)
+            except ValueError:
+                # Let the existing query filter handling return the API's normal 400 response.
+                return
+
+            if any(
+                getattr(component, "attribute_name", None) == "last_made" for component in builder.filter_components
+            ):
+                raise HTTPException(400, "last_made is only available for authenticated household queries")
+
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore
+        name_suffix = 0
 
-        for i in range(1, 11):
+        for i in range(1, max_retries + 1):
             try:
                 return super().create(document)
             except IntegrityError:
                 self.session.rollback()
-                document.name = f"{original_name} ({i})"
-                document.slug = create_recipe_slug(document.name)
-
                 if i >= max_retries:
                     raise
+
+                # Existing names must not consume retries reserved for failed writes.
+                # Slugs are unique across the group, including other households.
+                while True:
+                    name_suffix += 1
+                    suffix = f"-{name_suffix}"
+                    base_slug = create_recipe_slug(original_name, max_length=250 - len(suffix)).rstrip("-")
+                    document.name = f"{original_name} ({name_suffix})"
+                    document.slug = f"{base_slug}{suffix}"
+                    exists = self.session.scalar(
+                        sa.select(
+                            sa.exists().where(
+                                self.model.group_id == document.group_id,
+                                self.model.slug == document.slug,
+                            )
+                        )
+                    )
+                    if not exists:
+                        break
 
     def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
         recipe_as_model = self.schema.model_validate(recipe)
@@ -152,9 +188,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
         return results
 
-    def update_image(self, slug: str, _: str | None = None) -> int:
+    def update_image(self, slug: str, _: str | None = None) -> str:
         entry: RecipeModel = self._query_one(match_value=slug)
-        entry.image = randint(0, 255)
+        entry.image = cache.new_key()
         self.session.commit()
 
         return entry.image
@@ -201,6 +237,49 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
+    def _resolve_organizer(self, model: type[Tag] | type[Category] | type[Tool], name: str) -> dict:
+        """Look up an organizer (tag/category/tool) by name in this group, creating it if absent.
+
+        Race-safe under concurrent updates: if two requests create the same organizer name
+        at once, the loser's IntegrityError is caught and it re-selects the winner's row
+        instead of erroring or creating a duplicate.
+        """
+        normalized_name = name.strip()
+        max_attempts = 10
+
+        for attempt in range(1, max_attempts + 1):
+            existing = self.session.execute(
+                sa.select(model).where(
+                    model.group_id == self.group_id, sa.func.lower(model.name) == normalized_name.lower()
+                )
+            ).scalar_one_or_none()
+            if existing:
+                return {
+                    "id": str(existing.id),
+                    "group_id": str(existing.group_id),
+                    "name": existing.name,
+                    "slug": existing.slug,
+                }
+
+            new_obj = model(session=self.session, name=normalized_name, group_id=self.group_id)
+            self.session.add(new_obj)
+            try:
+                self.session.flush()
+            except IntegrityError:
+                self.session.rollback()
+                if attempt >= max_attempts:
+                    raise
+                continue
+
+            return {
+                "id": str(new_obj.id),
+                "group_id": str(new_obj.group_id),
+                "name": new_obj.name,
+                "slug": new_obj.slug,
+            }
+
+        raise RuntimeError(f"Failed to resolve organizer '{name}' after {max_attempts} attempts")
+
     def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
@@ -208,10 +287,46 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if new_name := new_data.get("name"):
             new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
-        # Handle explicit group_id injection for related items that require it
-        for organizer_field in ["tags", "recipe_category", "tools"]:
-            for organizer in new_data.get(organizer_field, []):
-                organizer["group_id"] = self.group_id
+        # Always preserve identity/ownership fields from the existing DB entry.
+        # User-provided JSON may omit or null these, which would cause integrity errors.
+        for field in ("id", "user_id", "household_id", "group_id"):
+            new_data[field] = getattr(entry, field)
+
+        # If slug is still missing after name-based recalculation, fall back to existing slug.
+        if not new_data.get("slug"):
+            new_data["slug"] = entry.slug
+
+        # Resolve organizers by id (validated to belong to this group) or by name, creating them
+        # in the group if needed. A client-supplied id from another group is never trusted as-is.
+        organizer_models = {"tags": Tag, "recipe_category": Category, "tools": Tool}
+        for field, model in organizer_models.items():
+            resolved = []
+            for organizer in new_data.get(field) or []:
+                existing = None
+                organizer_id = organizer.get("id")
+                if organizer_id:
+                    try:
+                        organizer_uuid = organizer_id if isinstance(organizer_id, UUID) else UUID(str(organizer_id))
+                    except ValueError:
+                        organizer_uuid = None
+
+                    if organizer_uuid:
+                        existing = self.session.execute(
+                            sa.select(model).where(model.id == organizer_uuid, model.group_id == self.group_id)
+                        ).scalar_one_or_none()
+
+                if existing:
+                    resolved.append(
+                        {
+                            "id": str(existing.id),
+                            "group_id": str(existing.group_id),
+                            "name": existing.name,
+                            "slug": existing.slug,
+                        }
+                    )
+                elif organizer.get("name"):
+                    resolved.append(self._resolve_organizer(model, organizer["name"]))
+            new_data[field] = resolved
 
         entry.update(session=self.session, **new_data)
         self.session.commit()
@@ -241,12 +356,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         q = q.filter_by(**fltr)
 
         if cookbook:
-            if pagination_result.query_filter and cookbook.query_filter_string:
-                pagination_result.query_filter = (
-                    f"({pagination_result.query_filter}) AND ({cookbook.query_filter_string})"
-                )
-            else:
-                pagination_result.query_filter = cookbook.query_filter_string
+            pagination_result.query_filter = QueryFilterBuilder.combine_filters(
+                pagination_result.query_filter, cookbook.query_filter_string
+            )
         else:
             category_ids = self._uuids_for_items(categories, Category)
             tag_ids = self._uuids_for_items(tags, Tag)
@@ -266,6 +378,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             q = q.filter(*filters)
         if search:
             q = self.add_search_to_query(q, self.schema, search)
+
+        self._validate_last_made_query(pagination_result)
 
         if not pagination_result.order_by and not search:
             # default ordering if not searching
@@ -290,6 +404,31 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             total=count,
             total_pages=total_pages,
             items=items,
+        )
+
+    @staticmethod
+    def _recipes_using_foods(foods: list[UUID4]) -> sa.ColumnElement:
+        """
+        Recipes with an ingredient that uses any of `foods`: it calls for the food, or offers it as
+        a substitute.
+
+        The two are the same thing as far as the recipe is concerned: both are lost if the food
+        goes away, which is what makes this the right question for the food delete warning.
+
+        Built as a UNION of the two lookups rather than an OR inside `recipe_ingredient.any()`: the
+        OR can't use the food_id indexes, so it checked every ingredient of every recipe.
+        """
+
+        return RecipeModel.id.in_(
+            sa.union(
+                sa.select(RecipeIngredientModel.recipe_id).where(RecipeIngredientModel.food_id.in_(foods)),
+                sa.select(RecipeIngredientModel.recipe_id)
+                .join(
+                    RecipeIngredientSubstitutionModel,
+                    RecipeIngredientSubstitutionModel.ingredient_id == RecipeIngredientModel.id,
+                )
+                .where(RecipeIngredientSubstitutionModel.substitute_food_id.in_(foods)),
+            )
         )
 
     def _build_recipe_filter(
@@ -329,9 +468,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tools)))
         if foods:
             if require_all_foods:
-                fltr.extend(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id == food) for food in foods)
+                fltr.extend(self._recipes_using_foods([food]) for food in foods)
             else:
-                fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id.in_(foods)))
+                fltr.append(self._recipes_using_foods(foods))
         if households:
             fltr.append(RecipeModel.household_id.in_(households))
         return fltr
@@ -357,176 +496,3 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     def all_ids(self, group_id: UUID4) -> Sequence[UUID4]:
         stmt = sa.select(RecipeModel.id).filter(RecipeModel.group_id == group_id)
         return self.session.execute(stmt).scalars().all()
-
-    def find_suggested_recipes(
-        self,
-        params: RecipeSuggestionQuery,
-        food_ids: list[UUID4] | None = None,
-        tool_ids: list[UUID4] | None = None,
-    ) -> list[RecipeSuggestionResponseItem]:
-        """
-        Queries all recipes and returns the ones that are missing the least amount of foods and tools.
-
-        Results are ordered first by number of missing tools, then foods, and finally by the user-specified order.
-        If foods are provided, the query will prefer recipes with more matches to user-provided foods.
-        """
-
-        if not params.order_by:
-            params.order_by = "created_at"
-
-        user_food_ids = list(set(food_ids or []))
-        user_tool_ids = list(set(tool_ids or []))
-
-        # preserve the original lists of ids before we add on_hand items
-        food_ids_with_on_hand = user_food_ids.copy()
-        tool_ids_with_on_hand = user_tool_ids.copy()
-
-        if params.include_foods_on_hand and self.user_id:
-            foods_on_hand_query = (
-                sa.select(households_to_ingredient_foods.c.food_id)
-                .join(User, households_to_ingredient_foods.c.household_id == User.household_id)
-                .filter(
-                    sa.not_(households_to_ingredient_foods.c.food_id.in_(food_ids_with_on_hand)),
-                    User.id == self.user_id,
-                )
-            )
-            foods_on_hand = self.session.execute(foods_on_hand_query).scalars().all()
-            food_ids_with_on_hand.extend(foods_on_hand)
-
-        if params.include_tools_on_hand and self.user_id:
-            tools_on_hand_query = (
-                sa.select(households_to_tools.c.tool_id)
-                .join(User, households_to_tools.c.household_id == User.household_id)
-                .filter(
-                    sa.not_(households_to_tools.c.tool_id.in_(tool_ids_with_on_hand)),
-                    User.id == self.user_id,
-                )
-            )
-            tools_on_hand = self.session.execute(tools_on_hand_query).scalars().all()
-            tool_ids_with_on_hand.extend(tools_on_hand)
-
-        ## Build suggestion query
-        settings_alias = orm.aliased(RecipeSettings)
-        ingredients_alias = orm.aliased(RecipeIngredientModel)
-        tools_alias = orm.aliased(Tool)
-
-        q = sa.select(self.model).filter(self.model.household_id.is_not(None))
-        fltr = self._filter_builder()
-        q = q.filter_by(**fltr)
-
-        # Tools goes first so we can order by missing tools count before foods
-        if user_tool_ids:
-            unmatched_tools_query = (
-                sa.select(recipes_to_tools.c.recipe_id, sa.func.count().label("unmatched_tools_count"))
-                .join(tools_alias, recipes_to_tools.c.tool_id == tools_alias.id)
-                .filter(sa.not_(tools_alias.id.in_(tool_ids_with_on_hand)))
-                .group_by(recipes_to_tools.c.recipe_id)
-                .subquery()
-            )
-            q = (
-                q.outerjoin(unmatched_tools_query, self.model.id == unmatched_tools_query.c.recipe_id)
-                .filter(
-                    sa.or_(
-                        unmatched_tools_query.c.unmatched_tools_count.is_(None),
-                        unmatched_tools_query.c.unmatched_tools_count <= params.max_missing_tools,
-                    )
-                )
-                .order_by(unmatched_tools_query.c.unmatched_tools_count.asc().nulls_first())
-            )
-
-        if user_food_ids:
-            unmatched_foods_query = (
-                sa.select(ingredients_alias.recipe_id, sa.func.count().label("unmatched_foods_count"))
-                .filter(sa.not_(ingredients_alias.food_id.in_(food_ids_with_on_hand)))
-                .filter(ingredients_alias.food_id.isnot(None))
-                .group_by(ingredients_alias.recipe_id)
-                .subquery()
-            )
-            total_user_foods_query = (
-                sa.select(ingredients_alias.recipe_id, sa.func.count().label("total_user_foods_count"))
-                .filter(ingredients_alias.food_id.in_(user_food_ids))
-                .group_by(ingredients_alias.recipe_id)
-                .subquery()
-            )
-            q = (
-                q.join(settings_alias, self.model.settings)
-                .outerjoin(unmatched_foods_query, self.model.id == unmatched_foods_query.c.recipe_id)
-                .outerjoin(total_user_foods_query, self.model.id == total_user_foods_query.c.recipe_id)
-                .filter(
-                    sa.or_(
-                        unmatched_foods_query.c.unmatched_foods_count.is_(None),
-                        unmatched_foods_query.c.unmatched_foods_count <= params.max_missing_foods,
-                    ),
-                )
-                .order_by(
-                    unmatched_foods_query.c.unmatched_foods_count.asc().nulls_first(),
-                    # favor recipes with more matched foods, in case the user is looking for something specific
-                    total_user_foods_query.c.total_user_foods_count.desc().nulls_last(),
-                )
-            )
-
-            # only include recipes that have at least one food in the user's list
-            if user_food_ids:
-                q = q.filter(total_user_foods_query.c.total_user_foods_count > 0)
-
-        ## Add filters and loader options
-        if self.group_id:
-            q = q.filter(self.model.group_id == self.group_id)
-        if self.household_id:
-            q = q.filter(self.model.household_id == self.household_id)
-        if params.query_filter:
-            try:
-                query_filter_builder = QueryFilterBuilder(params.query_filter)
-                q = query_filter_builder.filter_query(q, model=self.model)
-
-            except ValueError as e:
-                self.logger.error(e)
-                raise HTTPException(status_code=400, detail=str(e)) from e
-
-        q = self.add_order_by_to_query(q, params)
-        q = q.limit(params.limit).options(*RecipeSummary.loader_options())
-
-        ## Execute query
-        try:
-            data = self.session.execute(q).scalars().unique().all()
-        except Exception as e:
-            self._log_exception(e)
-            self.session.rollback()
-            raise e
-
-        suggestions: list[RecipeSuggestionResponseItem] = []
-        for result in data:
-            recipe = cast(RecipeModel, result)
-
-            missing_foods: list[IngredientFood] = []
-            if user_food_ids:  # only check for missing foods if the user has provided a list of foods
-                seen_food_ids: set[UUID4] = set()
-                seen_food_ids.update(food_ids_with_on_hand)
-                for ingredient in recipe.recipe_ingredient:
-                    if not ingredient.food:
-                        continue
-                    if ingredient.food.id in seen_food_ids:
-                        continue
-
-                    seen_food_ids.add(ingredient.food.id)
-                    missing_foods.append(IngredientFood.model_validate(ingredient.food))
-
-            missing_tools: list[RecipeToolOut] = []
-            if user_tool_ids:  # only check for missing tools if the user has provided a list of tools
-                seen_tool_ids: set[UUID4] = set()
-                seen_tool_ids.update(tool_ids_with_on_hand)
-                for tool in recipe.tools:
-                    if tool.id in seen_tool_ids:
-                        continue
-
-                    seen_tool_ids.add(tool.id)
-                    missing_tools.append(RecipeToolOut.model_validate(tool))
-
-            suggestion = RecipeSuggestionResponseItem(
-                recipe=RecipeSummary.model_validate(recipe),
-                missing_foods=missing_foods,
-                missing_tools=missing_tools,
-            )
-            suggestions.append(suggestion)
-
-        return suggestions

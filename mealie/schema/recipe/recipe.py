@@ -9,7 +9,7 @@ from uuid import uuid4
 from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
-from sqlalchemy import Select, desc, func, or_, select, text
+from sqlalchemy import Select, desc, func, or_, select, text, union
 from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -22,8 +22,10 @@ from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
     IngredientFoodModel,
+    IngredientFoodSubstitutionModel,
     RecipeComment,
     RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
     RecipeInstruction,
     RecipeModel,
 )
@@ -100,6 +102,51 @@ class RecipeToolPagination(PaginationBase):
     items: list[RecipeTool]
 
 
+class RecipeTagIn(MealieModel):
+    """Lenient variant of RecipeTag accepted only on the recipe write path (JSON import/edit),
+    where a client may omit id/slug and expect them to be resolved or generated server-side.
+    Never used for responses -- RecipeTag itself stays strictly required there.
+
+    Deliberately does not subclass RecipeTag: narrowing id/slug from required to optional in a
+    subclass would be an unsound field override (mypy correctly rejects it), so this is built as
+    an independent sibling with the same fields instead, matching how RecipeToolCreate/Save/Out
+    are already kept as separate classes elsewhere in this module rather than narrowing each other.
+    """
+
+    id: UUID4 | None = None
+    group_id: UUID4 | None = None
+    name: str
+    slug: str | None = None
+    recipe_count: int = 0
+
+    _searchable_properties: ClassVar[list[str]] = ["name"]
+    model_config = ConfigDict(from_attributes=True)
+
+    def model_post_init(self, __context: Any) -> None:
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+
+class RecipeCategoryIn(RecipeTagIn):
+    pass
+
+
+class RecipeToolIn(RecipeTagIn):
+    """Lenient variant of RecipeTool accepted only on the recipe write path. See RecipeTagIn."""
+
+    households_with_tool: list[str] = []
+
+    @field_validator("households_with_tool", mode="before")
+    def convert_households_to_slugs(cls, v):
+        if not v:
+            return []
+
+        try:
+            return [household.slug for household in v]
+        except AttributeError:
+            return v
+
+
 class CreateRecipeBulk(BaseModel):
     url: str
     categories: list[RecipeCategory] | None = None
@@ -114,9 +161,18 @@ class CreateRecipe(MealieModel):
     name: str
 
 
+MAX_DURATION_SECONDS = 2**31 - 1
+"""Postgres INTEGER max; SQLite would accept more, which would break moving data to Postgres"""
+
+DurationSeconds = Annotated[int, Field(ge=0, le=MAX_DURATION_SECONDS)]
+
+
 class RecipeSummary(MealieModel):
     id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
+    # Stricter than _fuzzy_similarity_threshold: at 0.5 short words in ingredient lines match far too
+    # much ("salt" scores ~0.57 against "salmon").
+    _fuzzy_ingredient_similarity_threshold: ClassVar[float] = 0.6
 
     user_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
     household_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
@@ -133,6 +189,9 @@ class RecipeSummary(MealieModel):
     prep_time: str | None = None
     cook_time: str | None = None
     perform_time: str | None = None
+    total_time_seconds: DurationSeconds | None = None
+    prep_time_seconds: DurationSeconds | None = None
+    perform_time_seconds: DurationSeconds | None = None
 
     description: str | None = ""
     recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] = []
@@ -146,7 +205,6 @@ class RecipeSummary(MealieModel):
 
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
-    last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 
     @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")
@@ -164,7 +222,11 @@ class RecipeSummary(MealieModel):
 
     @property
     def recipe_yield_display(self) -> str:
-        return f"{self.recipe_yield_quantity} {self.recipe_yield}".strip()
+        # Fall back to recipe_servings when no yield is set at all, otherwise
+        # a servings-only recipe emits a bare "0.0" (or "0.0 None") into schema.org.
+        quantity = self.recipe_yield_quantity or (self.recipe_servings if not self.recipe_yield else 0)
+        number = f"{quantity:g}" if quantity else ""
+        return f"{number} {self.recipe_yield or ''}".strip()
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -268,6 +330,12 @@ class Recipe(RecipeSummary):
             return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
+    @field_validator("tools", mode="before")
+    def validate_tools(tools: list[Any]):
+        if isinstance(tools, list) and tools and isinstance(tools[0], str):
+            return [RecipeTool(id=uuid4(), name=t, slug=slugify(t)) for t in tools]
+        return tools
+
     @field_validator("group_id", mode="before")
     def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
@@ -313,7 +381,15 @@ class Recipe(RecipeSummary):
             selectinload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food)
             .joinedload(IngredientFoodModel.label),
+            selectinload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .selectinload(IngredientFoodModel.substitutions)
+            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
+            selectinload(RecipeModel.recipe_ingredient)
+            .selectinload(RecipeIngredientModel.substitutions)
+            .joinedload(RecipeIngredientSubstitutionModel.substitute_food),
             selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.note_references),
             joinedload(RecipeModel.nutrition),
             joinedload(RecipeModel.settings),
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
@@ -332,30 +408,37 @@ class Recipe(RecipeSummary):
         """
 
         if search_type is SearchType.fuzzy:
-            # I would prefer to just do this in the recipe_ingredient.any part of the main query,
-            # but it turns out that at least sqlite wont use indexes for that correctly anymore and
-            # takes a big hit, so prefiltering it is
-            ingredient_ids = (
+            # The threshold is a connection setting, so set it explicitly for each match rather than
+            # inheriting whatever an earlier query on this connection left behind.
+            session.execute(
+                text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_ingredient_similarity_threshold};")
+            )
+            ingredient_recipe_ids = (
                 session.execute(
-                    select(RecipeIngredientModel.id).filter(
+                    select(RecipeIngredientModel.recipe_id)
+                    .filter(
                         or_(
                             RecipeIngredientModel.note_normalized.op("%>")(search),
                             RecipeIngredientModel.original_text_normalized.op("%>")(search),
                         )
                     )
+                    .distinct()
                 )
                 .scalars()
                 .all()
             )
 
             session.execute(text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_similarity_threshold};"))
-            return query.filter(
-                or_(
-                    RecipeModel.name_normalized.op("%>")(search),
-                    RecipeModel.description_normalized.op("%>")(search),
-                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
-                )
-            ).order_by(  # trigram ordering could be too slow on million record db, but is fine with thousands.
+            # Match each column on its own and UNION the recipe ids: an OR across these columns and
+            # the ingredient matches can't use the GIN trigram indexes, so every search computed word
+            # similarity against every recipe's name and description.
+            matching_ids = union(
+                select(RecipeModel.id).filter(RecipeModel.name_normalized.op("%>")(search)),
+                select(RecipeModel.id).filter(RecipeModel.description_normalized.op("%>")(search)),
+                select(RecipeModel.id).filter(RecipeModel.id.in_(ingredient_recipe_ids)),
+            )
+            return query.filter(RecipeModel.id.in_(matching_ids)).order_by(
+                # trigram ordering could be too slow on million record db, but is fine with thousands.
                 func.least(
                     RecipeModel.name_normalized.op("<->>")(search),
                 )
@@ -382,6 +465,19 @@ class Recipe(RecipeSummary):
                     RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
                 )
             ).order_by(desc(RecipeModel.name_normalized.like(f"%{search}%")))
+
+
+class RecipeIn(Recipe):
+    """Recipe as accepted on the write path only (create/update/patch request bodies).
+
+    Unlike Recipe -- which is also used for responses and must guarantee real ids/slugs on
+    its organizers -- this allows a client (e.g. hand-edited or re-imported JSON) to submit
+    tags/categories/tools that omit id/slug, to be resolved or generated server-side.
+    """
+
+    tags: Annotated[list[RecipeTagIn] | None, Field(validate_default=True)] = []
+    recipe_category: Annotated[list[RecipeCategoryIn] | None, Field(validate_default=True)] = []
+    tools: list[RecipeToolIn] = []
 
 
 class RecipeLastMade(BaseModel):

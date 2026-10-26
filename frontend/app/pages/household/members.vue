@@ -40,6 +40,50 @@
       hide-default-footer
       disable-pagination
     >
+      <template #[`header.manage`]="{ column }">
+        {{ column.title }}
+        <v-tooltip location="bottom">
+          <template #activator="{ props: tooltipProps }">
+            <v-icon v-bind="tooltipProps" size="small" class="ms-1">
+              {{ $globals.icons.informationOutline }}
+            </v-icon>
+          </template>
+          <span>{{ $t('user.user-can-manage-group-hint') }}</span>
+        </v-tooltip>
+      </template>
+      <template #[`header.organize`]="{ column }">
+        {{ column.title }}
+        <v-tooltip location="bottom">
+          <template #activator="{ props: tooltipProps }">
+            <v-icon v-bind="tooltipProps" size="small" class="ms-1">
+              {{ $globals.icons.informationOutline }}
+            </v-icon>
+          </template>
+          <span>{{ $t('user.user-can-organize-group-data-hint') }}</span>
+        </v-tooltip>
+      </template>
+      <template #[`header.invite`]="{ column }">
+        {{ column.title }}
+        <v-tooltip location="bottom">
+          <template #activator="{ props: tooltipProps }">
+            <v-icon v-bind="tooltipProps" size="small" class="ms-1">
+              {{ $globals.icons.informationOutline }}
+            </v-icon>
+          </template>
+          <span>{{ $t('user.user-can-invite-other-to-group-hint') }}</span>
+        </v-tooltip>
+      </template>
+      <template #[`header.manageHousehold`]="{ column }">
+        {{ column.title }}
+        <v-tooltip location="bottom">
+          <template #activator="{ props: tooltipProps }">
+            <v-icon v-bind="tooltipProps" size="small" class="ms-1">
+              {{ $globals.icons.informationOutline }}
+            </v-icon>
+          </template>
+          <span>{{ $t('user.user-can-manage-household-hint') }}</span>
+        </v-tooltip>
+      </template>
       <template #[`item.avatar`]="{ item }">
         <UserAvatar
           v-if="item"
@@ -122,6 +166,10 @@
 import { useUserApi } from "~/composables/api";
 import type { UserOut } from "~/lib/api/types/user";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+
+definePageMeta({
+  middleware: ["auth"],
+});
 
 const api = useUserApi();
 const i18n = useI18n();

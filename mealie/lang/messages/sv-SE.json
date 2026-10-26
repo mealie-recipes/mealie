@@ -5,9 +5,17 @@
     "recipe": {
         "unique-name-error": "Receptnamn måste vara unika",
         "recipe-created": "Recept skapat",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Receptbild borttagen",
         "recipe-defaults": {
             "ingredient-note": "1 kopp mjöl",
+            "name": "New Recipe",
             "step-text": "Receptsteg samt andra fält i receptsidan stöder markdown syntax.\n\n**Lägg till en länk**\n\n[Min länk](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,11 +27,11 @@
             "yields": "Mängd"
         },
         "and-amount": "och {amount}",
-        "or-ingredient": "eller {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI-tjänster är inte aktiverade",
             "ai-request-failed": "AI-leverantören kunde inte slutföra begäran. Vänligen försök igen",
             "image-provider-not-enabled": "AI-bildtjänster är inte aktiverat",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Inget recept hittades i den angivna källan",
             "no-source": "Inget innehåll, bilder eller URL tillhandahölls",
             "provider-returned-nothing": "AI-leverantören returnerade inte ett recept",
@@ -47,7 +55,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Inga recept matchar dina regler"
+        "no-recipes-match-your-rules": "Inga recept matchar dina regler",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Användare uppdaterad",
@@ -59,7 +76,7 @@
         "report-deleted": "Rapport borttagen."
     },
     "exceptions": {
-        "permission_denied": "Du har inte behörighet att utföra denna åtgärd",
+        "permission-denied": "Du har inte behörighet att göra detta",
         "recursive-recipe-link": "Ett recept kan inte referera till sig självt, varken direkt eller indirekt",
         "no-entry-found": "Den begärda resursen hittades inte",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -74,7 +91,40 @@
         "generic-updated-with-url": "{name} har uppdaterats, {url}",
         "generic-duplicated": "{name} har duplicerats",
         "generic-deleted": "{name} har tagits bort",
-        "logged-out": "Utloggad"
+        "logged-out": "Utloggad",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "år|år",

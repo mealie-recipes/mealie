@@ -29,8 +29,12 @@ export function useParseIngredientsDialog(
   const foodStore = useFoodStore();
   const foodData = useFoodData();
 
-  const parserPreferences = useParsingPreferences();
+  // The natural language parser is trained on English recipes, so it isn't a sensible default for
+  // other languages: it recognises the quantity but leaves the unit in the food name.
+  const isEnglishLocale = computed(() => (i18n.locale.value || "").toLowerCase().startsWith("en"));
+  const parserPreferences = useParsingPreferences(isEnglishLocale.value ? "nlp" : "brute");
   const parser = ref<Parser>(parserPreferences.value.parser || "nlp");
+  const showNlpLanguageHint = computed(() => parser.value === "nlp" && !isEnglishLocale.value);
   const dontShowInfoPage = ref(parserPreferences.value.dontShowInfoPage);
   const availableParsers = computed(() => {
     return [
@@ -43,7 +47,7 @@ export function useParseIngredientsDialog(
         value: "brute",
       },
       {
-        text: i18n.t("recipe.parser.openai-parser"),
+        text: i18n.t("recipe.parser.ai-parser"),
         value: "openai",
         hide: !group.value?.aiProviderSettings?.aiEnabled,
       },
@@ -69,6 +73,12 @@ export function useParseIngredientsDialog(
     saveLoading: false,
     step: ParseStep.LOADING,
     loadingCount: 0,
+    // Tracked separately from loadingCount, which covers the bulk parse: one ingredient can be
+    // missing both a unit and a food, and only the button that was pressed should react.
+    loading: {
+      unit: false,
+      food: false,
+    },
   });
   function nextStep() {
     state.step = getNextStep(state.step);
@@ -265,22 +275,28 @@ export function useParseIngredientsDialog(
     unitData.reset();
     unitData.data.name = currentMissingUnit.value;
 
-    let newUnit: IngredientUnit | null;
-    if (createdUnits.has(unitData.data.name)) {
-      newUnit = createdUnits.get(unitData.data.name)!;
-    }
-    else {
-      newUnit = await unitStore.actions.createOne(unitData.data);
-    }
+    state.loading.unit = true;
+    try {
+      let newUnit: IngredientUnit | null;
+      if (createdUnits.has(unitData.data.name)) {
+        newUnit = createdUnits.get(unitData.data.name)!;
+      }
+      else {
+        newUnit = await unitStore.actions.createOne(unitData.data);
+      }
 
-    if (!newUnit) {
-      alert.error(i18n.t("events.something-went-wrong"));
-      return;
-    }
+      if (!newUnit) {
+        alert.error(i18n.t("general.cant-create-permission"));
+        return;
+      }
 
-    currentIng.value!.ingredient.unit = newUnit;
-    createdUnits.set(newUnit.name.toLowerCase(), newUnit);
-    currentMissingUnit.value = "";
+      currentIng.value!.ingredient.unit = newUnit;
+      createdUnits.set(newUnit.name.toLowerCase(), newUnit);
+      currentMissingUnit.value = "";
+    }
+    finally {
+      state.loading.unit = false;
+    }
   }
 
   async function createMissingFood() {
@@ -291,22 +307,28 @@ export function useParseIngredientsDialog(
     foodData.reset();
     foodData.data.name = currentMissingFood.value;
 
-    let newFood: IngredientFood | null;
-    if (createdFoods.has(foodData.data.name)) {
-      newFood = createdFoods.get(foodData.data.name)!;
-    }
-    else {
-      newFood = await foodStore.actions.createOne(foodData.data);
-    }
+    state.loading.food = true;
+    try {
+      let newFood: IngredientFood | null;
+      if (createdFoods.has(foodData.data.name)) {
+        newFood = createdFoods.get(foodData.data.name)!;
+      }
+      else {
+        newFood = await foodStore.actions.createOne(foodData.data);
+      }
 
-    if (!newFood) {
-      alert.error(i18n.t("events.something-went-wrong"));
-      return;
-    }
+      if (!newFood) {
+        alert.error(i18n.t("general.cant-create-permission"));
+        return;
+      }
 
-    currentIng.value!.ingredient.food = newFood;
-    createdFoods.set(newFood.name.toLowerCase(), newFood);
-    currentMissingFood.value = "";
+      currentIng.value!.ingredient.food = newFood;
+      createdFoods.set(newFood.name.toLowerCase(), newFood);
+      currentMissingFood.value = "";
+    }
+    finally {
+      state.loading.food = false;
+    }
   }
 
   async function addMissingUnitAsAlias() {
@@ -321,14 +343,21 @@ export function useParseIngredientsDialog(
     }
 
     unit.aliases.push({ name: currentMissingUnit.value });
-    const updated = await unitStore.actions.updateOne(unit);
-    if (!updated) {
-      alert.error(i18n.t("events.something-went-wrong"));
-      return;
-    }
 
-    currentIng.value!.ingredient.unit = updated;
-    currentMissingUnit.value = "";
+    state.loading.unit = true;
+    try {
+      const updated = await unitStore.actions.updateOne(unit);
+      if (!updated) {
+        alert.error(i18n.t("events.something-went-wrong"));
+        return;
+      }
+
+      currentIng.value!.ingredient.unit = updated;
+      currentMissingUnit.value = "";
+    }
+    finally {
+      state.loading.unit = false;
+    }
   }
 
   async function addMissingFoodAsAlias() {
@@ -343,14 +372,21 @@ export function useParseIngredientsDialog(
     }
 
     food.aliases.push({ name: currentMissingFood.value });
-    const updated = await foodStore.actions.updateOne(food);
-    if (!updated) {
-      alert.error(i18n.t("events.something-went-wrong"));
-      return;
-    }
 
-    currentIng.value!.ingredient.food = updated;
-    currentMissingFood.value = "";
+    state.loading.food = true;
+    try {
+      const updated = await foodStore.actions.updateOne(food);
+      if (!updated) {
+        alert.error(i18n.t("events.something-went-wrong"));
+        return;
+      }
+
+      currentIng.value!.ingredient.food = updated;
+      currentMissingFood.value = "";
+    }
+    finally {
+      state.loading.food = false;
+    }
   }
 
   watch(parser, () => {
@@ -397,6 +433,7 @@ export function useParseIngredientsDialog(
     availableParsers,
     parserPreferences,
     parser,
+    showNlpLanguageHint,
     dontShowInfoPage,
     confidenceThreshold,
     parsedIngs,

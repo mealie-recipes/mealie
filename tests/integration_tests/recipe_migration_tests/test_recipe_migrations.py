@@ -1,5 +1,8 @@
+import json
 import os
 from dataclasses import dataclass, field
+from gzip import GzipFile
+from io import BytesIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
@@ -9,10 +12,13 @@ from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_migration import SupportedMigrations
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.reports.reports import ReportEntryOut
+from mealie.services.migrations.utils import migration_helpers
 from tests import data as test_data
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_deserialize
+from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -21,6 +27,9 @@ class MigrationTestData:
     typ: SupportedMigrations
     archive: Path
     search_slug: str
+
+    times: tuple[int | None, int | None, int | None] | None = None
+    """Expected (total, prep, perform) seconds, when the migrator produces structured times"""
 
     nutrition_filter: set[str] = field(default_factory=set)
     nutrition_entries: set[str] = field(
@@ -45,6 +54,7 @@ test_cases = [
         typ=SupportedMigrations.nextcloud,
         archive=test_data.migrations_nextcloud,
         search_slug="skillet-shepherd-s-pie",
+        times=(5100, 900, 4200),
         nutrition_filter={
             "transFatContent",
             "unsaturatedFatContent",
@@ -83,6 +93,7 @@ test_cases = [
         typ=SupportedMigrations.tandoor,
         archive=test_data.migrations_tandoor,
         search_slug="texas-red-chili",
+        times=(120, None, None),
         nutrition_entries=set(),
     ),
     MigrationTestData(
@@ -107,6 +118,7 @@ test_cases = [
         typ=SupportedMigrations.myrecipebox,
         archive=test_data.migrations_myrecipebox,
         search_slug="beef-cheese-piroshki",
+        times=(6900, 5400, 1500),
         nutrition_filter={
             "cholesterolContent",
         },
@@ -115,12 +127,14 @@ test_cases = [
         typ=SupportedMigrations.recipekeeper,
         archive=test_data.migrations_recipekeeper,
         search_slug="zucchini-bread",
+        times=(None, 1800, 3600),
         nutrition_entries=set(),
     ),
     MigrationTestData(
         typ=SupportedMigrations.cookn,
         archive=test_data.migrations_cookn,
         search_slug="fresh-fruit-pizza",
+        times=(None, None, None),
         nutrition_entries=set(),
     ),
 ]
@@ -190,12 +204,23 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
     response = api_client.get(api_routes.recipes_slug(mig.search_slug), headers=unique_user.token)
     recipe = Recipe(**assert_deserialize(response))
 
+    if mig.typ is SupportedMigrations.copymethat:
+        response = api_client.get(
+            api_routes.households_self_recipes_recipe_slug(mig.search_slug), headers=unique_user.token
+        )
+        assert response.status_code == 200
+        assert response.json()["lastMade"]
+
     if mig.nutrition_entries:
         assert recipe.nutrition is not None
         nutrition = recipe.nutrition.model_dump(by_alias=True)
 
         for k in mig.nutrition_entries.difference(mig.nutrition_filter):
             assert k in nutrition and nutrition[k] is not None
+
+    if mig.times is not None:
+        assert (recipe.total_time_seconds, recipe.prep_time_seconds, recipe.perform_time_seconds) == mig.times
+        assert (recipe.total_time, recipe.prep_time, recipe.perform_time) == (None, None, None)
 
     # TODO: validate other types of content
 
@@ -285,3 +310,156 @@ def test_bad_mealie_alpha_data_is_ignored(api_client: TestClient, unique_user: T
     report_entry = ReportEntryOut.model_validate(failed_item)
     assert report_entry.message == "Failed to import invalid-recipe.json"
     assert report_entry.exception == "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+
+
+def test_recipekeeper_imports_categories_and_yield(api_client: TestClient, unique_user_fn_scoped: TestUser) -> None:
+    """Recipe Keeper categories and yields were dropped by the migrator's snake_case alias keys."""
+    unique_user = unique_user_fn_scoped
+
+    response = api_client.post(
+        api_routes.groups_migrations,
+        data={"migration_type": SupportedMigrations.recipekeeper.value},
+        files={"archive": test_data.migrations_recipekeeper.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    def get(slug: str) -> Recipe:
+        return Recipe(**assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)))
+
+    # a bare number in recipeYield is a yield quantity
+    recipe = get("zucchini-bread")
+    assert [c.name for c in recipe.recipe_category or []] == ["Bread"]
+    assert recipe.recipe_yield_quantity == 16
+
+    # a number with a unit is a serving count
+    recipe = get("baked-salmon-fillets-dijon")
+    assert [c.name for c in recipe.recipe_category or []] == ["Fish"]
+    assert recipe.recipe_servings == 4
+
+
+def test_paprika_imports_notes(api_client: TestClient, unique_user_fn_scoped: TestUser) -> None:
+    """Paprika exports carry recipe notes in a `notes` string, which must survive the import."""
+    unique_user = unique_user_fn_scoped
+    note_text = "Burnt brandy is brandy that has been flamed to burn off the alcohol."
+
+    recipe_json = json.dumps(
+        {
+            "name": "Paprika Notes Test",
+            "ingredients": "1 cup flour\n2 eggs",
+            "directions": "Mix everything together.",
+            "notes": note_text,
+        }
+    ).encode()
+
+    archive = BytesIO()
+    with ZipFile(archive, "w") as zip_file:
+        gzipped = BytesIO()
+        with GzipFile(fileobj=gzipped, mode="wb") as gz:
+            gz.write(recipe_json)
+        zip_file.writestr("paprika-notes-test.paprikarecipe", gzipped.getvalue())
+
+    response = api_client.post(
+        api_routes.groups_migrations,
+        data={"migration_type": SupportedMigrations.paprika.value},
+        files={"archive": archive.getvalue()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug("paprika-notes-test"), headers=unique_user.token)
+    recipe = Recipe(**assert_deserialize(response))
+
+    assert recipe.notes
+    assert recipe.notes[0].text == note_text
+
+
+def _zip_bytes(files: dict[str, str]) -> bytes:
+    archive = BytesIO()
+    with ZipFile(archive, "w") as zip_file:
+        for name, content in files.items():
+            zip_file.writestr(name, content)
+    return archive.getvalue()
+
+
+def _run_migration(api_client: TestClient, user: TestUser, typ: SupportedMigrations, archive: bytes) -> dict:
+    response = api_client.post(
+        api_routes.groups_migrations,
+        data={"migration_type": typ.value},
+        files={"archive": archive},
+        headers=user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.groups_reports_item_id(response.json()["id"]), headers=user.token)
+    return assert_deserialize(response)
+
+
+def test_mealie_alpha_migration_cannot_reach_another_group(
+    api_client: TestClient, unique_user_fn_scoped: TestUser, g2_user: TestUser
+) -> None:
+    """A tool id or sub-recipe slug from another group must not move that tool or expose that recipe."""
+    unique_user = unique_user_fn_scoped
+    other_tool_name = random_string()
+    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=other_tool_name, group_id=g2_user.group_id))
+    other_slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=g2_user.token).json()
+
+    slug = random_string().lower()
+    recipe = {
+        "name": slug,
+        "slug": slug,
+        "extras": {},
+        "tags": [],
+        "tools": [{"id": str(other_tool.id), "groupId": unique_user.group_id, "name": "owned", "slug": "owned"}],
+        "recipeIngredient": [
+            {"note": "x", "referencedRecipe": {"id": None, "name": "placeholder", "slug": other_slug, "extras": {}}}
+        ],
+    }
+    archive = _zip_bytes({f"recipes/{slug}/{slug}.json": json.dumps(recipe)})
+    _run_migration(api_client, unique_user, SupportedMigrations.mealie_alpha, archive)
+
+    untouched = g2_user.repos.tools.get_one(other_tool.id)
+    assert untouched
+    assert str(untouched.group_id) == g2_user.group_id
+    assert untouched.name == other_tool_name
+
+    imported = assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token))
+    assert [t["groupId"] for t in imported["tools"]] == [unique_user.group_id]
+    assert imported["tools"][0]["id"] != str(other_tool.id)
+    assert all(ing["referencedRecipe"] is None for ing in imported["recipeIngredient"])
+
+
+def test_nextcloud_migration_cannot_take_over_another_groups_tool(
+    api_client: TestClient, unique_user_fn_scoped: TestUser, g2_user: TestUser
+) -> None:
+    """Migrators that go through the scraper cleaner pass `tools` through, so they need the same check."""
+    unique_user = unique_user_fn_scoped
+    other_tool_name = random_string()
+    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=other_tool_name, group_id=g2_user.group_id))
+
+    name = random_string()
+    recipe = {
+        "name": name,
+        "recipeIngredient": ["1 cup flour"],
+        "recipeInstructions": ["Mix."],
+        "tools": [{"id": str(other_tool.id), "groupId": unique_user.group_id, "name": "owned", "slug": "owned"}],
+    }
+    archive = _zip_bytes({f"{name}/recipe.json": json.dumps(recipe)})
+    _run_migration(api_client, unique_user, SupportedMigrations.nextcloud, archive)
+
+    untouched = g2_user.repos.tools.get_one(other_tool.id)
+    assert untouched
+    assert str(untouched.group_id) == g2_user.group_id
+    assert untouched.name == other_tool_name
+
+
+def test_migration_rejects_archive_over_size_limit(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(migration_helpers, "MAX_EXTRACTED_ARCHIVE_SIZE", 1024)
+    archive = _zip_bytes({"_recipes/big.md": "0" * 2048})
+
+    report = _run_migration(api_client, unique_user, SupportedMigrations.chowdown, archive)
+
+    assert report["status"] == "failure"
+    assert [entry["message"] for entry in report["entries"]] == ["Archive is too large to import"]

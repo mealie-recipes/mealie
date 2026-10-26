@@ -1,14 +1,13 @@
 from functools import cached_property
 from uuid import UUID
 
-from fastapi import HTTPException, status
 from pydantic import UUID4
 
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import UserRatingCreate, UserRatingOut, UserRatings, UserRatingUpdate
 
 router = UserAPIRouter()
@@ -34,10 +33,7 @@ class UserRatingsController(BaseUserController):
             recipe = self.group_recipes.get_one(slug_or_id, key="slug")
 
         if not recipe:
-            raise HTTPException(
-                status.HTTP_404_NOT_FOUND,
-                detail=ErrorResponse.respond(message="Not found."),
-            )
+            raise not_found("Not found.")
 
         return recipe
 

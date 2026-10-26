@@ -7,7 +7,7 @@
     <template #activator="{ props: tooltipProps }">
       <v-avatar
         v-if="list"
-        v-bind="tooltipProps"
+        v-bind="{ ...tooltipProps, ...$attrs }"
       >
         <v-img
           :src="imageURL"
@@ -19,7 +19,7 @@
       <v-avatar
         v-else
         :size="size"
-        v-bind="tooltipProps"
+        v-bind="{ ...tooltipProps, ...$attrs }"
       >
         <v-img
           :src="imageURL"
@@ -37,6 +37,9 @@
 
 <script setup lang="ts">
 import { useUserStore } from "~/composables/store/use-user-store";
+
+// the root element is the tooltip, so forward class/style/etc. to the avatar instead
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
   userId: {

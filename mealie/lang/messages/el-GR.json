@@ -5,9 +5,17 @@
     "recipe": {
         "unique-name-error": "Τα ονόματα συνταγών πρέπει να είναι μοναδικά",
         "recipe-created": "Η συνταγή δημιουργήθηκε",
+        "made-this-as-side": "Ο/η {name} έφτιαξε αυτό για συνοδευτικό",
+        "made-this-for-breakfast": "Ο/η {name} έφτιαξε αυτό για πρωινό",
+        "made-this-for-lunch": "Ο/η {name} έφτιαξε αυτό για μεσημεριανό",
+        "made-this-for-dinner": "Ο/η {name} έφτιαξε αυτό για βραδινό",
+        "made-this-for-snack": "Ο/η {name} έφτιαξε αυτό για σνακ",
+        "made-this-for-drink": "Ο/η {name} έφτιαξε αυτό για ποτό",
+        "made-this-for-dessert": "Ο/η {name} έφτιαξε αυτό για επιδόρπιο",
         "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
         "recipe-defaults": {
             "ingredient-note": "1 Κούπα Αλεύρι",
+            "name": "Νέα συνταγή",
             "step-text": "Βήματα συνταγής, καθώς και άλλα πεδία στη σύνταξη σήμανσης της σελίδας συνταγής.\n\n**Προσθήκη συνδέσμου**\n\n[Ο σύνδεσμος μου](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,11 +27,11 @@
             "yields": "Ποσότητα"
         },
         "and-amount": "και {amount}",
-        "or-ingredient": "ή {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Οι υπηρεσίες τεχνητής νοημοσύνης δεν είναι ενεργοποιημένες",
             "ai-request-failed": "Ο πάροχος AI δεν ήταν σε θέση να ολοκληρώσει το αίτημα. Παρακαλώ δοκιμάστε ξανά",
             "image-provider-not-enabled": "Οι υπηρεσίες εικόνας τεχνητής νοημοσύνης δεν είναι ενεργοποιημένες",
+            "invalid-mealie-export": "Αυτό μοιάζει με μια συνταγή που εξάχθηκε από το Mealie, αλλά δεν ήταν δυνατό να εισαχθεί",
             "no-recipe-found": "Δεν βρέθηκε συνταγή στην παρεχόμενη πηγή",
             "no-source": "Δεν δόθηκε περιεχόμενο, εικόνες ή διεύθυνση URL",
             "provider-returned-nothing": "Ο πάροχος τεχνητής νοημοσύνης δεν επέστρεψε κάποια συνταγή",
@@ -47,7 +55,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Καμία συνταγή δεν ταιριάζει στα κριτήρια αναζήτησης"
+        "no-recipes-match-your-rules": "Καμία συνταγή δεν ταιριάζει στα κριτήρια αναζήτησης",
+        "entry-type": {
+            "breakfast": "πρωινό",
+            "lunch": "μεσημεριανό",
+            "dinner": "βραδινό",
+            "side": "συνοδευτικό",
+            "snack": "σνακ",
+            "drink": "ποτό",
+            "dessert": "επιδόρπιο"
+        }
     },
     "user": {
         "user-updated": "Ο χρήστης ενημερώθηκε",
@@ -59,7 +76,7 @@
         "report-deleted": "Η αναφορά διαγράφηκε."
     },
     "exceptions": {
-        "permission_denied": "Δεν έχετε δικαιώματα για την εκτέλεση αυτής της ενέργειας",
+        "permission-denied": "Δεν έχετε δικαιώματα για την εκτέλεση αυτής της ενέργειας",
         "recursive-recipe-link": "Μια συνταγή δεν μπορεί να αναφερθεί στον εαυτό της, είτε άμεσα είτε έμμεσα",
         "no-entry-found": "Η σελίδα που ζητήσατε δε βρέθηκε",
         "rate-limit-error": "Ο πάροχος τεχνητής νοημοσύνης αξιολογεί τα αιτήματα περιορισμού. Παρακαλώ περιμένετε ένα λεπτό και προσπαθήστε ξανά",
@@ -74,7 +91,40 @@
         "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
         "generic-duplicated": "Δημιουργήθηκε αντίγραφο του {name}",
         "generic-deleted": "Το {name} διαγράφηκε",
-        "logged-out": "Αποσυνδεδεμένος"
+        "logged-out": "Αποσυνδεδεμένος",
+        "event-title": {
+            "test-message": "Δοκιμαστικό μήνυμα",
+            "webhook-task": "Εργασία Webhook",
+            "recipe-created": "Η συνταγή δημιουργήθηκε",
+            "recipe-updated": "Η συνταγή ενημερώθηκε",
+            "recipe-deleted": "Η συνταγή διαγράφηκε",
+            "user-signup": "Εγγραφή χρήστη",
+            "data-migrations": "Μετεγκατάσταση δεδομένων",
+            "data-export": "Εξαγωγή δεδομένων",
+            "data-import": "Εισαγωγή δεδομένων",
+            "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων",
+            "mealplan-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων",
+            "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων",
+            "shopping-list-created": "Δημιουργήθηκε λίστα για ψώνια",
+            "shopping-list-updated": "Ενημερώθηκε λίστα για ψώνια",
+            "shopping-list-deleted": "Διαγράφτηκε λίστα για ψώνια",
+            "cookbook-created": "Δημιουργήθηκε βιβλίο μαγειρικής",
+            "cookbook-updated": "Ενημερώθηκε βιβλίο μαγειρικής",
+            "cookbook-deleted": "Διαγράφτηκε βιβλίο μαγειρικής",
+            "tag-created": "Δημιουργήθηκε ετικέτα συνταγής",
+            "tag-updated": "Ενημερώθηκε ετικέτα συνταγής",
+            "tag-deleted": "Διαγράφτηκε ετικέτα συνταγής",
+            "category-created": "Δημιουργήθηκε κατηγορία",
+            "category-updated": "Ενημερώθηκε κατηγορία",
+            "category-deleted": "Διαγράφτηκε κατηγορία",
+            "label-created": "Δημιουργήθηκε ετικέτα τροφίμων",
+            "label-updated": "Ενημερώθηκε ετικέτα τροφίμων",
+            "label-deleted": "Διαγράφτηκε ετικέτα τροφίμων"
+        },
+        "test-message-body": "Αυτή είναι μια δοκιμαστική ειδοποίηση από το Mealie.",
+        "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
+        "mealplan-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
+        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}"
     },
     "datetime": {
         "year": "χρόνος | χρόνια",

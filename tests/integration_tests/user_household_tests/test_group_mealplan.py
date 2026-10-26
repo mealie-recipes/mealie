@@ -2,15 +2,17 @@ import random
 from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
+import pytest
 from dateutil.tz import tzlocal
-
 from fastapi.testclient import TestClient
 
 from mealie.schema.household.household import HouseholdSummary
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave, MultiPurposeLabelSummary
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay, PlanRulesOut, PlanRulesSave, PlanRulesType
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagOut, TagSave
+from mealie.schema.recipe.recipe_ingredient import IngredientFood, RecipeIngredient, SaveIngredientFood
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -22,7 +24,12 @@ def route_all_slice(page: int, perPage: int, start_date: str, end_date: str):
     )
 
 
-def create_recipe(unique_user: TestUser, tags: list[TagOut] | None = None, categories: list[CategoryOut] | None = None):
+def create_recipe(
+    unique_user: TestUser,
+    tags: list[TagOut] | None = None,
+    categories: list[CategoryOut] | None = None,
+    foods: list[IngredientFood] | None = None,
+):
     return unique_user.repos.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
@@ -30,7 +37,20 @@ def create_recipe(unique_user: TestUser, tags: list[TagOut] | None = None, categ
             name=random_string(),
             tags=tags or [],
             recipe_category=categories or [],
+            recipe_ingredient=[RecipeIngredient(food=food) for food in foods or []],
         )
+    )
+
+
+def create_food_with_label(unique_user: TestUser, label: MultiPurposeLabelSummary) -> IngredientFood:
+    return unique_user.repos.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(), group_id=UUID(unique_user.group_id), label_id=label.id)
+    )
+
+
+def create_label(unique_user: TestUser) -> MultiPurposeLabelSummary:
+    return unique_user.repos.group_multi_purpose_labels.create(
+        MultiPurposeLabelSave(name=random_string(), group_id=UUID(unique_user.group_id))
     )
 
 
@@ -41,6 +61,8 @@ def create_rule(
     tags: list[TagOut] | None = None,
     categories: list[CategoryOut] | None = None,
     households: list[HouseholdSummary] | None = None,
+    food_labels: list[MultiPurposeLabelSummary] | None = None,
+    excluded_food_labels: list[MultiPurposeLabelSummary] | None = None,
 ):
     qf_parts: list[str] = []
     if tags:
@@ -49,6 +71,12 @@ def create_rule(
         qf_parts.append(f"recipe_category.id CONTAINS ALL [{','.join([str(cat.id) for cat in categories])}]")
     if households:
         qf_parts.append(f"household_id IN [{','.join([str(household.id) for household in households])}]")
+    if food_labels:
+        ids = ",".join([str(label.id) for label in food_labels])
+        qf_parts.append(f"recipe_ingredient.food.label_id IN [{ids}]")
+    if excluded_food_labels:
+        ids = ",".join([str(label.id) for label in excluded_food_labels])
+        qf_parts.append(f"recipe_ingredient.food.label_id NOT IN [{ids}]")
 
     query_filter_string = " AND ".join(qf_parts)
     return unique_user.repos.group_meal_plan_rules.create(
@@ -99,6 +127,87 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
     assert response.status_code == 201
 
     assert response_json["recipe"]["slug"] == recipe_name
+
+
+def create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUser, **entry_fields) -> dict:
+    recipe = create_recipe(unique_user)
+    payload = {
+        "date": datetime.now(UTC).date().strftime("%Y-%m-%d"),
+        "entryType": "dinner",
+        "recipeId": str(recipe.id),
+        **entry_fields,
+    }
+
+    response = api_client.post(api_routes.households_mealplans, json=payload, headers=unique_user.token)
+    assert response.status_code == 201
+    return response.json()
+
+
+def test_create_mealplan_recipe_scale_defaults_to_one(api_client: TestClient, unique_user: TestUser):
+    plan = create_mealplan_with_recipe(api_client, unique_user)
+    assert plan["recipeScale"] == 1
+
+    # the default is what's stored, not just what the create response reports
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["recipeScale"] == 1
+
+    stored = unique_user.repos.meals.get_one(plan["id"])
+    assert stored is not None
+    assert stored.recipe_scale == 1
+
+
+def test_create_mealplan_with_recipe_scale(api_client: TestClient, unique_user: TestUser):
+    plan = create_mealplan_with_recipe(api_client, unique_user, recipeScale=2.5)
+    assert plan["recipeScale"] == 2.5
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["recipeScale"] == 2.5
+
+
+def test_update_mealplan_recipe_scale(api_client: TestClient, unique_user: TestUser):
+    plan = create_mealplan_with_recipe(api_client, unique_user, recipeScale=2)
+
+    plan["recipeScale"] = 0.5
+    response = api_client.put(api_routes.households_mealplans_item_id(plan["id"]), json=plan, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["recipeScale"] == 0.5
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.json()["recipeScale"] == 0.5
+
+    # the scale belongs to the entry, so it's included when listing a date range
+    today = plan["date"]
+    response = api_client.get(route_all_slice(1, -1, today, today), headers=unique_user.token)
+    assert response.status_code == 200
+    listed = next(item for item in response.json()["items"] if item["id"] == plan["id"])
+    assert listed["recipeScale"] == 0.5
+
+
+@pytest.mark.parametrize("recipe_scale", [0, -1])
+def test_mealplan_recipe_scale_must_be_positive(api_client: TestClient, unique_user: TestUser, recipe_scale: float):
+    recipe = create_recipe(unique_user)
+    payload = {
+        "date": datetime.now(UTC).date().strftime("%Y-%m-%d"),
+        "entryType": "dinner",
+        "recipeId": str(recipe.id),
+        "recipeScale": recipe_scale,
+    }
+
+    response = api_client.post(api_routes.households_mealplans, json=payload, headers=unique_user.token)
+    assert response.status_code == 422
+
+    plan = create_mealplan_with_recipe(api_client, unique_user, recipeScale=2)
+    response = api_client.put(
+        api_routes.households_mealplans_item_id(plan["id"]),
+        json={**plan, "recipeScale": recipe_scale},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.json()["recipeScale"] == 2
 
 
 def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
@@ -249,6 +358,61 @@ def test_get_mealplan_with_rules_categories_and_tags_filter(api_client: TestClie
         recipe_data = response.json()["recipe"]
         assert recipe_data["tags"][0]["name"] == tag.name
         assert recipe_data["recipeCategory"][0]["name"] == category.name
+    finally:
+        unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
+def test_get_mealplan_with_rules_food_label_filter(api_client: TestClient, unique_user: TestUser):
+    label = create_label(unique_user)
+    other_label = create_label(unique_user)
+
+    recipe = create_recipe(unique_user, foods=[create_food_with_label(unique_user, label)])
+    [create_recipe(unique_user, foods=[create_food_with_label(unique_user, other_label)]) for _ in range(5)]
+
+    rule = create_rule(
+        unique_user,
+        day=PlanRulesDay.saturday,
+        entry_type=PlanRulesType.breakfast,
+        food_labels=[label],
+    )
+
+    try:
+        payload = {"date": "2023-02-25", "entryType": "breakfast"}
+        response = api_client.post(api_routes.households_mealplans_random, json=payload, headers=unique_user.token)
+        assert response.status_code == 200
+        assert response.json()["recipe"]["slug"] == recipe.slug
+    finally:
+        unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
+def test_get_mealplan_with_rules_excluded_food_label_filter(api_client: TestClient, unique_user: TestUser):
+    """Excluding a food label should exclude the whole recipe, not just the matching ingredient."""
+    excluded_label = create_label(unique_user)
+    other_label = create_label(unique_user)
+
+    # this recipe contains both an excluded ingredient and an allowed one, so it must not be picked
+    create_recipe(
+        unique_user,
+        foods=[
+            create_food_with_label(unique_user, excluded_label),
+            create_food_with_label(unique_user, other_label),
+        ],
+    )
+    recipe = create_recipe(unique_user, foods=[create_food_with_label(unique_user, other_label)])
+
+    rule = create_rule(
+        unique_user,
+        day=PlanRulesDay.saturday,
+        entry_type=PlanRulesType.breakfast,
+        food_labels=[other_label],
+        excluded_food_labels=[excluded_label],
+    )
+
+    try:
+        payload = {"date": "2023-02-25", "entryType": "breakfast"}
+        response = api_client.post(api_routes.households_mealplans_random, json=payload, headers=unique_user.token)
+        assert response.status_code == 200
+        assert response.json()["recipe"]["slug"] == recipe.slug
     finally:
         unique_user.repos.group_meal_plan_rules.delete(rule.id)
 

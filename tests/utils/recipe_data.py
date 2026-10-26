@@ -35,7 +35,7 @@ def get_recipe_test_cases():
             html_file=test_data.html_schinken_kase_waffeln_ohne_viel_schnickschnack,
             expected_slug="schinken-kase-waffeln-ohne-viel-schnickschnack",
             num_ingredients=7,
-            num_steps=1,  # Malformed JSON Data, can't parse steps just get one string
+            num_steps=1,  # a single HowToSection wrapping one step, titled 'Waffelteig'
         ),
         RecipeSiteTestCase(
             url="https://cookpad.com/us/recipes/5544853-sous-vide-smoked-beef-ribs",

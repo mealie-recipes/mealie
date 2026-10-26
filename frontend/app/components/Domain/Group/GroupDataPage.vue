@@ -51,6 +51,7 @@
   <!-- Delete Dialog -->
   <BaseDialog
     v-model="deleteDialog"
+    bottom-sheet
     :title="$t('general.confirm')"
     :icon="$globals.icons.alertCircle"
     color="error"
@@ -69,6 +70,7 @@
   <!-- Bulk Delete Dialog -->
   <BaseDialog
     v-model="bulkDeleteDialog"
+    bottom-sheet
     width="650px"
     :title="$t('general.confirm')"
     :icon="$globals.icons.alertCircle"

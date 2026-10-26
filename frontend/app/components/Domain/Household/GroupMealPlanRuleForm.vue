@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <QueryFilterSummary
+    v-if="readonly"
+    :field-defs="fieldDefs"
+    :query-filter="props.queryFilter"
+  />
+  <div v-else>
     <div
       class="d-md-flex"
       style="gap: 10px"
@@ -25,15 +30,20 @@
     </div>
 
     <!-- TODO: proper pluralization of inputDay -->
-    {{ $t('meal-plan.this-rule-will-apply', {
-      dayCriteria: day === "unset" ? $t('meal-plan.to-all-days') : $t('meal-plan.on-days', [day]),
-      mealTypeCriteria: entryType === "unset" ? $t('meal-plan.for-all-meal-types') : $t('meal-plan.for-type-meal-types', [entryType]),
+    {{ $t("meal-plan.this-rule-will-apply", {
+      dayCriteria: day === "unset"
+        ? $t("meal-plan.to-all-days")
+        : $t("meal-plan.on-days", [$t("general." + day)]),
+      mealTypeCriteria: entryType === "unset"
+        ? $t("meal-plan.for-all-meal-types")
+        : $t("meal-plan.for-type-meal-types", [$t("meal-plan." + entryType)]),
     }) }}
   </div>
 </template>
 
 <script setup lang="ts">
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
+import QueryFilterSummary from "~/components/Domain/QueryFilterSummary.vue";
 import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { Organizer } from "~/lib/api/types/non-generated";
 import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
@@ -41,10 +51,12 @@ import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 interface Props {
   queryFilter?: QueryFilterJSON | null;
   showHelp?: boolean;
+  readonly?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   queryFilter: null,
   showHelp: false,
+  readonly: false,
 });
 
 const day = defineModel<string>("day", { default: "unset" });
@@ -96,6 +108,11 @@ const fieldDefs: FieldDefinition[] = [
     type: Organizer.Food,
   },
   {
+    name: "recipe_ingredient.food.label_id",
+    label: i18n.t("data-pages.foods.food-label"),
+    type: Organizer.Label,
+  },
+  {
     name: "tools.id",
     label: i18n.t("tool.tools"),
     type: Organizer.Tool,
@@ -114,6 +131,11 @@ const fieldDefs: FieldDefinition[] = [
     name: "rating",
     label: i18n.t("general.rating"),
     type: "number",
+  },
+  {
+    name: "total_time_seconds",
+    label: i18n.t("recipe.total-time"),
+    type: "duration",
   },
   {
     name: "last_made",

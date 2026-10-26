@@ -1,6 +1,7 @@
 <template>
   <BaseDialog
     v-model="modelValue"
+    bottom-sheet
     :icon="$globals.icons.translate"
     :title="$t('language-dialog.choose-language')"
   >

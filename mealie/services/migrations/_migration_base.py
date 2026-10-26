@@ -25,7 +25,7 @@ from mealie.services.scraper import cleaner
 from .._base_service import BaseService
 from .utils.database_helpers import DatabaseMigrationHelpers
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import import_image
+from .utils.migration_helpers import ArchiveTooLargeError, import_image, scrape_image
 
 
 class BaseMigrator(BaseService):
@@ -145,7 +145,17 @@ class BaseMigrator(BaseService):
 
     def migrate(self, report_name: str) -> ReportSummary:
         self._create_report(report_name)
-        self._migrate()
+        try:
+            self._migrate()
+        except ArchiveTooLargeError as e:
+            self.report_entries.append(
+                ReportEntryCreate(
+                    report_id=self.report_id,
+                    success=False,
+                    message="Archive is too large to import",
+                    exception=str(e),
+                )
+            )
         self._save_all_entries()
 
         result = self.db.group_reports.get_one(self.report_id)
@@ -201,7 +211,16 @@ class BaseMigrator(BaseService):
             exception: str | Exception = ""
             status = False
             try:
-                recipe = self.recipe_service.create_one(recipe)
+                # Whatever the source called `image` is an archive path or a remote URL, never a
+                # Mealie cache key - and the migrators still read it off `validated_recipes` to
+                # locate the file, so it is dropped from the persisted copy only. The key is
+                # recorded by `import_image`/`scrape_image` once a file actually lands, so a
+                # recipe never claims an image the media route cannot serve.
+                to_create = recipe.model_copy(update={"image": None})
+                # Archive data can carry ids of tools or sub-recipes from other groups, which the
+                # recipe model would otherwise link (and overwrite) by primary key.
+                to_create = Recipe(**self.recipe_service.clean_recipe_dict(to_create.model_dump(mode="json")))
+                recipe = self.recipe_service.create_one(to_create)
                 status = True
 
             except Exception as inst:
@@ -272,8 +291,20 @@ class BaseMigrator(BaseService):
         recipe = cleaner.clean(recipe_dict, self.translator, url=recipe_dict.get("org_url", None))
         return recipe
 
+    def _record_image(self, slug: str) -> None:
+        """Stamps the recipe's image cache key, marking it as having a picture."""
+        try:
+            self.db.recipes.update_image(slug)
+        except Exception as e:
+            self.logger.error(f"Failed to record image for {slug}: {e}")
+
     def import_image(self, slug: str, src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None):
         try:
-            import_image(src, recipe_id, extraction_root=extraction_root)
+            if import_image(src, recipe_id, extraction_root=extraction_root) is not None:
+                self._record_image(slug)
         except UnidentifiedImageError as e:
             self.logger.error(f"Failed to import image for {slug}: {e}")
+
+    async def scrape_image(self, slug: str, image_url: str, recipe_id: UUID4) -> None:
+        if await scrape_image(image_url, recipe_id) is not None:
+            self._record_image(slug)

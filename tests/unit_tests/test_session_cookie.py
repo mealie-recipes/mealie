@@ -1,6 +1,9 @@
-from starlette.requests import Request
+from datetime import timedelta
 
-from mealie.routes.auth.auth import session_cookie_attrs
+from starlette.requests import Request
+from starlette.responses import Response
+
+from mealie.routes.auth.auth import SESSION_COOKIE_NAME, session_cookie_attrs, set_session_cookie
 
 
 def build_request(scheme: str = "http", headers: dict[str, str] | None = None) -> Request:
@@ -65,3 +68,24 @@ def test_embedded_over_plain_http_stays_lax():
 
     assert attrs["samesite"] == "lax"
     assert attrs["partitioned"] is False
+
+
+def test_embedded_https_cookie_is_actually_sendable():
+    """The attribute dict alone can't catch a value Starlette rejects, so set the cookie for real.
+
+    `Partitioned` needs Python 3.14; asking for it on 3.12 made every embedded login a 500.
+    """
+    response = Response()
+    set_session_cookie(
+        response,
+        build_request(scheme="https", headers={"x-mealie-embedded": "true"}),
+        "token",
+        timedelta(hours=1),
+        remember_me=True,
+    )
+
+    set_cookie = next(v.decode() for k, v in response.raw_headers if k == b"set-cookie")
+    assert set_cookie.startswith(f"{SESSION_COOKIE_NAME}=token;")
+    assert "SameSite=none" in set_cookie
+    assert "Secure" in set_cookie
+    assert "Partitioned" in set_cookie

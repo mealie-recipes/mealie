@@ -1,9 +1,7 @@
 import json
-from datetime import timedelta
+import zipfile
 from pathlib import Path
-from typing import cast
 
-import isodate
 import yaml
 from PIL import UnidentifiedImageError
 from pydantic import UUID4
@@ -45,6 +43,35 @@ class MigrationReaders:
                     recipe_data["description"] = document
 
         return recipe_data
+
+
+MAX_EXTRACTED_ARCHIVE_SIZE = 5 * 1024**3
+"""Upper bound, in bytes, on what a single migration may unpack, nested archives included"""
+
+
+class ArchiveTooLargeError(ValueError):
+    pass
+
+
+def extract_zip(archive: Path, dest: str | Path, max_size: int | None = None) -> int:
+    """Extracts `archive` into `dest` and returns the number of bytes written.
+
+    Raises ArchiveTooLargeError, before writing anything, when the archive would unpack to more
+    than `max_size` bytes. The declared member sizes can be trusted for this: zipfile stops reading
+    each member at its declared size. Callers that unpack nested archives pass what is left of
+    the budget as `max_size`, so a zip of zips cannot multiply the limit.
+    """
+    if max_size is None:
+        max_size = MAX_EXTRACTED_ARCHIVE_SIZE
+
+    with zipfile.ZipFile(archive) as zip_file:
+        total = sum(info.file_size for info in zip_file.infolist())
+        if total > max_size:
+            raise ArchiveTooLargeError(f"Archive unpacks to {total} bytes, over the {max_size} byte limit")
+
+        zip_file.extractall(dest)
+
+    return total
 
 
 def split_by_comma(tag_string: str):
@@ -115,13 +142,15 @@ def safe_local_path(candidate: str | Path, root: Path) -> Path | None:
         resolved = Path(candidate).resolve()
         if resolved.is_relative_to(root.resolve()):
             return resolved
-    except (OSError, ValueError):
+    except OSError, ValueError:
         pass
     return None
 
 
-def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None):
+def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None) -> Path | None:
     """Import a local image file into the recipe image directory.
+
+    Returns the path the image was written to, or `None` if there was nothing to import.
 
     May raise an UnidentifiedImageError if the file is not a recognised format.
 
@@ -134,91 +163,35 @@ def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None
         src = Path(src)
 
     if extraction_root is not None:
-        if safe_local_path(src, extraction_root) is None:
+        safe_src = safe_local_path(src, extraction_root)
+        if safe_src is None:
             root_logger.get_logger().warning(
                 "Rejected image path outside extraction root: %s (root: %s)", src, extraction_root
             )
-            return
+            return None
+        src = safe_src
 
     if not src.exists():
-        return
+        return None
 
     data_service = RecipeDataService(recipe_id=recipe_id)
-    data_service.write_image(src, src.suffix)
+    return data_service.write_image(src.read_bytes(), src.suffix)
 
 
-async def scrape_image(image_url: str, recipe_id: UUID4):
+async def scrape_image(image_url: str, recipe_id: UUID4) -> Path | None:
     """Read the successful migrations attribute and for each scrape the image
     appropriately into the image directory. Minification is done in mass
     after the migration occurs.
+
+    Returns the path the image was written to, or `None` if nothing was downloaded.
     """
 
     if not isinstance(image_url, str):
-        return
+        return None
 
     data_service = RecipeDataService(recipe_id=recipe_id)
 
     try:
-        await data_service.scrape_image(image_url)
+        return await data_service.scrape_image(image_url)
     except UnidentifiedImageError:
-        return
-
-
-def parse_iso8601_duration(time: str | None) -> str:
-    """
-    Parses an ISO8601 duration string
-
-    https://en.wikipedia.org/wiki/ISO_8601#Durations
-    """
-
-    if not time:
-        return ""
-    if time[0] == "P":
-        try:
-            delta = isodate.parse_duration(time)
-            if not isinstance(delta, timedelta):
-                return time
-        except isodate.ISO8601Error:
-            return time
-
-    # TODO: make singular and plural translatable
-    time_part_map: dict[str, dict] = {
-        "days": {"singular": "day", "plural": "days"},
-        "hours": {"singular": "hour", "plural": "hours"},
-        "minutes": {"singular": "minute", "plural": "minutes"},
-        "seconds": {"singular": "second", "plural": "seconds"},
-    }
-
-    delta = cast(timedelta, delta)
-    time_part_map["days"]["value"] = delta.days
-    time_part_map["hours"]["value"] = delta.seconds // 3600
-    time_part_map["minutes"]["value"] = (delta.seconds // 60) % 60
-    time_part_map["seconds"]["value"] = delta.seconds % 60
-
-    return_strings: list[str] = []
-    for value_map in time_part_map.values():
-        if not (value := value_map["value"]):
-            continue
-
-        unit_key = "singular" if value == 1 else "plural"
-        return_strings.append(f"{value} {value_map[unit_key]}")
-
-    return " ".join(return_strings) if return_strings else time
-
-
-def format_time(minutes: int) -> str:
-    # TODO: make this translatable
-    hour_label = "hour"
-    hours_label = "hours"
-    minute_label = "minute"
-    minutes_label = "minutes"
-
-    hours, minutes = divmod(minutes, 60)
-    parts: list[str] = []
-
-    if hours:
-        parts.append(f"{int(hours)} {hour_label if hours == 1 else hours_label}")
-    if minutes:
-        parts.append(f"{minutes} {minute_label if minutes == 1 else minutes_label}")
-
-    return " ".join(parts)
+        return None

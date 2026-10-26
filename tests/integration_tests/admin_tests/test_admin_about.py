@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -80,3 +82,55 @@ def test_admin_about_check_app_config(api_client: TestClient, admin_user: TestUs
     # which is independent of whether its remaining settings are fully configured
     assert as_dict["ldapDisabled"] == (not settings.LDAP_AUTH_ENABLED)
     assert as_dict["oidcDisabled"] == (not settings.OIDC_AUTH_ENABLED)
+
+
+@pytest.fixture
+def reset_branding_settings():
+    branding = get_app_settings().branding
+    original = branding.model_dump()
+    yield branding
+    for key, value in original.items():
+        setattr(branding, key, value)
+
+
+def test_public_about_get_app_info_branding_defaults(api_client: TestClient, reset_branding_settings):
+    branding = reset_branding_settings
+    branding.name = "Mealie"
+    branding.logo_path = None
+
+    response = api_client.get(api_routes.app_about)
+    as_dict = response.json()
+
+    assert as_dict["brandingName"] == "Mealie"
+    assert as_dict["brandingLogoUrl"] is None
+
+    assert api_client.get(api_routes.app_about_branding_logo).status_code == 404
+
+
+def test_public_about_get_app_info_branding_custom(api_client: TestClient, reset_branding_settings, tmp_path: Path):
+    branding = reset_branding_settings
+
+    logo_file = tmp_path / "logo.svg"
+    logo_file.write_text("<svg></svg>")
+
+    branding.name = "My Recipes"
+    branding.logo_path = str(logo_file)
+
+    response = api_client.get(api_routes.app_about)
+    as_dict = response.json()
+
+    assert as_dict["brandingName"] == "My Recipes"
+    assert as_dict["brandingLogoUrl"] == "/api/app/about/branding-logo"
+
+    logo_response = api_client.get(api_routes.app_about_branding_logo)
+    assert logo_response.status_code == 200
+    assert logo_response.content == b"<svg></svg>"
+
+
+def test_public_about_get_app_info_branding_missing_file_falls_back(api_client: TestClient, reset_branding_settings):
+    branding = reset_branding_settings
+    branding.logo_path = "/nonexistent/path/logo.svg"
+
+    response = api_client.get(api_routes.app_about)
+    assert response.json()["brandingLogoUrl"] is None
+    assert api_client.get(api_routes.app_about_branding_logo).status_code == 404

@@ -23,6 +23,7 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="dialogStates.delete"
+      bottom-sheet
       :title="$t('general.delete-with-name', { name: $t('cookbook.cookbook') })"
       :icon="$globals.icons.alertCircle"
       color="error"
@@ -144,7 +145,7 @@ import type { CreateCookBook, ReadCookBook } from "~/lib/api/types/cookbook";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
 definePageMeta({
-  middleware: ["group-only"],
+  middleware: ["auth", "group-only"],
 });
 
 const dialogStates = reactive({

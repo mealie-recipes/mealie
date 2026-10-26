@@ -1,5 +1,4 @@
 import tempfile
-import zipfile
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -8,7 +7,7 @@ from mealie.services.scraper import cleaner
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import parse_iso8601_duration, safe_local_path
+from .utils.migration_helpers import extract_zip, safe_local_path
 
 
 def clean_instructions(instructions: list[str]) -> list[str]:
@@ -73,22 +72,21 @@ class RecipeKeeperMigrator(BaseMigrator):
                 alias="recipeIngredients",
             ),
             MigrationAlias(key="recipeInstructions", alias="recipeDirections", func=clean_instructions),
-            MigrationAlias(key="performTime", alias="cookTime", func=parse_iso8601_duration),
-            MigrationAlias(key="prepTime", alias="prepTime", func=parse_iso8601_duration),
+            MigrationAlias(key="performTime", alias="cookTime", func=None),
+            MigrationAlias(key="prepTime", alias="prepTime", func=None),
             MigrationAlias(key="image", alias="photo0"),
             MigrationAlias(key="tags", alias="recipeCourse", func=to_list),
-            MigrationAlias(key="recipe_category", alias="recipeCategory", func=to_list),
+            MigrationAlias(key="recipeCategory", alias="recipeCategory", func=to_list),
             MigrationAlias(key="notes", alias="recipeNotes"),
             MigrationAlias(key="nutrition", alias="nutrition", func=cleaner.clean_nutrition),
             MigrationAlias(key="rating", alias="recipeRating"),
             MigrationAlias(key="orgURL", alias="recipeSource"),
-            MigrationAlias(key="recipe_yield", alias="recipeYield"),
+            MigrationAlias(key="recipeYield", alias="recipeYield"),
         ]
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            extract_zip(self.archive, tmpdir)
 
             source_dir = self.get_zip_base_path(Path(tmpdir))
 

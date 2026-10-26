@@ -1,10 +1,14 @@
 import filecmp
+from io import BytesIO
 
+import pytest
 from fastapi.testclient import TestClient
+from PIL import Image
 from slugify import slugify
 
 from mealie.schema.recipe.recipe import Recipe
 from tests import data
+from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -40,6 +44,49 @@ def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, rec
     recipe_respons = response.json()
 
     assert recipe_respons["assets"][0]["name"] == payload["name"]
+
+
+def test_recipe_assets_create_duplicate_name(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    """
+    Regression test for https://github.com/mealie-recipes/mealie/issues/5623
+
+    iOS Safari names every camera-captured photo "image.jpg", so uploading multiple assets in a
+    row with an identical client-supplied name must not silently overwrite the previous asset.
+    """
+    recipe = recipe_ingredient_only
+    payload = {
+        "name": "image",
+        "icon": random_string(10),
+        "extension": "jpg",
+    }
+
+    first_response = api_client.post(
+        f"/api/recipes/{recipe.slug}/assets",
+        data=payload,
+        files={"file": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert first_response.status_code == 200
+    first_file_name = first_response.json()["fileName"]
+
+    second_response = api_client.post(
+        f"/api/recipes/{recipe.slug}/assets",
+        data=payload,
+        files={"file": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert second_response.status_code == 200
+    second_file_name = second_response.json()["fileName"]
+
+    assert first_file_name != second_file_name
+    assert (recipe.asset_dir / first_file_name).exists()
+    assert (recipe.asset_dir / second_file_name).exists()
+
+    response = api_client.get(f"/api/recipes/{recipe.slug}", headers=unique_user.token)
+    assets = response.json()["assets"]
+    assert len(assets) == 2
 
 
 def test_recipe_asset_exploit(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
@@ -92,7 +139,7 @@ def test_recipe_asset_dangerous_extension_blocked(
 ):
     """Ensure scriptable extensions are rejected to prevent stored XSS (GHSA-gfwc-pjx4-mg9p)."""
     recipe = recipe_ingredient_only
-    for ext in ("html", "svg", "js", "htm", "xhtml"):
+    for ext in ("html", "svg", "js", "htm", "xhtml", "xml"):
         payload = {"name": random_string(10), "icon": "mdi-file", "extension": ext}
         file_payload = {"file": b"<script>alert(1)</script>"}
         response = api_client.post(
@@ -102,6 +149,8 @@ def test_recipe_asset_dangerous_extension_blocked(
             headers=unique_user.token,
         )
         assert response.status_code == 400, f"expected 400 for extension={ext}, got {response.status_code}"
+        # the frontend only shows an error toast when the response carries a message
+        assert response.json()["detail"]["message"] == "Unsupported file extension"
 
 
 def test_recipe_asset_served_as_attachment(
@@ -150,3 +199,140 @@ def test_recipe_image_upload(api_client: TestClient, unique_user: TestUser, reci
     response = api_client.get(f"/api/recipes/{recipe_ingredient_only.slug}", headers=unique_user.token)
     recipe_respons = response.json()
     assert recipe_respons["image"] == image_version
+
+
+def test_recipe_update_without_image_field_keeps_image(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    """An update that doesn't mention `image` must leave the stored value alone.
+
+    Updates are a full overwrite, so a client that round-trips a recipe without echoing the
+    field back used to clear it. The image files stay on disk regardless, which left recipes
+    that have a picture but no longer say so - and once the frontend started trusting the
+    column, those pictures vanished from the UI (mealie-recipes/mealie#8271).
+    """
+    slug = recipe_ingredient_only.slug
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(slug),
+        data={"extension": "jpg"},
+        files={"image": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    image_version = response.json()["image"]
+    assert image_version
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    del recipe["image"]
+
+    response = api_client.put(api_routes.recipes_slug(slug), json=recipe, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["image"] == image_version
+
+    # The file was there the whole time; the column is what used to drift away from it.
+    assert api_client.get(f"/api/media/recipes/{recipe['id']}/images/original.webp").status_code == 200
+
+
+def test_recipe_update_can_still_clear_image(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    """Preserving an omitted image must not make the field unwritable."""
+    slug = recipe_ingredient_only.slug
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(slug),
+        data={"extension": "jpg"},
+        files={"image": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    recipe["image"] = None
+
+    response = api_client.put(api_routes.recipes_slug(slug), json=recipe, headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["image"] is None
+
+
+@pytest.mark.parametrize("extension", ["svg", "svg+xml", "pdf", "mp4", "exe", "."])
+def test_recipe_image_upload_rejects_unsupported_extension(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, extension: str
+):
+    slug = recipe_ingredient_only.slug
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(slug),
+        data={"extension": extension},
+        files={"image": b"dummy bytes"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 400
+    assert "Unsupported image file type" in response.json()["detail"]["message"]
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["image"] is None
+
+
+def test_recipe_image_upload_rejects_corrupt_image(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    slug = recipe_ingredient_only.slug
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(slug),
+        data={"extension": "png"},
+        files={"image": b"not an image"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 400
+    assert response.json()["detail"]["message"] == "Uploaded file is not a valid image"
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["image"] is None
+
+
+def test_recipe_image_upload_accepts_uppercase_extension(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_ingredient_only.slug),
+        data={"extension": "JPG"},
+        files={"image": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["image"]
+
+
+@pytest.mark.parametrize("image_format", ["GIF", "BMP"])
+def test_recipe_image_upload_accepts_gif_and_bmp(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, image_format: str
+):
+    buffer = BytesIO()
+    Image.new("RGB", (8, 8), "red").save(buffer, image_format)
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_ingredient_only.slug),
+        data={"extension": image_format.lower()},
+        files={"image": buffer.getvalue()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["image"]
+
+
+def test_recipe_image_upload_accepts_png(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_ingredient_only.slug),
+        data={"extension": "png"},
+        files={"image": data.images_test_image_2.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["image"]

@@ -70,7 +70,7 @@ def find_image(soup: bs4.BeautifulSoup) -> str | None:
 
         try:
             size = int(width) * int(height)
-        except (ValueError, TypeError):
+        except ValueError, TypeError:
             size = 1
         if size > max_size:
             max_size = size

@@ -41,6 +41,16 @@ export const useMealieAuth = function () {
     const params = new URLSearchParams(window.location.search);
     const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/oauth/callback", { params });
     auth.setToken(token.access_token);
+
+    await auth.getSession();
+    if (auth.status.value !== "authenticated") {
+      throw new Error("OIDC sign-in succeeded but the session could not be established");
+    }
+  }
+
+  async function reverseProxySignIn() {
+    const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/reverse-proxy");
+    auth.setToken(token.access_token);
     await auth.getSession();
   }
 
@@ -52,5 +62,6 @@ export const useMealieAuth = function () {
     signOut: auth.signOut,
     getSession: auth.getSession,
     oauthSignIn,
+    reverseProxySignIn,
   };
 };

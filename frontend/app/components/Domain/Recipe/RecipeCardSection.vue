@@ -37,7 +37,7 @@
             :loading="sortLoading"
           >
             <v-icon :start="!$vuetify.display.xs">
-              {{ preferences.sortIcon }}
+              {{ sortIcon }}
             </v-icon>
             {{ $vuetify.display.xs ? null : $t("general.sort") }}
           </v-btn>
@@ -75,12 +75,20 @@
               <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
             </div>
           </v-list-item>
-          <v-list-item @click="sortRecipes(EVENTS.lastMade)">
+          <v-list-item v-if="isOwnGroup" @click="sortRecipes(EVENTS.lastMade)">
             <div class="d-flex align-center flex-nowrap">
               <v-icon class="mr-2" inline>
                 {{ $globals.icons.chefHat }}
               </v-icon>
               <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
+            </div>
+          </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.totalTime)">
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.clockOutline }}
+              </v-icon>
+              <v-list-item-title>{{ $t("recipe.total-time") }}</v-list-item-title>
             </div>
           </v-list-item>
           <v-list-item @click="sortRecipes(EVENTS.shuffle)">
@@ -211,8 +219,12 @@ const EVENTS = {
   created: "created",
   updated: "updated",
   lastMade: "lastMade",
+  totalTime: "totalTime",
   shuffle: "shuffle",
 };
+
+// recipes without a value can't be ranked by these, so they always go to the end regardless of direction
+const NULLS_LAST_ORDER_BY = ["total_time_seconds"];
 
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
@@ -223,6 +235,21 @@ const useMobileCards = computed(() => {
 
 const displayTitleIcon = computed(() => {
   return props.icon || $globals.icons.tags;
+});
+
+const requestedOrderBy = computed(() => props.query?.orderBy || preferences.value.orderBy);
+const effectiveOrderBy = computed(() => {
+  return !isOwnGroup.value && requestedOrderBy.value === "last_made" ? "created_at" : requestedOrderBy.value;
+});
+
+const sortIcon = computed(() => {
+  if (!isOwnGroup.value && requestedOrderBy.value === "last_made") {
+    return preferences.value.orderDirection === "asc"
+      ? $globals.icons.sortCalendarAscending
+      : $globals.icons.sortCalendarDescending;
+  }
+
+  return preferences.value.sortIcon;
 });
 
 const sortLoading = ref(false);
@@ -260,8 +287,9 @@ const queryFilter = computed(() => {
 
 async function fetchRecipes(pageCount = 1) {
   const orderDir = props.query?.orderDirection || preferences.value.orderDirection;
-  const orderByNullPosition = props.query?.orderByNullPosition || orderDir === "asc" ? "first" : "last";
-  const orderBy = props.query?.orderBy || preferences.value.orderBy;
+  const orderBy = effectiveOrderBy.value;
+  const orderByNullPosition = props.query?.orderByNullPosition
+    || (NULLS_LAST_ORDER_BY.includes(orderBy) || orderDir !== "asc" ? "last" : "first");
   const localQuery = { ...props.query };
   if (orderBy === "random") {
     localQuery._searchSeed = randomSeed.value;
@@ -319,7 +347,7 @@ watch(
 );
 
 async function initRecipes() {
-  if (preferences.value.orderBy === "random") {
+  if (effectiveOrderBy.value === "random") {
     randomSeed.value = Date.now().toString();
   }
   page.value = 1;
@@ -361,6 +389,10 @@ const infiniteScroll = useThrottleFn(async () => {
 
 async function sortRecipes(sortType: string) {
   if (sortLoading.value || loading.value) {
+    return;
+  }
+
+  if (!isOwnGroup.value && sortType === EVENTS.lastMade) {
     return;
   }
 
@@ -413,6 +445,15 @@ async function sortRecipes(sortType: string) {
         $globals.icons.sortCalendarAscending,
         $globals.icons.sortCalendarDescending,
         "desc",
+        true,
+      );
+      break;
+    case EVENTS.totalTime:
+      setter(
+        "total_time_seconds",
+        $globals.icons.sortAscending,
+        $globals.icons.sortDescending,
+        "asc",
         true,
       );
       break;

@@ -3,6 +3,7 @@
     <!-- Merge Dialog -->
     <BaseDialog
       v-model="mergeDialog"
+      bottom-sheet
       :icon="$globals.icons.units"
       :title="$t('data-pages.units.combine-unit')"
       can-confirm
@@ -54,6 +55,7 @@
     <!-- Seed Dialog -->
     <BaseDialog
       v-model="seedDialog"
+      bottom-sheet
       :icon="$globals.icons.foods"
       :title="$t('data-pages.seed-data')"
       can-confirm

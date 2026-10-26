@@ -1,14 +1,21 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
 from mealie.schema.recipe.recipe import RecipeTool, RecipeToolPagination
-from mealie.schema.recipe.recipe_tool import RecipeToolCreate, RecipeToolResponse, RecipeToolSave
+from mealie.schema.recipe.recipe_tool import (
+    RecipeToolCreate,
+    RecipeToolMerge,
+    RecipeToolOut,
+    RecipeToolResponse,
+    RecipeToolSave,
+)
 from mealie.schema.response.pagination import PaginationQuery
 
 router = APIRouter(prefix="/tools", tags=["Organizer: Tools"])
@@ -35,21 +42,39 @@ class RecipeToolController(BaseUserController):
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=RecipeTool, status_code=201)
+    @router.post("", response_model=RecipeTool, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def create_one(self, data: RecipeToolCreate):
         save_data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
         return self.mixins.create_one(save_data)
+
+    @router.get("/empty", response_model=list[RecipeToolOut])
+    def get_all_empty(self):
+        """Returns a list of tools that are not used by any recipe"""
+        return self.repo.get_empty()
+
+    @router.post("/merge", response_model=RecipeToolOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def merge_tools(self, body: RecipeToolMerge):
+        """Merges the from_id tool into the to_id tool, then deletes from_id."""
+        if body.from_id == body.to_id:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
+
+        if not self.repo.get_one(body.from_id):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "from_id tool not found")
+        if not self.repo.get_one(body.to_id):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "to_id tool not found")
+
+        return self.repo.merge(body.from_id, body.to_id)
 
     @router.get("/{item_id}", response_model=RecipeTool)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=RecipeTool)
+    @router.put("/{item_id}", response_model=RecipeTool, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def update_one(self, item_id: UUID4, data: RecipeToolCreate):
         data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
         return self.mixins.update_one(data, item_id)
 
-    @router.delete("/{item_id}", response_model=RecipeTool)
+    @router.delete("/{item_id}", response_model=RecipeTool, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_one(self, item_id: UUID4):
         return self.mixins.delete_one(item_id)  # type: ignore
 

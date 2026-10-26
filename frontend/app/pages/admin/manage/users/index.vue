@@ -3,6 +3,7 @@
     <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
       v-model="state.deleteDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"

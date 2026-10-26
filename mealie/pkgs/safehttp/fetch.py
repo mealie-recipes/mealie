@@ -56,6 +56,10 @@ class ForceTimeoutException(Exception):
     """Raised when reading a response body exceeds the fetch timeout."""
 
 
+class ResponseTooLargeError(Exception):
+    """Raised when a response body exceeds the caller's byte budget."""
+
+
 @dataclass
 class FetchResult:
     """The outcome of a resilient fetch, decoupled from the (now-closed) streaming response."""
@@ -71,7 +75,7 @@ class FetchResult:
         # Mirrors the decoding behavior of requests' `text` property.
         try:
             return str(self.content, self.encoding, errors="replace")  # type: ignore[arg-type]
-        except (LookupError, TypeError):
+        except LookupError, TypeError:
             # LookupError: unknown encoding name. TypeError: encoding is None.
             return str(self.content, errors="replace")
 
@@ -96,30 +100,45 @@ def body_indicates_challenge(content: bytes) -> bool:
 
 
 def _build_transport(impersonate: str, proxy: str | None = None) -> AsyncSafeTransport:
+    settings = get_app_settings()
     kwargs: dict = {
         "impersonate": impersonate,
         "default_headers": True,
         # disable SSL verification since we can handle untrusted data and some sites don't have certs
         # (this also covers the proxy connection, so no separate proxy-verify knob is needed)
         "verify": False,
+        "allow_hosts": settings.http_allow_list,
+        "deny_hosts": settings.http_disallow_list,
     }
     if proxy:
+        # The transport still validates the target host, but it cannot pin the connection: curl
+        # hands the hostname to the proxy, which does its own resolution. Routing egress through a
+        # proxy is an explicit operator choice, so that trade-off is theirs to make.
         kwargs["proxy"] = proxy
     return AsyncSafeTransport(**kwargs)
 
 
-async def _read_capped(resp: httpx.Response, timeout: int) -> bytes:
+async def _read_capped(resp: httpx.Response, timeout: int, max_bytes: int | None = None) -> bytes:
     """
-    Reads a streaming body, aborting if it takes longer than ``timeout`` seconds.
+    Reads a streaming body, aborting if it takes longer than ``timeout`` seconds or, when
+    ``max_bytes`` is set, if the body grows past that many bytes.
 
     Mitigates abuse from URLs that serve arbitrarily large or slow content.
     """
+    if max_bytes is not None:
+        declared_length = resp.headers.get("content-length")
+        if declared_length and declared_length.isdigit() and int(declared_length) > max_bytes:
+            raise ResponseTooLargeError(f"declared content-length {declared_length} exceeds {max_bytes} bytes")
+
     content = b""
     start_time = time.monotonic()
     async for chunk in resp.aiter_bytes(chunk_size=1024):
         content += chunk
         if time.monotonic() - start_time > timeout:
             raise ForceTimeoutException()
+        # Servers that omit or understate Content-Length are caught by the running total.
+        if max_bytes is not None and len(content) > max_bytes:
+            raise ResponseTooLargeError(f"response body exceeds {max_bytes} bytes")
     return content
 
 
@@ -148,6 +167,7 @@ async def _attempt(
     impersonation: str,
     read_body: bool,
     proxy: str | None,
+    max_bytes: int | None = None,
 ) -> tuple[FetchResult | None, bool, int, str | None]:
     """
     Performs a single fetch attempt with one browser impersonation.
@@ -179,7 +199,7 @@ async def _attempt(
 
             content = b""
             if read_body:
-                content = await _read_capped(resp, timeout)
+                content = await _read_capped(resp, timeout, max_bytes)
                 if body_indicates_challenge(content):
                     logger.debug(f'Challenge page body detected with impersonation "{impersonation}"')
                     return None, True, status_code, retry_after
@@ -201,6 +221,7 @@ async def _rotate(
     read_body: bool,
     proxy: str | None,
     deadline: float,
+    max_bytes: int | None = None,
 ) -> tuple[FetchResult | None, bool]:
     """
     Cycles through browser impersonations (in randomized order) for a single egress path
@@ -220,7 +241,7 @@ async def _rotate(
 
         logger.debug(f'Trying browser impersonation: "{impersonation}"')
         result, blocked, status_code, retry_after = await _attempt(
-            url, method, timeout, impersonation, read_body, proxy
+            url, method, timeout, impersonation, read_body, proxy, max_bytes
         )
 
         if result is not None:
@@ -253,6 +274,7 @@ async def resilient_fetch(
     method: str = "GET",
     timeout: int = SCRAPER_TIMEOUT,
     allow_flaresolverr: bool = True,
+    max_bytes: int | None = None,
 ) -> FetchResult | None:
     """
     Fetches a URL while cycling through browser TLS impersonations (via httpx-curl-cffi) to
@@ -274,6 +296,8 @@ async def resilient_fetch(
 
     The whole operation is bounded by ``SCRAPER_TOTAL_TIMEOUT``, and each attempt's body read is
     bounded by ``timeout`` seconds, to mitigate abuse from URLs that serve arbitrarily large content.
+    Callers that persist what they download should also pass ``max_bytes``, which rejects a body
+    over that size (raising ``ResponseTooLargeError``) rather than letting time alone bound it.
 
     Returns a ``FetchResult`` for the first successful response, or ``None`` if every impersonation
     was blocked, the server returned a hard error, or the budget was exhausted.
@@ -287,7 +311,9 @@ async def resilient_fetch(
     proxy = settings.SCRAPER_PROXY_URL or None
     proxy_first = bool(proxy) and settings.SCRAPER_PROXY_MODE == ScraperProxyMode.always
 
-    result, blocked = await _rotate(url, method, timeout, read_body, proxy if proxy_first else None, deadline)
+    result, blocked = await _rotate(
+        url, method, timeout, read_body, proxy if proxy_first else None, deadline, max_bytes
+    )
     if result is not None:
         return result
 
@@ -295,7 +321,7 @@ async def resilient_fetch(
     # hard error, and not if we already used the proxy above).
     if blocked and proxy and not proxy_first:
         logger.debug("Direct fetch blocked; retrying through configured proxy")
-        result, blocked = await _rotate(url, method, timeout, read_body, proxy, deadline)
+        result, blocked = await _rotate(url, method, timeout, read_body, proxy, deadline, max_bytes)
         if result is not None:
             return result
 

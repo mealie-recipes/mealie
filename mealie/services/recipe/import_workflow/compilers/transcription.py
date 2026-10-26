@@ -16,8 +16,11 @@ class TranscriptionCompiler(SourceCompiler):
     source_type = SourceType.URL
     progress_key = "recipe.create-progress.downloading-video"
 
+    def _url(self) -> str | None:
+        return self.ctx.resolved_url or self.ctx.input.url
+
     def can_compile(self) -> bool:
-        url = self.ctx.input.url
+        url = self._url()
         if not url:
             return False
 
@@ -28,7 +31,7 @@ class TranscriptionCompiler(SourceCompiler):
         return transcription.is_video_url(url)
 
     async def compile(self) -> OpenAICompiledSource | None:
-        url = self.ctx.input.url or ""
+        url = self._url() or ""
 
         with get_temporary_path() as temp_path:
             video_data = await asyncio.to_thread(transcription.download_video, url, temp_path)

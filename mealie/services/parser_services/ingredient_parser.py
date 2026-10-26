@@ -22,6 +22,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
     ParsedIngredient,
+    RecipeIngredientSubstitution,
     RegisteredParser,
 )
 
@@ -43,6 +44,7 @@ class BruteForceParser(ABCIngredientParser):
         parsed_ingredient = ParsedIngredient(
             input=ingredient_string,
             ingredient=RecipeIngredient(
+                original_text=ingredient_string,
                 unit=CreateIngredientUnit(name=bfi.unit),
                 food=CreateIngredientFood(name=bfi.food),
                 quantity=bfi.amount,
@@ -167,12 +169,48 @@ class NLPParser(ABCIngredientParser):
 
         return note, confidence
 
+    def _convert_extra_ingredients(
+        self, extra_ingredients: list[RecipeIngredient]
+    ) -> list[RecipeIngredientSubstitution]:
+        """
+        Turns the alternatives the parser found -- the second and later names in "stock or
+        broth" -- into substitutions on the primary ingredient.
+
+        A substitution holds a food and a note and nothing else, so an alternative carrying its
+        own quantity or unit is kept as text instead: reducing it to a bare food reference would
+        lose the "2 cups" in "1 cup stock or 2 cups broth". Converting between the two is out of
+        scope. An alternative whose food matches nothing in the database falls back to text for
+        the same reason the AI parser does -- the column holds a food id, and one that resolves
+        to nothing is dropped on save.
+        """
+
+        substitutions: list[RecipeIngredientSubstitution] = []
+        for extra in extra_ingredients:
+            if extra.food and not extra.quantity and not extra.unit and not extra.note:
+                if food_match := self.data_matcher.find_food_match(extra.food):
+                    substitutions.append(RecipeIngredientSubstitution(substitute_food_id=food_match.id))
+                    continue
+
+            if extra.display:
+                substitutions.append(RecipeIngredientSubstitution(note=extra.display))
+
+        return substitutions
+
     def _convert_ingredient(self, ingredient: IngredientParserParsedIngredient) -> ParsedIngredient:
         from ingredient_parser.dataclasses import CompositeIngredientAmount
 
         ing_parts: list[_IngredientPart] = []
 
         for amount, ing_name in zip_longest(ingredient.amount, ingredient.name, fillvalue=None):
+            if amount and not ing_name and ing_parts:
+                # an amount with no name is another measurement of the primary ingredient
+                # (e.g. the "(42g)" in "3 tablespoons (42g) water"), not an alternative ingredient
+                if isinstance(amount, CompositeIngredientAmount):
+                    ing_parts[0].extra_amounts.extend(amount.amounts)
+                else:
+                    ing_parts[0].extra_amounts.append(amount)
+                continue
+
             part = _IngredientPart()
 
             if amount:
@@ -231,19 +269,11 @@ class NLPParser(ABCIngredientParser):
             )
 
         primary_ingredient = recipe_ingredients[0]  # there will always be at least one recipe ingredient
+        primary_ingredient.original_text = ingredient.sentence
         extra_ingredients = recipe_ingredients[1:] if len(recipe_ingredients) > 1 else []
 
-        # TODO: handle extra ingredients when we support them
-        # For now, just add them to the note ("or ing_1, or ing_2, or ...")
         if extra_ingredients:
-            extras_note_parts = [
-                self.t("recipe.or-ingredient", ingredient=extra_ing.display) for extra_ing in extra_ingredients
-            ]
-            extras_note = ", ".join(extras_note_parts)
-            primary_ingredient.note = " ".join(filter(None, [extras_note, primary_ingredient.note]))
-
-            # re-calculate display property since we modified the note
-            primary_ingredient.display = primary_ingredient._format_display()
+            primary_ingredient.substitutions = self._convert_extra_ingredients(extra_ingredients)
 
         parsed_ingredient = ParsedIngredient(
             input=ingredient.sentence,

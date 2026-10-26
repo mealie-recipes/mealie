@@ -2,7 +2,7 @@ from datetime import date
 from functools import cached_property
 
 from dateutil.tz import tzlocal
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
@@ -10,20 +10,21 @@ from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import not_found
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination, PlanEntryType
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.response.responses import ErrorResponse
 from mealie.services.event_bus_service.event_types import (
     EventMealplanData,
     EventOperation,
     EventTypes,
 )
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
-router = APIRouter(prefix="/households/mealplans", tags=["Households: Mealplans"])
+router = APIRouter(prefix="/households/mealplans", tags=["Households: Meal Plans"])
 
 
 @controller(router)
@@ -31,6 +32,10 @@ class GroupMealplanController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryMeals:
         return self.repos.meals
+
+    def _translated_entry_type(self, entry_type) -> str:
+        value = getattr(entry_type, "value", entry_type)
+        return self.t(f"mealplan.entry-type.{value}", default=str(value))
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
@@ -61,7 +66,7 @@ class GroupMealplanController(BaseCrudController):
             self.session, group_id=self.group_id, household_id=None
         ).recipes.by_user(self.user.id)
 
-        qf_string = " AND ".join([f"({rule.query_filter_string})" for rule in rules if rule.query_filter_string])
+        qf_string = QueryFilterBuilder.combine_filters(*[rule.query_filter_string for rule in rules])
         recipes_data = cross_household_recipes.page_all(
             pagination=PaginationQuery(
                 page=1,
@@ -91,11 +96,7 @@ class GroupMealplanController(BaseCrudController):
             else:
                 date_filter = f"date >= {start_date} AND date <= {end_date}"
 
-            if q.query_filter:
-                q.query_filter = f"({q.query_filter}) AND ({date_filter})"
-
-            else:
-                q.query_filter = date_filter
+            q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, date_filter)
 
         return self.repo.page_all(pagination=q)
 
@@ -116,7 +117,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-created",
+                date=data.date,
+                entry_type=self._translated_entry_type(data.entry_type),
+            ),
         )
 
         return result
@@ -129,18 +134,16 @@ class GroupMealplanController(BaseCrudController):
     @router.post("/random", response_model=ReadPlanEntry)
     def create_random_meal(self, data: CreateRandomEntry):
         """
-        `create_random_meal` is a route that provides the randomized functionality for mealplaners.
-        It operates by following the rules set out in the household's mealplan settings. If no settings
+        `create_random_meal` is a route that provides the randomized functionality for meal planners.
+        It operates by following the rules set out in the household's meal plan settings. If no settings
         are set, it will return any random meal.
 
-        Refer to the mealplan settings routes for more information on how rules can be applied
+        Refer to the meal plan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
         random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
         if not random_recipes:
-            raise HTTPException(
-                status_code=404, detail=ErrorResponse.respond(message=self.t("mealplan.no-recipes-match-your-rules"))
-            )
+            raise not_found(self.t("mealplan.no-recipes-match-your-rules"))
 
         recipe = random_recipes[0]
         result = self.mixins.create_one(
@@ -165,7 +168,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-created",
+                date=data.date,
+                entry_type=self._translated_entry_type(data.entry_type),
+            ),
         )
 
         return result
@@ -190,7 +197,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry updated for {result.date} for {result.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-updated",
+                date=result.date,
+                entry_type=self._translated_entry_type(result.entry_type),
+            ),
         )
 
         return result
@@ -211,7 +222,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry deleted for {result.date} for {result.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-deleted",
+                date=result.date,
+                entry_type=self._translated_entry_type(result.entry_type),
+            ),
         )
 
         return result

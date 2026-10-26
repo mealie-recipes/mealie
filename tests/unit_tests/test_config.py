@@ -63,9 +63,17 @@ def test_default_connection_args(monkeypatch):
 def test_pg_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "postgres")
     monkeypatch.setenv("POSTGRES_SERVER", "postgres")
+    monkeypatch.setenv("POSTGRES_DB", "mealie")
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
-    assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
+    assert app_settings.DB_URL == "postgresql+psycopg2://mealie:mealie@postgres:5432/mealie"
+
+
+def test_unknown_db_engine_is_rejected(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "postgress")
+    get_app_settings.cache_clear()
+    with pytest.raises(ValueError, match="DB_ENGINE"):
+        get_app_settings()
 
 
 psql_validation_cases = [
@@ -82,7 +90,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:P@ssword!@#$%%^^&&**()+;'\"'<>?{}[]@postgres:5432/mealie",
-            "postgresql://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres:5432/mealie",
+            "postgresql+psycopg2://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres:5432/mealie",
         ],
     ),
     (
@@ -90,7 +98,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:P@ssword!@#$%%^^&&**()+;'\"'<>?{}[]@postgres/mealie",
-            "postgresql://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres/mealie",
+            "postgresql+psycopg2://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres/mealie",
         ],
     ),
     (
@@ -106,7 +114,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:MyPassword@postgres:5432/mealie",
-            "postgresql://mealie:MyPassword@postgres:5432/mealie",
+            "postgresql+psycopg2://mealie:MyPassword@postgres:5432/mealie",
         ],
     ),
     (
@@ -114,7 +122,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie@postgres:5432/mealie",
-            "postgresql://mealie@postgres:5432/mealie",
+            "postgresql+psycopg2://mealie@postgres:5432/mealie",
         ],
     ),
     (
@@ -122,7 +130,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie@postgres/mealie",
-            "postgresql://mealie@postgres/mealie",
+            "postgresql+psycopg2://mealie@postgres/mealie",
         ],
     ),
     (
@@ -130,7 +138,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:@/mealie?host=/run/postgresql",
-            "postgresql://mealie:@/mealie?host=/run/postgresql",
+            "postgresql+psycopg2://mealie:@/mealie?host=/run/postgresql",
         ],
     ),
     (
@@ -138,7 +146,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie@/mealie?host=/run/postgresql",
-            "postgresql://mealie@/mealie?host=/run/postgresql",
+            "postgresql+psycopg2://mealie@/mealie?host=/run/postgresql",
         ],
     ),
     (
@@ -146,7 +154,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql:///mealie?host=/run/postgresql",
-            "postgresql:///mealie?host=/run/postgresql",
+            "postgresql+psycopg2:///mealie?host=/run/postgresql",
         ],
     ),
     (
@@ -154,7 +162,7 @@ psql_validation_cases = [
         [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://user@host/db?sslmode=require&connect_timeout=10",
-            "postgresql://user@host/db?sslmode=require&connect_timeout=10",
+            "postgresql+psycopg2://user@host/db?sslmode=require&connect_timeout=10",
         ],
     ),
 ]
@@ -175,8 +183,8 @@ def test_pg_connection_url_encode_password(data, monkeypatch):
     pg_provider = app_settings.DB_PROVIDER
     expected = (
         expected
-        if expected.startswith("postgresql://")
-        else f"postgresql://{pg_provider.POSTGRES_USER}:{expected}@{pg_provider.POSTGRES_SERVER}:5432/{pg_provider.POSTGRES_DB}"
+        if expected.startswith("postgresql+psycopg2://")
+        else f"postgresql+psycopg2://{pg_provider.POSTGRES_USER}:{expected}@{pg_provider.POSTGRES_SERVER}:5432/{pg_provider.POSTGRES_DB}"
     )
 
     assert app_settings.DB_URL == expected
@@ -189,8 +197,8 @@ class SMTPValidationCase:
     auth_strategy: str
     from_name: str
     from_email: str
-    user: str
-    password: str
+    user: str | None
+    password: str | None
     is_valid: bool
 
 
@@ -206,6 +214,24 @@ smtp_validation_cases = [
     (
         "no_auth",
         SMTPValidationCase("email.mealie.io", "25", "none", "Mealie", "mealie@mealie.io", "", "", True),
+    ),
+    (
+        "tls_without_credentials",
+        SMTPValidationCase("email.mealie.io", "587", "tls", "Mealie", "mealie@mealie.io", None, None, True),
+    ),
+    (
+        "ssl_without_credentials",
+        SMTPValidationCase("email.mealie.io", "465", "ssl", "Mealie", "mealie@mealie.io", "", "", True),
+    ),
+    (
+        "tls_with_username_only",
+        SMTPValidationCase(
+            "email.mealie.io", "587", "tls", "Mealie", "mealie@mealie.io", "mealie@mealie.io", "", False
+        ),
+    ),
+    (
+        "ssl_with_password_only",
+        SMTPValidationCase("email.mealie.io", "465", "ssl", "Mealie", "mealie@mealie.io", "", "mealie-password", False),
     ),
     (
         "good_data_tls",
@@ -225,7 +251,7 @@ smtp_validation_cases = [
         SMTPValidationCase(
             "email.mealie.io",
             "465",
-            "tls",
+            "ssl",
             "Mealie",
             "mealie@mealie.io",
             "mealie@mealie.io",
@@ -374,6 +400,50 @@ def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.
     app_settings = get_app_settings()
 
     assert app_settings.OIDC_READY is data.is_valid
+
+
+VALID_OIDC_ENV = {
+    "OIDC_AUTH_ENABLED": "true",
+    "OIDC_CLIENT_ID": "id",
+    "OIDC_CLIENT_SECRET": "secret",
+    "OIDC_CONFIGURATION_URL": "url",
+}
+
+native_oidc_cases = [
+    pytest.param({}, None, True, False, id="defaults"),
+    pytest.param({"OIDC_NATIVE_CLIENT_ID": "native-app"}, "native-app", True, False, id="native id set"),
+    pytest.param({"OIDC_NATIVE_CONFIDENTIAL": "false"}, None, False, False, id="public native client"),
+    pytest.param(
+        {**VALID_OIDC_ENV, "OIDC_NATIVE_CONFIDENTIAL": "false"},
+        None,
+        False,
+        True,
+        id="native settings optional for OIDC_READY",
+    ),
+]
+
+
+@pytest.mark.parametrize(("env", "native_id", "confidential", "oidc_ready"), native_oidc_cases)
+def test_oidc_native_settings(
+    env: dict[str, str],
+    native_id: str | None,
+    confidential: bool,
+    oidc_ready: bool,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    for name in ("OIDC_AUTH_ENABLED", "OIDC_CLIENT_ID", "OIDC_CLIENT_SECRET", "OIDC_CONFIGURATION_URL"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.delenv("OIDC_NATIVE_CLIENT_ID", raising=False)
+    monkeypatch.delenv("OIDC_NATIVE_CONFIDENTIAL", raising=False)
+    for name, value in env.items():
+        monkeypatch.setenv(name, value)
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.OIDC_NATIVE_CLIENT_ID == native_id
+    assert app_settings.OIDC_NATIVE_CONFIDENTIAL is confidential
+    assert app_settings.OIDC_READY is oidc_ready
 
 
 def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):

@@ -15,7 +15,7 @@
         "name": "чашка",
         "plural_name": "чашки",
         "description": "",
-        "abbreviation": "ч"
+        "abbreviation": "ч."
     },
     "fluid-ounce": {
         "name": "жидкая унция",
@@ -33,7 +33,7 @@
         "name": "кварта",
         "plural_name": "кварты",
         "description": "",
-        "abbreviation": "кварта"
+        "abbreviation": "кв."
     },
     "gallon": {
         "name": "галлон",
@@ -46,6 +46,12 @@
         "plural_name": "миллилитры",
         "description": "",
         "abbreviation": "мл"
+    },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
     },
     "liter": {
         "name": "литр",
@@ -64,7 +70,7 @@
         "name": "унция",
         "plural_name": "унции",
         "description": "",
-        "abbreviation": "унция"
+        "abbreviation": "уц."
     },
     "gram": {
         "name": "грамм",
@@ -85,7 +91,7 @@
         "abbreviation": "мг"
     },
     "splash": {
-        "name": "капелька",
+        "name": "капля",
         "plural_name": "капли",
         "description": "",
         "abbreviation": ""
@@ -110,7 +116,7 @@
     },
     "clove": {
         "name": "долька",
-        "plural_name": "головки",
+        "plural_name": "зубчики",
         "description": "",
         "abbreviation": ""
     },
@@ -121,7 +127,7 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "кучка",
+        "name": "пучок",
         "plural_name": "пучки",
         "description": "",
         "abbreviation": ""

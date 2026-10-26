@@ -38,6 +38,15 @@ class SlugError(Exception):
     pass
 
 
+class MissingRequiredData(Exception):
+    """
+    This exception is raised when a full-replacement update is missing data that the
+    resource cannot exist without.
+    """
+
+    pass
+
+
 class NoEntryFound(Exception):
     """
     This exception is raised when a user tries to access a resource that does not exist.

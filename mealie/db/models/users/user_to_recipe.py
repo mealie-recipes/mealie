@@ -20,7 +20,7 @@ class UserToRecipe(SqlAlchemyBase, BaseMixins):
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     user_id = Column(GUID, ForeignKey("users.id"), index=True, primary_key=True)
-    recipe: Mapped["RecipeModel"] = relationship("RecipeModel")
+    recipe: Mapped[RecipeModel] = relationship("RecipeModel")
     recipe_id = Column(GUID, ForeignKey("recipes.id"), index=True, primary_key=True)
     group_id: AssociationProxy[GUID] = association_proxy("recipe", "group_id")
     household_id: AssociationProxy[GUID] = association_proxy("recipe", "household_id")

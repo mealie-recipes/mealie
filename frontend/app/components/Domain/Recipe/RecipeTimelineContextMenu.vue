@@ -10,7 +10,7 @@
       @submit="submitEdit"
     >
       <v-card-text>
-        <v-form ref="domEditEventForm">
+        <v-form ref="domEditEventForm" @submit.prevent>
           <v-text-field v-model="localEvent.subject" :label="$t('general.subject')" />
           <v-textarea v-model="localEvent.eventMessage" :label="$t('general.message')" rows="4" />
         </v-form>
@@ -19,6 +19,7 @@
 
     <BaseDialog
       v-model="recipeEventDeleteDialog"
+      bottom-sheet
       :title="$t('events.delete-event')"
       color="error"
       :icon="$globals.icons.alertCircle"

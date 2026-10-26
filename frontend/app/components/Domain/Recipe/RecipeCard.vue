@@ -36,14 +36,11 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="mb-n3 px-4" style="font-size: 1.25rem;">
+        <v-card-title class="px-4" style="font-size: 1.25rem;">
           {{ name }}
         </v-card-title>
 
-        <div
-          class="recipe-card-footer"
-          :class="{ 'recipe-card-footer--no-tags': tags.length === 0 }"
-        >
+        <div class="recipe-card-footer">
           <RecipeChips
             v-if="tags.length > 0"
             class="recipe-card-tags px-4"
@@ -171,15 +168,13 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
   -webkit-line-clamp: 8;
   line-clamp: 8;
   overflow: hidden;
+  overflow-wrap: anywhere;
 }
 .recipe-card-footer {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   min-height: 84px;
-}
-.recipe-card-footer--no-tags {
-  justify-content: center;
 }
 .recipe-card-tags {
   display: flex;

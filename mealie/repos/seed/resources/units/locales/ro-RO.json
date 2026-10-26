@@ -47,6 +47,12 @@
         "description": "",
         "abbreviation": "ml"
     },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
+    },
     "liter": {
         "name": "litru",
         "plural_name": "litri",
@@ -70,7 +76,7 @@
         "name": "gram",
         "plural_name": "grame",
         "description": "",
-        "abbreviation": "h"
+        "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
@@ -91,8 +97,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "linie",
-        "plural_name": "linii",
+        "name": "strop",
+        "plural_name": "stropi",
         "description": "",
         "abbreviation": ""
     },

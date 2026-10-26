@@ -323,6 +323,7 @@ export interface RecipeIngredient {
   display?: string;
   title?: string | null;
   originalText?: string | null;
+  substitutions?: RecipeIngredientSubstitution[];
   referenceId?: string;
 }
 export interface IngredientUnit {
@@ -375,13 +376,25 @@ export interface IngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: IngredientFoodAlias[];
+  substitutions?: IngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
   label?: MultiPurposeLabelSummary | null;
+  recipeCount?: number;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
 export interface IngredientFoodAlias {
   name: string;
+}
+export interface IngredientFoodSubstitution {
+  substituteFoodId?: string | null;
+  note?: string | null;
+  substituteFood?: IngredientFoodSummary | null;
+}
+export interface IngredientFoodSummary {
+  id: string;
+  name: string;
+  pluralName?: string | null;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -399,10 +412,15 @@ export interface CreateIngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
+  substitutions?: CreateIngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
 }
 export interface CreateIngredientFoodAlias {
   name: string;
+}
+export interface CreateIngredientFoodSubstitution {
+  substituteFoodId?: string | null;
+  note?: string | null;
 }
 export interface Recipe {
   id?: string | null;
@@ -419,6 +437,9 @@ export interface Recipe {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategory[] | null;
   tags?: RecipeTag[] | null;
@@ -429,7 +450,6 @@ export interface Recipe {
   dateUpdated?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  lastMade?: string | null;
   recipeIngredient?: RecipeIngredient[];
   recipeInstructions?: RecipeStep[] | null;
   nutrition?: Nutrition | null;
@@ -446,18 +466,21 @@ export interface RecipeCategory {
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeTool {
   id: string;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
   householdsWithTool?: string[];
 }
 export interface RecipeStep {
@@ -466,8 +489,13 @@ export interface RecipeStep {
   summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
+  noteReferences?: NoteReference[];
+  durationSeconds?: number | null;
 }
 export interface IngredientReferences {
+  referenceId?: string | null;
+}
+export interface NoteReference {
   referenceId?: string | null;
 }
 export interface Nutrition {
@@ -499,11 +527,12 @@ export interface RecipeAsset {
 export interface RecipeNote {
   title: string;
   text: string;
+  referenceId?: string;
 }
 export interface RecipeCommentOut {
+  id: string;
   recipeId: string;
   text: string;
-  id: string;
   createdAt: string;
   updatedAt: string;
   userId: string;
@@ -514,6 +543,11 @@ export interface UserBase {
   username?: string | null;
   admin: boolean;
   fullName?: string | null;
+}
+export interface RecipeIngredientSubstitution {
+  substituteFoodId?: string | null;
+  note?: string | null;
+  substituteFood?: IngredientFoodSummary | null;
 }
 export interface ShoppingListAddRecipeParamsBulk {
   recipeIncrementQuantity?: number;
@@ -707,6 +741,9 @@ export interface RecipeSummary {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategory[] | null;
   tags?: RecipeTag[] | null;
@@ -717,7 +754,6 @@ export interface RecipeSummary {
   dateUpdated?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  lastMade?: string | null;
 }
 export interface ShoppingListRemoveRecipeParams {
   recipeDecrementQuantity?: number;

@@ -3,10 +3,12 @@
     <!-- Merge Dialog -->
     <BaseDialog
       v-model="mergeDialog"
+      bottom-sheet
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.combine-food')"
       can-confirm
       @confirm="mergeFoods"
+      @close="resetMergeDialog"
     >
       <v-card-text>
         <div>
@@ -37,9 +39,32 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Delete Unused Dialog -->
+    <BaseDialog
+      v-model="deleteUnusedDialog"
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      can-confirm
+      @confirm="confirmDeleteUnused"
+    >
+      <v-card-text>
+        {{ $t('data-pages.foods.delete-unused-confirm', { count: unusedFoodIds.length }, unusedFoodIds.length) }}
+        <ul style="margin: 0.5rem 0 0; padding-left: 1.25rem; font-size: 0.85rem; color: rgba(var(--v-theme-on-surface), 0.7); line-height: 1.8;">
+          <li v-for="name in unusedFoodNamesPreview" :key="name">
+            {{ name }}
+          </li>
+        </ul>
+        <div v-if="unusedFoodNamesRemaining > 0" class="text-body-2 pl-2">
+          {{ $t('data-pages.delete-unused-more', { count: unusedFoodNamesRemaining }) }}
+        </div>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Seed Dialog -->
     <BaseDialog
       v-model="seedDialog"
+      bottom-sheet
       :icon="$globals.icons.foods"
       :title="$t('data-pages.seed-data')"
       can-confirm
@@ -84,9 +109,19 @@
       @cancel="aliasManagerDialog = false"
     />
 
+    <!-- Substitution Sub-Dialog -->
+    <RecipeDataSubstitutionManagerDialog
+      v-if="editForm.data"
+      v-model="substitutionManagerDialog"
+      :data="editForm.data"
+      @submit="updateFoodSubstitutions"
+      @cancel="substitutionManagerDialog = false"
+    />
+
     <!-- Bulk Assign Labels Dialog -->
     <BaseDialog
       v-model="bulkAssignLabelDialog"
+      bottom-sheet
       :title="$t('data-pages.labels.assign-label')"
       :icon="$globals.icons.tags"
       can-confirm
@@ -146,6 +181,20 @@
           </template>
           {{ $t("data-pages.combine") }}
         </BaseButton>
+
+        <v-divider vertical class="mx-2" />
+
+        <BaseButton color="error" :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+          <template #icon>
+            {{ $globals.icons.broom }}
+          </template>
+          {{ $t("data-pages.delete-unused") }}
+        </BaseButton>
+      </template>
+
+      <template #[`item.recipeCount`]="{ item }">
+        <NuxtLink v-if="userGroup && item.recipeCount > 0" :to="`/g/${userGroup}?foods=${item.id}`">{{ item.recipeCount }}</NuxtLink>
+        <span v-else>{{ item.recipeCount || 0 }}</span>
       </template>
 
       <template #[`item.label`]="{ item }">
@@ -158,6 +207,10 @@
         <v-icon :color="item.onHand ? 'success' : undefined">
           {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
+      </template>
+
+      <template #[`item.substitutions`]="{ item }">
+        {{ item.substitutions ? item.substitutions.length : 0 }}
       </template>
 
       <template #[`item.createdAt`]="{ item }">
@@ -176,6 +229,9 @@
       <template #edit-dialog-custom-action>
         <BaseButton edit @click="aliasManagerDialog = true">
           {{ $t("data-pages.manage-aliases") }}
+        </BaseButton>
+        <BaseButton edit @click="substitutionManagerDialog = true">
+          {{ $t("data-pages.foods.manage-substitutions") }}
         </BaseButton>
       </template>
 
@@ -203,12 +259,20 @@
 <script setup lang="ts">
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
+import RecipeDataSubstitutionManagerDialog from "~/components/Domain/Recipe/RecipeDataSubstitutionManagerDialog.vue";
+import type { ReverseSubstitutionChanges } from "~/components/Domain/Recipe/RecipeDataSubstitutionManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
+import type {
+  CreateIngredientFood,
+  IngredientFood,
+  IngredientFoodAlias,
+  IngredientFoodSubstitution,
+} from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
+import { alert } from "~/composables/use-toast";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { AutoFormItems } from "~/types/auto-forms";
@@ -255,6 +319,12 @@ const tableHeaders: TableHeaders[] = [
     show: true,
   },
   {
+    text: i18n.t("data-pages.recipe-count"),
+    value: "recipeCount",
+    show: true,
+    sortable: true,
+  },
+  {
     text: i18n.t("shopping-list.label"),
     value: "label",
     show: true,
@@ -270,6 +340,15 @@ const tableHeaders: TableHeaders[] = [
     value: "onHand",
     show: true,
     sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.foods.substitutions"),
+    value: "substitutions",
+    show: true,
+    sortable: true,
+    sort: (subs1: IngredientFoodSubstitution[] | null, subs2: IngredientFoodSubstitution[] | null) => {
+      return (subs1?.length || 0) - (subs2?.length || 0);
+    },
   },
   {
     text: i18n.t("general.date-added"),
@@ -289,9 +368,14 @@ const foods = computed(() =>
   }),
 );
 
+onMounted(() => {
+  foodStore.actions.refresh();
+});
+
 // ============================================================
 // Labels
-const { store: allLabels } = useLabelStore();
+const labelStore = useLabelStore();
+const { store: allLabels } = labelStore;
 const labelOptions = computed(() => allLabels.value.map(label => ({ text: label.name, value: label.id })) || []);
 
 // ============================================================
@@ -374,6 +458,8 @@ async function handleEdit() {
     editForm.data.householdsWithIngredientFood = [];
   }
 
+  const foodId = editForm.data.id;
+
   if (editForm.data.onHand && !editForm.data.householdsWithIngredientFood.includes(userHousehold.value)) {
     editForm.data.householdsWithIngredientFood.push(userHousehold.value);
   }
@@ -384,6 +470,7 @@ async function handleEdit() {
 
   await foodStore.actions.updateOne(editForm.data);
   editForm.data = {} as IngredientFoodWithOnHand;
+  await applyReverseSubstitutions(foodId);
 }
 
 // ============================================================
@@ -411,6 +498,65 @@ function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
   }
   editForm.data.aliases = newAliases;
   aliasManagerDialog.value = false;
+}
+
+// ============================================================
+// Substitution Manager
+
+const substitutionManagerDialog = ref(false);
+
+// reverse substitutions live on other foods, so they can't ride along with the food being edited.
+// they're held until the edit is confirmed, and tagged with the food they were built for so
+// a cancelled edit can't leak them onto the next food the user opens
+const pendingReverseSubstitutions = ref<({ foodId: string } & ReverseSubstitutionChanges) | null>(null);
+
+function updateFoodSubstitutions(
+  newSubstitutions: IngredientFoodSubstitution[],
+  reverseChanges: ReverseSubstitutionChanges,
+) {
+  if (!editForm.data) {
+    return;
+  }
+  editForm.data.substitutions = newSubstitutions;
+  pendingReverseSubstitutions.value = reverseChanges.add.length || reverseChanges.remove.length
+    ? { foodId: editForm.data.id, ...reverseChanges }
+    : null;
+  substitutionManagerDialog.value = false;
+}
+
+async function applyReverseSubstitutions(foodId: string) {
+  const pending = pendingReverseSubstitutions.value;
+  pendingReverseSubstitutions.value = null;
+  if (!pending || !foodId || pending.foodId !== foodId) {
+    return;
+  }
+
+  let updated = false;
+  for (const reverseFoodId of [...pending.add, ...pending.remove]) {
+    const reverseFood = foodStore.store.value.find(food => food.id === reverseFoodId);
+    if (!reverseFood) {
+      continue;
+    }
+
+    // rebuilt from what's on the other food right now, so a stale dialog can't resurrect
+    // a row someone else removed in the meantime
+    const others = (reverseFood.substitutions || []).filter(sub => sub.substituteFoodId !== foodId);
+    const substitutions = pending.add.includes(reverseFoodId)
+      ? [...others, { substituteFoodId: foodId }]
+      : others;
+
+    if (substitutions.length === (reverseFood.substitutions || []).length) {
+      continue;
+    }
+
+    const payload = { ...reverseFood, substitutions };
+    await userApi.foods.updateOne(reverseFoodId, payload);
+    updated = true;
+  }
+
+  if (updated) {
+    await foodStore.actions.refresh();
+  }
 }
 
 // ============================================================
@@ -444,6 +590,11 @@ const canMerge = computed(() => {
   return fromFood.value && toFood.value && fromFood.value.id !== toFood.value.id;
 });
 
+function resetMergeDialog() {
+  fromFood.value = null;
+  toFood.value = null;
+}
+
 async function mergeFoods() {
   if (!canMerge.value || !fromFood.value || !toFood.value) {
     return;
@@ -457,6 +608,36 @@ async function mergeFoods() {
 }
 
 // ============================================================
+// Delete Unused
+const DELETE_UNUSED_PREVIEW_LIMIT = 10;
+
+const deleteUnusedDialog = ref(false);
+const unusedFoods = ref<IngredientFoodWithOnHand[]>([]);
+const unusedFoodIds = computed(() => unusedFoods.value.filter(f => f.id != null).map(f => f.id!));
+const unusedFoodNamesPreview = computed(() => unusedFoods.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(f => f.name));
+const unusedFoodNamesRemaining = computed(() => Math.max(unusedFoods.value.length - DELETE_UNUSED_PREVIEW_LIMIT, 0));
+const loadingEmpty = ref(false);
+
+async function openDeleteUnusedDialog() {
+  loadingEmpty.value = true;
+  const { data } = await userApi.foods.getEmpty();
+  loadingEmpty.value = false;
+  unusedFoods.value = (data ?? []) as IngredientFoodWithOnHand[];
+
+  if (unusedFoods.value.length === 0) {
+    alert.info(i18n.t("data-pages.foods.no-unused-foods"));
+    return;
+  }
+
+  deleteUnusedDialog.value = true;
+}
+
+async function confirmDeleteUnused() {
+  await foodStore.actions.deleteMany(unusedFoodIds.value);
+  unusedFoods.value = [];
+}
+
+// ============================================================
 // Seed
 
 const seedDialog = ref(false);
@@ -466,6 +647,7 @@ const { locales: LOCALES, locale: currentLocale } = useLocales();
 
 onMounted(() => {
   locale.value = currentLocale.value;
+  foodStore.actions.refresh();
 });
 
 const locales = LOCALES.filter(locale =>
@@ -476,7 +658,9 @@ async function seedDatabase() {
   const { data } = await userApi.seeders.foods({ locale: locale.value });
 
   if (data) {
+    // seeding foods also creates the labels that group them
     foodStore.actions.refresh();
+    labelStore.actions.refresh();
   }
 }
 

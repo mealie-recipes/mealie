@@ -130,6 +130,7 @@
           <v-card-actions class="justify-center">
             <div style="width: 250px">
               <BaseButton
+                :text="$t('general.create')"
                 :disabled="bulkUrls.length === 0 || lockBulkImport"
                 rounded
                 block

@@ -1,7 +1,6 @@
 import json
 import os
 import tempfile
-import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -10,7 +9,7 @@ from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import format_time
+from .utils.migration_helpers import MAX_EXTRACTED_ARCHIVE_SIZE, extract_zip
 
 
 def _build_ingredient_from_ingredient_data(ingredient_data: dict[str, Any], title: str | None = None) -> dict[str, Any]:
@@ -47,11 +46,10 @@ def extract_instructions_and_ingredients(steps: list[dict[str, Any]]) -> tuple[l
     return instructions, ingredients
 
 
-def parse_times(working_time: int, waiting_time: int) -> tuple[str, str]:
-    """Returns the performTime and totalTime"""
+def parse_times(working_time: int, waiting_time: int) -> tuple[int, int]:
+    """Returns the performTime and totalTime, in minutes"""
 
-    total_time = working_time + waiting_time
-    return format_time(working_time), format_time(total_time)
+    return working_time, working_time + waiting_time
 
 
 class TandoorMigrator(BaseMigrator):
@@ -86,8 +84,7 @@ class TandoorMigrator(BaseMigrator):
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            budget = MAX_EXTRACTED_ARCHIVE_SIZE - extract_zip(self.archive, tmpdir)
 
             source_dir = self.get_zip_base_path(Path(tmpdir))
 
@@ -97,8 +94,7 @@ class TandoorMigrator(BaseMigrator):
                     recipe_dir = str(source_dir.joinpath(f"recipe_{i + 1}"))
                     os.makedirs(recipe_dir)
 
-                    with zipfile.ZipFile(recipe_zip_file) as recipe_zip:
-                        recipe_zip.extractall(recipe_dir)
+                    budget -= extract_zip(recipe_zip_file, recipe_dir, max_size=budget)
 
                     recipe_source_dir = Path(recipe_dir)
                     try:

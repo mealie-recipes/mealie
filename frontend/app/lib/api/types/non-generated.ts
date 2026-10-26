@@ -29,6 +29,7 @@ export type RecipeOrganizer
     | "tags"
     | "tools"
     | "foods"
+    | "labels"
     | "households"
     | "users";
 
@@ -37,6 +38,7 @@ export enum Organizer {
   Tag = "tags",
   Tool = "tools",
   Food = "foods",
+  Label = "labels",
   Household = "households",
   User = "users",
 }

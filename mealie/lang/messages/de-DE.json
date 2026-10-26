@@ -5,9 +5,17 @@
     "recipe": {
         "unique-name-error": "Rezeptnamen müssen einzigartig sein",
         "recipe-created": "Rezept erstellt",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Bild gelöscht",
         "recipe-defaults": {
             "ingredient-note": "250 g Mehl",
+            "name": "Neues Rezept",
             "step-text": "Zubereitungs-Schritte und andere Felder der Rezeptseite unterstützen Markdown Syntax.\n\n**Füge einen Link hinzu**\n\n[Mein Link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,11 +27,11 @@
             "yields": "Ergibt"
         },
         "and-amount": "und {amount}",
-        "or-ingredient": "oder {ingredient}",
         "import-errors": {
             "ai-not-enabled": "KI-Dienste sind nicht aktiviert",
             "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuchen Sie es erneut",
             "image-provider-not-enabled": "KI-Bilddienste sind nicht aktiviert",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Es wurde kein Rezept in der angegebenen Quelle gefunden",
             "no-source": "Keine Inhalte, Bilder oder URL angegeben",
             "provider-returned-nothing": "Der KI-Anbieter hat kein Rezept zurückgegeben",
@@ -47,7 +55,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Keine Rezepte entsprechen deinen Regeln"
+        "no-recipes-match-your-rules": "Keine Rezepte entsprechen deinen Regeln",
+        "entry-type": {
+            "breakfast": "Frühstück",
+            "lunch": "Mittagessen",
+            "dinner": "Essen",
+            "side": "Beilagen",
+            "snack": "Snack",
+            "drink": "Getränk",
+            "dessert": "Nachtisch"
+        }
     },
     "user": {
         "user-updated": "Benutzer aktualisiert",
@@ -59,7 +76,7 @@
         "report-deleted": "Bericht gelöscht."
     },
     "exceptions": {
-        "permission_denied": "Du hast keine Berechtigung, um diese Aktion auszuführen",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Ein Rezept kann sich nicht direkt oder indirekt referenzieren",
         "no-entry-found": "Die angeforderte Ressource wurde nicht gefunden",
         "rate-limit-error": "Der KI-Anbieter limitiert die Anfragen. Bitte warten Sie einen Moment und versuchen es erneut",
@@ -74,7 +91,40 @@
         "generic-updated-with-url": "{name} wurde aktualisiert, {url}",
         "generic-duplicated": "{name} wurde dupliziert",
         "generic-deleted": "{name} wurde gelöscht",
-        "logged-out": "Abgemeldet"
+        "logged-out": "Abgemeldet",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Rezept Erstellt",
+            "recipe-updated": "Rezept Aktualisiert",
+            "recipe-deleted": "Rezept Gelöscht",
+            "user-signup": "Nutzer Anmeldung",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Essensplan Eintrag Erstellt",
+            "mealplan-entry-updated": "Essensplan Eintrag Aktualisiert",
+            "mealplan-entry-deleted": "Essensplan Eintrag Gelöscht",
+            "shopping-list-created": "Einkaufsliste Erstellt",
+            "shopping-list-updated": "Einkaufsliste Aktualisiert",
+            "shopping-list-deleted": "Einkaufsliste Gelöscht",
+            "cookbook-created": "Kochbuch Erstellt",
+            "cookbook-updated": "Kochbuch Aktualisiert",
+            "cookbook-deleted": "Kochbuch Gelöscht",
+            "tag-created": "Tag Erstellt",
+            "tag-updated": "Tag Aktualisiert",
+            "tag-deleted": "Tag Gelöscht",
+            "category-created": "Kategorie  Erstellt",
+            "category-updated": "Kategorie  Aktualisiert",
+            "category-deleted": "Kategorie  Gelöscht",
+            "label-created": "Label Erstellt",
+            "label-updated": "Label Aktualisiert",
+            "label-deleted": "Label Gelöscht"
+        },
+        "test-message-body": "Dies ist eine Testnachricht von Mealie",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "Jahr|Jahre",

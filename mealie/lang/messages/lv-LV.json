@@ -1,13 +1,21 @@
 {
     "generic": {
-        "server-error": "Notikusi nezināma kļūda"
+        "server-error": "Radās neparedzēta kļūda"
     },
     "recipe": {
         "unique-name-error": "Receptes nosaukums nevar atkārtoties",
         "recipe-created": "Recepte izveidota",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Receptes attēls dzēsts",
         "recipe-defaults": {
-            "ingredient-note": "1 gl. Milti",
+            "ingredient-note": "1 gl. miltu",
+            "name": "New Recipe",
             "step-text": "Receptes darbības, kā arī citi lauki receptes lapā atbalsta atzīmes sintaksi.\n\n**Pievienot saiti**\n\n[Mana saite](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +27,20 @@
             "yields": "Rezultāts"
         },
         "and-amount": "un {amount}",
-        "or-ingredient": "vai {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "ai-not-enabled": "AI pakalpojumi nav ieslēgti",
+            "ai-request-failed": "Mākslīgā intelekta pakalpojuma sniedzējs nevarēja izpildīt pieprasījumu. Lūdzu, mēģiniet vēlreiz",
+            "image-provider-not-enabled": "AI attēlu pakalpojumi nav ieslēgti",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "no-recipe-found": "Norādītajā avotā netika atrasta neviena recepte",
+            "no-source": "Netika norādīts ne saturs, ne attēli, ne URL",
+            "provider-returned-nothing": "Mākslīgā intelekta pakalpojumu sniedzējs neatsūtīja recepti",
             "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "unreadable-source": "Nav iespējams nolasīt nekādu saturu no norādītā avota",
+            "video-download-failed": "Video nevar lejupielādēt. Iespējams, tas ir privāts, ir dzēsts vai atrodas vietnē, kas netiek atbalstīta"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Veido recepti...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Lejupielādē attēlu...",
@@ -43,11 +51,20 @@
             "reading-images-with-ai": "Reading images with AI...",
             "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "Transcribing audio with AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Tulko recepti..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Neviena recepte neatbilst jūsu noteikumiem"
+        "no-recipes-match-your-rules": "Neviena recepte neatbilst jūsu noteikumiem",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Lietotājs atjaunināts",
@@ -59,7 +76,7 @@
         "report-deleted": "Pārskats izdzēsts."
     },
     "exceptions": {
-        "permission_denied": "Jums nav atļaujas veikt šo darbību",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Recepte nevar atsaukties uz sevi pašu, ne tieši, ne netieši",
         "no-entry-found": "Pieprasītais resurss netika atrasts",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -74,7 +91,40 @@
         "generic-updated-with-url": "{name} tika atjaunots, {url}",
         "generic-duplicated": "{name} tika dublicēts",
         "generic-deleted": "{name} tika dzēsts",
-        "logged-out": "Logged out"
+        "logged-out": "Logged out",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "gads|gadi",

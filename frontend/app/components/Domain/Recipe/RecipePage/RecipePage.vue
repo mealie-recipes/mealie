@@ -2,6 +2,7 @@
   <div>
     <BaseDialog
       v-model="discardDialog"
+      bottom-sheet
       :title="$t('general.discard-changes')"
       color="warning"
       :icon="$globals.icons.alertCircle"
@@ -76,7 +77,13 @@
               md="4"
               :class="$vuetify.display.mdAndUp ? 'border-e-thin' : null"
             >
-              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" class="pr-2" />
+              <RecipePageIngredientToolsView
+                v-if="!isEditForm"
+                :recipe="displayedRecipe"
+                :scale="scale"
+                :ingredient-storage-key="ingredientStorageKey"
+                class="pr-2"
+              />
               <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" class="pr-2" @item-selected="chipClicked" />
             </v-col>
             <!--
@@ -84,12 +91,15 @@
               rendered.
             -->
             <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4">
-              <RecipePageInstructions
-                v-model="recipe.recipeInstructions"
-                v-model:assets="recipe.assets"
-                :recipe="recipe"
-                :scale="scale"
-              />
+              <v-form ref="instructionForm" @submit.prevent>
+                <RecipePageInstructions
+                  v-model="recipe.recipeInstructions"
+                  v-model:assets="recipe.assets"
+                  :recipe="displayedRecipe"
+                  :scale="scale"
+                  :ingredient-storage-key="ingredientStorageKey"
+                />
+              </v-form>
               <div v-if="isEditForm" class="d-flex">
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
                 <BaseButton class="my-2" @click="addStep()">
@@ -107,11 +117,11 @@
       </v-card>
       <WakelockSwitch />
       <RecipePageComments
-        v-if="!recipe.settings?.disableComments && !isEditForm && !isCookMode"
+        v-if="!disableComments && !isEditForm && !isCookMode"
         v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
-      <RecipePrintContainer :recipe="recipe" :scale="scale" />
+      <RecipePrintContainer :recipe="displayedRecipe" :scale="scale" />
     </v-container>
     <!-- Floating save button when toolbar scrolls out of view -->
     <v-fab
@@ -145,9 +155,10 @@
           </div>
           <RecipePageIngredientToolsView
             v-if="!isEditForm"
-            :recipe="recipe"
+            :recipe="displayedRecipe"
             :scale="scale"
             :is-cook-mode="isCookMode"
+            :ingredient-storage-key="ingredientStorageKey"
           />
           <v-divider />
         </v-col>
@@ -165,8 +176,9 @@
             v-model="recipe.recipeInstructions"
             v-model:assets="recipe.assets"
             class="overflow-y-hidden px-4"
-            :recipe="recipe"
+            :recipe="displayedRecipe"
             :scale="scale"
+            :ingredient-storage-key="ingredientStorageKey"
           />
         </v-col>
       </v-row>
@@ -179,8 +191,9 @@
         v-model="recipe.recipeInstructions"
         v-model:assets="recipe.assets"
         class="overflow-y-hidden mt-n5 px-2 px-md-4"
-        :recipe="recipe"
+        :recipe="displayedRecipe"
         :scale="scale"
+        :ingredient-storage-key="ingredientStorageKey"
       />
 
       <div v-if="notLinkedIngredients.length > 0" class="px-2 px-md-4 pb-4">
@@ -191,6 +204,7 @@
             :value="notLinkedIngredients"
             :scale="scale"
             :is-cook-mode="isCookMode"
+            :storage-key="ingredientStorageKey"
           />
         </v-card>
       </div>
@@ -209,6 +223,7 @@
 
 <script setup lang="ts">
 import type { ComponentPublicInstance } from "vue";
+import type { VForm } from "~/types/auto-forms";
 import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
 import RecipeIngredients from "../RecipeIngredients.vue";
@@ -231,7 +246,7 @@ import {
 } from "~/composables/recipe-page/shared-state";
 import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeIngredient, RecipeStep, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -239,6 +254,8 @@ import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
+import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
+import { useHouseholdSelf } from "~/composables/use-households";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
@@ -247,15 +264,51 @@ const auth = useMealieAuth();
 const route = useRoute();
 const { isOwnGroup } = useLoggedInState();
 
+const { household } = useHouseholdSelf();
+
+const disableComments = computed(() =>
+  household.value?.preferences?.recipeDisableComments
+  || recipe.value?.settings?.disableComments
+  || false,
+);
+
 const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user?.value?.groupSlug || "");
+const ingredientStorageKey = computed(() => `recipe-ingredients:${recipe.value.id || recipe.value.slug}:checked`);
 
 const router = useRouter();
 const api = useUserApi();
 const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
+const scale = ref(1);
+
+const { unitSystem } = useUnitSystem();
+const { convertIngredient } = useUnitConversion();
+
+/**
+ * The recipe as the reader asked to see it — the recipe itself unless they've opted into a unit
+ * system. Cook mode, print and the ingredient list all read this, so they convert together.
+ *
+ * Returns `recipe` by identity whenever nothing is being converted, and always does so in edit
+ * mode. That is load-bearing rather than cosmetic: `recipe` is a defineModel the editors below
+ * mutate in place, so handing them a derived copy would silently drop edits. Conversion is
+ * display-only and never reaches anything that saves.
+ */
+const displayedRecipe = computed<NoUndefinedField<Recipe>>(() => {
+  if (isEditMode.value || !unitSystem.value) {
+    return recipe.value;
+  }
+
+  return {
+    ...recipe.value,
+    recipeIngredient: recipe.value.recipeIngredient.map(
+      ingredient => convertIngredient(ingredient, unitSystem.value!, scale.value),
+    ),
+  };
+});
+
 const notLinkedIngredients = computed(() => {
-  return recipe.value.recipeIngredient.filter((ingredient) => {
+  return displayedRecipe.value.recipeIngredient.filter((ingredient) => {
     return !recipe.value.recipeInstructions.some(step =>
       step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
     );
@@ -362,6 +415,7 @@ const hasLinkedIngredients = computed(() => {
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
 const paramsCook = useRouteQuery<BooleanString>("cook", "");
+const paramsScale = useRouteQuery<string>("scale", "");
 const { hydrateCookMode } = useCookModeQuery({
   cookQuery: paramsCook,
   isEditMode,
@@ -376,6 +430,12 @@ onMounted(() => {
 
   if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
+  }
+
+  // e.g. set when opened from a meal plan entry, so the recipe starts at the entry's scale
+  const initialScale = parseFloat(paramsScale.value);
+  if (initialScale > 0 && isFinite(initialScale)) {
+    scale.value = initialScale;
   }
 
   hydrateCookMode();
@@ -405,8 +465,14 @@ watch(isParsing, () => {
  * Recipe Save Delete
  */
 
+const instructionForm = ref<VForm | null>(null);
+
 async function saveRecipe() {
-  const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
+  if (isEditForm.value) {
+    const { valid } = (await instructionForm.value?.validate()) ?? { valid: false };
+    if (!valid) return;
+  }
+  const { data, error } = await api.recipes.updateOne(route.params.slug as string, recipe.value);
   if (!error) {
     if (data?.slug && data.slug !== route.params.slug) {
       isNavigatingAfterRename.value = true;
@@ -466,20 +532,25 @@ function addStep(steps: Array<string> | null = null) {
     return;
   }
 
+  // New steps use the API's nullable fields, not the populated-view helper type.
+  const instructions: RecipeStep[] = recipe.value.recipeInstructions;
+
   if (steps) {
     const cleanedSteps = steps.map((step) => {
-      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [] };
+      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [], noteReferences: [], durationSeconds: null };
     });
 
-    recipe.value.recipeInstructions.push(...cleanedSteps);
+    instructions.push(...cleanedSteps);
   }
   else {
-    recipe.value.recipeInstructions.push({
+    instructions.push({
       id: uuid4(),
       text: "",
       title: "",
       summary: "",
       ingredientReferences: [],
+      noteReferences: [],
+      durationSeconds: null,
     });
   }
 }
@@ -494,8 +565,6 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
   }
   router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
 }
-
-const scale = ref(1);
 
 // expose to template
 // (all variables used in template are top-level in <script setup>)

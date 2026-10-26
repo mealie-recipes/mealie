@@ -2,6 +2,7 @@
   <ParseDialogChangeParser
     v-model="parser"
     :available-parsers="availableParsers"
+    :show-nlp-language-hint="showNlpLanguageHint"
     @update:model-value="(newParser) => parser = newParser"
     @parse="parseIngredients"
   />
@@ -46,6 +47,7 @@
         :icon="$globals.icons.units"
         color="warning"
         size="small"
+        :loading="state.loading.unit"
         @click="createMissingUnit"
       >
         {{ $t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
@@ -59,6 +61,7 @@
         :icon="$globals.icons.units"
         color="warning"
         size="small"
+        :loading="state.loading.unit"
         @click="addMissingUnitAsAlias"
       >
         {{ $t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name }) }}
@@ -68,6 +71,7 @@
         :icon="$globals.icons.foods"
         color="warning"
         size="small"
+        :loading="state.loading.food"
         @click="createMissingFood"
       >
         {{ $t("recipe.parser.missing-food", { food: currentMissingFood }) }}
@@ -81,6 +85,7 @@
         :icon="$globals.icons.foods"
         color="warning"
         size="small"
+        :loading="state.loading.food"
         @click="addMissingFoodAsAlias"
       >
         {{ $t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name }) }}
@@ -97,7 +102,9 @@ const props = defineProps<{
 }>();
 
 const {
+  state,
   currentIng,
+  showNlpLanguageHint,
   availableParsers,
   currentIngShouldDelete,
   parser,

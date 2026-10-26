@@ -18,6 +18,7 @@ export interface CreatePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
 }
 export interface CreateRandomEntry {
   date: string;
@@ -62,12 +63,17 @@ export interface PlanRulesSave {
   groupId: string;
   householdId: string;
 }
+export interface ReadMealPlanICalToken {
+  householdId: string;
+  mealplanIcalToken?: string | null;
+}
 export interface ReadPlanEntry {
   date: string;
   entryType?: PlanEntryType;
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   id: number;
   groupId: string;
   userId: string;
@@ -89,6 +95,9 @@ export interface RecipeSummary {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategory[] | null;
   tags?: RecipeTag[] | null;
@@ -99,25 +108,27 @@ export interface RecipeSummary {
   dateUpdated?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  lastMade?: string | null;
 }
 export interface RecipeCategory {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeTool {
   id: string;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
   householdsWithTool?: string[];
 }
 export interface SavePlanEntry {
@@ -126,6 +137,7 @@ export interface SavePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   groupId: string;
   userId: string;
 }
@@ -146,6 +158,7 @@ export interface UpdatePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   id: number;
   groupId: string;
   userId: string;

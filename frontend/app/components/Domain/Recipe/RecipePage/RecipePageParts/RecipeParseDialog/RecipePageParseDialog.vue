@@ -26,6 +26,7 @@
             v-model="parsedIngs"
             :available-parsers="availableParsers"
             :parser="parser"
+            :show-nlp-language-hint="showNlpLanguageHint"
             @parse="parseIngredients"
             @change-parser="(newParser) => parser = newParser"
           />
@@ -83,6 +84,7 @@ const dialogState = useParseIngredientsDialog(props.ingredients, ings => emit("s
 const {
   availableParsers,
   parser,
+  showNlpLanguageHint,
   dontShowInfoPage,
   parsedIngs,
   currentIng,

@@ -2,6 +2,7 @@ import json
 from collections.abc import Generator
 from pathlib import Path
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 from slugify import slugify
@@ -10,6 +11,7 @@ import mealie.services.openai.transcription as transcription_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 from mealie.core import exceptions
 from mealie.lang import get_locale_provider
+from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.organizers import OpenAIOrganizers
@@ -31,12 +33,18 @@ from tests.utils.fixture_schemas import TestUser
 from tests.utils.helpers import parse_sse_events
 
 VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+FACEBOOK_SHARE_URL = "https://www.facebook.com/share/r/1DWziuVHRi/"
+FACEBOOK_REEL_URL = "https://www.facebook.com/reel/1433866715330175/"
 
 translator = get_locale_provider("en-US")
 
 
+def html_fetch_result(html: str, url: str) -> FetchResult:
+    return FetchResult(html.encode(), 200, url, httpx.Headers(), "utf-8")
+
+
 @pytest.fixture(autouse=True)
-def ai_providers(unique_user: TestUser) -> Generator[None, None, None]:
+def ai_providers(unique_user: TestUser) -> Generator[None]:
     """Enable both the default and image providers, restoring the original settings afterwards."""
 
     provider = unique_user.repos.group_ai_providers.create(
@@ -110,7 +118,7 @@ class AIResponses:
         self.prompts: list[str] = []
         self.messages: list[str] = []
 
-    def install(self, monkeypatch: pytest.MonkeyPatch) -> "AIResponses":
+    def install(self, monkeypatch: pytest.MonkeyPatch) -> AIResponses:
         responses = self
 
         async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
@@ -201,6 +209,8 @@ def test_create_from_images(
     assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
 
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    # the uploaded image is the recipe's cover, not just a file on disk
+    assert recipe["image"]
     r = api_client.get(
         api_routes.media_recipes_recipe_id_images_file_name(recipe["id"], "original.webp"),
         headers=unique_user.token,
@@ -253,10 +263,10 @@ def test_create_from_url(
     ld_json = json.dumps({"@context": "https://schema.org", "@type": "Recipe", "name": random_string()})
     html = f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>'
 
-    async def mock_safe_scrape_html(_: str) -> str:
-        return html
+    async def mock_resilient_fetch(url: str):
+        return html_fetch_result(html, url)
 
-    monkeypatch.setattr(compile_source_module, "safe_scrape_html", mock_safe_scrape_html)
+    monkeypatch.setattr(compile_source_module, "resilient_fetch", mock_resilient_fetch)
 
     r = post_ai(api_client, unique_user, {"url": url})
     assert r.status_code == 201
@@ -286,11 +296,11 @@ def test_create_from_video_url(
             "transcription": random_string(),
         }
 
-    async def fail_if_fetched(_: str) -> str:
+    async def fail_if_fetched(_: str):
         raise AssertionError("a video URL should be downloaded, not fetched as a webpage")
 
     monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
-    monkeypatch.setattr(compile_source_module, "safe_scrape_html", fail_if_fetched)
+    monkeypatch.setattr(compile_source_module, "resilient_fetch", fail_if_fetched)
 
     r = post_ai(api_client, unique_user, {"url": VIDEO_URL})
     assert r.status_code == 201
@@ -302,6 +312,49 @@ def test_create_from_video_url(
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["name"] == recipe_name
     assert recipe["orgURL"] == VIDEO_URL
+
+
+def test_create_from_facebook_share_url_follows_redirect_to_video(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    """
+    Facebook reel share links aren't recognized by yt-dlp's Facebook extractor until after
+    the redirect to /reel/. Fetch the page, then download the landing URL as a video.
+    """
+
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+    downloaded: list[str] = []
+
+    def mock_download_video(url: str, temp_path: Path):
+        downloaded.append(url)
+        return {
+            "audio": temp_path / "mealie.mp3",
+            "subtitle": None,
+            "title": random_string(),
+            "description": random_string(),
+            "thumbnail_url": "https://example.com/thumbnail.jpg",
+            "transcription": random_string(),
+        }
+
+    async def mock_resilient_fetch(url: str):
+        assert url == FACEBOOK_SHARE_URL
+        return html_fetch_result("<html>facebook reel</html>", FACEBOOK_REEL_URL)
+
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
+    monkeypatch.setattr(compile_source_module, "resilient_fetch", mock_resilient_fetch)
+
+    r = post_ai(api_client, unique_user, {"url": FACEBOOK_SHARE_URL})
+    assert r.status_code == 201
+    assert downloaded == [FACEBOOK_REEL_URL]
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
+    assert recipe["orgURL"] == FACEBOOK_SHARE_URL
 
 
 def test_create_from_video_url_keeps_accompanying_text(
@@ -357,12 +410,15 @@ def test_create_from_url_combines_the_page_with_pasted_content(
         messages.append(message)
         return openai_recipe if response_schema is OpenAIRecipe else None
 
-    async def mock_safe_scrape_html(_: str) -> str:
+    async def mock_resilient_fetch(url: str):
         ld_json = json.dumps({"@context": "https://schema.org", "@type": "Recipe", "name": page_text})
-        return f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>'
+        return html_fetch_result(
+            f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>',
+            url,
+        )
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
-    monkeypatch.setattr(compile_source_module, "safe_scrape_html", mock_safe_scrape_html)
+    monkeypatch.setattr(compile_source_module, "resilient_fetch", mock_resilient_fetch)
 
     url = f"https://example.com/recipe/{random_string()}"
     r = post_ai(api_client, unique_user, {"url": url, "content": pasted_content})
@@ -398,11 +454,11 @@ def test_create_from_video_url_without_audio_provider_falls_back_to_fetching(
 
     fetched: list[str] = []
 
-    async def mock_safe_scrape_html(url: str) -> str:
+    async def mock_resilient_fetch(url: str):
         fetched.append(url)
-        return f"<html><body>{random_string()}</body></html>"
+        return html_fetch_result(f"<html><body>{random_string()}</body></html>", url)
 
-    monkeypatch.setattr(compile_source_module, "safe_scrape_html", mock_safe_scrape_html)
+    monkeypatch.setattr(compile_source_module, "resilient_fetch", mock_resilient_fetch)
 
     r = post_ai(api_client, unique_user, {"url": VIDEO_URL})
     assert r.status_code == 201
@@ -613,6 +669,30 @@ def test_create_preserves_sections_and_nutrition(
     assert recipe["nutrition"]["proteinContent"] == "12"
 
 
+@pytest.mark.parametrize("field", ["sodium_content", "cholesterol_content"])
+def test_create_ignores_unparseable_nutrition(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    field: str,
+) -> None:
+    assert openai_recipe.nutrition is not None
+    setattr(openai_recipe.nutrition, field, "trace g")
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == openai_recipe.name
+    assert recipe["nutrition"]["calories"] == "250"
+    assert recipe["nutrition"]["proteinContent"] == "12"
+    assert recipe["nutrition"]["sodiumContent"] is None
+    assert recipe["nutrition"]["cholesterolContent"] is None
+
+
 def test_requesting_a_translation_does_not_change_the_build_request(
     api_client: TestClient,
     unique_user: TestUser,
@@ -701,6 +781,41 @@ def test_create_translates_in_its_own_step(
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["name"] == translated_name
+
+
+def test_create_structures_times_through_translation(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """ISO times become structured durations, and survive a translation that never sees them."""
+
+    built = openai_recipe.model_copy(update={"total_time": "PT1H30M", "prep_time": "overnight"})
+    # structured times are left out of the translate request, so they can't come back in the response
+    translated = openai_recipe.model_copy(update={"total_time": None, "prep_time": "la nuit"})
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        messages.append(message)
+        return translated if len(messages) > 1 else built
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string(), "translateLanguage": "French"})
+    assert r.status_code == 201
+    assert len(messages) == 2
+    assert "PT1H30M" not in messages[1]
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["totalTimeSeconds"] == 5400
+    assert recipe["totalTime"] is None
+    assert recipe["prepTimeSeconds"] is None
+    assert recipe["prepTime"] == "la nuit"
 
 
 def test_translation_is_skipped_when_the_source_is_already_in_the_language(

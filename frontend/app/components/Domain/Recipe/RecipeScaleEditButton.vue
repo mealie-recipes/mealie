@@ -123,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
+import { calculateScaleFromYield, useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 interface Props {
   recipeServings?: number;
@@ -141,15 +141,9 @@ const menu = ref<boolean>(false);
 const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
 
 function recalculateScale(newYield: number) {
-  if (isNaN(newYield) || newYield <= 0) {
-    return;
-  }
-
-  if (props.recipeServings <= 0) {
-    scale.value = 1;
-  }
-  else {
-    scale.value = newYield / props.recipeServings;
+  const newScale = calculateScaleFromYield(newYield, props.recipeServings);
+  if (newScale !== null) {
+    scale.value = newScale;
   }
 }
 

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 from dateutil.parser import parse as parse_dt
@@ -13,6 +13,10 @@ from tests.utils.fixture_schemas import TestUser
 
 def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser], h2_user: TestUser):
     usr_1, usr_2 = user_tuple
+
+    user = usr_1.repos.users.get_one(usr_1.user_id)
+    user.can_manage = True
+    usr_1.repos.users.update(user.id, user)
 
     response = api_client.get(api_routes.households_members, params={"perPage": -1}, headers=usr_1.token)
     assert response.status_code == 200
@@ -42,7 +46,7 @@ def test_get_household_recipe_default(api_client: TestClient, unique_user: TestU
 
 
 def test_get_household_recipe(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
-    dt_now = datetime.now(tz=timezone.utc)
+    dt_now = datetime.now(tz=UTC)
     recipe = unique_user.repos.recipes.create(
         Recipe(
             user_id=unique_user.user_id,
@@ -83,3 +87,22 @@ def test_get_household_recipe_invalid_recipe(api_client: TestClient, unique_user
         api_routes.households_self_recipes_recipe_slug(random_string()), headers=unique_user.token
     )
     assert response.status_code == 404
+
+
+def test_get_household_statistics(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    def get_statistics(user: TestUser) -> dict:
+        response = api_client.get(api_routes.households_statistics, headers=user.token)
+        assert response.status_code == 200
+        return response.json()
+
+    before = get_statistics(unique_user)
+    h2_before = get_statistics(h2_user)
+
+    unique_user.repos.recipes.create(
+        Recipe(user_id=unique_user.user_id, group_id=UUID(unique_user.group_id), name=random_string())
+    )
+
+    after = get_statistics(unique_user)
+    h2_after = get_statistics(h2_user)
+    assert after["totalRecipes"] == before["totalRecipes"] + 1
+    assert h2_after["totalRecipes"] == h2_before["totalRecipes"]
