@@ -1,4 +1,5 @@
 import { useLocalStorage } from "@vueuse/core";
+import { useRouteQuery } from "~/composables/use-router";
 
 /**
  * Whether the sidebar is open, or null to use the screen-size default.
