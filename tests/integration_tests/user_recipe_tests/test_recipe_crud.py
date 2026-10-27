@@ -1926,6 +1926,9 @@ def test_patch_organizer_new_name_still_created(api_client: TestClient, unique_u
     assert [tag["name"] for tag in response.json()["tags"]] == ["Weeknight Batch Cooking"]
 
 
+@pytest.mark.skipif(
+    os.environ.get("DB_ENGINE") == "postgres", reason="Postgres lower() folds Greek, so both names resolve to one row"
+)
 @pytest.mark.parametrize(
     ("organizer_field", "organizer_route"),
     [
@@ -1944,6 +1947,9 @@ def test_patch_organizer_name_and_slug_match_different_rows(
     "ξηροί καρποί" row and slug-matches its own "kseroi-karpoi" row, so a single combined
     predicate matches two rows and `scalar_one_or_none()` raises `MultipleResultsFound`, turning
     the request into a 500. Name wins, which is what the docstring promises.
+
+    Postgres' `lower()` folds Greek as well, so there the second PATCH already resolves to the
+    first row and the two rows this test needs never exist; the collision is SQLite-only.
     """
     first = random_string()
     second = random_string()
