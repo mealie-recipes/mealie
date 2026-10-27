@@ -31,7 +31,7 @@
             "ai-not-enabled": "AI služby nejsou povoleny",
             "ai-request-failed": "Poskytovatel AI nemohl požadavek dokončit. Zkuste to prosím znovu",
             "image-provider-not-enabled": "AI obrazové služby nejsou povoleny",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "invalid-mealie-export": "Vypadá to jako recept exportovaný z Mealie, ale nelze jej importovat",
             "no-recipe-found": "V poskytnutém zdroji nebyl nalezen žádný recept",
             "no-source": "Nebyl poskytnut žádný obsah, obrázky nebo URL",
             "provider-returned-nothing": "Poskytovatel AI nevrátil recept",
@@ -124,7 +124,10 @@
         "test-message-body": "Toto je testovací oznámení od Mealie.",
         "mealplan-entry-created": "Položka jídelníčku na {date} pro {entry_type} byla vytvořena",
         "mealplan-entry-updated": "Položka jídelníčku na {date} pro {entry_type} byla aktualizována",
-        "mealplan-entry-deleted": "Položka jídelníčku na {date} pro {entry_type} byla smazána"
+        "mealplan-entry-deleted": "Položka jídelníčku na {date} pro {entry_type} byla smazána",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "rok|roky",
