@@ -5,18 +5,18 @@
     "recipe": {
         "unique-name-error": "Oppskriftsnavn må være unike",
         "recipe-created": "Oppskrift opprettet",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
-        "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-as-side": "{name} lagde dette som tilbehør",
+        "made-this-for-breakfast": "{name} lagde dette til frokost",
+        "made-this-for-lunch": "{name} lagde dette til lunsj",
+        "made-this-for-dinner": "{name} lagde dette til middag",
+        "made-this-for-snack": "{name} lagde dette som mellommåltid",
+        "made-this-for-drink": "{name} lagde dette som drikke",
+        "made-this-for-dessert": "{name} lagde dette til dessert",
         "recipe-image-deleted": "Oppskriftsbilde slettet",
         "recipe-defaults": {
             "ingredient-note": "1 kopp mel",
-            "name": "Legg til oppskrift",
-            "step-text": "Steg i oppskrifter og andre felter på siden støtter markdown syntax.\n\n**Legg til en link**\n\n[Min link](https://demo.mealie.io)\n"
+            "name": "Ny oppskrift",
+            "step-text": "Oppskriftstrinn og andre felt på oppskriftssiden støtter Markdown-syntaks.\n\n**Legg til en lenke**\n\n[Min lenke](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Gir",
@@ -30,27 +30,27 @@
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke aktivert",
             "ai-request-failed": "AI-leverandøren kunne ikke fullføre forespørselen. Prøv på nytt",
-            "image-provider-not-enabled": "AI-bildetjenester er ikke aktivert",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "image-provider-not-enabled": "KI-bildetjenester er ikke aktivert",
+            "invalid-mealie-export": "Dette ser ut som en oppskrift eksportert fra Mealie, men den kunne ikke importeres.",
             "no-recipe-found": "Ingen oppskrift ble funnet i den angitte kilden",
-            "no-source": "Ingen innhold, bilder eller nettadresse ble oppgitt",
-            "provider-returned-nothing": "AI-leverandøren returnerte ikke en oppskrift",
-            "unknown-error": "Noe gikk galt under oppretting av oppskriften. Vennligst prøv igjen",
-            "unreadable-source": "Kan ikke lese noen innhold fra oppgitt kilde",
-            "video-download-failed": "Kan ikke laste ned videoen. Den kan være privat, fjernet, eller fra et nettsted som ikke er støttet"
+            "no-source": "Det ble ikke oppgitt noe innhold, bilder eller en nettadresse.",
+            "provider-returned-nothing": "KI-leverandøren returnerte ikke en oppskrift",
+            "unknown-error": "Noe gikk galt da oppskriften ble opprettet. Prøv igjen.",
+            "unreadable-source": "Kunne ikke lese noe innhold fra den oppgitte kilden.",
+            "video-download-failed": "Kunne ikke laste ned videoen. Den kan være privat, fjernet eller komme fra et nettsted som ikke støttes."
         },
         "create-progress": {
             "creating-recipe": "Oppretter oppskrift...",
-            "creating-recipe-from-transcript-with-ai": "Oppretter oppskrift fra transkribering med AI...",
+            "creating-recipe-from-transcript-with-ai": "Oppretter oppskrift fra transkripsjon med KI...",
             "creating-recipe-from-webpage-data": "Oppretter oppskrift fra nettsidedata...",
             "downloading-image": "Laster ned bilde...",
             "downloading-video": "Laster ned video...",
             "extracting-recipe-data": "Henter ut oppskriftsdata...",
             "fetching-webpage": "Henter nettside...",
             "organizing-recipe": "Organiserer oppskrift...",
-            "reading-images-with-ai": "Leser bilder med AI...",
-            "reading-source-with-ai": "Leser kilde med AI...",
-            "transcribing-audio-with-ai": "Forskriver lyd med AI...",
+            "reading-images-with-ai": "Leser bilder med KI...",
+            "reading-source-with-ai": "Leser kilden med KI...",
+            "transcribing-audio-with-ai": "Transkriberer lyd med KI...",
             "translating-recipe": "Oversetter oppskrift..."
         }
     },
@@ -61,7 +61,7 @@
             "lunch": "lunsj",
             "dinner": "middag",
             "side": "tilbehør",
-            "snack": "snacks",
+            "snack": "mellommåltid",
             "drink": "drikke",
             "dessert": "dessert"
         }
@@ -76,10 +76,10 @@
         "report-deleted": "Rapport slettet."
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
-        "recursive-recipe-link": "En oppskrift kan ikke referere seg selv, enten direkte eller indirekte",
+        "permission-denied": "Du har ikke tillatelse til å utføre denne handlingen.",
+        "recursive-recipe-link": "En oppskrift kan ikke referere til seg selv, verken direkte eller indirekte.",
         "no-entry-found": "Den forespurte ressursen ble ikke funnet",
-        "rate-limit-error": "AI-leverandøren er hastighetsbegrensende forespørsler. Vennligst vent et øyeblikk og prøv igjen",
+        "rate-limit-error": "KI-leverandøren begrenser antallet forespørsler. Vent litt og prøv igjen.",
         "integrity-error": "Feil i databaseintegritet",
         "username-conflict-error": "Dette brukernavnet er allerede i bruk",
         "email-conflict-error": "Denne e-postadressen er allerede i bruk"
@@ -98,13 +98,13 @@
             "recipe-created": "Oppskrift opprettet",
             "recipe-updated": "Oppskrift oppdatert",
             "recipe-deleted": "Oppskrift slettet",
-            "user-signup": "Bruker-registrering",
-            "data-migrations": "Datamigrering",
+            "user-signup": "Brukerregistrering",
+            "data-migrations": "Dataoverføringer",
             "data-export": "Dataeksport",
             "data-import": "Dataimport",
-            "mealplan-entry-created": "Måltidsplan opprettet",
-            "mealplan-entry-updated": "Måltidsplan oppdatert",
-            "mealplan-entry-deleted": "Måltidsplan slettet",
+            "mealplan-entry-created": "Måltidsplanoppføring opprettet",
+            "mealplan-entry-updated": "Måltidsplanoppføring oppdatert",
+            "mealplan-entry-deleted": "Måltidsplanoppføring slettet",
             "shopping-list-created": "Handleliste opprettet",
             "shopping-list-updated": "Handleliste oppdatert",
             "shopping-list-deleted": "Handleliste slettet",
@@ -122,9 +122,9 @@
             "label-deleted": "Etikett slettet"
         },
         "test-message-body": "Dette er en testmelding fra Mealie.",
-        "mealplan-entry-created": "Oppføringen for {date} er opprettet: {entry_type}",
-        "mealplan-entry-updated": "Oppføringen for {date} er oppdatert: {entry_type}",
-        "mealplan-entry-deleted": "Oppføringen for {date} er slettet: {entry_type}"
+        "mealplan-entry-created": "Måltidsplanoppføring opprettet for {date}: {entry_type}",
+        "mealplan-entry-updated": "Måltidsplanoppføring oppdatert for {date}: {entry_type}",
+        "mealplan-entry-deleted": "Måltidsplanoppføring slettet for {date}: {entry_type}"
     },
     "datetime": {
         "year": "år|år",
@@ -137,9 +137,9 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Glemt Passord",
+            "subject": "Mealie – glemt passord",
             "header_text": "Glemt passord",
-            "message_top": "Du har forespurt å resette passordet.",
+            "message_top": "Du har bedt om å tilbakestille passordet ditt.",
             "message_bottom": "Klikk på knappen over for å tilbakestille passordet ditt.",
             "button_text": "Tilbakestill passord"
         },

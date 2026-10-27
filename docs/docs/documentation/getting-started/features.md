@@ -141,11 +141,13 @@ Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), whi
 - `json` and `jsons`
 - `xml` and `xmls`
 
+Only users with the **Manage household** permission can view and change notifiers.
+
 [Notifiers Demo](https://demo.mealie.io/household/notifiers){ .md-button .md-button--primary }
 
 ### Webhooks
 
-Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled meal plan, at the specified time, and contain the meal plan data in the request.
+Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled meal plan, at the specified time, and contain the meal plan data in the request. Only users with the **Manage household** permission can view and change webhooks.
 
 [Webhooks Demo](https://demo.mealie.io/household/webhooks){ .md-button .md-button--primary }
 
