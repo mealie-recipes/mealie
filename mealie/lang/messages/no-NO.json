@@ -124,7 +124,10 @@
         "test-message-body": "Dette er en testmelding fra Mealie.",
         "mealplan-entry-created": "Måltidsplanoppføring opprettet for {date}: {entry_type}",
         "mealplan-entry-updated": "Måltidsplanoppføring oppdatert for {date}: {entry_type}",
-        "mealplan-entry-deleted": "Måltidsplanoppføring slettet for {date}: {entry_type}"
+        "mealplan-entry-deleted": "Måltidsplanoppføring slettet for {date}: {entry_type}",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "år|år",
