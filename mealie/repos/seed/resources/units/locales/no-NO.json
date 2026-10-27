@@ -19,19 +19,19 @@
     },
     "fluid-ounce": {
         "name": "væskeunse",
-        "plural_name": "flytende unser",
+        "plural_name": "væskeunser",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pint",
+        "plural_name": "pints",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "kvart",
-        "plural_name": "kvart",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "qt"
     },
@@ -49,7 +49,7 @@
     },
     "centiliter": {
         "name": "centiliter",
-        "plural_name": "centiliters",
+        "plural_name": "centiliter",
         "description": "",
         "abbreviation": "cl"
     },
@@ -68,7 +68,7 @@
     },
     "ounce": {
         "name": "unse",
-        "plural_name": "ounces\nunser",
+        "plural_name": "unser",
         "description": "",
         "abbreviation": "oz"
     },
@@ -97,7 +97,7 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "klype",
+        "name": "dæsj",
         "plural_name": "klyper",
         "description": "",
         "abbreviation": ""
@@ -127,8 +127,8 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "haug",
-        "plural_name": "hauger",
+        "name": "bunt",
+        "plural_name": "bunter",
         "description": "",
         "abbreviation": ""
     },
@@ -146,7 +146,7 @@
     },
     "sprig": {
         "name": "kvist",
-        "plural_name": "kvistmengde",
+        "plural_name": "kvister",
         "description": "",
         "abbreviation": ""
     }

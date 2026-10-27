@@ -49,9 +49,9 @@
     },
     "centiliter": {
         "name": "centiliter",
-        "plural_name": "centiliters",
+        "plural_name": "centiliter",
         "description": "",
-        "abbreviation": "cl"
+        "abbreviation": "cL"
     },
     "liter": {
         "name": "liter",
