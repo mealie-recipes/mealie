@@ -259,9 +259,9 @@
       "text-only-provider": "Csak szöveges tartalom érhető el, képeket nem tud biztosítani"
     },
     "ai-prompts": {
-      "ai-prompts": "AI Prompts",
-      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
-      "global-instructions": "Instructions for All Prompts",
+      "ai-prompts": "AI promptok",
+      "ai-prompts-description": "Testreszabhatod, hogy a Mealie milyen utasításokat ad az AI szolgáltatónak a különböző feladatoknál. A Mealie promptjai angolul vannak leírva, de a receptjeid nyelvét nem változtatja meg, hanem a forrás (eredeti) nyelvét használja, hacsaknem úgy döntesz, hogy le szeretnéd őket fordítani. A saját utasításaidat bármilyen nyelvben írhatod.",
+      "global-instructions": "Utasítások az össze prompthoz",
       "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
       "global-instructions-placeholder": "e.g. Always use metric units.",
       "prompts": "Prompts",

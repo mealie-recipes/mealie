@@ -952,7 +952,7 @@
     "user-can-manage-group": "L'usuari pot gestionar la configuració del grup",
     "user-can-manage-group-hint": "L'usuari pot gestionar la configuració compartida del grup, com ara els proveïdors d'IA, i editar els permisos dels membres de la seva llar.",
     "user-can-manage-household": "Usuari que pot gestionar la llar",
-    "user-can-manage-household-hint": "L'usuari pot gestionar la configuració de la llar a què pertany, com ara el nom, la privadesa i les regles d'edició de receptes.",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, recipe-editing rules, notifiers, and webhooks.",
     "user-can-organize-group-data": "L'usuari pot gestionar les dades del grup, com ara aliments, unitats, etiquetes i categories",
     "user-can-organize-group-data-hint": "Crea, edita i suprimeix aliments, unitats, etiquetes, categories, eines, etiquetes d'aliments i accions de receptes compartits amb tot el grup.",
     "enable-advanced-features": "Activa funcionalitats avançades",

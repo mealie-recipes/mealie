@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import datetime as dt
 import uuid
 from datetime import UTC, date, datetime
 from enum import Enum, auto
@@ -100,6 +101,7 @@ class EventMealplanData(EventDocumentDataBase):
     document_type: EventDocumentType = EventDocumentType.mealplan
     mealplan_id: int
     date: date
+    end_date: dt.date | None = None
     recipe_id: UUID4 | None = None
     recipe_name: str | None = None
     recipe_slug: str | None = None

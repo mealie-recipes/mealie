@@ -8,7 +8,8 @@
       @list-created="addShoppingList"
     />
     <GroupMealPlanCalendarDialog v-model="calendarDialog" />
-    <div :class="`d-flex ga-2 ${$vuetify.display.xs ? 'justify-center' : 'justify-start'}`">
+    <!-- range navigation and page actions share one toolbar, kept apart from the plan below -->
+    <div class="d-flex flex-wrap align-center ga-2">
       <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
       <v-menu
         v-model="state.picker"
@@ -20,7 +21,6 @@
         <template #activator="{ props }">
           <v-btn
             color="primary"
-            class="mb-2"
             v-bind="props"
           >
             <v-icon start>
@@ -41,32 +41,30 @@
 
           <v-card-text>
             <v-number-input
-              v-model="numberOfDaysPast"
+              v-model="numberOfWeeksPast"
               :min="0"
               inset
-              :label="$t('meal-plan.numberOfDaysPast-label')"
-              :hint="$t('meal-plan.numberOfDaysPast-hint')"
+              :label="$t('meal-plan.numberOfWeeksPast-label')"
+              :hint="$t('meal-plan.numberOfWeeksPast-hint')"
               persistent-hint
             />
           </v-card-text>
 
           <v-card-text>
             <v-number-input
-              v-model="numberOfDays"
+              v-model="numberOfWeeks"
               :min="1"
               inset
-              :label="$t('meal-plan.numberOfDays-label')"
-              :hint="$t('meal-plan.numberOfDays-hint')"
+              :label="$t('meal-plan.numberOfWeeks-label')"
+              :hint="$t('meal-plan.numberOfWeeks-hint')"
               persistent-hint
             />
           </v-card-text>
         </v-card>
       </v-menu>
       <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
-    </div>
-    <div class="d-flex justify-end">
       <BaseButtonGroup
-        class="d-flex"
+        class="d-flex ms-auto"
         :buttons="[
           edit ? {
             icon: $globals.icons.calendar,
@@ -108,9 +106,10 @@
         @calendar-feed="calendarDialog = true"
       />
     </div>
+    <v-divider class="my-4" />
     <div>
       <NuxtPage
-        :mealplans="mealsByDate"
+        :mealplans="plans"
         :actions="actions"
       />
     </div>
@@ -120,11 +119,12 @@
 </template>
 
 <script setup lang="ts">
-import { addDays, differenceInCalendarDays, format, isSameDay, isValid, parseISO } from "date-fns";
+import { addDays, addWeeks, differenceInCalendarDays, format, isSameDay, isValid, parseISO } from "date-fns";
 import GroupMealPlanCalendarDialog from "~/components/Domain/Household/GroupMealPlanCalendarDialog.vue";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
-import { getScaledRecipes, useMealplans } from "~/composables/use-group-mealplan";
+import type { MealsByDate } from "~/composables/use-group-mealplan";
+import { getScaledRecipes, getWeekRange, useMealplans } from "~/composables/use-group-mealplan";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
@@ -157,13 +157,13 @@ onMounted(() => {
 });
 
 const mealPlanPreferences = useUserMealPlanPreferences();
-const numberOfDaysPast = ref<number>(mealPlanPreferences.value.numberOfDaysPast || 0);
-const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
-watch(numberOfDaysPast, (val) => {
-  mealPlanPreferences.value.numberOfDaysPast = Number(val);
+const numberOfWeeksPast = ref<number>(mealPlanPreferences.value.numberOfWeeksPast || 0);
+const numberOfWeeks = ref<number>(mealPlanPreferences.value.numberOfWeeks || 1);
+watch(numberOfWeeksPast, (val) => {
+  mealPlanPreferences.value.numberOfWeeksPast = Number(val);
 });
-watch(numberOfDays, (val) => {
-  mealPlanPreferences.value.numberOfDays = Number(val);
+watch(numberOfWeeks, (val) => {
+  mealPlanPreferences.value.numberOfWeeks = Number(val);
 });
 
 // Force to /view if current route is /planner
@@ -188,9 +188,18 @@ function safeParseISO(date: string, fallback: Date | undefined = undefined) {
   }
 }
 
+// A day in the first and last week of the default range; `weekRange` rounds them out to whole weeks
+function defaultStartDate() {
+  return addWeeks(new Date(), -numberOfWeeksPast.value);
+}
+
+function defaultEndDate() {
+  return addWeeks(new Date(), numberOfWeeks.value - 1);
+}
+
 // Initialize dates from query parameters or defaults
-const initialStartDate = safeParseISO(route.query.start as string, addDays(new Date(), adjustForToday(-numberOfDaysPast.value)));
-const initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
+const initialStartDate = safeParseISO(route.query.start as string, defaultStartDate());
+const initialEndDate = safeParseISO(route.query.end as string, defaultEndDate());
 
 const state = ref({
   range: [initialStartDate, initialEndDate] as [Date, Date],
@@ -212,19 +221,26 @@ function changeWeek(step: number) {
   ];
 }
 
+// The planner always shows whole weeks, so the selected range is rounded out to the weeks it touches
 const weekRange = computed(() => {
   const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
 
-  const start = sorted[0];
-  const end = sorted[sorted.length - 1];
+  const start = sorted[0] ?? defaultStartDate();
+  const end = sorted[sorted.length - 1] ?? defaultEndDate();
 
-  if (start && end) {
-    return { start, end };
-  }
   return {
-    start: addDays(new Date(), adjustForToday(-numberOfDaysPast.value)),
-    end: addDays(new Date(), adjustForToday(numberOfDays.value)),
+    start: getWeekRange(start, firstDayOfWeek.value).start,
+    end: getWeekRange(end, firstDayOfWeek.value).end,
   };
+});
+
+// Once a range is fully picked, show the whole weeks in the picker too. A half-picked range (one date)
+// is left alone, so the picker can still take the second click.
+watch(weekRange, ({ start, end }) => {
+  const [first, last] = state.value.range;
+  if (state.value.range.length === 2 && !(first && last && isSameDay(first, start) && isSameDay(last, end))) {
+    state.value.range = [start, end];
+  }
 });
 
 // Update query parameters when date range changes
@@ -246,15 +262,12 @@ const { mealplans, actions } = useMealplans(weekRange);
 function filterMealByDate(date: Date) {
   if (!mealplans.value) return [];
   return mealplans.value.filter((meal) => {
+    // week entries aren't planned for a specific day
+    if (meal.endDate) return false;
+
     const mealDate = parseISO(meal.date);
     return isSameDay(mealDate, date);
   });
-}
-
-function adjustForToday(days: number) {
-  // e.g. If the user wants 7 days, we subtract one to do "today + 6"
-  // e.g. If the user wants 2 days in the past, we keep it the same to do "today - 2"
-  return days > 0 ? days - 1 : days;
 }
 
 const days = computed(() => {
@@ -279,11 +292,45 @@ const mealsByDate = computed(() => {
   });
 });
 
+/**
+ * The visible days grouped by week, each with that week's entries, so meals can be planned for any visible week.
+ * Week entries are grouped by their own dates rather than the current weeks, so they still show up (as a week
+ * without days) if the household's first day of the week has changed since they were planned.
+ */
+const mealsByWeek = computed(() => {
+  const weeks = new Map<string, { week: MealsByDate; days: MealsByDate[] }>();
+  const getWeek = (start: Date, end: Date) => {
+    const key = format(start, "yyyy-MM-dd");
+    if (!weeks.has(key)) {
+      weeks.set(key, { week: { date: start, endDate: end, meals: [] }, days: [] });
+    }
+    return weeks.get(key)!;
+  };
+
+  for (const day of mealsByDate.value) {
+    const { start, end } = getWeekRange(day.date, firstDayOfWeek.value);
+    getWeek(start, end).days.push(day);
+  }
+
+  for (const meal of mealplans.value ?? []) {
+    if (meal.endDate) {
+      getWeek(parseISO(meal.date), parseISO(meal.endDate)).week.meals.push(meal);
+    }
+  }
+
+  return [...weeks.values()].sort((a, b) => a.week.date.getTime() - b.week.date.getTime());
+});
+
+/** Each week followed by its days, the order the planner pages lay them out in */
+const plans = computed(() => mealsByWeek.value.flatMap(({ week, days }) => [week, ...days]));
+
+const allMeals = computed(() => plans.value.flatMap(({ meals }) => meals));
+
 const hasRecipes = computed(() => {
-  return mealsByDate.value.some(day => day.meals.some(meal => meal.recipe));
+  return allMeals.value.some(meal => meal.recipe);
 });
 
 const weekRecipesWithScales = computed(() => {
-  return getScaledRecipes(mealsByDate.value.flatMap(({ meals }) => meals));
+  return getScaledRecipes(allMeals.value);
 });
 </script>
