@@ -952,7 +952,7 @@
     "user-can-manage-group": "Brugeren kan administrere gruppeindstillinger",
     "user-can-manage-group-hint": "Brugeren kan administrere gruppens delte indstillinger såsom AI-udbydere, samt redigere tilladelser for medlemmer af deres husholdning.",
     "user-can-manage-household": "Brugeren kan administrere husstande",
-    "user-can-manage-household-hint": "Brugeren kan administrere indstillingerne for den husholdning, vedkommende er en del af, såsom dens navn, privatlivsindstillinger og regler for redigering af opskrifter.",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, recipe-editing rules, notifiers, and webhooks.",
     "user-can-organize-group-data": "Brugeren kan administrere gruppedata såsom ingredienser, enheder, mærkater og kategorier",
     "user-can-organize-group-data-hint": "Oprette, redigere og slette ingredienser, enheder, mærkater, kategorier, redskaber, etiketter og opskriftshandlinger til deling med hele gruppen.",
     "enable-advanced-features": "Aktiver avancerede funktioner",
