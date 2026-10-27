@@ -124,7 +124,10 @@
         "test-message-body": "Это тестовое уведомление от Mealie.",
         "mealplan-entry-created": "Запись плана питания создана на {date} для {entry_type}",
         "mealplan-entry-updated": "Запись плана питания на {date} для {entry_type} обновлена",
-        "mealplan-entry-deleted": "Запись плана питания удалена на {date} для {entry_type}"
+        "mealplan-entry-deleted": "Запись плана питания удалена на {date} для {entry_type}",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "Год|лет",
