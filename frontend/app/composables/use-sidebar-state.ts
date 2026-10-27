@@ -1,4 +1,4 @@
-import { useLocalStorage } from "@vueuse/core";
+import { StorageSerializers, useLocalStorage } from "@vueuse/core";
 import { useRouteQuery } from "~/composables/use-router";
 
 /**
@@ -7,7 +7,9 @@ import { useRouteQuery } from "~/composables/use-router";
  */
 export function useSidebarState() {
   const display = useDisplay();
-  const preference = useLocalStorage<boolean | null>("sidebar-open", null);
+  const preference = useLocalStorage<boolean | null>("sidebar-open", null, {
+    serializer: StorageSerializers.boolean,
+  });
   const sidebarQuery = useRouteQuery<string>("sidebar", "");
 
   return computed<boolean>({

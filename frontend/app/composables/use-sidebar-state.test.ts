@@ -28,13 +28,13 @@ describe("useSidebarState", () => {
     expect(useSidebarState().value).toBe(false);
   });
 
-  test("uses a saved preference when the URL has no sidebar parameter", async () => {
+  test.each([true, false])("restores saved preference %s as a boolean without a URL override", async (saved) => {
     const sidebar = useSidebarState();
-    sidebar.value = false;
+    sidebar.value = saved;
     await nextTick();
 
-    expect(localStorage.getItem("sidebar-open")).toBe("false");
-    expect(useSidebarState().value).toBe(false);
+    expect(localStorage.getItem("sidebar-open")).toBe(String(saved));
+    expect(useSidebarState().value).toBe(saved);
   });
 
   test.each([
