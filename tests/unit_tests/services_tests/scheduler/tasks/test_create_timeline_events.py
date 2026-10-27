@@ -311,9 +311,9 @@ def test_mealplan_event_subject_is_translated(api_client: TestClient, unique_use
     expected2 = f"{unique_user.full_name} made this as a side"
     assert event2["subject"] == expected2, f"expected {expected2!r}, got {event2['subject']!r}"
 
-    # --- locale fallback: fr-FR doesn't have these keys yet, should fall back to en-US ---
+    # --- locale fallback: a locale with no messages file falls back to en-US ---
     recipe3, initial_count3 = _create_recipe_and_mealplan(api_client, unique_user, "lunch")
-    event3 = _get_mealplan_event(api_client, unique_user, recipe3, initial_count3, {"Accept-Language": "fr-FR"})
+    event3 = _get_mealplan_event(api_client, unique_user, recipe3, initial_count3, {"Accept-Language": "xx-XX"})
 
     expected3 = f"{unique_user.full_name} made this for lunch"
     assert event3["subject"] == expected3, f"expected en-US fallback {expected3!r}, got {event3['subject']!r}"
