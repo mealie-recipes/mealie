@@ -20,7 +20,7 @@ dependencies = [
     "orjson==3.13.0",
     "pydantic==2.14.1",
     "pyhumps==3.8.0",
-    "python-dateutil==2.9.0.post0",
+    "python-dateutil==3.0.0",
     "python-dotenv==1.2.4",
     "python-ldap==3.4.8",
     "python-multipart==0.0.32",
