@@ -124,7 +124,10 @@
         "test-message-body": "Bu, Mealie'den gönderilen bir test bildirimidir.",
         "mealplan-entry-created": "{date} tarihli {entry_type} için yemek planı girdisi oluşturuldu",
         "mealplan-entry-updated": "{date} tarihli {entry_type} için yemek planı girdisi güncellendi",
-        "mealplan-entry-deleted": "{date} tarihli {entry_type} için yemek planı girdisi silindi"
+        "mealplan-entry-deleted": "{date} tarihli {entry_type} için yemek planı girdisi silindi",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "yıl|yıl",
