@@ -170,8 +170,10 @@ https://www.google.com/search?q=pasta-fagioli
 
 A common use case for "link" recipe actions is to integrate with the Bring! shopping list. Simply add a Recipe Action with the following URL:
 ```
-https://api.getbring.com/rest/bringrecipes/deeplink?url=${url}&source=web
+https://api.getbring.com/rest/bringrecipes/deeplink?url=${share-link-expires-seconds-300}&source=web
 ```
+
+`${share-link-expires-seconds-300}` creates a share link for the recipe that expires after 300 seconds, so Bring! can read the recipe even if it isn't public. If your recipes are public, `${url}` works too.
 
 Below is a list of all valid merge fields:
 
@@ -181,6 +183,7 @@ Below is a list of all valid merge fields:
 - ${servings}
 - ${yieldQuantity}
 - ${yieldText}
+- ${share-link-expires-seconds-x} (a share link that expires after x seconds)
 
 To add, modify, or delete Recipe Actions, visit the Data Management page (more on that below).
 
