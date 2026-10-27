@@ -124,7 +124,10 @@
         "test-message-body": "Ez egy teszt értesítés a Mealie-től.",
         "mealplan-entry-created": "Menüterv bejegyzés létrehozva {date}-ra/re, mint {entry_type} típus",
         "mealplan-entry-updated": "Menüterv bejegyzés frissítve {date}-ra/re, mint {entry_type} típus",
-        "mealplan-entry-deleted": "Menüterv bejegyzés törölve {date}-ra/re, mint {entry_type} típus"
+        "mealplan-entry-deleted": "Menüterv bejegyzés törölve {date}-ra/re, mint {entry_type} típus",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "év",
