@@ -9,7 +9,23 @@
     @confirm="addRecipeToPlan"
   >
     <v-card-text>
-      <MealPlanDatePicker v-model="newMealdate" :entry-type="newMealType" />
+      <MealPlanDatePicker v-model="pickerModel" :multiple="pickerMultiple" :entry-type="newMealType" />
+      <!-- the dates are part of the label, so they stay with the switch instead of floating above the next field -->
+      <v-switch
+        v-model="isWeekEntry"
+        color="primary"
+        hide-details
+        class="mb-2"
+      >
+        <template #label>
+          <div>
+            <div>{{ $t("meal-plan.plan-for-the-whole-week") }}</div>
+            <div v-if="isWeekEntry" class="text-caption text-medium-emphasis">
+              {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+            </div>
+          </div>
+        </template>
+      </v-switch>
       <v-select
         v-model="newMealType"
         :return-object="false"
@@ -24,6 +40,7 @@
 
 <script setup lang="ts">
 import { useUserApi } from "~/composables/api";
+import { useMealPlanEntryDates } from "~/composables/use-group-mealplan";
 import { alert } from "~/composables/use-toast";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
@@ -44,19 +61,11 @@ const planTypeOptions = usePlanTypeOptions();
 const router = useRouter();
 
 const newMealType = ref<PlanEntryType>("dinner");
-const newMealdate = ref(new Date());
-
-const newMealdateString = computed(() => {
-  // Format the date to YYYY-MM-DD in the same timezone as newMealdate
-  const year = newMealdate.value.getFullYear();
-  const month = String(newMealdate.value.getMonth() + 1).padStart(2, "0");
-  const day = String(newMealdate.value.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-});
+const { isWeekEntry, weekRange, entryDatesPayload, pickerModel, pickerMultiple } = useMealPlanEntryDates();
 
 async function addRecipeToPlan() {
   const { response } = await api.mealplans.createOne({
-    date: newMealdateString.value,
+    ...entryDatesPayload.value,
     entryType: newMealType.value,
     title: "",
     text: "",

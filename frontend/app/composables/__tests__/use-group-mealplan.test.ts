@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
-import { getScaledRecipes } from "../use-group-mealplan";
+import { getScaledRecipes, getWeekRange } from "../use-group-mealplan";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 
 vi.mock("~/composables/api", () => ({
@@ -53,5 +53,18 @@ describe("getScaledRecipes", () => {
       createMeal(1, { title: "Leftovers" }),
       createMeal(2, { title: "Eat out", recipe: null }),
     ])).toEqual([]);
+  });
+});
+
+describe("getWeekRange", () => {
+  // 2026-08-19 is a Wednesday
+  const wednesday = new Date(2026, 7, 19);
+
+  test.each([
+    [0, new Date(2026, 7, 16), new Date(2026, 7, 22)],
+    [1, new Date(2026, 7, 17), new Date(2026, 7, 23)],
+    [4, new Date(2026, 7, 13), new Date(2026, 7, 19)],
+  ])("starts the week on day %i", (firstDayOfWeek, start, end) => {
+    expect(getWeekRange(wednesday, firstDayOfWeek)).toEqual({ start, end });
   });
 });

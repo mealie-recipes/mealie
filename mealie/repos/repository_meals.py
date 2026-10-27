@@ -15,7 +15,9 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
 
         today = datetime.now(tz=tz).date()
         stmt = select(GroupMealPlan).filter(
-            GroupMealPlan.date == today, GroupMealPlan.household_id == self.household_id
+            GroupMealPlan.date == today,
+            GroupMealPlan.end_date.is_(None),  # week entries aren't planned for a specific day
+            GroupMealPlan.household_id == self.household_id,
         )
         plans = self.session.execute(stmt).scalars().all()
         return [self.schema.model_validate(x) for x in plans]
@@ -27,6 +29,7 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
         stmt = select(GroupMealPlan).filter(
             GroupMealPlan.date >= start_date.date(),
             GroupMealPlan.date <= end_date.date(),
+            GroupMealPlan.end_date.is_(None),  # week entries aren't planned for a specific day
             GroupMealPlan.household_id == self.household_id,
         )
         plans = self.session.execute(stmt).scalars().all()

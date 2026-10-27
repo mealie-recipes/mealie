@@ -177,14 +177,17 @@ class MealPlanICalService(BaseService):
             f"DTSTAMP:{_format_utc(now)}",
         ]
 
-        start_time = query.time_for(entry.entry_type)
+        # date range entries (e.g. a week) aren't on a specific day, so they're always all-day events spanning the range
+        start_time = None if entry.end_date else query.time_for(entry.entry_type)
         if start_time:
             start = datetime.combine(entry.date, start_time, tzinfo=tz)
             lines.append(f"DTSTART:{_format_utc(start)}")
             lines.append(f"DTEND:{_format_utc(start + EVENT_DURATION)}")
         else:
+            # DTEND is exclusive, so it's the day after the last day
+            last_day = entry.end_date or entry.date
             lines.append(f"DTSTART;VALUE=DATE:{_format_date(entry.date)}")
-            lines.append(f"DTEND;VALUE=DATE:{_format_date(entry.date + timedelta(days=1))}")
+            lines.append(f"DTEND;VALUE=DATE:{_format_date(last_day + timedelta(days=1))}")
 
         lines.append(f"SUMMARY:{_escape_text(f'{entry_type}: {title}')}")
         if description:
