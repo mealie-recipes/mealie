@@ -211,8 +211,10 @@
       >
         <div
           v-for="(step, index) in instructionList"
-          :key="step.id!"
+          :key="step.id || index"
           class="list-group-item"
+          :data-step-id="step.id"
+          @keydown="handleStepKeydown($event, index)"
         >
           <v-sheet
             v-if="step.id && showTitleEditor[step.id]"
@@ -350,7 +352,7 @@
                         @link-references="openReferenceDialog(index)"
                         @preview-step="togglePreviewState(index)"
                         @upload-image="openImageUpload(index)"
-                        @delete="instructionList.splice(index, 1)"
+                        @delete="deleteStep(index)"
                       />
                     </div>
                   </template>
@@ -587,10 +589,13 @@ watch(instructionList, (v) => {
   disabledSteps.value = [];
 
   v.forEach((element: RecipeStep) => {
+    if (!element.id) {
+      element.id = uuid4();
+    }
     // Only derive visibility for steps we have not seen yet. This watcher is deep, so it also
     // fires while the user is typing a section title, and re-deriving would close the editor
     // the moment they cleared the text they had just entered.
-    if (element.id !== undefined && !(element.id in showTitleEditor.value)) {
+    if (!(element.id in showTitleEditor.value)) {
       showTitleEditor.value[element.id] = hasSectionTitle(element.title!);
     }
   });
@@ -600,9 +605,10 @@ const showCookMode = ref(false);
 
 onMounted(() => {
   instructionList.value.forEach((element: RecipeStep) => {
-    if (element.id !== undefined) {
-      showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
+    if (!element.id) {
+      element.id = uuid4();
     }
+    showTitleEditor.value[element.id] = hasSectionTitle(element.title!);
 
     if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
       showCookMode.value = true;
@@ -940,8 +946,139 @@ function moveTo(dest: string, source: number) {
   }
 }
 
+function handleStepKeydown(e: KeyboardEvent, index: number) {
+  if (!isEditForm.value || e.isComposing) {
+    return;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    e.stopPropagation();
+    insertStep(index + 1, true);
+  }
+  else if ((e.ctrlKey || e.metaKey) && e.key === "Delete") {
+    e.preventDefault();
+    e.stopPropagation();
+    deleteStep(index);
+  }
+  else if ((e.ctrlKey || e.metaKey) && (e.key === "ArrowUp" || e.key === "Up")) {
+    e.preventDefault();
+    e.stopPropagation();
+    moveStep(index, -1);
+  }
+  else if ((e.ctrlKey || e.metaKey) && (e.key === "ArrowDown" || e.key === "Down")) {
+    e.preventDefault();
+    e.stopPropagation();
+    moveStep(index, 1);
+  }
+}
+
+async function insertStep(dest: number, focus = false) {
+  const newId = uuid4();
+  const currentActive = document.activeElement as HTMLElement | null;
+  const isCurrentlyInSummary = currentActive?.closest(".recipe-step-title") != null;
+
+  instructionList.value.splice(dest, 0, {
+    id: newId,
+    text: "",
+    title: "",
+    summary: "",
+    ingredientReferences: [],
+    noteReferences: [],
+    durationSeconds: null,
+  });
+
+  if (focus) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-step-id="${newId}"]`);
+    if (rootEl) {
+      if (isCurrentlyInSummary) {
+        const summaryInput = rootEl.querySelector(".recipe-step-title input") as HTMLInputElement | null;
+        if (summaryInput) {
+          summaryInput.focus();
+          return;
+        }
+      }
+      const textarea = rootEl.querySelector("textarea") as HTMLTextAreaElement | null;
+      if (textarea) {
+        textarea.focus();
+      }
+      else {
+        const input = rootEl.querySelector("input, textarea") as HTMLElement | null;
+        input?.focus();
+      }
+    }
+  }
+}
+
 function insert(dest: number) {
-  instructionList.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [], noteReferences: [] });
+  insertStep(dest, false);
+}
+
+async function deleteStep(index: number) {
+  const prevStepId = index > 0 ? instructionList.value[index - 1]?.id : undefined;
+  const currentActive = document.activeElement as HTMLElement | null;
+  const isCurrentlyInSummary = currentActive?.closest(".recipe-step-title") != null;
+
+  instructionList.value.splice(index, 1);
+
+  if (prevStepId) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-step-id="${prevStepId}"]`);
+    if (rootEl) {
+      if (isCurrentlyInSummary) {
+        const summaryInput = rootEl.querySelector(".recipe-step-title input") as HTMLInputElement | null;
+        if (summaryInput) {
+          summaryInput.focus();
+          summaryInput.select?.();
+          return;
+        }
+      }
+      const textarea = rootEl.querySelector("textarea") as HTMLTextAreaElement | null;
+      if (textarea) {
+        textarea.focus();
+        textarea.select?.();
+      }
+      else {
+        const input = rootEl.querySelector("input, textarea") as (HTMLInputElement | HTMLTextAreaElement) | null;
+        input?.focus();
+        input?.select?.();
+      }
+    }
+  }
+}
+
+async function moveStep(index: number, direction: -1 | 1) {
+  const targetIndex = index + direction;
+  if (targetIndex < 0 || targetIndex >= instructionList.value.length) {
+    return;
+  }
+  const stepId = instructionList.value[index]?.id;
+  const currentActive = document.activeElement as HTMLElement | null;
+  const rootEl = stepId ? document.querySelector(`[data-step-id="${stepId}"]`) : null;
+  const activeInputIndex = rootEl && currentActive && rootEl.contains(currentActive)
+    ? Array.from(rootEl.querySelectorAll("input, textarea")).indexOf(currentActive)
+    : -1;
+
+  const [item] = instructionList.value.splice(index, 1);
+  instructionList.value.splice(targetIndex, 0, item);
+
+  if (stepId) {
+    await nextTick();
+    const newRootEl = document.querySelector(`[data-step-id="${stepId}"]`);
+    if (newRootEl) {
+      if (activeInputIndex >= 0) {
+        const inputs = Array.from(newRootEl.querySelectorAll("input, textarea")) as (HTMLInputElement | HTMLTextAreaElement)[];
+        if (inputs[activeInputIndex]) {
+          inputs[activeInputIndex].focus();
+          return;
+        }
+      }
+      if (document.activeElement === document.body || !newRootEl.contains(document.activeElement)) {
+        const fallbackInput = (newRootEl.querySelector("textarea") || newRootEl.querySelector("input")) as HTMLElement | null;
+        fallbackInput?.focus();
+      }
+    }
+  }
 }
 
 const previewStates = ref<boolean[]>([]);
