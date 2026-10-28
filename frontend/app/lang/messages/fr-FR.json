@@ -956,7 +956,7 @@
     "user-can-manage-group": "L'utilisateur peut gérer les paramètres de groupe",
     "user-can-manage-group-hint": "L'utilisateur peut gérer les paramètres partagés du groupe, comme les fournisseurs d'AI, et modifier les permissions des membres de son foyer.",
     "user-can-manage-household": "L’utilisateur peut gérer le foyer",
-    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, recipe-editing rules, notifiers, and webhooks.",
+    "user-can-manage-household-hint": "L'utilisateur peut gérer les paramètres du foyer auquel il appartient, comme son nom, sa confidentialité, les règles d'édition de recettes, les notifications et les webhooks.",
     "user-can-organize-group-data": "L'utilisateur peut gérer des données de groupe telles que les aliments, les unités, les étiquettes et les catégories",
     "user-can-organize-group-data-hint": "Créer, modifier et supprimer les aliments, unités, étiquettes, catégories, outils, étiquettes et actions de recettes partagées à travers le groupe.",
     "enable-advanced-features": "Activer les fonctions avancées",
