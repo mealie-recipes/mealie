@@ -29,13 +29,13 @@
         "and-amount": "und {amount}",
         "import-errors": {
             "ai-not-enabled": "KI-Dienste sind nicht aktiviert",
-            "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuchen Sie es erneut",
+            "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuche es erneut",
             "image-provider-not-enabled": "KI-Bilddienste sind nicht aktiviert",
             "invalid-mealie-export": "Das sieht aus wie ein Rezept, das von Mealie exportiert wurde, aber es konnte nicht importiert werden",
             "no-recipe-found": "Es wurde kein Rezept in der angegebenen Quelle gefunden",
             "no-source": "Keine Inhalte, Bilder oder URL angegeben",
             "provider-returned-nothing": "Der KI-Anbieter hat kein Rezept zurückgegeben",
-            "unknown-error": "Beim Erstellen des Rezepts ist etwas schiefgelaufen. Bitte versuchen Sie es erneut",
+            "unknown-error": "Beim Erstellen des Rezepts ist etwas schiefgelaufen. Bitte versuche es erneut",
             "unreadable-source": "Es können keine Inhalte von der angegebenen Quelle extrahiert werden",
             "video-download-failed": "Das Video kann nicht heruntergeladen werden. Es kann privat, entfernt oder von einer nicht unterstützten Seite sein"
         },
