@@ -5,13 +5,13 @@
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques",
         "recipe-created": "Recette créée",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
-        "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-as-side": "{name} a fait ceci comme accompagnement",
+        "made-this-for-breakfast": "{name} a fait ceci pour le petit déjeuner",
+        "made-this-for-lunch": "{name} a fait ceci pour le déjeuner",
+        "made-this-for-dinner": "{name} a fait ceci pour le dîner",
+        "made-this-for-snack": "{name} a fait ceci pour un en-cas",
+        "made-this-for-drink": "{name} a fait ceci pour les boissons",
+        "made-this-for-dessert": "{name} a fait ceci pour le dessert",
         "recipe-image-deleted": "L’image de la recette a été supprimée",
         "recipe-defaults": {
             "ingredient-note": "100 g de farine",
@@ -31,7 +31,7 @@
             "ai-not-enabled": "Les services IA ne sont pas activés",
             "ai-request-failed": "Le fournisseur d'IA n'a pas pu répondre à la demande. Veuillez réessayer",
             "image-provider-not-enabled": "Les services d'images d'IA ne sont pas activés",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "invalid-mealie-export": "Cela ressemble à une recette exportée depuis Mealie, mais elle n'a pas pu être importée",
             "no-recipe-found": "Aucune recette n'a été trouvée dans la source fournie",
             "no-source": "Aucun contenu, image ou URL n'a été fourni",
             "provider-returned-nothing": "Le fournisseur d'IA n'a pas renvoyé de recette",
@@ -124,7 +124,10 @@
         "test-message-body": "This is a test notification from Mealie.",
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
-        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "année|années",
