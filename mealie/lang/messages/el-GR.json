@@ -124,7 +124,10 @@
         "test-message-body": "Αυτή είναι μια δοκιμαστική ειδοποίηση από το Mealie.",
         "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
         "mealplan-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
-        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}"
+        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
+        "mealplan-range-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}",
+        "mealplan-range-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}",
+        "mealplan-range-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}"
     },
     "datetime": {
         "year": "χρόνος | χρόνια",
