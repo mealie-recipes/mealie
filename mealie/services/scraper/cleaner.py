@@ -6,6 +6,7 @@ import numbers
 import re
 import typing
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 
 import isodate
 from slugify import slugify
@@ -19,6 +20,13 @@ logger = get_logger("recipe-scraper")
 
 NO_IMAGE = "no image"
 """Placeholder stored on a recipe that has no image. Not a URL, and must never be fetched."""
+
+
+CLOUDINARY_IMAGE_HOSTS = {"img.hellofresh.com"}
+""" Image hosts serving Cloudinary-style transformation URLs, e.g. `https://img.hellofresh.com/w_1200,h_640/a.jpg` """
+
+MATCH_CLOUDINARY_TRANSFORM = re.compile(r"^[a-z]+_[^,]+(,[a-z]+_[^,]+)*$")
+""" Matches a Cloudinary transformation path segment `f_auto,q_auto,w_1200,h_640` """
 
 
 MATCH_NUMBER = re.compile(r"\d+(?:\.\d+)?")
@@ -145,19 +153,46 @@ def clean_image(image: str | list | dict | None = None, default: str = NO_IMAGE)
 
     match image:
         case str(image):
-            return [image]
+            urls = [image]
         case [str(_), *_]:
             # Only return non-null strings in list
-            return [x for x in image if x]
+            urls = [x for x in image if x]
         case [{"url": str(_)}, *_]:
-            return [x["url"] for x in image if "url" in x]
+            urls = [x["url"] for x in image if "url" in x]
         case {"url": str(image)}:
-            return [image]
+            urls = [image]
         case [{"@id": str(_)}, *_]:
-            return [x["@id"] for x in image if "@id" in x]
+            urls = [x["@id"] for x in image if "@id" in x]
         case _:
             logger.exception(f"Unexpected type for image: {type(image)}, {image}")
             return [default]
+
+    return [clean_image_url(url) for url in urls]
+
+
+def clean_image_url(url: str) -> str:
+    """
+    Removes resizing from an image url that would distort the image.
+
+    Cloudinary scales an image to exactly the requested size when both a width and a height
+    are given without a crop mode, so e.g. a 3:2 photo requested as `w_1200,h_640` comes back
+    stretched. Dropping the height keeps the requested width and the original aspect ratio.
+    """
+    parsed = urlparse(url)
+    if parsed.hostname not in CLOUDINARY_IMAGE_HOSTS:
+        return url
+
+    segments = parsed.path.split("/")
+    for i, segment in enumerate(segments):
+        if not MATCH_CLOUDINARY_TRANSFORM.match(segment):
+            continue
+
+        params = segment.split(",")
+        keys = {param.split("_", 1)[0] for param in params}
+        if {"w", "h"} <= keys and "c" not in keys:
+            segments[i] = ",".join(param for param in params if not param.startswith("h_"))
+
+    return parsed._replace(path="/".join(segments)).geturl()
 
 
 def is_how_to_section(entry: typing.Any) -> bool:
