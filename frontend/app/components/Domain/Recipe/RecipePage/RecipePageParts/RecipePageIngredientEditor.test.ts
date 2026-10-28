@@ -48,12 +48,14 @@ function mountEditor(recipe = ref<Recipe>({
         },
         RecipeIngredientEditor: {
           props: ["modelValue"],
-          emits: ["ctrl-enter", "insert-above", "insert-below", "delete"],
+          emits: ["ctrl-enter", "insert-above", "insert-below", "delete", "move-up", "move-down"],
           template: `
             <div class="ingredient-row" :data-reference-id="modelValue.referenceId">
               <input class="quantity-input" :value="modelValue.quantity" />
               <button class="trigger-ctrl-enter" @click="$emit('ctrl-enter')">Ctrl+Enter</button>
               <button class="trigger-delete" @click="$emit('delete')">Delete</button>
+              <button class="trigger-move-up" @click="$emit('move-up')">Up</button>
+              <button class="trigger-move-down" @click="$emit('move-down')">Down</button>
             </div>
           `,
         },
@@ -143,5 +145,59 @@ describe("RecipePageIngredientEditor", () => {
     const prevRow = document.querySelector("[data-reference-id=\"ref-1\"]");
     const input = prevRow?.querySelector("input");
     expect(document.activeElement).toBe(input);
+  });
+
+  test("move-up on second ingredient moves it to index 0 and refocuses it", async () => {
+    const { wrapper, recipe } = mountEditor();
+
+    const secondRowUpButton = wrapper.findAll(".trigger-move-up")[1];
+    await secondRowUpButton.trigger("click");
+    await nextTick();
+
+    expect(recipe.value.recipeIngredient[0].referenceId).toBe("ref-2");
+    expect(recipe.value.recipeIngredient[1].referenceId).toBe("ref-1");
+
+    await nextTick();
+    const movedRow = document.querySelector("[data-reference-id=\"ref-2\"]");
+    const input = movedRow?.querySelector("input");
+    expect(document.activeElement).toBe(input);
+  });
+
+  test("move-up on first ingredient is a no-op", async () => {
+    const { wrapper, recipe } = mountEditor();
+
+    const firstRowUpButton = wrapper.findAll(".trigger-move-up")[0];
+    await firstRowUpButton.trigger("click");
+    await nextTick();
+
+    expect(recipe.value.recipeIngredient[0].referenceId).toBe("ref-1");
+    expect(recipe.value.recipeIngredient[1].referenceId).toBe("ref-2");
+  });
+
+  test("move-down on first ingredient moves it to index 1 and refocuses it", async () => {
+    const { wrapper, recipe } = mountEditor();
+
+    const firstRowDownButton = wrapper.findAll(".trigger-move-down")[0];
+    await firstRowDownButton.trigger("click");
+    await nextTick();
+
+    expect(recipe.value.recipeIngredient[0].referenceId).toBe("ref-2");
+    expect(recipe.value.recipeIngredient[1].referenceId).toBe("ref-1");
+
+    await nextTick();
+    const movedRow = document.querySelector("[data-reference-id=\"ref-1\"]");
+    const input = movedRow?.querySelector("input");
+    expect(document.activeElement).toBe(input);
+  });
+
+  test("move-down on last ingredient is a no-op", async () => {
+    const { wrapper, recipe } = mountEditor();
+
+    const secondRowDownButton = wrapper.findAll(".trigger-move-down")[1];
+    await secondRowDownButton.trigger("click");
+    await nextTick();
+
+    expect(recipe.value.recipeIngredient[0].referenceId).toBe("ref-1");
+    expect(recipe.value.recipeIngredient[1].referenceId).toBe("ref-2");
   });
 });

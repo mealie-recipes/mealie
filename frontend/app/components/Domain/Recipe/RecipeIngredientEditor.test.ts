@@ -259,4 +259,103 @@ describe("RecipeIngredientEditor", () => {
     expect(wrapper.emitted("delete")).toBeUndefined();
     expect(event.defaultPrevented).toBe(false);
   });
+
+  test("emits move-up when Ctrl+ArrowUp is pressed in any input", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const event = new KeyboardEvent("keydown", {
+      key: "ArrowUp",
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("move-up")).toHaveLength(1);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  test("emits move-up when Cmd+ArrowUp is pressed", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const event = new KeyboardEvent("keydown", {
+      key: "ArrowUp",
+      metaKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("move-up")).toHaveLength(1);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  test("emits move-down when Ctrl+ArrowDown is pressed in any input", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const event = new KeyboardEvent("keydown", {
+      key: "ArrowDown",
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("move-down")).toHaveLength(1);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  test("emits move-down when Cmd+ArrowDown is pressed", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const event = new KeyboardEvent("keydown", {
+      key: "ArrowDown",
+      metaKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("move-down")).toHaveLength(1);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  test("does not emit move-up or move-down on plain ArrowUp or ArrowDown", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const upEvent = new KeyboardEvent("keydown", {
+      key: "ArrowUp",
+      ctrlKey: false,
+      metaKey: false,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(upEvent);
+    await nextTick();
+
+    expect(wrapper.emitted("move-up")).toBeUndefined();
+    expect(upEvent.defaultPrevented).toBe(false);
+
+    const downEvent = new KeyboardEvent("keydown", {
+      key: "ArrowDown",
+      ctrlKey: false,
+      metaKey: false,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(downEvent);
+    await nextTick();
+
+    expect(wrapper.emitted("move-down")).toBeUndefined();
+    expect(downEvent.defaultPrevented).toBe(false);
+  });
 });

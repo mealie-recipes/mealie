@@ -27,7 +27,7 @@
           @end="drag = false"
         >
           <TransitionGroup type="transition">
-            <v-lazy v-for="(ingredient, index) in parsedIngs" :key="index">
+            <v-lazy v-for="(ingredient, index) in parsedIngs" :key="ingredient.ingredient.referenceId || index">
               <RecipeIngredientEditor
                 v-model="ingredient.ingredient"
                 enable-drag-handle
@@ -38,6 +38,8 @@
                 @insert-above="insertNewIngredient(index)"
                 @insert-below="insertNewIngredient(index + 1)"
                 @ctrl-enter="insertNewIngredient(index + 1, true)"
+                @move-up="moveIngredient(index, -1)"
+                @move-down="moveIngredient(index, 1)"
               >
                 <template #before-divider>
                   <p v-if="ingredient.input" class="py-0 my-0 text-caption">
@@ -75,6 +77,40 @@ const state = reactive({
 });
 
 const drag = ref(false);
+
+async function moveIngredient(index: number, direction: -1 | 1) {
+  const targetIndex = index + direction;
+  if (targetIndex < 0 || targetIndex >= parsedIngs.value.length) {
+    return;
+  }
+  const refId = parsedIngs.value[index]?.ingredient?.referenceId;
+  const currentActive = document.activeElement as HTMLElement | null;
+  const rootEl = refId ? document.querySelector(`[data-reference-id="${refId}"]`) : null;
+  const activeInputIndex = rootEl && currentActive && rootEl.contains(currentActive)
+    ? Array.from(rootEl.querySelectorAll("input, textarea")).indexOf(currentActive)
+    : -1;
+
+  const [item] = parsedIngs.value.splice(index, 1);
+  parsedIngs.value.splice(targetIndex, 0, item);
+
+  if (refId) {
+    await nextTick();
+    const newRootEl = document.querySelector(`[data-reference-id="${refId}"]`);
+    if (newRootEl) {
+      if (activeInputIndex >= 0) {
+        const inputs = Array.from(newRootEl.querySelectorAll("input, textarea")) as (HTMLInputElement | HTMLTextAreaElement)[];
+        if (inputs[activeInputIndex]) {
+          inputs[activeInputIndex].focus();
+          return;
+        }
+      }
+      if (document.activeElement === document.body || !newRootEl.contains(document.activeElement)) {
+        const fallbackInput = (newRootEl.querySelector(".quantity-input input") || newRootEl.querySelector("input")) as HTMLInputElement | null;
+        fallbackInput?.focus();
+      }
+    }
+  }
+}
 
 async function deleteIngredient(index: number) {
   const prevRefId = index > 0 ? parsedIngs.value[index - 1]?.ingredient?.referenceId : undefined;

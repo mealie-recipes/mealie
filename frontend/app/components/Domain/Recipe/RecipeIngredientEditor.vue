@@ -263,6 +263,8 @@ const emit = defineEmits([
   "insert-below",
   "delete",
   "ctrl-enter",
+  "move-up",
+  "move-down",
 ]);
 
 const i18n = useI18n();
@@ -494,6 +496,16 @@ function handleKeydown(e: KeyboardEvent) {
       e.stopPropagation();
       emit("delete");
     }
+  }
+  else if ((e.ctrlKey || e.metaKey) && (e.key === "ArrowUp" || e.key === "Up")) {
+    e.preventDefault();
+    e.stopPropagation();
+    emit("move-up");
+  }
+  else if ((e.ctrlKey || e.metaKey) && (e.key === "ArrowDown" || e.key === "Down")) {
+    e.preventDefault();
+    e.stopPropagation();
+    emit("move-down");
   }
 }
 
