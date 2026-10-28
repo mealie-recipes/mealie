@@ -125,9 +125,9 @@
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
         "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "Vnos v načrt obrokov, ustvarjen za obdobje od {date} do {end_date} za {entry_type}",
+        "mealplan-range-entry-updated": "Vnos v načrtu obrokov za obdobje od {date} do {end_date} za {entry_type} je posodobljen",
+        "mealplan-range-entry-deleted": "Vnos v načrtu obrokov za obdobje od {date} do {end_date} za {entry_type} je bil izbrisan"
     },
     "datetime": {
         "year": "leto|let",
