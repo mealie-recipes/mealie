@@ -50,7 +50,7 @@
         :is-recipe="ingredientIsRecipe(ingredient)"
         enable-drag-handle
         enable-context-menu
-        @delete="recipe.recipeIngredient.splice(index, 1)"
+        @delete="deleteIngredient(index)"
         @insert-above="insertNewIngredient(index)"
         @insert-below="insertNewIngredient(index + 1)"
         @ctrl-enter="insertNewIngredient(index + 1, true)"
@@ -231,6 +231,19 @@ function addRecipe(recipes: Array<string> | null = null) {
       referencedRecipe: undefined,
       quantity: 1,
     });
+  }
+}
+
+async function deleteIngredient(index: number) {
+  const prevRefId = index > 0 ? recipe.value.recipeIngredient[index - 1]?.referenceId : undefined;
+  recipe.value.recipeIngredient.splice(index, 1);
+
+  if (prevRefId) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-reference-id="${prevRefId}"]`);
+    const quantityEl = (rootEl?.querySelector(".quantity-input input") || rootEl?.querySelector("input")) as HTMLInputElement | null;
+    quantityEl?.focus();
+    quantityEl?.select?.();
   }
 }
 

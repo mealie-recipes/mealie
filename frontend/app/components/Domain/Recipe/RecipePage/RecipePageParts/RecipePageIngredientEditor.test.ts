@@ -128,4 +128,20 @@ describe("RecipePageIngredientEditor", () => {
     expect(recipe.value.recipeIngredient).toHaveLength(1);
     expect(recipe.value.recipeIngredient[0].referenceId).toBe("ref-2");
   });
+
+  test("delete event on non-first ingredient focuses the previous ingredient", async () => {
+    const { wrapper, recipe } = mountEditor();
+
+    const secondRowDeleteButton = wrapper.findAll(".trigger-delete")[1];
+    await secondRowDeleteButton.trigger("click");
+    await nextTick();
+
+    expect(recipe.value.recipeIngredient).toHaveLength(1);
+    expect(recipe.value.recipeIngredient[0].referenceId).toBe("ref-1");
+
+    await nextTick();
+    const prevRow = document.querySelector("[data-reference-id=\"ref-1\"]");
+    const input = prevRow?.querySelector("input");
+    expect(document.activeElement).toBe(input);
+  });
 });

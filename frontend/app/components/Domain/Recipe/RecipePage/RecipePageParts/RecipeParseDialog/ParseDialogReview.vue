@@ -34,7 +34,7 @@
                 enable-context-menu
                 :delete-disabled="parsedIngs.length <= 1"
                 class="mb-5"
-                @delete="parsedIngs.splice(index, 1)"
+                @delete="deleteIngredient(index)"
                 @insert-above="insertNewIngredient(index)"
                 @insert-below="insertNewIngredient(index + 1)"
                 @ctrl-enter="insertNewIngredient(index + 1, true)"
@@ -75,6 +75,19 @@ const state = reactive({
 });
 
 const drag = ref(false);
+
+async function deleteIngredient(index: number) {
+  const prevRefId = index > 0 ? parsedIngs.value[index - 1]?.ingredient?.referenceId : undefined;
+  parsedIngs.value.splice(index, 1);
+
+  if (prevRefId) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-reference-id="${prevRefId}"]`);
+    const quantityEl = (rootEl?.querySelector(".quantity-input input") || rootEl?.querySelector("input")) as HTMLInputElement | null;
+    quantityEl?.focus();
+    quantityEl?.select?.();
+  }
+}
 
 async function insertNewIngredient(index: number, focus = false) {
   const newRefId = uuid4();
