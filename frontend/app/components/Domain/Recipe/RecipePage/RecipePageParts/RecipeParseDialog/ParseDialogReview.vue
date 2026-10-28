@@ -37,6 +37,7 @@
                 @delete="parsedIngs.splice(index, 1)"
                 @insert-above="insertNewIngredient(index)"
                 @insert-below="insertNewIngredient(index + 1)"
+                @ctrl-enter="insertNewIngredient(index + 1, true)"
               >
                 <template #before-divider>
                   <p v-if="ingredient.input" class="py-0 my-0 text-caption">
@@ -75,16 +76,25 @@ const state = reactive({
 
 const drag = ref(false);
 
-function insertNewIngredient(index: number) {
+async function insertNewIngredient(index: number, focus = false) {
+  const newRefId = uuid4();
   const ing = {
     input: "",
     confidence: {},
     ingredient: {
       quantity: 0,
-      referenceId: uuid4(),
+      referenceId: newRefId,
     },
   } as ParsedIngredient;
 
   parsedIngs.value.splice(index, 0, ing);
+
+  if (focus) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-reference-id="${newRefId}"]`);
+    const quantityEl = (rootEl?.querySelector(".quantity-input input") || rootEl?.querySelector("input")) as HTMLInputElement | null;
+    quantityEl?.focus();
+    quantityEl?.select?.();
+  }
 }
 </script>

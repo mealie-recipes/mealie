@@ -53,6 +53,7 @@
         @delete="recipe.recipeIngredient.splice(index, 1)"
         @insert-above="insertNewIngredient(index)"
         @insert-below="insertNewIngredient(index + 1)"
+        @ctrl-enter="insertNewIngredient(index + 1, true)"
       />
     </VueDraggable>
     <v-skeleton-loader
@@ -233,9 +234,10 @@ function addRecipe(recipes: Array<string> | null = null) {
   }
 }
 
-function insertNewIngredient(dest: number) {
+async function insertNewIngredient(dest: number, focus = false) {
+  const newRefId = uuid4();
   recipe.value.recipeIngredient.splice(dest, 0, {
-    referenceId: uuid4(),
+    referenceId: newRefId,
     title: "",
     note: "",
     // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
@@ -244,6 +246,14 @@ function insertNewIngredient(dest: number) {
     food: undefined,
     quantity: 0,
   });
+
+  if (focus) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-reference-id="${newRefId}"]`);
+    const quantityEl = (rootEl?.querySelector(".quantity-input input") || rootEl?.querySelector("input")) as HTMLInputElement | null;
+    quantityEl?.focus();
+    quantityEl?.select?.();
+  }
 }
 </script>
 
