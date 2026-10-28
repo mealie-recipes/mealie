@@ -53,6 +53,7 @@ function mountEditor(recipe = ref<Recipe>({
             <div class="ingredient-row" :data-reference-id="modelValue.referenceId">
               <input class="quantity-input" :value="modelValue.quantity" />
               <button class="trigger-ctrl-enter" @click="$emit('ctrl-enter')">Ctrl+Enter</button>
+              <button class="trigger-delete" @click="$emit('delete')">Delete</button>
             </div>
           `,
         },
@@ -115,5 +116,16 @@ describe("RecipePageIngredientEditor", () => {
     const newRow = document.querySelector(`[data-reference-id="${insertedIngredient.referenceId}"]`);
     const input = newRow?.querySelector("input");
     expect(document.activeElement).toBe(input);
+  });
+
+  test("delete event removes the corresponding ingredient from the recipe", async () => {
+    const { wrapper, recipe } = mountEditor();
+
+    const firstRowDeleteButton = wrapper.findAll(".trigger-delete")[0];
+    await firstRowDeleteButton.trigger("click");
+    await nextTick();
+
+    expect(recipe.value.recipeIngredient).toHaveLength(1);
+    expect(recipe.value.recipeIngredient[0].referenceId).toBe("ref-2");
   });
 });

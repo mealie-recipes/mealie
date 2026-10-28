@@ -39,10 +39,14 @@ vi.mock("vue-router", () => ({
 
 const wrappers: VueWrapper[] = [];
 
-function mountEditor(modelValue: RecipeIngredient = { referenceId: "ref-1", quantity: 1 }) {
+function mountEditor(
+  modelValue: RecipeIngredient = { referenceId: "ref-1", quantity: 1 },
+  props: Record<string, unknown> = {},
+) {
   const wrapper = mount(RecipeIngredientEditor, {
     props: {
       modelValue,
+      ...props,
     },
     global: {
       mocks: {
@@ -182,5 +186,77 @@ describe("RecipeIngredientEditor", () => {
     wrapper.vm.focusQuantity();
 
     expect(focusSpy).toHaveBeenCalled();
+  });
+
+  test("emits delete when Ctrl+Delete is pressed in any input", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const event = new KeyboardEvent("keydown", {
+      key: "Delete",
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("delete")).toHaveLength(1);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  test("emits delete when Cmd+Delete (metaKey) is pressed", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const event = new KeyboardEvent("keydown", {
+      key: "Delete",
+      metaKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("delete")).toHaveLength(1);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  test("does not emit delete on plain Delete keydown", async () => {
+    const wrapper = mountEditor({ referenceId: "test-ref-123", quantity: 1 });
+    const input = wrapper.find("input");
+
+    const event = new KeyboardEvent("keydown", {
+      key: "Delete",
+      ctrlKey: false,
+      metaKey: false,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("delete")).toBeUndefined();
+    expect(event.defaultPrevented).toBe(false);
+  });
+
+  test("does not emit delete when deleteDisabled is true", async () => {
+    const wrapper = mountEditor(
+      { referenceId: "test-ref-123", quantity: 1 },
+      { deleteDisabled: true },
+    );
+
+    const input = wrapper.find("input");
+    const event = new KeyboardEvent("keydown", {
+      key: "Delete",
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    input.element.dispatchEvent(event);
+    await nextTick();
+
+    expect(wrapper.emitted("delete")).toBeUndefined();
+    expect(event.defaultPrevented).toBe(false);
   });
 });

@@ -488,6 +488,13 @@ function handleKeydown(e: KeyboardEvent) {
     e.stopPropagation();
     emit("ctrl-enter");
   }
+  else if ((e.ctrlKey || e.metaKey) && e.key === "Delete") {
+    if (!props.deleteDisabled) {
+      e.preventDefault();
+      e.stopPropagation();
+      emit("delete");
+    }
+  }
 }
 
 defineExpose({
