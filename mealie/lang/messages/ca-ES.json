@@ -125,9 +125,9 @@
         "mealplan-entry-created": "S'ha creat una entrada del menú per al {date} ({entry_type})",
         "mealplan-entry-updated": "S'ha actualitzat una entrada del menú del {date} ({entry_type})",
         "mealplan-entry-deleted": "S'ha suprimit una entrada del menú del {date} ({entry_type})",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "S'ha creat una entrada del menú del {date} al {end_date} ({entry_type})",
+        "mealplan-range-entry-updated": "S'ha actualitzat una entrada del menú del {date} al {end_date} ({entry_type})",
+        "mealplan-range-entry-deleted": "S'ha suprimit una entrada del menú del {date} al {end_date} ({entry_type})"
     },
     "datetime": {
         "year": "any|anys",
