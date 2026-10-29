@@ -15,7 +15,7 @@
         "recipe-image-deleted": "Slika recepta obrisana",
         "recipe-defaults": {
             "ingredient-note": "1 šalica brašna",
-            "name": "New Recipe",
+            "name": "Novi recept",
             "step-text": "Koraci u receptu, kao i druga polja u receptu podržavaju markdown.\n\n**Dodaj poveznicu**\n\n[Poveznica](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -58,12 +58,12 @@
         "no-recipes-match-your-rules": "Nema recepata koji odgovaraju vašim pravilima",
         "entry-type": {
             "breakfast": "breakfast",
-            "lunch": "lunch",
-            "dinner": "dinner",
-            "side": "side",
-            "snack": "snack",
-            "drink": "drink",
-            "dessert": "dessert"
+            "lunch": "ručak",
+            "dinner": "večera",
+            "side": "prilog",
+            "snack": "grickalica",
+            "drink": "piće",
+            "dessert": "desert"
         }
     },
     "user": {

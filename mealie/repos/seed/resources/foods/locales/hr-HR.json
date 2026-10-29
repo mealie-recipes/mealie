@@ -8,7 +8,7 @@
       },
       "onion": {
         "name": "luk",
-        "plural_name": "onions"
+        "plural_name": "luka"
       },
       "bell pepper": {
         "name": "paprika",
@@ -19,8 +19,8 @@
         "plural_name": "mrkve"
       },
       "scallion": {
-        "name": "scallion",
-        "plural_name": "scallions"
+        "name": "mladi luk",
+        "plural_name": "mladog luka"
       },
       "zucchini": {
         "name": "tikvica",
@@ -31,12 +31,12 @@
         "plural_name": "krumpiri"
       },
       "red onion": {
-        "name": "red onion",
-        "plural_name": "red onions"
+        "name": "crveni luk",
+        "plural_name": "crvenog luka"
       },
       "yellow onion": {
-        "name": "yellow onion",
-        "plural_name": "yellow onions"
+        "name": "žuti luk",
+        "plural_name": "žutog luka"
       },
       "celery": {
         "name": "celer",
@@ -48,7 +48,7 @@
       },
       "avocado": {
         "name": "avokado",
-        "plural_name": "avocados"
+        "plural_name": "avokada"
       },
       "shallot": {
         "name": "shallot",
