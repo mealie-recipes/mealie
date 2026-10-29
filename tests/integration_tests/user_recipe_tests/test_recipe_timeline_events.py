@@ -478,3 +478,90 @@ def test_invalid_recipe_id(
 
     event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=user.token)
     assert event_response.status_code == 404
+
+
+def _create_owned_event(api_client: TestClient, owner: TestUser, recipe: Recipe) -> RecipeTimelineEventOut:
+    response = api_client.post(
+        api_routes.recipes_timeline_events,
+        json={"recipe_id": str(recipe.id), "subject": random_string(), "event_type": "info"},
+        headers=owner.token,
+    )
+    assert response.status_code == 201
+    return RecipeTimelineEventOut.model_validate(response.json())
+
+
+def test_create_timeline_event_ignores_forged_user_id(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, recipes: list[Recipe]
+):
+    response = api_client.post(
+        api_routes.recipes_timeline_events,
+        json={
+            "recipe_id": str(recipes[0].id),
+            "user_id": str(unique_user.user_id),
+            "subject": random_string(),
+            "event_type": "info",
+        },
+        headers=h2_user.token,
+    )
+    assert response.status_code == 201
+    assert str(RecipeTimelineEventOut.model_validate(response.json()).user_id) == str(h2_user.user_id)
+
+
+@pytest.mark.parametrize("other_user_fixture", ["h2_user", "unprivileged_user"])
+def test_non_author_cannot_modify_timeline_event(
+    request: pytest.FixtureRequest,
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipes: list[Recipe],
+    test_image_jpg: str,
+    other_user_fixture: str,
+):
+    other_user: TestUser = request.getfixturevalue(other_user_fixture)
+    event = _create_owned_event(api_client, unique_user, recipes[0])
+    item_url = api_routes.recipes_timeline_events_item_id(event.id)
+
+    response = api_client.put(item_url, json={"subject": random_string()}, headers=other_user.token)
+    assert response.status_code == 403
+
+    with open(test_image_jpg, "rb") as f:
+        response = api_client.put(
+            api_routes.recipes_timeline_events_item_id_image(event.id),
+            files={"image": ("test_image_jpg.jpg", f, "image/jpeg")},
+            data={"extension": "jpg"},
+            headers=other_user.token,
+        )
+    assert response.status_code == 403
+    assert not any(event.image_dir.rglob("*.*"))
+
+    response = api_client.delete(item_url, headers=other_user.token)
+    assert response.status_code == 403
+
+    response = api_client.get(item_url, headers=unique_user.token)
+    assert response.status_code == 200
+    unchanged = RecipeTimelineEventOut.model_validate(response.json())
+    assert unchanged.subject == event.subject
+    assert unchanged.image == TimelineEventImage.does_not_have_image.value
+
+
+def test_other_group_user_cannot_see_timeline_event(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser, recipes: list[Recipe]
+):
+    event = _create_owned_event(api_client, unique_user, recipes[0])
+    item_url = api_routes.recipes_timeline_events_item_id(event.id)
+
+    assert api_client.put(item_url, json={"subject": random_string()}, headers=g2_user.token).status_code == 404
+    assert api_client.delete(item_url, headers=g2_user.token).status_code == 404
+
+
+def test_admin_can_modify_and_delete_other_users_timeline_event(
+    api_client: TestClient, unique_user: TestUser, unique_admin: TestUser, recipes: list[Recipe]
+):
+    event = _create_owned_event(api_client, unique_user, recipes[0])
+    item_url = api_routes.recipes_timeline_events_item_id(event.id)
+
+    new_subject = random_string()
+    response = api_client.put(item_url, json={"subject": new_subject}, headers=unique_admin.token)
+    assert response.status_code == 200
+    assert response.json()["subject"] == new_subject
+
+    assert api_client.delete(item_url, headers=unique_admin.token).status_code == 200
