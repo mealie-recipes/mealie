@@ -34,17 +34,24 @@ class RecipeBulkActionsController(BaseUserController):
     def recipe_service(self) -> RecipeService:
         return RecipeService(self.repos, self.user, self.household, self.translator)
 
+    def _require_can_update(self, slugs: list[str]) -> None:
+        if not self.recipe_service.can_update(slugs):
+            raise forbidden("You do not have permission to edit all of these recipes.")
+
     # TODO Should these actions return some success response?
     @router.post("/tag")
     def bulk_tag_recipes(self, tag_data: AssignTags):
+        self._require_can_update(tag_data.recipes)
         self.service.assign_tags(tag_data.recipes, tag_data.tags)
 
     @router.post("/settings")
     def bulk_settings_recipes(self, settings_data: AssignSettings):
+        self._require_can_update(settings_data.recipes)
         self.service.set_settings(settings_data.recipes, settings_data.settings)
 
     @router.post("/categorize")
     def bulk_categorize_recipes(self, assign_cats: AssignCategories):
+        self._require_can_update(assign_cats.recipes)
         self.service.assign_categories(assign_cats.recipes, assign_cats.categories)
 
     @router.post("/delete")
