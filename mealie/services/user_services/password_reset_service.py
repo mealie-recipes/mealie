@@ -54,21 +54,18 @@ class PasswordResetService(BaseService):
         lifetime = timedelta(hours=self.settings.PASSWORD_RESET_TOKEN_TIME)
         return datetime.now(UTC) - created_at > lifetime
 
-    def send_reset_email(self, email: str, accept_language: str | None = None):
-        token_entry = self.generate_reset_token(email)
-
-        if token_entry is None:
-            return None
-
-        # Send Email
-        email_servive = EmailService(locale=accept_language)
-        reset_url = f"{self.settings.BASE_URL}/reset-password/?token={token_entry.token}"
-
+    def send_reset_email(self, email: str, accept_language: str | None = None) -> None:
+        """Never raises: callers run this in the background and must not leak account existence."""
         try:
-            email_servive.send_forgot_password(email, reset_url)
-        except Exception as e:
-            self.logger.error(f"failed to send reset email: {e}")
-            raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, "Failed to send reset email") from e
+            token_entry = self.generate_reset_token(email)
+            if token_entry is None:
+                return
+
+            email_service = EmailService(locale=accept_language)
+            reset_url = f"{self.settings.BASE_URL}/reset-password/?token={token_entry.token}"
+            email_service.send_forgot_password(email, reset_url)
+        except Exception:
+            self.logger.exception("failed to send password reset email")
 
     def reset_password(self, token: str, new_password: str):
         # Validate Token
