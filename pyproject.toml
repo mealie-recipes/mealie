@@ -11,7 +11,7 @@ dependencies = [
     "PyYAML==6.0.3",
     "SQLAlchemy==2.1.6",
     "alembic==1.20.1",
-    "apprise==2.0.1",
+    "apprise==2.1.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
     "fastapi==0.156.4",
