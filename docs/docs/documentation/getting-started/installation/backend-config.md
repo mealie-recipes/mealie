@@ -12,6 +12,7 @@
 | DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                                                                           |
 | BASE_URL                      | http://localhost:8080 | Used for notifications and the OIDC callback url                                                                                                        |
 | TOKEN_TIME                    |          48           | The time in hours a login session lasts. Must be <= 9600 (400 days, in hours).                                                                          |
+| PASSWORD_RESET_TOKEN_TIME     |           1           | The time in hours a password reset link stays valid. Issuing a new link invalidates earlier ones.                                                       |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
 | API_HOST                      |       *(empty)*       | Listening address. Empty binds IPv4 and IPv6 automatically. An explicit address is used unchanged. See below.                                          |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |

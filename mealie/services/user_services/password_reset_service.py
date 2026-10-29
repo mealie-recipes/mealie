@@ -1,7 +1,12 @@
+from datetime import UTC, datetime, timedelta
+
 from fastapi import HTTPException, status
+from pydantic import UUID4
+from sqlalchemy import delete, select
 from sqlalchemy.orm.session import Session
 
 from mealie.core.security import hash_password, url_safe_token
+from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user_passwords import SavePasswordResetToken
@@ -25,12 +30,29 @@ class PasswordResetService(BaseService):
             self.logger.error(f"failed to create password reset for {email=}: user controlled by LDAP")
             return None
 
+        self._delete_user_tokens(user.id)
+
         # Create Reset Token
         token = url_safe_token()
 
         save_token = SavePasswordResetToken(user_id=user.id, token=token)
 
         return self.db.tokens_pw_reset.create(save_token)
+
+    def _delete_user_tokens(self, user_id: UUID4) -> None:
+        self.db.session.execute(delete(PasswordResetModel).where(PasswordResetModel.user_id == user_id))
+        self.db.session.commit()
+
+    def _is_expired(self, token: str) -> bool:
+        created_at = self.db.session.execute(
+            select(PasswordResetModel.created_at).where(PasswordResetModel.token == token)
+        ).scalar_one_or_none()
+
+        if created_at is None:
+            return True
+
+        lifetime = timedelta(hours=self.settings.PASSWORD_RESET_TOKEN_TIME)
+        return datetime.now(UTC) - created_at > lifetime
 
     def send_reset_email(self, email: str, accept_language: str | None = None):
         token_entry = self.generate_reset_token(email)
@@ -52,7 +74,7 @@ class PasswordResetService(BaseService):
         # Validate Token
         token_entry = self.db.tokens_pw_reset.get_one(token, "token")
 
-        if token_entry is None:
+        if token_entry is None or self._is_expired(token_entry.token):
             self.logger.error("failed to reset password: invalid token")
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid token")
 
@@ -66,5 +88,4 @@ class PasswordResetService(BaseService):
             self.logger.error("failed to reset password: invalid password")
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid password")
 
-        # Delete Token from DB
-        self.db.tokens_pw_reset.delete(token_entry.token)
+        self._delete_user_tokens(user.id)
