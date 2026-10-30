@@ -17,6 +17,8 @@ from mealie.services._base_service import BaseService
 from mealie.services.urls.url_constructors import recipe_url
 
 EVENT_DURATION = timedelta(hours=1)
+REFRESH_INTERVAL = "PT1H"
+"""How often calendar apps should poll the feed (ISO 8601 duration); only a hint, some apps (e.g. Google) ignore it"""
 FEED_HISTORY_DAYS = 90
 """How many days of past entries the feed includes; future entries are always included"""
 SUMMARY_TEMPLATE = "${type}: ${title}"
@@ -175,8 +177,13 @@ class MealPlanICalService(BaseService):
             "PRODID:-//Mealie//Meal Plan//EN",
             "CALSCALE:GREGORIAN",
             "METHOD:PUBLISH",
+            f"NAME:{_escape_text(calendar_name)}",
             f"X-WR-CALNAME:{_escape_text(calendar_name)}",
+            f"REFRESH-INTERVAL;VALUE=DURATION:{REFRESH_INTERVAL}",
+            f"X-PUBLISHED-TTL:{REFRESH_INTERVAL}",
         ]
+        if query.tz:
+            lines.append(f"X-WR-TIMEZONE:{query.tz}")
         for entry in entries:
             lines.extend(self._event_lines(entry, query, tz, group_slug, now))
         lines.append("END:VCALENDAR")
@@ -243,6 +250,10 @@ class MealPlanICalService(BaseService):
             lines.append(f"DTEND;VALUE=DATE:{_format_date(last_day + timedelta(days=1))}")
 
         lines.append(f"SUMMARY:{_escape_text(summary)}")
+        categories = [fields["type"]]
+        if entry.recipe:
+            categories.extend(category.name for category in entry.recipe.recipe_category or [])
+        lines.append(f"CATEGORIES:{','.join(_escape_text(category) for category in categories)}")
         if description:
             lines.append(f"DESCRIPTION:{_escape_text(description)}")
         if url:
