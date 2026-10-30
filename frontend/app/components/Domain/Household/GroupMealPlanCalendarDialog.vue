@@ -151,6 +151,7 @@
 <script setup lang="ts">
 import { whenever } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
@@ -162,6 +163,7 @@ const SUMMARY_TEMPLATE = "${type}: ${title}";
 const DESCRIPTION_TEMPLATE = "${text}\n\n${url}";
 
 const api = useUserApi();
+const i18n = useGlobalI18n();
 const auth = useMealieAuth();
 const canManage = computed(() => !!auth.user.value?.canManageHousehold);
 const planTypeOptions = usePlanTypeOptions();
@@ -185,7 +187,7 @@ const feedUrl = computed(() => {
     return "";
   }
 
-  const params = new URLSearchParams();
+  const params = new URLSearchParams({ lang: i18n.locale.value });
   if (selectedTypes.value.length && selectedTypes.value.length < planTypeOptions.length) {
     selectedTypes.value.forEach(type => params.append("types", type));
   }

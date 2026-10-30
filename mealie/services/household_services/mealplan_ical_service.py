@@ -36,6 +36,8 @@ class MealPlanICalQuery(MealieModel):
     """Include entries that have no recipe attached"""
     tz: str | None = None
     """IANA timezone used for timed events, e.g. `Europe/Berlin`; defaults to the server timezone"""
+    lang: str | None = None
+    """Locale of translated text, e.g. `de-DE`; needed since calendar apps don't send the user's language"""
     duration: int = Field(EVENT_DURATION_MINUTES, ge=1, le=24 * 60)
     """Length of timed events, in minutes"""
     summary: str = Field(SUMMARY_TEMPLATE, max_length=TEMPLATE_MAX_LENGTH)

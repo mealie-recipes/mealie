@@ -148,6 +148,16 @@ def test_ical_feed_templates(api_client: TestClient, unique_user_fn_scoped: Test
     assert get_feed(api_client, token, {"summary": "x" * 501}).status_code == 422
 
 
+def test_ical_feed_lang(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    create_entry(api_client, user, date=JULY_1, entry_type="dinner", title=random_string())
+    token = enable_feed(api_client, user)
+
+    assert "SUMMARY:Essen: " in unfold(get_feed(api_client, token, {"lang": "de-DE"}).text)
+    # unknown locales fall back to English
+    assert "SUMMARY:Dinner: " in unfold(get_feed(api_client, token, {"lang": "xx-XX"}).text)
+
+
 def test_ical_feed_date_range_entry(api_client: TestClient, unique_user_fn_scoped: TestUser):
     user = unique_user_fn_scoped
     end_date = JULY_1 + timedelta(days=6)
