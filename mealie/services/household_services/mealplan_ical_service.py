@@ -22,7 +22,7 @@ REFRESH_INTERVAL = "PT1H"
 FEED_HISTORY_DAYS = 90
 """How many days of past entries the feed includes; future entries are always included"""
 SUMMARY_TEMPLATE = "${type}: ${title}"
-DESCRIPTION_TEMPLATE = "${text}\n\n${url}"
+DESCRIPTION_TEMPLATE = "${note}\n\n${url}"
 TEMPLATE_MAX_LENGTH = 500
 MERGE_FIELD = re.compile(r"\$\{(\w+)\}")
 
@@ -199,7 +199,7 @@ class MealPlanICalService(BaseService):
         fields = {
             "type": entry_type[:1].upper() + entry_type[1:],
             "title": entry.title,
-            "text": entry.text,
+            "note": entry.text,
             "url": url or "",
         }
 

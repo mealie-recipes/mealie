@@ -48,15 +48,15 @@ def test_fold_does_not_split_multibyte_characters():
 
 
 def test_render_template():
-    fields = {"type": "Dinner", "title": "Pasta", "text": ""}
+    fields = {"type": "Dinner", "title": "Pasta", "note": ""}
     assert _render_template("${type}: ${title} (${title})", fields) == "Dinner: Pasta (Pasta)"
     assert _render_template("${unknown}${title}", fields) == "Pasta"
     assert _render_template("${title}", {"title": "${type}"}) == "${type}"
 
 
 def test_render_template_collapses_empty_fields():
-    assert _render_template("${text}\n\n${url}", {"text": "", "url": "https://example.com"}) == "https://example.com"
-    assert _render_template("a\n\n${text}\n\nb", {"text": ""}) == "a\n\nb"
+    assert _render_template("${note}\n\n${url}", {"note": "", "url": "https://example.com"}) == "https://example.com"
+    assert _render_template("a\n\n${note}\n\nb", {"note": ""}) == "a\n\nb"
 
 
 def test_last_modified_uses_latest_of_entry_and_recipe():

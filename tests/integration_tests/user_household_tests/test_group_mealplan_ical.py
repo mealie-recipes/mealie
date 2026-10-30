@@ -137,7 +137,7 @@ def test_ical_feed_templates(api_client: TestClient, unique_user_fn_scoped: Test
     note = create_entry(api_client, user, date=JULY_2, entry_type="lunch", title=random_string(), text="note text")
     token = enable_feed(api_client, user)
 
-    params = {"summary": "${title} (${servings})", "description": "${totalTime}\n${slug}\n${missing}${text}"}
+    params = {"summary": "${title} (${servings})", "description": "${totalTime}\n${slug}\n${missing}${note}"}
     feed = unfold(get_feed(api_client, token, params).text)
     assert f"SUMMARY:{recipe.name} (6)\r\n" in feed
     assert f"DESCRIPTION:1 hour\\n{recipe.slug}\r\n" in feed

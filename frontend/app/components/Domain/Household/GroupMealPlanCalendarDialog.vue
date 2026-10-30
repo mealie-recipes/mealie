@@ -160,7 +160,7 @@ const dialog = defineModel<boolean>({ default: false });
 // must match the feed's defaults (mealplan_ical_service.py)
 const EVENT_DURATION_MINUTES = 60;
 const SUMMARY_TEMPLATE = "${type}: ${title}";
-const DESCRIPTION_TEMPLATE = "${text}\n\n${url}";
+const DESCRIPTION_TEMPLATE = "${note}\n\n${url}";
 
 const api = useUserApi();
 const i18n = useGlobalI18n();

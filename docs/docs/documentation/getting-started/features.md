@@ -101,7 +101,7 @@ You can subscribe to your household's meal plan from any calendar app that suppo
 
 - ${type}
 - ${title}
-- ${text}
+- ${note}
 - ${url}
 - ${id}
 - ${slug}
