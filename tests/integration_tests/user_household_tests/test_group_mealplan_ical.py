@@ -82,6 +82,7 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
     assert "SUMMARY:Lunch: Leftovers\\, again\\; sorry\r\n" in feed
     assert "CATEGORIES:Dinner,Pasta\\, Italian\r\n" in feed
     assert "CATEGORIES:Lunch\r\n" in feed
+    assert feed.count("LAST-MODIFIED:") == 2
 
     assert "REFRESH-INTERVAL;VALUE=DURATION:PT1H\r\n" in feed
     assert "X-PUBLISHED-TTL:PT1H\r\n" in feed

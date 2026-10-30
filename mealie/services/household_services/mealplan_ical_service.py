@@ -241,6 +241,14 @@ class MealPlanICalService(BaseService):
             f"DTSTAMP:{_format_utc(now)}",
         ]
 
+        # editing the recipe (e.g. renaming it) changes the event too
+        updates = [entry.updated_at, entry.recipe.updated_at if entry.recipe else None]
+        last_modified = max((update for update in updates if update), default=None)
+        if last_modified:
+            lines.append(f"LAST-MODIFIED:{_format_utc(last_modified)}")
+            # there's no revision counter, so the modified time doubles as an ever-increasing sequence number
+            lines.append(f"SEQUENCE:{int(last_modified.timestamp())}")
+
         # date range entries (e.g. a week) aren't on a specific day, so they're always all-day events spanning the range
         start_time = None if entry.end_date else query.time_for(entry.entry_type)
         if start_time:
