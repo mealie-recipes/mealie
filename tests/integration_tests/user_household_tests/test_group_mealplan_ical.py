@@ -7,6 +7,7 @@ from mealie.core.config import get_app_settings
 from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_category import CategorySave
 from mealie.services.household_services.mealplan_ical_service import FEED_HISTORY_DAYS
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -51,7 +52,10 @@ def test_ical_feed_disabled_by_default(api_client: TestClient, unique_user_fn_sc
 
 def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_user: TestUser):
     user = unique_user_fn_scoped
-    recipe = user.repos.recipes.create(Recipe(user_id=user.user_id, group_id=UUID(user.group_id), name=random_string()))
+    category = user.repos.categories.create(CategorySave(group_id=UUID(user.group_id), name="Pasta, Italian"))
+    recipe = user.repos.recipes.create(
+        Recipe(user_id=user.user_id, group_id=UUID(user.group_id), name=random_string(), recipe_category=[category])
+    )
     group = user.repos.groups.get_one(UUID(user.group_id))
     assert group
 
@@ -76,6 +80,13 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
     assert f"URL:{base_url}/g/{group.slug}/r/{recipe.slug}\r\n" in feed
     assert f"DTSTART;VALUE=DATE:{JULY_1:%Y%m%d}\r\nDTEND;VALUE=DATE:{JULY_2:%Y%m%d}\r\n" in feed
     assert "SUMMARY:Lunch: Leftovers\\, again\\; sorry\r\n" in feed
+    assert "CATEGORIES:Dinner,Pasta\\, Italian\r\n" in feed
+    assert "CATEGORIES:Lunch\r\n" in feed
+    assert feed.count("LAST-MODIFIED:") == 2
+
+    assert "REFRESH-INTERVAL;VALUE=DURATION:PT1H\r\n" in feed
+    assert "X-PUBLISHED-TTL:PT1H\r\n" in feed
+    assert "X-WR-TIMEZONE" not in feed
 
     # meals from other households are never included
     assert other["title"] not in feed
@@ -101,9 +112,51 @@ def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scop
     feed = unfold(get_feed(api_client, token, {"tz": "Europe/Berlin", "dinner": "18:30"}).text)
     assert f"DTSTART:{JULY_1:%Y%m%d}T163000Z\r\nDTEND:{JULY_1:%Y%m%d}T173000Z\r\n" in feed
     assert f"DTSTART;VALUE=DATE:{JULY_1:%Y%m%d}\r\n" in feed
+    assert "X-WR-TIMEZONE:Europe/Berlin\r\n" in feed
+
+    feed = unfold(get_feed(api_client, token, {"tz": "Europe/Berlin", "dinner": "18:30", "duration": 90}).text)
+    assert f"DTSTART:{JULY_1:%Y%m%d}T163000Z\r\nDTEND:{JULY_1:%Y%m%d}T180000Z\r\n" in feed
+    assert get_feed(api_client, token, {"duration": 0}).status_code == 422
 
     assert get_feed(api_client, token, {"tz": "Not/AZone"}).status_code == 422
     assert get_feed(api_client, token, {"types": ["brunch"]}).status_code == 422
+
+
+def test_ical_feed_templates(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    recipe = user.repos.recipes.create(
+        Recipe(
+            user_id=user.user_id,
+            group_id=UUID(user.group_id),
+            name=random_string(),
+            recipe_servings=4,
+            total_time="1 hour",
+        )
+    )
+    create_entry(api_client, user, date=JULY_1, entry_type="dinner", recipe_id=recipe.id, recipe_scale=1.5)
+    note = create_entry(api_client, user, date=JULY_2, entry_type="lunch", title=random_string(), text="note text")
+    token = enable_feed(api_client, user)
+
+    params = {"summary": "${title} (${servings})", "description": "${totalTime}\n${slug}\n${missing}${note}"}
+    feed = unfold(get_feed(api_client, token, params).text)
+    assert f"SUMMARY:{recipe.name} (6)\r\n" in feed
+    assert f"DESCRIPTION:1 hour\\n{recipe.slug}\r\n" in feed
+
+    # recipe fields are empty for notes
+    assert f"SUMMARY:{note['title']} ()\r\n" in feed
+    assert "DESCRIPTION:note text\r\n" in feed
+
+    assert get_feed(api_client, token, {"summary": "x" * 501}).status_code == 422
+
+
+def test_ical_feed_lang(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    create_entry(api_client, user, date=JULY_1, entry_type="dinner", title=random_string())
+    token = enable_feed(api_client, user)
+
+    assert "SUMMARY:Essen: " in unfold(get_feed(api_client, token, {"lang": "de-DE"}).text)
+    # unknown locales fall back to English
+    assert "SUMMARY:Dinner: " in unfold(get_feed(api_client, token, {"lang": "xx-XX"}).text)
 
 
 def test_ical_feed_date_range_entry(api_client: TestClient, unique_user_fn_scoped: TestUser):

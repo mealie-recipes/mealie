@@ -95,6 +95,29 @@ The meal planner has the concept of plan rules. These offer a flexible way to us
 
 [Planner Settings Demo](https://demo.mealie.io/household/mealplan/settings){ .md-button .md-button--primary }
 
+### Calendar Feed
+
+You can subscribe to your household's meal plan from any calendar app that supports iCal links. The event title and description can be customized using merge fields, which are replaced with each meal's details, similar to [Recipe Actions](#recipe-actions):
+
+- ${type}
+- ${title}
+- ${note}
+- ${url}
+- ${id}
+- ${slug}
+- ${servings}
+- ${yieldQuantity}
+- ${yieldText}
+- ${description}
+- ${totalTime}
+- ${prepTime}
+- ${cookTime}
+- ${tags}
+- ${categories}
+- ${tools}
+
+Recipe fields are left empty for note entries.
+
 ## Shopping Lists
 
 The shopping lists feature is a great way to keep track of what you need to buy for your next meal. You can add items directly to the shopping list or link a recipe and all of it's ingredients to track meals during the week.
