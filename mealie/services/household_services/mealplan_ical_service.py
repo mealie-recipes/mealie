@@ -1,9 +1,10 @@
+import re
 from collections.abc import Iterable
 from datetime import UTC, date, datetime, time, timedelta, tzinfo
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from dateutil.tz import tzlocal
-from pydantic import field_validator
+from pydantic import Field, field_validator
 from sqlalchemy.orm import Session
 
 from mealie.lang.providers import Translator
@@ -18,6 +19,10 @@ from mealie.services.urls.url_constructors import recipe_url
 EVENT_DURATION = timedelta(hours=1)
 FEED_HISTORY_DAYS = 90
 """How many days of past entries the feed includes; future entries are always included"""
+SUMMARY_TEMPLATE = "${type}: ${title}"
+DESCRIPTION_TEMPLATE = "${text}\n\n${url}"
+TEMPLATE_MAX_LENGTH = 500
+MERGE_FIELD = re.compile(r"\$\{(\w+)\}")
 
 
 class MealPlanICalQuery(MealieModel):
@@ -29,6 +34,10 @@ class MealPlanICalQuery(MealieModel):
     """Include entries that have no recipe attached"""
     tz: str | None = None
     """IANA timezone used for timed events, e.g. `Europe/Berlin`; defaults to the server timezone"""
+    summary: str = Field(SUMMARY_TEMPLATE, max_length=TEMPLATE_MAX_LENGTH)
+    """Event title; `${field}` merge fields are replaced with the entry's values"""
+    description: str = Field(DESCRIPTION_TEMPLATE, max_length=TEMPLATE_MAX_LENGTH)
+    """Event description; `${field}` merge fields are replaced with the entry's values"""
 
     # Event start time per meal type; types without a time are published as all-day events
     breakfast: time | None = None
@@ -64,6 +73,17 @@ def _escape_text(value: str) -> str:
         .replace("\r", "\\n")
         .replace("\n", "\\n")
     )
+
+
+def _render_template(template: str, fields: dict[str, str]) -> str:
+    """Replaces `${field}` merge fields (same syntax as recipe actions) with their values; missing fields are empty"""
+    rendered = MERGE_FIELD.sub(lambda match: fields.get(match.group(1), ""), template)
+    # empty fields would otherwise leave stray blank lines behind
+    return re.sub(r"\n{3,}", "\n\n", rendered).strip()
+
+
+def _format_number(value: float) -> str:
+    return f"{value:g}"
 
 
 def _fold(line: str) -> str:
@@ -162,14 +182,46 @@ class MealPlanICalService(BaseService):
         lines.append("END:VCALENDAR")
         return "".join(_fold(line) + "\r\n" for line in lines)
 
+    def _merge_fields(self, entry: ReadPlanEntry, url: str | None) -> dict[str, str]:
+        entry_type = self.translator.t(f"mealplan.entry-type.{entry.entry_type.value}", default=entry.entry_type.value)
+        fields = {
+            "type": entry_type[:1].upper() + entry_type[1:],
+            "title": entry.title,
+            "text": entry.text,
+            "url": url or "",
+        }
+
+        recipe = entry.recipe
+        if not recipe:
+            return fields
+
+        # servings and yield match recipe actions, which treat a missing value as 1
+        fields.update(
+            {
+                "title": recipe.name or "",
+                "id": str(recipe.id) if recipe.id else "",
+                "slug": recipe.slug,
+                "servings": _format_number((recipe.recipe_servings or 1) * entry.recipe_scale),
+                "yieldQuantity": _format_number((recipe.recipe_yield_quantity or 1) * entry.recipe_scale),
+                "yieldText": recipe.recipe_yield or "",
+                "description": recipe.description or "",
+                "totalTime": recipe.total_time or "",
+                "prepTime": recipe.prep_time or "",
+                "cookTime": recipe.cook_time or "",
+                "tags": ", ".join(tag.name for tag in recipe.tags or []),
+                "categories": ", ".join(category.name for category in recipe.recipe_category or []),
+                "tools": ", ".join(tool.name for tool in recipe.tools),
+            }
+        )
+        return fields
+
     def _event_lines(
         self, entry: ReadPlanEntry, query: MealPlanICalQuery, tz: tzinfo, group_slug: str, now: datetime
     ) -> list[str]:
-        entry_type = self.translator.t(f"mealplan.entry-type.{entry.entry_type.value}", default=entry.entry_type.value)
-        entry_type = entry_type[:1].upper() + entry_type[1:]
-        title = entry.recipe.name if entry.recipe else entry.title
         url = recipe_url(group_slug, entry.recipe.slug, self.settings.BASE_URL) if entry.recipe else None
-        description = "\n\n".join(part for part in [entry.text, url] if part)
+        fields = self._merge_fields(entry, url)
+        summary = _render_template(query.summary, fields)
+        description = _render_template(query.description, fields)
 
         lines = [
             "BEGIN:VEVENT",
@@ -189,7 +241,7 @@ class MealPlanICalService(BaseService):
             lines.append(f"DTSTART;VALUE=DATE:{_format_date(entry.date)}")
             lines.append(f"DTEND;VALUE=DATE:{_format_date(last_day + timedelta(days=1))}")
 
-        lines.append(f"SUMMARY:{_escape_text(f'{entry_type}: {title}')}")
+        lines.append(f"SUMMARY:{_escape_text(summary)}")
         if description:
             lines.append(f"DESCRIPTION:{_escape_text(description)}")
         if url:
