@@ -44,7 +44,7 @@
       },
       "jalapeño": {
         "name": "חלפיניו",
-        "plural_name": "jalapeños"
+        "plural_name": "חלפיניו"
       },
       "avocado": {
         "name": "אבוקדו",
@@ -127,7 +127,7 @@
         "plural_name": "דלוריות"
       },
       "romaine lettuce": {
-        "name": "romaine lettuce",
+        "name": "חסה רומית",
         "plural_name": ""
       },
       "beetroot": {
@@ -136,7 +136,7 @@
       },
       "brussels sprout": {
         "name": "כרוב ניצנים",
-        "plural_name": "brussels sprouts"
+        "plural_name": "כרוב ניצנים"
       },
       "fennel": {
         "name": "שומר",
@@ -211,7 +211,7 @@
         "plural_name": "פלאנטיינים"
       },
       "collard greens": {
-        "name": "collard greens",
+        "name": "עלי קולארד",
         "plural_name": ""
       },
       "baby corn": {
@@ -323,8 +323,8 @@
         "plural_name": "תמרהינדים"
       },
       "button mushroom": {
-        "name": "פטריות כפתור",
-        "plural_name": "button mushrooms"
+        "name": "פטריית שמפיניון",
+        "plural_name": "פטריות שמפיניון"
       },
       "shiitake mushroom": {
         "name": "פטריית שיטאקי",
@@ -340,15 +340,15 @@
       },
       "green bean": {
         "name": "שעועית ירוקה",
-        "plural_name": "green beans"
+        "plural_name": "שעועית ירוקה"
       },
       "snow pea": {
-        "name": "snow pea",
-        "plural_name": "snow peas"
+        "name": "אפונת שלג",
+        "plural_name": "אפונת שלג"
       },
       "snap pea": {
-        "name": "snap pea",
-        "plural_name": "snap peas"
+        "name": "אפונת סוכר",
+        "plural_name": "אפונת סוכר"
       },
       "bean sprout": {
         "name": "נבט שעועית",
@@ -368,7 +368,7 @@
       },
       "raspberry": {
         "name": "פטל",
-        "plural_name": "raspberries"
+        "plural_name": "פטל"
       },
       "cranberry": {
         "name": "חמוצית",
@@ -383,11 +383,11 @@
         "plural_name": "אוסניות"
       },
       "parsley": {
-        "name": "parsley",
+        "name": "פטרוזיליה",
         "plural_name": ""
       },
       "cilantro": {
-        "name": "cilantro",
+        "name": "כוסברה",
         "plural_name": ""
       },
       "basil": {
@@ -395,19 +395,19 @@
         "plural_name": ""
       },
       "ginger root": {
-        "name": "ginger root",
+        "name": "שורש ג׳ינג׳ר",
         "plural_name": ""
       },
       "chive": {
-        "name": "chive",
-        "plural_name": "chives"
+        "name": "עירית",
+        "plural_name": "עירית"
       },
       "mint": {
-        "name": "mint",
+        "name": "נענע",
         "plural_name": ""
       },
       "lemongrass": {
-        "name": "lemongrass",
+        "name": "עשב לימון",
         "plural_name": ""
       },
       "thai basil": {
@@ -415,23 +415,23 @@
         "plural_name": ""
       },
       "mushroom": {
-        "name": "mushroom",
-        "plural_name": "mushrooms"
+        "name": "פטרייה",
+        "plural_name": "פטריות"
       },
       "corn": {
-        "name": "corn",
+        "name": "תירס",
         "plural_name": ""
       },
       "green onion": {
-        "name": "green onion",
-        "plural_name": "green onions"
+        "name": "בצל ירוק",
+        "plural_name": "בצלים ירוקים"
       },
       "lemon juice": {
-        "name": "lemon juice",
+        "name": "מיץ לימון",
         "plural_name": ""
       },
       "lime juice": {
-        "name": "lime juice",
+        "name": "מיץ ליים",
         "plural_name": ""
       }
     }
@@ -440,8 +440,8 @@
     "name": "דגנים",
     "foods": {
       "rolled oat": {
-        "name": "rolled oat",
-        "plural_name": "rolled oats"
+        "name": "שיבולת שועל",
+        "plural_name": "שיבולת שועל"
       },
       "rice": {
         "name": "אורז",
@@ -464,7 +464,7 @@
         "plural_name": ""
       },
       "couscous": {
-        "name": "couscous",
+        "name": "קוסקוס",
         "plural_name": ""
       },
       "wild rice": {
@@ -484,7 +484,7 @@
         "plural_name": ""
       },
       "granola cereal": {
-        "name": "granola cereal",
+        "name": "דגני גרנולה",
         "plural_name": ""
       },
       "bulgur": {
@@ -496,11 +496,11 @@
         "plural_name": ""
       },
       "steel cut oat": {
-        "name": "steel cut oat",
-        "plural_name": "steel cut oats"
+        "name": "שיבולת שועל חתוכה גס",
+        "plural_name": "שיבולת שועל חתוכה גס"
       },
       "millet": {
-        "name": "millet",
+        "name": "דוחן",
         "plural_name": ""
       },
       "sushi rice": {
@@ -508,7 +508,7 @@
         "plural_name": ""
       },
       "hominy": {
-        "name": "hominy",
+        "name": "הומיני",
         "plural_name": ""
       },
       "chickpea": {
@@ -517,43 +517,43 @@
       },
       "black bean": {
         "name": "שעועית שחורה",
-        "plural_name": "black beans"
+        "plural_name": "שעועית שחורה"
       },
       "kidney bean": {
         "name": "שעועית אדומה",
-        "plural_name": "kidney beans"
+        "plural_name": "שעועית אדומה"
       },
       "white bean": {
         "name": "שעועית לבנה",
-        "plural_name": "white beans"
+        "plural_name": "שעועית לבנה"
       },
       "lentil": {
-        "name": "lentil",
-        "plural_name": "lentils"
+        "name": "עדשה",
+        "plural_name": "עדשים"
       },
       "pinto bean": {
-        "name": "pinto bean",
-        "plural_name": "pinto beans"
+        "name": "שעועית פינטו",
+        "plural_name": "שעועית פינטו"
       },
       "red lentil": {
-        "name": "red lentil",
-        "plural_name": "red lentils"
+        "name": "עדשה אדומה",
+        "plural_name": "עדשים אדומות"
       },
       "cannellini bean": {
-        "name": "cannellini bean",
-        "plural_name": "cannellini beans"
+        "name": "שעועית קנליני",
+        "plural_name": "שעועית קנליני"
       },
       "black-eyed pea": {
-        "name": "לוביה (שעועית העין השחורה)",
-        "plural_name": "black-eyed peas"
+        "name": "לוביה",
+        "plural_name": "לוביות"
       },
       "split pea": {
-        "name": "split pea",
-        "plural_name": "split peas"
+        "name": "אפונה חצויה",
+        "plural_name": "אפונה חצויה"
       },
       "mung bean": {
-        "name": "mung bean",
-        "plural_name": "mung beans"
+        "name": "שעועית מש",
+        "plural_name": "שעועית מש"
       },
       "spaghetti": {
         "name": "ספגטי",
@@ -584,12 +584,12 @@
         "plural_name": ""
       },
       "orzo": {
-        "name": "orzo",
+        "name": "פסטה אורזו",
         "plural_name": ""
       },
       "pasta shell": {
-        "name": "pasta shell",
-        "plural_name": "pasta shells"
+        "name": "קונכיית פסטה",
+        "plural_name": "קונכיות פסטה"
       },
       "noodle": {
         "name": "איטרייה",
@@ -616,8 +616,8 @@
         "plural_name": "איטריות ראמן"
       },
       "soba noodle": {
-        "name": "soba noodle",
-        "plural_name": "soba noodles"
+        "name": "אטריית סובה",
+        "plural_name": "אטריות סובה"
       },
       "ravioli": {
         "name": "רביולי",
@@ -628,23 +628,23 @@
         "plural_name": "איטריות אודון"
       },
       "manicotti": {
-        "name": "manicotti",
+        "name": "פסטה מניקוטי",
         "plural_name": ""
       },
       "farro": {
-        "name": "farro",
+        "name": "פארו",
         "plural_name": ""
       },
       "pasta": {
-        "name": "pasta",
+        "name": "פסטה",
         "plural_name": ""
       },
       "penne": {
-        "name": "penne",
+        "name": "פנה",
         "plural_name": ""
       },
       "farfalle": {
-        "name": "farfalle",
+        "name": "פסטה פרפרים",
         "plural_name": ""
       }
     }
@@ -658,7 +658,7 @@
       },
       "beef steak": {
         "name": "סטייק בקר",
-        "plural_name": "beef steaks"
+        "plural_name": "סטייקי בקר"
       },
       "pork chop": {
         "name": "צלע חזיר",
@@ -670,7 +670,7 @@
       },
       "beef roast": {
         "name": "צלי בקר",
-        "plural_name": "beef roasts"
+        "plural_name": "צלי בקר"
       },
       "ground pork": {
         "name": "בשר חזיר טחון",
@@ -682,7 +682,7 @@
       },
       "pork fillet": {
         "name": "פילה חזיר",
-        "plural_name": "pork fillets"
+        "plural_name": "פילה חזיר"
       },
       "pork shoulder": {
         "name": "כתף חזיר",
@@ -697,8 +697,8 @@
         "plural_name": "צלעות חזיר"
       },
       "beef sirloin": {
-        "name": "סירלוין בקר",
-        "plural_name": "beef sirloins"
+        "name": "סינטה",
+        "plural_name": "נתחי סינטה"
       },
       "brisket": {
         "name": "בריסקט",
@@ -709,8 +709,8 @@
         "plural_name": "רגלי כבש"
       },
       "beef short rib": {
-        "name": "צלעות קצרות בקר",
-        "plural_name": "beef short ribs"
+        "name": "צלע בקר קצרה",
+        "plural_name": "צלעות בקר קצרות"
       },
       "pork belly": {
         "name": "בטן חזיר",
@@ -730,7 +730,7 @@
       },
       "chicken breast": {
         "name": "חזה עוף",
-        "plural_name": "chicken breasts"
+        "plural_name": "חזה עוף"
       },
       "chicken thigh": {
         "name": "ירך עוף",
@@ -758,7 +758,7 @@
       },
       "turkey breast": {
         "name": "חזה הודו",
-        "plural_name": "turkey breasts"
+        "plural_name": "חזה הודו"
       },
       "ground chicken": {
         "name": "עוף טחון",
@@ -781,27 +781,27 @@
         "plural_name": "עופות קורניש"
       },
       "veal": {
-        "name": "veal",
+        "name": "עגל",
         "plural_name": ""
       },
       "chicken": {
-        "name": "chicken",
+        "name": "עוף",
         "plural_name": ""
       },
       "beef": {
-        "name": "beef",
+        "name": "בקר",
         "plural_name": ""
       },
       "pork": {
-        "name": "pork",
+        "name": "חזיר",
         "plural_name": ""
       },
       "lamb": {
-        "name": "lamb",
+        "name": "טלה",
         "plural_name": ""
       },
       "turkey": {
-        "name": "turkey",
+        "name": "הודו",
         "plural_name": ""
       }
     }
@@ -827,7 +827,7 @@
       },
       "pepperoni": {
         "name": "פפרוני",
-        "plural_name": "pepperonis"
+        "plural_name": "פפרוני"
       },
       "chorizo": {
         "name": "צוריסו",
@@ -854,7 +854,7 @@
         "plural_name": ""
       },
       "corned beef": {
-        "name": "corned beef",
+        "name": "קורנביף",
         "plural_name": ""
       }
     }
@@ -863,8 +863,8 @@
     "name": "מאכלי ים",
     "foods": {
       "bonito flake": {
-        "name": "bonito flake",
-        "plural_name": "bonito flakes"
+        "name": "פתית בוניטו",
+        "plural_name": "פתיתי בוניטו"
       },
       "salmon": {
         "name": "סלמון",
@@ -883,7 +883,7 @@
         "plural_name": ""
       },
       "halibut": {
-        "name": "halibut",
+        "name": "דג הליבוט",
         "plural_name": ""
       },
       "trout": {
@@ -899,7 +899,7 @@
         "plural_name": "סרדינים"
       },
       "haddock": {
-        "name": "haddock",
+        "name": "דג האדוק",
         "plural_name": ""
       },
       "shrimp": {
@@ -915,8 +915,8 @@
         "plural_name": "צדפות (סקאלופ)"
       },
       "mussel": {
-        "name": "mussel",
-        "plural_name": "mussels"
+        "name": "מול",
+        "plural_name": "מולים"
       },
       "clam": {
         "name": "צדפה",
@@ -927,7 +927,7 @@
         "plural_name": ""
       },
       "nori": {
-        "name": "nori",
+        "name": "אצת נורי",
         "plural_name": ""
       },
       "lobster": {
@@ -943,11 +943,11 @@
         "plural_name": "תמנונים"
       },
       "fish": {
-        "name": "fish",
+        "name": "דג",
         "plural_name": ""
       },
       "tuna": {
-        "name": "tuna",
+        "name": "טונה",
         "plural_name": ""
       }
     }
@@ -980,11 +980,11 @@
         "plural_name": ""
       },
       "ricotta cheese": {
-        "name": "ricotta cheese",
+        "name": "גבינת ריקוטה",
         "plural_name": ""
       },
       "monterey jack cheese": {
-        "name": "monterey jack cheese",
+        "name": "גבינת מונטריי ג׳ק",
         "plural_name": ""
       },
       "blue cheese": {
@@ -1000,7 +1000,7 @@
         "plural_name": ""
       },
       "gruyere cheese": {
-        "name": "gruyere cheese",
+        "name": "גבינת גרוייר",
         "plural_name": ""
       },
       "mascarpone cheese": {
@@ -1012,23 +1012,23 @@
         "plural_name": ""
       },
       "american cheese": {
-        "name": "american cheese",
+        "name": "גבינה אמריקאית",
         "plural_name": ""
       },
       "brie cheese": {
-        "name": "brie cheese",
+        "name": "גבינת ברי",
         "plural_name": ""
       },
       "paneer cheese": {
-        "name": "paneer cheese",
+        "name": "גבינת פאניר",
         "plural_name": ""
       },
       "fontina cheese": {
-        "name": "fontina cheese",
+        "name": "גבינת פונטינה",
         "plural_name": ""
       },
       "queso fresco cheese": {
-        "name": "queso fresco cheese",
+        "name": "גבינת קסו פרסקו",
         "plural_name": ""
       },
       "halloumi cheese": {
@@ -1036,7 +1036,7 @@
         "plural_name": ""
       },
       "italian cheese blend": {
-        "name": "italian cheese blend",
+        "name": "תערובת גבינות איטלקיות",
         "plural_name": ""
       },
       "butter": {
@@ -1096,16 +1096,16 @@
         "plural_name": ""
       },
       "provolone cheese": {
-        "name": "provolone cheese",
+        "name": "גבינת פרובולונה",
         "plural_name": ""
       },
       "egg white": {
-        "name": "egg white",
-        "plural_name": "egg whites"
+        "name": "חלבון ביצה",
+        "plural_name": "חלבוני ביצה"
       },
       "egg yolk": {
-        "name": "egg yolk",
-        "plural_name": "egg yolks"
+        "name": "חלמון ביצה",
+        "plural_name": "חלמוני ביצה"
       }
     }
   },
@@ -1113,12 +1113,12 @@
     "name": "מאפים",
     "foods": {
       "pie crust": {
-        "name": "pie crust",
-        "plural_name": "pie crusts"
+        "name": "תחתית פאי",
+        "plural_name": "תחתיות פאי"
       },
       "puff pastry": {
-        "name": "puff pastry",
-        "plural_name": "puff pastries"
+        "name": "בצק עלים",
+        "plural_name": "מאפי בצק עלים"
       },
       "pizza dough": {
         "name": "בצק לפיצה",
@@ -1129,8 +1129,8 @@
         "plural_name": ""
       },
       "dumpling wrapper": {
-        "name": "dumpling wrapper",
-        "plural_name": "dumpling wrappers"
+        "name": "דף גיוזה",
+        "plural_name": "דפי גיוזה"
       },
       "rice paper": {
         "name": "דף אורז",
@@ -1149,8 +1149,8 @@
         "plural_name": ""
       },
       "flour tortilla": {
-        "name": "קמח טורטייה",
-        "plural_name": "flour tortillas"
+        "name": "טורטיית קמח",
+        "plural_name": "טורטיות מקמח"
       },
       "corn tortilla": {
         "name": "טורטיית תירס",
@@ -1165,7 +1165,7 @@
         "plural_name": "פיתות"
       },
       "sourdough bread": {
-        "name": "sourdough bread",
+        "name": "לחם מחמצת",
         "plural_name": ""
       },
       "crouton": {
@@ -1173,15 +1173,15 @@
         "plural_name": "קרוטונים"
       },
       "english muffin": {
-        "name": "english muffin",
-        "plural_name": "english muffins"
+        "name": "מאפין אנגלי",
+        "plural_name": "מאפינים אנגליים"
       },
       "brioche": {
         "name": "בריוש",
         "plural_name": ""
       },
       "rye bread": {
-        "name": "rye bread",
+        "name": "לחם שיפון",
         "plural_name": ""
       },
       "naan": {
@@ -1189,8 +1189,8 @@
         "plural_name": "נאנים"
       },
       "taco shell": {
-        "name": "taco shell",
-        "plural_name": "taco shells"
+        "name": "קונכיית טאקו",
+        "plural_name": "קונכיות טאקו"
       },
       "bagel": {
         "name": "בייגל",
@@ -1201,16 +1201,16 @@
         "plural_name": "קוראסונים"
       },
       "hawaiian roll": {
-        "name": "hawaiian roll",
-        "plural_name": "hawaiian rolls"
+        "name": "לחמניית הוואי",
+        "plural_name": "לחמניות הוואי"
       },
       "challah": {
         "name": "חלה",
         "plural_name": ""
       },
       "bao bun": {
-        "name": "bao bun",
-        "plural_name": "bao buns"
+        "name": "לחמניית באו",
+        "plural_name": "לחמניות באו"
       }
     }
   },
@@ -1219,35 +1219,35 @@
     "foods": {
       "canned tomato": {
         "name": "עגבניות משומרות",
-        "plural_name": "canned tomatoes"
+        "plural_name": "עגבניות משומרות"
       },
       "caper": {
-        "name": "caper",
-        "plural_name": "capers"
+        "name": "צלף",
+        "plural_name": "צלפים"
       },
       "green olive": {
-        "name": "green olive",
-        "plural_name": "green olives"
+        "name": "זית ירוק",
+        "plural_name": "זיתים ירוקים"
       },
       "canned chickpea": {
-        "name": "canned chickpea",
-        "plural_name": "canned chickpeas"
+        "name": "גרגר חומוס משומר",
+        "plural_name": "גרגירי חומוס משומרים"
       },
       "black olive": {
-        "name": "black olive",
-        "plural_name": "black olives"
+        "name": "זית שחור",
+        "plural_name": "זיתים שחורים"
       },
       "canned black bean": {
-        "name": "canned black bean",
-        "plural_name": "canned black beans"
+        "name": "שעועית שחורה משומרת",
+        "plural_name": "שעועית שחורה משומרת"
       },
       "canned pumpkin": {
-        "name": "canned pumpkin",
+        "name": "דלעת משומרת",
         "plural_name": ""
       },
       "kalamata olive": {
-        "name": "kalamata olive",
-        "plural_name": "kalamata olives"
+        "name": "זית קלמטה",
+        "plural_name": "זיתי קלמטה"
       },
       "canned tuna": {
         "name": "טונה משומרת",
@@ -1258,16 +1258,16 @@
         "plural_name": "מלפפונים חמוצים"
       },
       "chipotle in adobo": {
-        "name": "chipotle in adobo",
-        "plural_name": "chipotles in adobo"
+        "name": "פלפל צ'יפוטלה ברוטב אדובו",
+        "plural_name": "פלפלי צ'יפוטלה ברוטב אדובו"
       },
       "canned anchovy": {
         "name": "אנשובי משומר",
-        "plural_name": "canned anchovies"
+        "plural_name": "אנשובי משומרים"
       },
       "roasted red pepper": {
-        "name": "roasted red pepper",
-        "plural_name": "roasted red peppers"
+        "name": "פלפל אדום קלוי",
+        "plural_name": "פלפלים אדומים קלויים"
       },
       "canned artichoke": {
         "name": "ארטישוק משומר",
@@ -1278,131 +1278,131 @@
         "plural_name": ""
       },
       "canned kidney bean": {
-        "name": "canned kidney bean",
-        "plural_name": "canned kidney beans"
+        "name": "שעועית אדומה משומרת",
+        "plural_name": "שעועית אדומה משומרת"
       },
       "refried bean": {
-        "name": "refried bean",
-        "plural_name": "refried beans"
+        "name": "שעועית מטוגנת ומעוכה",
+        "plural_name": "שעועית מטוגנת ומעוכה"
       },
       "canned whole tomato": {
         "name": "עגבניה משומרת שלמה",
         "plural_name": "עגבניות משומרות שלמות"
       },
       "sweet pickle relish": {
-        "name": "sweet pickle relish",
+        "name": "רליש חמוצים מתוק",
         "plural_name": ""
       },
       "sauerkraut": {
-        "name": "sauerkraut",
+        "name": "כרוב כבוש",
         "plural_name": ""
       },
       "creamed corn": {
-        "name": "creamed corn",
+        "name": "תירס מוקרם",
         "plural_name": ""
       },
       "pickled jalapeño": {
-        "name": "pickled jalapeño",
-        "plural_name": "pickled jalapeños"
+        "name": "פלפל חלפיניו מוחמץ",
+        "plural_name": "פלפלי חלפיניו מוחמצים"
       },
       "diced green chile": {
-        "name": "diced green chile",
-        "plural_name": "diced green chiles"
+        "name": "פלפל צ'ילי ירוק חתוך לקוביות",
+        "plural_name": "פלפלי צ'ילי ירוק חתוכים לקוביות"
       },
       "sun-dried tomato in oil": {
-        "name": "sun-dried tomato in oil",
-        "plural_name": "sun-dried tomatoes in oil"
+        "name": "עגבנייה מיובשת בשמן",
+        "plural_name": "עגבניות מיובשות בשמן"
       },
       "kimchi": {
-        "name": "kimchi",
+        "name": "קימצ'י",
         "plural_name": ""
       },
       "baked bean": {
-        "name": "baked bean",
-        "plural_name": "baked beans"
+        "name": "גרגר שעועית אפוי",
+        "plural_name": "גרגרי שעועית אפויים"
       },
       "canned salmon": {
         "name": "סלמון משומר",
         "plural_name": ""
       },
       "canned clam": {
-        "name": "canned clam",
-        "plural_name": "canned clams"
+        "name": "צדפה משומרת",
+        "plural_name": "צדפות משומרות"
       },
       "canned baby corn": {
         "name": "תירס גמדי משומר",
         "plural_name": ""
       },
       "canned sardine": {
-        "name": "canned sardine",
-        "plural_name": "canned sardines"
+        "name": "סרדין משומר",
+        "plural_name": "סרדינים משומרים"
       },
       "aquafaba": {
-        "name": "aquafaba",
+        "name": "מי חומוס",
         "plural_name": ""
       },
       "chicken broth": {
-        "name": "chicken broth",
+        "name": "מרק עוף",
         "plural_name": ""
       },
       "vegetable broth": {
-        "name": "vegetable broth",
+        "name": "ציר ירקות",
         "plural_name": ""
       },
       "chicken stock": {
-        "name": "chicken stock",
+        "name": "ציר עוף",
         "plural_name": ""
       },
       "beef broth": {
-        "name": "beef broth",
+        "name": "מרק בקר",
         "plural_name": ""
       },
       "beef stock": {
-        "name": "beef stock",
+        "name": "ציר בקר",
         "plural_name": ""
       },
       "cream of mushroom": {
-        "name": "cream of mushroom",
+        "name": "מרק קרם פטריות",
         "plural_name": ""
       },
       "bouillon cube": {
-        "name": "bouillon cube",
-        "plural_name": "bouillon cubes"
+        "name": "קוביית מרק",
+        "plural_name": "קוביות מרק"
       },
       "cream of chicken": {
-        "name": "cream of chicken",
+        "name": "מרק קרם עוף",
         "plural_name": ""
       },
       "tomato soup": {
-        "name": "tomato soup",
+        "name": "מרק עגבניות",
         "plural_name": ""
       },
       "cream of celery": {
-        "name": "cream of celery",
+        "name": "מרק קרם סלרי",
         "plural_name": ""
       },
       "clam juice": {
-        "name": "clam juice",
+        "name": "מיץ צדפות",
         "plural_name": ""
       },
       "dashi": {
-        "name": "dashi",
+        "name": "דאשי",
         "plural_name": ""
       },
       "olive": {
-        "name": "olive",
-        "plural_name": "olives"
+        "name": "זית",
+        "plural_name": "זיתים"
       },
       "bean": {
-        "name": "bean",
-        "plural_name": "beans"
+        "name": "גרגר שעועית",
+        "plural_name": "שעועית"
       },
       "stock": {
-        "name": "stock",
+        "name": "ציר",
         "plural_name": ""
       },
       "broth": {
-        "name": "broth",
+        "name": "ציר",
         "plural_name": ""
       }
     }
@@ -1419,7 +1419,7 @@
         "plural_name": ""
       },
       "dijon mustard": {
-        "name": "dijon mustard",
+        "name": "חרדל דיז'ון",
         "plural_name": ""
       },
       "hot sauce": {
@@ -1427,15 +1427,15 @@
         "plural_name": ""
       },
       "worcestershire sauce": {
-        "name": "worcestershire sauce",
+        "name": "רוטב ווסטרשייר",
         "plural_name": ""
       },
       "ketchup": {
-        "name": "ketchup",
+        "name": "קטשופ",
         "plural_name": ""
       },
       "mustard": {
-        "name": "mustard",
+        "name": "חרדל",
         "plural_name": ""
       },
       "fish sauce": {
@@ -1451,7 +1451,7 @@
         "plural_name": ""
       },
       "wholegrain mustard": {
-        "name": "wholegrain mustard",
+        "name": "חרדל גרגירים",
         "plural_name": ""
       },
       "oyster sauce": {
@@ -1463,7 +1463,7 @@
         "plural_name": ""
       },
       "prepared horseradish": {
-        "name": "prepared horseradish",
+        "name": "חזרת מוכנה",
         "plural_name": ""
       },
       "cranberry sauce": {
@@ -1471,15 +1471,15 @@
         "plural_name": ""
       },
       "harissa": {
-        "name": "harissa",
+        "name": "חריסה",
         "plural_name": ""
       },
       "tamarind paste": {
-        "name": "tamarind paste",
+        "name": "מחית תמרינדי",
         "plural_name": ""
       },
       "gochujang": {
-        "name": "gochujang",
+        "name": "גוצ׳וג׳אנג",
         "plural_name": ""
       },
       "wasabi": {
@@ -1487,12 +1487,12 @@
         "plural_name": ""
       },
       "sambal oelek": {
-        "name": "sambal oelek",
+        "name": "סמבל אולק",
         "plural_name": ""
       },
       "preserved lemon": {
-        "name": "preserved lemon",
-        "plural_name": "preserved lemons"
+        "name": "לימון כבוש",
+        "plural_name": "לימונים כבושים"
       },
       "thai sweet chili sauce": {
         "name": "רוטב צ׳ילי מתוק תאילנדי",
@@ -1503,75 +1503,75 @@
         "plural_name": ""
       },
       "ponzu": {
-        "name": "ponzu",
+        "name": "פונזו",
         "plural_name": ""
       },
       "peanut butter": {
-        "name": "peanut butter",
+        "name": "חמאת בוטנים",
         "plural_name": ""
       },
       "tomato paste": {
-        "name": "tomato paste",
+        "name": "רסק עגבניות",
         "plural_name": ""
       },
       "tomato sauce": {
-        "name": "tomato sauce",
+        "name": "רוטב עגבניות",
         "plural_name": ""
       },
       "salsa": {
-        "name": "salsa",
-        "plural_name": "salsas"
+        "name": "סלסה",
+        "plural_name": "סלסות"
       },
       "tahini": {
-        "name": "tahini",
+        "name": "טחינה",
         "plural_name": ""
       },
       "pesto": {
-        "name": "pesto",
+        "name": "פסטו",
         "plural_name": ""
       },
       "marinara sauce": {
-        "name": "marinara sauce",
+        "name": "רוטב מרינרה",
         "plural_name": ""
       },
       "pasta sauce": {
-        "name": "pasta sauce",
+        "name": "רוטב פסטה",
         "plural_name": ""
       },
       "hoisin sauce": {
-        "name": "hoisin sauce",
+        "name": "רוטב הויסין",
         "plural_name": ""
       },
       "hummus": {
-        "name": "hummus",
+        "name": "חומוס",
         "plural_name": ""
       },
       "enchilada sauce": {
-        "name": "enchilada sauce",
+        "name": "רוטב אנצ׳ילדה",
         "plural_name": ""
       },
       "salsa verde": {
-        "name": "salsa verde",
+        "name": "סלסה ורדה",
         "plural_name": ""
       },
       "alfredo sauce": {
-        "name": "alfredo sauce",
+        "name": "רוטב אלפרדו",
         "plural_name": ""
       },
       "balsamic glaze": {
-        "name": "balsamic glaze",
+        "name": "זיגוג בלסמי",
         "plural_name": ""
       },
       "thai peanut sauce": {
-        "name": "thai peanut sauce",
+        "name": "רוטב בוטנים תאילנדי",
         "plural_name": ""
       },
       "mole sauce": {
-        "name": "mole sauce",
+        "name": "רוטב מולה",
         "plural_name": ""
       },
       "white miso": {
-        "name": "white miso",
+        "name": "מיסו לבן",
         "plural_name": ""
       },
       "almond butter": {
@@ -1595,7 +1595,7 @@
         "plural_name": ""
       },
       "red wine vinegar": {
-        "name": "red wine vinegar",
+        "name": "חומץ יין אדום",
         "plural_name": ""
       },
       "rice wine vinegar": {
@@ -1603,23 +1603,23 @@
         "plural_name": ""
       },
       "white wine vinegar": {
-        "name": "white wine vinegar",
+        "name": "חומץ יין לבן",
         "plural_name": ""
       },
       "ranch dressing": {
-        "name": "ranch dressing",
+        "name": "רוטב ראנץ׳",
         "plural_name": ""
       },
       "distilled white vinegar": {
-        "name": "distilled white vinegar",
+        "name": "חומץ לבן מזוקק",
         "plural_name": ""
       },
       "sweet chili sauce": {
-        "name": "sweet chili sauce",
+        "name": "רוטב צ׳ילי מתוק",
         "plural_name": ""
       },
       "caesar dressing": {
-        "name": "caesar dressing",
+        "name": "רוטב קיסר",
         "plural_name": ""
       },
       "agave nectar": {
@@ -1627,7 +1627,7 @@
         "plural_name": ""
       },
       "honey": {
-        "name": "honey",
+        "name": "דבש",
         "plural_name": ""
       }
     }
@@ -1648,7 +1648,7 @@
         "plural_name": ""
       },
       "thyme": {
-        "name": "thyme",
+        "name": "טימין",
         "plural_name": ""
       },
       "garlic powder": {
@@ -1660,12 +1660,12 @@
         "plural_name": ""
       },
       "nutmeg": {
-        "name": "nutmeg",
+        "name": "אגוז מוסקט",
         "plural_name": ""
       },
       "chili flake": {
-        "name": "chili flake",
-        "plural_name": "chili flakes"
+        "name": "פתית צ׳ילי",
+        "plural_name": "פתיתי צ׳ילי"
       },
       "chili powder": {
         "name": "אבקת צ'ילי",
@@ -1680,16 +1680,16 @@
         "plural_name": ""
       },
       "bay leaf": {
-        "name": "bay leaf",
-        "plural_name": "bay leaves"
+        "name": "עלה דפנה",
+        "plural_name": "עלי דפנה"
       },
       "turmeric": {
-        "name": "turmeric",
+        "name": "כורכום",
         "plural_name": ""
       },
       "clove": {
         "name": "ציפורן",
-        "plural_name": "cloves"
+        "plural_name": "ציפורנים"
       },
       "onion powder": {
         "name": "אבקת בצל",
@@ -1700,83 +1700,83 @@
         "plural_name": ""
       },
       "dill": {
-        "name": "dill",
+        "name": "שמיר",
         "plural_name": ""
       },
       "green cardamom": {
-        "name": "green cardamom",
+        "name": "הל ירוק",
         "plural_name": ""
       },
       "smoked paprika": {
-        "name": "smoked paprika",
+        "name": "פפריקה מעושנת",
         "plural_name": ""
       },
       "sage": {
-        "name": "sage",
+        "name": "מרווה",
         "plural_name": ""
       },
       "coriander": {
-        "name": "coriander",
+        "name": "כוסברה",
         "plural_name": ""
       },
       "allspice": {
-        "name": "allspice",
+        "name": "פלפל אנגלי",
         "plural_name": ""
       },
       "peppercorn": {
-        "name": "peppercorn",
-        "plural_name": "peppercorns"
+        "name": "גרגר פלפל",
+        "plural_name": "גרגרי פלפל"
       },
       "mustard seed": {
-        "name": "mustard seed",
-        "plural_name": "mustard seeds"
+        "name": "זרע חרדל",
+        "plural_name": "זרעי חרדל"
       },
       "white pepper": {
-        "name": "white pepper",
+        "name": "פלפל לבן",
         "plural_name": ""
       },
       "curry leaf": {
-        "name": "curry leaf",
-        "plural_name": "curry leaves"
+        "name": "עלה קארי",
+        "plural_name": "עלי קארי"
       },
       "fennel seed": {
-        "name": "fennel seed",
-        "plural_name": "fennel seeds"
+        "name": "זרע שומר",
+        "plural_name": "זרעי שומר"
       },
       "tarragon": {
-        "name": "tarragon",
+        "name": "טרגון",
         "plural_name": ""
       },
       "saffron": {
-        "name": "saffron",
+        "name": "זעפרן",
         "plural_name": ""
       },
       "asafoetida": {
-        "name": "asafoetida",
+        "name": "הינג",
         "plural_name": ""
       },
       "star anise": {
-        "name": "star anise",
+        "name": "אניס כוכבי",
         "plural_name": ""
       },
       "fenugreek": {
-        "name": "fenugreek",
+        "name": "חילבה",
         "plural_name": ""
       },
       "kaffir lime leaf": {
-        "name": "kaffir lime leaf",
-        "plural_name": "kaffir lime leaves"
+        "name": "עלה קפיר ליים",
+        "plural_name": "עלי קפיר ליים"
       },
       "guajillo pepper": {
-        "name": "guajillo pepper",
-        "plural_name": "guajillo peppers"
+        "name": "פלפל גואחיו",
+        "plural_name": "פלפלי גואחיו"
       },
       "galangal": {
-        "name": "galangal",
+        "name": "גלנגל",
         "plural_name": ""
       },
       "aleppo pepper": {
-        "name": "aleppo pepper",
+        "name": "פלפל חלב",
         "plural_name": ""
       },
       "italian seasoning": {
@@ -1788,35 +1788,35 @@
         "plural_name": ""
       },
       "garam masala": {
-        "name": "garam masala",
+        "name": "גאראם מסאלה",
         "plural_name": ""
       },
       "pumpkin pie spice": {
-        "name": "pumpkin pie spice",
+        "name": "תערובת תבלינים לפאי דלעת",
         "plural_name": ""
       },
       "mustard powder": {
-        "name": "mustard powder",
+        "name": "אבקת חרדל",
         "plural_name": ""
       },
       "taco seasoning": {
-        "name": "taco seasoning",
+        "name": "תערובת תיבול לטאקו",
         "plural_name": ""
       },
       "cajun seasoning": {
-        "name": "cajun seasoning",
+        "name": "תערובת תיבול קייג׳ון",
         "plural_name": ""
       },
       "chinese five spice": {
-        "name": "chinese five spice",
+        "name": "תערובת חמשת התבלינים הסינית",
         "plural_name": ""
       },
       "chaat masala": {
-        "name": "chaat masala",
+        "name": "צ׳אט מסאלה",
         "plural_name": ""
       },
       "thai red curry paste": {
-        "name": "thai red curry paste",
+        "name": "משחת קארי אדומה תאילנדית",
         "plural_name": ""
       },
       "za'atar": {
@@ -1828,45 +1828,45 @@
         "plural_name": ""
       },
       "furikake": {
-        "name": "furikake",
+        "name": "פוריקאקה",
         "plural_name": ""
       },
       "tom yum paste": {
-        "name": "tom yum paste",
+        "name": "משחת טום יאם",
         "plural_name": ""
       },
       "old bay seasoning": {
-        "name": "old bay seasoning",
+        "name": "תערובת תיבול Old Bay",
         "plural_name": ""
       },
       "liquid smoke": {
-        "name": "liquid smoke",
+        "name": "עשן נוזלי",
         "plural_name": ""
       },
       "salt": {
-        "name": "salt",
+        "name": "מלח",
         "plural_name": ""
       },
       "kosher salt": {
-        "name": "kosher salt",
+        "name": "מלח כשר",
         "plural_name": ""
       },
       "sea salt": {
-        "name": "sea salt",
+        "name": "מלח ים",
         "plural_name": ""
       },
       "flaky salt": {
-        "name": "flaky salt",
+        "name": "מלח פתיתים",
         "plural_name": ""
       },
       "black pepper": {
-        "name": "black pepper",
+        "name": "פלפל שחור",
         "plural_name": ""
       }
     }
   },
   "oils": {
-    "name": "Oils",
+    "name": "שמנים",
     "foods": {
       "shortening": {
         "name": "שומן אפייה",
@@ -1889,7 +1889,7 @@
         "plural_name": ""
       },
       "cooking spray": {
-        "name": "cooking spray",
+        "name": "תרסיס שמן לבישול",
         "plural_name": ""
       },
       "sesame oil": {
@@ -1905,15 +1905,15 @@
         "plural_name": ""
       },
       "lard": {
-        "name": "lard",
+        "name": "שומן חזיר",
         "plural_name": ""
       },
       "chili oil": {
-        "name": "chili oil",
+        "name": "שמן צ׳ילי",
         "plural_name": ""
       },
       "truffle oil": {
-        "name": "truffle oil",
+        "name": "שמן כמהין",
         "plural_name": ""
       },
       "duck fat": {
@@ -1921,13 +1921,13 @@
         "plural_name": ""
       },
       "oil": {
-        "name": "oil",
+        "name": "שמן",
         "plural_name": ""
       }
     }
   },
   "baking": {
-    "name": "Baking",
+    "name": "אפייה",
     "foods": {
       "cocoa": {
         "name": "קקאו",
@@ -1938,7 +1938,7 @@
         "plural_name": ""
       },
       "sugar": {
-        "name": "sugar",
+        "name": "סוכר",
         "plural_name": ""
       },
       "brown sugar": {
@@ -1946,7 +1946,7 @@
         "plural_name": ""
       },
       "confectioners sugar": {
-        "name": "confectioners sugar",
+        "name": "אבקת סוכר",
         "plural_name": ""
       },
       "maple syrup": {
@@ -1958,7 +1958,7 @@
         "plural_name": ""
       },
       "molasses": {
-        "name": "molasses",
+        "name": "מולסה",
         "plural_name": ""
       },
       "stevia": {
@@ -1966,7 +1966,7 @@
         "plural_name": ""
       },
       "jaggery": {
-        "name": "jaggery",
+        "name": "סוכר ג׳אגרי",
         "plural_name": ""
       },
       "flour": {
@@ -1994,8 +1994,8 @@
         "plural_name": ""
       },
       "chocolate chip": {
-        "name": "שוקולד צ'יפס",
-        "plural_name": "chocolate chips"
+        "name": "שוקולד צ׳יפס",
+        "plural_name": "שוקולד צ׳יפס"
       },
       "whole-wheat flour": {
         "name": "קמח חיטה מלא",
@@ -2026,7 +2026,7 @@
         "plural_name": ""
       },
       "cream of tartar": {
-        "name": "cream of tartar",
+        "name": "קרם טרטר",
         "plural_name": ""
       },
       "bread flour": {
@@ -2046,7 +2046,7 @@
         "plural_name": ""
       },
       "matzo meal": {
-        "name": "matzo meal",
+        "name": "קמח מצה",
         "plural_name": ""
       },
       "almond extract": {
@@ -2066,7 +2066,7 @@
         "plural_name": ""
       },
       "sprinkles": {
-        "name": "sprinkles",
+        "name": "סוכריות צבעוניות לקישוט",
         "plural_name": ""
       }
     }
@@ -2084,7 +2084,7 @@
       },
       "marshmallow": {
         "name": "מרשמלו",
-        "plural_name": "marshmallows"
+        "plural_name": "מרשמלו"
       },
       "applesauce": {
         "name": "רסק תפוחים",
@@ -2157,11 +2157,11 @@
       },
       "sesame seed": {
         "name": "זרעי שומשום",
-        "plural_name": "sesame seeds"
+        "plural_name": "זרעי שומשום"
       },
       "cashew": {
         "name": "קשיו",
-        "plural_name": "cashews"
+        "plural_name": "קשיו"
       },
       "pine nut": {
         "name": "צנובר",
@@ -2181,7 +2181,7 @@
       },
       "pumpkin seed": {
         "name": "זרעי דלעת",
-        "plural_name": "pumpkin seeds"
+        "plural_name": "זרעי דלעת"
       },
       "hazelnut": {
         "name": "אגוז לוז",
@@ -2189,7 +2189,7 @@
       },
       "sunflower seed": {
         "name": "זרעי חמנייה",
-        "plural_name": "sunflower seeds"
+        "plural_name": "זרעי חמנייה"
       },
       "graham cracker": {
         "name": "גרהאם קרקר",
@@ -2200,24 +2200,24 @@
         "plural_name": "קרקרים"
       },
       "tortilla chip": {
-        "name": "tortilla chip",
-        "plural_name": "tortilla chips"
+        "name": "צ׳יפס טורטייה",
+        "plural_name": "צ׳יפסי טורטייה"
       },
       "pretzel": {
-        "name": "פרצל",
-        "plural_name": "pretzels"
+        "name": "בייגלה",
+        "plural_name": "בייגלה"
       },
       "popcorn": {
         "name": "פופקורן",
         "plural_name": ""
       },
       "potato chip": {
-        "name": "potato chip",
-        "plural_name": "potato chips"
+        "name": "צ׳יפס",
+        "plural_name": "צ׳יפס"
       },
       "nut": {
-        "name": "nut",
-        "plural_name": "nuts"
+        "name": "אגוז",
+        "plural_name": "אגוזים"
       }
     }
   },
@@ -2233,7 +2233,7 @@
         "plural_name": ""
       },
       "club soda": {
-        "name": "club soda",
+        "name": "סודה",
         "plural_name": ""
       },
       "espresso": {
@@ -2265,7 +2265,7 @@
         "plural_name": ""
       },
       "water": {
-        "name": "water",
+        "name": "מים",
         "plural_name": ""
       }
     }
@@ -2346,7 +2346,7 @@
         "plural_name": ""
       },
       "wine": {
-        "name": "wine",
+        "name": "יין",
         "plural_name": ""
       }
     }
@@ -2412,7 +2412,7 @@
     "name": "אחר",
     "foods": {
       "ice": {
-        "name": "ice",
+        "name": "קרח",
         "plural_name": ""
       }
     }
