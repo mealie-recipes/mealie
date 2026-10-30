@@ -5,13 +5,13 @@
     "recipe": {
         "unique-name-error": "שמות מתכונים חייבים להיות ייחודיים",
         "recipe-created": "מתכון נוצר",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
-        "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-as-side": "הוכן כתוספת על ידי {name}",
+        "made-this-for-breakfast": "הוכן לארוחת בוקר על ידי {name}",
+        "made-this-for-lunch": "הוכן לארוחת צהריים על ידי {name}",
+        "made-this-for-dinner": "הוכן לארוחת ערב על ידי {name}",
+        "made-this-for-snack": "הוכן כנשנוש על ידי {name}",
+        "made-this-for-drink": "הוכן כמשקה על ידי {name}",
+        "made-this-for-dessert": "הוכן לקינוח על ידי {name}",
         "recipe-image-deleted": "תמונת מתכון נמחקה",
         "recipe-defaults": {
             "ingredient-note": "כוס קמח",
@@ -31,7 +31,7 @@
             "ai-not-enabled": "שירותי AI אינם מופעלים",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "invalid-mealie-export": "נראה שזה מתכון שיוצא מ־Mealie, אך הייבוא שלו נכשל",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
@@ -76,7 +76,7 @@
         "report-deleted": "הדיווח נמחק."
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
+        "permission-denied": "אין לך הרשאה לבצע את הפעולה הזאת",
         "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "המשאב המבוקש לא נמצא",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -125,9 +125,9 @@
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
         "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "נוצרה רשומה בתוכנית הארוחות מ־{date} עד {end_date} עבור {entry_type}",
+        "mealplan-range-entry-updated": "עודכנה רשומה בתוכנית הארוחות מ־{date} עד {end_date} עבור {entry_type}",
+        "mealplan-range-entry-deleted": "נמחקה רשומה בתוכנית הארוחות מ־{date} עד {end_date} עבור {entry_type}"
     },
     "datetime": {
         "year": "שנה|שנים",
