@@ -16,7 +16,7 @@ from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services._base_service import BaseService
 from mealie.services.urls.url_constructors import recipe_url
 
-EVENT_DURATION = timedelta(hours=1)
+EVENT_DURATION_MINUTES = 60
 REFRESH_INTERVAL = "PT1H"
 """How often calendar apps should poll the feed (ISO 8601 duration); only a hint, some apps (e.g. Google) ignore it"""
 FEED_HISTORY_DAYS = 90
@@ -36,6 +36,8 @@ class MealPlanICalQuery(MealieModel):
     """Include entries that have no recipe attached"""
     tz: str | None = None
     """IANA timezone used for timed events, e.g. `Europe/Berlin`; defaults to the server timezone"""
+    duration: int = Field(EVENT_DURATION_MINUTES, ge=1, le=24 * 60)
+    """Length of timed events, in minutes"""
     summary: str = Field(SUMMARY_TEMPLATE, max_length=TEMPLATE_MAX_LENGTH)
     """Event title; `${field}` merge fields are replaced with the entry's values"""
     description: str = Field(DESCRIPTION_TEMPLATE, max_length=TEMPLATE_MAX_LENGTH)
@@ -242,7 +244,7 @@ class MealPlanICalService(BaseService):
         if start_time:
             start = datetime.combine(entry.date, start_time, tzinfo=tz)
             lines.append(f"DTSTART:{_format_utc(start)}")
-            lines.append(f"DTEND:{_format_utc(start + EVENT_DURATION)}")
+            lines.append(f"DTEND:{_format_utc(start + timedelta(minutes=query.duration))}")
         else:
             # DTEND is exclusive, so it's the day after the last day
             last_day = entry.end_date or entry.date

@@ -113,6 +113,10 @@ def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scop
     assert f"DTSTART;VALUE=DATE:{JULY_1:%Y%m%d}\r\n" in feed
     assert "X-WR-TIMEZONE:Europe/Berlin\r\n" in feed
 
+    feed = unfold(get_feed(api_client, token, {"tz": "Europe/Berlin", "dinner": "18:30", "duration": 90}).text)
+    assert f"DTSTART:{JULY_1:%Y%m%d}T163000Z\r\nDTEND:{JULY_1:%Y%m%d}T180000Z\r\n" in feed
+    assert get_feed(api_client, token, {"duration": 0}).status_code == 422
+
     assert get_feed(api_client, token, {"tz": "Not/AZone"}).status_code == 422
     assert get_feed(api_client, token, {"types": ["brunch"]}).status_code == 422
 

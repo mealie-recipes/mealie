@@ -59,10 +59,13 @@
             />
           </v-col>
         </v-row>
-        <v-text-field
+        <v-number-input
           v-if="hasTimes"
-          v-model="timezone"
-          :label="$t('meal-plan.calendar-feed-timezone')"
+          v-model="duration"
+          :label="$t('meal-plan.calendar-feed-duration')"
+          :min="1"
+          :max="24 * 60"
+          control-variant="hidden"
           class="mt-4"
         />
 
@@ -154,6 +157,7 @@ import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 const dialog = defineModel<boolean>({ default: false });
 
 // must match the feed's defaults (mealplan_ical_service.py)
+const EVENT_DURATION_MINUTES = 60;
 const SUMMARY_TEMPLATE = "${type}: ${title}";
 const DESCRIPTION_TEMPLATE = "${text}\n\n${url}";
 
@@ -168,7 +172,8 @@ const token = ref<string | null>(null);
 const selectedTypes = ref<PlanEntryType[]>(planTypeOptions.map(option => option.value));
 const includeNotes = ref(true);
 const times = ref<Partial<Record<PlanEntryType, string | null>>>({});
-const timezone = ref(Intl.DateTimeFormat().resolvedOptions().timeZone);
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const duration = ref<number | null>(EVENT_DURATION_MINUTES);
 const summary = ref(SUMMARY_TEMPLATE);
 const description = ref(DESCRIPTION_TEMPLATE);
 
@@ -193,8 +198,11 @@ const feedUrl = computed(() => {
       params.set(option.value, time);
     }
   }
-  if (hasTimes.value && timezone.value) {
-    params.set("tz", timezone.value);
+  if (hasTimes.value && timezone) {
+    params.set("tz", timezone);
+  }
+  if (hasTimes.value && duration.value && duration.value !== EVENT_DURATION_MINUTES) {
+    params.set("duration", duration.value.toString());
   }
   // blank templates fall back to the defaults
   if (summary.value?.trim() && summary.value !== SUMMARY_TEMPLATE) {
