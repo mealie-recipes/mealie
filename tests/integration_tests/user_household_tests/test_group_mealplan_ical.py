@@ -106,6 +106,33 @@ def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scop
     assert get_feed(api_client, token, {"types": ["brunch"]}).status_code == 422
 
 
+def test_ical_feed_templates(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    recipe = user.repos.recipes.create(
+        Recipe(
+            user_id=user.user_id,
+            group_id=UUID(user.group_id),
+            name=random_string(),
+            recipe_servings=4,
+            total_time="1 hour",
+        )
+    )
+    create_entry(api_client, user, date=JULY_1, entry_type="dinner", recipe_id=recipe.id, recipe_scale=1.5)
+    note = create_entry(api_client, user, date=JULY_2, entry_type="lunch", title=random_string(), text="note text")
+    token = enable_feed(api_client, user)
+
+    params = {"summary": "${title} (${servings})", "description": "${totalTime}\n${slug}\n${missing}${text}"}
+    feed = unfold(get_feed(api_client, token, params).text)
+    assert f"SUMMARY:{recipe.name} (6)\r\n" in feed
+    assert f"DESCRIPTION:1 hour\\n{recipe.slug}\r\n" in feed
+
+    # recipe fields are empty for notes
+    assert f"SUMMARY:{note['title']} ()\r\n" in feed
+    assert "DESCRIPTION:note text\r\n" in feed
+
+    assert get_feed(api_client, token, {"summary": "x" * 501}).status_code == 422
+
+
 def test_ical_feed_date_range_entry(api_client: TestClient, unique_user_fn_scoped: TestUser):
     user = unique_user_fn_scoped
     end_date = JULY_1 + timedelta(days=6)
