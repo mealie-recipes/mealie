@@ -16,8 +16,8 @@
   <RecipeImageLightbox
     v-if="lightboxOpen"
     v-model="lightboxOpen"
-    :image-url="recipeFullImageUrl"
-    :image-alt="recipe.name"
+    v-model:index="lightboxIndex"
+    :items="lightboxItems"
   />
 </template>
 
@@ -25,6 +25,7 @@
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
+import { useRecipeLightboxItems } from "~/composables/recipe-page/use-recipe-lightbox-items";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
@@ -51,11 +52,20 @@ if (user) {
 
 const hideImage = ref(false);
 const lightboxOpen = ref(false);
+const lightboxIndex = ref(0);
+
+const { buildItems } = useRecipeLightboxItems();
+const lightboxItems = computed(() => buildItems(props.recipe.id, {
+  heroUrl: recipeFullImageUrl.value,
+  heroAlt: props.recipe.name,
+  assets: props.recipe.assets,
+}));
 
 function openLightbox() {
   if (hideImage.value) {
     return;
   }
+  lightboxIndex.value = 0;
   lightboxOpen.value = true;
 }
 
