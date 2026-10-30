@@ -383,6 +383,9 @@
     "calendar-feed-include-notes": "Include notes",
     "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
     "calendar-feed-timezone": "Timezone",
+    "calendar-feed-event-details": "Event Details",
+    "calendar-feed-event-details-description": "Customize how meals show up in your calendar. You can use merge fields to fill in each meal's details (see the docs for the full list).",
+    "calendar-feed-event-details-change-warning": "Changing these will update the calendar link, so if you've already subscribed you'll need to replace it with the new link.",
     "calendar-feed-event-title": "Event Title",
     "calendar-feed-event-description": "Event Description",
     "calendar-feed-url": "Calendar Link"

@@ -4,6 +4,7 @@
     :title="$t('meal-plan.calendar-feed')"
     :icon="$globals.icons.calendar"
     width="600"
+    disable-submit-on-enter
   >
     <v-card-text>
       <p class="mb-4">
@@ -65,10 +66,26 @@
           class="mt-4"
         />
 
+        <v-divider class="my-6" />
+        <p class="text-subtitle-1 font-weight-bold">
+          {{ $t("meal-plan.calendar-feed-event-details") }}
+        </p>
+
+        <div class="my-1">
+          <p class="text-caption">
+            {{ $t("meal-plan.calendar-feed-event-details-description") }}
+          </p>
+          <p class="pt-2">
+            {{ $t("meal-plan.calendar-feed-event-details-change-warning") }}
+          </p>
+        </div>
+        <DocLink
+          class="mt-2 mb-4"
+          link="/documentation/getting-started/features/#calendar-feed"
+        />
         <v-text-field
           v-model="summary"
           :label="$t('meal-plan.calendar-feed-event-title')"
-          class="mt-4"
         />
         <v-textarea
           v-model="description"
@@ -77,16 +94,12 @@
           auto-grow
           hide-details
         />
-        <DocLink
-          class="mt-2"
-          link="/documentation/getting-started/features/#calendar-feed"
-        />
 
+        <v-divider class="my-6" />
         <v-text-field
           :model-value="feedUrl"
           :label="$t('meal-plan.calendar-feed-url')"
           readonly
-          class="mt-4"
         >
           <template #append>
             <AppButtonCopy
