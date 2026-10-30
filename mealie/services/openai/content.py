@@ -1,4 +1,9 @@
+import json
+from urllib.parse import parse_qs, urlsplit
+
 import bs4
+
+FACEBOOK_HOSTS = {"facebook.com", "www.facebook.com", "m.facebook.com"}
 
 MAX_SOURCE_CONTENT_LENGTH = 100_000
 """
@@ -9,6 +14,13 @@ anything beyond a length that comfortably fits even a very long recipe.
 """
 
 TRUNCATION_NOTICE = "\n\n[content truncated]"
+
+
+def is_facebook_url(url: str) -> bool:
+    try:
+        return urlsplit(url).hostname in FACEBOOK_HOSTS
+    except ValueError:
+        return False
 
 
 def truncate_source_content(content: str, max_length: int = MAX_SOURCE_CONTENT_LENGTH) -> str:
@@ -53,6 +65,45 @@ def extract_json_ld_data_from_html(soup: bs4.BeautifulSoup) -> str:
     return "\n\n".join(data_parts)
 
 
+def extract_facebook_description(soup: bs4.BeautifulSoup) -> str:
+    """Read the current video's caption, not truncated previews or other feed items."""
+    canonical = soup.find("meta", property="og:url")
+    if not canonical:
+        return ""
+
+    try:
+        url = urlsplit(str(canonical.get("content", "")))
+    except ValueError:
+        return ""
+    if url.hostname not in FACEBOOK_HOSTS:
+        return ""
+
+    video_id = parse_qs(url.query).get("v", [url.path.rstrip("/").rsplit("/", 1)[-1]])[0]
+    if not video_id.isdecimal():
+        return ""
+
+    for script in soup.find_all("script", type="application/json"):
+        try:
+            pending = [json.loads(script.string or "")]
+        except ValueError, RecursionError:
+            continue
+
+        while pending:
+            value = pending.pop()
+            if isinstance(value, list):
+                pending.extend(value)
+            elif isinstance(value, dict):
+                if str(value.get("id")) == video_id:
+                    story = value.get("creation_story")
+                    message = story.get("message") if isinstance(story, dict) else None
+                    text = message.get("text") if isinstance(message, dict) else None
+                    if isinstance(text, str) and text.strip():
+                        return text
+                pending.extend(value.values())
+
+    return ""
+
+
 def find_image(soup: bs4.BeautifulSoup) -> str | None:
     # find the open graph image tag
     og_image = soup.find("meta", property="og:image")
@@ -94,6 +145,9 @@ def extract_page_content(html: str) -> tuple[str, str | None]:
 
     text = soup.get_text(separator="\n", strip=True)
     text += extract_json_ld_data_from_html(soup)
+    if description := extract_facebook_description(soup):
+        # Facebook's full caption is in hydration JSON, which get_text deliberately skips.
+        text = description + "\n\n" + text
     if not text:
         raise ValueError("No text or ld+json data found in HTML")
 
