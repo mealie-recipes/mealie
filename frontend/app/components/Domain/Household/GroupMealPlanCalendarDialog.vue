@@ -66,6 +66,23 @@
         />
 
         <v-text-field
+          v-model="summary"
+          :label="$t('meal-plan.calendar-feed-event-title')"
+          class="mt-4"
+        />
+        <v-textarea
+          v-model="description"
+          :label="$t('meal-plan.calendar-feed-event-description')"
+          rows="2"
+          auto-grow
+          hide-details
+        />
+        <DocLink
+          class="mt-2"
+          link="/documentation/getting-started/features/#calendar-feed"
+        />
+
+        <v-text-field
           :model-value="feedUrl"
           :label="$t('meal-plan.calendar-feed-url')"
           readonly
@@ -123,6 +140,10 @@ import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
 const dialog = defineModel<boolean>({ default: false });
 
+// must match the feed's defaults (mealplan_ical_service.py)
+const SUMMARY_TEMPLATE = "${type}: ${title}";
+const DESCRIPTION_TEMPLATE = "${text}\n\n${url}";
+
 const api = useUserApi();
 const auth = useMealieAuth();
 const canManage = computed(() => !!auth.user.value?.canManageHousehold);
@@ -135,6 +156,8 @@ const selectedTypes = ref<PlanEntryType[]>(planTypeOptions.map(option => option.
 const includeNotes = ref(true);
 const times = ref<Partial<Record<PlanEntryType, string | null>>>({});
 const timezone = ref(Intl.DateTimeFormat().resolvedOptions().timeZone);
+const summary = ref(SUMMARY_TEMPLATE);
+const description = ref(DESCRIPTION_TEMPLATE);
 
 const selectedOptions = computed(() => planTypeOptions.filter(option => selectedTypes.value.includes(option.value)));
 const hasTimes = computed(() => selectedOptions.value.some(option => times.value[option.value]));
@@ -159,6 +182,13 @@ const feedUrl = computed(() => {
   }
   if (hasTimes.value && timezone.value) {
     params.set("tz", timezone.value);
+  }
+  // blank templates fall back to the defaults
+  if (summary.value?.trim() && summary.value !== SUMMARY_TEMPLATE) {
+    params.set("summary", summary.value);
+  }
+  if (description.value?.trim() && description.value !== DESCRIPTION_TEMPLATE) {
+    params.set("description", description.value);
   }
 
   const query = params.toString();

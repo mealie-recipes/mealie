@@ -383,6 +383,8 @@
     "calendar-feed-include-notes": "Include notes",
     "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
     "calendar-feed-timezone": "Timezone",
+    "calendar-feed-event-title": "Event Title",
+    "calendar-feed-event-description": "Event Description",
     "calendar-feed-url": "Calendar Link"
   },
   "migration": {
