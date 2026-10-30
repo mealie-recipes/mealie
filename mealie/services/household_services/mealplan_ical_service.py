@@ -183,6 +183,7 @@ class MealPlanICalService(BaseService):
         return "".join(_fold(line) + "\r\n" for line in lines)
 
     def _merge_fields(self, entry: ReadPlanEntry, url: str | None) -> dict[str, str]:
+        # when adding or removing fields, also update the "Calendar Feed" list in docs/.../getting-started/features.md
         entry_type = self.translator.t(f"mealplan.entry-type.{entry.entry_type.value}", default=entry.entry_type.value)
         fields = {
             "type": entry_type[:1].upper() + entry_type[1:],
