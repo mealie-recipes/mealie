@@ -140,13 +140,22 @@ function onFileChanged(e: Event) {
 
 function onButtonClick() {
   isSelecting.value = true;
-  window.addEventListener(
-    "focus",
-    () => {
-      isSelecting.value = false;
-    },
-    { once: true },
-  );
+
+  function resetSelecting() {
+    isSelecting.value = false;
+    window.removeEventListener("focus", resetSelecting);
+    document.removeEventListener("visibilitychange", onVisibilityChange);
+  }
+
+  function onVisibilityChange() {
+    if (document.visibilityState === "visible") {
+      resetSelecting();
+    }
+  }
+
+  window.addEventListener("focus", resetSelecting);
+  document.addEventListener("visibilitychange", onVisibilityChange);
+
   uploader.value?.click();
 }
 </script>
