@@ -209,7 +209,7 @@ To add, modify, or delete Recipe Actions, visit the Data Management page (more o
 
 ## Data Management
 
-Managing a robust collection of recipes inevitable requires a lot of data. Mealie has a robust data management system that allows you to easily export some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
+Managing a robust collection of recipes inevitably requires a lot of data. Mealie has a robust data management system that allows you to easily export some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
 
 - Recipes
     - Bulk Actions
