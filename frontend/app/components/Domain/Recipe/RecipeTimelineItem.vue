@@ -33,6 +33,7 @@
               v-if="currentUser && currentUser.id == event.userId && event.eventType != 'system'"
               :menu-top="false"
               :event="event"
+              :image-url="eventImageUrl"
               :menu-icon="$globals.icons.dotsVertical"
               color="transparent"
               :elevation="0"
@@ -92,9 +93,10 @@
 <script setup lang="ts">
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
+import type { TimelineEventEdit } from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
-import type { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
@@ -111,7 +113,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 defineEmits<{
   selected: [];
-  update: [event: RecipeTimelineEventUpdate];
+  update: [edit: TimelineEventEdit];
   delete: [];
 }>();
 
@@ -166,12 +168,18 @@ const icon = computed(() => {
 });
 
 const hideImage = ref(false);
+const imageKey = ref(1);
+watch(() => props.event, () => {
+  hideImage.value = false;
+  imageKey.value++;
+});
+
 const eventImageUrl = computed<string>(() => {
   if (props.event.image !== "has image") {
     return "";
   }
 
-  return recipeTimelineEventSmallImage(props.event.recipeId, props.event.id);
+  return recipeTimelineEventSmallImage(props.event.recipeId, props.event.id, imageKey.value);
 });
 </script>
 
