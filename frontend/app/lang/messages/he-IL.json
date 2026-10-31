@@ -382,7 +382,12 @@
     "calendar-feed-reset-hint": "איפוס הקישור או כיבוי שלו מונעים מהמינויים הקיימים להתעדכן.",
     "calendar-feed-include-notes": "הכללת הערות",
     "calendar-feed-times-hint": "ארוחות ללא שעה מוצגות כאירועים של יום שלם.",
-    "calendar-feed-timezone": "אזור זמן",
+    "calendar-feed-duration": "Length (minutes)",
+    "calendar-feed-event-details": "Event Details",
+    "calendar-feed-event-details-description": "Customize how meals show up in your calendar. You can use merge fields to fill in each meal's details (see the docs for the full list).",
+    "calendar-feed-event-details-change-warning": "Changing these will update the calendar link, so if you've already subscribed you'll need to replace it with the new link.",
+    "calendar-feed-event-title": "Event Title",
+    "calendar-feed-event-description": "Event Description",
     "calendar-feed-url": "קישור ליומן"
   },
   "migration": {
