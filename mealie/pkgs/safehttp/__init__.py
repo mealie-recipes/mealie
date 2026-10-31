@@ -4,6 +4,7 @@ from .fetch import (
     FetchResult,
     ForceTimeoutException,
     ResponseTooLargeError,
+    fetch_via_flaresolverr,
     resilient_fetch,
 )
 from .transport import (
@@ -29,5 +30,6 @@ __all__ = [
     "FetchResult",
     "ForceTimeoutException",
     "ResponseTooLargeError",
+    "fetch_via_flaresolverr",
     "resilient_fetch",
 ]
