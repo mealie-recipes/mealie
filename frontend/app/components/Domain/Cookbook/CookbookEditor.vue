@@ -45,73 +45,15 @@
 </template>
 
 <script setup lang="ts">
-import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
-import type { FieldDefinition } from "~/composables/use-query-filter-builder";
+import { useRecipeFilterFields } from "~/composables/use-recipe-filter-fields";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 
 const modelValue = defineModel<ReadCookBook>({ required: true });
-const i18n = useI18n();
 const cookbook = toRef(modelValue);
 function handleInput(value: string | undefined) {
   cookbook.value.queryFilterString = value || "";
 }
 
-const fieldDefs: FieldDefinition[] = [
-  {
-    name: "recipe_category.id",
-    label: i18n.t("category.categories"),
-    type: Organizer.Category,
-  },
-  {
-    name: "tags.id",
-    label: i18n.t("tag.tags"),
-    type: Organizer.Tag,
-  },
-  {
-    name: "recipe_ingredient.food.id",
-    label: i18n.t("recipe.ingredients"),
-    type: Organizer.Food,
-  },
-  {
-    name: "recipe_ingredient.food.label_id",
-    label: i18n.t("data-pages.foods.food-label"),
-    type: Organizer.Label,
-  },
-  {
-    name: "tools.id",
-    label: i18n.t("tool.tools"),
-    type: Organizer.Tool,
-  },
-  {
-    name: "household_id",
-    label: i18n.t("household.households"),
-    type: Organizer.Household,
-  },
-  {
-    name: "user_id",
-    label: i18n.t("user.users"),
-    type: Organizer.User,
-  },
-  {
-    name: "rating",
-    label: i18n.t("general.rating"),
-    type: "number",
-  },
-  {
-    name: "total_time_seconds",
-    label: i18n.t("recipe.total-time"),
-    type: "duration",
-  },
-  {
-    name: "created_at",
-    label: i18n.t("general.date-created"),
-    type: "date",
-  },
-  {
-    name: "updated_at",
-    label: i18n.t("general.date-updated"),
-    type: "date",
-  },
-];
+const fieldDefs = useRecipeFilterFields();
 </script>
