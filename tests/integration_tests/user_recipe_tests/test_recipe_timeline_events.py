@@ -359,6 +359,45 @@ def test_timeline_event_update_image(
     assert updated_event.image == TimelineEventImage.has_image.value
 
 
+def test_timeline_event_remove_image(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipes: list[Recipe],
+    test_image_jpg: str,
+):
+    new_event_data = {
+        "recipe_id": str(recipes[0].id),
+        "user_id": str(unique_user.user_id),
+        "subject": random_string(),
+        "event_type": "info",
+    }
+    event_response = api_client.post(api_routes.recipes_timeline_events, json=new_event_data, headers=unique_user.token)
+    new_event = RecipeTimelineEventOut.model_validate(event_response.json())
+
+    with open(test_image_jpg, "rb") as f:
+        r = api_client.put(
+            api_routes.recipes_timeline_events_item_id_image(new_event.id),
+            files={"image": ("test_image_jpg.jpg", f, "image/jpeg")},
+            data={"extension": "jpg"},
+            headers=unique_user.token,
+        )
+    r.raise_for_status()
+
+    image_files = list(new_event.image_dir.glob("*.webp"))
+    assert image_files
+
+    event_response = api_client.put(
+        api_routes.recipes_timeline_events_item_id(new_event.id),
+        json={"subject": new_event.subject, "image": TimelineEventImage.does_not_have_image.value},
+        headers=unique_user.token,
+    )
+    assert event_response.status_code == 200
+
+    updated_event = RecipeTimelineEventOut.model_validate(event_response.json())
+    assert updated_event.image == TimelineEventImage.does_not_have_image.value
+    assert not any(image_file.exists() for image_file in image_files)
+
+
 @pytest.mark.parametrize("use_other_household_user", [True, False])
 def test_create_recipe_with_timeline_event(
     api_client: TestClient,

@@ -115,6 +115,9 @@ class RecipeTimelineEventsController(BaseCrudController):
     @router.put("/{item_id}", response_model=RecipeTimelineEventOut)
     def update_one(self, item_id: UUID4, data: RecipeTimelineEventUpdate):
         event = self.mixins.patch_one(data, item_id)
+        if data.image == TimelineEventImage.does_not_have_image.value:
+            RecipeDataService(event.recipe_id).delete_image(event.image_dir)
+
         recipe = self.group_recipes.get_one(event.recipe_id, "id")
         if recipe:
             self.publish_event(
