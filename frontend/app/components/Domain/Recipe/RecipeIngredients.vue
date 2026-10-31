@@ -42,9 +42,10 @@
           </template>
           <v-list-item-title>
             <RecipeIngredientListItem
+              v-model:scale="scale"
               :ingredient="ingredient"
-              :scale="scale"
               show-substitutions
+              show-scale
             />
           </v-list-item-title>
         </v-list-item>
@@ -61,16 +62,16 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface Props {
   value?: RecipeIngredient[];
-  scale?: number;
   isCookMode?: boolean;
   storageKey?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   value: () => [],
-  scale: 1,
   isCookMode: false,
   storageKey: undefined,
 });
+
+const scale = defineModel<number>("scale", { default: 1 });
 
 const { parseIngredientText } = useIngredientTextParser();
 
@@ -95,7 +96,7 @@ const ingredientCopyText = computed(() => {
       components.push(`[${ingredient.title}]`);
     }
 
-    components.push(parseIngredientText(ingredient, props.scale, false));
+    components.push(parseIngredientText(ingredient, scale.value, false));
   });
 
   return components.join("\n");
