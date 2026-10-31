@@ -35,6 +35,7 @@ EXPECTED_ROUTE_PERMISSIONS: dict[Perm, set[str]] = {
         "DELETE  /api/organizers/categories/{item_id}",
         "POST    /api/organizers/tags",
         "POST    /api/organizers/tags/merge",
+        "POST    /api/organizers/tags/{item_id}/remove-from-recipes",
         "PUT     /api/organizers/tags/{item_id}",
         "DELETE  /api/organizers/tags/{item_id}",
         "POST    /api/organizers/tools",
