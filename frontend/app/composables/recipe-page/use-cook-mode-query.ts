@@ -35,7 +35,7 @@ export function useCookModeQuery({
 
   watch([cookQuery, isEditMode], syncCookModeWithQuery);
 
-  watch(pageMode, (mode) => {
+  watch(pageMode, (mode, previousMode) => {
     if (!hasHydrated.value) {
       return;
     }
@@ -47,7 +47,7 @@ export function useCookModeQuery({
       return;
     }
 
-    if (mode === PageMode.VIEW) {
+    if (mode === PageMode.VIEW && (cookQuery.value || previousMode === PageMode.COOK)) {
       cookQuery.value = undefined;
     }
   });
