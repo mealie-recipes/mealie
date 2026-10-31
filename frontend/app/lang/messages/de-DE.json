@@ -262,11 +262,11 @@
       "ai-prompts": "KI-Prompts",
       "ai-prompts-description": "Passe die Instruktionen, die Mealie deinem KI-Anbieter gibt, für jede Aufgabe an. Mealies Prompts sind auf Englisch geschrieben, das ändert aber nichts an der Sprache deiner Rezepte: Sie bleiben in deiner Sprache, es sei denn, du möchtest sie übersetzen. Du kannst deine eigenen Instruktionen in einer beliebigen Sprache schreiben.",
       "global-instructions": "Instruktionen für alle Prompts",
-      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-description": "Zu jeder Eingabeaufforderung, die Rezeptdaten erzeugt, wie zum Beispiel das Erstellen von Rezepten, das Parsen von Zutaten und das Übersetzen von Übersetzungen. System-Eingabeaufforderungen sind davon nicht betroffen.",
       "global-instructions-placeholder": "z. B. Verwende immer metrische Einheiten.",
       "prompts": "Prompts",
       "system": "System",
-      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "system-description": "Dies ist eine System-Eingabeaufforderung. Es schreibt Ihr Quellmaterial so getreu wie möglich, bevor es in ein Rezept umgewandelt wird, so dass die Anweisungen für alle Eingabeaufforderungen nicht hinzugefügt werden. Eine Änderung ist in der Regel nicht notwendig und kann Importe weniger zuverlässig machen.",
       "appended": "Hinzugefügt",
       "overridden": "Überschrieben",
       "mode-default": "Standard",
@@ -373,7 +373,7 @@
     "add-day-to-list": "Tag zur Einkaufsliste hinzufügen",
     "add-week-to-list": "Add Week to List",
     "randomize-recipe": "Rezept zufällig auswählen",
-    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed": "Kalender abonnieren",
     "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
     "calendar-feed-off": "The calendar link is turned off for your household.",
     "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
@@ -387,7 +387,7 @@
     "calendar-feed-event-details-description": "Customize how meals show up in your calendar. You can use merge fields to fill in each meal's details (see the docs for the full list).",
     "calendar-feed-event-details-change-warning": "Changing these will update the calendar link, so if you've already subscribed you'll need to replace it with the new link.",
     "calendar-feed-event-title": "Event Title",
-    "calendar-feed-event-description": "Event Description",
+    "calendar-feed-event-description": "Veranstaltungsbeschreibung",
     "calendar-feed-url": "Kalender-Link"
   },
   "migration": {
@@ -1125,7 +1125,7 @@
       "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
       "merge-tool-example": "Merging {tool1} into {tool2}",
       "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "no-unused-tools": "Keine unbenutzten Werkzeuge zum Löschen"
     }
   },
   "user-registration": {
