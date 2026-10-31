@@ -1,4 +1,6 @@
 import filecmp
+import logging
+import tempfile
 from io import BytesIO
 
 import pytest
@@ -44,6 +46,63 @@ def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, rec
     recipe_respons = response.json()
 
     assert recipe_respons["assets"][0]["name"] == payload["name"]
+
+
+def test_recipe_asset_upload_temp_storage_failure(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipe_ingredient_only: Recipe,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+):
+    """
+    Regression test for https://github.com/mealie-recipes/mealie/issues/5580
+
+    Uploads past the multipart spool threshold roll into temporary storage. When that
+    write fails, the client must get a structured 500 rather than FastAPI's generic
+    400 body-parsing error, and no asset is saved.
+    """
+    recipe = recipe_ingredient_only
+    secret_path = "/tmp/mealie-upload-spool-not-for-clients"
+
+    def fail_rollover(self):
+        raise OSError(13, "Permission denied", secret_path)
+
+    # Starlette keeps multipart files in memory until 1 MiB, then calls rollover.
+    monkeypatch.setattr(tempfile.SpooledTemporaryFile, "rollover", fail_rollover)
+
+    payload = {
+        "name": random_string(10),
+        "icon": random_string(10),
+        "extension": "jpg",
+    }
+    oversized_file = b"x" * (1024 * 1024 + 1)
+
+    caplog.set_level(logging.ERROR)
+    response = api_client.post(
+        f"/api/recipes/{recipe.slug}/assets",
+        data=payload,
+        files={"file": oversized_file},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 500
+    detail = response.json()["detail"]
+    assert detail["error"] is True
+    assert (
+        detail["message"]
+        == "The server could not store the uploaded file. Check that temporary storage is available and try again."
+    )
+    assert not detail["exception"]
+    assert secret_path not in response.text
+    assert "Permission denied" not in response.text
+
+    assert "temporary storage is unavailable" in caplog.text
+    assert secret_path in caplog.text
+
+    recipe_response = api_client.get(f"/api/recipes/{recipe.slug}", headers=unique_user.token)
+    assert recipe_response.json()["assets"] == []
+    assert list(recipe.asset_dir.iterdir()) == []
 
 
 def test_recipe_assets_create_duplicate_name(
