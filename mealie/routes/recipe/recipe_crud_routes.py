@@ -573,6 +573,7 @@ class RecipeController(BaseRecipeController):
         tools: list[UUID4 | str] | None = Query(None),
         foods: list[UUID4 | str] | None = Query(None),
         households: list[UUID4 | str] | None = Query(None),
+        users: list[UUID4 | str] | None = Query(None),
     ):
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
@@ -600,6 +601,7 @@ class RecipeController(BaseRecipeController):
             tools=tools,
             foods=foods,
             households=households,
+            users=users,
             require_all_categories=search_query.require_all_categories,
             require_all_tags=search_query.require_all_tags,
             require_all_tools=search_query.require_all_tools,
