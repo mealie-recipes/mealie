@@ -209,4 +209,19 @@ describe("signOut", () => {
 
     expect(routerMock.push).toHaveBeenCalledWith("/recipes");
   });
+
+  test("sends the browser to the identity provider to end its session too", async () => {
+    const navigateToMock = vi.fn();
+    vi.stubGlobal("navigateTo", navigateToMock);
+    const auth = useAuthBackend();
+    auth.setToken(validToken());
+    const endSessionUrl = "https://idp.example/logout?id_token_hint=id-token";
+    axiosMock.post.mockResolvedValue({ data: { redirect_url: endSessionUrl } });
+
+    await auth.signOut("/recipes");
+
+    expect(auth.token.value).toBeNull();
+    expect(navigateToMock).toHaveBeenCalledWith(endSessionUrl, { external: true });
+    expect(routerMock.push).not.toHaveBeenCalled();
+  });
 });
