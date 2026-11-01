@@ -1,4 +1,5 @@
 import { mount } from "@vue/test-utils";
+import type { MaybeRefOrGetter } from "vue";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
@@ -76,7 +77,7 @@ vi.mock("~/composables/store", async (importOriginal) => {
   };
 });
 
-const wrapper = (ingredients: NoUndefinedField<RecipeIngredient>[] = [{}, { referencedRecipe: {} }] as NoUndefinedField<RecipeIngredient>[]) => {
+const wrapper = (ingredients: MaybeRefOrGetter<NoUndefinedField<RecipeIngredient>[]> = [{}, { referencedRecipe: {} }] as NoUndefinedField<RecipeIngredient>[]) => {
   const TestComponent = defineComponent({
     template: "<div />",
     props: {},
@@ -456,6 +457,18 @@ describe("useParseIngredientsDialog", () => {
       expect(state.step).toBe(ParseStep.INFO);
       expect(state.loadingCount).toBe(0);
       expect(mockError).toHaveBeenCalled();
+    });
+    test("parses the current ingredients after the list is replaced", async () => {
+      mockParseIngredients.mockResolvedValueOnce({ data: [] });
+      let recipeIngredients = [{ note: "1 cup flour" }] as NoUndefinedField<RecipeIngredient>[];
+      const wrapped = wrapper(() => recipeIngredients);
+
+      // The recipe page replaces the whole array (e.g. after saving), rather than mutating it
+      recipeIngredients = [{ note: "3 eggs" }, { note: "1 cup milk" }] as NoUndefinedField<RecipeIngredient>[];
+
+      await wrapped.vm.parseIngredients();
+      expect(mockParseIngredients).toHaveBeenCalledOnce();
+      expect(mockParseIngredients.mock.calls[0]![1]).toHaveLength(2);
     });
   });
   describe("create and alias food and unit", () => {
