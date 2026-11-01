@@ -11,10 +11,12 @@
     <template v-if="parsedIng.note && !parsedIng.name">
       <SafeMarkdown class="text-bold d-inline" :source="parsedIng.note" />
       <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
+      <RecipeIngredientScaleButton v-if="showScale" v-model="scale" :ingredient="ingredient" />
     </template>
     <template v-else-if="parsedIng.recipeLink">
       <SafeMarkdown class="text-bold d-inline" :source="parsedIng.recipeLink" />
       <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
+      <RecipeIngredientScaleButton v-if="showScale" v-model="scale" :ingredient="ingredient" />
       <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
     </template>
     <template v-else>
@@ -25,6 +27,7 @@
       />
       <!-- sits before the note, which takes a full block row beneath -->
       <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
+      <RecipeIngredientScaleButton v-if="showScale" v-model="scale" :ingredient="ingredient" />
       <SafeMarkdown
         v-if="parsedIng.note"
         class="note"
@@ -38,25 +41,27 @@
 import type { RecipeIngredient } from "~/lib/api/types/household";
 import { useIngredientTextParser } from "~/composables/recipes";
 import RecipeIngredientSubstitutions from "~/components/Domain/Recipe/RecipeIngredientSubstitutions.vue";
+import RecipeIngredientScaleButton from "~/components/Domain/Recipe/RecipeIngredientScaleButton.vue";
 
 interface Props {
   ingredient: RecipeIngredient;
-  scale?: number;
   // off by default: the shopping list and the add-to-list dialog reuse this row, and a menu
   // button is noise in both. the recipe renderer opts in
   showSubstitutions?: boolean;
+  showScale?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
-  scale: 1,
   showSubstitutions: false,
+  showScale: false,
 });
+const scale = defineModel<number>("scale", { default: 1 });
 const route = useRoute();
 const auth = useMealieAuth();
 const groupSlug = computed(() => route.params.groupSlug || auth.user?.value?.groupSlug || "");
 const { useParsedIngredientText } = useIngredientTextParser();
 
 const parsedIng = computed(() => {
-  return useParsedIngredientText(props.ingredient, props.scale, true, groupSlug.value.toString());
+  return useParsedIngredientText(props.ingredient, scale.value, true, groupSlug.value.toString());
 });
 </script>
 
