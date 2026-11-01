@@ -179,6 +179,9 @@ export function useShoppingListCrud(
     // Set position for unchecked items
     listItems.unchecked.forEach((item: ShoppingListItemOut, idx: number) => {
       item.position = idx;
+      // bump updatedAt so this local change wins over any stale data returned by an
+      // in-flight/concurrent GET (e.g. from polling) while the update is still queued
+      item.updatedAt = new Date().toISOString();
       shoppingListItemActions.updateItem(item);
     });
 
