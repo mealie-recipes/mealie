@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :data-reference-id="model.referenceId" @keydown="handleKeydown">
     <v-text-field
       v-if="titleVisible"
       v-model="model.title"
@@ -35,6 +35,7 @@
         <div class="flex-grow-1">
           <div class="d-flex ga-2 py-2" :class="$vuetify.display.mdAndDown ? 'flex-column' : ''">
             <v-number-input
+              ref="quantityInput"
               v-model="model.quantity"
               variant="filled"
               :precision="null"
@@ -42,6 +43,7 @@
               hide-details
               inset
               density="compact"
+              class="quantity-input"
               :style="$vuetify.display.mdAndDown ? '' : 'flex: 3 0 50px;'"
               :placeholder="$t('recipe.quantity')"
               @keypress="quantityFilter"
@@ -62,7 +64,7 @@
               :placeholder="$t('recipe.choose-unit')"
               clearable
               :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
-              @keyup.enter="handleUnitEnter"
+              @keyup.enter.exact="handleUnitEnter"
             >
               <template v-if="unitError" #prepend-inner>
                 <v-tooltip location="bottom">
@@ -114,7 +116,7 @@
               :placeholder="$t('recipe.choose-food')"
               clearable
               :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
-              @keyup.enter="handleFoodEnter"
+              @keyup.enter.exact="handleFoodEnter"
             >
               <template v-if="foodError" #prepend-inner>
                 <v-tooltip location="bottom">
@@ -204,7 +206,6 @@
 </template>
 
 <script setup lang="ts">
-import { useNuxtApp } from "#app";
 import { computed, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
@@ -256,11 +257,14 @@ const props = defineProps({
   },
 });
 
-defineEmits([
+const emit = defineEmits([
   "clickIngredientField",
   "insert-above",
   "insert-below",
   "delete",
+  "ctrl-enter",
+  "move-up",
+  "move-down",
 ]);
 
 const i18n = useI18n();
@@ -433,7 +437,10 @@ function toggleIsRecipe() {
   state.isRecipe = !state.isRecipe;
 }
 
-function handleUnitEnter() {
+function handleUnitEnter(e?: KeyboardEvent) {
+  if (e?.ctrlKey || e?.metaKey) {
+    return;
+  }
   if (
     model.value.unit === undefined
     || model.value.unit === null
@@ -443,7 +450,10 @@ function handleUnitEnter() {
   }
 }
 
-function handleFoodEnter() {
+function handleFoodEnter(e?: KeyboardEvent) {
+  if (e?.ctrlKey || e?.metaKey) {
+    return;
+  }
   if (
     model.value.food === undefined
     || model.value.food === null
@@ -458,4 +468,49 @@ function quantityFilter(e: KeyboardEvent) {
     e.preventDefault();
   }
 }
+
+const quantityInput = ref<{ focus?: () => void; $el?: HTMLElement } | null>(null);
+
+function focusQuantity() {
+  if (quantityInput.value?.focus) {
+    quantityInput.value.focus();
+  }
+  else if (quantityInput.value?.$el) {
+    const input = quantityInput.value.$el.querySelector("input");
+    input?.focus();
+  }
+}
+
+function handleKeydown(e: KeyboardEvent) {
+  if (e.isComposing) {
+    return;
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    e.stopPropagation();
+    emit("ctrl-enter");
+  }
+  else if ((e.ctrlKey || e.metaKey) && e.key === "Delete") {
+    if (!props.deleteDisabled) {
+      e.preventDefault();
+      e.stopPropagation();
+      emit("delete");
+    }
+  }
+  else if ((e.ctrlKey || e.metaKey) && (e.key === "ArrowUp" || e.key === "Up")) {
+    e.preventDefault();
+    e.stopPropagation();
+    emit("move-up");
+  }
+  else if ((e.ctrlKey || e.metaKey) && (e.key === "ArrowDown" || e.key === "Down")) {
+    e.preventDefault();
+    e.stopPropagation();
+    emit("move-down");
+  }
+}
+
+defineExpose({
+  focusQuantity,
+  focus: focusQuantity,
+});
 </script>
