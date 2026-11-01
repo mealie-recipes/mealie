@@ -232,7 +232,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 except ValueError:
                     slugs.append(i)
 
-        if not slugs:
+        if not slugs or not hasattr(model, "slug"):
             return ids
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
@@ -342,6 +342,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         tools: list[UUID4 | str] | None = None,
         foods: list[UUID4 | str] | None = None,
         households: list[UUID4 | str] | None = None,
+        users: list[UUID4 | str] | None = None,
         require_all_categories=True,
         require_all_tags=True,
         require_all_tools=True,
@@ -364,12 +365,14 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             tag_ids = self._uuids_for_items(tags, Tag)
             tool_ids = self._uuids_for_items(tools, Tool)
             household_ids = self._uuids_for_items(households, Household)
+            user_ids = self._uuids_for_items(users, User)
             filters = self._build_recipe_filter(
                 categories=category_ids,
                 tags=tag_ids,
                 tools=tool_ids,
                 foods=foods,
                 households=household_ids,
+                users=user_ids,
                 require_all_categories=require_all_categories,
                 require_all_tags=require_all_tags,
                 require_all_tools=require_all_tools,
@@ -438,6 +441,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         tools: list[UUID4] | None = None,
         foods: list[UUID4] | None = None,
         households: list[UUID4] | None = None,
+        users: list[UUID4] | None = None,
         require_all_categories: bool = True,
         require_all_tags: bool = True,
         require_all_tools: bool = True,
@@ -473,6 +477,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 fltr.append(self._recipes_using_foods(foods))
         if households:
             fltr.append(RecipeModel.household_id.in_(households))
+        if users:
+            fltr.append(RecipeModel.user_id.in_(users))
         return fltr
 
     def get_random(self, limit=1) -> list[Recipe]:
