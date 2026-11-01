@@ -44,7 +44,9 @@
               density="compact"
               :style="$vuetify.display.mdAndDown ? '' : 'flex: 3 0 50px;'"
               :placeholder="$t('recipe.quantity')"
+              :autofocus="autofocusQuantity"
               @keypress="quantityFilter"
+              @update:focused="onQuantityFocused"
             />
             <v-autocomplete
               ref="unitAutocomplete"
@@ -205,7 +207,7 @@
 
 <script setup lang="ts">
 import { useNuxtApp } from "#app";
-import { computed, reactive, ref, watch } from "vue";
+import { computed, nextTick, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
@@ -251,6 +253,10 @@ const props = defineProps({
     default: false,
   },
   deleteDisabled: {
+    type: Boolean,
+    default: false,
+  },
+  autofocus: {
     type: Boolean,
     default: false,
   },
@@ -450,6 +456,23 @@ function handleFoodEnter() {
     || !model.value.food.name.includes(foodSearch.value)
   ) {
     createAssignFood();
+  }
+}
+
+// only the autofocus should select the quantity; later focuses (clicks, tabbing) keep normal caret behaviour
+const autofocusQuantity = ref(props.autofocus);
+
+function onQuantityFocused(focused: boolean) {
+  if (!focused || !autofocusQuantity.value) {
+    return;
+  }
+  autofocusQuantity.value = false;
+
+  // a programmatic focus leaves the caret after the placeholder 0, so typing "2" gives "02";
+  // select it instead, after vuetify has reformatted the text on focus
+  const input = document.activeElement;
+  if (input instanceof HTMLInputElement) {
+    nextTick(() => input.select());
   }
 }
 
