@@ -17,8 +17,10 @@
       clearable
       hide-details
       hide-no-data
+      enterkeyhint="next"
       @update:model-value="onSelect"
       @keyup.enter="submit()"
+      @blur="handleBlur"
     >
       <template #append-inner>
         <v-tooltip
@@ -137,6 +139,14 @@ const pickedFood = computed(() => selected.value && typeof selected.value === "o
 function onSelect() {
   if (pickedFood.value && !showDetails.value) {
     submit();
+  }
+}
+
+function handleBlur() {
+  // Select the first filtered item when focus leaves the field
+  // This handles mobile "next" button which typically only fires blur, not Enter
+  if (search.value && !selected.value && filteredFoods.value.length > 0) {
+    selected.value = filteredFoods.value[0];
   }
 }
 
