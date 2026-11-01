@@ -10,7 +10,7 @@
         flat
         class="d-flex flex-column justify-center align-center"
       >
-        <v-card-text>
+        <v-card-text style="max-width: 100%;">
           <div class="d-flex flex-column align-center">
             <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
               {{ recipe.name }}
