@@ -414,6 +414,13 @@ class AppSettings(AppLoggingSettings):
     OIDC_VERIFY_X509_STRICT: bool = True
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
 
+    OIDC_SIGNOUT_ENABLED: bool = False
+    """When true, logging out of Mealie also ends the session with the IdP (RP-Initiated Logout)."""
+
+    OIDC_SIGNOUT_REDIRECT_URL: str | None = None
+    """Absolute URL the IdP sends the browser to after ending its session. Defaults to Mealie's
+    `/login?direct=1`, the page Mealie's own logout lands on. The IdP must allow it as a post logout redirect URI."""
+
     OIDC_NATIVE_CLIENT_ID: str | None = None
     """Client ID used by the native (mobile/desktop) OIDC endpoints. Falls back to OIDC_CLIENT_ID when unset."""
 
