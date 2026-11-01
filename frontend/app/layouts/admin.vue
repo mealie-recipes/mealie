@@ -37,13 +37,9 @@ import type { SidebarLinks } from "~/types/application-types";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 const i18n = useGlobalI18n();
-const display = useDisplay();
 const { $globals } = useNuxtApp();
 
-const sidebar = ref<boolean>(false);
-onMounted(() => {
-  sidebar.value = display.lgAndUp.value;
-});
+const sidebar = useSidebarState();
 
 const topLinks: SidebarLinks = [
   {
