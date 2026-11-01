@@ -87,6 +87,7 @@
                   print: false,
                   printPreferences: false,
                   share: true,
+                  recipeActions: true,
                 }"
                 @deleted="$emit('delete', slug)"
               />
