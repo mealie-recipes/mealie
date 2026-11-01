@@ -4,6 +4,7 @@ import os
 import random
 import tempfile
 from collections.abc import Generator
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from uuid import uuid4
 from zipfile import ZipFile
@@ -1230,6 +1231,65 @@ def test_update_many(api_client: TestClient, unique_user: TestUser, use_patch: b
         get_response = api_client.get(api_routes.recipes_slug(updated_recipe_data["slug"]), headers=unique_user.token)
         assert get_response.status_code == 200
         assert get_response.json()["slug"] == updated_recipe_data["slug"]
+
+
+@pytest.mark.parametrize("use_patch", [True, False])
+def test_concurrent_updates_dont_duplicate_children(api_client: TestClient, unique_user: TestUser, use_patch: bool):
+    """https://github.com/mealie-recipes/mealie/issues/2808"""
+
+    slug = random_string(10)
+    response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
+    assert response.status_code == 201
+
+    recipe_url = api_routes.recipes_slug(slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe = response.json()
+    ingredient_count = len(recipe["recipeIngredient"])
+    instruction_count = len(recipe["recipeInstructions"])
+    assert ingredient_count > 0
+    assert instruction_count > 0
+
+    def update_request() -> Response:
+        if use_patch:
+            return api_client.patch(recipe_url, json={"description": random_string()}, headers=unique_user.token)
+        return api_client.put(recipe_url, json={**recipe, "description": random_string()}, headers=unique_user.token)
+
+    request_count = 10
+    with ThreadPoolExecutor(max_workers=request_count) as executor:
+        futures = [executor.submit(update_request) for _ in range(request_count)]
+        for future in as_completed(futures):
+            assert future.result().status_code == 200
+
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe = response.json()
+    assert len(recipe["recipeIngredient"]) == ingredient_count
+    assert len(recipe["recipeInstructions"]) == instruction_count
+
+
+def test_concurrent_patches_keep_every_change(api_client: TestClient, unique_user: TestUser):
+    slug = random_string(10)
+    response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
+    assert response.status_code == 201
+
+    recipe_url = api_routes.recipes_slug(slug)
+    fields = ["description", "recipeYield", "orgURL", "totalTime", "prepTime", "cookTime", "performTime"]
+    new_values = {field: random_string() for field in fields}
+
+    def patch_request(field: str) -> Response:
+        return api_client.patch(recipe_url, json={field: new_values[field]}, headers=unique_user.token)
+
+    # each request changes a different field, so none of them should undo another
+    with ThreadPoolExecutor(max_workers=len(fields)) as executor:
+        futures = [executor.submit(patch_request, field) for field in fields]
+        for future in as_completed(futures):
+            assert future.result().status_code == 200
+
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe = response.json()
+    assert {field: recipe[field] for field in fields} == new_values
 
 
 def test_recipe_recursion_valid_linear_chain(api_client: TestClient, unique_user: TestUser):
