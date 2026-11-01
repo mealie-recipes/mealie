@@ -1,3 +1,4 @@
+import { toValue, type MaybeRefOrGetter } from "vue";
 import { alert } from "~/composables/use-toast";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { IngredientFood, IngredientUnit, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
@@ -15,7 +16,7 @@ export const enum ParseStep {
 }
 
 export function useParseIngredientsDialog(
-  ingredients: NoUndefinedField<RecipeIngredient[]>,
+  ingredientsSource: MaybeRefOrGetter<NoUndefinedField<RecipeIngredient[]>>,
   onSave: (ingredients: NoUndefinedField<RecipeIngredient>[]) => void,
 ) {
   const { ingredientToParserString } = useIngredientTextParser();
@@ -221,6 +222,8 @@ export function useParseIngredientsDialog(
 
     resetParserState();
 
+    // Read the ingredients now rather than at setup: the parent may have replaced the array
+    const ingredients = toValue(ingredientsSource);
     if (!ingredients || ingredients.length === 0) {
       nextStep();
       return;

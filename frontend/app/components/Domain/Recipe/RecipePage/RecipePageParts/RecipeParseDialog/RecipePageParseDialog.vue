@@ -79,7 +79,7 @@ const emit = defineEmits<{
   (e: "save", value: NoUndefinedField<RecipeIngredient[]>): void;
 }>();
 
-const dialogState = useParseIngredientsDialog(props.ingredients, ings => emit("save", ings));
+const dialogState = useParseIngredientsDialog(() => props.ingredients, ings => emit("save", ings));
 
 const {
   availableParsers,
