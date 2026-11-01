@@ -13,18 +13,19 @@
         {{ $t("recipe.delete-image-confirmation") }}
       </v-card-text>
     </BaseDialog>
-    <v-menu
-      v-model="menu"
-      offset-y
-      top
-      nudge-top="6"
-      :close-on-content-click="false"
+    <BaseDialog
+      v-model="imageDialog"
+      bottom-sheet
+      :title="$t('recipe.recipe-image')"
+      :icon="$globals.icons.fileImage"
+      :loading="loading"
+      max-width="400"
     >
-      <template #activator="{ props: activatorProps }">
+      <template #activator="{ open }">
         <v-btn
           color="accent"
           dark
-          v-bind="activatorProps"
+          @click="open"
         >
           <v-icon start>
             {{ $globals.icons.fileImage }}
@@ -32,51 +33,42 @@
           {{ $t("general.image") }}
         </v-btn>
       </template>
-      <v-card width="400">
-        <v-card-title class="headline flex-wrap mb-0">
-          <div>
-            {{ $t("recipe.recipe-image") }}
-          </div>
-          <div class="d-flex gap-2">
-            <AppButtonUpload
-              url="none"
-              file-name="image"
-              :text-btn="false"
-              :post="false"
-              @uploaded="uploadImage"
-            />
-            <BaseButton
+      <v-card-text>
+        <v-text-field
+          v-model="url"
+          :label="$t('general.url')"
+          class="pt-2"
+          clearable
+          :messages="messages"
+        >
+          <template #append>
+            <v-btn
               class="ml-2"
-              delete
-              @click="dialogDeleteImage = true"
-            />
-          </div>
-        </v-card-title>
-        <v-card-text class="mt-n5">
-          <div>
-            <v-text-field
-              v-model="url"
-              :label="$t('general.url')"
-              class="pt-5"
-              clearable
-              :messages="messages"
+              color="primary"
+              :loading="loading"
+              :disabled="!slug"
+              @click="getImageFromURL"
             >
-              <template #append>
-                <v-btn
-                  class="ml-2"
-                  color="primary"
-                  :loading="loading"
-                  :disabled="!slug"
-                  @click="getImageFromURL"
-                >
-                  {{ $t("general.get") }}
-                </v-btn>
-              </template>
-            </v-text-field>
-          </div>
-        </v-card-text>
-      </v-card>
-    </v-menu>
+              {{ $t("general.get") }}
+            </v-btn>
+          </template>
+        </v-text-field>
+      </v-card-text>
+      <template #custom-card-action>
+        <AppButtonUpload
+          url="none"
+          file-name="image"
+          :text-btn="false"
+          :post="false"
+          @uploaded="uploadImage"
+        />
+        <BaseButton
+          class="ml-2"
+          delete
+          @click="dialogDeleteImage = true"
+        />
+      </template>
+    </BaseDialog>
   </div>
 </template>
 
@@ -101,12 +93,12 @@ const api = useUserApi();
 
 const url = ref("");
 const loading = ref(false);
-const menu = ref(false);
+const imageDialog = ref(false);
 const dialogDeleteImage = ref(false);
 
 function uploadImage(fileObject: File) {
   emit(UPLOAD_EVENT, fileObject);
-  menu.value = false;
+  imageDialog.value = false;
 }
 
 async function deleteImage() {
@@ -120,7 +112,7 @@ async function deleteImage() {
   }
 
   emit(DELETE_EVENT);
-  menu.value = false;
+  imageDialog.value = false;
 }
 
 async function getImageFromURL() {
@@ -136,7 +128,7 @@ async function getImageFromURL() {
   if (data?.image) {
     emit(REFRESH_EVENT, data.image);
   }
-  menu.value = false;
+  imageDialog.value = false;
 }
 
 const messages = computed(() =>
