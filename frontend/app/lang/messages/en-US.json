@@ -867,6 +867,7 @@
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
+    "are-you-sure-you-want-to-mark-checked-items-on-hand": "Are you sure you want to mark the checked items as on hand? Only items saved as food will be removed from the list.",
     "no-shopping-lists-found": "No Shopping Lists Found",
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",

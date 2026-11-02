@@ -19,6 +19,7 @@ export function useShoppingListState() {
     checkAllDialog: false,
     uncheckAllDialog: false,
     deleteCheckedDialog: false,
+    markCheckedOnHandDialog: false,
   });
 
   // Hydrate listItems from shoppingList.value?.listItems
