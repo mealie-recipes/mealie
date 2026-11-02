@@ -84,6 +84,11 @@ class HouseholdService(BaseService):
         if not self.repos.ingredient_foods.add_on_hand(self.household_id, food_ids):
             raise exceptions.NoEntryFound("Food not found.")
 
+    def remove_foods_on_hand(self, food_ids: list[UUID4]) -> None:
+        """Removes foods from this household's on hand foods"""
+        if not self.repos.ingredient_foods.remove_on_hand(self.household_id, food_ids):
+            raise exceptions.NoEntryFound("Food not found.")
+
     def set_household_recipe(self, recipe_slug: str | UUID, data: HouseholdRecipeUpdate) -> HouseholdRecipeSummary:
         """Sets the household's recipe data"""
         recipe = self._get_recipe(recipe_slug)

@@ -154,6 +154,34 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
 
         return self.get_one(to_food)
 
+    def _get_household_and_foods(
+        self, household_id: UUID4, food_ids: Collection[UUID4]
+    ) -> tuple[Household, Sequence[IngredientFoodModel]] | None:
+        """
+        Loads a household and the given foods, along with the households each food is on hand for.
+
+        Returns None if the household or any of the foods isn't in this group.
+        """
+
+        household = self.session.execute(
+            select(Household).filter_by(**self._filter_builder(id=household_id))
+        ).scalar_one_or_none()
+        if household is None:
+            return None
+
+        unique_ids = set(food_ids)
+        stmt = (
+            select(self.model)
+            .filter(self.model.id.in_(unique_ids))
+            .filter_by(**self._filter_builder())
+            .options(selectinload(self.model.households_with_ingredient_food))
+        )
+        foods = self.session.execute(stmt).scalars().all()
+        if len(foods) != len(unique_ids):
+            return None
+
+        return household, foods
+
     def add_on_hand(self, household_id: UUID4, food_ids: Collection[UUID4]) -> bool:
         """
         Marks foods as on hand for one household, leaving every other household's on hand
@@ -163,29 +191,41 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
         isn't in this group, so a request can't partly succeed.
         """
 
-        unique_ids = set(food_ids)
-        if not unique_ids:
+        if not food_ids:
             return True
 
-        household = self.session.execute(
-            select(Household).filter_by(**self._filter_builder(id=household_id))
-        ).scalar_one_or_none()
-        if household is None:
+        loaded = self._get_household_and_foods(household_id, food_ids)
+        if loaded is None:
             return False
 
-        stmt = (
-            select(self.model)
-            .filter(self.model.id.in_(unique_ids))
-            .filter_by(**self._filter_builder())
-            .options(selectinload(self.model.households_with_ingredient_food))
-        )
-        foods = self.session.execute(stmt).scalars().all()
-        if len(foods) != len(unique_ids):
-            return False
-
+        household, foods = loaded
         for food in foods:
             if household not in food.households_with_ingredient_food:
                 food.households_with_ingredient_food.append(household)
+
+        self.session.commit()
+        return True
+
+    def remove_on_hand(self, household_id: UUID4, food_ids: Collection[UUID4]) -> bool:
+        """
+        Removes foods from one household's on hand foods, leaving every other household's on hand
+        status alone. Foods the household doesn't have on hand are skipped.
+
+        Returns False without changing anything if the household or any of the foods
+        isn't in this group, so a request can't partly succeed.
+        """
+
+        if not food_ids:
+            return True
+
+        loaded = self._get_household_and_foods(household_id, food_ids)
+        if loaded is None:
+            return False
+
+        household, foods = loaded
+        for food in foods:
+            if household in food.households_with_ingredient_food:
+                food.households_with_ingredient_food.remove(household)
 
         self.session.commit()
         return True

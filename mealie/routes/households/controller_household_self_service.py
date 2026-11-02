@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import Body, Depends, HTTPException, status
+from fastapi import Body, Depends, HTTPException, Query, status
 from pydantic import UUID4
 
 from mealie.core.exceptions import NoEntryFound
@@ -53,6 +53,19 @@ class HouseholdSelfServiceController(BaseUserController):
             raise not_found(self.t("exceptions.no-entry-found")) from e
 
         return SuccessResponse.respond("Foods marked as on hand")
+
+    @router.delete("/self/foods-on-hand", response_model=SuccessResponse)
+    def remove_foods_on_hand(self, ids: list[UUID4] | None = Query(None)):
+        """
+        Removes foods from the current user's household's on hand foods. Like adding them, any household
+        member can do this, since it only changes their own household's on hand status.
+        """
+        try:
+            self.service.remove_foods_on_hand(ids or [])
+        except NoEntryFound as e:
+            raise not_found(self.t("exceptions.no-entry-found")) from e
+
+        return SuccessResponse.respond("Foods removed from on hand")
 
     @router.get("/members", response_model=PaginationBase[UserOut], dependencies=[require(Perm.GROUP_MANAGE)])
     def get_household_members(self, q: PaginationQuery = Depends()):

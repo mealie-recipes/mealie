@@ -56,6 +56,17 @@ export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
     );
   }
 
+  /** Removes foods from the current user's household's on hand foods
+   */
+  async removeFoodsOnHand(foodIds: string[]) {
+    const query = new URLSearchParams(foodIds.map(id => ["ids", id])).toString();
+    // callers show their own, more specific confirmation instead of the API's generic message
+    return await this.requests.delete<SuccessResponse>(
+      `${routes.householdsSelfFoodsOnHand}?${query}`,
+      { suppressAlert: true },
+    );
+  }
+
   async setPreferences(payload: UpdateHouseholdPreferences) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
     return await this.requests.put<ReadHouseholdPreferences, UpdateHouseholdPreferences>(routes.preferences, payload);

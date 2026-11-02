@@ -589,6 +589,8 @@
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
     "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
+    "added-to-timeline-but-failed-to-update-on-hand": "Added to timeline, but failed to update foods on hand",
+    "remove-used-up-foods-from-on-hand": "Remove Used-Up Foods from On Hand",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Message Key",
     "parse": "Parse",

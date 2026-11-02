@@ -188,3 +188,80 @@ def test_add_foods_on_hand_is_all_or_nothing(api_client: TestClient, unique_user
 def test_add_foods_on_hand_empty_list(api_client: TestClient, unique_user: TestUser):
     response = api_client.post(api_routes.households_self_foods_on_hand, json=[], headers=unique_user.token)
     assert response.status_code == 200
+
+
+def _add_on_hand(api_client: TestClient, user: TestUser, foods: list[IngredientFood]) -> None:
+    response = api_client.post(
+        api_routes.households_self_foods_on_hand, json=[str(food.id) for food in foods], headers=user.token
+    )
+    assert response.status_code == 200
+
+
+def _remove_on_hand(api_client: TestClient, user: TestUser, food_ids: list[str]):
+    return api_client.delete(api_routes.households_self_foods_on_hand, params={"ids": food_ids}, headers=user.token)
+
+
+def test_remove_foods_on_hand(api_client: TestClient, unique_user: TestUser):
+    used_up, still_on_hand = _create_food(unique_user), _create_food(unique_user)
+    _add_on_hand(api_client, unique_user, [used_up, still_on_hand])
+
+    response = _remove_on_hand(api_client, unique_user, [str(used_up.id)])
+    assert response.status_code == 200
+
+    assert _households_with_food(api_client, unique_user, used_up) == []
+    assert _households_with_food(api_client, unique_user, still_on_hand) == [_household_slug(api_client, unique_user)]
+
+
+def test_remove_foods_on_hand_keeps_other_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    food = _create_food(unique_user)
+    _add_on_hand(api_client, unique_user, [food])
+    _add_on_hand(api_client, h2_user, [food])
+
+    response = _remove_on_hand(api_client, unique_user, [str(food.id)])
+    assert response.status_code == 200
+    assert _households_with_food(api_client, unique_user, food) == [_household_slug(api_client, h2_user)]
+
+
+def test_remove_foods_not_on_hand(api_client: TestClient, unique_user: TestUser):
+    food = _create_food(unique_user)
+
+    # removing a food the household doesn't have on hand is a no-op, not an error
+    response = _remove_on_hand(api_client, unique_user, [str(food.id)])
+    assert response.status_code == 200
+    assert _households_with_food(api_client, unique_user, food) == []
+
+
+def test_remove_foods_on_hand_without_organize_permission(
+    api_client: TestClient, unique_user: TestUser, unprivileged_user: TestUser
+):
+    food = _create_food(unique_user)
+    _add_on_hand(api_client, unique_user, [food])
+
+    response = _remove_on_hand(api_client, unprivileged_user, [str(food.id)])
+    assert response.status_code == 200
+    assert _households_with_food(api_client, unique_user, food) == []
+
+
+def test_remove_foods_on_hand_rejects_other_group_food(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    food = _create_food(unique_user)
+    _add_on_hand(api_client, unique_user, [food])
+
+    response = _remove_on_hand(api_client, g2_user, [str(food.id)])
+    assert response.status_code == 404
+    assert _households_with_food(api_client, unique_user, food) == [_household_slug(api_client, unique_user)]
+
+
+def test_remove_foods_on_hand_is_all_or_nothing(api_client: TestClient, unique_user: TestUser):
+    food = _create_food(unique_user)
+    _add_on_hand(api_client, unique_user, [food])
+
+    response = _remove_on_hand(api_client, unique_user, [str(food.id), str(uuid4())])
+    assert response.status_code == 404
+    assert _households_with_food(api_client, unique_user, food) == [_household_slug(api_client, unique_user)]
+
+
+def test_remove_foods_on_hand_without_ids(api_client: TestClient, unique_user: TestUser):
+    response = api_client.delete(api_routes.households_self_foods_on_hand, headers=unique_user.token)
+    assert response.status_code == 200
