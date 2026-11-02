@@ -58,6 +58,13 @@ vi.mock("../sub-composables/use-shopping-list-crud", () => ({
   useShoppingListCrud: () => crud,
 }));
 
+const onHand = {
+  markCheckedItemsOnHand: vi.fn(),
+};
+vi.mock("../sub-composables/use-shopping-list-on-hand", () => ({
+  useShoppingListOnHand: () => onHand,
+}));
+
 vi.mock("vue", { spy: true });
 vi.mocked(vue.onUnmounted).mockImplementation(fn => fn());
 vi.mocked(vue.onMounted).mockImplementation(fn => fn());

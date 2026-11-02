@@ -1,16 +1,19 @@
 from functools import cached_property
 
-from fastapi import Depends, HTTPException, status
+from fastapi import Body, Depends, HTTPException, status
+from pydantic import UUID4
 
+from mealie.core.exceptions import NoEntryFound
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.permissions import Perm, require
+from mealie.routes._base.permissions import Perm, not_found, require
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.household import HouseholdInDB, HouseholdRecipeSummary
 from mealie.schema.household.household_permissions import SetPermissions
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
 from mealie.schema.household.household_statistics import HouseholdStatistics
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
+from mealie.schema.response.responses import SuccessResponse
 from mealie.schema.user.user import UserOut
 from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.query_filter.builder import QueryFilterBuilder
@@ -37,6 +40,19 @@ class HouseholdSelfServiceController(BaseUserController):
             raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Recipe not found")
 
         return response
+
+    @router.post("/self/foods-on-hand", response_model=SuccessResponse)
+    def add_foods_on_hand(self, food_ids: list[UUID4] = Body(...)):
+        """
+        Marks foods as on hand for the current user's household. Any household member can do this,
+        since it only changes their own household's on hand status, unlike editing the food itself.
+        """
+        try:
+            self.service.add_foods_on_hand(food_ids)
+        except NoEntryFound as e:
+            raise not_found(self.t("exceptions.no-entry-found")) from e
+
+        return SuccessResponse.respond("Foods marked as on hand")
 
     @router.get("/members", response_model=PaginationBase[UserOut], dependencies=[require(Perm.GROUP_MANAGE)])
     def get_household_members(self, q: PaginationQuery = Depends()):

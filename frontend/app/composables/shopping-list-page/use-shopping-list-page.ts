@@ -7,6 +7,7 @@ import { useShoppingListCopy } from "~/composables/shopping-list-page/sub-compos
 import { useShoppingListCrud } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-crud";
 import { useShoppingListRecipes } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-recipes";
 import { useShoppingListSearch } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-search";
+import { useShoppingListOnHand } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-on-hand";
 
 /**
  * Main composable that orchestrates all shopping list page functionality
@@ -98,6 +99,9 @@ export function useShoppingListPage(listId: string) {
     recipeReferenceLoading,
     refresh,
   );
+
+  // Initialize marking checked items as on hand
+  const onHand = useShoppingListOnHand(shoppingList);
 
   // Handle item reordering by label
   function updateIndexUncheckedByLabel(labelName: string, labeledUncheckedItems: ShoppingListItemOut[]) {
@@ -199,6 +203,7 @@ export function useShoppingListPage(listId: string) {
     ...labels,
     ...crud,
     ...recipes,
+    ...onHand,
 
     // Specialized functions
     updateIndexUncheckedByLabel,

@@ -265,13 +265,19 @@
                 {{ $t('shopping-list.items-checked-count', visibleCheckedCount) }}
               </div>
               <div class="justify-end">
-                <!-- both act on every checked item, including any the search is hiding -->
+                <!-- these act on every checked item, including any the search is hiding -->
                 <BaseButtonGroup
                   :buttons="[
                     {
                       icon: $globals.icons.checkboxMultipleBlankOutline,
                       text: $t('shopping-list.uncheck-all-items'),
                       event: 'uncheck',
+                      disabled: isSearching,
+                    },
+                    {
+                      icon: $globals.icons.home,
+                      text: $t('shopping-list.mark-checked-on-hand'),
+                      event: 'on-hand',
                       disabled: isSearching,
                     },
                     {
@@ -282,6 +288,7 @@
                     },
                   ]"
                   @uncheck="openUncheckAll"
+                  @on-hand="markCheckedItemsOnHand"
                   @delete="openDeleteChecked"
                 />
               </div>
@@ -461,6 +468,7 @@ const {
   listItems,
   openUncheckAll,
   openDeleteChecked,
+  markCheckedItemsOnHand,
   recipeList,
   removeRecipeReferenceToList,
   addRecipeReferenceToList,

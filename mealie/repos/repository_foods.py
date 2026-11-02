@@ -1,9 +1,10 @@
-from collections.abc import Sequence
+from collections.abc import Collection, Sequence
 
 from pydantic import UUID4
 from sqlalchemy import func, select, update
-from sqlalchemy.orm import joinedload, with_expression
+from sqlalchemy.orm import joinedload, selectinload, with_expression
 
+from mealie.db.models.household.household import Household
 from mealie.db.models.household.shopping_list import ShoppingListItem
 from mealie.db.models.recipe.ingredient import (
     IngredientFoodModel,
@@ -152,3 +153,39 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
             raise e
 
         return self.get_one(to_food)
+
+    def add_on_hand(self, household_id: UUID4, food_ids: Collection[UUID4]) -> bool:
+        """
+        Marks foods as on hand for one household, leaving every other household's on hand
+        status alone. Foods the household already has on hand are skipped.
+
+        Returns False without changing anything if the household or any of the foods
+        isn't in this group, so a request can't partly succeed.
+        """
+
+        unique_ids = set(food_ids)
+        if not unique_ids:
+            return True
+
+        household = self.session.execute(
+            select(Household).filter_by(**self._filter_builder(id=household_id))
+        ).scalar_one_or_none()
+        if household is None:
+            return False
+
+        stmt = (
+            select(self.model)
+            .filter(self.model.id.in_(unique_ids))
+            .filter_by(**self._filter_builder())
+            .options(selectinload(self.model.households_with_ingredient_food))
+        )
+        foods = self.session.execute(stmt).scalars().all()
+        if len(foods) != len(unique_ids):
+            return False
+
+        for food in foods:
+            if household not in food.households_with_ingredient_food:
+                food.households_with_ingredient_food.append(household)
+
+        self.session.commit()
+        return True
