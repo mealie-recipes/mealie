@@ -5,13 +5,13 @@
     "recipe": {
         "unique-name-error": "Название рецепта должно быть уникальным",
         "recipe-created": "Рецепт создан",
-        "made-this-as-side": "Приготовлено пользователем {name} на гарнир",
-        "made-this-for-breakfast": "Приготовлено пользователем {name} на завтрак",
-        "made-this-for-lunch": "Приготовлено пользователем {name} на обед",
-        "made-this-for-dinner": "Приготовлено пользователем {name} на ужин",
-        "made-this-for-snack": "Приготовлено пользователем {name} на перекус",
-        "made-this-for-drink": "Приготовлено пользователем {name} к напитку",
-        "made-this-for-dessert": "Приготовлено пользователем {name} на десерт",
+        "made-this-as-side": "{name} приготовил это на гарнир",
+        "made-this-for-breakfast": "{name} приготовил это на завтрак",
+        "made-this-for-lunch": "{name} приготовил это на обед",
+        "made-this-for-dinner": "{name} приготовил это на ужин",
+        "made-this-for-snack": "{name} приготовил это на закуску",
+        "made-this-for-drink": "{name} приготовил это как напиток",
+        "made-this-for-dessert": "{name} приготовил это на десерт",
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
             "ingredient-note": "1 чашка муки",
@@ -125,9 +125,9 @@
         "mealplan-entry-created": "Запись плана питания создана на {date} для {entry_type}",
         "mealplan-entry-updated": "Запись плана питания на {date} для {entry_type} обновлена",
         "mealplan-entry-deleted": "Запись плана питания удалена на {date} для {entry_type}",
-        "mealplan-range-entry-created": "Запись плана питания для {entry_type} создана на период с {date} по {end_date}",
-        "mealplan-range-entry-updated": "Запись плана питания для {entry_type} обновлена на период с {date} по {end_date}",
-        "mealplan-range-entry-deleted": "Запись плана питания для {entry_type} удалена на период с {date} по {end_date}"
+        "mealplan-range-entry-created": "Запись плана питания создана на период с {date} по {end_date} для {entry_type}",
+        "mealplan-range-entry-updated": "Запись плана питания обновлена на период с {date} по {end_date} для {entry_type}",
+        "mealplan-range-entry-deleted": "Запись плана питания удалена на период с {date} по {end_date} для {entry_type}"
     },
     "datetime": {
         "year": "Год|лет",
