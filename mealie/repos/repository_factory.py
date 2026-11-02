@@ -24,6 +24,7 @@ from mealie.db.models.household.shopping_list import (
     ShoppingListItemRecipeReference,
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
+    ShoppingLabel,
 )
 from mealie.db.models.household.webhooks import GroupWebhooksModel
 from mealie.db.models.recipe.category import Category, recipes_to_categories
@@ -56,6 +57,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListMultiPurposeLabelOut,
     ShoppingListOut,
     ShoppingListRecipeRefOut,
+    ShoppingLabelOut,
 )
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeOut
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences
@@ -529,6 +531,17 @@ class AllRepositories:
     def group_multi_purpose_labels(self) -> RepositoryMultiPurposeLabels:
         return RepositoryMultiPurposeLabels(
             self.session, PK_ID, MultiPurposeLabel, MultiPurposeLabelOut, group_id=self.group_id
+        )
+
+    @cached_property
+    def household_shopping_labels(self) -> HouseholdRepositoryGeneric[ShoppingLabelOut, ShoppingLabel]:
+        return HouseholdRepositoryGeneric(
+            self.session,
+            PK_ID,
+            ShoppingLabel,
+            ShoppingLabelOut,
+            group_id=self.group_id,
+            household_id=self.household_id,
         )
 
     # ================================================================

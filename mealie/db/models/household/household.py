@@ -23,6 +23,7 @@ if TYPE_CHECKING:
         GroupRecipeAction,
         GroupWebhooksModel,
         HouseholdPreferencesModel,
+        ShoppingLabel,
     )
 
 
@@ -76,6 +77,9 @@ class Household(SqlAlchemyBase, BaseMixins):
     )
     tools_on_hand: Mapped[list[Tool]] = orm.relationship(
         "Tool", secondary=households_to_tools, back_populates="households_with_tool"
+    )
+    shopping_labels: Mapped[list[ShoppingLabel]] = orm.relationship(
+        "ShoppingLabel", back_populates="household", cascade="all, delete-orphan"
     )
 
     model_config = ConfigDict(

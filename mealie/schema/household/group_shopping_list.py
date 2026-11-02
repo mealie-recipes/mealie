@@ -12,6 +12,7 @@ from mealie.db.models.household import (
     ShoppingListItem,
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
+    ShoppingLabel,
 )
 from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitutionModel, RecipeModel
 from mealie.db.models.users.users import User
@@ -19,6 +20,7 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
+from mealie.schema.response.pagination import PaginationBase
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
@@ -64,6 +66,7 @@ class ShoppingListItemBase(RecipeIngredientBase):
 
     food_id: UUID4 | None = None
     label_id: UUID4 | None = None
+    shopping_label_id: UUID4 | None = None
     unit_id: UUID4 | None = None
 
     extras: dict | None = {}
@@ -110,6 +113,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
 
     food: IngredientFood | None = None
     label: MultiPurposeLabelSummary | None = None
+    shopping_label: ShoppingLabelOut | None = None
     unit: IngredientUnit | None = None
 
     recipe_references: list[ShoppingListItemRecipeRefOut] = []
@@ -138,6 +142,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
             .selectinload(IngredientFoodModel.substitutions)
             .joinedload(IngredientFoodSubstitutionModel.substitute_food),
             joinedload(ShoppingListItem.label),
+            joinedload(ShoppingListItem.shopping_label),
             joinedload(ShoppingListItem.unit),
             selectinload(ShoppingListItem.recipe_references),
             joinedload(ShoppingListItem.shopping_list)
@@ -304,3 +309,32 @@ class ShoppingListAddRecipeParamsBulk(ShoppingListAddRecipeParams):
 
 class ShoppingListRemoveRecipeParams(MealieModel):
     recipe_decrement_quantity: float = 1
+
+
+class ShoppingLabelCreate(MealieModel):
+    name: str
+    color: str = "#E58325"
+    sort_order: int = 0
+    is_system: bool = False
+
+
+class ShoppingLabelSave(ShoppingLabelCreate):
+    household_id: UUID4
+
+
+class ShoppingLabelUpdate(ShoppingLabelSave):
+    id: UUID4
+
+
+class ShoppingLabelOut(ShoppingLabelUpdate):
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ShoppingLabelPagination(PaginationBase):
+    items: list[ShoppingLabelOut]
+
+
+class ItemPositionChange(MealieModel):
+    item_id: UUID4
+    position: int
+    label_id: UUID4 | None = None

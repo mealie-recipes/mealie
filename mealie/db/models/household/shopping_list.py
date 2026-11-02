@@ -23,6 +23,28 @@ if TYPE_CHECKING:
     from .household import Household
 
 
+class ShoppingLabel(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "shopping_labels"
+    __table_args__ = (UniqueConstraint("household_id", "name", name="uq_shopping_label_household_name"),)
+
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    name: FilterableColumn[str] = mapped_column(String(100), nullable=False)
+    color: FilterableColumn[str] = mapped_column(String(7), nullable=False, default="#E58325")
+    sort_order: FilterableColumn[int] = mapped_column(Integer, nullable=False, default=0)
+    is_system: FilterableColumn[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+    household_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("households.id"), nullable=False, index=True)
+    household: Mapped[Household] = orm.relationship("Household", back_populates="shopping_labels")
+
+    shopping_list_items: Mapped[list[ShoppingListItem]] = orm.relationship(
+        "ShoppingListItem", back_populates="shopping_label"
+    )
+
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
 class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     __tablename__ = "shopping_list_item_recipe_reference"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
@@ -81,6 +103,11 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"))
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(
         MultiPurposeLabel, uselist=False, back_populates="shopping_list_items"
+    )
+
+    shopping_label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("shopping_labels.id"), index=True)
+    shopping_label: Mapped[ShoppingLabel | None] = orm.relationship(
+        "ShoppingLabel", uselist=False, back_populates="shopping_list_items"
     )
 
     # Recipe Reference

@@ -13,6 +13,7 @@ from .shopping_list import (
     ShoppingListItemRecipeReference,
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
+    ShoppingLabel,
 )
 from .webhooks import GroupWebhooksModel
 
@@ -33,5 +34,6 @@ __all__ = [
     "ShoppingListItemRecipeReference",
     "ShoppingListMultiPurposeLabel",
     "ShoppingListRecipeReference",
+    "ShoppingLabel",
     "GroupWebhooksModel",
 ]
