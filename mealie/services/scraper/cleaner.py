@@ -27,6 +27,9 @@ MATCH_NUMBER = re.compile(r"\d+(?:\.\d+)?")
 MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
 
+MATCH_GRAMS = re.compile(r"\d\s*(?:g|gm|gr|grams?)\b", re.IGNORECASE)
+""" A quantity in grams, e.g. `0.5 g`, `10g` or `2 grams`, but not `500 mg` """
+
 MATCH_HTML_TAGS = re.compile(r"<[^<]+?>")
 """ Matches HTML tags `<p>Text</p>` -> `Text` """
 
@@ -700,7 +703,7 @@ def clean_nutrition(nutrition: dict | None) -> dict[str, str]:
         if key not in output_nutrition:
             continue
         if val := nutrition.get(key, None):
-            if isinstance(val, str) and "m" not in val and "g" in val:
+            if isinstance(val, str) and MATCH_GRAMS.search(val):
                 with contextlib.suppress(AttributeError, TypeError):
                     output_nutrition[key] = str(float(output_nutrition[key]) * 1000)
 
