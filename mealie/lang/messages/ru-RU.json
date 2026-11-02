@@ -5,13 +5,13 @@
     "recipe": {
         "unique-name-error": "Название рецепта должно быть уникальным",
         "recipe-created": "Рецепт создан",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
-        "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-as-side": "Приготовлено пользователем {name} на гарнир",
+        "made-this-for-breakfast": "Приготовлено пользователем {name} на завтрак",
+        "made-this-for-lunch": "Приготовлено пользователем {name} на обед",
+        "made-this-for-dinner": "Приготовлено пользователем {name} на ужин",
+        "made-this-for-snack": "Приготовлено пользователем {name} на перекус",
+        "made-this-for-drink": "Приготовлено пользователем {name} к напитку",
+        "made-this-for-dessert": "Приготовлено пользователем {name} на десерт",
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
             "ingredient-note": "1 чашка муки",
@@ -31,7 +31,7 @@
             "ai-not-enabled": "ИИ сервисы выключены",
             "ai-request-failed": "Провайдер ИИ не смог выполнить запрос. Пожалуйста, попробуйте еще раз",
             "image-provider-not-enabled": "ИИ службы изображений выключены",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "invalid-mealie-export": "Похоже, это рецепт, экспортированный из Mealie, но его не удалось импортировать",
             "no-recipe-found": "Рецепт не найден в указанном источнике",
             "no-source": "Нет содержимого, изображений или URL-адреса",
             "provider-returned-nothing": "Провайдер ИИ не вернул рецепт",
@@ -125,9 +125,9 @@
         "mealplan-entry-created": "Запись плана питания создана на {date} для {entry_type}",
         "mealplan-entry-updated": "Запись плана питания на {date} для {entry_type} обновлена",
         "mealplan-entry-deleted": "Запись плана питания удалена на {date} для {entry_type}",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "Запись плана питания для {entry_type} создана на период с {date} по {end_date}",
+        "mealplan-range-entry-updated": "Запись плана питания для {entry_type} обновлена на период с {date} по {end_date}",
+        "mealplan-range-entry-deleted": "Запись плана питания для {entry_type} удалена на период с {date} по {end_date}"
     },
     "datetime": {
         "year": "Год|лет",
