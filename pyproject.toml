@@ -63,7 +63,7 @@ docs = [
 dev = [
     "coverage==7.17.0",
     "coveragepy-lcov==0.1.2",
-    "mypy==2.4.0",
+    "mypy==2.4.1",
     "pre-commit==4.7.0",
     "pylint==4.1.3",
     "pytest==9.2.0",
