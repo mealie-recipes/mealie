@@ -185,6 +185,8 @@ class RecipeSuggestionMixin:
         Drops recipes missing too many foods, and orders by how many are missing.
         """
 
+        max_missing_foods = 0 if params.require_all_foods_available else params.max_missing_foods
+
         unmatched_filter = sa.not_(ingredients_alias.food_id.in_(food_ids_with_on_hand))
         if params.include_substitutions:
             covered = self._covered_by_substitution(ingredients_alias, food_ids_with_on_hand)
@@ -221,7 +223,7 @@ class RecipeSuggestionMixin:
             .filter(
                 sa.or_(
                     unmatched_foods_query.c.unmatched_foods_count.is_(None),
-                    unmatched_foods_query.c.unmatched_foods_count <= params.max_missing_foods,
+                    unmatched_foods_query.c.unmatched_foods_count <= max_missing_foods,
                 ),
             )
             .order_by(
@@ -239,13 +241,24 @@ class RecipeSuggestionMixin:
             ).order_by(substituted_user_foods_query.c.substituted_user_foods_count.desc().nulls_last())
             at_least_one_match.append(substituted_user_foods_query.c.substituted_user_foods_count > 0)
 
+        if params.require_all_foods_available:
+            # every food is already covered, so a recipe doesn't need one of the user's picks; it only
+            # needs a food at all, or a recipe with no foods would count as makeable from nothing
+            has_foods = (
+                sa.select(1)
+                .where(RecipeIngredientModel.recipe_id == self.model.id, RecipeIngredientModel.food_id.isnot(None))
+                .correlate(self.model)
+                .exists()
+            )
+            return q.filter(has_foods)
+
         # only include recipes that have at least one food in the user's list
         return q.filter(sa.or_(*at_least_one_match))
 
     @staticmethod
-    def _suggestion_loader_options(params: RecipeSuggestionQuery, user_food_ids: list[UUID4]) -> list[LoaderOption]:
+    def _suggestion_loader_options(params: RecipeSuggestionQuery, checks_foods: bool) -> list[LoaderOption]:
         options = list(RecipeSummary.loader_options())
-        if not (user_food_ids and params.include_substitutions):
+        if not (checks_foods and params.include_substitutions):
             return options
 
         # the suggestion builder walks each ingredient's substitutions and its food's; without
@@ -351,7 +364,9 @@ class RecipeSuggestionMixin:
         if user_tool_ids:
             q = self._filter_suggestions_by_tools(q, params, tools_alias, tool_ids_with_on_hand)
 
-        if user_food_ids:
+        # foods are checked when the user picks some, or when every food has to be available
+        checks_foods = bool(user_food_ids) or params.require_all_foods_available
+        if checks_foods:
             q = self._filter_suggestions_by_foods(
                 q, params, settings_alias, ingredients_alias, user_food_ids, food_ids_with_on_hand
             )
@@ -371,7 +386,7 @@ class RecipeSuggestionMixin:
                 raise HTTPException(status_code=400, detail=str(e)) from e
 
         q = self.add_order_by_to_query(q, params)
-        q = q.limit(params.limit).options(*self._suggestion_loader_options(params, user_food_ids))
+        q = q.limit(params.limit).options(*self._suggestion_loader_options(params, checks_foods))
 
         ## Execute query
         try:
@@ -388,9 +403,9 @@ class RecipeSuggestionMixin:
         for result in data:
             recipe = cast(RecipeModel, result)
 
-            # only check for missing foods and tools if the user has provided a list of them
+            # only check for missing foods and tools if the query checked them
             missing_foods, substituted_foods = (
-                self._missing_and_substituted_foods(recipe, params, on_hand_food_ids) if user_food_ids else ([], [])
+                self._missing_and_substituted_foods(recipe, params, on_hand_food_ids) if checks_foods else ([], [])
             )
             missing_tools = self._missing_tools(recipe, on_hand_tool_ids) if user_tool_ids else []
 

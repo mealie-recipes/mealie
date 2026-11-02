@@ -726,6 +726,7 @@
     "include-ingredients-on-hand": "Include Ingredients On Hand",
     "include-tools-on-hand": "Include Tools On Hand",
     "include-substitutions": "Include Substitutions",
+    "only-recipes-with-all-ingredients": "Only Show Recipes With Every Ingredient Available",
     "substituting": "Substituting",
     "substitute-for-food": "{substitute} for {food}",
     "max-missing-ingredients": "Max Missing Ingredients",

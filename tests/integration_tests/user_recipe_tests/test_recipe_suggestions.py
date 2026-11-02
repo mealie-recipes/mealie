@@ -776,3 +776,87 @@ def test_exact_matches_outrank_substitute_matches(api_client: TestClient, unique
     finally:
         for recipe in [exact_recipe, substituted_recipe]:
             unique_user.repos.recipes.delete(recipe.slug)
+
+
+def ready_recipe_ids(api_client: TestClient, user: TestUser, food_ids: list[str], **overrides) -> set[str]:
+    """Ids of the suggested recipes, checking that none of them is missing a food."""
+
+    params = {"requireAllFoodsAvailable": True, "includeFoodsOnHand": True, **overrides}
+    items = suggestion_items(api_client, user, food_ids, **params)
+    for item in items:
+        assert item["missingFoods"] == []
+
+    return {item["recipe"]["id"] for item in items}
+
+
+def test_require_all_foods_available_from_on_hand_foods(api_client: TestClient, unique_user: TestUser):
+    """With nothing picked, the finder suggests what the household can make from its on hand foods."""
+
+    flour, milk = create_food(unique_user, on_hand=True), create_food(unique_user, on_hand=True)
+    eggs = create_food(unique_user)
+
+    all_on_hand = create_recipe(unique_user, foods=[flour, milk])
+    missing_eggs = create_recipe(unique_user, foods=[flour, eggs])
+    no_foods = create_recipe(unique_user, foods=[])
+    try:
+        # a generous limit on missing foods is overridden, since every food has to be available
+        ids = ready_recipe_ids(api_client, unique_user, [], maxMissingFoods=10)
+
+        assert str(all_on_hand.id) in ids
+        assert str(missing_eggs.id) not in ids
+        assert str(no_foods.id) not in ids
+    finally:
+        for recipe in [all_on_hand, missing_eggs, no_foods]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_require_all_foods_available_without_on_hand_foods(api_client: TestClient, unique_user: TestUser):
+    flour = create_food(unique_user, on_hand=True)
+    recipe = create_recipe(unique_user, foods=[flour])
+    try:
+        assert str(recipe.id) not in ready_recipe_ids(api_client, unique_user, [], includeFoodsOnHand=False)
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_require_all_foods_available_with_picked_foods(api_client: TestClient, unique_user: TestUser):
+    """Picked and on hand foods both count, and a recipe no longer has to use a picked food."""
+
+    picked = create_food(unique_user)
+    on_hand = create_food(unique_user, on_hand=True)
+    missing = create_food(unique_user)
+
+    picked_and_on_hand = create_recipe(unique_user, foods=[picked, on_hand])
+    only_on_hand = create_recipe(unique_user, foods=[on_hand])
+    missing_a_food = create_recipe(unique_user, foods=[picked, missing])
+    try:
+        ids = ready_recipe_ids(api_client, unique_user, [str(picked.id)])
+
+        assert str(picked_and_on_hand.id) in ids
+        assert str(only_on_hand.id) in ids
+        assert str(missing_a_food.id) not in ids
+    finally:
+        for recipe in [picked_and_on_hand, only_on_hand, missing_a_food]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_require_all_foods_available_with_on_hand_substitute(api_client: TestClient, unique_user: TestUser):
+    """The recipe calls for stock, the household has broth on hand, and `stock -> broth` covers it."""
+
+    broth = create_food(unique_user, on_hand=True)
+    stock = create_food(unique_user)
+    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(substitute_food_id=broth.id)])
+
+    recipe = create_recipe(unique_user, foods=[stock])
+    try:
+        items = suggestion_items(api_client, unique_user, [], requireAllFoodsAvailable=True, includeFoodsOnHand=True)
+        found = [item for item in items if item["recipe"]["id"] == str(recipe.id)]
+
+        assert len(found) == 1
+        assert found[0]["missingFoods"] == []
+        assert [sub["substituteFood"]["id"] for sub in found[0]["substitutedFoods"]] == [str(broth.id)]
+
+        without_substitutions = ready_recipe_ids(api_client, unique_user, [], includeSubstitutions=False)
+        assert str(recipe.id) not in without_substitutions
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
