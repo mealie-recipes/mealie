@@ -65,6 +65,7 @@ export interface UserRecipeFinderPreferences {
   includeFoodsOnHand: boolean;
   includeToolsOnHand: boolean;
   includeSubstitutions: boolean;
+  requireAllFoodsAvailable: boolean;
 }
 
 export interface UserRecipeCreatePreferences {
@@ -225,6 +226,7 @@ export function useRecipeFinderPreferences(): Ref<UserRecipeFinderPreferences> {
       includeFoodsOnHand: true,
       includeToolsOnHand: true,
       includeSubstitutions: true,
+      requireAllFoodsAvailable: false,
     },
     { mergeDefaults: true },
   );

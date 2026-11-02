@@ -506,6 +506,7 @@ export interface RecipeSuggestionQuery {
   includeFoodsOnHand?: boolean;
   includeToolsOnHand?: boolean;
   includeSubstitutions?: boolean;
+  requireAllFoodsAvailable?: boolean;
 }
 export interface RecipeSuggestionResponse {
   items: RecipeSuggestionResponseItem[];

@@ -176,6 +176,13 @@
                           class="my-auto"
                           :label="$t('recipe-finder.include-substitutions')"
                         />
+                        <v-checkbox
+                          v-model="state.settings.requireAllFoodsAvailable"
+                          density="compact"
+                          hide-details
+                          class="my-auto"
+                          :label="$t('recipe-finder.only-recipes-with-all-ingredients')"
+                        />
                       </div>
                     </v-card-text>
                   </v-card>
@@ -465,6 +472,7 @@ const state = reactive({
     includeFoodsOnHand: preferences.value.includeFoodsOnHand,
     includeToolsOnHand: preferences.value.includeToolsOnHand,
     includeSubstitutions: preferences.value.includeSubstitutions,
+    requireAllFoodsAvailable: preferences.value.requireAllFoodsAvailable,
     queryFilter: preferences.value.queryFilter,
     limit: 20,
   },
@@ -501,6 +509,7 @@ watch(
     preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
     preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
     preferences.value.includeSubstitutions = newState.settings.includeSubstitutions;
+    preferences.value.requireAllFoodsAvailable = newState.settings.requireAllFoodsAvailable;
   },
   {
     deep: true,
@@ -603,7 +612,13 @@ onMounted(async () => {
   await Promise.all([hydrateFoods(), hydrateTools()]);
   state.ready = true;
   if (!selectedFoods.value.length) {
-    state.recipesReady = true;
+    // nothing is picked, so no change will trigger a search, but this setting searches without picks
+    if (state.settings.requireAllFoodsAvailable && !selectedTools.value.length) {
+      await searchSuggestions();
+    }
+    else {
+      state.recipesReady = true;
+    }
   };
 });
 
@@ -626,36 +641,46 @@ const recipeSuggestions = computed<RecipeSuggestions>(() => {
   };
 });
 
-watchDebounced(
-  [selectedFoods, selectedTools, state.settings], async () => {
-    // don't search for suggestions if no filter are selected
-    if (!selectedFoods.value.length && !selectedTools.value.length && !state.settings.queryFilter) {
-      recipeResponseItems.value = [];
-      state.recipesReady = true;
-      return;
-    }
-
-    state.loading = true;
-    const { data } = await api.recipes.getSuggestions(
-      {
-        limit: state.settings.limit,
-        queryFilter: state.settings.queryFilter,
-        maxMissingFoods: state.settings.maxMissingFoods,
-        maxMissingTools: state.settings.maxMissingTools,
-        includeFoodsOnHand: state.settings.includeFoodsOnHand,
-        includeToolsOnHand: state.settings.includeToolsOnHand,
-        includeSubstitutions: state.settings.includeSubstitutions,
-      } as RecipeSuggestionQuery,
-      selectedFoods.value.map(food => food.id),
-      selectedTools.value.map(tool => tool.id),
-    );
-    state.loading = false;
-    if (!data) {
-      return;
-    }
-    recipeResponseItems.value = data.items;
+async function searchSuggestions() {
+  // don't search for suggestions if no filter are selected, unless only recipes with every ingredient
+  // available are wanted; that search makes sense with nothing picked, as it can use foods on hand
+  if (
+    !selectedFoods.value.length
+    && !selectedTools.value.length
+    && !state.settings.queryFilter
+    && !state.settings.requireAllFoodsAvailable
+  ) {
+    recipeResponseItems.value = [];
     state.recipesReady = true;
-  },
+    return;
+  }
+
+  state.loading = true;
+  const { data } = await api.recipes.getSuggestions(
+    {
+      limit: state.settings.limit,
+      queryFilter: state.settings.queryFilter,
+      maxMissingFoods: state.settings.maxMissingFoods,
+      maxMissingTools: state.settings.maxMissingTools,
+      includeFoodsOnHand: state.settings.includeFoodsOnHand,
+      includeToolsOnHand: state.settings.includeToolsOnHand,
+      includeSubstitutions: state.settings.includeSubstitutions,
+      requireAllFoodsAvailable: state.settings.requireAllFoodsAvailable,
+    } as RecipeSuggestionQuery,
+    selectedFoods.value.map(food => food.id),
+    selectedTools.value.map(tool => tool.id),
+  );
+  state.loading = false;
+  if (!data) {
+    return;
+  }
+  recipeResponseItems.value = data.items;
+  state.recipesReady = true;
+}
+
+watchDebounced(
+  [selectedFoods, selectedTools, state.settings],
+  searchSuggestions,
   {
     debounce: 500,
   },

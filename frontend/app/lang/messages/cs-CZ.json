@@ -674,10 +674,10 @@
     "recipe-actions": "Akce receptu",
     "unit-system": {
       "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "metric": "Metrické",
+      "metric-with-hint": "Metrické (g, ml)",
+      "imperial": "Imperiální",
+      "imperial-with-hint": "Imperiální (šálky, unce)"
     },
     "parser": {
       "ingredient-parser": "Analyzátor ingrediencí",
@@ -862,11 +862,11 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Opravdu chcete zrušit výběr všech položek?",
     "are-you-sure-you-want-to-delete-checked-items": "Opravdu chcete odstranit všechny vybrané položky?",
     "no-shopping-lists-found": "Nebyly nalezeny žádné nákupní seznamy",
-    "new-list-name": "List Name",
-    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "new-list-name": "Název seznamu",
+    "failed-to-create-shopping-list": "Vytvoření nákupního seznamu se nezdařilo",
     "item-checked-off": "Odškrtnuta položka {item}",
-    "more-options": "More options",
-    "fewer-options": "Fewer options",
+    "more-options": "Více možností",
+    "fewer-options": "Méně možností",
     "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
