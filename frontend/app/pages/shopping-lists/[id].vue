@@ -42,6 +42,19 @@
       </v-card-text>
     </BaseDialog>
 
+    <BaseDialog
+      v-model="state.markCheckedOnHandDialog"
+      bottom-sheet
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.home"
+      can-confirm
+      @confirm="markCheckedOnHand"
+    >
+      <v-card-text>
+        {{ $t('shopping-list.are-you-sure-you-want-to-mark-checked-items-on-hand') }}
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Reorder Labels -->
     <BaseDialog
       v-model="reorderLabelsDialog"
@@ -288,7 +301,7 @@
                     },
                   ]"
                   @uncheck="openUncheckAll"
-                  @on-hand="markCheckedItemsOnHand"
+                  @on-hand="openMarkCheckedOnHand"
                   @delete="openDeleteChecked"
                 />
               </div>
@@ -468,7 +481,8 @@ const {
   listItems,
   openUncheckAll,
   openDeleteChecked,
-  markCheckedItemsOnHand,
+  openMarkCheckedOnHand,
+  markCheckedOnHand,
   recipeList,
   removeRecipeReferenceToList,
   addRecipeReferenceToList,

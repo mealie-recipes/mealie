@@ -101,7 +101,7 @@ export function useShoppingListPage(listId: string) {
   );
 
   // Initialize marking checked items as on hand
-  const onHand = useShoppingListOnHand(shoppingList);
+  const onHand = useShoppingListOnHand(shoppingList, crud.deleteListItems);
 
   // Handle item reordering by label
   function updateIndexUncheckedByLabel(labelName: string, labeledUncheckedItems: ShoppingListItemOut[]) {
@@ -161,6 +161,17 @@ export function useShoppingListPage(listId: string) {
     crud.deleteCheckedItems();
   }
 
+  function openMarkCheckedOnHand() {
+    if (shoppingList.value?.listItems?.some(item => item.checked)) {
+      state.state.markCheckedOnHandDialog = true;
+    }
+  }
+
+  function markCheckedOnHand() {
+    state.state.markCheckedOnHandDialog = false;
+    onHand.markCheckedItemsOnHand();
+  }
+
   // Copy functionality wrapper
   function copyListItems(copyType: "plain" | "markdown") {
     copyManager.copyListItems(itemsByLabel.value, copyType);
@@ -213,9 +224,11 @@ export function useShoppingListPage(listId: string) {
     openCheckAll,
     openUncheckAll,
     openDeleteChecked,
+    openMarkCheckedOnHand,
     checkAll,
     uncheckAll,
     deleteChecked,
+    markCheckedOnHand,
 
     // Label management
     toggleReorderLabelsDialog,

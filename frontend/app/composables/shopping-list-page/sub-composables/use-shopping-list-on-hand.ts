@@ -1,15 +1,17 @@
-import type { ShoppingListOut } from "~/lib/api/types/household";
+import type { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
-import { useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
 
 /**
- * Composable for marking the foods of checked shopping list items as on hand for the user's household
+ * Composable for marking the foods of checked shopping list items as on hand for the user's household,
+ * then removing those items from the list
  */
-export function useShoppingListOnHand(shoppingList: Ref<ShoppingListOut | null>) {
+export function useShoppingListOnHand(
+  shoppingList: Ref<ShoppingListOut | null>,
+  deleteListItems: (items: ShoppingListItemOut[]) => void,
+) {
   const i18n = useI18n();
   const userApi = useUserApi();
-  const foodStore = useFoodStore();
 
   async function markCheckedItemsOnHand() {
     const checked = shoppingList.value?.listItems?.filter(item => item.checked) ?? [];
@@ -18,8 +20,9 @@ export function useShoppingListOnHand(shoppingList: Ref<ShoppingListOut | null>)
     }
 
     // only items linked to a food can be marked, and several items can share the same food
-    const foodIds = [...new Set(checked.map(item => item.foodId).filter((id): id is string => !!id))];
-    const skipped = checked.filter(item => !item.foodId).length;
+    const itemsWithFood = checked.filter(item => !!item.foodId);
+    const foodIds = [...new Set(itemsWithFood.map(item => item.foodId).filter((id): id is string => !!id))];
+    const skipped = checked.length - itemsWithFood.length;
 
     if (!foodIds.length) {
       alert.info(i18n.t("shopping-list.no-checked-items-have-a-food"));
@@ -28,12 +31,13 @@ export function useShoppingListOnHand(shoppingList: Ref<ShoppingListOut | null>)
 
     const { error } = await userApi.households.addFoodsOnHand(foodIds);
     if (error) {
-      // the API client has already shown the error
+      // the API client has already shown the error, and the items stay on the list
       return;
     }
 
-    // the food store caches each food's on hand status, so refresh it for the pages that show it
-    foodStore.actions.refresh();
+    // the marked items are now recorded as on hand, so they leave the list; items without
+    // a food stay, since nothing recorded them
+    deleteListItems(itemsWithFood);
 
     const messages = [i18n.t("shopping-list.marked-foods-on-hand", foodIds.length)];
     if (skipped) {
