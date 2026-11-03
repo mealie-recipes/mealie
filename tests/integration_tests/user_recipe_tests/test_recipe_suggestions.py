@@ -1,4 +1,5 @@
 import random
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -527,6 +528,78 @@ def test_query_filter(api_client: TestClient, unique_user: TestUser):
 
     finally:
         for recipe in recipes_with_prefix + recipes_without_prefix:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_query_filter_last_made(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    known_food = create_food(unique_user)
+    recent_recipe = create_recipe(unique_user, foods=[known_food])
+    older_recipe = create_recipe(unique_user, foods=[known_food])
+    unmade_recipe = create_recipe(unique_user, foods=[known_food])
+
+    now = datetime.now(UTC)
+    recent_time = (now - timedelta(days=3)).isoformat()
+    older_time = (now - timedelta(days=45)).isoformat()
+
+    try:
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(recent_recipe.slug),
+            json={"timestamp": recent_time},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(older_recipe.slug),
+            json={"timestamp": older_time},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        # Recipes older than 30 days should include older_recipe and unmade_recipe, but exclude recent_recipe
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": "last_made <= $NOW-30d",
+            },
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        assert {item["recipe"]["id"] for item in response.json()["items"]} == {
+            str(older_recipe.id),
+            str(unmade_recipe.id),
+        }
+
+        # Filter for recipes made within the last 10 days: should only include recent_recipe for unique_user
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": "last_made >= $NOW-10d",
+            },
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        assert {item["recipe"]["id"] for item in response.json()["items"]} == {str(recent_recipe.id)}
+
+        # Another household that has not made recent_recipe should not see it as recently made
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": "last_made >= $NOW-10d",
+            },
+            headers=h2_user.token,
+        )
+        response.raise_for_status()
+        assert response.json()["items"] == []
+
+    finally:
+        for recipe in [recent_recipe, older_recipe, unmade_recipe]:
             unique_user.repos.recipes.delete(recipe.slug)
 
 
