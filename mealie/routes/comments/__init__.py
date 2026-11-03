@@ -3,10 +3,11 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.routes._base.permissions import forbidden
+from mealie.routes._base.permissions import forbidden, not_found
 from mealie.schema.recipe.recipe_comments import (
     RecipeCommentCreate,
     RecipeCommentOut,
@@ -50,6 +51,11 @@ class RecipeCommentRoutes(BaseUserController):
 
     @router.post("", response_model=RecipeCommentOut, status_code=201)
     def create_one(self, data: RecipeCommentCreate):
+        # Recipe visibility is group-wide, so the household-scoped self.repos would reject valid cross-household comments.
+        group_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+        if not group_recipes.get_one(data.recipe_id, "id"):
+            raise not_found("Recipe not found")
+
         save_data = RecipeCommentSave(text=data.text, user_id=self.user.id, recipe_id=data.recipe_id)
         return self.mixins.create_one(save_data)
 

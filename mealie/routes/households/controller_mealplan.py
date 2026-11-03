@@ -1,5 +1,6 @@
 from datetime import date
 from functools import cached_property
+from uuid import UUID
 
 from dateutil.tz import tzlocal
 from fastapi import APIRouter, Depends
@@ -39,6 +40,15 @@ class GroupMealplanController(BaseCrudController):
     @cached_property
     def repo(self) -> RepositoryMeals:
         return self.repos.meals
+
+    @cached_property
+    def group_recipes(self):
+        # Entries may reference recipes from any household in the group, so the household-scoped repo is too narrow.
+        return get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+
+    def _require_group_recipe(self, recipe_id: UUID | None) -> None:
+        if recipe_id is not None and self.group_recipes.get_one(recipe_id, "id") is None:
+            raise not_found()
 
     def _translated_entry_type(self, entry_type) -> str:
         value = getattr(entry_type, "value", entry_type)
@@ -122,6 +132,7 @@ class GroupMealplanController(BaseCrudController):
 
     @router.post("", response_model=ReadPlanEntry, status_code=201)
     def create_one(self, data: CreatePlanEntry):
+        self._require_group_recipe(data.recipe_id)
         data = mapper.cast(data, SavePlanEntry, group_id=self.group_id, user_id=self.user.id)
         result = self.mixins.create_one(data)
 
@@ -198,6 +209,7 @@ class GroupMealplanController(BaseCrudController):
 
     @router.put("/{item_id}", response_model=ReadPlanEntry)
     def update_one(self, item_id: int, data: UpdatePlanEntry):
+        self._require_group_recipe(data.recipe_id)
         result = self.mixins.update_one(data, item_id)
 
         self.publish_event(
