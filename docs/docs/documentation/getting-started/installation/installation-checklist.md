@@ -48,6 +48,12 @@ You can find the relevant ready to use docker-compose files for supported instal
 - [SQLite](./sqlite.md)
 - [PostgreSQL](./postgres.md)
 
+## Easypanel
+
+[Easypanel](https://easypanel.io/) is a self-hosted Docker deployment platform. Mealie has a one-click deployment template there that handles the container setup for you, as an alternative to the manual docker-compose steps below.
+
+[![Deploy on Easypanel][easypanel-btn]][easypanel-deploy]
+
 ## Step 2: Setting up your files.
 
 The following steps were tested on a Ubuntu 20.04 server, but should work for most other Linux distributions. These steps are not required, but this is how I generally will setup services on my server.
@@ -126,3 +132,6 @@ These are the tags for the latest beta release of the frontend docker-container.
 `mealie:frontend-nightly`**and** `mealie:api-nightly`
 
 The nightly build are the latest and greatest builds that are built directly off of every commit to the `mealie-next` branch and as such may contain bugs. These are great to help the community catch bugs before they hit the stable release or if you like living on the edge.
+
+[easypanel-btn]: https://easypanel.io/img/deploy-on-easypanel-40.svg
+[easypanel-deploy]: https://easypanel.io/templates/mealie
