@@ -3,8 +3,10 @@ from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
+import sqlalchemy as sa
 from fastapi.testclient import TestClient
 
+from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodSubstitution,
@@ -542,6 +544,12 @@ def test_query_filter_last_made(api_client: TestClient, unique_user: TestUser, h
     older_time = (now - timedelta(days=45)).isoformat()
 
     try:
+        # Simulate a stale legacy RecipeModel.last_made value from before #7907
+        unique_user.repos.session.execute(
+            sa.update(RecipeModel).where(RecipeModel.id == recent_recipe.id).values(last_made=now - timedelta(days=62))
+        )
+        unique_user.repos.session.commit()
+
         response = api_client.patch(
             api_routes.recipes_slug_last_made(recent_recipe.slug),
             json={"timestamp": recent_time},
