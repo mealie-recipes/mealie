@@ -19,12 +19,12 @@ from mealie.db.models.household.mealplan import GroupMealPlan, GroupMealPlanRule
 from mealie.db.models.household.preferences import HouseholdPreferencesModel
 from mealie.db.models.household.recipe_action import GroupRecipeAction
 from mealie.db.models.household.shopping_list import (
+    ShoppingLabel,
     ShoppingList,
     ShoppingListItem,
     ShoppingListItemRecipeReference,
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
-    ShoppingLabel,
 )
 from mealie.db.models.household.webhooks import GroupWebhooksModel
 from mealie.db.models.recipe.category import Category, recipes_to_categories
@@ -52,12 +52,12 @@ from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.household.group_events import GroupEventNotifierOut
 from mealie.schema.household.group_recipe_action import GroupRecipeActionOut
 from mealie.schema.household.group_shopping_list import (
+    ShoppingLabelOut,
     ShoppingListItemOut,
     ShoppingListItemRecipeRefOut,
     ShoppingListMultiPurposeLabelOut,
     ShoppingListOut,
     ShoppingListRecipeRefOut,
-    ShoppingLabelOut,
 )
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeOut
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences
@@ -540,7 +540,7 @@ class AllRepositories:
             PK_ID,
             ShoppingLabel,
             ShoppingLabelOut,
-            group_id=self.group_id,
+            group_id=None,  # ShoppingLabel has no group_id column; scope by household only
             household_id=self.household_id,
         )
 

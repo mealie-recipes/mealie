@@ -12,7 +12,6 @@ from mealie.db.models.household import (
     ShoppingListItem,
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
-    ShoppingLabel,
 )
 from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitutionModel, RecipeModel
 from mealie.db.models.users.users import User
@@ -20,7 +19,6 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
-from mealie.schema.response.pagination import PaginationBase
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
@@ -98,6 +96,14 @@ class ShoppingListItemCreate(ShoppingListItemBase):
 
 class ShoppingListItemUpdate(ShoppingListItemBase):
     recipe_references: list[ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate] = []
+
+
+class ShoppingListItemPositionUpdate(MealieModel):
+    """Partial update of an item's position and/or shopping label; omitted fields are left unchanged"""
+
+    position: int | None = None
+    shopping_label_id: UUID4 | None = None
+    """Set to null explicitly to remove the item's label"""
 
 
 class ShoppingListItemUpdateBulk(ShoppingListItemUpdate):

@@ -1,11 +1,8 @@
-from typing import cast
-
 from pydantic import UUID4
-from sqlalchemy import case, func, select
-from sqlalchemy.orm import Session
+from sqlalchemy import case, select
 
 from mealie.core.exceptions import UnexpectedNone
-from mealie.db.models.household.shopping_list import ShoppingLabel, ShoppingListItem, ShoppingListMultiPurposeLabel
+from mealie.db.models.household.shopping_list import ShoppingListItem, ShoppingListMultiPurposeLabel
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
     ItemPositionChange,
@@ -14,11 +11,11 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingLabelSave,
     ShoppingLabelUpdate,
     ShoppingListItemOut,
-    ShoppingListItemUpdate,
-    ShoppingListItemUpdateBulk,
+    ShoppingListItemPositionUpdate,
     ShoppingListItemsCollectionOut,
+    ShoppingListItemUpdateBulk,
 )
-from mealie.schema.response.pagination import OrderDirection, PaginationQuery
+from mealie.schema.response.pagination import PaginationQuery
 
 
 class ShoppingLabelService:
@@ -118,24 +115,21 @@ class ShoppingLabelService:
         ]
 
         # Check if settings already exist
-        existing = self.repos.session.execute(
-            select(ShoppingListMultiPurposeLabel).where(
-                ShoppingListMultiPurposeLabel.shopping_list_id == list_id
+        existing = (
+            self.repos.session.execute(
+                select(ShoppingListMultiPurposeLabel).where(ShoppingListMultiPurposeLabel.shopping_list_id == list_id)
             )
-        ).scalars().all()
+            .scalars()
+            .all()
+        )
 
         if not existing:
             self.repos.session.bulk_save_objects(
-                [
-                    ShoppingListMultiPurposeLabel(**setting.model_dump())
-                    for setting in label_settings
-                ]
+                [ShoppingListMultiPurposeLabel(**setting.model_dump()) for setting in label_settings]
             )
             self.repos.session.commit()
 
-    def update_item(
-        self, item_id: UUID4, data: ShoppingListItemUpdate
-    ) -> ShoppingListItemsCollectionOut:
+    def update_item(self, item_id: UUID4, data: ShoppingListItemPositionUpdate) -> ShoppingListItemsCollectionOut:
         """Update a single item's position and/or label"""
         item = self.list_items.get_one(item_id)
         if not item:
@@ -144,14 +138,15 @@ class ShoppingLabelService:
         # Build update data
         update_data = item.cast(ShoppingListItemUpdateBulk, id=item_id)
 
-        if data.position is not None and data.position != item.position:
+        if data.position is not None:
             update_data.position = data.position
 
-        if data.label_id is not None and data.label_id != item.label_id:
-            update_data.label_id = data.label_id
+        if "shopping_label_id" in data.model_fields_set:
+            update_data.shopping_label_id = data.shopping_label_id
 
         # Use existing bulk update logic
         from mealie.services.household_services.shopping_lists import ShoppingListService
+
         shopping_service = ShoppingListService(self.repos)
         return shopping_service.bulk_update_items([update_data])
 
@@ -160,6 +155,9 @@ class ShoppingLabelService:
         if not changes:
             return
 
+        if not self.shopping_lists.get_one(list_id):
+            raise UnexpectedNone("Shopping list not found")
+
         # Build CASE WHEN statement for bulk position update
         case_conditions = []
         item_ids = []
@@ -167,19 +165,15 @@ class ShoppingLabelService:
 
         for change in changes:
             item_ids.append(change.item_id)
-            case_conditions.append(
-                (ShoppingListItem.id == change.item_id, change.position)
-            )
+            case_conditions.append((ShoppingListItem.id == change.item_id, change.position))
             if change.label_id is not None:
-                label_updates.append(
-                    (ShoppingListItem.id == change.item_id, change.label_id)
-                )
+                label_updates.append((ShoppingListItem.id == change.item_id, change.label_id))
 
         # Update positions in bulk
         position_case = case(*case_conditions, else_=ShoppingListItem.position)
         self.repos.session.execute(
             ShoppingListItem.__table__.update()
-            .where(ShoppingListItem.id.in_(item_ids))
+            .where(ShoppingListItem.id.in_(item_ids), ShoppingListItem.shopping_list_id == list_id)
             .values(position=position_case)
         )
 
@@ -188,7 +182,7 @@ class ShoppingLabelService:
             label_case = case(*label_updates, else_=ShoppingListItem.shopping_label_id)
             self.repos.session.execute(
                 ShoppingListItem.__table__.update()
-                .where(ShoppingListItem.id.in_(item_ids))
+                .where(ShoppingListItem.id.in_(item_ids), ShoppingListItem.shopping_list_id == list_id)
                 .values(shopping_label_id=label_case)
             )
 
@@ -219,6 +213,7 @@ class ShoppingLabelService:
 
         # Create the item
         from mealie.services.household_services.shopping_lists import ShoppingListService
+
         shopping_service = ShoppingListService(self.repos)
         result = shopping_service.bulk_create_items([item_data])
         return result.created_items[0] if result.created_items else None
@@ -226,6 +221,7 @@ class ShoppingLabelService:
 
 class ShoppingListMultiPurposeLabelCreate:
     """Helper class for creating label settings"""
+
     def __init__(self, shopping_list_id: UUID4, label_id: UUID4, position: int):
         self.shopping_list_id = shopping_list_id
         self.label_id = label_id
