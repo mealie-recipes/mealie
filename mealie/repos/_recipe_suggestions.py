@@ -321,6 +321,7 @@ class RecipeSuggestionMixin:
         params: RecipeSuggestionQuery,
         food_ids: list[UUID4] | None = None,
         tool_ids: list[UUID4] | None = None,
+        extra_filter: sa.ColumnElement[bool] | None = None,
     ) -> list[RecipeSuggestionResponseItem]:
         """
         Queries all recipes and returns the ones that are missing the least amount of foods and tools.
@@ -361,6 +362,8 @@ class RecipeSuggestionMixin:
             q = q.filter(self.model.group_id == self.group_id)
         if self.household_id:
             q = q.filter(self.model.household_id == self.household_id)
+        if extra_filter is not None:
+            q = q.filter(extra_filter)
         if params.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(params.query_filter)

@@ -321,7 +321,13 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
             q = self._query(override_schema=eff_schema).filter(attribute_name == attr_match)
             return [eff_schema.model_validate(x) for x in self.session.execute(q).scalars().all()]
 
-    def page_all(self, pagination: PaginationQuery, override=None, search: str | None = None) -> PaginationBase[Schema]:
+    def page_all(
+        self,
+        pagination: PaginationQuery,
+        override=None,
+        search: str | None = None,
+        extra_filter: ColumnElement[bool] | None = None,
+    ) -> PaginationBase[Schema]:
         """
         pagination is a method to interact with the filtered database table and return a paginated result
         using the PaginationBase that provides several data points that are needed to manage pagination
@@ -338,6 +344,8 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+        if extra_filter is not None:
+            q = q.filter(extra_filter)
         if search:
             q = self.add_search_to_query(q, eff_schema, search)
 

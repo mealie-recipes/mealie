@@ -347,6 +347,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         require_all_tools=True,
         require_all_foods=True,
         search: str | None = None,
+        extra_filter: sa.ColumnElement[bool] | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
         pagination_result = pagination.model_copy()
@@ -354,6 +355,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
+        if extra_filter is not None:
+            q = q.filter(extra_filter)
 
         if cookbook:
             pagination_result.query_filter = QueryFilterBuilder.combine_filters(
