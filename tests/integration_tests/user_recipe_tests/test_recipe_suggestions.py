@@ -1,10 +1,14 @@
 import random
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
+import sqlalchemy as sa
 from fastapi.testclient import TestClient
 
+from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_category import CategoryOut
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodSubstitution,
     IngredientFood,
@@ -527,6 +531,91 @@ def test_query_filter(api_client: TestClient, unique_user: TestUser):
 
     finally:
         for recipe in recipes_with_prefix + recipes_without_prefix:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_query_filter_last_made(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, recipe_categories: list[CategoryOut]
+):
+    known_food = create_food(unique_user)
+    category, other_category, _ = recipe_categories
+    recent_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    older_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    unmade_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    other_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[other_category.model_dump()])
+
+    now = datetime.now(UTC)
+    recent_time = (now - timedelta(days=3)).isoformat()
+    older_time = (now - timedelta(days=45)).isoformat()
+
+    try:
+        # Simulate legacy values that contradict the household's timestamps.
+        unique_user.repos.session.execute(
+            sa.update(RecipeModel).where(RecipeModel.id == recent_recipe.id).values(last_made=now - timedelta(days=62))
+        )
+        unique_user.repos.session.execute(
+            sa.update(RecipeModel).where(RecipeModel.id == older_recipe.id).values(last_made=now - timedelta(days=3))
+        )
+        unique_user.repos.session.commit()
+
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(recent_recipe.slug),
+            json={"timestamp": recent_time},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(older_recipe.slug),
+            json={"timestamp": older_time},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        # The older and never-made recipes must also match the requested category.
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": f'recipe_category.id IN ["{category.id}"] AND last_made <= $NOW-30d',
+            },
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        assert {item["recipe"]["id"] for item in response.json()["items"]} == {
+            str(older_recipe.id),
+            str(unmade_recipe.id),
+        }
+
+        # Filter for recipes made within the last 10 days: should only include recent_recipe for unique_user
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": "last_made >= $NOW-10d",
+            },
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        assert {item["recipe"]["id"] for item in response.json()["items"]} == {str(recent_recipe.id)}
+
+        # Neither the first household's recent timestamp nor the recent legacy value applies here.
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": "last_made >= $NOW-10d",
+            },
+            headers=h2_user.token,
+        )
+        response.raise_for_status()
+        assert response.json()["items"] == []
+
+    finally:
+        for recipe in [recent_recipe, older_recipe, unmade_recipe, other_recipe]:
             unique_user.repos.recipes.delete(recipe.slug)
 
 

@@ -53,6 +53,9 @@ class RecipeSuggestionMixin:
         group_id: UUID4 | None
         household_id: UUID4 | None
 
+        @property
+        def column_aliases(self) -> dict[str, sa.ColumnElement]: ...
+
         def _filter_builder(self, **kwargs) -> dict[str, Any]: ...
 
         def _log_exception(self, e: Exception) -> None: ...
@@ -367,7 +370,7 @@ class RecipeSuggestionMixin:
         if params.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(params.query_filter)
-                q = query_filter_builder.filter_query(q, model=self.model)
+                q = query_filter_builder.filter_query(q, model=self.model, column_aliases=self.column_aliases)
 
             except ValueError as e:
                 self.logger.error(e)
