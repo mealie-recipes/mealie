@@ -9,8 +9,8 @@ from . import (
     controller_mealplan,
     controller_mealplan_ical,
     controller_mealplan_rules,
-    controller_shopping_lists,
     controller_shopping_labels,
+    controller_shopping_lists,
     controller_webhooks,
 )
 

@@ -129,6 +129,8 @@ households_shopping_items = "/api/households/shopping/items"
 """`/api/households/shopping/items`"""
 households_shopping_items_create_bulk = "/api/households/shopping/items/create-bulk"
 """`/api/households/shopping/items/create-bulk`"""
+households_shopping_labels = "/api/households/shopping/labels"
+"""`/api/households/shopping/labels`"""
 households_shopping_lists = "/api/households/shopping/lists"
 """`/api/households/shopping/lists`"""
 households_statistics = "/api/households/statistics"
@@ -445,6 +447,11 @@ def households_shopping_items_item_id(item_id):
     return f"{prefix}/households/shopping/items/{item_id}"
 
 
+def households_shopping_labels_label_id(label_id):
+    """`/api/households/shopping/labels/{label_id}`"""
+    return f"{prefix}/households/shopping/labels/{label_id}"
+
+
 def households_shopping_lists_item_id(item_id):
     """`/api/households/shopping/lists/{item_id}`"""
     return f"{prefix}/households/shopping/lists/{item_id}"
@@ -453,6 +460,11 @@ def households_shopping_lists_item_id(item_id):
 def households_shopping_lists_item_id_label_settings(item_id):
     """`/api/households/shopping/lists/{item_id}/label-settings`"""
     return f"{prefix}/households/shopping/lists/{item_id}/label-settings"
+
+
+def households_shopping_lists_list_id_reorder(list_id):
+    """`/api/households/shopping/lists/{list_id}/reorder`"""
+    return f"{prefix}/households/shopping/lists/{list_id}/reorder"
 
 
 def households_shopping_lists_item_id_recipe(item_id):

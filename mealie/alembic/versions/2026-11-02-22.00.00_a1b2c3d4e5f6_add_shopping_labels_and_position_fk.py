@@ -53,9 +53,7 @@ def upgrade():
         )
 
     # 3. Ensure position has index for ordering (already exists on position, but add composite index)
-    op.create_index(
-        "ix_shopping_item_list_position", "shopping_list_items", ["shopping_list_id", "position"]
-    )
+    op.create_index("ix_shopping_item_list_position", "shopping_list_items", ["shopping_list_id", "position"])
 
 
 def downgrade():

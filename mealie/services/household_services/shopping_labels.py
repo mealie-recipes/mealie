@@ -1,8 +1,8 @@
 from pydantic import UUID4
-from sqlalchemy import case, select
+from sqlalchemy import case
 
 from mealie.core.exceptions import UnexpectedNone
-from mealie.db.models.household.shopping_list import ShoppingListItem, ShoppingListMultiPurposeLabel
+from mealie.db.models.household.shopping_list import ShoppingListItem
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
     ItemPositionChange,
@@ -10,7 +10,6 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingLabelOut,
     ShoppingLabelSave,
     ShoppingLabelUpdate,
-    ShoppingListItemOut,
     ShoppingListItemPositionUpdate,
     ShoppingListItemsCollectionOut,
     ShoppingListItemUpdateBulk,
@@ -19,18 +18,6 @@ from mealie.schema.response.pagination import PaginationQuery
 
 
 class ShoppingLabelService:
-    DEFAULT_SYSTEM_LABELS = [
-        {"name": "Meat & Seafood", "color": "#C62828", "sort_order": 1, "is_system": True},
-        {"name": "Produce", "color": "#2E7D32", "sort_order": 2, "is_system": True},
-        {"name": "Pantry \u2014 Canned/Jarred", "color": "#F57F17", "sort_order": 3, "is_system": True},
-        {"name": "Pantry \u2014 Dry Goods", "color": "#E65100", "sort_order": 4, "is_system": True},
-        {"name": "Pantry \u2014 Spices", "color": "#6D4C41", "sort_order": 5, "is_system": True},
-        {"name": "Oils & Vinegars", "color": "#F9A825", "sort_order": 6, "is_system": True},
-        {"name": "Dairy & Eggs", "color": "#1565C0", "sort_order": 7, "is_system": True},
-        {"name": "Frozen / Bread", "color": "#455A64", "sort_order": 8, "is_system": True},
-        {"name": "Other", "color": "#757575", "sort_order": 99, "is_system": True},
-    ]
-
     def __init__(self, repos: AllRepositories):
         self.repos = repos
         self.shopping_labels = repos.household_shopping_labels
@@ -86,49 +73,6 @@ class ShoppingLabelService:
 
         return self.shopping_labels.delete(label_id)
 
-    def ensure_system_labels(self) -> list[ShoppingLabelOut]:
-        """Ensure default system labels exist for the household"""
-        existing_labels = self.get_all(PaginationQuery(per_page=-1))
-        existing_names = {label.name for label in existing_labels.items}
-
-        created_labels = []
-        for sys_label in self.DEFAULT_SYSTEM_LABELS:
-            if sys_label["name"] not in existing_names:
-                create_data = ShoppingLabelCreate(**sys_label)
-                new_label = self.create_one(create_data)
-                created_labels.append(new_label)
-
-        return created_labels
-
-    def seed_system_labels_for_list(self, list_id: UUID4) -> None:
-        """Seed system labels for a new shopping list"""
-        labels = self.ensure_system_labels()
-
-        # Create label settings for the list
-        label_settings = [
-            ShoppingListMultiPurposeLabelCreate(
-                shopping_list_id=list_id,
-                label_id=label.id,
-                position=label.sort_order,
-            )
-            for label in labels
-        ]
-
-        # Check if settings already exist
-        existing = (
-            self.repos.session.execute(
-                select(ShoppingListMultiPurposeLabel).where(ShoppingListMultiPurposeLabel.shopping_list_id == list_id)
-            )
-            .scalars()
-            .all()
-        )
-
-        if not existing:
-            self.repos.session.bulk_save_objects(
-                [ShoppingListMultiPurposeLabel(**setting.model_dump()) for setting in label_settings]
-            )
-            self.repos.session.commit()
-
     def update_item(self, item_id: UUID4, data: ShoppingListItemPositionUpdate) -> ShoppingListItemsCollectionOut:
         """Update a single item's position and/or label"""
         item = self.list_items.get_one(item_id)
@@ -152,11 +96,11 @@ class ShoppingLabelService:
 
     def reorder_items(self, list_id: UUID4, changes: list[ItemPositionChange]) -> None:
         """Bulk reorder items in a single transaction"""
-        if not changes:
-            return
-
         if not self.shopping_lists.get_one(list_id):
             raise UnexpectedNone("Shopping list not found")
+
+        if not changes:
+            return
 
         # Build CASE WHEN statement for bulk position update
         case_conditions = []
@@ -187,49 +131,3 @@ class ShoppingLabelService:
             )
 
         self.repos.session.commit()
-
-    def shift_positions(self, list_id: UUID4, start_position: int, shift_by: int = 1) -> None:
-        """Shift positions of items at or after start_position"""
-        self.repos.session.execute(
-            ShoppingListItem.__table__.update()
-            .where(
-                ShoppingListItem.shopping_list_id == list_id,
-                ShoppingListItem.position >= start_position,
-            )
-            .values(position=ShoppingListItem.position + shift_by)
-        )
-        self.repos.session.commit()
-
-    def insert_item_at_position(
-        self, list_id: UUID4, position: int, item_data: ShoppingListItemUpdateBulk
-    ) -> ShoppingListItemOut:
-        """Insert an item at a specific position, shifting others"""
-        # Shift existing items
-        self.shift_positions(list_id, position, 1)
-
-        # Set the item's position
-        item_data.position = position
-        item_data.shopping_list_id = list_id
-
-        # Create the item
-        from mealie.services.household_services.shopping_lists import ShoppingListService
-
-        shopping_service = ShoppingListService(self.repos)
-        result = shopping_service.bulk_create_items([item_data])
-        return result.created_items[0] if result.created_items else None
-
-
-class ShoppingListMultiPurposeLabelCreate:
-    """Helper class for creating label settings"""
-
-    def __init__(self, shopping_list_id: UUID4, label_id: UUID4, position: int):
-        self.shopping_list_id = shopping_list_id
-        self.label_id = label_id
-        self.position = position
-
-    def model_dump(self):
-        return {
-            "shopping_list_id": self.shopping_list_id,
-            "label_id": self.label_id,
-            "position": self.position,
-        }

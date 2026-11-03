@@ -7,13 +7,13 @@ from .mealplan import GroupMealPlan, GroupMealPlanRules
 from .preferences import HouseholdPreferencesModel
 from .recipe_action import GroupRecipeAction
 from .shopping_list import (
+    ShoppingLabel,
     ShoppingList,
     ShoppingListExtras,
     ShoppingListItem,
     ShoppingListItemRecipeReference,
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
-    ShoppingLabel,
 )
 from .webhooks import GroupWebhooksModel
 

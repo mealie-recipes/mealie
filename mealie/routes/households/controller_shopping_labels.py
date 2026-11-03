@@ -106,8 +106,10 @@ class ShoppingListItemLabelController(BaseUserController):
     @item_router.patch("/{item_id}", response_model=ShoppingListItemsCollectionOut)
     def update_item(self, item_id: UUID4, data: ShoppingListItemPositionUpdate):
         """Update item position and/or label"""
-        items = self.service.update_item(item_id, data)
-        return items
+        try:
+            return self.service.update_item(item_id, data)
+        except UnexpectedNone:
+            raise HTTPException(status_code=404, detail="Shopping list item not found") from None
 
 
 # Bulk reorder endpoint
