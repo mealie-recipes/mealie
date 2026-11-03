@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_category import CategoryOut
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodSubstitution,
     IngredientFood,
@@ -533,20 +534,27 @@ def test_query_filter(api_client: TestClient, unique_user: TestUser):
             unique_user.repos.recipes.delete(recipe.slug)
 
 
-def test_query_filter_last_made(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+def test_query_filter_last_made(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, recipe_categories: list[CategoryOut]
+):
     known_food = create_food(unique_user)
-    recent_recipe = create_recipe(unique_user, foods=[known_food])
-    older_recipe = create_recipe(unique_user, foods=[known_food])
-    unmade_recipe = create_recipe(unique_user, foods=[known_food])
+    category, other_category, _ = recipe_categories
+    recent_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    older_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    unmade_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    other_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[other_category.model_dump()])
 
     now = datetime.now(UTC)
     recent_time = (now - timedelta(days=3)).isoformat()
     older_time = (now - timedelta(days=45)).isoformat()
 
     try:
-        # Simulate a stale legacy RecipeModel.last_made value from before #7907
+        # Simulate legacy values that contradict the household's timestamps.
         unique_user.repos.session.execute(
             sa.update(RecipeModel).where(RecipeModel.id == recent_recipe.id).values(last_made=now - timedelta(days=62))
+        )
+        unique_user.repos.session.execute(
+            sa.update(RecipeModel).where(RecipeModel.id == older_recipe.id).values(last_made=now - timedelta(days=3))
         )
         unique_user.repos.session.commit()
 
@@ -564,13 +572,13 @@ def test_query_filter_last_made(api_client: TestClient, unique_user: TestUser, h
         )
         response.raise_for_status()
 
-        # Recipes older than 30 days should include older_recipe and unmade_recipe, but exclude recent_recipe
+        # The older and never-made recipes must also match the requested category.
         response = api_client.get(
             api_routes.recipes_suggestions,
             params={
                 "maxMissingFoods": 0,
                 "foods": [str(known_food.id)],
-                "queryFilter": "last_made <= $NOW-30d",
+                "queryFilter": f'recipe_category.id IN ["{category.id}"] AND last_made <= $NOW-30d',
             },
             headers=unique_user.token,
         )
@@ -593,7 +601,7 @@ def test_query_filter_last_made(api_client: TestClient, unique_user: TestUser, h
         response.raise_for_status()
         assert {item["recipe"]["id"] for item in response.json()["items"]} == {str(recent_recipe.id)}
 
-        # Another household that has not made recent_recipe should not see it as recently made
+        # Neither the first household's recent timestamp nor the recent legacy value applies here.
         response = api_client.get(
             api_routes.recipes_suggestions,
             params={
@@ -607,7 +615,7 @@ def test_query_filter_last_made(api_client: TestClient, unique_user: TestUser, h
         assert response.json()["items"] == []
 
     finally:
-        for recipe in [recent_recipe, older_recipe, unmade_recipe]:
+        for recipe in [recent_recipe, older_recipe, unmade_recipe, other_recipe]:
             unique_user.repos.recipes.delete(recipe.slug)
 
 

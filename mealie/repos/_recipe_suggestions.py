@@ -52,7 +52,9 @@ class RecipeSuggestionMixin:
         user_id: UUID4 | None
         group_id: UUID4 | None
         household_id: UUID4 | None
-        column_aliases: dict[str, sa.ColumnElement | None]
+
+        @property
+        def column_aliases(self) -> dict[str, sa.ColumnElement]: ...
 
         def _filter_builder(self, **kwargs) -> dict[str, Any]: ...
 

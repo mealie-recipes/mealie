@@ -35,7 +35,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
     user_id: UUID4 | None = None
 
     @property
-    def column_aliases(self):
+    def column_aliases(self) -> dict[str, sa.ColumnElement]:
         if not self.user_id:
             return {}
 
@@ -49,7 +49,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         self.user_id = user_id
         return self
 
-    def _get_last_made_col_alias(self) -> sa.ColumnElement | None:
+    def _get_last_made_col_alias(self) -> sa.ColumnElement:
         """
         Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household,
         otherwise an arbitrarily low date
@@ -67,7 +67,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         )
         return sa.func.coalesce(last_made_subquery, datetime(year=1900, month=1, day=1, tzinfo=UTC))
 
-    def _get_rating_col_alias(self) -> sa.ColumnElement | None:
+    def _get_rating_col_alias(self) -> sa.ColumnElement:
         """Computed rating which uses the user's rating if it exists, otherwise falling back to the recipe's rating"""
 
         effective_rating = sa.case(
