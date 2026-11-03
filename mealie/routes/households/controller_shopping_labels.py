@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from mealie.core.exceptions import UnexpectedNone
 from mealie.routes._base import BaseCrudController, BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.routes._base.permissions import Perm, require
+from mealie.routes._base.permissions import Perm, forbidden, not_found, require
 from mealie.schema.household.group_shopping_list import (
     ItemPositionChange,
     ShoppingLabelCreate,
@@ -57,7 +57,7 @@ class ShoppingLabelController(BaseCrudController):
         """Get a single shopping label"""
         label = self.service.get_one(label_id)
         if not label:
-            raise HTTPException(status_code=404, detail="Shopping label not found")
+            raise not_found("Shopping label not found")
         return label
 
     @router.put("/{label_id}", response_model=ShoppingLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
@@ -65,10 +65,10 @@ class ShoppingLabelController(BaseCrudController):
         """Update a shopping label"""
         label = self.service.get_one(label_id)
         if not label:
-            raise HTTPException(status_code=404, detail="Shopping label not found")
+            raise not_found("Shopping label not found")
 
         if label.is_system and not data.is_system:
-            raise HTTPException(status_code=403, detail="Cannot modify system label properties")
+            raise forbidden("Cannot modify system label properties")
 
         try:
             return self.service.update_one(label_id, data)
@@ -81,10 +81,10 @@ class ShoppingLabelController(BaseCrudController):
         """Delete a shopping label (system labels cannot be deleted)"""
         label = self.service.get_one(label_id)
         if not label:
-            raise HTTPException(status_code=404, detail="Shopping label not found")
+            raise not_found("Shopping label not found")
 
         if label.is_system:
-            raise HTTPException(status_code=403, detail="Cannot delete system labels")
+            raise forbidden("Cannot delete system labels")
 
         return self.service.delete_one(label_id)
 
@@ -109,7 +109,7 @@ class ShoppingListItemLabelController(BaseUserController):
         try:
             return self.service.update_item(item_id, data)
         except UnexpectedNone:
-            raise HTTPException(status_code=404, detail="Shopping list item not found") from None
+            raise not_found("Shopping list item not found") from None
 
 
 # Bulk reorder endpoint
@@ -128,5 +128,5 @@ class ShoppingListReorderController(BaseUserController):
         try:
             self.service.reorder_items(list_id, changes)
         except UnexpectedNone:
-            raise HTTPException(status_code=404, detail="Shopping list not found") from None
+            raise not_found("Shopping list not found") from None
         return SuccessResponse.respond()
