@@ -14,7 +14,7 @@
     "docs": "Dokumentation",
     "github": "GitHub",
     "not-demo": "Keine Demo",
-    "production": "Production",
+    "production": "Produktion",
     "version": "Version",
     "unknown-version": "unbekannt",
     "sponsor": "Unterstützer"
@@ -37,7 +37,7 @@
     "category": "Kategorie"
   },
   "events": {
-    "apprise-url": "Apprise-URL",
+    "apprise-url": "Abreise URL",
     "delete-event": "Ereignis löschen",
     "event-delete-confirmation": "Bist du dir sicher, dass du dieses Ereignis löschen möchtest?",
     "event-deleted": "Ereignis gelöscht",
@@ -60,7 +60,7 @@
     "category-events": "Kategorie-Ereignisse",
     "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt",
     "recipe-events": "Rezept-Ereignisse",
-    "label-events": "Ereignisse beschriften"
+    "label-events": "Ereignis Label"
   },
   "general": {
     "add": "Hinzufügen",
@@ -139,7 +139,7 @@
     "start": "Starten",
     "toggle-view": "Ansicht wechseln",
     "date": "Datum",
-    "id": "ID",
+    "id": "Id",
     "owner": "Besitzer",
     "change-owner": "Besitzer ändern",
     "date-added": "Hinzugefügt am",
@@ -158,7 +158,7 @@
     "clipboard-not-supported": "Zwischenablage nicht unterstützt",
     "copied-to-clipboard": "In die Zwischenablage kopiert",
     "your-browser-does-not-support-clipboard": "Dein Browser unterstützt die Zwischenablage nicht",
-    "copied-items-to-clipboard": "Kein Eintrag in die Zwischenablage kopiert|Ein Eintrag wurde in die Zwischenablage kopiert|{count} Einträge in die Zwischenablage kopiert",
+    "copied-items-to-clipboard": "Kein Eintrag in die Zwischenablage kopiert|Ein Eintrag in die Zwischenablage kopiert|{count} Einträge in die Zwischenablage kopiert",
     "actions": "Aktionen",
     "selected-count": "Ausgewählt: {count}",
     "selected": "Ausgewählt",
@@ -250,13 +250,13 @@
       "provider-update-failed": "Anbieter konnte nicht aktualisiert werden",
       "provider-delete-failed": "Anbieter konnte nicht gelöscht werden",
       "request-headers": "Anfrage-Header",
-      "request-params": "Anfrageparameter",
+      "request-params": "Anfrage-Parameter",
       "no-default-provider-warning": "Du hast keinen Standard-Anbieter ausgewählt, daher sind die KI-Funktionen deaktiviert",
       "test-connection": "Test Connection",
-      "test-connection-succeeded": "Connection successful",
-      "test-connection-failed": "Connection failed",
-      "supports-images": "Supports images",
-      "text-only-provider": "Text-only, can't be your image provider"
+      "test-connection-succeeded": "Verbindung erfolgreich",
+      "test-connection-failed": "Verbindung fehlerhaft",
+      "supports-images": "Grafiken werden unterstützt",
+      "text-only-provider": "Nur-Text. Kann nicht zur Verarbeitung von Bildern genutzt werden"
     },
     "ai-prompts": {
       "ai-prompts": "KI-Prompts",
@@ -315,9 +315,9 @@
     "private-household-description": "Wenn du deinen Haushalt auf privat stellst, werden alle Einstellungen für den öffentlichen Zugriff zurückgesetzt. Individuelle Einstellungen werden überschrieben",
     "lock-recipe-edits-from-other-households": "Änderungen an Rezepten durch andere Haushalte sperren",
     "lock-recipe-edits-from-other-households-description": "Wenn aktiviert, können nur Benutzer deines Haushalts Rezepte bearbeiten, die in deinem Haushalt erstellt wurden",
-    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
+    "lock-recipe-edits-from-other-households-admin-note": "Site-Administratoren können Rezepte in jedem Haushalt immer bearbeiten oder löschen, unabhängig von dieser Einstellung.",
     "household-recipe-preferences": "Haushalt Rezept-Einstellungen",
-    "default-recipe-preferences-description": "Das sind die Standardeinstellungen, wenn ein neues Rezept in deinem Haushalt erstellt wird. Sie können für einzelne Rezepte in den Rezepteinstellungen geändert werden.",
+    "default-recipe-preferences-description": "Das sind die Standardeinstellungen für neue Rezepte in deinem Haushalt. Sie können pro Rezept in den Rezept-Einstellungen geändert werden.",
     "household-preferences": "Haushaltskonfiguration"
   },
   "meal-plan": {
@@ -330,10 +330,10 @@
     "any-category": "Beliebige Kategorie",
     "any-tag": "Beliebiges Schlagwort",
     "any-household": "Beliebiger Haushalt",
-    "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
-    "numberOfWeeksPast-label": "Default Weeks in the Past",
-    "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
-    "numberOfWeeks-label": "Default Weeks",
+    "numberOfWeeksPast-hint": "Anzahl der vergangenen Wochen beim Laden",
+    "numberOfWeeksPast-label": "Standard vergangene Wochen",
+    "numberOfWeeks-hint": "Anzahl der vergangenen Wochen incl. aktuelle Woche beim Laden",
+    "numberOfWeeks-label": "Standardwert Wochen",
     "side": "Beilage",
     "rule-day": "Wochentag",
     "meal-type": "Mahlzeit",
@@ -351,7 +351,7 @@
     "ignore-rules": "Plan Regeln ignorieren",
     "plan-for-the-whole-week": "Plan für die ganze Woche",
     "cooking-it-today": "Wird heute gekocht",
-    "weekday-rules-skip-week-entries": "Rules for a specific day don't apply to meals planned for a whole week.",
+    "weekday-rules-skip-week-entries": "Regeln für einen bestimmten Tag gelten nicht für Mahlzeiten für eine ganze Woche.",
     "no-recipes-match-your-rules": "Keine Rezepte entsprechen den Regeln des Speiseplans",
     "random-meal": "Zufälliges Gericht",
     "random-dinner": "Zufälliges Abendessen",
@@ -374,18 +374,18 @@
     "add-week-to-list": "Woche zur Einkaufsliste hinzufügen",
     "randomize-recipe": "Rezept zufällig auswählen",
     "calendar-feed": "Kalender abonnieren",
-    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-description": "Abonnieren Sie den Essensplan Ihres Haushaltes über Google Kalender, Apple Kalender, Home Assistant oder jede andere App, die mal unterstützt. Jeder mit dem Link kann Ihren Essen Plan zu sehen.",
     "calendar-feed-off": "Der Kalenderlink ist für Ihren Haushalt deaktiviert.",
     "calendar-feed-ask-manager": "Fragen Sie jemanden, der Ihren Haushalt verwalten kann, es einzuschalten.",
     "calendar-feed-turn-on": "Anschalten",
     "calendar-feed-turn-off": "Ausschalten",
-    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
-    "calendar-feed-include-notes": "Include notes",
-    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-reset-hint": "Das Zurücksetzen oder Deaktivieren des Links beendet bestehende Abos.",
+    "calendar-feed-include-notes": "Notizen einschließen",
+    "calendar-feed-times-hint": "Mahlzeiten ohne Zeitangabe werden ganztägig angezeigt.",
     "calendar-feed-duration": "Länge (Minuten)",
     "calendar-feed-event-details": "Ereignisdetails",
-    "calendar-feed-event-details-description": "Customize how meals show up in your calendar. You can use merge fields to fill in each meal's details (see the docs for the full list).",
-    "calendar-feed-event-details-change-warning": "Changing these will update the calendar link, so if you've already subscribed you'll need to replace it with the new link.",
+    "calendar-feed-event-details-description": "Passen Sie an, wie Mahlzeiten in Ihrem Kalender angezeigt werden. Sie können die Felder kombinieren, um die Details jeder Mahlzeit zu kombinieren (Dokumentation für die vollständige Liste).",
+    "calendar-feed-event-details-change-warning": "Eine Änderung wird den Kalender-Link aktualisieren. Sie benötigen zukünftig den neuen Link.",
     "calendar-feed-event-title": "Ereignistitel",
     "calendar-feed-event-description": "Veranstaltungsbeschreibung",
     "calendar-feed-url": "Kalender-Link"
@@ -414,7 +414,7 @@
       "title": "Paprika Rezept-Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Maelie kann Mealie Rezepte von einer Version vor 1.0 importieren. Exportiere die Rezepte und lade die Zip-Datei weiter unten hoch. Beachte, dass ausschließlich Rezepte aus einem Export der Version vor 1.0 importiert werden können. Backups von Version ab 1.0 sollten Backup- und Restore wiederhergestellt werden.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -426,8 +426,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Rezeptdatenmigration",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Rezepte können von einer unterstützten Anwendung nach Marie migriert werden. Dies ist ein guter Weg, um mit Marie zu beginnen. Daten zwischen Melde-Instanzen zu verschieben oder ein früheres Marie-Backup wiederherzustellen, wird stattdessen mit Backup und Resthöfe durchgeführt.",
+    "migration-description": "Wechselst du von einer anderen Anwendung oder einer Version vor Mealie 1.0? Prüfe die Migrations-Optionen, ggf. können deine Daten importiert werden.",
     "choose-migration-type": "Migrationsart wählen",
     "tag-all-recipes": "Alle Rezepte mit Schlagwort {tag-name} versehen",
     "recipe-1": "Rezept 1",
@@ -474,7 +474,7 @@
   },
   "recipe": {
     "step-duration-minutes": "Dauer (Minuten)",
-    "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
+    "step-duration-saved": "Gespeicherte Dauer: {duration}. Das Bearbeiten dieses Feldes ersetzt es durch ganze Minuten.",
     "step-duration-placeholder": "Minuten",
     "step-duration-value-seconds": "{seconds} s",
     "step-duration-value-hours": "{hours} h",
@@ -1039,13 +1039,13 @@
       "new-label": "Neue Kategorie",
       "labels": "Bezeichnungen",
       "assign-label": "Kategorie zuweisen",
-      "combine-label": "Combine Label",
+      "combine-label": "Kombiniere Label",
       "source-label": "Quellbezeichnung",
-      "target-label": "Target Label",
-      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
-      "merge-label-example": "Merging {label1} into {label2}",
+      "target-label": "Ziel Label",
+      "merge-dialog-text": "Zusammenführen das ausgewählte Label führt diese in ein einzelnes Label zusammen. Das Ausgangs-Label werden gelöscht. Alle Verweise werden auf das zusammengeführte Label geändert.",
+      "merge-label-example": "Zusammenführen von {label1} in {label2}",
       "delete-unused-confirm": "Dieses ungenutzte Label löschen? Diese Aktion kann nicht rückgängig gemacht werden. | {count} ungenutzte Label löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
-      "no-unused-labels": "No unused labels to delete"
+      "no-unused-labels": "Keine ungenutzten Label zum Löschen"
     },
     "recipes": {
       "purge-exports": "Exporte bereinigen",
@@ -1119,12 +1119,12 @@
       "new-tool": "Neues Utensil",
       "edit-tool": "Utensil bearbeiten",
       "tool-data": "Utensilien-Daten",
-      "combine-tool": "Combine Tool",
-      "source-tool": "Source Tool",
-      "target-tool": "Target Tool",
-      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
-      "merge-tool-example": "Merging {tool1} into {tool2}",
-      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "combine-tool": "Kombinieren Werkzeug",
+      "source-tool": "Quell-Werkzeug",
+      "target-tool": "Target-Werkzeug",
+      "merge-dialog-text": "Zusammenführen der ausgewählten Werkzeuge führt diese in ein Werkzeug zusammen. Die Ausgangswerkzeuge werden gelöscht und alle Verweise werden auf das zusammengeführte Werkzeug geändert.",
+      "merge-tool-example": "Zusammenführen von {tool1} in {tool2}",
+      "delete-unused-confirm": "Okay, um dieses ungenutzte Werkzeug zu löschen? Dies kann nicht rückgängig gemacht werden. | Okay, um diese {count} ungenutzten Werkzeuge zu löschen? Dies kann nicht rückgängig gemacht werden.",
       "no-unused-tools": "Keine unbenutzten Werkzeuge zum Löschen"
     }
   },
@@ -1304,8 +1304,8 @@
       "is-less-than-or-equal-to": "ist kleiner gleich",
       "is-older-than": "Ist älter als",
       "is-newer-than": "Ist neuer als",
-      "has-a-value": "has a value",
-      "has-no-value": "has no value"
+      "has-a-value": "Hat einen Wert",
+      "has-no-value": "Hat keinen Wert"
     },
     "relational-keywords": {
       "is": "ist",
