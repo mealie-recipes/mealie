@@ -11,11 +11,14 @@
       >
         {{ displayTitleIcon }}
       </v-icon>
-      <span class="text-headline-small">{{ title }}</span>
+      <h2 v-if="title" class="text-headline-small ma-0">
+        {{ title }}
+      </h2>
       <v-spacer />
       <v-btn
         :icon="$vuetify.display.xs"
         variant="text"
+        :aria-label="$t('general.random')"
         :disabled="recipes.length === 0"
         @click="navigateRandom"
       >
@@ -33,6 +36,7 @@
           <v-btn
             variant="text"
             :icon="$vuetify.display.xs"
+            :aria-label="$t('general.sort')"
             v-bind="activatorProps"
             :loading="sortLoading"
           >

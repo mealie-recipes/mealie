@@ -5,6 +5,7 @@
     <AppHeader>
       <v-btn
         icon
+        :aria-label="$t('general.menu')"
         @click.stop="sidebar = !sidebar"
       >
         <v-icon> {{ $globals.icons.menu }}</v-icon>

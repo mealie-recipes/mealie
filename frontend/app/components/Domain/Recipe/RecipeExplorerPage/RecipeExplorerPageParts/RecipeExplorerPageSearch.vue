@@ -29,6 +29,7 @@
               class="ml-auto"
               size="small"
               color="accent"
+              :aria-label="$vuetify.display.xs ? $t('general.sort') : undefined"
               v-bind="props"
             >
               <v-icon :start="!$vuetify.display.xs">
@@ -87,6 +88,7 @@
               size="small"
               color="accent"
               dark
+              :aria-label="$t('general.settings')"
               v-bind="props"
             >
               <v-icon size="small">

@@ -14,6 +14,7 @@
       <v-btn
         size="small"
         :icon="$globals.icons.dotsVertical"
+        :aria-label="$t('general.menu')"
         variant="text"
         dark
         v-bind="props"

@@ -672,6 +672,7 @@
     "remove-image": "Remove image",
     "nextStep": "Next step",
     "recipe-actions": "Recipe Actions",
+    "rating-out-of-five": "{rating} out of 5 stars",
     "unit-system": {
       "as-written": "As written",
       "metric": "Metric",

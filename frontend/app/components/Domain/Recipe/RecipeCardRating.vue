@@ -1,9 +1,14 @@
 <template>
-  <div class="rating-display">
+  <div
+    class="rating-display"
+    role="img"
+    :aria-label="$t('recipe.rating-out-of-five', { rating: ratingValue })"
+  >
     <span
       v-for="(star, index) in ratingDisplay"
       :key="index"
       class="star"
+      aria-hidden="true"
       :class="{
         'star-half': star === 'half',
         'text-secondary': !showGroupAverage,
