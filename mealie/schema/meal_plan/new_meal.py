@@ -13,6 +13,7 @@ from mealie.db.models.household import GroupMealPlan
 from mealie.db.models.recipe import RecipeModel
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
@@ -83,6 +84,7 @@ class SavePlanEntry(CreatePlanEntry):
 class ReadPlanEntry(UpdatePlanEntry):
     household_id: UUID
     recipe: RecipeSummary | None = None
+    updated_at: datetime.datetime | None = UpdatedAtField(None)
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod

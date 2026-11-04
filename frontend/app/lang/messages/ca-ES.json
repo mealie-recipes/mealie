@@ -382,7 +382,12 @@
     "calendar-feed-reset-hint": "Si restableixes o desactives l'enllaç, les subscripcions existents deixaran d'actualitzar-se.",
     "calendar-feed-include-notes": "Inclou les notes",
     "calendar-feed-times-hint": "Els àpats sense hora es mostren com a esdeveniments de tot el dia.",
-    "calendar-feed-timezone": "Fus horari",
+    "calendar-feed-duration": "Durada (minuts)",
+    "calendar-feed-event-details": "Detalls de l'esdeveniment",
+    "calendar-feed-event-details-description": "Personalitza com es mostren els àpats al calendari. Pots fer servir camps de combinació per omplir els detalls de cada àpat (consulta la documentació per veure'n la llista completa).",
+    "calendar-feed-event-details-change-warning": "Si canvies aquests valors, s'actualitzarà l'enllaç del calendari; per tant, si ja t'hi has subscrit, l'hauràs de substituir per l'enllaç nou.",
+    "calendar-feed-event-title": "Títol de l'esdeveniment",
+    "calendar-feed-event-description": "Descripció de l'esdeveniment",
     "calendar-feed-url": "Enllaç del calendari"
   },
   "migration": {

@@ -59,6 +59,8 @@ def get_mealplan_ical_feed(
     Public iCal feed of the household's meal plan. No authentication is required;
     access is controlled by the secret token in the URL.
     """
+    if query.lang:
+        translator = get_locale_provider(query.lang)
     feed = MealPlanICalService(session, translator).get_feed(token, query)
     if feed is None:
         raise not_found("Calendar not found")

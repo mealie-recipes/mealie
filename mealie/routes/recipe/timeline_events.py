@@ -8,6 +8,7 @@ from mealie.lang.providers import get_locale_provider
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import forbidden
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventCreate,
@@ -45,6 +46,12 @@ class RecipeTimelineEventsController(BaseCrudController):
             self.registered_exceptions,
         )
 
+    def _check_event_belongs_to_user(self, item_id: UUID4) -> RecipeTimelineEventOut:
+        event = self.mixins.get_one(item_id)
+        if event.user_id != self.user.id and not self.user.admin:
+            raise forbidden("Timeline event does not belong to user")
+        return event
+
     def _translate_event_subject(self, event: RecipeTimelineEventOut) -> None:
         """Translate auto-generated event subjects into the request's locale.
 
@@ -80,8 +87,7 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @router.post("", response_model=RecipeTimelineEventOut, status_code=201)
     def create_one(self, data: RecipeTimelineEventIn):
-        # if the user id is not specified, use the currently-authenticated user
-        data.user_id = data.user_id or self.user.id
+        data.user_id = self.user.id
 
         recipe = self.group_recipes.get_one(data.recipe_id, "id")
         if not recipe:
@@ -114,7 +120,11 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @router.put("/{item_id}", response_model=RecipeTimelineEventOut)
     def update_one(self, item_id: UUID4, data: RecipeTimelineEventUpdate):
+        self._check_event_belongs_to_user(item_id)
         event = self.mixins.patch_one(data, item_id)
+        if data.image == TimelineEventImage.does_not_have_image.value:
+            RecipeDataService(event.recipe_id).delete_image(event.image_dir)
+
         recipe = self.group_recipes.get_one(event.recipe_id, "id")
         if recipe:
             self.publish_event(
@@ -135,6 +145,7 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @router.delete("/{item_id}", response_model=RecipeTimelineEventOut)
     def delete_one(self, item_id: UUID4):
+        self._check_event_belongs_to_user(item_id)
         event = self.mixins.delete_one(item_id)
         if event.image_dir.exists():
             try:
@@ -165,7 +176,7 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @router.put("/{item_id}/image", response_model=UpdateImageResponse)
     def update_event_image(self, item_id: UUID4, image: bytes = File(...), extension: str = Form(...)):
-        event = self.mixins.get_one(item_id)
+        event = self._check_event_belongs_to_user(item_id)
         data_service = RecipeDataService(event.recipe_id)
         data_service.write_image(image, extension, event.image_dir)
 

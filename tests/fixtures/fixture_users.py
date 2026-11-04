@@ -270,7 +270,9 @@ def unique_user(session: Session, api_client: TestClient):
 @fixture(scope="module")
 def unique_admin(session: Session, api_client: TestClient, unique_user: utils.TestUser):
     admin_user = next(_unique_user(session, api_client))
-    admin_user.repos.users.patch(admin_user.user_id, {"admin": True, "group_id": unique_user.group_id})
+    # Moving a user to another group needs an unscoped repo, as the admin routes use
+    unscoped_repos = get_repositories(session, group_id=None, household_id=None)
+    unscoped_repos.users.patch(admin_user.user_id, {"admin": True, "group_id": unique_user.group_id})
     yield admin_user
 
 

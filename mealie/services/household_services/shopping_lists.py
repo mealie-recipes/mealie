@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from typing import cast
 
 from pydantic import UUID4
@@ -7,6 +8,7 @@ from mealie.core.exceptions import UnexpectedNone
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.routes._base.permissions import not_found
 from mealie.schema.household.group_shopping_list import (
     ShoppingListAddRecipeParamsBulk,
     ShoppingListCreate,
@@ -235,6 +237,13 @@ class ShoppingListService:
         food_search = self.data_matcher.find_food_match(item.display)
         return food_search.label_id if food_search else None
 
+    def _require_lists_in_scope(self, list_ids: Iterable[UUID4]) -> None:
+        """Raise 404 unless every list is visible to the caller's household."""
+
+        for list_id in set(list_ids):
+            if self.shopping_lists.get_one(list_id) is None:
+                raise not_found()
+
     def bulk_create_items(
         self, create_items: list[ShoppingListItemCreate], auto_find_labels=True
     ) -> ShoppingListItemsCollectionOut:
@@ -242,6 +251,8 @@ class ShoppingListService:
         Create a list of items, merging into existing ones where possible.
         Optionally try to find a label for each item if one isn't provided using the item's food data or display name.
         """
+
+        self._require_lists_in_scope(item.shopping_list_id for item in create_items)
 
         # consolidate items to be created
         consolidated_create_items: list[ShoppingListItemCreate] = []
@@ -304,6 +315,9 @@ class ShoppingListService:
         )
 
     def bulk_update_items(self, update_items: list[ShoppingListItemUpdateBulk]) -> ShoppingListItemsCollectionOut:
+        # Items are household-scoped, but the target list in the body is not, so it is checked separately.
+        self._require_lists_in_scope(item.shopping_list_id for item in update_items)
+
         recipe_ids_to_restore = self.get_recipe_ids_to_restore(update_items)
 
         # consolidate items to be created
@@ -520,6 +534,16 @@ class ShoppingListService:
         - Updated Shopping List
         - Impacted Shopping List Items
         """
+
+        self._require_lists_in_scope([list_id])
+
+        # Recipes are household-scoped, but any recipe in the group is a valid source.
+        group_recipes_repo = get_repositories(
+            self.repos.session, group_id=self.repos.group_id, household_id=None
+        ).recipes
+        for recipe_id in {recipe.recipe_id for recipe in recipe_items}:
+            if group_recipes_repo.get_one(recipe_id, "id") is None:
+                raise not_found()
 
         items_to_create = [
             item

@@ -1,5 +1,6 @@
 from datetime import UTC, datetime
 
+from pydantic import UUID4, BaseModel
 from sqlalchemy import select
 
 from mealie.db.models.household import GroupMealPlan
@@ -9,6 +10,12 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 
 class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
+    def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> ReadPlanEntry:
+        # The plan's household comes from its user, so a client-supplied user_id could move it to another household
+        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
+        new_data["user_id"] = self._query_one(match_value=match_value).user_id
+        return super().update(match_value, new_data)
+
     def get_today(self, tz=UTC) -> list[ReadPlanEntry]:
         if not self.household_id:
             raise Exception("household_id not set")

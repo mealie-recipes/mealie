@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "oncia liquida",
-        "plural_name": "once fluide",
+        "plural_name": "once liquide",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -30,8 +30,8 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quarto di pinta",
-        "plural_name": "quarti",
+        "name": "quarto di gallone",
+        "plural_name": "quarti di gallone",
         "description": "",
         "abbreviation": "qt"
     },
@@ -48,8 +48,8 @@
         "abbreviation": "ml"
     },
     "centiliter": {
-        "name": "centiliter",
-        "plural_name": "centiliters",
+        "name": "centilitro",
+        "plural_name": "centilitri",
         "description": "",
         "abbreviation": "cl"
     },
@@ -97,8 +97,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "pizzico",
-        "plural_name": "pizzichi",
+        "name": "goccio",
+        "plural_name": "gocci",
         "description": "",
         "abbreviation": ""
     },
@@ -121,13 +121,13 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "lattina",
-        "plural_name": "lattine",
+        "name": "barattolo",
+        "plural_name": "barattoli",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "mucchio",
+        "name": "mazzo",
         "plural_name": "mucchi",
         "description": "",
         "abbreviation": ""

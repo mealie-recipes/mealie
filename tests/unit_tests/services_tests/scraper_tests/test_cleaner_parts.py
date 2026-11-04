@@ -1035,6 +1035,23 @@ def test_clean_nutrition_converts_nutrients_to_milligrams(key: str, value: str, 
     assert cleaner.clean_nutrition({key: value}) == {key: expected}
 
 
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize(
+    "value, expected",
+    [("0.5 grams", "500.0"), ("1 gram", "1000.0"), ("2 G", "2000.0"), ("1.5 gm", "1500.0")],
+)
+def test_clean_nutrition_converts_spelled_out_grams_to_milligrams(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize(
+    "value, expected", [("500 mg", "500"), ("500 MG", "500"), ("500 milligrams", "500"), ("100 mcg", "100")]
+)
+def test_clean_nutrition_keeps_milligrams_and_smaller_units(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
+
+
 clean_notes_test_cases = (
     CleanerCase(
         test_id="valid dicts with title and text",

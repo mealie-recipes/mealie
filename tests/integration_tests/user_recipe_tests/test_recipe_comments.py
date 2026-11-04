@@ -57,6 +57,17 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
     assert response_data[0]["userId"] == str(unique_user.user_id)
 
 
+def test_create_comment_on_recipe_in_other_group(
+    api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser, g2_user: TestUser
+):
+    response = api_client.post(api_routes.comments, json=random_comment(unique_recipe.id), headers=g2_user.token)
+    assert response.status_code == 404
+
+    response = api_client.get(api_routes.recipes_slug_comments(unique_recipe.slug), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json() == []
+
+
 def test_update_comment(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
     # Create Comment
     create_data = random_comment(unique_recipe.id)

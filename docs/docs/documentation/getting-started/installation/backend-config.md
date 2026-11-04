@@ -13,6 +13,7 @@
 | BASE_URL                      | http://localhost:8080 | Used for notifications and the OIDC callback url                                                                                                        |
 | TOKEN_TIME                    |          48           | The time in hours a login session lasts. Must be <= 9600 (400 days, in hours).                                                                          |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
+| API_HOST                      |       *(empty)*       | Listening address. Empty binds IPv4 and IPv6 automatically. An explicit address is used unchanged. See below.                                          |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                                                        |
@@ -22,6 +23,16 @@
 | DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run daily server tasks, in HH:MM format. Use the server's local time, *not* UTC                                                      |
 
 <super>\*</super> Starting in v1.4.0 this was changed to default to `false` as part of a security review of the application.
+
+#### Listening address
+
+`API_HOST` defaults to an empty string, which is automatic wildcard binding. Mealie opens one dual-stack IPv6 socket so the same `API_PORT` accepts IPv4 and IPv6 connections. When the host cannot provide that socket, Mealie listens on IPv4 `0.0.0.0` instead. The IPv4 listener is only a fallback for missing IPv6 dual-stack support. A port that is already in use, or a bind the process is not allowed to perform, stops startup with that error.
+
+Set `API_HOST` to choose an exact address: `0.0.0.0` (IPv4 on every interface), `127.0.0.1` (IPv4 loopback only), `::` (IPv6 wildcard), or `::1` (IPv6 loopback only). Explicit values stay on the address you set.
+
+`HOST_IP` lists reverse proxies trusted to send forwarded headers. The listening address is `API_HOST`.
+
+Docker delivers IPv6 to a container when the Docker network has IPv6 enabled and the published port is reachable over IPv6. A dual-stack listener on an IPv4-only Docker network is reachable over IPv4 alone.
 
 ### Security
 

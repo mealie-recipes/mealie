@@ -53,6 +53,9 @@ class RecipeSuggestionMixin:
         group_id: UUID4 | None
         household_id: UUID4 | None
 
+        @property
+        def column_aliases(self) -> dict[str, sa.ColumnElement]: ...
+
         def _filter_builder(self, **kwargs) -> dict[str, Any]: ...
 
         def _log_exception(self, e: Exception) -> None: ...
@@ -321,6 +324,7 @@ class RecipeSuggestionMixin:
         params: RecipeSuggestionQuery,
         food_ids: list[UUID4] | None = None,
         tool_ids: list[UUID4] | None = None,
+        extra_filter: sa.ColumnElement[bool] | None = None,
     ) -> list[RecipeSuggestionResponseItem]:
         """
         Queries all recipes and returns the ones that are missing the least amount of foods and tools.
@@ -361,10 +365,12 @@ class RecipeSuggestionMixin:
             q = q.filter(self.model.group_id == self.group_id)
         if self.household_id:
             q = q.filter(self.model.household_id == self.household_id)
+        if extra_filter is not None:
+            q = q.filter(extra_filter)
         if params.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(params.query_filter)
-                q = query_filter_builder.filter_query(q, model=self.model)
+                q = query_filter_builder.filter_query(q, model=self.model, column_aliases=self.column_aliases)
 
             except ValueError as e:
                 self.logger.error(e)

@@ -48,10 +48,10 @@
         "abbreviation": "מ\"ל"
     },
     "centiliter": {
-        "name": "centiliter",
-        "plural_name": "centiliters",
+        "name": "סנטיליטר",
+        "plural_name": "סנטיליטרים",
         "description": "",
-        "abbreviation": "cl"
+        "abbreviation": "ס״ל"
     },
     "liter": {
         "name": "ליטר",
