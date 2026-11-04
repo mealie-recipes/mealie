@@ -199,3 +199,30 @@ def test_filter_query_excluding_food_label_excludes_the_whole_recipe():
     # ingredients carries the label, rather than being matched on its other ingredients.
     assert "NOT (EXISTS (SELECT 1 FROM recipes_ingredients" in sql
     assert "ingredient_foods.label_id IN" in sql
+
+
+@pytest.mark.parametrize(
+    ("query_filter", "expected_operator", "expected_values"),
+    [
+        ('name IN ["Soup, Salad"]', RelationalKeyword.IN, ["Soup, Salad"]),
+        ('name NOT IN ["Soup, Salad"]', RelationalKeyword.NOT_IN, ["Soup, Salad"]),
+        ('name IN ["Soup", "Salad"]', RelationalKeyword.IN, ["Soup", "Salad"]),
+        (
+            'name IN ["Chicken, Rice", "Pasta"]',
+            RelationalKeyword.IN,
+            ["Chicken, Rice", "Pasta"],
+        ),
+    ],
+)
+def test_query_filter_builder_preserves_commas_in_quoted_list_values(
+    query_filter: str,
+    expected_operator: RelationalKeyword,
+    expected_values: list[str],
+):
+    builder = QueryFilterBuilder(query_filter)
+
+    parsed_filter = builder.as_json_model()
+
+    assert len(parsed_filter.parts) == 1
+    assert parsed_filter.parts[0].relational_operator == expected_operator
+    assert parsed_filter.parts[0].value == expected_values
