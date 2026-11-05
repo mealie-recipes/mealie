@@ -238,8 +238,9 @@ async def test_spa_serve_recipe_with_meta_private_household(unique_user: TestUse
     assert recipe.name in response.body.decode()
 
 
+@pytest.mark.parametrize("is_expired", [True, False])
 @pytest.mark.asyncio
-async def test_spa_service_shared_recipe_with_meta_expired_token(unique_user: TestUser):
+async def test_spa_service_shared_recipe_with_meta_token_expiry(unique_user: TestUser, is_expired: bool):
     group = unique_user.repos.groups.get_by_slug_or_id(unique_user.group_id)
     assert group
     recipe = create_recipe(unique_user)
@@ -248,13 +249,17 @@ async def test_spa_service_shared_recipe_with_meta_expired_token(unique_user: Te
         RecipeShareTokenSave(
             recipe_id=recipe.id,
             group_id=unique_user.group_id,
-            expires_at=datetime.now(UTC) - timedelta(days=1),
+            expires_at=datetime.now(UTC) + timedelta(days=-1 if is_expired else 1),
         )
     )
 
     response = await spa.serve_shared_recipe_with_meta(group.slug, token.id, session=unique_user.repos.session)
-    assert response.status_code == 404
-    assert recipe.name not in response.body.decode()
+    if is_expired:
+        assert response.status_code == 404
+        assert recipe.name not in response.body.decode()
+    else:
+        assert response.status_code == 200
+        assert recipe.name in response.body.decode()
 
 
 @pytest.mark.parametrize("use_private_group", [True, False])

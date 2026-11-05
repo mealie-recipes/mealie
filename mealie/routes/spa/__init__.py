@@ -234,7 +234,6 @@ def serve_recipe_with_meta_public(
         household = recipe and group_repos.households.get_one(recipe.household_id)
         if not is_recipe_publicly_visible(recipe, household):
             return response_404()
-        assert recipe
 
         # Inject meta tags
         return Response(content_with_meta(group_slug, recipe), media_type="text/html")

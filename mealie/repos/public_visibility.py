@@ -5,6 +5,8 @@ Pass these clauses to the repo as `extra_filter`. Don't append them to the reque
 queryFilter: quotes or brackets in that string can swallow whatever follows.
 """
 
+from typing import TypeGuard
+
 import sqlalchemy as sa
 
 from mealie.db.models.household import CookBook, Household, HouseholdPreferencesModel
@@ -39,7 +41,7 @@ def is_household_publicly_visible(household: HouseholdInDB | None) -> bool:
     return bool(household and household.preferences and not household.preferences.private_household)
 
 
-def is_recipe_publicly_visible(recipe: Recipe | None, household: HouseholdInDB | None) -> bool:
+def is_recipe_publicly_visible(recipe: Recipe | None, household: HouseholdInDB | None) -> TypeGuard[Recipe]:
     return bool(recipe and recipe.settings and recipe.settings.public and is_household_publicly_visible(household))
 
 
