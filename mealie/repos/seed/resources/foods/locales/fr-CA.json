@@ -1866,7 +1866,7 @@
     }
   },
   "oils": {
-    "name": "Oils",
+    "name": "Huiles",
     "foods": {
       "shortening": {
         "name": "graisse végétale",
@@ -1927,7 +1927,7 @@
     }
   },
   "baking": {
-    "name": "Baking",
+    "name": "Pâtisserie",
     "foods": {
       "cocoa": {
         "name": "cacao en poudre",
