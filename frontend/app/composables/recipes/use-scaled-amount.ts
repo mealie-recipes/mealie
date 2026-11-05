@@ -46,3 +46,15 @@ export function calculateScaleFromYield(newYield: number, recipeServings: number
 
   return newYield / recipeServings;
 }
+
+/**
+ * Returns the scale needed for a recipe where an ingredient with base quantity `baseQuantity`
+ * has been set to `targetQuantity`, or `null` if inputs are invalid.
+ */
+export function calculateScaleFromIngredient(targetQuantity: number, baseQuantity: number): number | null {
+  if (isNaN(targetQuantity) || targetQuantity <= 0 || isNaN(baseQuantity) || baseQuantity <= 0) {
+    return null;
+  }
+
+  return targetQuantity / baseQuantity;
+}

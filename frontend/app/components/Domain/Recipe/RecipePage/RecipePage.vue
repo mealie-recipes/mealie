@@ -79,8 +79,8 @@
             >
               <RecipePageIngredientToolsView
                 v-if="!isEditForm"
+                v-model:scale="scale"
                 :recipe="displayedRecipe"
-                :scale="scale"
                 :ingredient-storage-key="ingredientStorageKey"
                 class="pr-2"
               />
@@ -95,6 +95,7 @@
                 <RecipePageInstructions
                   v-model="recipe.recipeInstructions"
                   v-model:assets="recipe.assets"
+                  v-model:scale="scale"
                   :recipe="displayedRecipe"
                   :scale="scale"
                   :ingredient-storage-key="ingredientStorageKey"
@@ -155,8 +156,8 @@
           </div>
           <RecipePageIngredientToolsView
             v-if="!isEditForm"
+            v-model:scale="scale"
             :recipe="displayedRecipe"
-            :scale="scale"
             :is-cook-mode="isCookMode"
             :ingredient-storage-key="ingredientStorageKey"
           />
@@ -175,6 +176,7 @@
           <RecipePageInstructions
             v-model="recipe.recipeInstructions"
             v-model:assets="recipe.assets"
+            v-model:scale="scale"
             class="overflow-y-hidden px-4"
             :recipe="displayedRecipe"
             :scale="scale"
@@ -190,6 +192,7 @@
       <RecipePageInstructions
         v-model="recipe.recipeInstructions"
         v-model:assets="recipe.assets"
+        v-model:scale="scale"
         class="overflow-y-hidden mt-n5 px-2 px-md-4"
         :recipe="displayedRecipe"
         :scale="scale"
@@ -201,8 +204,8 @@
         <v-card flat>
           <v-card-title>{{ $t("recipe.not-linked-ingredients") }}</v-card-title>
           <RecipeIngredients
+            v-model:scale="scale"
             :value="notLinkedIngredients"
-            :scale="scale"
             :is-cook-mode="isCookMode"
             :storage-key="ingredientStorageKey"
           />

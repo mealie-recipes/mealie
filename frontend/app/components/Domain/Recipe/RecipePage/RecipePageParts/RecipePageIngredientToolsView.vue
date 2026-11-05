@@ -1,8 +1,8 @@
 <template>
   <div>
     <RecipeIngredients
+      v-model:scale="scale"
       :value="recipe.recipeIngredient"
-      :scale="scale"
       :is-cook-mode="isCookMode"
       :storage-key="ingredientStorageKey"
     />
@@ -50,7 +50,6 @@ interface RecipeToolWithOnHand extends RecipeTool {
 
 interface Props {
   recipe: NoUndefinedField<Recipe>;
-  scale: number;
   isCookMode?: boolean;
   ingredientStorageKey?: string;
 }
@@ -58,6 +57,8 @@ const props = withDefaults(defineProps<Props>(), {
   isCookMode: false,
   ingredientStorageKey: undefined,
 });
+
+const scale = defineModel<number>("scale", { default: 1 });
 
 const { isOwnGroup } = useLoggedInState();
 

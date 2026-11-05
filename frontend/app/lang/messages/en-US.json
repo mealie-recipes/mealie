@@ -706,6 +706,9 @@
       "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Reset Servings Count",
+    "reset-scale": "Reset Scale",
+    "scale-by-ingredient": "Scale by ingredient",
+    "scale-ingredient-original": "Original: {amount}",
     "not-linked-ingredients": "Additional Ingredients",
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
