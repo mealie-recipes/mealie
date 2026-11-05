@@ -89,11 +89,11 @@ export function useShoppingListSorting() {
         return;
       }
 
-      if (item.labelId) {
-        if (item.label && item.label.name in items) {
+      if (item.labelId && item.label) {
+        if (item.label.name in items) {
           items[item.label.name]?.push(item);
         }
-        else if (item.label) {
+        else {
           items[item.label.name] = [item];
         }
       }

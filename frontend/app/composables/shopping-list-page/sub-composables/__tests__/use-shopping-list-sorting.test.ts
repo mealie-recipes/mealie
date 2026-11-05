@@ -61,18 +61,23 @@ describe("use-shopping-list-sorting", () => {
       expect(sortedList.listItems).toEqual(undefined);
     });
   });
+
   describe("updateItemsByLabel", () => {
     const { updateItemsByLabel, t } = wrapper();
+
     test("sorts by group", () => {
       const sortedList = {
-        ...MOCK_SHOPPING_LIST, listItems: [
+        ...MOCK_SHOPPING_LIST,
+        listItems: [
           MOCK_ITEM,
           { ...MOCK_ITEM, label: MOCK_LABEL2.label, labelId: "2" },
           { ...MOCK_ITEM, label: MOCK_LABEL.label, labelId: "1" },
           { ...MOCK_ITEM, label: MOCK_LABEL.label, labelId: "1" },
         ],
       };
+
       const result = updateItemsByLabel(sortedList);
+
       expect(result).toEqual({
         [t("shopping-list.no-label")]: [
           MOCK_ITEM,
@@ -86,16 +91,20 @@ describe("use-shopping-list-sorting", () => {
         ],
       });
     });
+
     test("ignores checked items", () => {
       const sortedList = {
-        ...MOCK_SHOPPING_LIST, listItems: [
+        ...MOCK_SHOPPING_LIST,
+        listItems: [
           MOCK_ITEM,
           { ...MOCK_ITEM, label: MOCK_LABEL2.label, labelId: "2" },
           { ...MOCK_ITEM, label: MOCK_LABEL.label, labelId: "1" },
           { ...MOCK_ITEM, label: MOCK_LABEL.label, labelId: "1", checked: true },
         ],
       };
+
       const result = updateItemsByLabel(sortedList);
+
       expect(result).toEqual({
         [t("shopping-list.no-label")]: [
           MOCK_ITEM,
@@ -108,6 +117,7 @@ describe("use-shopping-list-sorting", () => {
         ],
       });
     });
+
     test("returns unordered labels if no ordering is specified", () => {
       const sortedList = {
         ...MOCK_SHOPPING_LIST,
@@ -119,7 +129,9 @@ describe("use-shopping-list-sorting", () => {
           { ...MOCK_ITEM, label: MOCK_LABEL.label, labelId: "1", checked: true },
         ],
       };
+
       const result = updateItemsByLabel(sortedList);
+
       expect(result).toEqual({
         [t("shopping-list.no-label")]: [
           MOCK_ITEM,
@@ -132,43 +144,84 @@ describe("use-shopping-list-sorting", () => {
         ],
       });
     });
+
+    test("keeps items with a missing label in the no-label group", () => {
+      const itemWithMissingLabel = {
+        ...MOCK_ITEM,
+        labelId: "missing-label-id",
+        label: undefined,
+      };
+
+      const sortedList = {
+        ...MOCK_SHOPPING_LIST,
+        listItems: [
+          MOCK_ITEM,
+          itemWithMissingLabel,
+        ],
+      };
+
+      const result = updateItemsByLabel(sortedList);
+
+      expect(result).toEqual({
+        [t("shopping-list.no-label")]: [
+          MOCK_ITEM,
+          itemWithMissingLabel,
+        ],
+      });
+    });
   });
+
   describe("groupAndSortListItemsByFood", () => {
     const { groupAndSortListItemsByFood } = wrapper();
+
     test("sorts by group", () => {
       const sortedList = { ...MOCK_SHOPPING_LIST };
       groupAndSortListItemsByFood(sortedList);
       expect(sortedList.listItems).toEqual(MOCK_SHOPPING_LIST.listItems);
     });
+
     test("groups checked items together", () => {
       const sortedList: ShoppingListOut = {
-        ...MOCK_SHOPPING_LIST, listItems: [
+        ...MOCK_SHOPPING_LIST,
+        listItems: [
           { ...MOCK_ITEM, checked: true, food: MOCK_FOOD },
           { ...MOCK_ITEM, checked: true, food: MOCK_FOOD2 },
         ],
       };
+
       groupAndSortListItemsByFood(sortedList);
+
       expect(sortedList.listItems).toEqual([
         { ...MOCK_ITEM, checked: true, food: MOCK_FOOD },
         { ...MOCK_ITEM, checked: true, food: MOCK_FOOD2, position: 1 },
       ]);
     });
+
     test("populates position and created at if not present", () => {
       const sortedList: ShoppingListOut = {
-        ...MOCK_SHOPPING_LIST, listItems: [
+        ...MOCK_SHOPPING_LIST,
+        listItems: [
           { ...MOCK_ITEM, food: MOCK_FOOD, position: undefined },
           { ...MOCK_ITEM, food: MOCK_FOOD2, createdAt: undefined },
         ],
       };
+
       groupAndSortListItemsByFood(sortedList);
+
       expect(sortedList.listItems).toEqual([
         { ...MOCK_ITEM, food: MOCK_FOOD2, createdAt: undefined },
         { ...MOCK_ITEM, food: MOCK_FOOD, position: 1 },
       ]);
     });
+
     test("handles nulls", () => {
-      const sortedList: ShoppingListOut = { ...MOCK_SHOPPING_LIST, listItems: undefined };
+      const sortedList: ShoppingListOut = {
+        ...MOCK_SHOPPING_LIST,
+        listItems: undefined,
+      };
+
       groupAndSortListItemsByFood(sortedList);
+
       expect(sortedList.listItems).toEqual(undefined);
     });
   });
