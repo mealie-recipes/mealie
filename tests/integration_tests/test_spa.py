@@ -1,4 +1,5 @@
 import json
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from bs4 import BeautifulSoup
@@ -26,6 +27,13 @@ def set_group_is_private(unique_user: TestUser, *, is_private: bool):
     unique_user.repos.group_preferences.update(group.id, group.preferences)
 
 
+def set_household_is_private(unique_user: TestUser, *, is_private: bool):
+    household = unique_user.repos.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+
 def set_recipe_is_public(unique_user: TestUser, recipe: Recipe, *, is_public: bool):
     assert recipe.settings
     recipe.settings.public = is_public
@@ -41,6 +49,7 @@ def create_recipe(user: TestUser) -> Recipe:
         )
     )
     set_group_is_private(user, is_private=False)
+    set_household_is_private(user, is_private=False)
     set_recipe_is_public(user, recipe, is_public=True)
 
     return recipe
@@ -199,6 +208,58 @@ async def test_spa_serve_recipe_with_meta_invalid_data(unique_user: TestUser, us
         assert response.status_code == 404
     else:
         assert response.status_code == 200
+
+
+@pytest.mark.asyncio
+async def test_spa_serve_recipe_with_meta_private_household(unique_user: TestUser):
+    recipe = create_recipe(unique_user)
+    user = unique_user.repos.users.get_by_username(unique_user.username)
+    assert user
+
+    set_household_is_private(unique_user, is_private=True)
+    response = await spa.serve_recipe_with_meta(
+        user.group_slug, recipe.slug, user=None, session=unique_user.repos.session
+    )
+    assert response.status_code == 404
+    assert recipe.name not in response.body.decode()
+
+    # a signed-in member of the group still gets the metadata
+    response = await spa.serve_recipe_with_meta(
+        user.group_slug, recipe.slug, user=user, session=unique_user.repos.session
+    )
+    assert response.status_code == 200
+    assert recipe.name in response.body.decode()
+
+    set_household_is_private(unique_user, is_private=False)
+    response = await spa.serve_recipe_with_meta(
+        user.group_slug, recipe.slug, user=None, session=unique_user.repos.session
+    )
+    assert response.status_code == 200
+    assert recipe.name in response.body.decode()
+
+
+@pytest.mark.parametrize("is_expired", [True, False])
+@pytest.mark.asyncio
+async def test_spa_service_shared_recipe_with_meta_token_expiry(unique_user: TestUser, is_expired: bool):
+    group = unique_user.repos.groups.get_by_slug_or_id(unique_user.group_id)
+    assert group
+    recipe = create_recipe(unique_user)
+
+    token = unique_user.repos.recipe_share_tokens.create(
+        RecipeShareTokenSave(
+            recipe_id=recipe.id,
+            group_id=unique_user.group_id,
+            expires_at=datetime.now(UTC) + timedelta(days=-1 if is_expired else 1),
+        )
+    )
+
+    response = await spa.serve_shared_recipe_with_meta(group.slug, token.id, session=unique_user.repos.session)
+    if is_expired:
+        assert response.status_code == 404
+        assert recipe.name not in response.body.decode()
+    else:
+        assert response.status_code == 200
+        assert recipe.name in response.body.decode()
 
 
 @pytest.mark.parametrize("use_private_group", [True, False])
