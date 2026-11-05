@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
-import { getScaledRecipes, getWeekRange } from "../use-group-mealplan";
+import { getScaledRecipes, getWeekMeals, getWeekRange } from "../use-group-mealplan";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 
 vi.mock("~/composables/api", () => ({
@@ -66,5 +66,39 @@ describe("getWeekRange", () => {
     [4, new Date(2026, 7, 13), new Date(2026, 7, 19)],
   ])("starts the week on day %i", (firstDayOfWeek, start, end) => {
     expect(getWeekRange(wednesday, firstDayOfWeek)).toEqual({ start, end });
+  });
+});
+
+describe("getWeekMeals", () => {
+  // the planner's layout: a week (Monday 2026-08-17 to Sunday 2026-08-23) followed by its days, then the next week
+  const weekEntry = createMeal(1, { date: "2026-08-17", endDate: "2026-08-23" });
+  const monday = createMeal(2, { date: "2026-08-17" });
+  const sunday = createMeal(3, { date: "2026-08-23" });
+  const nextMonday = createMeal(4, { date: "2026-08-24" });
+
+  const week = { date: new Date(2026, 7, 17), endDate: new Date(2026, 7, 23), meals: [weekEntry] };
+  const plans = [
+    week,
+    { date: new Date(2026, 7, 17), meals: [monday] },
+    { date: new Date(2026, 7, 20), meals: [] },
+    { date: new Date(2026, 7, 23), meals: [sunday] },
+    { date: new Date(2026, 7, 24), endDate: new Date(2026, 7, 30), meals: [] },
+    { date: new Date(2026, 7, 24), meals: [nextMonday] },
+  ];
+
+  test("includes the week entries and the meals of every day in the week, first and last day included", () => {
+    expect(getWeekMeals(week, plans)).toEqual([weekEntry, monday, sunday]);
+  });
+
+  test("gives a week without week entries the meals of its days", () => {
+    const emptyWeek = { ...week, meals: [] };
+    expect(getWeekMeals(emptyWeek, [emptyWeek, ...plans.slice(1)])).toEqual([monday, sunday]);
+  });
+
+  test("leaves out the entries of another week that overlaps it", () => {
+    // planned before the household's first day of the week changed from Monday to Thursday
+    const oldWeekEntry = createMeal(5, { date: "2026-08-20", endDate: "2026-08-26" });
+    const oldWeek = { date: new Date(2026, 7, 20), endDate: new Date(2026, 7, 26), meals: [oldWeekEntry] };
+    expect(getWeekMeals(week, [...plans, oldWeek])).toEqual([weekEntry, monday, sunday]);
   });
 });

@@ -1,4 +1,4 @@
-import { addDays, format, startOfWeek } from "date-fns";
+import { addDays, format, isWithinInterval, startOfWeek } from "date-fns";
 import type { Day } from "date-fns";
 import { useHouseholdSelf } from "./use-households";
 import { useAsyncKey } from "./use-utils";
@@ -110,6 +110,16 @@ export type MealsByDate = {
   endDate?: Date | null;
   meals: ReadPlanEntry[];
 };
+
+/**
+ * Everything planned in a week: its week entries and the meals of its days, so the week can be shopped for as a whole.
+ * `plans` is the planner's list of weeks and days.
+ */
+export function getWeekMeals(week: MealsByDate, plans: MealsByDate[]): ReadPlanEntry[] {
+  const interval = { start: week.date, end: week.endDate ?? week.date };
+  const days = plans.filter(plan => !plan.endDate && isWithinInterval(plan.date, interval));
+  return [week, ...days].flatMap(plan => plan.meals);
+}
 
 export interface Meal {
   date: Date;
