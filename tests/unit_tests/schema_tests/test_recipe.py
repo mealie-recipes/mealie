@@ -99,7 +99,7 @@ def test_recipe_duration_bounds(field: str, val: Any, expected: Any):
     assert getattr(recipe, field) == expected
 
 
-@pytest.mark.parametrize("field", ["recipe_yield", "total_time", "prep_time", "cook_time", "perform_time"])
+@pytest.mark.parametrize("field", ["recipe_yield", "total_time", "prep_time", "perform_time"])
 @pytest.mark.parametrize(
     ["val", "expected"],
     [
@@ -172,3 +172,20 @@ def test_recipe_preserves_existing_slug():
     )
 
     assert recipe.slug == "nourish-bowls-zuppa-copycat"
+
+
+@pytest.mark.parametrize(
+    ["payload", "expected"],
+    [
+        ({"cookTime": "20 minutes"}, "20 minutes"),
+        ({"cook_time": "20 minutes"}, "20 minutes"),
+        ({"cookTime": "1 hour", "performTime": "20 minutes"}, "20 minutes"),
+        ({"cookTime": "1 hour", "performTimeSeconds": 1200}, None),
+        ({"cookTime": None}, None),
+    ],
+)
+def test_recipe_legacy_cook_time_input(payload: dict[str, Any], expected: str | None):
+    recipe = Recipe.model_validate({"name": "Soup", **payload})
+
+    assert recipe.perform_time == expected
+    assert "cookTime" not in recipe.model_dump(by_alias=True)
