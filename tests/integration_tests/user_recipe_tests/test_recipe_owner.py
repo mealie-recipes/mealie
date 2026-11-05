@@ -1,6 +1,7 @@
 from datetime import UTC, datetime, timedelta
-from uuid import UUID
+from uuid import UUID, uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 
 from mealie.repos.repository_factory import AllRepositories
@@ -344,3 +345,185 @@ def test_user_can_delete_recipe_image(api_client: TestClient, unique_user: TestU
     recipe_respons = response.json()
     assert recipe_respons["image"] is None
     assert not service.dir_image.exists() or not any(f.is_file() for f in service.dir_image.iterdir())
+
+
+def _create_recipe(owner: TestUser, *, locked: bool) -> Recipe:
+    return owner.repos.recipes.create(
+        Recipe(
+            user_id=owner.user_id,
+            group_id=owner.group_id,
+            name=random_string(10),
+            settings=RecipeSettings(locked=locked),
+        )
+    )
+
+
+def _bulk_action_payloads(slug: str) -> list[tuple[str, dict]]:
+    tag = {"id": str(uuid4()), "name": random_string(), "slug": random_string()}
+    return [
+        (api_routes.recipes_bulk_actions_tag, {"recipes": [slug], "tags": [tag]}),
+        (api_routes.recipes_bulk_actions_categorize, {"recipes": [slug], "categories": [tag]}),
+        (
+            api_routes.recipes_bulk_actions_settings,
+            {"recipes": [slug], "settings": RecipeSettings(public=True, show_nutrition=True).model_dump(by_alias=True)},
+        ),
+    ]
+
+
+def _assert_recipe_unchanged(owner: TestUser, slug: str):
+    recipe = owner.repos.recipes.get_one(slug)
+    assert recipe and recipe.settings
+    assert not recipe.tags
+    assert not recipe.recipe_category
+    assert not recipe.settings.public
+    assert not recipe.settings.show_nutrition
+
+
+def _recipe_locked_to_other_households(owner: TestUser) -> Recipe:
+    household = owner.repos.households.get_one(owner.household_id)
+    assert household and household.preferences
+    household.preferences.lock_recipe_edits_from_other_households = True
+    owner.repos.household_preferences.update(household.id, household.preferences)
+    return _create_recipe(owner, locked=False)
+
+
+def test_bulk_actions_reject_locked_recipe_of_other_user(api_client: TestClient, user_tuple: list[TestUser]):
+    owner, other_user = user_tuple
+    recipe = _create_recipe(owner, locked=True)
+
+    for route, payload in _bulk_action_payloads(recipe.slug):
+        response = api_client.post(route, json=payload, headers=other_user.token)
+        assert response.status_code == 403, route
+        _assert_recipe_unchanged(owner, recipe.slug)
+
+
+def test_bulk_actions_reject_whole_set_when_one_recipe_is_locked(api_client: TestClient, user_tuple: list[TestUser]):
+    owner, other_user = user_tuple
+    open_recipe = _create_recipe(owner, locked=False)
+    locked_recipe = _create_recipe(owner, locked=True)
+
+    for route, payload in _bulk_action_payloads(open_recipe.slug):
+        payload["recipes"] = [open_recipe.slug, locked_recipe.slug]
+        response = api_client.post(route, json=payload, headers=other_user.token)
+        assert response.status_code == 403, route
+        _assert_recipe_unchanged(owner, open_recipe.slug)
+        _assert_recipe_unchanged(owner, locked_recipe.slug)
+
+
+@pytest.mark.parametrize("as_admin", [False, True])
+def test_bulk_actions_reject_whole_set_when_one_recipe_is_missing(
+    api_client: TestClient, unique_user: TestUser, unique_admin: TestUser, as_admin: bool
+):
+    recipe = _create_recipe(unique_user, locked=False)
+    caller = unique_admin if as_admin else unique_user
+
+    for route, payload in _bulk_action_payloads(recipe.slug):
+        payload["recipes"] = [recipe.slug, random_string()]
+        response = api_client.post(route, json=payload, headers=caller.token)
+        assert response.status_code == 404, route
+        _assert_recipe_unchanged(unique_user, recipe.slug)
+
+
+def test_bulk_actions_accept_empty_set(api_client: TestClient, unique_user: TestUser):
+    for route, payload in _bulk_action_payloads(random_string()):
+        payload["recipes"] = []
+        response = api_client.post(route, json=payload, headers=unique_user.token)
+        assert response.status_code == 200, route
+
+
+def test_bulk_actions_reject_recipe_of_locked_other_household(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    recipe = _recipe_locked_to_other_households(unique_user)
+
+    for route, payload in _bulk_action_payloads(recipe.slug):
+        response = api_client.post(route, json=payload, headers=h2_user.token)
+        assert response.status_code == 403, route
+        _assert_recipe_unchanged(unique_user, recipe.slug)
+
+
+def test_bulk_actions_succeed_for_owner(api_client: TestClient, unique_user: TestUser):
+    recipe = _create_recipe(unique_user, locked=True)
+
+    for route, payload in _bulk_action_payloads(recipe.slug):
+        response = api_client.post(route, json=payload, headers=unique_user.token)
+        assert response.status_code == 200, route
+
+    updated = unique_user.repos.recipes.get_one(recipe.slug)
+    assert updated and updated.settings
+    assert updated.tags
+    assert updated.recipe_category
+    assert updated.settings.public
+
+
+def test_forbidden_image_url_scrape_downloads_nothing(
+    api_client: TestClient, user_tuple: list[TestUser], monkeypatch: pytest.MonkeyPatch
+):
+    owner, other_user = user_tuple
+    recipe = _create_recipe(owner, locked=True)
+    downloads: list[str] = []
+
+    async def record_download(self, url: str):
+        downloads.append(url)
+
+    monkeypatch.setattr(RecipeDataService, "scrape_image", record_download)
+
+    response = api_client.post(
+        api_routes.recipes_slug_image(recipe.slug), json={"url": "https://example.com/a.jpg"}, headers=other_user.token
+    )
+    assert response.status_code == 403
+    assert not downloads
+    unchanged = owner.repos.recipes.get_one(recipe.slug)
+    assert unchanged and unchanged.image == recipe.image
+
+
+def test_forbidden_image_upload_writes_nothing(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    recipe = _recipe_locked_to_other_households(unique_user)
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe.slug),
+        data={"extension": "jpg"},
+        files={"image": data.images_test_image_1.read_bytes()},
+        headers=h2_user.token,
+    )
+    assert response.status_code == 403
+    service = RecipeDataService(recipe.id)
+    assert not any(f.is_file() for f in service.dir_data.rglob("*"))
+    unchanged = unique_user.repos.recipes.get_one(recipe.slug)
+    assert unchanged and unchanged.image == recipe.image
+
+
+def test_forbidden_asset_upload_writes_nothing(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    recipe = _recipe_locked_to_other_households(unique_user)
+
+    response = api_client.post(
+        api_routes.recipes_slug_assets(recipe.slug),
+        data={"name": "notes", "icon": "mdi-file", "extension": "txt"},
+        files={"file": ("notes.txt", b"hello")},
+        headers=h2_user.token,
+    )
+    assert response.status_code == 403
+    assert not any(f.is_file() for f in recipe.asset_dir.rglob("*"))
+    unchanged = unique_user.repos.recipes.get_one(recipe.slug)
+    assert unchanged and not unchanged.assets
+
+
+def test_forbidden_asset_from_url_downloads_nothing(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    recipe = _recipe_locked_to_other_households(unique_user)
+    downloads: list[str] = []
+
+    async def record_download(self, url: str, max_bytes: int):
+        downloads.append(url)
+
+    monkeypatch.setattr(RecipeDataService, "fetch_image", record_download)
+
+    response = api_client.post(
+        api_routes.recipes_slug_assets_url(recipe.slug),
+        json={"url": "https://example.com/a.jpg"},
+        headers=h2_user.token,
+    )
+    assert response.status_code == 403
+    assert not downloads
+    assert not any(f.is_file() for f in recipe.asset_dir.rglob("*"))
