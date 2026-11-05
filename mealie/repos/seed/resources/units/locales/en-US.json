@@ -53,6 +53,12 @@
         "description": "",
         "abbreviation": "cl"
     },
+    "deciliter": {
+        "name": "deciliter",
+        "plural_name": "deciliters",
+        "description": "",
+        "abbreviation": "dl"
+    },
     "liter": {
         "name": "liter",
         "plural_name": "liters",
