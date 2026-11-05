@@ -410,6 +410,27 @@ def test_bulk_actions_reject_whole_set_when_one_recipe_is_locked(api_client: Tes
         _assert_recipe_unchanged(owner, locked_recipe.slug)
 
 
+@pytest.mark.parametrize("as_admin", [False, True])
+def test_bulk_actions_reject_whole_set_when_one_recipe_is_missing(
+    api_client: TestClient, unique_user: TestUser, unique_admin: TestUser, as_admin: bool
+):
+    recipe = _create_recipe(unique_user, locked=False)
+    caller = unique_admin if as_admin else unique_user
+
+    for route, payload in _bulk_action_payloads(recipe.slug):
+        payload["recipes"] = [recipe.slug, random_string()]
+        response = api_client.post(route, json=payload, headers=caller.token)
+        assert response.status_code == 404, route
+        _assert_recipe_unchanged(unique_user, recipe.slug)
+
+
+def test_bulk_actions_accept_empty_set(api_client: TestClient, unique_user: TestUser):
+    for route, payload in _bulk_action_payloads(random_string()):
+        payload["recipes"] = []
+        response = api_client.post(route, json=payload, headers=unique_user.token)
+        assert response.status_code == 200, route
+
+
 def test_bulk_actions_reject_recipe_of_locked_other_household(
     api_client: TestClient, unique_user: TestUser, h2_user: TestUser
 ):
