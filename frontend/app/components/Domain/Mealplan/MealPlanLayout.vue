@@ -14,11 +14,11 @@
 </template>
 
 <script setup lang="ts">
-import { getScaledRecipes } from "~/composables/use-group-mealplan";
+import { getScaledRecipes, getWeekMeals } from "~/composables/use-group-mealplan";
 import type { DaySection, Days, MealsByDate } from "~/composables/use-group-mealplan";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 
-defineProps<{
+const props = defineProps<{
   mealplans: MealsByDate[];
 }>();
 const i18n = useGlobalI18n();
@@ -42,7 +42,7 @@ function getDay(day: MealsByDate): Days {
     date: day.date,
     endDate: day.endDate,
     sections,
-    recipes: getScaledRecipes(day.meals),
+    recipes: getScaledRecipes(day.endDate ? getWeekMeals(day, props.mealplans) : day.meals),
   };
 }
 </script>
