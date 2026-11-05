@@ -84,8 +84,10 @@ class BackupV2(BaseService):
                 shutil.copyfile(f, self.directories.DATA_DIR / f.name)
                 continue
 
-            shutil.rmtree(self.directories.DATA_DIR / f.name)
-            shutil.copytree(f, self.directories.DATA_DIR / f.name)
+            destination = self.directories.DATA_DIR / f.name
+            if destination.exists():
+                shutil.rmtree(destination)
+            shutil.copytree(f, destination)
 
         # since we copied a new .secret, AppSettings has the wrong secret info
         self.logger.info("invalidating appsettings cache")
