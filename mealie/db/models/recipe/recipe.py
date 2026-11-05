@@ -180,7 +180,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # Deprecated
-    cook_time: Mapped[str | None] = mapped_column(sa.String)
     # Kept as a query-filter anchor until aliases can be defined without a model column.
     last_made: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
     recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
