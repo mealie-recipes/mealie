@@ -495,6 +495,10 @@
         "name": "barley",
         "plural_name": ""
       },
+      "spelt": {
+        "name": "spelt",
+        "plural_name": ""
+      },
       "steel cut oat": {
         "name": "steel cut oat",
         "plural_name": "steel cut oats"
@@ -2039,6 +2043,10 @@
       },
       "buckwheat flour": {
         "name": "buckwheat flour",
+        "plural_name": ""
+      },
+      "spelt flour": {
+        "name": "spelt flour",
         "plural_name": ""
       },
       "masa harina": {
