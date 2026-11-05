@@ -16,6 +16,7 @@ from text_unidecode import os
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
 from mealie.db.db_setup import generate_session
+from mealie.repos.public_visibility import is_recipe_publicly_visible
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes.spa.manifest import serve_manifest
 from mealie.schema.recipe.recipe import Recipe
@@ -230,7 +231,8 @@ def serve_recipe_with_meta_public(
         group_repos = AllRepositories(session, group_id=group.id, household_id=None)
         recipe = group_repos.recipes.get_one(recipe_slug)
 
-        if not (recipe and recipe.settings) or not recipe.settings.public:
+        household = recipe and group_repos.households.get_one(recipe.household_id)
+        if not is_recipe_publicly_visible(recipe, household):
             return response_404()
 
         # Inject meta tags
@@ -265,7 +267,7 @@ async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session:
     try:
         public_repos = AllRepositories(session, group_id=None)
         token_summary = public_repos.recipe_share_tokens.get_one(token_id)
-        if token_summary is None:
+        if token_summary is None or token_summary.is_expired:
             raise Exception("Token Not Found")
 
         return Response(content_with_meta(group_slug, token_summary.recipe), media_type="text/html")

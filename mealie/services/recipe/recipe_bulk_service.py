@@ -2,10 +2,10 @@ from pathlib import Path
 
 from pydantic import UUID4
 
-from mealie.core.exceptions import UnexpectedNone
+from mealie.core.exceptions import NoEntryFound, UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
-from mealie.schema.recipe import CategoryBase
+from mealie.schema.recipe import CategoryBase, Recipe
 from mealie.schema.recipe.recipe_category import TagBase
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.response.pagination import PaginationQuery
@@ -59,54 +59,58 @@ class RecipeBulkActionsService(BaseService):
 
         return exports_deleted
 
-    def set_settings(self, recipes: list[str], settings: RecipeSettings) -> None:
-        for slug in recipes:
+    def _get_recipes(self, slugs: list[str]) -> list[Recipe]:
+        """Look up every recipe before any write, so a missing slug changes nothing."""
+        recipes: list[Recipe] = []
+        missing: list[str] = []
+        for slug in slugs:
             recipe = self.repos.recipes.get_one(slug)
+            if recipe is None:
+                missing.append(slug)
+            else:
+                recipes.append(recipe)
 
-            if recipe is None or recipe.settings is None:
-                raise UnexpectedNone(f"Failed to set settings for recipe {slug}, no recipe found")
+        if missing:
+            raise NoEntryFound(f"Recipes not found: {', '.join(missing)}")
+
+        return recipes
+
+    def set_settings(self, recipes: list[str], settings: RecipeSettings) -> None:
+        for recipe in self._get_recipes(recipes):
+            if recipe.settings is None:
+                raise UnexpectedNone(f"Failed to set settings for recipe {recipe.slug}, no settings found")
 
             settings.locked = recipe.settings.locked
             recipe.settings = settings
 
             try:
-                self.repos.recipes.update(slug, recipe)
+                self.repos.recipes.update(recipe.slug, recipe)
             except Exception as e:
-                self.logger.error(f"Failed to set settings for recipe {slug}")
+                self.logger.error(f"Failed to set settings for recipe {recipe.slug}")
                 self.logger.error(e)
 
     def assign_tags(self, recipes: list[str], tags: list[TagBase]) -> None:
-        for slug in recipes:
-            recipe = self.repos.recipes.get_one(slug)
-
-            if recipe is None:
-                raise UnexpectedNone(f"Failed to tag recipe {slug}, no recipe found")
-
+        for recipe in self._get_recipes(recipes):
             if recipe.tags is None:
                 recipe.tags = []
 
             recipe.tags += tags  # type: ignore
 
             try:
-                self.repos.recipes.update(slug, recipe)
+                self.repos.recipes.update(recipe.slug, recipe)
             except Exception as e:
-                self.logger.error(f"Failed to tag recipe {slug}")
+                self.logger.error(f"Failed to tag recipe {recipe.slug}")
                 self.logger.error(e)
 
     def assign_categories(self, recipes: list[str], categories: list[CategoryBase]) -> None:
-        for slug in recipes:
-            recipe = self.repos.recipes.get_one(slug)
-
-            if recipe is None:
-                raise UnexpectedNone(f"Failed to categorize recipe {slug}, no recipe found")
-
+        for recipe in self._get_recipes(recipes):
             if recipe.recipe_category is None:
                 recipe.recipe_category = []
 
             recipe.recipe_category += categories  # type: ignore
 
             try:
-                self.repos.recipes.update(slug, recipe)
+                self.repos.recipes.update(recipe.slug, recipe)
             except Exception as e:
-                self.logger.error(f"Failed to categorize recipe {slug}")
+                self.logger.error(f"Failed to categorize recipe {recipe.slug}")
                 self.logger.error(e)

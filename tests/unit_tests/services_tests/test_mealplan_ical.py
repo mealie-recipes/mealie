@@ -83,3 +83,20 @@ def test_last_modified_uses_latest_of_entry_and_recipe():
     entry.updated_at = datetime(2026, 1, 4, 12, 0, tzinfo=UTC)
     feed = service.build_calendar([entry], MealPlanICalQuery(), tzlocal(), "Mealie", "group")
     assert "LAST-MODIFIED:20260104T120000Z\r\n" in feed
+
+
+def test_merge_fields_cook_time_comes_from_perform_time():
+    recipe = RecipeSummary(name="Soup", slug="soup", perform_time="20 minutes")
+    entry = ReadPlanEntry(
+        id=1,
+        date=date(2026, 1, 3),
+        entry_type="dinner",
+        recipe_id=uuid4(),
+        group_id=uuid4(),
+        user_id=uuid4(),
+        household_id=uuid4(),
+        recipe=recipe,
+    )
+    service = MealPlanICalService(None, StubTranslator())  # type: ignore[arg-type]
+
+    assert service._merge_fields(entry, None)["cookTime"] == "20 minutes"

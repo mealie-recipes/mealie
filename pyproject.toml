@@ -39,7 +39,7 @@ dependencies = [
     "pydantic-settings==2.16.2",
     "pillow-heif==1.8.1",
     "pyjwt==2.15.1",
-    "openai==3.41.0",
+    "openai==3.42.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.10.26",
@@ -58,7 +58,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.0.73",
+    "zensical==0.0.74",
 ]
 dev = [
     "coverage==7.17.0",
@@ -70,15 +70,15 @@ dev = [
     "pytest-asyncio==1.4.1",
     "rich==15.0.0",
     "ruff==0.17.3",
-    "types-PyYAML==6.0.12.20260906",
+    "types-PyYAML==6.0.12.20261030",
     "types-python-dateutil==2.9.0.20261029",
     "types-python-slugify==8.0.2.20240310",
-    "types-requests==2.33.0.20261006",
+    "types-requests==2.33.0.20261030",
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.16.0",
-    "zensical==0.0.73",
+    "zensical==0.0.74",
     "pytest-xdist==3.8.0",
 ]
 
