@@ -42,6 +42,19 @@
       </v-card-text>
     </BaseDialog>
 
+    <BaseDialog
+      v-model="state.markCheckedOnHandDialog"
+      bottom-sheet
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.home"
+      can-confirm
+      @confirm="markCheckedOnHand"
+    >
+      <v-card-text>
+        {{ $t('shopping-list.are-you-sure-you-want-to-mark-checked-items-on-hand') }}
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Reorder Labels -->
     <BaseDialog
       v-model="reorderLabelsDialog"
@@ -265,13 +278,19 @@
                 {{ $t('shopping-list.items-checked-count', visibleCheckedCount) }}
               </div>
               <div class="justify-end">
-                <!-- both act on every checked item, including any the search is hiding -->
+                <!-- these act on every checked item, including any the search is hiding -->
                 <BaseButtonGroup
                   :buttons="[
                     {
                       icon: $globals.icons.checkboxMultipleBlankOutline,
                       text: $t('shopping-list.uncheck-all-items'),
                       event: 'uncheck',
+                      disabled: isSearching,
+                    },
+                    {
+                      icon: $globals.icons.home,
+                      text: $t('shopping-list.mark-checked-on-hand'),
+                      event: 'on-hand',
                       disabled: isSearching,
                     },
                     {
@@ -282,6 +301,7 @@
                     },
                   ]"
                   @uncheck="openUncheckAll"
+                  @on-hand="openMarkCheckedOnHand"
                   @delete="openDeleteChecked"
                 />
               </div>
@@ -461,6 +481,8 @@ const {
   listItems,
   openUncheckAll,
   openDeleteChecked,
+  openMarkCheckedOnHand,
+  markCheckedOnHand,
   recipeList,
   removeRecipeReferenceToList,
   addRecipeReferenceToList,

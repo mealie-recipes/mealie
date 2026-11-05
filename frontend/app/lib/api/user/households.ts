@@ -2,6 +2,7 @@ import { BaseCRUDAPIReadOnly } from "../base/base-clients";
 import type { PaginationData } from "../types/non-generated";
 import type { QueryValue } from "../base/route";
 import type { UserOut } from "~/lib/api/types/user";
+import type { SuccessResponse } from "~/lib/api/types/response";
 import type {
   HouseholdInDB,
   HouseholdStatistics,
@@ -19,6 +20,7 @@ const prefix = "/api";
 const routes = {
   households: `${prefix}/groups/households`,
   householdsSelf: `${prefix}/households/self`,
+  householdsSelfFoodsOnHand: `${prefix}/households/self/foods-on-hand`,
   members: `${prefix}/households/members`,
   permissions: `${prefix}/households/permissions`,
 
@@ -41,6 +43,28 @@ export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
 
   async getCurrentUserHouseholdRecipe(recipeSlug: string) {
     return await this.requests.get<HouseholdRecipeSummary>(routes.householdsSelfRecipesSlug(recipeSlug));
+  }
+
+  /** Marks foods as on hand for the current user's household
+   */
+  async addFoodsOnHand(foodIds: string[]) {
+    // callers show their own, more specific confirmation instead of the API's generic message
+    return await this.requests.post<SuccessResponse>(
+      routes.householdsSelfFoodsOnHand,
+      foodIds,
+      { suppressAlert: true },
+    );
+  }
+
+  /** Removes foods from the current user's household's on hand foods
+   */
+  async removeFoodsOnHand(foodIds: string[]) {
+    const query = new URLSearchParams(foodIds.map(id => ["ids", id])).toString();
+    // callers show their own, more specific confirmation instead of the API's generic message
+    return await this.requests.delete<SuccessResponse>(
+      `${routes.householdsSelfFoodsOnHand}?${query}`,
+      { suppressAlert: true },
+    );
   }
 
   async setPreferences(payload: UpdateHouseholdPreferences) {

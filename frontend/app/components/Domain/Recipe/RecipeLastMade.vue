@@ -105,6 +105,33 @@
               </v-row>
             </v-container>
           </v-form>
+          <!--
+            Kept outside the form, so resetting the form can't touch the picked foods. They start
+            unticked, so nothing is removed from On Hand unless the user picks it.
+          -->
+          <div v-if="onHandFoods.length">
+            <v-card-text class="pt-2 pb-0 px-0 text-title-medium">
+              {{ $t('recipe.remove-used-up-foods-from-on-hand') }}
+            </v-card-text>
+            <v-list>
+              <v-list-item
+                v-for="food in onHandFoods"
+                :key="food.id"
+                density="compact"
+                class="my-0 py-0"
+              >
+                <v-checkbox
+                  v-model="usedUpFoodIds"
+                  :value="food.id"
+                  :label="food.name"
+                  hide-details
+                  density="compact"
+                  class="my-0 py-0"
+                  color="secondary"
+                />
+              </v-list-item>
+            </v-list>
+          </div>
         </v-card-text>
       </BaseDialog>
     </div>
@@ -147,6 +174,7 @@
 import { whenever } from "@vueuse/core";
 import { formatISO } from "date-fns";
 import { useUserApi } from "~/composables/api";
+import { useRecipeOnHandFoods } from "~/composables/recipes";
 import { alert } from "~/composables/use-toast";
 import { useHouseholdSelf } from "~/composables/use-households";
 import type { Recipe, RecipeTimelineEventIn, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
@@ -188,6 +216,11 @@ onMounted(async () => {
 
   lastMadeReady.value = true;
 });
+
+const { onHandFoods, usedUpFoodIds, removeUsedUpFoods, resetUsedUpFoods } = useRecipeOnHandFoods(
+  () => props.recipe,
+  () => auth.user.value?.householdSlug,
+);
 
 const childRecipes = computed(() => {
   return props.recipe.recipeIngredient?.map((ingredient) => {
@@ -242,6 +275,7 @@ function resetMadeThisForm() {
   newTimelineEvent.value.eventMessage = "";
   newTimelineEvent.value.timestamp = undefined;
   clearImage();
+  resetUsedUpFoods();
   madeThisDialog.value = false;
   domMadeThisForm.value?.reset();
 }
@@ -287,6 +321,8 @@ async function createTimelineEvent() {
       alert.error(i18n.t("recipe.failed-to-update-recipe"));
     }
   }
+
+  const onHandUpdated = await removeUsedUpFoods();
 
   for (const childRecipe of childRecipes.value || []) {
     if (!childRecipe.checked) {
@@ -339,6 +375,9 @@ async function createTimelineEvent() {
   }
   if (imageError) {
     alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-add-image"));
+  }
+  else if (!onHandUpdated) {
+    alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-update-on-hand"));
   }
   else {
     alert.success(i18n.t("recipe.added-to-timeline"));

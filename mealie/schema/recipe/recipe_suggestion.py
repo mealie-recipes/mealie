@@ -14,6 +14,11 @@ class RecipeSuggestionQuery(RequestQuery):
     include_tools_on_hand: bool = True
     include_substitutions: bool = True
 
+    # Only return recipes with every food available: picked, on hand (if included), or covered by a
+    # substitute (if included). Recipes don't need to use a picked food, so with nothing picked this
+    # finds what the household can make from what it has on hand.
+    require_all_foods_available: bool = False
+
 
 class RecipeSuggestionSubstitutedFood(MealieModel):
     """A food the recipe calls for that the user doesn't have, and the one covering it."""
