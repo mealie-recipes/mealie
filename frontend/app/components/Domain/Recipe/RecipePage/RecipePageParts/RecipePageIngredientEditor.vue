@@ -50,9 +50,12 @@
         :is-recipe="ingredientIsRecipe(ingredient)"
         enable-drag-handle
         enable-context-menu
-        @delete="recipe.recipeIngredient.splice(index, 1)"
+        @delete="deleteIngredient(index)"
         @insert-above="insertNewIngredient(index)"
         @insert-below="insertNewIngredient(index + 1)"
+        @ctrl-enter="insertNewIngredient(index + 1, true)"
+        @move-up="moveIngredient(index, -1)"
+        @move-down="moveIngredient(index, 1)"
       />
     </VueDraggable>
     <v-skeleton-loader
@@ -233,9 +236,57 @@ function addRecipe(recipes: Array<string> | null = null) {
   }
 }
 
-function insertNewIngredient(dest: number) {
+async function moveIngredient(index: number, direction: -1 | 1) {
+  const targetIndex = index + direction;
+  if (targetIndex < 0 || targetIndex >= recipe.value.recipeIngredient.length) {
+    return;
+  }
+  const refId = recipe.value.recipeIngredient[index]?.referenceId;
+  const currentActive = document.activeElement as HTMLElement | null;
+  const rootEl = refId ? document.querySelector(`[data-reference-id="${refId}"]`) : null;
+  const activeInputIndex = rootEl && currentActive && rootEl.contains(currentActive)
+    ? Array.from(rootEl.querySelectorAll("input, textarea")).indexOf(currentActive)
+    : -1;
+
+  const [item] = recipe.value.recipeIngredient.splice(index, 1);
+  recipe.value.recipeIngredient.splice(targetIndex, 0, item);
+
+  if (refId) {
+    await nextTick();
+    const newRootEl = document.querySelector(`[data-reference-id="${refId}"]`);
+    if (newRootEl) {
+      if (activeInputIndex >= 0) {
+        const inputs = Array.from(newRootEl.querySelectorAll("input, textarea")) as (HTMLInputElement | HTMLTextAreaElement)[];
+        if (inputs[activeInputIndex]) {
+          inputs[activeInputIndex].focus();
+          return;
+        }
+      }
+      if (document.activeElement === document.body || !newRootEl.contains(document.activeElement)) {
+        const fallbackInput = (newRootEl.querySelector(".quantity-input input") || newRootEl.querySelector("input")) as HTMLInputElement | null;
+        fallbackInput?.focus();
+      }
+    }
+  }
+}
+
+async function deleteIngredient(index: number) {
+  const prevRefId = index > 0 ? recipe.value.recipeIngredient[index - 1]?.referenceId : undefined;
+  recipe.value.recipeIngredient.splice(index, 1);
+
+  if (prevRefId) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-reference-id="${prevRefId}"]`);
+    const quantityEl = (rootEl?.querySelector(".quantity-input input") || rootEl?.querySelector("input")) as HTMLInputElement | null;
+    quantityEl?.focus();
+    quantityEl?.select?.();
+  }
+}
+
+async function insertNewIngredient(dest: number, focus = false) {
+  const newRefId = uuid4();
   recipe.value.recipeIngredient.splice(dest, 0, {
-    referenceId: uuid4(),
+    referenceId: newRefId,
     title: "",
     note: "",
     // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
@@ -244,6 +295,14 @@ function insertNewIngredient(dest: number) {
     food: undefined,
     quantity: 0,
   });
+
+  if (focus) {
+    await nextTick();
+    const rootEl = document.querySelector(`[data-reference-id="${newRefId}"]`);
+    const quantityEl = (rootEl?.querySelector(".quantity-input input") || rootEl?.querySelector("input")) as HTMLInputElement | null;
+    quantityEl?.focus();
+    quantityEl?.select?.();
+  }
 }
 </script>
 
