@@ -475,27 +475,28 @@ class OpenAIService(BaseService):
         return "\n".join(content_parts)
 
     async def _get_raw_response(
-        self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
+        self,
+        prompt: str,
+        content: list[dict],
+        response_schema: type[T],
+        provider: AIProviderOut,
+        *,
+        use_system_message: bool = True,
     ) -> T | None:
         import openai
         from openai.types.chat import ChatCompletion
 
         client = self.get_client(provider)
+        messages: list[dict] = []
+        if use_system_message:
+            messages.append({"role": "system", "content": prompt})
+        messages.append({"role": "user", "content": content})
         # parse() builds the same response_format payload create() would send, but its
         # client-side validation runs as a post_parser that the raw-response path never
         # triggers, so we read the body ourselves and let parse_openai_response() below
         # do the parsing (e.g. of markdown-fenced JSON the SDK would otherwise discard).
         async with client.chat.completions.with_streaming_response.parse(
-            messages=[
-                {
-                    "role": "system",
-                    "content": prompt,
-                },
-                {
-                    "role": "user",
-                    "content": content,
-                },
-            ],
+            messages=messages,
             model=provider.model,
             response_format=response_schema,
         ) as response:
@@ -526,17 +527,22 @@ class OpenAIService(BaseService):
         response_schema: type[T],
         attachments: list[OpenAIAttachment] | None = None,
         provider: AIProviderOut | None = None,
+        use_system_message: bool = True,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""
         import openai
 
         try:
             provider = provider or self._get_provider(attachments)
+            if not use_system_message:
+                message = f"{prompt}\n\n{message}"
             user_messages: list[dict] = [{"type": "text", "text": message}]
             for attachment in attachments or []:
                 user_messages.append(attachment.build_message())
 
-            return await self._get_raw_response(prompt, user_messages, response_schema, provider)
+            return await self._get_raw_response(
+                prompt, user_messages, response_schema, provider, use_system_message=use_system_message
+            )
         except openai.RateLimitError as e:
             raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:
@@ -577,6 +583,7 @@ class OpenAIService(BaseService):
             "Attached is the audio data.",
             response_schema=OpenAIText,
             attachments=[audio_attachment],
+            use_system_message=False,
         )
 
         return response.text if response else None
