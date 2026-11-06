@@ -14,6 +14,7 @@ export function useShoppingListData(
   const isOffline = computed(() => useOnline().value === false);
   const { idle } = useIdle(5 * 60 * 1000); // 5 minutes
   const shoppingListItemActions = useShoppingListItemActions(listId);
+  let refreshGeneration = 0;
 
   async function fetchShoppingList() {
     const data = await shoppingListItemActions.getList();
@@ -21,6 +22,10 @@ export function useShoppingListData(
   }
 
   async function refresh(updateListItemOrder: () => void) {
+    // capture this call's place in line so we can later detect whether a newer
+    // refresh has since started, even if this one's requests resolve out of order
+    const generation = ++refreshGeneration;
+
     loadingCounter.value += 1;
     try {
       await shoppingListItemActions.process();
@@ -41,6 +46,14 @@ export function useShoppingListData(
 
     // only update the list with the new value if we're not loading, to prevent UI jitter
     if (loadingCounter.value) {
+      return;
+    }
+
+    // A newer refresh (e.g. triggered by a subsequent poll tick or user action) has
+    // already started since this one began. Applying this response now would risk
+    // clobbering fresher state with stale data (e.g. reverting a just-saved reorder)
+    // if this slower, earlier-dispatched request happens to resolve last.
+    if (generation !== refreshGeneration) {
       return;
     }
 
