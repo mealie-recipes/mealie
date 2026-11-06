@@ -70,7 +70,7 @@
       </v-card>
     </BaseDialog>
 
-    <BasePageTitle divider class="shopping-list-title">
+    <BasePageTitle v-show="!isShopMode" divider class="shopping-list-title">
       <template #header>
         <v-container class="px-0">
           <v-row no-gutters>
@@ -84,6 +84,18 @@
               {{ shoppingList.name }}
             </h2>
             <v-spacer />
+            <BaseButton
+              v-if="smAndUp"
+              minor
+              cancel
+              color="primary"
+              @click="enterShopMode"
+            >
+              <template #icon>
+                {{ $globals.icons.cartCheck }}
+              </template>
+              {{ $t('shopping-list.shop-mode') }}
+            </BaseButton>
             <!-- The search toggle stays while the field is open, so a list that shrinks to the
                  threshold mid-search can still close it. "Check all" would also check items the
                  search is hiding, so it is disabled while searching. -->
@@ -150,7 +162,25 @@
         </v-container>
       </template>
       <template #title>
-        {{ smAndUp ? "" : shoppingList.name }}
+        <!-- the header row is full on a phone, so the button shares the row with the list name -->
+        <div v-if="!smAndUp" class="shopping-list-title__row">
+          <span>{{ shoppingList.name }}</span>
+          <BaseButton
+            minor
+            cancel
+            color="primary"
+            @click="enterShopMode"
+          >
+            <template #icon>
+              {{ $globals.icons.cartCheck }}
+            </template>
+            {{ $t('shopping-list.shop-mode') }}
+          </BaseButton>
+        </div>
+        <!-- a comment alone would make the slot fall back to its placeholder title -->
+        <template v-else>
+          {{ "" }}
+        </template>
       </template>
     </BasePageTitle>
     <BannerWarning
@@ -159,9 +189,23 @@
       :description="$t('shopping-list.you-are-offline-description')"
     />
 
+    <!-- Shopping Mode -->
+    <ShoppingListShopMode
+      v-if="isShopMode"
+      v-model:show-checked="showChecked"
+      :list-name="shoppingList.name || ''"
+      :sections="shopModeSections"
+      :checked-items="listItems.checked"
+      :remaining-count="shopModeRemainingCount"
+      :get-label-color="getLabelColor"
+      @toggle="toggleShopModeItem"
+      @close="exitShopMode"
+    />
+
     <!-- Viewer -->
     <section
       v-if="!edit"
+      v-show="!isShopMode"
       class="py-2 d-flex flex-column ga-1 shopping-list-view"
     >
       <!-- Search, toggled from the page title -->
@@ -319,6 +363,7 @@
     <!-- Recipe References -->
     <v-lazy
       v-if="shoppingList.recipeReferences && shoppingList.recipeReferences.length > 0"
+      v-show="!isShopMode"
       class="mt-6"
     >
       <section>
@@ -377,7 +422,10 @@
         </RecipeList>
       </section>
     </v-lazy>
-    <WakelockSwitch />
+    <!-- stays mounted in shopping mode, so the screen stays awake with the switch out of the way -->
+    <div v-show="!isShopMode">
+      <WakelockSwitch />
+    </div>
   </v-container>
 </template>
 
@@ -388,7 +436,10 @@ import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurp
 import ShoppingListAddItemForm from "~/components/Domain/ShoppingList/ShoppingListAddItemForm.vue";
 import ShoppingListQuickAdd from "~/components/Domain/ShoppingList/ShoppingListQuickAdd.vue";
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
+import ShoppingListShopMode from "~/components/Domain/ShoppingList/ShoppingListShopMode.vue";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
+import { useShoppingListShopMode } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-shop-mode";
+import { useRouteQuery } from "~/composables/use-router";
 import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
@@ -476,6 +527,30 @@ const {
   hasSearchResults,
 } = shoppingListPage;
 
+const {
+  isShopMode,
+  showChecked,
+  sections: shopModeSections,
+  remainingCount: shopModeRemainingCount,
+  enterShopMode,
+  exitShopMode,
+} = useShoppingListShopMode({ shopQuery: useRouteQuery("shop"), itemsByLabel });
+
+function toggleShopModeItem(item: ShoppingListItemOut) {
+  const updated = { ...item, checked: !item.checked };
+  saveListItem(updated);
+  if (updated.checked) {
+    itemCheckedToast(updated);
+  }
+}
+
+// Once per streak of failures: the items stay queued and look saved, so this is the only sign they aren't
+watch(shoppingListPage.hasFailedWrites, (failed) => {
+  if (failed) {
+    alert.error(i18n.t("shopping-list.changes-not-saved"));
+  }
+});
+
 // Expand the checked section while searching, so an item that has already been
 // checked off can be found and unchecked without expanding the section by hand.
 const checkedPanel = ref<number | undefined>(undefined);
@@ -502,6 +577,18 @@ watch(isSearching, (searching) => {
   h2 {
     font-size: 1.1rem !important;
     line-height: 1.4;
+  }
+
+  h2:has(.shopping-list-title__row) {
+    align-self: stretch;
+  }
+
+  .shopping-list-title__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    overflow-wrap: anywhere;
   }
 
   h3 {

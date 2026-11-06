@@ -865,6 +865,11 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "Checked off {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
+    "shop-mode": "Shopping Mode",
+    "shop-mode-items-left": "{count} left",
+    "shop-mode-show-completed": "Show completed ({count})",
+    "shop-mode-completed-section": "Completed · {count} · Tap to uncheck",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
