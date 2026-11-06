@@ -160,14 +160,29 @@
           </v-col>
         </v-row>
       </div>
-      <v-alert
+      <v-card
         v-if="query?.search && recipes.length === 0"
-        class="mt-4"
-        type="info"
-        variant="tonal"
-        :title="$t('search.no-recipes-found')"
-        :text="$t('search.no-recipes-found-description')"
-      />
+        class="search-empty-state mx-auto my-8 pa-6 pa-sm-10 text-center"
+        max-width="640"
+        variant="outlined"
+      >
+        <v-avatar
+          class="mb-5"
+          color="primary"
+          size="72"
+          variant="tonal"
+        >
+          <v-icon size="36">
+            {{ $globals.icons.search }}
+          </v-icon>
+        </v-avatar>
+        <h2 class="text-h5 font-weight-medium mb-2">
+          {{ $t("search.no-recipes-found") }}
+        </h2>
+        <p class="text-body-1 text-medium-emphasis mb-0">
+          {{ $t("search.no-recipes-found-description") }}
+        </p>
+      </v-card>
       <v-card v-intersect="infiniteScroll" variant="flat" />
     </div>
     <v-fade-transition>
@@ -511,5 +526,9 @@ function toggleMobileCards() {
 <style>
 .transparent {
   opacity: 1;
+}
+
+.search-empty-state {
+  border-style: dashed;
 }
 </style>

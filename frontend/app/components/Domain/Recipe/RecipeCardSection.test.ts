@@ -39,11 +39,9 @@ function mountSection(query: { search?: string } | null = null) {
       stubs: {
         AppLoader: true,
         AppScrollToTop: true,
-        VAlert: {
-          props: ["title", "text"],
-          template: "<div class=\"empty-state\"><h2>{{ title }}</h2><p>{{ text }}</p></div>",
-        },
-        VCard: true,
+        VAvatar: { template: "<div><slot /></div>" },
+        VCard: { template: "<div><slot /></div>" },
+        VIcon: { template: "<span><slot /></span>" },
         VCol: true,
         VFadeTransition: { template: "<div><slot /></div>" },
         VRow: { template: "<div><slot /></div>" },
@@ -80,8 +78,8 @@ describe("RecipeCardSection", () => {
     const wrapper = mountSection({ search: "miso" });
     await flushPromises();
 
-    expect(wrapper.find(".empty-state").text()).toContain("No recipes found");
-    expect(wrapper.find(".empty-state").text()).toContain("We couldn't find any recipes matching your search.");
+    expect(wrapper.find(".search-empty-state").text()).toContain("No recipes found");
+    expect(wrapper.find(".search-empty-state").text()).toContain("We couldn't find any recipes matching your search.");
 
     wrapper.unmount();
   });
@@ -90,7 +88,7 @@ describe("RecipeCardSection", () => {
     const wrapper = mountSection();
     await flushPromises();
 
-    expect(wrapper.find(".empty-state").exists()).toBe(false);
+    expect(wrapper.find(".search-empty-state").exists()).toBe(false);
 
     wrapper.unmount();
   });
