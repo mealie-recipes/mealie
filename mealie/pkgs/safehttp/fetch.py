@@ -69,6 +69,8 @@ class FetchResult:
     url: str
     headers: httpx.Headers
     encoding: str | None
+    # True when this content came out of FlareSolverr, so callers do not escalate to it twice.
+    via_flaresolverr: bool = False
 
     @property
     def text(self) -> str:
@@ -265,7 +267,24 @@ def _solution_to_result(solution: flaresolverr.FlareSolverrSolution) -> FetchRes
         url=solution.url,
         headers=httpx.Headers({"content-type": "text/html; charset=utf-8"}),
         encoding="utf-8",
+        via_flaresolverr=True,
     )
+
+
+async def fetch_via_flaresolverr(url: str) -> FetchResult | None:
+    """
+    Fetches a URL through the configured FlareSolverr instance (a headless browser).
+
+    Returns ``None`` when FlareSolverr is not configured or fails to solve the page.
+    """
+    settings = get_app_settings()
+    if not settings.SCRAPER_FLARESOLVERR_URL:
+        return None
+
+    solution = await flaresolverr.solve(settings.SCRAPER_FLARESOLVERR_URL, url, settings.SCRAPER_FLARESOLVERR_TIMEOUT)
+    if solution is None:
+        return None
+    return _solution_to_result(solution)
 
 
 async def resilient_fetch(
@@ -328,12 +347,10 @@ async def resilient_fetch(
     # Final escalation: a real browser via FlareSolverr. HTML-only, and only when still blocked.
     # Note: the impersonation rotation above always runs first, so its SSRF guard (which rejects
     # private target IPs) has already vetted `url` before we hand it to FlareSolverr.
-    if blocked and read_body and allow_flaresolverr and settings.SCRAPER_FLARESOLVERR_URL:
+    if blocked and read_body and allow_flaresolverr:
         logger.debug("Fetch still blocked; escalating to FlareSolverr")
-        solution = await flaresolverr.solve(
-            settings.SCRAPER_FLARESOLVERR_URL, url, settings.SCRAPER_FLARESOLVERR_TIMEOUT
-        )
-        if solution is not None:
-            return _solution_to_result(solution)
+        result = await fetch_via_flaresolverr(url)
+        if result is not None:
+            return result
 
     return result
