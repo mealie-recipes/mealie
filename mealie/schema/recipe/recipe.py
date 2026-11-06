@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Annotated, Any, ClassVar
 from uuid import uuid4
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
 from sqlalchemy import Select, desc, func, or_, select, text, union
@@ -187,7 +187,6 @@ class RecipeSummary(MealieModel):
 
     total_time: str | None = None
     prep_time: str | None = None
-    cook_time: str | None = None
     perform_time: str | None = None
     total_time_seconds: DurationSeconds | None = None
     prep_time_seconds: DurationSeconds | None = None
@@ -207,11 +206,26 @@ class RecipeSummary(MealieModel):
     updated_at: datetime.datetime | None = UpdatedAtField(None)
     model_config = ConfigDict(from_attributes=True)
 
+    @model_validator(mode="before")
+    @classmethod
+    def accept_legacy_cook_time(cls, data: Any) -> Any:
+        """Reads `cookTime` from older clients and exports as `performTime`, which replaced it."""
+        if not isinstance(data, dict):
+            return data
+
+        cook_time = data.get("cookTime") or data.get("cook_time")
+        has_perform_time = any(
+            data.get(key) for key in ("performTime", "perform_time", "performTimeSeconds", "perform_time_seconds")
+        )
+        if cook_time and not has_perform_time:
+            data = {**data, "performTime": cook_time}
+        return data
+
     @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")
     def clean_numbers(val: Any):
         return val or 0
 
-    @field_validator("recipe_yield", "total_time", "prep_time", "cook_time", "perform_time", mode="before")
+    @field_validator("recipe_yield", "total_time", "prep_time", "perform_time", mode="before")
     def clean_strings(val: Any):
         if val is None:
             return val

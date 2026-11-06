@@ -3,12 +3,12 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
+from mealie.repos.public_visibility import is_cookbook_publicly_visible, public_cookbooks_clause
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
-from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = APIRouter(prefix="/cookbooks")
 
@@ -25,13 +25,11 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
         q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
         search: str | None = None,
     ) -> PaginationBase[ReadCookBook]:
-        public_filter = "(household.preferences.privateHousehold = FALSE AND public = TRUE)"
-        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, public_filter)
-
         response = self.cross_household_cookbooks.page_all(
             pagination=q,
             override=ReadCookBook,
             search=search,
+            extra_filter=public_cookbooks_clause(),
         )
 
         response.set_pagination_guides(self.get_explore_url_path(router.url_path_for("get_all")), q.model_dump())
@@ -50,10 +48,8 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
                 match_attr = "slug"
         cookbook = self.cross_household_cookbooks.get_one(item_id, match_attr)
 
-        if not cookbook or not cookbook.public:
-            raise NOT_FOUND_EXCEPTION
-        household = self.repos.households.get_one(cookbook.household_id)
-        if not household or household.preferences.private_household:
+        household = cookbook and self.repos.households.get_one(cookbook.household_id)
+        if not is_cookbook_publicly_visible(cookbook, household):
             raise NOT_FOUND_EXCEPTION
 
         return cookbook

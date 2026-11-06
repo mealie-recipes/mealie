@@ -56,16 +56,36 @@ def _is_stringified_mapping(text: str) -> bool:
     return text.strip().startswith(("{'", '{"'))
 
 
+def _only_adds_line_breaks(structured: list[dict], flat: list[dict]) -> bool:
+    """True when the structured parse is the flat parse, step for step, plus line breaks.
+
+    recipe_scrapers collapses all whitespace inside a step, so a step that a site writes as
+    several paragraphs arrives as one run-on line. The structured data still has the breaks.
+    """
+    structured_texts = [step.get("text", "") for step in structured]
+    flat_texts = [step["text"] for step in flat if step.get("text")]
+
+    return (
+        any("\n" in text for text in structured_texts)
+        and len(structured_texts) == len(flat_texts)
+        and all(_comparable(a) == _comparable(b) for a, b in zip(structured_texts, flat_texts, strict=True))
+    )
+
+
 def prefer_structured_instructions(structured: list[dict], flat: list[dict]) -> bool:
     """Decide whether the structured parse should replace the scraper's flattened text.
 
-    Two things have to hold. The structured parse must gain a heading, otherwise there is
+    It does when it holds the same steps and only adds line breaks. Otherwise two things
+    have to hold. The structured parse must gain a heading, otherwise there is
     nothing the flat text could not already express. And it must account for every piece of
     text the flat parse produced, as either a step or a heading: a site specific scraper
     reads the instructions off the page rather than out of the structured data, and its text
     can differ from, or beat, what the page publishes as JSON-LD. That keeps the structured
     data a refinement of the same content, never a replacement of better content.
     """
+    if _only_adds_line_breaks(structured, flat):
+        return True
+
     headings = [step["title"] for step in structured if step.get("title")]
     headings += [step["summary"] for step in structured if step.get("summary")]
     if not headings:

@@ -203,6 +203,14 @@ class ShoppingListController(BaseCrudController):
 
     @router.put("/{item_id}", response_model=ShoppingListOut)
     def update_one(self, item_id: UUID4, data: ShoppingListUpdate):
+        # The list belongs to its owner's household, so a new owner would move it to their household
+        owner = self.repos.users.get_one(data.user_id)
+        if owner is None or owner.household_id != self.household_id:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="the list owner must be a member of your household",
+            )
+
         shopping_list = self.mixins.update_one(data, item_id)
         self.publish_event(
             event_type=EventTypes.shopping_list_updated,

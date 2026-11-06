@@ -88,6 +88,21 @@ clean_string_test_cases = (
         expected="",
     ),
     CleanerCase(
+        test_id="paragraphs_become_line_breaks",
+        input="<p>Boil a full kettle.</p><p>Make the stock.</p>",
+        expected="Boil a full kettle.\nMake the stock.",
+    ),
+    CleanerCase(
+        test_id="br_becomes_line_break",
+        input="Boil a full kettle.<br>Make the stock.<br/>Stir in the paste.",
+        expected="Boil a full kettle.\nMake the stock.\nStir in the paste.",
+    ),
+    CleanerCase(
+        test_id="spaces_around_line_breaks",
+        input="<p>Boil a full kettle. </p>\n<p> Make the stock.</p>",
+        expected="Boil a full kettle.\n\nMake the stock.",
+    ),
+    CleanerCase(
         test_id="unexpected type",
         input={"key": "value"},
         expected="{'key': 'value'}",
@@ -1032,6 +1047,23 @@ def test_clean_nutrition_skips_unparseable_nutrients(key: str, value: object) ->
 @pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
 @pytest.mark.parametrize("value, expected", [("0 g", "0.0"), ("0.5 g", "500.0"), ("0,5 g", "500.0")])
 def test_clean_nutrition_converts_nutrients_to_milligrams(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize(
+    "value, expected",
+    [("0.5 grams", "500.0"), ("1 gram", "1000.0"), ("2 G", "2000.0"), ("1.5 gm", "1500.0")],
+)
+def test_clean_nutrition_converts_spelled_out_grams_to_milligrams(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize(
+    "value, expected", [("500 mg", "500"), ("500 MG", "500"), ("500 milligrams", "500"), ("100 mcg", "100")]
+)
+def test_clean_nutrition_keeps_milligrams_and_smaller_units(key: str, value: str, expected: str) -> None:
     assert cleaner.clean_nutrition({key: value}) == {key: expected}
 
 

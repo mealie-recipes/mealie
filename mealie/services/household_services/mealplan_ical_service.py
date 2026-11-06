@@ -219,7 +219,7 @@ class MealPlanICalService(BaseService):
                 "description": recipe.description or "",
                 "totalTime": recipe.total_time or "",
                 "prepTime": recipe.prep_time or "",
-                "cookTime": recipe.cook_time or "",
+                "cookTime": recipe.perform_time or "",
                 "tags": ", ".join(tag.name for tag in recipe.tags or []),
                 "categories": ", ".join(category.name for category in recipe.recipe_category or []),
                 "tools": ", ".join(tool.name for tool in recipe.tools),

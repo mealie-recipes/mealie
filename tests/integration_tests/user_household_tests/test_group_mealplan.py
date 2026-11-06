@@ -612,3 +612,51 @@ def test_get_mealplan_with_rules_households_filter_includes_any_households(
         assert response.json()["recipe"]["slug"] == recipe.slug
     finally:
         unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
+def _plan_payload(recipe_id) -> dict:
+    return {
+        "date": datetime.now(UTC).date().strftime("%Y-%m-%d"),
+        "entryType": "dinner",
+        "recipeId": str(recipe_id),
+    }
+
+
+def test_create_mealplan_rejects_recipe_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    recipe = create_recipe(unique_user)
+
+    response = api_client.post(api_routes.households_mealplans, json=_plan_payload(recipe.id), headers=g2_user.token)
+    assert response.status_code == 404
+    assert recipe.name not in response.text
+
+
+def test_update_mealplan_rejects_recipe_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    foreign_recipe = create_recipe(unique_user)
+    own_recipe = create_recipe(g2_user)
+    plan = api_client.post(
+        api_routes.households_mealplans, json=_plan_payload(own_recipe.id), headers=g2_user.token
+    ).json()
+
+    plan["recipeId"] = str(foreign_recipe.id)
+    response = api_client.put(api_routes.households_mealplans_item_id(plan["id"]), json=plan, headers=g2_user.token)
+    assert response.status_code == 404
+    assert foreign_recipe.name not in response.text
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=g2_user.token)
+    assert response.json()["recipeId"] == str(own_recipe.id)
+
+
+def test_mealplan_accepts_recipe_from_other_household_in_group(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    recipe = create_recipe(h2_user)
+
+    response = api_client.post(
+        api_routes.households_mealplans, json=_plan_payload(recipe.id), headers=unique_user.token
+    )
+    assert response.status_code == 201
+    assert response.json()["recipe"]["id"] == str(recipe.id)

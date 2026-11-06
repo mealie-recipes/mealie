@@ -82,6 +82,7 @@ export interface ReadPlanEntry {
   userId: string;
   householdId: string;
   recipe?: RecipeSummary | null;
+  updatedAt?: string | null;
 }
 export interface RecipeSummary {
   id?: string | null;
@@ -96,7 +97,6 @@ export interface RecipeSummary {
   recipeYield?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
-  cookTime?: string | null;
   performTime?: string | null;
   totalTimeSeconds?: number | null;
   prepTimeSeconds?: number | null;
