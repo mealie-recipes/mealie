@@ -103,7 +103,6 @@ import type { ReadCookBook } from "~/lib/api/types/cookbook";
 
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
-const display = useDisplay();
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 const { group } = useGroupSelf();
@@ -135,10 +134,7 @@ const cookbooks = computed(() => {
 
 const showAIImport = computed(() => group.value?.aiProviderSettings?.aiEnabled);
 
-const sidebar = ref<boolean>(false);
-onMounted(() => {
-  sidebar.value = display.lgAndUp.value;
-});
+const sidebar = useSidebarState();
 
 function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
   return {
