@@ -12,6 +12,7 @@
       :submit-text="$t('general.save')"
       :submit-disabled="!createTarget.queryFilterString"
       can-submit
+      disable-submit-on-enter
       @submit="actions.updateOne(createTarget)"
       @cancel="deleteCreateTarget()"
     >
