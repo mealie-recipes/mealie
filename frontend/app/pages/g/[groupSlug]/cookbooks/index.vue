@@ -10,7 +10,7 @@
       :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')"
-      :submit-disabled="!createTarget.queryFilterString"
+      :submit-disabled="!createTarget.name?.trim() || !createTarget.queryFilterString"
       can-submit
       @submit="actions.updateOne(createTarget)"
       @cancel="deleteCreateTarget()"
@@ -30,7 +30,7 @@
       :title="$t('general.edit')"
       :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')"
-      :submit-disabled="!editTarget.queryFilterString"
+      :submit-disabled="!editTarget.name?.trim() || !editTarget.queryFilterString"
       can-submit
       can-delete
       @submit="actions.updateOne(editTarget)"
