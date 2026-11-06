@@ -47,7 +47,16 @@ def test_resource_url_falls_back_to_supplied_url():
     assert strategy.resource_url == SHARE_URL
 
 
-def test_transcription_classifies_the_landing_url(monkeypatch: pytest.MonkeyPatch):
+@pytest.mark.parametrize(
+    ("url", "landing_url", "legacy_transcription"),
+    [
+        (SHARE_URL, REEL_URL, False),
+        ("https://youtu.be/dQw4w9WgXcQ", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", True),
+    ],
+)
+def test_transcription_classifies_the_landing_url(
+    monkeypatch: pytest.MonkeyPatch, url: str, landing_url: str, legacy_transcription: bool
+):
     classified: list[str] = []
     monkeypatch.setattr(transcription, "is_video_url", lambda url: classified.append(url) or True)
 
@@ -55,14 +64,14 @@ def test_transcription_classifies_the_landing_url(monkeypatch: pytest.MonkeyPatc
     repos.group_ai_provider_settings.get_one.return_value = MagicMock(audio_provider_enabled=True)
 
     strategy = RecipeScraperOpenAITranscription(
-        SHARE_URL,
+        url,
         get_locale_provider(),
         repos,
-        resolved_url=REEL_URL,
+        resolved_url=landing_url,
     )
 
-    assert strategy.can_scrape() is True
-    assert classified == [REEL_URL]
+    assert strategy.can_scrape() is legacy_transcription
+    assert classified == ([landing_url] if legacy_transcription else [])
 
 
 def test_openai_strategy_passes_resolved_url_into_workflow():

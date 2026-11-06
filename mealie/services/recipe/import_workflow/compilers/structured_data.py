@@ -4,7 +4,7 @@ from typing import Any
 import bs4
 
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
-from mealie.services.openai.content import extract_json_ld_data_from_html, find_image
+from mealie.services.openai.content import extract_facebook_description, extract_json_ld_data_from_html, find_image
 from mealie.services.scraper import cleaner
 
 from ..context import WorkflowContext
@@ -48,6 +48,9 @@ class StructuredDataCompiler(SourceCompiler):
             return True
 
         if _looks_like_html(self.content):
+            # Facebook's VideoObject metadata omits the recipe in the full caption.
+            if extract_facebook_description(self.soup):
+                return False
             # HTML is only usable directly if the page carries structured data
             return bool(extract_json_ld_data_from_html(self.soup))
 

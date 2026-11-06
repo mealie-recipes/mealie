@@ -1,9 +1,11 @@
 from dataclasses import dataclass
 
+import bs4
+
 from mealie.core.root_logger import get_logger
 from mealie.pkgs.safehttp import resilient_fetch
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
-from mealie.services.openai.content import truncate_source_parts
+from mealie.services.openai.content import extract_facebook_description, is_facebook_url, truncate_source_parts
 
 from ..base import WorkflowStep
 from ..compilers import DEFAULT_SOURCE_COMPILERS, SourceCompiler, SourceType
@@ -90,9 +92,10 @@ class CompileSourceStep(WorkflowStep):
         return await self._compile(ctx, SourceType.CONTENT, content)
 
     async def _compile_page(self, ctx: WorkflowContext) -> OpenAICompiledSource | None:
+        facebook = is_facebook_url(ctx.input.url or "")
         # compilers that read the URL themselves go first, so that a video is downloaded rather
         # than fetched and read as a webpage
-        if ctx.input.url and (compiled := await self._compile(ctx, SourceType.URL)):
+        if ctx.input.url and not facebook and (compiled := await self._compile(ctx, SourceType.URL)):
             return compiled
 
         page_content = ctx.input.page_content
@@ -103,13 +106,20 @@ class CompileSourceStep(WorkflowStep):
                 page_content = result.text
                 ctx.resolved_url = result.url
 
+        compiled_page = None
+        if facebook and page_content and extract_facebook_description(bs4.BeautifulSoup(page_content, "lxml")):
+            # A written recipe needs neither a video download nor an audio provider.
+            compiled_page = await self._compile_content(ctx, page_content)
+            if compiled_page and compiled_page.contains_recipe and compiled_page.content.strip():
+                return compiled_page
+
         # share/short links aren't recognized as videos until after redirects; give URL
         # compilers a second chance with the landing URL before reading the page as HTML
-        if ctx.resolved_url and ctx.resolved_url != ctx.input.url:
+        if facebook or (ctx.resolved_url and ctx.resolved_url != ctx.input.url):
             if compiled := await self._compile(ctx, SourceType.URL):
                 return compiled
 
-        return await self._compile_content(ctx, page_content)
+        return compiled_page or await self._compile_content(ctx, page_content)
 
     def _merge(self, ctx: WorkflowContext, documents: list[CompiledDocument]) -> OpenAICompiledSource:
         usable = [document for document in documents if document.is_usable]

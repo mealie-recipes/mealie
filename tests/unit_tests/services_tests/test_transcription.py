@@ -5,6 +5,7 @@ import pytest
 import mealie.services.openai.transcription as transcription_module
 from mealie.services.openai import transcription
 from mealie.services.recipe.import_workflow.compilers.transcription import TranscriptionCompiler
+from mealie.services.scraper.scraper_strategies import RecipeScraperOpenAITranscription
 
 
 @pytest.mark.parametrize(
@@ -41,6 +42,12 @@ def test_transcription_compiler_uses_resolved_url(monkeypatch: pytest.MonkeyPatc
     compiler = TranscriptionCompiler(ctx)
     assert compiler.can_compile() is True
     assert compiler._url() == ctx.resolved_url
+
+
+@pytest.mark.parametrize("url", ["https://www.facebook.com/reel/123/", "https://www.facebook.com/share/r/abc/"])
+def test_facebook_url_import_uses_caption_workflow(url: str):
+    scraper = RecipeScraperOpenAITranscription(url, Mock(), Mock())
+    assert not scraper.can_scrape()
 
 
 class _SettingsStub:
