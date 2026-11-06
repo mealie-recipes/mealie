@@ -22,6 +22,7 @@ from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema import mapper
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
+from mealie.schema.recipe.recipe_duplicate import RecipeDuplicateCheckIn, RecipeDuplicateCheckOut
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientUnit,
@@ -208,6 +209,18 @@ class RecipeService(RecipeServiceBase):
 
         else:
             return self._get_recipe(slug_or_id, "slug")
+
+    def check_duplicates(self, data: RecipeDuplicateCheckIn) -> RecipeDuplicateCheckOut:
+        matches = self.repos.recipes.check_duplicates(
+            name=data.name,
+            url=data.url,
+            ingredients=data.ingredients,
+            recipe_id=data.recipe_id,
+        )
+        return RecipeDuplicateCheckOut(
+            is_duplicate=len(matches) > 0,
+            matches=matches,
+        )
 
     def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
         if create_data.name is None:
