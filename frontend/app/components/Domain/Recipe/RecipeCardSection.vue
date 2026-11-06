@@ -160,6 +160,14 @@
           </v-col>
         </v-row>
       </div>
+      <v-alert
+        v-if="query?.search && recipes.length === 0"
+        class="mt-4"
+        type="info"
+        variant="tonal"
+        :title="$t('search.no-recipes-found')"
+        :text="$t('search.no-recipes-found-description')"
+      />
       <v-card v-intersect="infiniteScroll" variant="flat" />
     </div>
     <v-fade-transition>
