@@ -188,8 +188,23 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
   }
 
+  // Whether a write failed during the current process run, leaving its items queued
+  let failedWriteInRun = false;
+
+  // Whether the last completed run couldn't save everything, so the page can tell the user
+  const hasFailedWrites = ref(false);
+
   /**
-   * Processes the queue items and returns whether the processing was successful.
+   * Whether the server answered that it won't take this request, as opposed to a failure that may pass by itself.
+   */
+  function isRejection(error: any): boolean {
+    const status: number | undefined = error?.response?.status;
+    return !!status && status >= 400 && status < 500 && ![401, 408, 429].includes(status);
+  }
+
+  /**
+   * Processes the queue items and returns false if there was an unexpected error, which resets the queue.
+   * A failed write isn't unexpected; its items stay queued and are sent again on the next run.
    */
   async function processQueueItems(
     action: (items: ShoppingListItemOut[]) => Promise<RequestResponse<any>>,
@@ -212,12 +227,29 @@ export function useShoppingListItemActions(shoppingListId: string) {
       const itemsToProcess = [...queueItems];
       const itemIdsToProcess = itemsToProcess.map(item => item.id);
 
-      await action(itemsToProcess)
-        .then(() => {
-          if (isOnline.value) {
-            clearQueueItems(itemQueueType, itemIdsToProcess);
+      // the API client resolves failed writes (network errors and 4xx/5xx alike) instead of rejecting,
+      // so the items stay queued unless the response says they made it
+      const result = await action(itemsToProcess);
+      if (!result?.error) {
+        if (isOnline.value) {
+          clearQueueItems(itemQueueType, itemIdsToProcess);
+        }
+        return true;
+      }
+
+      console.log(`Failed to write queue items of type ${itemQueueType}; keeping them queued`);
+      failedWriteInRun = true;
+
+      // a rejected request says nothing about which item caused it, so send them one by one;
+      // otherwise a single item the server will never accept would hold back all the others
+      if (itemsToProcess.length > 1 && isRejection(result.error)) {
+        for (const item of itemsToProcess) {
+          const itemResult = await action([item]);
+          if (!itemResult?.error && isOnline.value) {
+            clearQueueItems(itemQueueType, [item.id]);
           }
-        });
+        }
+      }
     }
     catch (error) {
       console.log(`Error processing queue items of type ${itemQueueType}:`, error);
@@ -231,6 +263,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
   async function process() {
     if (queueEmpty.value) {
       queue.lastUpdate = Date.now();
+      hasFailedWrites.value = false;
       return;
     }
 
@@ -239,6 +272,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
       return;
     }
     checkUpdateState(data);
+    failedWriteInRun = false;
 
     // We send each bulk request one at a time, since the backend may merge items
     // "failures" here refers to an actual error, rather than failing to reach the backend
@@ -247,9 +281,10 @@ export function useShoppingListItemActions(shoppingListId: string) {
     if (!(await processQueueItems(items => api.shopping.items.updateMany(items), "update"))) failures++;
     if (!(await processQueueItems(items => api.shopping.items.createMany(items), "create"))) failures++;
 
-    // If we're online, or the queue is empty, the queue is fully processed, so we're up to date
+    // If we're online with no failed writes, or the queue is empty, the queue is fully processed, so we're up to date
     // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
-    if (isOnline.value || queueEmpty.value || failures === 3) {
+    hasFailedWrites.value = failedWriteInRun;
+    if ((isOnline.value && !failedWriteInRun) || queueEmpty.value || failures === 3) {
       queue.lastUpdate = Date.now();
     }
   }
@@ -260,6 +295,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     updateItem,
     deleteItem,
     process,
+    hasFailedWrites,
 
     __testing__: {
       queue,
