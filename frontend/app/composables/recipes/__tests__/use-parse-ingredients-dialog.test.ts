@@ -570,6 +570,25 @@ describe("useParseIngredientsDialog", () => {
       expect(updateUnit).toHaveBeenCalled();
       expect(wrapped.vm.currentIng?.ingredient.unit?.name).toBe("uwunit");
     });
+    test("addMissingUnitAsAlias resolves later ingredients with the same unit", async () => {
+      const wrapped = wrapper();
+      const { addMissingUnitAsAlias, nextIngredient, setCurrentUnit, setCurrentIng, setParsedIngs } = wrapped.vm;
+      setCurrentIng({
+        ingredient: {
+          unit: { name: "2uwunit", id: "unit_id_2" },
+        },
+      });
+      setCurrentUnit("alias");
+      await addMissingUnitAsAlias();
+      setParsedIngs([{
+        ingredient: {
+          unit: { name: "Alias" },
+        },
+      }]);
+      nextIngredient();
+      expect(wrapped.vm.currentIng?.ingredient.unit?.id).toBe("unit_id");
+      expect(wrapped.vm.currentMissingUnit).toBe("");
+    });
     test("addMissingUnitAsAlias skips if there's no alias to add", async () => {
       const wrapped = wrapper();
       const { addMissingUnitAsAlias, setCurrentIng } = wrapped.vm;
@@ -619,6 +638,25 @@ describe("useParseIngredientsDialog", () => {
       await addMissingFoodAsAlias();
       expect(updateFood).toHaveBeenCalled();
       expect(wrapped.vm.currentIng?.ingredient.food?.name).toBe("fuwud");
+    });
+    test("addMissingFoodAsAlias resolves later ingredients with the same food", async () => {
+      const wrapped = wrapper();
+      const { addMissingFoodAsAlias, nextIngredient, setCurrentFood, setCurrentIng, setParsedIngs } = wrapped.vm;
+      setCurrentIng({
+        ingredient: {
+          food: { name: "f2uwud", id: "food_id_2" },
+        },
+      });
+      setCurrentFood("alias");
+      await addMissingFoodAsAlias();
+      setParsedIngs([{
+        ingredient: {
+          food: { name: "Alias" },
+        },
+      }]);
+      nextIngredient();
+      expect(wrapped.vm.currentIng?.ingredient.food?.id).toBe("food_id");
+      expect(wrapped.vm.currentMissingFood).toBe("");
     });
     test("addMissingFoodAsAlias skips if there's no alias to add", async () => {
       const wrapped = wrapper();

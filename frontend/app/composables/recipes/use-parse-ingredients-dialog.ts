@@ -262,9 +262,9 @@ export function useParseIngredientsDialog(
     }
   }
 
-  /** Cache of lowercased created units to avoid duplicate creations */
+  /** Cache of lowercased created or aliased units to avoid duplicate creations */
   const createdUnits = new Map<string, IngredientUnit>();
-  /** Cache of lowercased created foods to avoid duplicate creations */
+  /** Cache of lowercased created or aliased foods to avoid duplicate creations */
   const createdFoods = new Map<string, IngredientFood>();
 
   async function createMissingUnit() {
@@ -353,6 +353,7 @@ export function useParseIngredientsDialog(
       }
 
       currentIng.value!.ingredient.unit = updated;
+      createdUnits.set(currentMissingUnit.value.toLowerCase(), updated);
       currentMissingUnit.value = "";
     }
     finally {
@@ -382,6 +383,7 @@ export function useParseIngredientsDialog(
       }
 
       currentIng.value!.ingredient.food = updated;
+      createdFoods.set(currentMissingFood.value.toLowerCase(), updated);
       currentMissingFood.value = "";
     }
     finally {
