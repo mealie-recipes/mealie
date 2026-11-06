@@ -3,6 +3,7 @@ import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/li
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import type { ISearchableItem } from "~/composables/use-search";
 import {
   useCategoryStore,
   usePublicCategoryStore,
@@ -14,6 +15,7 @@ import {
   usePublicTagStore,
   useToolStore,
   usePublicToolStore,
+  useUserStore,
 } from "~/composables/store";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
@@ -37,6 +39,7 @@ interface RecipeExplorerSearchState {
   selectedHouseholds: Ref<NoUndefinedField<HouseholdSummary>[]>;
   selectedTags: Ref<NoUndefinedField<RecipeTag>[]>;
   selectedTools: Ref<NoUndefinedField<RecipeTool>[]>;
+  selectedUsers: Ref<ISearchableItem[]>;
   passedQueryWithSeed: ComputedRef<RecipeSearchQuery & { _searchSeed: string }>;
   search: () => Promise<void>;
   reset: () => void;
@@ -78,6 +81,8 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   const households = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
   const tags = isOwnGroup.value ? useTagStore() : usePublicTagStore(groupSlug.value);
   const tools = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
+  // There is no public users endpoint, so the user filter is only available for own-group searches
+  const users = isOwnGroup.value ? useUserStore() : null;
 
   // Selected items
   const selectedCategories = ref<NoUndefinedField<RecipeCategory>[]>([]);
@@ -85,6 +90,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   const selectedHouseholds = ref<NoUndefinedField<HouseholdSummary>[]>([]);
   const selectedTags = ref<NoUndefinedField<RecipeTag>[]>([]);
   const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
+  const selectedUsers = ref<ISearchableItem[]>([]);
 
   // Query defaults
   const queryDefaults = {
@@ -123,6 +129,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       households: toIDArray(selectedHouseholds.value),
       tags: toIDArray(selectedTags.value),
       tools: toIDArray(selectedTools.value),
+      users: toIDArray(selectedUsers.value),
       requireAllCategories: state.value.requireAllCategories,
       requireAllTags: state.value.requireAllTags,
       requireAllTools: state.value.requireAllTools,
@@ -193,6 +200,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     selectedHouseholds.value = [];
     selectedTags.value = [];
     selectedTools.value = [];
+    selectedUsers.value = [];
   }
 
   function toggleOrderDirection() {
@@ -228,6 +236,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
         auto: state.value.auto ? undefined : "false",
         search: passedQuery.value.search === queryDefaults.search ? undefined : passedQuery.value.search,
         households: !passedQuery.value.households?.length || passedQuery.value.households?.length === households.store.value.length ? undefined : passedQuery.value.households,
+        users: !passedQuery.value.users?.length || passedQuery.value.users?.length === (users?.store.value.length ?? 0) ? undefined : passedQuery.value.users,
         requireAllCategories: passedQuery.value.requireAllCategories ? "true" : undefined,
         requireAllTags: passedQuery.value.requireAllTags ? "true" : undefined,
         requireAllTools: passedQuery.value.requireAllTools ? "true" : undefined,
@@ -386,6 +395,27 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       selectedHouseholds.value = [];
     }
 
+    if (query.users?.length && users) {
+      promises.push(
+        waitUntilAndExecute(
+          () => {
+            if (users.store.value) {
+              return users.store.value.length > 0;
+            }
+            return false;
+          },
+          () => {
+            selectedUsers.value = users.store.value
+              .filter(item => (query.users as string[]).includes(item.id))
+              .map(user => ({ id: user.id, name: user.fullName }));
+          },
+        ),
+      );
+    }
+    else {
+      selectedUsers.value = [];
+    }
+
     await Promise.allSettled(promises);
   }
 
@@ -432,6 +462,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       selectedHouseholds,
       selectedTags,
       selectedTools,
+      selectedUsers,
     ],
     async () => {
       if (state.value.ready && state.value.auto) {
@@ -451,6 +482,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     selectedHouseholds,
     selectedTags,
     selectedTools,
+    selectedUsers,
 
     // Computed
     passedQueryWithSeed,

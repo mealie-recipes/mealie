@@ -528,6 +528,52 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
+def test_recipe_repo_pagination_by_users(user_tuple: tuple[TestUser, TestUser]):
+    user_1, user_2 = user_tuple
+    database = user_1.repos
+    repo = database.recipes
+
+    recipes_user_1 = []
+    recipes_user_2 = []
+    for i in range(5):
+        slug = f"recipe-user-1-{i}-{random_string(5)}"
+        recipes_user_1.append(
+            repo.create(
+                Recipe(
+                    user_id=user_1.user_id,
+                    group_id=user_1.group_id,
+                    household_id=user_1.household_id,
+                    name=slug,
+                    slug=slug,
+                )
+            )
+        )
+
+        slug = f"recipe-user-2-{i}-{random_string(5)}"
+        recipes_user_2.append(
+            repo.create(
+                Recipe(
+                    user_id=user_2.user_id,
+                    group_id=user_2.group_id,
+                    household_id=user_2.household_id,
+                    name=slug,
+                    slug=slug,
+                )
+            )
+        )
+
+    pagination_query = PaginationQuery(page=1, per_page=-1)
+
+    items = repo.page_all(pagination_query, users=[user_1.user_id]).items
+    assert {recipe.id for recipe in items} == {recipe.id for recipe in recipes_user_1}
+
+    items = repo.page_all(pagination_query, users=[user_2.user_id]).items
+    assert {recipe.id for recipe in items} == {recipe.id for recipe in recipes_user_2}
+
+    items = repo.page_all(pagination_query, users=[user_1.user_id, user_2.user_id]).items
+    assert {recipe.id for recipe in items} == {recipe.id for recipe in recipes_user_1 + recipes_user_2}
+
+
 @pytest.mark.parametrize(
     "search, expected_names",
     [

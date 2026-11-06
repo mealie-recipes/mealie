@@ -912,6 +912,7 @@
     "logout": "Logout",
     "manage-users": "Manage Users",
     "manage-users-description": "Create and manage users.",
+    "me": "Me",
     "new-password": "New Password",
     "password-must-match": "Password must match",
     "password-updated": "Password updated",
