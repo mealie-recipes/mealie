@@ -7,6 +7,7 @@ import { useShoppingListCopy } from "~/composables/shopping-list-page/sub-compos
 import { useShoppingListCrud } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-crud";
 import { useShoppingListRecipes } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-recipes";
 import { useShoppingListSearch } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-search";
+import { useShoppingListOnHand } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-on-hand";
 
 /**
  * Main composable that orchestrates all shopping list page functionality
@@ -99,6 +100,9 @@ export function useShoppingListPage(listId: string) {
     refresh,
   );
 
+  // Initialize marking checked items as on hand
+  const onHand = useShoppingListOnHand(shoppingList, crud.deleteListItems);
+
   // Handle item reordering by label
   function updateIndexUncheckedByLabel(labelName: string, labeledUncheckedItems: ShoppingListItemOut[]) {
     if (!itemsByLabel.value[labelName]) {
@@ -157,6 +161,17 @@ export function useShoppingListPage(listId: string) {
     crud.deleteCheckedItems();
   }
 
+  function openMarkCheckedOnHand() {
+    if (shoppingList.value?.listItems?.some(item => item.checked)) {
+      state.state.markCheckedOnHandDialog = true;
+    }
+  }
+
+  function markCheckedOnHand() {
+    state.state.markCheckedOnHandDialog = false;
+    onHand.markCheckedItemsOnHand();
+  }
+
   // Copy functionality wrapper
   function copyListItems(copyType: "plain" | "markdown") {
     copyManager.copyListItems(itemsByLabel.value, copyType);
@@ -199,6 +214,7 @@ export function useShoppingListPage(listId: string) {
     ...labels,
     ...crud,
     ...recipes,
+    ...onHand,
 
     // Specialized functions
     updateIndexUncheckedByLabel,
@@ -208,9 +224,11 @@ export function useShoppingListPage(listId: string) {
     openCheckAll,
     openUncheckAll,
     openDeleteChecked,
+    openMarkCheckedOnHand,
     checkAll,
     uncheckAll,
     deleteChecked,
+    markCheckedOnHand,
 
     // Label management
     toggleReorderLabelsDialog,
