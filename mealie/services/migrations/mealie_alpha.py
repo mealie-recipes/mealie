@@ -3,7 +3,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from mealie.schema.recipe.recipe import Recipe, RecipeDraft
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
@@ -89,10 +89,10 @@ class MealieAlphaMigrator(BaseMigrator):
 
             results = self.import_recipes_to_database(recipes)
             for slug, recipe_id, status in results:
-                if not status:
+                if not status or not recipe_id:
                     continue
 
-                dest_dir = Recipe.directory_from_id(recipe_id)
+                dest_dir = RecipeOut.directory_from_id(recipe_id)
                 source_dir = recipe_lookup.get(slug)
 
                 if dest_dir.exists():

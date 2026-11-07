@@ -5,6 +5,7 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 
 from ...db.models.recipe import (
     IngredientFoodModel,
@@ -15,7 +16,7 @@ from ...db.models.recipe import (
     RecipeModel,
     RecipeShareTokenModel,
 )
-from .recipe import Recipe
+from .recipe import RecipeOut
 
 
 def defaut_expires_at_time() -> datetime:
@@ -35,14 +36,14 @@ class RecipeShareTokenSave(RecipeShareTokenCreate):
     group_id: UUID4
 
 
-class RecipeShareTokenSummary(RecipeShareTokenSave):
+class RecipeShareTokenSummary(RecipeShareTokenSave, MealieOutModel):
     id: UUID4
     created_at: datetime
     model_config = ConfigDict(from_attributes=True)
 
 
-class RecipeShareToken(RecipeShareTokenSummary):
-    recipe: Recipe
+class RecipeShareTokenOut(RecipeShareTokenSummary):
+    recipe: RecipeOut
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod

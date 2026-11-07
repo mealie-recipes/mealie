@@ -33,11 +33,11 @@ import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePage
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import { usePageState, usePageUser, PageMode } from "~/composables/recipe-page/shared-state";
 
 interface Props {
-  recipe: Recipe;
+  recipe: RecipeOut;
   recipeScale?: number;
   landscape?: boolean;
 }

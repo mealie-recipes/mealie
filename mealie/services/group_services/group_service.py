@@ -4,10 +4,10 @@ from mealie.core.config import get_app_settings
 from mealie.pkgs.stats import fs_stats
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_preferences import CreateGroupPreferences
+from mealie.schema.group.group_preferences import GroupPreferencesCreate
 from mealie.schema.group.group_statistics import GroupStorage
 from mealie.schema.household.household import HouseholdCreate
-from mealie.schema.household.household_preferences import CreateHouseholdPreferences
+from mealie.schema.household.household_preferences import HouseholdPreferencesCreate
 from mealie.schema.user.user import GroupBase
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
@@ -22,7 +22,7 @@ class GroupService(BaseService):
         super().__init__()
 
     @staticmethod
-    def create_group(repos: AllRepositories, g_base: GroupBase, prefs: CreateGroupPreferences | None = None):
+    def create_group(repos: AllRepositories, g_base: GroupBase, prefs: GroupPreferencesCreate | None = None):
         """
         Creates a new group in the database with the required associated table references to ensure
         the group includes required preferences and default household.
@@ -30,7 +30,7 @@ class GroupService(BaseService):
         new_group = repos.groups.create(g_base)
 
         if prefs is None:
-            prefs = CreateGroupPreferences(group_id=new_group.id)
+            prefs = GroupPreferencesCreate(group_id=new_group.id)
         else:
             prefs.group_id = new_group.id
 
@@ -42,7 +42,7 @@ class GroupService(BaseService):
         household = HouseholdService.create_household(
             group_repos,
             HouseholdCreate(name=settings.DEFAULT_HOUSEHOLD, group_id=new_group.id),
-            prefs=CreateHouseholdPreferences(
+            prefs=HouseholdPreferencesCreate(
                 private_household=group_preferences.private_group,
                 recipe_public=not group_preferences.private_group,
             ),

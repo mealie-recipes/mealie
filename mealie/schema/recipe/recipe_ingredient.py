@@ -15,7 +15,7 @@ from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitut
 from mealie.lang.locale_config import LocalePluralFoodHandling
 from mealie.lang.providers import get_locale_context
 from mealie.schema._mealie import MealieModel
-from mealie.schema._mealie.mealie_model import UpdatedAtField
+from mealie.schema._mealie.mealie_model import MealieOutModel, UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.response.pagination import PaginationBase
@@ -85,15 +85,15 @@ class UnitFoodBase(MealieModel):
         return {x.key_name: x.value for x in v} if v else {}
 
 
-class CreateIngredientFoodAlias(MealieModel):
+class IngredientFoodAliasCreate(MealieModel):
     name: str
 
 
-class IngredientFoodAlias(CreateIngredientFoodAlias):
+class IngredientFoodAlias(IngredientFoodAliasCreate):
     model_config = ConfigDict(from_attributes=True)
 
 
-class IngredientFoodSummary(MealieModel):
+class IngredientFoodSummary(MealieOutModel):
     """
     A trimmed projection of a food, with nothing on it that can recurse.
 
@@ -177,28 +177,28 @@ class SubstitutionBase(MealieModel):
         return pruned
 
 
-class CreateIngredientFoodSubstitution(SubstitutionBase): ...
+class IngredientFoodSubstitutionCreate(SubstitutionBase): ...
 
 
-class IngredientFoodSubstitution(CreateIngredientFoodSubstitution):
+class IngredientFoodSubstitution(IngredientFoodSubstitutionCreate):
     substitute_food: IngredientFoodSummary | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
 
-class CreateRecipeIngredientSubstitution(SubstitutionBase): ...
+class RecipeIngredientSubstitutionCreate(SubstitutionBase): ...
 
 
-class RecipeIngredientSubstitution(CreateRecipeIngredientSubstitution):
+class RecipeIngredientSubstitution(RecipeIngredientSubstitutionCreate):
     substitute_food: IngredientFoodSummary | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
 
-class CreateIngredientFood(UnitFoodBase):
+class IngredientFoodCreate(UnitFoodBase):
     label_id: UUID4 | None = None
-    aliases: list[CreateIngredientFoodAlias] = []
-    substitutions: list[CreateIngredientFoodSubstitution] = []
+    aliases: list[IngredientFoodAliasCreate] = []
+    substitutions: list[IngredientFoodSubstitutionCreate] = []
     households_with_ingredient_food: list[str] = []
 
     @field_validator("substitutions", mode="before")
@@ -213,11 +213,11 @@ class CreateIngredientFood(UnitFoodBase):
         return self
 
 
-class SaveIngredientFood(CreateIngredientFood):
+class IngredientFoodSave(IngredientFoodCreate):
     group_id: UUID4
 
 
-class IngredientFood(CreateIngredientFood):
+class IngredientFoodOut(IngredientFoodCreate, MealieOutModel):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
     aliases: list[IngredientFoodAlias] = []
@@ -256,24 +256,24 @@ class IngredientFood(CreateIngredientFood):
 
 
 class IngredientFoodPagination(PaginationBase):
-    items: list[IngredientFood]
+    items: list[IngredientFoodOut]
 
 
-class CreateIngredientUnitAlias(MealieModel):
+class IngredientUnitAliasCreate(MealieModel):
     name: str
 
 
-class IngredientUnitAlias(CreateIngredientUnitAlias):
+class IngredientUnitAlias(IngredientUnitAliasCreate):
     model_config = ConfigDict(from_attributes=True)
 
 
-class CreateIngredientUnit(UnitFoodBase):
+class IngredientUnitCreate(UnitFoodBase):
     fraction: bool = True
     abbreviation: str = ""
     plural_abbreviation: str | None = ""
     use_abbreviation: bool = False
 
-    aliases: list[CreateIngredientUnitAlias] = []
+    aliases: list[IngredientUnitAliasCreate] = []
     standard_quantity: float | None = None
     standard_unit: str | None = None
 
@@ -289,11 +289,11 @@ class CreateIngredientUnit(UnitFoodBase):
         return self
 
 
-class SaveIngredientUnit(CreateIngredientUnit):
+class IngredientUnitSave(IngredientUnitCreate):
     group_id: UUID4
 
 
-class IngredientUnit(CreateIngredientUnit):
+class IngredientUnitOut(IngredientUnitCreate, MealieOutModel):
     id: UUID4
     aliases: list[IngredientUnitAlias] = []
 
@@ -316,8 +316,8 @@ class IngredientUnit(CreateIngredientUnit):
 
 class RecipeIngredientBase(MealieModel):
     quantity: NoneFloat = 0
-    unit: IngredientUnit | CreateIngredientUnit | None = None
-    food: IngredientFood | CreateIngredientFood | None = None
+    unit: IngredientUnitOut | IngredientUnitCreate | None = None
+    food: IngredientFoodOut | IngredientFoodCreate | None = None
     referenced_recipe: RecipeDraft | None = None
 
     note: str | None = ""
@@ -339,7 +339,7 @@ class RecipeIngredientBase(MealieModel):
     @classmethod
     def validate_unit(cls, v):
         if isinstance(v, str):
-            return CreateIngredientUnit(name=v)
+            return IngredientUnitCreate(name=v)
         else:
             return v
 
@@ -347,7 +347,7 @@ class RecipeIngredientBase(MealieModel):
     @classmethod
     def validate_food(cls, v):
         if isinstance(v, str):
-            return CreateIngredientFood(name=v)
+            return IngredientFoodCreate(name=v)
         else:
             return v
 
@@ -450,7 +450,7 @@ class RecipeIngredientBase(MealieModel):
 
 
 class IngredientUnitPagination(PaginationBase):
-    items: list[IngredientUnit]
+    items: list[IngredientUnitOut]
 
 
 class RecipeIngredient(RecipeIngredientBase):
@@ -532,16 +532,16 @@ class IngredientRequest(MealieModel):
     ingredient: str
 
 
-class MergeFood(MealieModel):
+class IngredientFoodMerge(MealieModel):
     from_food: UUID4
     to_food: UUID4
 
 
-class MergeUnit(MealieModel):
+class IngredientUnitMerge(MealieModel):
     from_unit: UUID4
     to_unit: UUID4
 
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
-IngredientFood.model_rebuild()
+IngredientFoodOut.model_rebuild()

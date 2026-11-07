@@ -97,7 +97,7 @@ import MealPlanNoteMenu from "~/components/Domain/Mealplan/MealPlanNoteMenu.vue"
 import MealPlanScaleControl from "~/components/Domain/Mealplan/MealPlanScaleControl.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 import type { MealsByDate } from "~/composables/use-group-mealplan";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
 
 const props = defineProps<{
   mealplans: MealsByDate[];
@@ -106,11 +106,11 @@ const props = defineProps<{
 
 const dialog = reactive({
   open: false,
-  entry: null as ReadPlanEntry | null,
+  entry: null as PlanEntryOut | null,
   date: null as Date | null,
 });
 
-function editMeal(mealplan: ReadPlanEntry) {
+function editMeal(mealplan: PlanEntryOut) {
   if (!mealplan.entryType) return;
 
   dialog.entry = mealplan;
@@ -119,7 +119,7 @@ function editMeal(mealplan: ReadPlanEntry) {
 }
 
 /** Moves a week entry onto today, so it's treated like any other meal made today */
-function cookToday(mealplan: ReadPlanEntry) {
+function cookToday(mealplan: PlanEntryOut) {
   props.actions.updateOne({ ...mealplan, date: format(new Date(), "yyyy-MM-dd"), endDate: null });
 }
 </script>

@@ -4,8 +4,8 @@ from uuid import UUID
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
-from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
-from mealie.schema.meal_plan.new_meal import CreatePlanEntry
+from mealie.schema.household.household_preferences import HouseholdPreferencesUpdate
+from mealie.schema.meal_plan.new_meal import PlanEntryCreate
 from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_organizers import CategorySave
 from mealie.services.household_services.mealplan_ical_service import FEED_HISTORY_DAYS
@@ -36,7 +36,7 @@ def unfold(feed: str) -> str:
 
 
 def create_entry(api_client: TestClient, user: TestUser, **kwargs) -> dict:
-    data = CreatePlanEntry(**kwargs).model_dump(by_alias=True, mode="json")
+    data = PlanEntryCreate(**kwargs).model_dump(by_alias=True, mode="json")
     response = api_client.post(api_routes.households_mealplans, json=data, headers=user.token)
     assert response.status_code == 201
     return response.json()
@@ -216,7 +216,7 @@ def test_ical_token_not_exposed_or_cleared_by_preferences(api_client: TestClient
 
     response = api_client.put(
         api_routes.households_preferences,
-        json=UpdateHouseholdPreferences(first_day_of_week=1).model_dump(by_alias=True),
+        json=HouseholdPreferencesUpdate(first_day_of_week=1).model_dump(by_alias=True),
         headers=user.token,
     )
     assert response.status_code == 200

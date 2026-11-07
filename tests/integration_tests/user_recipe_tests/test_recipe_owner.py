@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import Recipe, RecipeDraft
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.services.recipe.recipe_service import RecipeDataService
 from tests import data
@@ -347,7 +347,7 @@ def test_user_can_delete_recipe_image(api_client: TestClient, unique_user: TestU
     assert not service.dir_image.exists() or not any(f.is_file() for f in service.dir_image.iterdir())
 
 
-def _create_recipe(owner: TestUser, *, locked: bool) -> Recipe:
+def _create_recipe(owner: TestUser, *, locked: bool) -> RecipeOut:
     return owner.repos.recipes.create(
         RecipeDraft(
             user_id=owner.user_id,
@@ -379,7 +379,7 @@ def _assert_recipe_unchanged(owner: TestUser, slug: str):
     assert not recipe.settings.show_nutrition
 
 
-def _recipe_locked_to_other_households(owner: TestUser) -> Recipe:
+def _recipe_locked_to_other_households(owner: TestUser) -> RecipeOut:
     household = owner.repos.households.get_one(owner.household_id)
     assert household and household.preferences
     household.preferences.lock_recipe_edits_from_other_households = True

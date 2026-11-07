@@ -65,7 +65,7 @@ def test_clean_scraper_preserves_notes():
     ld_json = json.dumps(
         {
             "@context": "https://schema.org",
-            "@type": "Recipe",
+            "@type": "RecipeOut",
             "name": "Test Recipe",
             "recipeIngredient": ["1 cup flour"],
             "recipeInstructions": [{"@type": "HowToStep", "text": "Mix everything together"}],
@@ -122,7 +122,7 @@ def test_clean_scraper_structures_times():
     ld_json = json.dumps(
         {
             "@context": "https://schema.org",
-            "@type": "Recipe",
+            "@type": "RecipeOut",
             "name": "Test Recipe",
             "totalTime": "PT1H30M",
             "prepTime": "PT20M",

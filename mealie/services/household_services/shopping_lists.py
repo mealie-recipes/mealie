@@ -25,8 +25,8 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListSave,
 )
 from mealie.schema.recipe.recipe_ingredient import (
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodOut,
+    IngredientUnitOut,
     RecipeIngredient,
 )
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
@@ -454,7 +454,7 @@ class ShoppingListService:
                 list_items.extend(sub_items)
                 continue
 
-            if isinstance(ingredient.food, IngredientFood):
+            if isinstance(ingredient.food, IngredientFoodOut):
                 if skip_on_hand and self._is_on_hand(list_id, ingredient.food):
                     continue
                 food_id = ingredient.food.id
@@ -463,7 +463,7 @@ class ShoppingListService:
                 food_id = None
                 label_id = None
 
-            if isinstance(ingredient.unit, IngredientUnit):
+            if isinstance(ingredient.unit, IngredientUnitOut):
                 unit_id = ingredient.unit.id
 
             else:
@@ -512,7 +512,7 @@ class ShoppingListService:
 
         return list_items
 
-    def _is_on_hand(self, list_id: UUID4, food: IngredientFood) -> bool:
+    def _is_on_hand(self, list_id: UUID4, food: IngredientFoodOut) -> bool:
         shopping_list = self.shopping_lists.get_one(list_id)
         if shopping_list is None:
             return False

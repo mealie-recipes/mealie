@@ -3,14 +3,14 @@ import random
 
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.schema.recipe.recipe_step import IngredientReferences
 from tests.utils import api_routes, jsonify
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_associate_ingredient_with_step(api_client: TestClient, unique_user: TestUser, random_recipe: Recipe):
-    recipe: Recipe = random_recipe
+def test_associate_ingredient_with_step(api_client: TestClient, unique_user: TestUser, random_recipe: RecipeOut):
+    recipe: RecipeOut = random_recipe
 
     # Associate an ingredient with a step
     steps = {}  # key=step_id, value=ingredient_id

@@ -74,7 +74,7 @@
 <script setup lang="ts">
 import RecipeTimeInput from "~/components/Domain/Recipe/RecipeTimeInput.vue";
 import { validators } from "~/composables/use-validators";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 
-const recipe = defineModel<Recipe>({ required: true });
+const recipe = defineModel<RecipeOut>({ required: true });
 </script>

@@ -5,12 +5,12 @@ import { route } from "../../base";
 import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import type {
-  Recipe,
+  RecipeOut,
   RecipeDraft,
   RecipeSummary,
-  CreateRecipe,
+  RecipeCreate,
   RecipeAsset,
-  CreateRecipeByUrlBulk,
+  RecipeUrlBulkCreate,
   ParsedIngredient,
   UpdateImageResponse,
   RecipeLastMade,
@@ -93,7 +93,7 @@ export type RecipeSearchQuery = {
 };
 
 /** Creating a recipe responds with the new recipe's slug, not the recipe. */
-export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeDraft, RecipeSummary, string> {
+export class RecipeAPI extends BaseCRUDAPI<RecipeCreate, RecipeOut, RecipeDraft, RecipeSummary, string> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
@@ -236,7 +236,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeDraft, Re
     return this.streamRecipeCreate(routes.recipesCreateUrl, { url, includeTags, includeCategories }, onProgress);
   }
 
-  async createManyByUrl(payload: CreateRecipeByUrlBulk) {
+  async createManyByUrl(payload: RecipeUrlBulkCreate) {
     return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
   }
 
@@ -284,15 +284,15 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeDraft, Re
   }
 
   async updateMany(payload: RecipeDraft[]) {
-    return await this.requests.put<Recipe[], RecipeDraft[]>(routes.recipesBase, payload);
+    return await this.requests.put<RecipeOut[], RecipeDraft[]>(routes.recipesBase, payload);
   }
 
   async patchMany(payload: Partial<RecipeDraft>[]) {
-    return await this.requests.patch<Recipe[], Partial<RecipeDraft>[]>(routes.recipesBase, payload);
+    return await this.requests.patch<RecipeOut[], Partial<RecipeDraft>[]>(routes.recipesBase, payload);
   }
 
   async updateLastMade(recipeSlug: string, timestamp: string) {
-    return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp });
+    return await this.requests.patch<RecipeOut, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp });
   }
 
   async createTimelineEvent(payload: RecipeTimelineEventIn) {

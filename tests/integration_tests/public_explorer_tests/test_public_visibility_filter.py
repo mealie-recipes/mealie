@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.cookbook.cookbook import SaveCookBook
+from mealie.schema.cookbook.cookbook import CookBookSave
 from mealie.schema.recipe.recipe import RecipeDraft
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -59,7 +59,7 @@ def visibility(unique_user: TestUser, h2_user: TestUser) -> _Fixture:
 
         for public in (True, False):
             cookbook = user.repos.cookbooks.create(
-                SaveCookBook(
+                CookBookSave(
                     name=random_string(),
                     group_id=user.group_id,
                     household_id=user.household_id,

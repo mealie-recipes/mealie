@@ -5,7 +5,7 @@ import pytest
 from bs4 import BeautifulSoup
 
 from mealie.routes import spa
-from mealie.schema.recipe.recipe import Recipe, RecipeDraft, RecipeSettings
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut, RecipeSettings
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from tests import data as test_data
@@ -34,13 +34,13 @@ def set_household_is_private(unique_user: TestUser, *, is_private: bool):
     unique_user.repos.household_preferences.update(household.id, household.preferences)
 
 
-def set_recipe_is_public(unique_user: TestUser, recipe: Recipe, *, is_public: bool):
+def set_recipe_is_public(unique_user: TestUser, recipe: RecipeOut, *, is_public: bool):
     assert recipe.settings
     recipe.settings.public = is_public
     unique_user.repos.recipes.update(recipe.slug, recipe)
 
 
-def create_recipe(user: TestUser) -> Recipe:
+def create_recipe(user: TestUser) -> RecipeOut:
     recipe = user.repos.recipes.create(
         RecipeDraft(
             user_id=user.user_id,
@@ -104,7 +104,7 @@ def test_spa_recipe_json_injection():
     recipe_name = random_string()
     schema = {
         "@context": "https://schema.org",
-        "@type": "Recipe",
+        "@type": "RecipeOut",
         "name": recipe_name,
     }
 

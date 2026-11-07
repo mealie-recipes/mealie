@@ -61,17 +61,17 @@ def create_recipe_slug(name: str, max_length: int = 250) -> str:
     return generated_slug
 
 
-class CreateRecipeBulk(BaseModel):
+class RecipeUrlCreate(BaseModel):
     url: str
     categories: list[CategoryDraft] | None = None
     tags: list[TagDraft] | None = None
 
 
-class CreateRecipeByUrlBulk(BaseModel):
-    imports: list[CreateRecipeBulk]
+class RecipeUrlBulkCreate(BaseModel):
+    imports: list[RecipeUrlCreate]
 
 
-class CreateRecipe(MealieModel):
+class RecipeCreate(MealieModel):
     name: str
 
 
@@ -174,7 +174,7 @@ class RecipeDraft(MealieModel):
         return val
 
     @field_validator("slug", mode="before")
-    def validate_slug(slug: str, info: ValidationInfo):
+    def validate_slug(cls, slug: str, info: ValidationInfo):
         if slug or not info.data.get("name"):
             return slug or ""
 
@@ -303,7 +303,7 @@ class RecipePagination(PaginationBase):
     items: list[RecipeSummary]
 
 
-class Recipe(RecipeSummary):
+class RecipeOut(RecipeSummary):
     """A saved recipe with all of its details."""
 
     recipe_ingredient: list[RecipeIngredient] = []
@@ -480,4 +480,4 @@ from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E40
 
 RecipeDraft.model_rebuild()
 RecipeSummary.model_rebuild()
-Recipe.model_rebuild()
+RecipeOut.model_rebuild()

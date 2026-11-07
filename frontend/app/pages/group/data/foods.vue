@@ -264,8 +264,8 @@ import type { ReverseSubstitutionChanges } from "~/components/Domain/Recipe/Reci
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import type {
-  CreateIngredientFood,
-  IngredientFood,
+  IngredientFoodCreate,
+  IngredientFoodOut,
   IngredientFoodAlias,
   IngredientFoodSubstitution,
 } from "~/lib/api/types/recipe";
@@ -279,12 +279,12 @@ import type { AutoFormItems } from "~/types/auto-forms";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 import { fieldTypes } from "~/composables/forms";
 
-interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
+interface CreateIngredientFoodWithOnHand extends IngredientFoodCreate {
   onHand: boolean;
   householdsWithIngredientFood: string[];
 }
 
-interface IngredientFoodWithOnHand extends IngredientFood {
+interface IngredientFoodWithOnHand extends IngredientFoodOut {
   onHand: boolean;
 }
 

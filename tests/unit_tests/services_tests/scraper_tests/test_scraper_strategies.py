@@ -7,7 +7,7 @@ from mealie.services.scraper.scraper_strategies import RecipeScraperPackage, pre
 
 SECTIONED_RECIPE = {
     "@context": "https://schema.org/",
-    "@type": "Recipe",
+    "@type": "RecipeOut",
     "name": "Sectioned Recipe",
     "recipeIngredient": ["1 onion", "1 lb beef"],
     "recipeInstructions": [
@@ -31,7 +31,7 @@ SECTIONED_RECIPE = {
 
 FLAT_RECIPE = {
     "@context": "https://schema.org/",
-    "@type": "Recipe",
+    "@type": "RecipeOut",
     "name": "Flat Recipe",
     "recipeIngredient": ["1 onion"],
     "recipeInstructions": [

@@ -5,17 +5,17 @@ from pydantic import UUID4
 from mealie.core.exceptions import NoEntryFound, UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.user.user import GroupInDB, PrivateUser
+from mealie.schema.user.user import GroupOut, PrivateUser
 from mealie.services._base_service import BaseService
 from mealie.services.exporter import Exporter, RecipeExporter
 
 
 class RecipeBulkActionsService(BaseService):
-    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB):
+    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupOut):
         self.repos = repos
         self.user = user
         self.group = group
@@ -59,9 +59,9 @@ class RecipeBulkActionsService(BaseService):
 
         return exports_deleted
 
-    def _get_recipes(self, slugs: list[str]) -> list[Recipe]:
+    def _get_recipes(self, slugs: list[str]) -> list[RecipeOut]:
         """Look up every recipe before any write, so a missing slug changes nothing."""
-        recipes: list[Recipe] = []
+        recipes: list[RecipeOut] = []
         missing: list[str] = []
         for slug in slugs:
             recipe = self.repos.recipes.get_one(slug)

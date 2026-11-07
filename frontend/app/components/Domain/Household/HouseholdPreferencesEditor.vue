@@ -66,9 +66,9 @@
 </template>
 
 <script setup lang="ts">
-import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
+import type { HouseholdPreferencesOut } from "~/lib/api/types/household";
 
-const preferences = defineModel<ReadHouseholdPreferences>({ required: true });
+const preferences = defineModel<HouseholdPreferencesOut>({ required: true });
 const local = reactive({ ...preferences.value });
 watch(local, (newVal) => { preferences.value = { ...newVal }; });
 watch(preferences, (newVal) => { if (newVal) Object.assign(local, newVal); });
@@ -76,7 +76,7 @@ watch(preferences, (newVal) => { if (newVal) Object.assign(local, newVal); });
 const i18n = useI18n();
 
 type Preference = {
-  key: keyof ReadHouseholdPreferences;
+  key: keyof HouseholdPreferencesOut;
   label: string;
   description: string;
 };

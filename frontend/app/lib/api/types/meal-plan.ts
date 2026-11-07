@@ -1,5 +1,5 @@
 /* tslint:disable */
-
+/* eslint-disable */
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -12,7 +12,11 @@ export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
-export interface CreatePlanEntry {
+export interface MealPlanICalTokenOut {
+  householdId: string;
+  mealplanIcalToken: string | null;
+}
+export interface PlanEntryCreate {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
@@ -21,62 +25,20 @@ export interface CreatePlanEntry {
   recipeId?: string | null;
   recipeScale?: number;
 }
-export interface CreateRandomEntry {
+export interface PlanEntryOut {
   date: string;
-  endDate?: string | null;
-  entryType?: PlanEntryType;
-}
-export interface PlanRulesCreate {
-  day?: PlanRulesDay;
-  entryType?: PlanRulesType;
-  queryFilterString?: string;
-}
-export interface PlanRulesOut {
-  day?: PlanRulesDay;
-  entryType?: PlanRulesType;
-  queryFilterString?: string;
-  groupId: string;
-  householdId: string;
-  id: string;
-  queryFilter?: QueryFilterJSON;
-}
-export interface QueryFilterJSON {
-  parts?: QueryFilterJSONPart[];
-}
-export interface QueryFilterJSONPart {
-  leftParenthesis?: string | null;
-  rightParenthesis?: string | null;
-  logicalOperator?: LogicalOperator | null;
-  attributeName?: string | null;
-  relationalOperator?: RelationalKeyword | RelationalOperator | null;
-  value?: string | string[] | null;
-  [k: string]: unknown;
-}
-export interface PlanRulesSave {
-  day?: PlanRulesDay;
-  entryType?: PlanRulesType;
-  queryFilterString?: string;
-  groupId: string;
-  householdId: string;
-}
-export interface ReadMealPlanICalToken {
-  householdId: string;
-  mealplanIcalToken?: string | null;
-}
-export interface ReadPlanEntry {
-  date: string;
-  endDate?: string | null;
-  entryType?: PlanEntryType;
-  title?: string;
-  text?: string;
-  recipeId?: string | null;
-  recipeScale?: number;
+  endDate: string | null;
+  entryType: PlanEntryType;
+  title: string;
+  text: string;
+  recipeId: string | null;
+  recipeScale: number;
   id: number;
   groupId: string;
   userId: string;
   householdId: string;
-  recipe?: RecipeSummary | null;
-  updatedAt?: string | null;
+  recipe: RecipeSummary | null;
+  updatedAt: string | null;
 }
 export interface RecipeSummary {
   id: string;
@@ -128,7 +90,7 @@ export interface ToolOut {
   recipeCount: number;
   householdsWithTool: string[];
 }
-export interface SavePlanEntry {
+export interface PlanEntrySave {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
@@ -139,7 +101,7 @@ export interface SavePlanEntry {
   groupId: string;
   userId: string;
 }
-export interface UpdatePlanEntry {
+export interface PlanEntryUpdate {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
@@ -151,3 +113,42 @@ export interface UpdatePlanEntry {
   groupId: string;
   userId: string;
 }
+export interface PlanRulesCreate {
+  day?: PlanRulesDay;
+  entryType?: PlanRulesType;
+  queryFilterString?: string;
+}
+export interface PlanRulesOut {
+  day: PlanRulesDay;
+  entryType: PlanRulesType;
+  queryFilterString: string;
+  groupId: string;
+  householdId: string;
+  id: string;
+  queryFilter: QueryFilterJSON;
+}
+export interface QueryFilterJSON {
+  parts?: QueryFilterJSONPart[];
+}
+export interface QueryFilterJSONPart {
+  leftParenthesis?: string | null;
+  rightParenthesis?: string | null;
+  logicalOperator?: LogicalOperator | null;
+  attributeName?: string | null;
+  relationalOperator?: RelationalKeyword | RelationalOperator | null;
+  value?: string | string[] | null;
+  [k: string]: unknown;
+}
+export interface PlanRulesSave {
+  day?: PlanRulesDay;
+  entryType?: PlanRulesType;
+  queryFilterString?: string;
+  groupId: string;
+  householdId: string;
+}
+export interface RandomPlanEntryCreate {
+  date: string;
+  endDate?: string | null;
+  entryType?: PlanEntryType;
+}
+export interface MealieOutModel {}

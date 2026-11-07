@@ -44,7 +44,7 @@ import { whenever } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
 import RecipeIngredientSubstitutionEditor from "~/components/Domain/Recipe/RecipeIngredientSubstitutionEditor.vue";
 import { useFoodStore } from "~/composables/store";
-import type { IngredientFood, IngredientFoodSubstitution } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, IngredientFoodSubstitution } from "~/lib/api/types/recipe";
 
 interface SubstitutionRow {
   substituteFoodId: string | null;
@@ -59,7 +59,7 @@ export interface ReverseSubstitutionChanges {
 }
 
 interface Props {
-  data: IngredientFood;
+  data: IngredientFoodOut;
 }
 
 const props = defineProps<Props>();

@@ -117,7 +117,7 @@ describe("Shopping list copy composable", () => {
     });
     test("copies items without a display as empty", () => {
       const { formatCopiedListItem } = wrapper();
-      const header = formatCopiedListItem("plain", { ...MOCK_ITEM, display: undefined });
+      const header = formatCopiedListItem("plain", { ...MOCK_ITEM, display: undefined as unknown as string });
       expect(header).toEqual("");
     });
   });

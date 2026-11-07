@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.schema.cookbook.cookbook import SaveCookBook
+from mealie.schema.cookbook.cookbook import CookBookSave
 from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_organizers import TagSave
 from tests import data
@@ -382,7 +382,7 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
     )
 
     cookbook = unique_user.repos.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
@@ -403,7 +403,7 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
 
 def test_cookbooks_from_other_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     h2_cookbook = h2_user.repos.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=h2_user.group_id,
             household_id=h2_user.household_id,

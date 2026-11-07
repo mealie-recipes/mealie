@@ -116,7 +116,7 @@ class MyRecipeBoxMigrator(BaseMigrator):
 
         results = self.import_recipes_to_database(recipes)
         for slug, recipe_id, status in results:
-            if not status or not (recipe_image_url := recipe_image_urls.get(slug)):
+            if not status or not recipe_id or not (recipe_image_url := recipe_image_urls.get(slug)):
                 continue
 
             try:

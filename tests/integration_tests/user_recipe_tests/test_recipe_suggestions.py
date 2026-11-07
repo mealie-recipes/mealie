@@ -7,13 +7,13 @@ import sqlalchemy as sa
 from fastapi.testclient import TestClient
 
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.schema.recipe.recipe import Recipe, RecipeDraft
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFoodSubstitution,
-    IngredientFood,
+    IngredientFoodOut,
+    IngredientFoodSave,
+    IngredientFoodSubstitutionCreate,
     RecipeIngredient,
     RecipeIngredientSubstitution,
-    SaveIngredientFood,
 )
 from mealie.schema.recipe.recipe_organizers import CategoryOut, ToolOut, ToolSave
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -31,7 +31,7 @@ def create_food(user: TestUser, on_hand: bool = False):
         households = []
 
     return user.repos.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             id=uuid4(), name=random_string(), group_id=user.group_id, households_with_ingredient_food=households
         )
     )
@@ -55,7 +55,7 @@ def create_tool(user: TestUser, on_hand: bool = False):
 def create_recipe(
     user: TestUser,
     *,
-    foods: list[IngredientFood] | None = None,
+    foods: list[IngredientFoodOut] | None = None,
     tools: list[ToolOut] | None = None,
     **kwargs,
 ):
@@ -424,7 +424,7 @@ def test_recipe_order(api_client: TestClient, unique_user: TestUser):
 
     # create recipes in a random order
     random.shuffle(recipe_lambdas)
-    recipe_tuples: list[tuple[int, Recipe]] = []
+    recipe_tuples: list[tuple[int, RecipeOut]] = []
     for i, recipe_lambda in recipe_lambdas:
         recipe_tuples.append((i, recipe_lambda()))
 
@@ -697,10 +697,10 @@ def test_respect_cross_household_on_hand_tool(api_client: TestClient, unique_use
         unique_user.repos.recipes.delete(recipe.slug)
 
 
-def set_food_substitutions(user: TestUser, food: IngredientFood, substitutions: list) -> IngredientFood:
+def set_food_substitutions(user: TestUser, food: IngredientFoodOut, substitutions: list) -> IngredientFoodOut:
     return user.repos.ingredient_foods.update(
         food.id,
-        SaveIngredientFood(
+        IngredientFoodSave(
             id=food.id,
             name=food.name,
             group_id=user.group_id,
@@ -709,7 +709,7 @@ def set_food_substitutions(user: TestUser, food: IngredientFood, substitutions: 
     )
 
 
-def create_recipe_with_ingredient_substitutions(user: TestUser, food: IngredientFood, substitutions: list):
+def create_recipe_with_ingredient_substitutions(user: TestUser, food: IngredientFoodOut, substitutions: list):
     return user.repos.recipes.create(
         RecipeDraft(
             user_id=user.user_id,
@@ -743,7 +743,7 @@ def test_food_substitution_satisfies_a_recipe(
 
     stock = create_food(unique_user)
     broth = create_food(unique_user)
-    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(substitute_food_id=broth.id)])
+    set_food_substitutions(unique_user, stock, [IngredientFoodSubstitutionCreate(substitute_food_id=broth.id)])
 
     recipe = create_recipe(unique_user, foods=[stock])
     try:
@@ -773,7 +773,7 @@ def test_food_substitution_direction_is_not_reversed(api_client: TestClient, uni
 
     stock = create_food(unique_user)
     broth = create_food(unique_user)
-    set_food_substitutions(unique_user, broth, [CreateIngredientFoodSubstitution(substitute_food_id=stock.id)])
+    set_food_substitutions(unique_user, broth, [IngredientFoodSubstitutionCreate(substitute_food_id=stock.id)])
 
     recipe = create_recipe(unique_user, foods=[stock])
     try:
@@ -814,8 +814,8 @@ def test_note_only_substitution_does_not_suppress_a_food_bearing_one(api_client:
         unique_user,
         stock,
         [
-            CreateIngredientFoodSubstitution(note="water and a bouillon cube"),
-            CreateIngredientFoodSubstitution(substitute_food_id=broth.id),
+            IngredientFoodSubstitutionCreate(note="water and a bouillon cube"),
+            IngredientFoodSubstitutionCreate(substitute_food_id=broth.id),
         ],
     )
 
@@ -833,7 +833,7 @@ def test_note_only_substitution_does_not_suppress_a_food_bearing_one(api_client:
 def test_note_only_substitution_alone_never_satisfies(api_client: TestClient, unique_user: TestUser):
     stock = create_food(unique_user)
     other = create_food(unique_user)
-    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(note="water and a bouillon cube")])
+    set_food_substitutions(unique_user, stock, [IngredientFoodSubstitutionCreate(note="water and a bouillon cube")])
 
     recipe = create_recipe(unique_user, foods=[stock])
     try:
@@ -848,7 +848,7 @@ def test_exact_matches_outrank_substitute_matches(api_client: TestClient, unique
 
     broth = create_food(unique_user)
     stock = create_food(unique_user)
-    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(substitute_food_id=broth.id)])
+    set_food_substitutions(unique_user, stock, [IngredientFoodSubstitutionCreate(substitute_food_id=broth.id)])
 
     exact_recipe = create_recipe(unique_user, foods=[broth])
     substituted_recipe = create_recipe(unique_user, foods=[stock])

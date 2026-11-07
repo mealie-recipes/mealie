@@ -2,7 +2,7 @@ import { useStoreActions } from "./partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
 import type { GroupRecipeActionOut, GroupRecipeActionType } from "~/lib/api/types/household";
 import type { RequestResponse } from "~/lib/api/types/non-generated";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 
 const groupRecipeActions = ref<GroupRecipeActionOut[] | null>(null);
 const loading = ref(false);
@@ -50,7 +50,7 @@ export const useGroupRecipeActions = function (
     return groupRecipeActions.value;
   });
 
-  function parseRecipeActionUrl(url: string, recipe: Recipe, recipeScale: number): string {
+  function parseRecipeActionUrl(url: string, recipe: RecipeOut, recipeScale: number): string {
     const recipeServings = (recipe.recipeServings || 1) * recipeScale;
     const recipeYieldQuantity = (recipe.recipeYieldQuantity || 1) * recipeScale;
 
@@ -64,7 +64,7 @@ export const useGroupRecipeActions = function (
   };
 
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-  async function execute(action: GroupRecipeActionOut, recipe: Recipe, recipeScale: number): Promise<void | RequestResponse<unknown>> {
+  async function execute(action: GroupRecipeActionOut, recipe: RecipeOut, recipeScale: number): Promise<void | RequestResponse<unknown>> {
     const url = parseRecipeActionUrl(action.url, recipe, recipeScale);
 
     switch (action.actionType) {

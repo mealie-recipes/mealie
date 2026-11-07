@@ -11,7 +11,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_migration import SupportedMigrations
-from mealie.schema.recipe.recipe import Recipe, RecipeDraft
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_organizers import ToolSave
 from mealie.schema.reports.reports import ReportEntryOut
 from mealie.services.migrations.utils import migration_helpers
@@ -324,7 +324,7 @@ def test_recipekeeper_imports_categories_and_yield(api_client: TestClient, uniqu
     )
     assert response.status_code == 200
 
-    def get(slug: str) -> Recipe:
+    def get(slug: str) -> RecipeOut:
         return RecipeDraft(
             **assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token))
         )

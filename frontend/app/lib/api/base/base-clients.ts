@@ -1,5 +1,5 @@
 import type { AxiosRequestConfig } from "axios";
-import type { Recipe } from "../types/recipe";
+import type { RecipeOut } from "../types/recipe";
 import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 import { type QueryValue, route } from "~/lib/api/base/route";
 
@@ -81,7 +81,7 @@ export abstract class BaseCRUDAPI<
   }
 
   async duplicateOne(itemId: string | number, newName: string | undefined, config?: AxiosRequestConfig) {
-    return await this.requests.post<Recipe>(`${this.itemRoute(itemId)}/duplicate`, {
+    return await this.requests.post<RecipeOut>(`${this.itemRoute(itemId)}/duplicate`, {
       name: newName,
     }, config);
   }

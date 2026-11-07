@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientUnitOut, IngredientUnitSave
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.response.query_search import SearchFilter
 from mealie.schema.user.user import GroupBase
@@ -24,35 +24,35 @@ def unique_db(session: Session, unique_local_group_id: str):
 
 
 @pytest.fixture()
-def search_units(unique_db: AllRepositories, unique_local_group_id: str) -> list[IngredientUnit]:
+def search_units(unique_db: AllRepositories, unique_local_group_id: str) -> list[IngredientUnitOut]:
     units = [
-        SaveIngredientUnit(
+        IngredientUnitSave(
             group_id=unique_local_group_id,
             name="Tea Spoon",
             abbreviation="tsp",
         ),
-        SaveIngredientUnit(
+        IngredientUnitSave(
             group_id=unique_local_group_id,
             name="Table Spoon",
             abbreviation="tbsp",
         ),
-        SaveIngredientUnit(
+        IngredientUnitSave(
             group_id=unique_local_group_id,
             name="Cup",
         ),
-        SaveIngredientUnit(
+        IngredientUnitSave(
             group_id=unique_local_group_id,
             name="Píñch",
         ),
-        SaveIngredientUnit(
+        IngredientUnitSave(
             group_id=unique_local_group_id,
             name="Unit with a very cool name",
         ),
-        SaveIngredientUnit(
+        IngredientUnitSave(
             group_id=unique_local_group_id,
             name="Unit with a pretty cool name",
         ),
-        SaveIngredientUnit(
+        IngredientUnitSave(
             group_id=unique_local_group_id,
             name="Unit with a correct horse battery staple",
         ),
@@ -61,7 +61,7 @@ def search_units(unique_db: AllRepositories, unique_local_group_id: str) -> list
     # Add a bunch of units for stable randomization
     units.extend(
         [
-            SaveIngredientUnit(group_id=unique_local_group_id, name=f"{random_string()} unit")
+            IngredientUnitSave(group_id=unique_local_group_id, name=f"{random_string()} unit")
             for _ in range(random_int(12, 20))
         ]
     )
@@ -92,7 +92,7 @@ def test_basic_search(
     search: str,
     expected_names: list[str],
     unique_db: AllRepositories,
-    search_units: list[IngredientUnit],  # required so database is populated
+    search_units: list[IngredientUnitOut],  # required so database is populated
 ):
     repo = unique_db.ingredient_units
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
@@ -109,7 +109,7 @@ def test_basic_search(
 
 def test_fuzzy_search(
     unique_db: AllRepositories,
-    search_units: list[IngredientUnit],  # required so database is populated
+    search_units: list[IngredientUnitOut],  # required so database is populated
 ):
     # this only works on postgres
     if unique_db.session.get_bind().name != "postgresql":
@@ -124,7 +124,7 @@ def test_fuzzy_search(
 
 def test_random_order_search(
     unique_db: AllRepositories,
-    search_units: list[IngredientUnit],  # required so database is populated
+    search_units: list[IngredientUnitOut],  # required so database is populated
 ):
     repo = unique_db.ingredient_units
     pagination = PaginationQuery(

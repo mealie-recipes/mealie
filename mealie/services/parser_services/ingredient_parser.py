@@ -16,11 +16,11 @@ from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
     IngredientConfidence,
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodCreate,
+    IngredientFoodOut,
+    IngredientUnitCreate,
+    IngredientUnitOut,
     ParsedIngredient,
     RecipeIngredientSubstitution,
     RegisteredParser,
@@ -45,8 +45,8 @@ class BruteForceParser(ABCIngredientParser):
             input=ingredient_string,
             ingredient=RecipeIngredient(
                 original_text=ingredient_string,
-                unit=CreateIngredientUnit(name=bfi.unit),
-                food=CreateIngredientFood(name=bfi.food),
+                unit=IngredientUnitCreate(name=bfi.unit),
+                food=IngredientFoodCreate(name=bfi.food),
                 quantity=bfi.amount,
                 note=bfi.note,
             ),
@@ -60,8 +60,8 @@ class BruteForceParser(ABCIngredientParser):
         unit_obj = matched_ingredient.ingredient.unit
         food_obj = matched_ingredient.ingredient.food
 
-        unit_conf = 1 if bfi.unit is None or isinstance(unit_obj, IngredientUnit) else 0
-        food_conf = 1 if bfi.food is None or isinstance(food_obj, IngredientFood) else 0
+        unit_conf = 1 if bfi.unit is None or isinstance(unit_obj, IngredientUnitOut) else 0
+        food_conf = 1 if bfi.food is None or isinstance(food_obj, IngredientFoodOut) else 0
 
         avg_conf = (qty_conf + unit_conf + food_conf + note_conf) / 4
 
@@ -262,8 +262,8 @@ class NLPParser(ABCIngredientParser):
             recipe_ingredients.append(
                 RecipeIngredient(
                     quantity=part.qty,
-                    unit=CreateIngredientUnit(name=part.unit) if part.unit else None,
-                    food=CreateIngredientFood(name=part.food) if part.food else None,
+                    unit=IngredientUnitCreate(name=part.unit) if part.unit else None,
+                    food=IngredientFoodCreate(name=part.food) if part.food else None,
                     note=ing_note,
                 )
             )

@@ -104,7 +104,7 @@
 import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
@@ -112,7 +112,7 @@ const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
 interface Props {
-  recipe: Recipe;
+  recipe: RecipeOut;
   slug: string;
   recipeScale?: number;
   open: boolean;

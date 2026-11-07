@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.household.household import HouseholdInDB
+from mealie.schema.household.household import HouseholdOut
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.organizers import OpenAIOrganizers
 from mealie.schema.recipe.recipe import RecipeDraft
@@ -79,7 +79,7 @@ class WorkflowContext:
     ai: OpenAIService
 
     user: PrivateUser | None = None
-    household: HouseholdInDB | None = None
+    household: HouseholdOut | None = None
     """Recipe owner. Optional, since callers that persist the recipe themselves assign it."""
 
     on_progress: Callable[[str], Awaitable[None]] | None = None

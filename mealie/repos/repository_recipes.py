@@ -19,8 +19,8 @@ from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
 from mealie.pkgs import cache
-from mealie.schema.cookbook.cookbook import ReadCookBook
-from mealie.schema.recipe import Recipe
+from mealie.schema.cookbook.cookbook import CookBookOut
+from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe import RecipeDraft, RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
@@ -31,7 +31,7 @@ from ._recipe_suggestions import RecipeSuggestionMixin
 from .repository_generic import HouseholdRepositoryGeneric
 
 
-class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe, RecipeModel]):
+class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[RecipeOut, RecipeModel]):
     user_id: UUID4 | None = None
 
     @property
@@ -111,7 +111,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             ):
                 raise HTTPException(400, "last_made is only available for authenticated household queries")
 
-    def create(self, document: RecipeDraft) -> Recipe:  # type: ignore[override]
+    def create(self, document: RecipeDraft) -> RecipeOut:  # type: ignore[override]
         if not document.name:
             raise ValueError("A recipe needs a name before it is saved")
 
@@ -148,7 +148,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         raise RuntimeError(f"Failed to create recipe '{original_name}' after {max_retries} attempts")
 
-    def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
+    def _delete_recipe(self, recipe: RecipeModel) -> RecipeOut:
         recipe_as_model = self.schema.model_validate(recipe)
 
         # first remove UserToRecipe entries so we don't run into stale data errors
@@ -170,15 +170,15 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         return recipe_as_model
 
-    def delete(self, value, match_key: str | None = None) -> Recipe:
+    def delete(self, value, match_key: str | None = None) -> RecipeOut:
         match_key = match_key or self.primary_key
         recipe_in_db = self._query_one(value, match_key)
         return self._delete_recipe(recipe_in_db)
 
-    def delete_many(self, values: Iterable) -> list[Recipe]:
+    def delete_many(self, values: Iterable) -> list[RecipeOut]:
         query = self._query().filter(self.model.slug.in_(values)).filter_by(**self._filter_builder())
         recipes_in_db = self.session.execute(query).unique().scalars().all()
-        results: list[Recipe] = []
+        results: list[RecipeOut] = []
 
         # we create a delete statement for each row
         # we don't delete the whole query in one statement because postgres doesn't cascade correctly
@@ -285,7 +285,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         raise RuntimeError(f"Failed to resolve organizer '{name}' after {max_attempts} attempts")
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | Recipe | RecipeDraft) -> Recipe:
+    def update(self, match_value: str | int | UUID4, new_data: dict | RecipeOut | RecipeDraft) -> RecipeOut:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
 
@@ -341,7 +341,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         self,
         pagination: PaginationQuery,
         override=None,
-        cookbook: ReadCookBook | None = None,
+        cookbook: CookBookOut | None = None,
         categories: list[UUID4 | str] | None = None,
         tags: list[UUID4 | str] | None = None,
         tools: list[UUID4 | str] | None = None,
@@ -483,7 +483,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             fltr.append(RecipeModel.household_id.in_(households))
         return fltr
 
-    def get_random(self, limit=1) -> list[Recipe]:
+    def get_random(self, limit=1) -> list[RecipeOut]:
         stmt = (
             sa.select(RecipeModel).filter(RecipeModel.household_id.is_not(None)).order_by(sa.func.random()).limit(limit)
         )  # Postgres and SQLite specific
@@ -494,7 +494,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
-    def get_by_slug(self, group_id: UUID4, slug: str) -> Recipe | None:
+    def get_by_slug(self, group_id: UUID4, slug: str) -> RecipeOut | None:
         stmt = sa.select(RecipeModel).filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
         dbrecipe = self.session.execute(stmt).scalars().one_or_none()
         if dbrecipe is None:

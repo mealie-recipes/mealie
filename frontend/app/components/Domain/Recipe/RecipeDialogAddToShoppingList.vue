@@ -241,12 +241,12 @@ import { useNewShoppingListForm } from "~/composables/shopping-list-page/use-add
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { RecipeIngredient, ShoppingListAddRecipeParamsBulk, ShoppingListSummary } from "~/lib/api/types/household";
-import type { Recipe, RecipeDraft, RecipeSummary } from "~/lib/api/types/recipe";
+import type { RecipeOut, RecipeDraft, RecipeSummary } from "~/lib/api/types/recipe";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 
 /** Ingredients are fetched on demand when the caller only has a summary. */
 export type RecipeWithScale = RecipeSummary & {
-  recipeIngredient?: Recipe["recipeIngredient"];
+  recipeIngredient?: RecipeOut["recipeIngredient"];
   scale: number;
 };
 
@@ -405,7 +405,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       continue;
     }
 
-    let recipeData: Recipe | RecipeWithScale = recipe;
+    let recipeData: RecipeOut | RecipeWithScale = recipe;
     if (!(recipe.id && recipe.name && recipe.recipeIngredient)) {
       const { data } = await api.recipes.getOne(recipe.slug);
       if (!data) {

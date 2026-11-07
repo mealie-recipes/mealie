@@ -9,10 +9,10 @@ from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.routes._base import BaseCrudController
 from mealie.routes._base.mixins import HttpRepo
-from mealie.schema.cookbook.cookbook import ReadCookBook
-from mealie.schema.recipe import Recipe
+from mealie.schema.cookbook.cookbook import CookBookOut
+from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe import (
-    CreateRecipe,
+    RecipeCreate,
 )
 from mealie.services.recipe.recipe_service import RecipeService
 
@@ -44,7 +44,7 @@ class BaseRecipeController(BaseCrudController):
         return get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
 
     @cached_property
-    def group_cookbooks(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
+    def group_cookbooks(self) -> RepositoryGeneric[CookBookOut, CookBook]:
         return get_repositories(self.session, group_id=self.group_id, household_id=None).cookbooks
 
     @cached_property
@@ -53,4 +53,4 @@ class BaseRecipeController(BaseCrudController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[CreateRecipe, Recipe, Recipe](self.recipes, self.logger)
+        return HttpRepo[RecipeCreate, RecipeOut, RecipeOut](self.recipes, self.logger)

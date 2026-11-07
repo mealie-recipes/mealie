@@ -523,7 +523,7 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
+import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, RecipeOut } from "~/lib/api/types/recipe";
 import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
@@ -546,7 +546,7 @@ const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: (
 
 const props = defineProps({
   recipe: {
-    type: Object as () => Recipe,
+    type: Object as () => RecipeOut,
     required: true,
   },
   scale: {

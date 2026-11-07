@@ -9,11 +9,11 @@ from mealie.core.security import hash_password
 from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.group_preferences import CreateGroupPreferences
-from mealie.schema.household.household import HouseholdCreate, HouseholdInDB
-from mealie.schema.household.household_preferences import CreateHouseholdPreferences
-from mealie.schema.user.registration import CreateUserRegistration
-from mealie.schema.user.user import GroupBase, GroupInDB, PrivateUser, UserIn
+from mealie.schema.group.group_preferences import GroupPreferencesCreate
+from mealie.schema.household.household import HouseholdCreate, HouseholdOut
+from mealie.schema.household.household_preferences import HouseholdPreferencesCreate
+from mealie.schema.user.registration import UserRegistrationCreate
+from mealie.schema.user.user import GroupBase, GroupOut, PrivateUser, UserIn
 from mealie.services.group_services.group_service import GroupService
 from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.seeder.seeder_service import SeederService
@@ -28,7 +28,7 @@ class RegistrationService:
         self.repos = db
         self.t = translator.t
 
-    def _create_new_user(self, group: GroupInDB, household: HouseholdInDB, new_group: bool) -> PrivateUser:
+    def _create_new_user(self, group: GroupOut, household: HouseholdOut, new_group: bool) -> PrivateUser:
         new_user = UserIn(
             email=self.registration.email,
             username=self.registration.username,
@@ -46,17 +46,17 @@ class RegistrationService:
         # TODO: problem with repository type, not type here
         return self.repos.users.create(new_user)  # type: ignore
 
-    def _register_new_group(self) -> GroupInDB:
+    def _register_new_group(self) -> GroupOut:
         group_data = GroupBase(name=self.registration.group)
 
-        group_preferences = CreateGroupPreferences(
+        group_preferences = GroupPreferencesCreate(
             group_id=uuid4(),
             private_group=self.registration.private,
         )
 
         return GroupService.create_group(self.repos, group_data, group_preferences)
 
-    def _fetch_or_register_new_household(self, group_id: UUID4) -> HouseholdInDB:
+    def _fetch_or_register_new_household(self, group_id: UUID4) -> HouseholdOut:
         settings = get_app_settings()
         new_household_name = self.registration.household or settings.DEFAULT_HOUSEHOLD
 
@@ -66,7 +66,7 @@ class RegistrationService:
             return household_fetch
 
         household_data = HouseholdCreate(name=new_household_name)
-        household_preferences = CreateHouseholdPreferences(
+        household_preferences = HouseholdPreferencesCreate(
             private_household=self.registration.private,
             first_day_of_week=0,
             recipe_public=not self.registration.private,
@@ -77,7 +77,7 @@ class RegistrationService:
         )
         return HouseholdService.create_household(group_repos, household_data, household_preferences)
 
-    def register_user(self, registration: CreateUserRegistration) -> PrivateUser:
+    def register_user(self, registration: UserRegistrationCreate) -> PrivateUser:
         self.registration = registration
 
         if self.repos.users.get_by_username(registration.username):

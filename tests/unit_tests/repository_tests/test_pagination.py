@@ -23,12 +23,12 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListSave,
 )
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
-from mealie.schema.meal_plan.new_meal import CreatePlanEntry
+from mealie.schema.meal_plan.new_meal import PlanEntryCreate
 from mealie.schema.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import (
-    IngredientUnit,
-    SaveIngredientFood,
-    SaveIngredientUnit,
+    IngredientFoodSave,
+    IngredientUnitOut,
+    IngredientUnitSave,
 )
 from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.schema.response.pagination import (
@@ -209,12 +209,12 @@ def query_units(unique_user: TestUser):
     units_repo = database.ingredient_units
 
     created = [
-        units_repo.create(SaveIngredientUnit(name="test unit 1", group_id=unique_user.group_id, use_abbreviation=True)),
+        units_repo.create(IngredientUnitSave(name="test unit 1", group_id=unique_user.group_id, use_abbreviation=True)),
         units_repo.create(
-            SaveIngredientUnit(name="test unit 2", group_id=unique_user.group_id, use_abbreviation=False)
+            IngredientUnitSave(name="test unit 2", group_id=unique_user.group_id, use_abbreviation=False)
         ),
         units_repo.create(
-            SaveIngredientUnit(name="test unit 3", group_id=unique_user.group_id, use_abbreviation=False)
+            IngredientUnitSave(name="test unit 3", group_id=unique_user.group_id, use_abbreviation=False)
         ),
     ]
 
@@ -240,7 +240,9 @@ def query_units(unique_user: TestUser):
         units_repo.delete(unit_id)
 
 
-def test_pagination_filter_basic(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_basic(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo = query_units[0]
     unit_2 = query_units[2]
 
@@ -251,7 +253,7 @@ def test_pagination_filter_basic(query_units: tuple[RepositoryUnit, IngredientUn
 
 
 def test_pagination_filter_string_case_insensitive(
-    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
 ):
     units_repo, *units = query_units
     target_unit = random.choice(units)
@@ -262,7 +264,7 @@ def test_pagination_filter_string_case_insensitive(
     assert unit_results[0].id == target_unit.id
 
     upper_unit = units_repo.create(
-        SaveIngredientUnit(name="mIxEd-CaSe uNiT", group_id=units_repo.group_id, use_abbreviation=True)
+        IngredientUnitSave(name="mIxEd-CaSe uNiT", group_id=units_repo.group_id, use_abbreviation=True)
     )
     try:
         query = PaginationQuery(page=1, per_page=-1, query_filter=f'name="{upper_unit.name.lower()}"')
@@ -335,7 +337,9 @@ def test_pagination_filter_null(unique_user_fn_scoped: TestUser):
     assert recipe_with_url.id in result_ids
 
 
-def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_in(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"name IN [{unit_1.name}, {unit_2.name}]")
@@ -355,7 +359,9 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     assert unit_3.id in result_ids
 
 
-def test_pagination_filter_not_in(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_not_in(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"name NOT IN [{unit_1.name}, {unit_2.name}]")
@@ -537,7 +543,9 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     assert recipe_1_2.id in recipe_ids
 
 
-def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_like(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     query = PaginationQuery(page=1, per_page=-1, query_filter=r'name LIKE "test u_it%"')
@@ -569,7 +577,7 @@ def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUni
 
 
 def test_pagination_filter_like_case_insensitive(
-    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
 ):
     units_repo, unit_1, *_ = query_units
 
@@ -682,7 +690,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
 
 
 def test_pagination_filter_datetimes(
-    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
 ):
     # units are created in order with increasing createdAt values
     units_repo, unit_1, unit_2, unit_3 = query_units
@@ -793,11 +801,11 @@ def test_pagination_order_by_multiple(unique_user: TestUser, order_direction: Or
     while abbreviations == descriptions:
         random.shuffle(descriptions)
 
-    units_to_create: list[SaveIngredientUnit] = []
+    units_to_create: list[IngredientUnitSave] = []
     for abbreviation in abbreviations:
         for description in descriptions:
             units_to_create.append(
-                SaveIngredientUnit(
+                IngredientUnitSave(
                     group_id=unique_user.group_id,
                     name=random_string(),
                     abbreviation=abbreviation,
@@ -854,11 +862,11 @@ def test_pagination_order_by_multiple_directions(
     while abbreviations == descriptions:
         random.shuffle(descriptions)
 
-    units_to_create: list[SaveIngredientUnit] = []
+    units_to_create: list[IngredientUnitSave] = []
     for abbreviation in abbreviations:
         for description in descriptions:
             units_to_create.append(
-                SaveIngredientUnit(
+                IngredientUnitSave(
                     group_id=unique_user.group_id,
                     name=random_string(),
                     abbreviation=abbreviation,
@@ -903,7 +911,7 @@ def test_pagination_order_by_nested_model(unique_user: TestUser, order_direction
     random.shuffle(labels)
 
     sorted_foods = database.ingredient_foods.create_many(
-        [SaveIngredientFood(group_id=unique_user.group_id, name=random_string(), label_id=label.id) for label in labels]
+        [IngredientFoodSave(group_id=unique_user.group_id, name=random_string(), label_id=label.id) for label in labels]
     )
 
     sorted_foods.sort(key=lambda x: x.label.name, reverse=order_direction is OrderDirection.desc)  # type: ignore
@@ -928,10 +936,10 @@ def test_pagination_order_by_doesnt_filter(unique_user: TestUser):
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
     )
     food_with_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
     )
     food_without_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), group_id=unique_user.group_id)
     )
 
     query = database.ingredient_foods.page_all(
@@ -972,10 +980,10 @@ def test_pagination_order_by_nulls(
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
     )
     food_with_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
     )
     food_without_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), group_id=unique_user.group_id)
     )
 
     query = database.ingredient_foods.page_all(
@@ -1118,8 +1126,8 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     tomorrow = today + timedelta(days=1)
     day_after_tomorrow = today + timedelta(days=2)
 
-    mealplan_today = CreatePlanEntry(date=today, entry_type="breakfast", title=random_string(), text=random_string())
-    mealplan_tomorrow = CreatePlanEntry(
+    mealplan_today = PlanEntryCreate(date=today, entry_type="breakfast", title=random_string(), text=random_string())
+    mealplan_tomorrow = PlanEntryCreate(
         date=tomorrow,
         entry_type="breakfast",
         title=random_string(),
@@ -1238,7 +1246,9 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     assert len(response_json["items"]) == 0
 
 
-def test_pagination_filter_booleans(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_booleans(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo = query_units[0]
     unit_1 = query_units[1]
 
@@ -1252,7 +1262,9 @@ def test_pagination_filter_booleans(query_units: tuple[RepositoryUnit, Ingredien
     assert unit_results[0].id == unit_1.id
 
 
-def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_advanced(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     dt = str(unit_3.created_at.isoformat())  # type: ignore

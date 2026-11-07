@@ -225,7 +225,7 @@
 import DOMPurify from "dompurify";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
+import type { RecipeOut, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { ingredientSubstitutionSummary, useFoodPlurality, useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
@@ -243,7 +243,7 @@ type InstructionSection = {
 };
 
 interface Props {
-  recipe: Recipe;
+  recipe: RecipeOut;
   scale?: number;
   dense?: boolean;
 }

@@ -4,9 +4,9 @@ from rapidfuzz import fuzz
 
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
     IngredientConfidence,
+    IngredientFoodCreate,
+    IngredientUnitCreate,
     ParsedIngredient,
     RecipeIngredient,
     RecipeIngredientSubstitution,
@@ -90,7 +90,7 @@ class OpenAIParser(ABCIngredientParser):
         )
 
     def _convert_substitutes(
-        self, substitutes: list[str], food: CreateIngredientFood | None
+        self, substitutes: list[str], food: IngredientFoodCreate | None
     ) -> list[RecipeIngredientSubstitution]:
         """
         Resolves each alternative the model extracted to an existing food, keeping the raw text
@@ -119,11 +119,11 @@ class OpenAIParser(ABCIngredientParser):
         return substitutions
 
     def _convert_ingredient(self, original_text: str, openai_ing: OpenAIIngredient) -> ParsedIngredient:
-        food = CreateIngredientFood(name=openai_ing.food) if openai_ing.food else None
+        food = IngredientFoodCreate(name=openai_ing.food) if openai_ing.food else None
         ingredient = RecipeIngredient(
             original_text=original_text,
             quantity=openai_ing.quantity,
-            unit=CreateIngredientUnit(name=openai_ing.unit) if openai_ing.unit else None,
+            unit=IngredientUnitCreate(name=openai_ing.unit) if openai_ing.unit else None,
             food=food,
             note=openai_ing.note,
             substitutions=self._convert_substitutes(openai_ing.substitutes, food),

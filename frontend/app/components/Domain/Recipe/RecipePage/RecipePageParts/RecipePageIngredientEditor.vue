@@ -122,13 +122,13 @@
 
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import type { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { RecipeOut, RecipeIngredient } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { uuid4 } from "~/composables/use-utils";
 
-const recipe = defineModel<Recipe>({ required: true });
+const recipe = defineModel<RecipeOut>({ required: true });
 const ingredientsWithRecipe = new Map<string, boolean>();
 
 const drag = ref(false);

@@ -10,8 +10,8 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
-from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
-from mealie.schema.recipe.recipe import Recipe, RecipeDraft
+from mealie.schema.recipe import IngredientFoodSave, RecipeIngredient
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupBase, UserRatingCreate
@@ -81,7 +81,7 @@ def unique_db(session: Session, unique_ids: tuple[str, str, str]):
 
 
 @pytest.fixture()
-def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str]) -> list[Recipe]:
+def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str]) -> list[RecipeOut]:
     group_id, _, user_id = unique_ids
     recipes = [
         RecipeDraft(
@@ -447,8 +447,8 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     foods = [
-        SaveIngredientFood(group_id=unique_user.group_id, name=slug1),
-        SaveIngredientFood(group_id=unique_user.group_id, name=slug2),
+        IngredientFoodSave(group_id=unique_user.group_id, name=slug1),
+        IngredientFoodSave(group_id=unique_user.group_id, name=slug2),
     ]
 
     created_foods = [database.ingredient_foods.create(food) for food in foods]
@@ -554,7 +554,7 @@ def test_basic_recipe_search(
     unique_db: AllRepositories,
     search: str,
     expected_names: list[str],
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     repo = unique_db.recipes
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
@@ -571,7 +571,7 @@ def test_basic_recipe_search(
 
 def test_fuzzy_recipe_search(
     unique_db: AllRepositories,
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     # this only works on postgres
     if unique_db.session.get_bind().name != "postgresql":
@@ -598,7 +598,7 @@ def test_fuzzy_recipe_search_sources(
     unique_db: AllRepositories,
     search: str,
     expected_name: str,
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     # fuzzy search is postgres-only
     if unique_db.session.get_bind().name != "postgresql":
@@ -615,7 +615,7 @@ def test_fuzzy_recipe_search_sources(
 
 def test_fuzzy_recipe_search_no_match(
     unique_db: AllRepositories,
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     if unique_db.session.get_bind().name != "postgresql":
         return
@@ -650,7 +650,7 @@ def test_fuzzy_recipe_search_ingredient_threshold(
 
 def test_random_order_recipe_search(
     unique_db: AllRepositories,
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     repo = unique_db.recipes
     pagination = PaginationQuery(
@@ -770,7 +770,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     database = user_1.repos
     repo = database.recipes
 
-    recipes: list[Recipe] = []
+    recipes: list[RecipeOut] = []
     for i in range(3):
         slug = f"recipe-{i + 1}-{random_string(5)}"
         recipes.append(

@@ -159,7 +159,7 @@ import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
+import type { IngredientUnitCreate, IngredientUnitOut, IngredientUnitAlias } from "~/lib/api/types/recipe";
 import type { StandardizedUnitType } from "~/lib/api/types/non-generated";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -356,34 +356,34 @@ const createForm = reactive({
     name: "",
     fraction: false,
     useAbbreviation: false,
-  } as CreateIngredientUnit,
+  } as IngredientUnitCreate,
 });
 
-async function handleCreate(createFormData: CreateIngredientUnit) {
+async function handleCreate(createFormData: IngredientUnitCreate) {
   // @ts-expect-error createOne eroniusly expects id which is not preset at time of creation
   await unitActions.createOne(createFormData);
   createForm.data = {
     name: "",
     fraction: false,
     useAbbreviation: false,
-  } as CreateIngredientUnit;
+  } as IngredientUnitCreate;
 }
 
 // ============================================================
 // Edit
 const editForm = reactive({
   items: formItems,
-  data: {} as IngredientUnit,
+  data: {} as IngredientUnitOut,
 });
 
-async function handleEdit(editFormData: IngredientUnit) {
+async function handleEdit(editFormData: IngredientUnitOut) {
   await unitActions.updateOne(editFormData);
-  editForm.data = {} as IngredientUnit;
+  editForm.data = {} as IngredientUnitOut;
 }
 
 // ============================================================
 // Bulk Actions
-async function handleBulkAction(event: string, items: IngredientUnit[]) {
+async function handleBulkAction(event: string, items: IngredientUnitOut[]) {
   if (event === "delete-selected") {
     const ids = items.filter(item => item.id != null).map(item => item.id!);
     await unitActions.deleteMany(ids);
@@ -406,8 +406,8 @@ function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
 // Merge Units
 
 const mergeDialog = ref(false);
-const fromUnit = ref<IngredientUnit | null>(null);
-const toUnit = ref<IngredientUnit | null>(null);
+const fromUnit = ref<IngredientUnitOut | null>(null);
+const toUnit = ref<IngredientUnitOut | null>(null);
 
 const canMerge = computed(() => {
   return fromUnit.value && toUnit.value && fromUnit.value.id !== toUnit.value.id;

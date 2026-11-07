@@ -246,7 +246,7 @@ import {
 } from "~/composables/recipe-page/shared-state";
 import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, CategoryOut, RecipeIngredient, RecipeStep, TagOut, ToolOut } from "~/lib/api/types/recipe";
+import type { RecipeOut, CategoryOut, RecipeIngredient, RecipeStep, TagOut, ToolOut } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -257,7 +257,7 @@ import { useNavigationWarning } from "~/composables/use-navigation-warning";
 import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
 import { useHouseholdSelf } from "~/composables/use-households";
 
-const recipe = defineModel<Recipe>({ required: true });
+const recipe = defineModel<RecipeOut>({ required: true });
 
 const display = useDisplay();
 const auth = useMealieAuth();
@@ -294,7 +294,7 @@ const { convertIngredient } = useUnitConversion();
  * mutate in place, so handing them a derived copy would silently drop edits. Conversion is
  * display-only and never reaches anything that saves.
  */
-const displayedRecipe = computed<Recipe>(() => {
+const displayedRecipe = computed<RecipeOut>(() => {
   if (isEditMode.value || !unitSystem.value) {
     return recipe.value;
   }
@@ -340,7 +340,7 @@ onUnmounted(() => toolbarObserver?.disconnect());
  * this is used to determine if the recipe has been changed since the last save
  * and prompts the user to save if they have unsaved changes.
  */
-const originalRecipe = ref<Recipe | null>(null);
+const originalRecipe = ref<RecipeOut | null>(null);
 const discardDialog = ref(false);
 const pendingRoute = ref<RouteLocationNormalized | null>(null);
 

@@ -20,14 +20,14 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema import mapper
-from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
-from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeDraft, create_recipe_slug
+from mealie.schema.household.household import HouseholdOut, HouseholdRecipeUpdate
+from mealie.schema.recipe.recipe import RecipeCreate, RecipeDraft, RecipeOut, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
+    IngredientFoodCreate,
+    IngredientFoodSave,
+    IngredientUnitCreate,
+    IngredientUnitSave,
     RecipeIngredient,
-    SaveIngredientFood,
-    SaveIngredientUnit,
 )
 from mealie.schema.recipe.recipe_organizers import ToolSave
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -47,7 +47,7 @@ RECIPE_CREATED_EVENT_SUBJECT = "recipe.recipe-created"
 
 
 class RecipeServiceBase(BaseService):
-    def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
+    def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdOut, translator: Translator):
         self.repos = repos
         self.user = user
         self.household = household
@@ -68,7 +68,7 @@ class RecipeServiceBase(BaseService):
 
 
 class RecipeService(RecipeServiceBase):
-    def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
+    def _get_recipe(self, data: str | UUID, key: str | None = None) -> RecipeOut:
         recipe = self.group_recipes.get_one(data, key)
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
@@ -140,10 +140,10 @@ class RecipeService(RecipeServiceBase):
 
         return bool(result)
 
-    def can_lock_unlock(self, recipe: Recipe) -> bool:
+    def can_lock_unlock(self, recipe: RecipeOut) -> bool:
         return recipe.user_id == self.user.id
 
-    def check_assets(self, recipe: Recipe, original_slug: str) -> None:
+    def check_assets(self, recipe: RecipeOut, original_slug: str) -> None:
         """Checks if the recipe slug has changed, and if so moves the assets to a new file with the new slug."""
         if original_slug != recipe.slug:
             current_dir = self.directories.RECIPE_DATA_DIR.joinpath(original_slug)
@@ -162,7 +162,7 @@ class RecipeService(RecipeServiceBase):
             if file.name not in all_asset_files:
                 file.unlink()
 
-    def delete_assets(self, recipe: Recipe) -> None:
+    def delete_assets(self, recipe: RecipeOut) -> None:
         recipe_dir = recipe.directory
         rmtree(recipe_dir, ignore_errors=True)
         self.logger.info(f"Recipe Directory Removed: {recipe.slug}")
@@ -192,7 +192,7 @@ class RecipeService(RecipeServiceBase):
 
         return RecipeDraft(**additional_attrs)
 
-    def get_one(self, slug_or_id: str | UUID) -> Recipe:
+    def get_one(self, slug_or_id: str | UUID) -> RecipeOut:
         if isinstance(slug_or_id, str):
             try:
                 slug_or_id = UUID(slug_or_id)
@@ -205,13 +205,13 @@ class RecipeService(RecipeServiceBase):
         else:
             return self._get_recipe(slug_or_id, "slug")
 
-    def create_one(self, create_data: RecipeDraft | CreateRecipe) -> Recipe:
+    def create_one(self, create_data: RecipeDraft | RecipeCreate) -> RecipeOut:
         if create_data.name is None:
             create_data.name = "New Recipe"
 
         data = self._recipe_creation_factory(name=create_data.name, additional_attrs=create_data.model_dump())
 
-        if isinstance(create_data, CreateRecipe) or create_data.settings is None:
+        if isinstance(create_data, RecipeCreate) or create_data.settings is None:
             if self.household.preferences is not None:
                 data.settings = RecipeSettings(
                     public=self.household.preferences.recipe_public,
@@ -341,14 +341,14 @@ class RecipeService(RecipeServiceBase):
             data["id"] = existing_food.id
             return data
 
-        create_data = CreateIngredientFood(
+        create_data = IngredientFoodCreate(
             name=name,
             plural_name=data.get("plural_name"),
             description=data.get("description") or "",
             aliases=data.get("aliases") or [],
             label_id=None,
         )
-        save_data = mapper.cast(create_data, SaveIngredientFood, group_id=self.user.group_id)
+        save_data = mapper.cast(create_data, IngredientFoodSave, group_id=self.user.group_id)
         new_food = self.repos.ingredient_foods.create(save_data)
         data["id"] = new_food.id
         self._reset_data_matcher()
@@ -376,7 +376,7 @@ class RecipeService(RecipeServiceBase):
             data["id"] = existing_unit.id
             return data
 
-        create_data = CreateIngredientUnit(
+        create_data = IngredientUnitCreate(
             name=match_value,
             plural_name=data.get("plural_name"),
             description=data.get("description") or "",
@@ -388,7 +388,7 @@ class RecipeService(RecipeServiceBase):
             standard_quantity=data.get("standard_quantity"),
             standard_unit=data.get("standard_unit"),
         )
-        save_data = mapper.cast(create_data, SaveIngredientUnit, group_id=self.user.group_id)
+        save_data = mapper.cast(create_data, IngredientUnitSave, group_id=self.user.group_id)
         new_unit = self.repos.ingredient_units.create(save_data)
         data["id"] = new_unit.id
         self._reset_data_matcher()
@@ -486,7 +486,9 @@ class RecipeService(RecipeServiceBase):
             recipe.settings = RecipeSettings()
         recipe.settings.public = self.household.preferences.recipe_public
 
-    def create_from_mealie_export(self, recipe: dict[str, Any], include_tags: bool, include_categories: bool) -> Recipe:
+    def create_from_mealie_export(
+        self, recipe: dict[str, Any], include_tags: bool, include_categories: bool
+    ) -> RecipeOut:
         """Create a recipe from a pasted recipe dump produced by Mealie (see `parse_mealie_export`).
 
         A paste carries no files, so its image key and asset entries would point at nothing, and
@@ -511,7 +513,7 @@ class RecipeService(RecipeServiceBase):
             # only produce the degraded import this path exists to avoid
             raise InvalidMealieExportError(self.t("recipe.import-errors.invalid-mealie-export")) from e
 
-    def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
+    def create_from_zip(self, archive: UploadFile, temp_path: Path) -> RecipeOut:
         """
         `create_from_zip` creates a recipe in the database from a zip file exported from Mealie. This is NOT
         a generic import from a zip file.
@@ -543,7 +545,7 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
-    def duplicate_one(self, old_slug_or_id: str | UUID, dup_data: RecipeDuplicate) -> Recipe:
+    def duplicate_one(self, old_slug_or_id: str | UUID, dup_data: RecipeDuplicate) -> RecipeOut:
         """Duplicates a recipe and returns the new recipe."""
 
         old_recipe = self.get_one(old_slug_or_id)
@@ -590,7 +592,7 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
-    def has_recursive_recipe_link(self, recipe: Recipe | RecipeDraft, path: set[str] | None = None):
+    def has_recursive_recipe_link(self, recipe: RecipeOut | RecipeDraft, path: set[str] | None = None):
         """Recursively checks if a recipe links to itself through its ingredients."""
         if path is None:
             path = set()
@@ -621,7 +623,7 @@ class RecipeService(RecipeServiceBase):
 
         return False
 
-    def _pre_update_check(self, slug_or_id: str | UUID, new_data: RecipeDraft) -> Recipe:
+    def _pre_update_check(self, slug_or_id: str | UUID, new_data: RecipeDraft) -> RecipeOut:
         """
         gets the recipe from the database and performs a check to see if the user can update the recipe.
         If the user can't update the recipe, an exception is raised.
@@ -654,7 +656,7 @@ class RecipeService(RecipeServiceBase):
         return recipe
 
     @staticmethod
-    def _preserve_omitted_image(recipe: Recipe, update_data: RecipeDraft) -> RecipeDraft:
+    def _preserve_omitted_image(recipe: RecipeOut, update_data: RecipeDraft) -> RecipeDraft:
         """Keeps the stored image when the payload doesn't mention it.
 
         Updates are a full overwrite, so a client that round-trips a recipe without echoing
@@ -715,7 +717,7 @@ class RecipeService(RecipeServiceBase):
 
         return update_data
 
-    def update_one(self, slug_or_id: str | UUID, update_data: RecipeDraft) -> Recipe:
+    def update_one(self, slug_or_id: str | UUID, update_data: RecipeDraft) -> RecipeOut:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
         # A PUT replaces the whole recipe, so a body that omits the name would blank it out.
@@ -755,7 +757,7 @@ class RecipeService(RecipeServiceBase):
         self.group_recipes.delete_image(slug)
         return None
 
-    def patch_one(self, slug_or_id: str | UUID, patch_data: RecipeDraft) -> Recipe:
+    def patch_one(self, slug_or_id: str | UUID, patch_data: RecipeDraft) -> RecipeOut:
         recipe = self._pre_update_check(slug_or_id, patch_data)
 
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
@@ -763,7 +765,7 @@ class RecipeService(RecipeServiceBase):
         self.check_assets(new_data, recipe.slug)
         return new_data
 
-    def update_last_made(self, slug_or_id: str | UUID, timestamp: datetime) -> Recipe:
+    def update_last_made(self, slug_or_id: str | UUID, timestamp: datetime) -> RecipeOut:
         # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked,
         # or if the user belongs to a different household
 
@@ -772,12 +774,12 @@ class RecipeService(RecipeServiceBase):
 
         return self.get_one(slug_or_id)
 
-    def delete_one(self, slug_or_id: str | UUID) -> Recipe:
+    def delete_one(self, slug_or_id: str | UUID) -> RecipeOut:
         recipe = self.get_one(slug_or_id)
         resp = self.delete_many([recipe.slug])
         return resp[0]
 
-    def delete_many(self, recipe_slugs: list[str]) -> list[Recipe]:
+    def delete_many(self, recipe_slugs: list[str]) -> list[RecipeOut]:
         if not self.can_delete(recipe_slugs):
             if len(recipe_slugs) == 1:
                 msg = "You do not have permission to delete this recipe."
@@ -797,6 +799,6 @@ class RecipeService(RecipeServiceBase):
     # =================================================================
     # Recipe Template Methods
 
-    def render_template(self, recipe: Recipe, temp_dir: Path, template: str) -> Path:
+    def render_template(self, recipe: RecipeOut, temp_dir: Path, template: str) -> Path:
         t_service = TemplateService(temp_dir)
         return t_service.render(recipe, template)

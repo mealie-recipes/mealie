@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 import { makeWrapper } from "~/tests/utils";
-import type { CreateIngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientUnitCreate, RecipeIngredient } from "~/lib/api/types/recipe";
 import { canConvertIngredient, useUnitConversion } from "../use-unit-conversion";
 
 const { convertIngredient } = makeWrapper(() => useUnitConversion());
 
-const ingredient = (quantity: number, unit: Partial<CreateIngredientUnit> | null): RecipeIngredient => ({
+const ingredient = (quantity: number, unit: Partial<IngredientUnitCreate> | null): RecipeIngredient => ({
   quantity,
   food: { id: "1", name: "flour" },
   unit: unit === null ? null : { id: "1", name: "unit", ...unit },

@@ -10,8 +10,8 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListItemUpdateBulk,
     ShoppingListOut,
 )
-from mealie.schema.recipe.recipe import Recipe, RecipeDraft
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave, RecipeIngredient
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_deserialize
@@ -116,7 +116,7 @@ def test_shopping_lists_add_recipe(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     sample_list = random.choice(shopping_lists)
     recipe = recipe_ingredient_only
@@ -178,7 +178,7 @@ def test_shopping_lists_add_recipes(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipes_ingredient_only: list[Recipe],
+    recipes_ingredient_only: list[RecipeOut],
 ):
     sample_list = random.choice(shopping_lists)
     recipes = recipes_ingredient_only
@@ -257,28 +257,28 @@ def test_shopping_lists_add_nested_recipe_ingredients(
 
     # Create three food items for the base recipes
     food_c = database.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             name=random_string(10),
             group_id=unique_user.group_id,
         )
     )
 
     food_b = database.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             name=random_string(10),
             group_id=unique_user.group_id,
         )
     )
 
     food_a = database.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             name=random_string(10),
             group_id=unique_user.group_id,
         )
     )
 
     # Create recipe_c with a single food ingredient (base recipe)
-    recipe_c: Recipe = database.recipes.create(
+    recipe_c: RecipeOut = database.recipes.create(
         RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
@@ -290,7 +290,7 @@ def test_shopping_lists_add_nested_recipe_ingredients(
     )
 
     # Create recipe_b with its own food ingredient and a reference to recipe_c (c -> b)
-    recipe_b: Recipe = database.recipes.create(
+    recipe_b: RecipeOut = database.recipes.create(
         RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
@@ -303,7 +303,7 @@ def test_shopping_lists_add_nested_recipe_ingredients(
     )
 
     # Create recipe_a with its own food ingredient and a reference to recipe_b (b -> a, creating chain c -> b -> a)
-    recipe_a: Recipe = database.recipes.create(
+    recipe_a: RecipeOut = database.recipes.create(
         RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
@@ -452,7 +452,7 @@ def test_shopping_lists_add_one_with_zero_quantity(
     )
     utils.assert_deserialize(response, 200)
 
-    recipe = Recipe.model_validate_json(
+    recipe = RecipeOut.model_validate_json(
         api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
     )
     assert recipe.id
@@ -488,7 +488,7 @@ def test_shopping_lists_add_custom_recipe_items(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     sample_list = random.choice(shopping_lists)
     recipe = recipe_ingredient_only
@@ -541,7 +541,7 @@ def test_shopping_list_ref_removes_itself(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_list: ShoppingListOut,
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     # add a recipe to a list, then check off all recipe items and make sure the recipe ref is deleted
     recipe = recipe_ingredient_only
@@ -582,7 +582,7 @@ def test_shopping_list_recipe_refs_restored_when_unchecked(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_list: ShoppingListOut,
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     # add a recipe to a list twice and check off all of its items
     recipe = recipe_ingredient_only
@@ -683,10 +683,10 @@ def test_shopping_list_nested_recipe_refs_restored_when_unchecked(
 ):
     database = unique_user.repos
     food_a, food_b = (
-        database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
+        database.ingredient_foods.create(IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id))
         for _ in range(2)
     )
-    recipe_b: Recipe = database.recipes.create(
+    recipe_b: RecipeOut = database.recipes.create(
         RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
@@ -694,7 +694,7 @@ def test_shopping_list_nested_recipe_refs_restored_when_unchecked(
             recipe_ingredient=[RecipeIngredient(note=food_b.name, food=food_b, quantity=2)],
         )
     )
-    recipe_a: Recipe = database.recipes.create(
+    recipe_a: RecipeOut = database.recipes.create(
         RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
@@ -752,7 +752,7 @@ def test_shopping_list_remove_recipe_ignores_checked_items(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_list: ShoppingListOut,
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     # add a recipe to a list twice and check off one of its items
     recipe = recipe_ingredient_only
@@ -862,7 +862,7 @@ def test_shopping_lists_add_recipe_with_merge(
     )
     utils.assert_deserialize(response, 200)
 
-    recipe = Recipe.model_validate_json(
+    recipe = RecipeOut.model_validate_json(
         api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
     )
     assert recipe.id
@@ -917,7 +917,7 @@ def test_shopping_lists_add_recipes_with_merge(
     shopping_list = random.choice(shopping_lists)
 
     # build two recipes that share an ingredient
-    recipes: list[Recipe] = []
+    recipes: list[RecipeOut] = []
     common_note = random_string()
     for _ in range(2):
         response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
@@ -937,7 +937,7 @@ def test_shopping_lists_add_recipes_with_merge(
         )
         utils.assert_deserialize(response, 200)
 
-        recipe = Recipe.model_validate_json(
+        recipe = RecipeOut.model_validate_json(
             api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
         )
         assert recipe.id
@@ -992,7 +992,7 @@ def test_shopping_list_add_recipe_scale(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     sample_list = random.choice(shopping_lists)
     recipe = recipe_ingredient_only
@@ -1060,8 +1060,8 @@ def test_shopping_list_add_recipe_scale_merges_duplicate_foods(
     shopping_list: ShoppingListOut,
 ):
     database = unique_user.repos
-    food = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
-    recipe: Recipe = database.recipes.create(
+    food = database.ingredient_foods.create(IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id))
+    recipe: RecipeOut = database.recipes.create(
         RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
@@ -1103,7 +1103,7 @@ def test_shopping_lists_remove_recipe(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     sample_list = random.choice(shopping_lists)
     recipe = recipe_ingredient_only
@@ -1167,7 +1167,7 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     sample_list = random.choice(shopping_lists)
     recipe = recipe_ingredient_only
@@ -1222,7 +1222,7 @@ def test_shopping_list_remove_recipe_scale(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     sample_list = random.choice(shopping_lists)
     recipe = recipe_ingredient_only
@@ -1293,7 +1293,7 @@ def test_recipe_decrement_max(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_lists: list[ShoppingListOut],
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
 ):
     sample_list = random.choice(shopping_lists)
     recipe = recipe_ingredient_only
@@ -1393,7 +1393,7 @@ def test_recipe_manipulation_with_zero_quantities(
     )
     utils.assert_deserialize(response, 200)
 
-    recipe = Recipe.model_validate_json(
+    recipe = RecipeOut.model_validate_json(
         api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
     )
     assert recipe.id
@@ -1657,16 +1657,16 @@ def test_shopping_lists_add_recipe_on_hand_food(
     household = database.households.get_by_slug_or_id(unique_user.household_id)
     assert household
     on_hand_food = database.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             name=random_string(10),
             group_id=unique_user.group_id,
             households_with_ingredient_food=[household.slug],
         )
     )
     other_food = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id)
     )
-    recipe: Recipe = database.recipes.create(
+    recipe: RecipeOut = database.recipes.create(
         RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,

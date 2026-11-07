@@ -3,8 +3,8 @@ import string
 from typing import Any
 from uuid import uuid4
 
-from mealie.schema.recipe.recipe import Recipe, create_recipe_slug
-from mealie.schema.user.registration import CreateUserRegistration
+from mealie.schema.recipe.recipe import RecipeOut, create_recipe_slug
+from mealie.schema.user.registration import UserRegistrationCreate
 
 
 def random_string(length=10) -> str:
@@ -23,8 +23,8 @@ def random_int(min=-4294967296, max=4294967296) -> int:
     return random.randint(min, max)
 
 
-def user_registration_factory(advanced=None, private=None) -> CreateUserRegistration:
-    return CreateUserRegistration(
+def user_registration_factory(advanced=None, private=None) -> UserRegistrationCreate:
+    return UserRegistrationCreate(
         group=random_string(),
         household=random_string(),
         email=random_email(),
@@ -37,10 +37,10 @@ def user_registration_factory(advanced=None, private=None) -> CreateUserRegistra
     )
 
 
-def build_recipe(**fields: Any) -> Recipe:
+def build_recipe(**fields: Any) -> RecipeOut:
     """A saved recipe built in memory, for tests that render one without the database."""
     name = fields.pop("name", None) or random_string()
-    return Recipe.model_validate(
+    return RecipeOut.model_validate(
         {
             "id": uuid4(),
             "user_id": uuid4(),

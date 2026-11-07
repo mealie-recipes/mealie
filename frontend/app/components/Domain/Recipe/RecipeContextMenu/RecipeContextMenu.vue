@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import type { ContextMenuIncludes } from "./RecipeContextMenuContent.vue";
 
 export interface ContextMenuItem {
@@ -67,7 +67,7 @@ interface Props {
   slug: string;
   menuIcon?: string | null;
   name: string;
-  recipe?: Recipe;
+  recipe?: RecipeOut;
   recipeId: string;
   recipeScale?: number;
 }

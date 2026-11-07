@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from dateutil.tz import tzlocal
 
-from mealie.schema.meal_plan.new_meal import ReadPlanEntry
+from mealie.schema.meal_plan.new_meal import PlanEntryOut
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.services.household_services.mealplan_ical_service import (
     MealPlanICalQuery,
@@ -71,7 +71,7 @@ def test_last_modified_uses_latest_of_entry_and_recipe():
         slug="pasta",
         updated_at=recipe_updated,
     )
-    entry = ReadPlanEntry(
+    entry = PlanEntryOut(
         id=1,
         date=date(2026, 1, 3),
         entry_type="dinner",
@@ -103,7 +103,7 @@ def test_merge_fields_cook_time_comes_from_perform_time():
         slug="soup",
         perform_time="20 minutes",
     )
-    entry = ReadPlanEntry(
+    entry = PlanEntryOut(
         id=1,
         date=date(2026, 1, 3),
         entry_type="dinner",

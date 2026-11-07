@@ -83,9 +83,9 @@
 
 <script setup lang="ts">
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 
-const recipe = defineModel<Recipe>({ required: true });
+const recipe = defineModel<RecipeOut>({ required: true });
 const { isEditForm, isCookMode } = usePageState(recipe.value.slug);
 const apiNewKey = ref("");
 

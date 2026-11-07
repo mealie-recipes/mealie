@@ -179,7 +179,7 @@ def test_create_from_ld_json_skips_the_compile_call(
     ld_json = json.dumps(
         {
             "@context": "https://schema.org",
-            "@type": "Recipe",
+            "@type": "RecipeOut",
             "name": random_string(),
             "recipeIngredient": [random_string()],
         }
@@ -260,7 +260,7 @@ def test_create_from_url(
     AIResponses(recipe=openai_recipe).install(monkeypatch)
 
     url = f"https://example.com/recipe/{random_string()}"
-    ld_json = json.dumps({"@context": "https://schema.org", "@type": "Recipe", "name": random_string()})
+    ld_json = json.dumps({"@context": "https://schema.org", "@type": "RecipeOut", "name": random_string()})
     html = f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>'
 
     async def mock_resilient_fetch(url: str):
@@ -411,7 +411,7 @@ def test_create_from_url_combines_the_page_with_pasted_content(
         return openai_recipe if response_schema is OpenAIRecipe else None
 
     async def mock_resilient_fetch(url: str):
-        ld_json = json.dumps({"@context": "https://schema.org", "@type": "Recipe", "name": page_text})
+        ld_json = json.dumps({"@context": "https://schema.org", "@type": "RecipeOut", "name": page_text})
         return html_fetch_result(
             f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>',
             url,

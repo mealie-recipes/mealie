@@ -7,6 +7,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.group.ai_providers import AIProvider, AIProviderSettings
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 
 
 class AIProviderCreate(MealieModel):
@@ -20,7 +21,7 @@ class AIProviderCreate(MealieModel):
     request_params: dict[str, str] = {}
 
     @field_validator("name", "api_key", "model")
-    def validate_not_empty(val: str, info: ValidationInfo) -> str:
+    def validate_not_empty(cls, val: str, info: ValidationInfo) -> str:
         if not val:
             raise ValueError(f"{info.field_name} cannot be empty")
 
@@ -31,7 +32,7 @@ class AIProviderCreate(MealieModel):
         return val or None
 
     @field_validator("timeout")
-    def validate_non_negative_number(val: int, info: ValidationInfo) -> int:
+    def validate_non_negative_number(cls, val: int, info: ValidationInfo) -> int:
         if val < 0:
             raise ValueError(f"{info.field_name} cannot be less than zero")
 
@@ -41,7 +42,7 @@ class AIProviderCreate(MealieModel):
 class AIProviderUpdate(AIProviderCreate): ...
 
 
-class AIProviderOut(AIProviderCreate):
+class AIProviderOut(AIProviderCreate, MealieOutModel):
     id: UUID4
 
     model_config = ConfigDict(from_attributes=True)
@@ -68,7 +69,7 @@ class AIProviderTestResult(MealieModel):
     supports_images: bool | None = None
 
 
-class AIProviderSummary(MealieModel):
+class AIProviderSummary(MealieOutModel):
     id: UUID4
     name: str
 
@@ -89,7 +90,7 @@ class AIPromptOverrideUpdate(MealieModel):
     content: str = Field(..., max_length=20000)
 
     @field_validator("content")
-    def validate_not_blank(val: str) -> str:
+    def validate_not_blank(cls, val: str) -> str:
         if not val.strip():
             raise ValueError("content cannot be empty")
 
@@ -101,13 +102,13 @@ class AIPromptOverrideCreate(AIPromptOverrideUpdate):
     base_prompt_hash: str | None = None
 
 
-class AIPromptOverrideOut(AIPromptOverrideCreate):
+class AIPromptOverrideOut(AIPromptOverrideCreate, MealieOutModel):
     id: UUID4
 
     model_config = ConfigDict(from_attributes=True)
 
 
-class AIPromptOut(MealieModel):
+class AIPromptOut(MealieOutModel):
     name: str
     is_system: bool
     default_content: str
@@ -120,7 +121,7 @@ class AIPromptOut(MealieModel):
     default_changed: bool = False
 
 
-class AIPromptsOut(MealieModel):
+class AIPromptsOut(MealieOutModel):
     global_instructions: str | None = None
     prompts: list[AIPromptOut]
 
@@ -143,7 +144,7 @@ class AIProviderSettingsUpdate(MealieModel):
         ]
 
 
-class AIProviderSettingsOut(AIProviderSettingsUpdate):
+class AIProviderSettingsOut(AIProviderSettingsUpdate, MealieOutModel):
     providers: list[AIProviderSummary]
 
     model_config = ConfigDict(from_attributes=True)

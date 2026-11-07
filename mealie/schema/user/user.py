@@ -13,9 +13,10 @@ from mealie.db.models.users import User
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import AuthMethod, LongLiveToken
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 from mealie.schema.group.ai_providers import AIProviderSettingsOut
-from mealie.schema.group.group_preferences import ReadGroupPreferences
-from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
+from mealie.schema.group.group_preferences import GroupPreferencesOut
+from mealie.schema.household.webhook import WebhookCreate, WebhookOut
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
@@ -30,7 +31,7 @@ class LongLiveTokenIn(MealieModel):
     integration_id: str = DEFAULT_INTEGRATION_ID
 
 
-class LongLiveTokenOut(MealieModel):
+class LongLiveTokenOut(MealieOutModel):
     name: str
     id: int
     created_at: datetime | None = None
@@ -68,7 +69,7 @@ class GroupBase(MealieModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class UserRatingSummary(MealieModel):
+class UserRatingSummary(MealieOutModel):
     recipe_id: UUID4
     rating: float | None = None
     is_favorite: Annotated[bool, Field(validate_default=True)] = False
@@ -86,13 +87,16 @@ class UserRatingSummary(MealieModel):
 class UserRatingCreate(UserRatingSummary):
     user_id: UUID4
 
+    # a request body, although it extends a response schema
+    model_config = ConfigDict(json_schema_serialization_defaults_required=False)
+
 
 class UserRatingUpdate(MealieModel):
     rating: float | None = None
     is_favorite: bool | None = None
 
 
-class UserRatingOut(UserRatingCreate):
+class UserRatingOut(UserRatingCreate, MealieOutModel):
     id: UUID4
 
     @classmethod
@@ -167,7 +171,7 @@ class UserIn(UserBase):
     password: str
 
 
-class UserOut(UserBase):
+class UserOut(UserBase, MealieOutModel):
     id: UUID4
     group: str
     group_id: UUID4
@@ -188,7 +192,7 @@ class UserOut(UserBase):
         return [joinedload(User.group), joinedload(User.household), joinedload(User.tokens)]
 
 
-class UserSummary(MealieModel):
+class UserSummary(MealieOutModel):
     id: UUID4
     group_id: UUID4
     household_id: UUID4
@@ -236,27 +240,27 @@ class PrivateUser(UserOut):
         return [joinedload(User.group), joinedload(User.household), joinedload(User.tokens)]
 
 
-class UpdateGroup(GroupBase):
+class GroupUpdate(GroupBase):
     id: UUID4
     name: str
     slug: str
     categories: list[CategoryOut] | None = []
 
-    webhooks: list[CreateWebhook] = []
+    webhooks: list[WebhookCreate] = []
 
 
-class GroupHouseholdSummary(MealieModel):
+class GroupHouseholdSummary(MealieOutModel):
     id: UUID4
     name: str
     model_config = ConfigDict(from_attributes=True)
 
 
-class GroupInDB(UpdateGroup):
+class GroupOut(GroupUpdate, MealieOutModel):
     households: list[GroupHouseholdSummary] | None = None
     users: list[UserSummary] | None = None
-    preferences: ReadGroupPreferences | None = None
+    preferences: GroupPreferencesOut | None = None
     ai_provider_settings: AIProviderSettingsOut | None = None
-    webhooks: list[ReadWebhook] = []
+    webhooks: list[WebhookOut] = []
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -268,17 +272,17 @@ class GroupInDB(UpdateGroup):
 
     @staticmethod
     def get_export_directory(id: UUID) -> Path:
-        export_dir = GroupInDB.get_directory(id) / "export"
+        export_dir = GroupOut.get_directory(id) / "export"
         export_dir.mkdir(parents=True, exist_ok=True)
         return export_dir
 
     @property
     def directory(self) -> Path:
-        return GroupInDB.get_directory(self.id)
+        return GroupOut.get_directory(self.id)
 
     @property
     def exports(self) -> Path:
-        return GroupInDB.get_export_directory(self.id)
+        return GroupOut.get_export_directory(self.id)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -292,11 +296,11 @@ class GroupInDB(UpdateGroup):
         ]
 
 
-class GroupSummary(GroupBase):
+class GroupSummary(GroupBase, MealieOutModel):
     id: UUID4
     name: str
     slug: str
-    preferences: ReadGroupPreferences | None = None
+    preferences: GroupPreferencesOut | None = None
     ai_provider_settings: AIProviderSettingsOut | None = None
 
     @classmethod
@@ -307,7 +311,7 @@ class GroupSummary(GroupBase):
 
 
 class GroupPagination(PaginationBase):
-    items: list[GroupInDB]
+    items: list[GroupOut]
 
 
 class LongLiveTokenInDB(CreateToken):

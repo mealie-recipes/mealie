@@ -1,7 +1,8 @@
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 
 
-class MaintenanceSummary(MealieModel):
+class MaintenanceSummary(MealieOutModel):
     data_dir_size: str
     cleanable_images: int
     cleanable_dirs: int

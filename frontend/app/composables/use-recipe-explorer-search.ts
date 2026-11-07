@@ -1,5 +1,5 @@
 import { watchDebounced } from "@vueuse/shared";
-import type { IngredientFood, CategoryOut, TagOut, ToolOut } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, CategoryOut, TagOut, ToolOut } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
@@ -33,7 +33,7 @@ interface RecipeExplorerSearchState {
     randomSeed: number;
   }>;
   selectedCategories: Ref<CategoryOut[]>;
-  selectedFoods: Ref<IngredientFood[]>;
+  selectedFoods: Ref<IngredientFoodOut[]>;
   selectedHouseholds: Ref<NoUndefinedField<HouseholdSummary>[]>;
   selectedTags: Ref<TagOut[]>;
   selectedTools: Ref<ToolOut[]>;
@@ -81,7 +81,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
 
   // Selected items
   const selectedCategories = ref<CategoryOut[]>([]);
-  const selectedFoods = ref<IngredientFood[]>([]);
+  const selectedFoods = ref<IngredientFoodOut[]>([]);
   const selectedHouseholds = ref<NoUndefinedField<HouseholdSummary>[]>([]);
   const selectedTags = ref<TagOut[]>([]);
   const selectedTools = ref<ToolOut[]>([]);
