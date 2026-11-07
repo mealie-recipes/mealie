@@ -132,6 +132,7 @@
               :image="recipe.image!"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
+              @item-selected="onItemSelected"
             />
           </v-col>
         </v-row>
@@ -156,6 +157,7 @@
               :image="recipe.image!"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
+              @item-selected="onItemSelected"
             />
           </v-col>
         </v-row>
@@ -208,7 +210,12 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   replaceRecipes: [recipes: RecipeSummary[]];
   appendRecipes: [recipes: RecipeSummary[]];
+  itemSelected: [item: any, urlPrefix: string];
 }>();
+
+function onItemSelected(item: any, urlPrefix: string) {
+  emit("itemSelected", item, urlPrefix);
+}
 
 const display = useDisplay();
 const preferences = useUserSortPreferences();
