@@ -376,7 +376,8 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
     """
 
     def can_scrape(self) -> bool:
-        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        group_id = self.repos.scoped_group_id
+        settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
         return bool(settings and settings.ai_enabled and (self.url or self.raw_html))
 
     async def get_html(self, url: str) -> str:
@@ -419,7 +420,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not self.url:
             return False
 
-        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        group_id = self.repos.scoped_group_id
+
+        settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
         if not (settings and settings.audio_provider_enabled):
             return False
 

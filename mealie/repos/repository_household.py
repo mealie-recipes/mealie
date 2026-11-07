@@ -25,7 +25,7 @@ from mealie.schema.household import (
 
 
 class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
-    def create(self, data: HouseholdCreate | dict) -> HouseholdOut:
+    def create(self, data: HouseholdCreate | dict) -> HouseholdOut:  # type: ignore[override]
         if isinstance(data, HouseholdCreate):
             data = data.model_dump()
 
@@ -47,11 +47,11 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
 
                 data["name"] = f"{original_name} ({attempts})"
 
-    def create_many(self, data: Iterable[HouseholdOut | dict]) -> list[HouseholdOut]:
+    def create_many(self, data: Iterable[HouseholdOut | dict]) -> list[HouseholdOut]:  # type: ignore[override]
         # since create uses special logic for resolving slugs, we don't want to use the standard create_many method
         return [self.create(new_household) for new_household in data]
 
-    def update(self, match_value: str | int | UUID4, new_data: HouseholdUpdate | dict) -> HouseholdOut:
+    def update(self, match_value: str | int | UUID4, new_data: HouseholdUpdate | dict) -> HouseholdOut:  # type: ignore[override]
         if isinstance(new_data, HouseholdCreate):
             new_data.slug = slugify(new_data.name)
         else:
@@ -59,7 +59,7 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
 
         return super().update(match_value, new_data)
 
-    def update_many(self, data: Iterable[HouseholdUpdate | dict]) -> list[HouseholdOut]:
+    def update_many(self, data: Iterable[HouseholdUpdate | dict]) -> list[HouseholdOut]:  # type: ignore[override]
         # since update uses special logic for resolving slugs, we don't want to use the standard update_many method
         return [
             self.update(household["id"] if isinstance(household, dict) else household.id, household)

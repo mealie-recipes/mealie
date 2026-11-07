@@ -125,6 +125,12 @@ plugins = "pydantic.mypy"
 python_version = "3.14"
 strict_optional = true
 
+# Skipping pydantic turns every field type it defines (UUID4, HttpUrl, ...) into Any, which hides
+# None reaching non-optional fields. Other third-party packages stay skipped.
+[[tool.mypy.overrides]]
+module = ["pydantic", "pydantic.*", "pydantic_core", "pydantic_core.*"]
+follow_imports = "normal"
+
 [tool.ruff]
 target-version = "py314"
 line-length = 120

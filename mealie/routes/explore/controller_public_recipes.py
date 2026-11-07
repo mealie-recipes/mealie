@@ -57,7 +57,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
                     cb_match_attr = "slug"
             cookbook_data = self.cross_household_cookbooks.get_one(search_query.cookbook, cb_match_attr)
 
-            household = cookbook_data and self.repos.households.get_one(cookbook_data.household_id)
+            household = self.repos.households.get_one(cookbook_data.household_id) if cookbook_data else None
             if not is_cookbook_publicly_visible(cookbook_data, household):
                 raise COOKBOOK_NOT_FOUND_EXCEPTION
 

@@ -110,11 +110,11 @@ class RepositoryUnit(GroupRepositoryGeneric[IngredientUnitOut, IngredientUnitMod
 
         return data
 
-    def create(self, data: IngredientUnitOut | dict) -> IngredientUnitOut:
+    def create(self, data: BaseModel | dict) -> IngredientUnitOut:
         data = self._add_standardized_unit(data)
         return super().create(data)
 
-    def create_many(self, data: Iterable[IngredientUnitOut | dict]) -> list[IngredientUnitOut]:
+    def create_many(self, data: Iterable[BaseModel | dict]) -> list[IngredientUnitOut]:
         data = [self._add_standardized_unit(i) for i in data]
         return super().create_many(data)
 

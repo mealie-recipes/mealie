@@ -270,6 +270,11 @@ class AllRepositories:
         self.group_id = group_id
         self.household_id = household_id
 
+    @property
+    def scoped_group_id(self) -> UUID4 | None:
+        """The group these repositories are limited to, or None when they see every group."""
+        return None if isinstance(self.group_id, NotSet) else self.group_id
+
     def uuid_to_str(self, val: UUID4) -> str:
         """Helper method to convert a UUID into a database-safe string"""
 

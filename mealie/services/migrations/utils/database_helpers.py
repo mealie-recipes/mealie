@@ -20,7 +20,7 @@ class DatabaseMigrationHelpers:
         self.db = db
 
     def _get_or_set_generic[T: BaseModel](
-        self, accessor: RepositoryGeneric, items: Iterable[str], create_model: type[T], out_model: type[T]
+        self, accessor: RepositoryGeneric, items: Iterable[str], create_model: type[BaseModel], out_model: type[T]
     ) -> list[T]:
         """
         Utility model for getting or setting categories or tags. This will only work for those two cases.

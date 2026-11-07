@@ -220,9 +220,9 @@ class IngredientFoodSave(IngredientFoodCreate):
 class IngredientFoodOut(IngredientFoodCreate, MealieOutModel):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
-    aliases: list[IngredientFoodAlias] = []
+    aliases: list[IngredientFoodAlias] = []  # type: ignore[assignment]  # narrows the create type's items; list is invariant
     recipe_count: int = 0
-    substitutions: list[IngredientFoodSubstitution] = []
+    substitutions: list[IngredientFoodSubstitution] = []  # type: ignore[assignment]  # narrows the create type's items; list is invariant
 
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
@@ -295,7 +295,7 @@ class IngredientUnitSave(IngredientUnitCreate):
 
 class IngredientUnitOut(IngredientUnitCreate, MealieOutModel):
     id: UUID4
-    aliases: list[IngredientUnitAlias] = []
+    aliases: list[IngredientUnitAlias] = []  # type: ignore[assignment]  # narrows the create type's items; list is invariant
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

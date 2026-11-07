@@ -3,6 +3,7 @@ import json
 from abc import ABC, abstractmethod
 from collections.abc import Generator
 from datetime import UTC, datetime
+from typing import cast
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from fastapi.encoders import jsonable_encoder
@@ -76,8 +77,9 @@ class AppriseEventListener(EventListenerBase):
 
     def get_subscribers(self, event: Event) -> list[str]:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
-            notifiers: list[GroupEventNotifierPrivate] = repos.group_event_notifier.multi_query(
-                {"enabled": True}, override_schema=GroupEventNotifierPrivate
+            notifiers = cast(
+                list[GroupEventNotifierPrivate],
+                repos.group_event_notifier.multi_query({"enabled": True}, override_schema=GroupEventNotifierPrivate),
             )
 
             urls = [notifier.apprise_url for notifier in notifiers if getattr(notifier.options, event.event_type.name)]

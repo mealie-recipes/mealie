@@ -40,7 +40,7 @@ class GroupSelfServiceController(BaseUserController):
         """Returns a single user belonging to the current group"""
 
         try:
-            UUID(username_or_id)
+            UUID(str(username_or_id))
             key = "id"
         except ValueError:
             key = "username"

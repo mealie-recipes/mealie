@@ -13,7 +13,7 @@ from mealie.schema.response.responses import ErrorResponse
 
 
 class RepositoryCookbooks(HouseholdRepositoryGeneric[CookBookOut, CookBook]):
-    def create(self, data: CookBookSave | dict) -> CookBookOut:
+    def create(self, data: CookBookSave | dict) -> CookBookOut:  # type: ignore[override]
         if isinstance(data, dict):
             data = CookBookSave(**data)
         data.slug = slugify(data.name)
@@ -28,10 +28,10 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[CookBookOut, CookBook]):
 
         raise  # raise the last IntegrityError
 
-    def create_many(self, data: Iterable[CookBookOut | dict]) -> list[CookBookOut]:
+    def create_many(self, data: Iterable[CookBookOut | dict]) -> list[CookBookOut]:  # type: ignore[override]
         return [self.create(entry) for entry in data]
 
-    def update(self, match_value: str | int | UUID4, data: CookBookSave | dict) -> CookBookOut:
+    def update(self, match_value: str | int | UUID4, data: CookBookSave | dict) -> CookBookOut:  # type: ignore[override]
         if isinstance(data, dict):
             data = CookBookSave(**data)
 
@@ -49,10 +49,10 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[CookBookOut, CookBook]):
 
         raise  # raise the last IntegrityError
 
-    def update_many(self, data: Iterable[CookBookOut | dict]) -> list[CookBookOut]:
+    def update_many(self, data: Iterable[CookBookOut | dict]) -> list[CookBookOut]:  # type: ignore[override]
         return [self.update(entry.id if isinstance(entry, CookBookOut) else entry["id"], entry) for entry in data]
 
-    def patch(self, match_value: str | int | UUID4, data: CookBookSave | dict) -> CookBookOut:
+    def patch(self, match_value: str | int | UUID4, data: CookBookSave | dict) -> CookBookOut:  # type: ignore[override]
         cookbook = self.get_one(match_value)
         if not cookbook:
             raise HTTPException(

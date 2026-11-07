@@ -26,6 +26,7 @@ from mealie.schema.household.group_shopping_list import (
 )
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFoodOut,
+    IngredientUnitCreate,
     IngredientUnitOut,
     RecipeIngredient,
 )
@@ -45,6 +46,12 @@ class ShoppingListService:
         self.list_refs = repos.group_shopping_list_recipe_refs
         self.data_matcher = DataMatcher(self.repos, food_fuzzy_match_threshold=self.DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD)
 
+    def _unit_of(self, item: ShoppingListItemBase) -> IngredientUnitOut | IngredientUnitCreate | None:
+        """The item's unit, looked up by id when only the id is set."""
+        if item.unit:
+            return item.unit
+        return self.data_matcher.units_by_id.get(item.unit_id) if item.unit_id else None
+
     def can_merge(self, item1: ShoppingListItemBase, item2: ShoppingListItemBase) -> bool:
         """Check to see if this item can be merged with another item"""
 
@@ -59,8 +66,8 @@ class ShoppingListService:
 
         # check if units match or if they're compatable
         if item1.unit_id != item2.unit_id:
-            item1_unit = item1.unit or self.data_matcher.units_by_id.get(item1.unit_id)
-            item2_unit = item2.unit or self.data_matcher.units_by_id.get(item2.unit_id)
+            item1_unit = self._unit_of(item1)
+            item2_unit = self._unit_of(item2)
             if not (item1_unit and item1_unit.standard_unit):
                 return False
             if not (item2_unit and item2_unit.standard_unit):
@@ -84,8 +91,8 @@ class ShoppingListService:
         Attributes of the `to_item` take priority over the `from_item`, except extras with overlapping keys
         """
 
-        to_item_unit = to_item.unit or self.data_matcher.units_by_id.get(to_item.unit_id)
-        from_item_unit = from_item.unit or self.data_matcher.units_by_id.get(from_item.unit_id)
+        to_item_unit = self._unit_of(to_item)
+        from_item_unit = self._unit_of(from_item)
         if to_item_unit and to_item_unit.standard_unit and from_item_unit and from_item_unit.standard_unit:
             merged_qty, merged_unit = merge_quantity_and_unit(
                 from_item.quantity or 0, from_item_unit, to_item.quantity or 0, to_item_unit
@@ -555,24 +562,16 @@ class ShoppingListService:
         updated_list = cast(ShoppingListOut, self.shopping_lists.get_one(list_id))
 
         # update list-level recipe references
+        list_data = updated_list.model_dump()
+        list_refs: list[dict] = list_data["recipe_references"]
         for recipe in recipe_items:
-            ref_merged = False
-            for ref in updated_list.recipe_references:
-                if ref.recipe_id != recipe.recipe_id:
-                    continue
+            existing_ref = next((ref for ref in list_refs if ref["recipe_id"] == recipe.recipe_id), None)
+            if existing_ref:
+                existing_ref["recipe_quantity"] += recipe.recipe_increment_quantity
+            else:
+                list_refs.append({"recipe_id": recipe.recipe_id, "recipe_quantity": recipe.recipe_increment_quantity})
 
-                ref.recipe_quantity += recipe.recipe_increment_quantity
-                ref_merged = True
-                break
-
-            if not ref_merged:
-                updated_list.recipe_references.append(
-                    ShoppingListItemRecipeRefCreate(
-                        recipe_id=recipe.recipe_id, recipe_quantity=recipe.recipe_increment_quantity
-                    )
-                )
-
-        updated_list = self.shopping_lists.update(updated_list.id, updated_list)
+        updated_list = self.shopping_lists.update(updated_list.id, list_data)
         return updated_list, item_changes
 
     def remove_recipe_ingredients_from_list(

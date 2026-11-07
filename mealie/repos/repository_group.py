@@ -14,7 +14,7 @@ from .repository_generic import RepositoryGeneric
 
 
 class RepositoryGroup(RepositoryGeneric[GroupOut, Group]):
-    def create(self, data: GroupBase | dict) -> GroupOut:
+    def create(self, data: GroupBase | dict) -> GroupOut:  # type: ignore[override]
         if isinstance(data, GroupBase):
             data = data.model_dump()
 
@@ -34,11 +34,11 @@ class RepositoryGroup(RepositoryGeneric[GroupOut, Group]):
 
                 data["name"] = f"{original_name} ({attempts})"
 
-    def create_many(self, data: Iterable[GroupOut | dict]) -> list[GroupOut]:
+    def create_many(self, data: Iterable[GroupOut | dict]) -> list[GroupOut]:  # type: ignore[override]
         # since create uses special logic for resolving slugs, we don't want to use the standard create_many method
         return [self.create(new_group) for new_group in data]
 
-    def update(self, match_value: str | int | UUID4, new_data: GroupUpdate | dict) -> GroupOut:
+    def update(self, match_value: str | int | UUID4, new_data: GroupUpdate | dict) -> GroupOut:  # type: ignore[override]
         if isinstance(new_data, GroupBase):
             new_data.slug = slugify(new_data.name)
         else:
@@ -46,7 +46,7 @@ class RepositoryGroup(RepositoryGeneric[GroupOut, Group]):
 
         return super().update(match_value, new_data)
 
-    def update_many(self, data: Iterable[GroupUpdate | dict]) -> list[GroupOut]:
+    def update_many(self, data: Iterable[GroupUpdate | dict]) -> list[GroupOut]:  # type: ignore[override]
         # since update uses special logic for resolving slugs, we don't want to use the standard update_many method
         return [self.update(group["id"] if isinstance(group, dict) else group.id, group) for group in data]
 

@@ -285,7 +285,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         raise RuntimeError(f"Failed to resolve organizer '{name}' after {max_attempts} attempts")
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | RecipeOut | RecipeDraft) -> RecipeOut:
+    def update(self, match_value: str | int | UUID4, new_data: dict | RecipeOut | RecipeDraft) -> RecipeOut:  # type: ignore[override]
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
 
@@ -415,7 +415,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         )
 
     @staticmethod
-    def _recipes_using_foods(foods: list[UUID4]) -> sa.ColumnElement:
+    def _recipes_using_foods(foods: Sequence[UUID4 | str]) -> sa.ColumnElement:
         """
         Recipes with an ingredient that uses any of `foods`: it calls for the food, or offers it as
         a substitute.
@@ -444,7 +444,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         categories: list[UUID4] | None = None,
         tags: list[UUID4] | None = None,
         tools: list[UUID4] | None = None,
-        foods: list[UUID4] | None = None,
+        foods: Sequence[UUID4 | str] | None = None,
         households: list[UUID4] | None = None,
         require_all_categories: bool = True,
         require_all_tags: bool = True,

@@ -260,7 +260,7 @@ class GroupOut(GroupUpdate, MealieOutModel):
     users: list[UserSummary] | None = None
     preferences: GroupPreferencesOut | None = None
     ai_provider_settings: AIProviderSettingsOut | None = None
-    webhooks: list[WebhookOut] = []
+    webhooks: list[WebhookOut] = []  # type: ignore[assignment]  # narrows the create type's items; list is invariant
 
     model_config = ConfigDict(from_attributes=True)
 
