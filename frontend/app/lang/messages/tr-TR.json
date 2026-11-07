@@ -238,6 +238,8 @@
       "api-key": "API Anahtarı",
       "api-key-description-create": "Kimlik doğrulama için sağlayıcınızın API anahtarı. Hizmetiniz (ör. Ollama) API anahtarı kullanmıyorsa bile buraya bir şey yazmanız gerekir.",
       "api-key-description-edit": "Değiştirmek istemiyorsanız bunu boş bırakın.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Temel URL",
       "base-url-description": "OpenAI kullanıyorsanız bunu boş bırakın. OpenAI uyumlu bir uç nokta olmalıdır (ör. \"http://localhost:11434/v1\").",
       "model": "Model",
