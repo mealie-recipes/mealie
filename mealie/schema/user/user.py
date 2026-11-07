@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Annotated, Any
 from uuid import UUID
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field, StringConstraints, field_validator
+from pydantic import EmailStr, UUID4, BaseModel, ConfigDict, Field, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -115,7 +115,7 @@ class UserBase(MealieModel):
     id: UUID4 | None = None
     username: str | None = None
     full_name: str | None = None
-    email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]
+    email: EmailStr
     auth_method: AuthMethod = AuthMethod.MEALIE
     admin: bool = False
     group: str | None = None
