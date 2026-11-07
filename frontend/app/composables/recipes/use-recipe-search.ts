@@ -22,10 +22,14 @@ export function useRecipeSearch(api: UserApi | ExploreApi): UseRecipeSearchRetur
   const error = ref("");
   const loading = ref(false);
   const recipes = ref<Recipe[]>([]);
+  let latestRequestId = 0;
 
   async function searchRecipes(term: string) {
+    const requestId = ++latestRequestId;
+
     loading.value = true;
-    const { data, error } = await api.recipes.search({
+
+    const { data, error: searchError } = await api.recipes.search({
       search: term,
       page: 1,
       orderBy: "name",
@@ -34,8 +38,13 @@ export function useRecipeSearch(api: UserApi | ExploreApi): UseRecipeSearchRetur
       _searchSeed: Date.now().toString(),
     });
 
-    if (error) {
-      console.error(error);
+    // Ignore responses from searches that are no longer the latest.
+    if (requestId !== latestRequestId) {
+      return;
+    }
+
+    if (searchError) {
+      console.error(searchError);
       loading.value = false;
       recipes.value = [];
       return;
