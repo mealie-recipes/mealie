@@ -7,7 +7,7 @@ from uuid import UUID
 import sqlalchemy as sa
 from fastapi import HTTPException
 from humps import decamelize
-from pydantic import UUID4
+from pydantic import UUID4, BaseModel
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
@@ -280,6 +280,35 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         raise RuntimeError(f"Failed to resolve organizer '{name}' after {max_attempts} attempts")
 
+    def _lock_for_update(self, entry: RecipeModel) -> None:
+        """Serializes concurrent writes to one recipe, then reloads it.
+
+        An update replaces the recipe's child rows (ingredients, instructions, ...) by deleting the ones it
+        loaded and inserting new ones. Two overlapping updates both load the same children, so the second one
+        deletes nothing and its inserts land next to the first one's, duplicating every child row. Holding a
+        lock on the recipe row makes the second update wait for the first to commit, and expiring the entry
+        makes it reload the children the first update wrote.
+        """
+
+        if self.session.get_bind().dialect.name == "sqlite":
+            # SQLite has no row locks, but any write takes the database write lock until commit
+            stmt = (
+                sa.update(RecipeModel)
+                .where(RecipeModel.id == entry.id)
+                .values(update_at=RecipeModel.update_at)
+                .execution_options(synchronize_session=False)
+            )
+        else:
+            stmt = sa.select(RecipeModel.id).where(RecipeModel.id == entry.id).with_for_update()
+
+        self.session.execute(stmt)
+        self.session.expire(entry)
+
+    def patch(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Recipe:
+        # lock before the patch reads the current recipe, so concurrent patches don't build on stale data
+        self._lock_for_update(self._query_one(match_value=match_value))
+        return super().patch(match_value, new_data)
+
     def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
@@ -328,6 +357,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                     resolved.append(self._resolve_organizer(model, organizer["name"]))
             new_data[field] = resolved
 
+        self._lock_for_update(entry)
         entry.update(session=self.session, **new_data)
         self.session.commit()
         return self.schema.model_validate(entry)
