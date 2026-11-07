@@ -6,7 +6,7 @@
     color="primary"
   >
     <v-container>
-      <v-form class="mt-5">
+      <v-form ref="inviteForm" class="mt-5">
         <v-select
           v-if="groups && groups.length"
           v-model="selectedGroup"
@@ -61,7 +61,7 @@
     </v-container>
     <template #custom-card-action>
       <BaseButton
-        :disabled="!validEmail"
+        :disabled="!validForm"
         :loading="loading"
         :icon="$globals.icons.email"
         @click="sendInvite"
@@ -83,6 +83,8 @@ import type { GroupInDB } from "~/lib/api/types/user";
 import type { HouseholdInDB } from "~/lib/api/types/household";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
+import { ref, computed, watch, watchEffect, toRefs, reactive } from "vue";
+import type { VForm } from "~/types/auto-forms";
 
 const inviteDialog = defineModel<boolean>("modelValue", { type: Boolean, default: false });
 
@@ -96,6 +98,7 @@ const selectedHousehold = ref<string | null>(null);
 const groups = ref<GroupInDB[]>([]);
 const households = ref<HouseholdInDB[]>([]);
 const api = useUserApi();
+const inviteForm = ref<VForm | null>(null);
 
 const fetchGroupsAndHouseholds = () => {
   if (isAdmin.value) {
@@ -139,6 +142,11 @@ async function sendInvite() {
   if (!token.value) {
     getSignupLink(selectedGroup.value, selectedHousehold.value);
   }
+  // Validate form before sending
+  if (!inviteForm.value?.validate()) {
+    state.loading = false;
+    return;
+  }
   const { data } = await api.email.sendInvitation({
     email: state.sendTo,
     token: token.value,
@@ -154,10 +162,20 @@ async function sendInvite() {
   inviteDialog.value = false;
 }
 
-const validEmail = computed(() => {
+const validForm = computed(() => {
+  // Check email validity
   if (sendTo.value === "") return false;
-  const valid = validators.email(sendTo.value);
-  return valid === true;
+  const emailValid = validators.email(sendTo.value);
+  if (emailValid !== true) return false;
+  // Check if household is required and selected
+  if (households.value && households.value.length > 0 && !selectedHousehold.value) {
+    return false;
+  }
+  // If groups exist, group must also be selected
+  if (groups.value && groups.value.length > 0 && !selectedGroup.value) {
+    return false;
+  }
+  return true;
 });
 
 // Watchers (replacing options API watchers)
