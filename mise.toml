@@ -1,0 +1,15 @@
+# Dev toolchain for local dev, the dev container, and CI (.github/actions/setup-tools).
+# Renovate groups each tool with its other pins (docker/Dockerfile, frontend/package.json), see renovate.json.
+# Run `mise install`, then `task setup`. Personal overrides go in mise.local.toml (gitignored).
+[tools]
+python = "3.14.10"
+node = "24"
+# Exact version: frontend/package.json pins pnpm via packageManager/devEngines
+pnpm = "11.23.0"
+uv = "0.13.6"
+task = "3.54.0"
+
+[settings]
+# Renovate keeps the pins above current. A mise.lock written by one mise release can be
+# unreadable by an older one (dev container, CI), so this repo doesn't use one.
+lockfile = false

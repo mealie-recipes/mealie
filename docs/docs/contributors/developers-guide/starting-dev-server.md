@@ -17,6 +17,8 @@ Prerequisites
 
 First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
 
+The dev container installs Node, pnpm, uv, and task with [mise](https://mise.jdx.dev/) from `mise.toml`, so it uses the same tool versions as a local setup. Python comes from the container's base image.
+
 ### Windows
 
 Make sure the VSCode Dev Containers extension is installed, then select "Dev Containers: Clone Repository in Container Volume..." in the command palette (F1). Select your forked repo and choose the `mealie-next` branch, which contains the latest changes. This mounts your repository directly in WSL2, which [greatly improves the performance of the container](https://code.visualstudio.com/docs/devcontainers/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume), and enables hot-reloading for the frontend. Running the container on a mounted volume may not work correctly on Windows due to WSL permission mapping issues.
@@ -32,10 +34,20 @@ Make sure the VSCode Dev Containers extension is installed, then select "Dev Con
 
 ### Prerequisites
 
+The tool versions the project expects are listed in `mise.toml` at the root of the repo. The easiest way to get them is [mise](https://mise.jdx.dev/getting-started.html):
+
+```bash
+cd /path/to/project
+mise trust      # first time only
+mise install
+```
+
+If you'd rather install them yourself, you need:
+
 - [Python 3.14](https://www.python.org/downloads/)
 - [uv](https://docs.astral.sh/uv/)
-- [Node](https://nodejs.org/en/)
-- [pnpm](https://pnpm.io/installation)
+- [Node 24](https://nodejs.org/en/)
+- [pnpm 11](https://pnpm.io/installation) (the exact version is pinned in `frontend/package.json`)
 - [task](https://taskfile.dev/#/installation)
 
 ### Installing Dependencies
