@@ -8,10 +8,10 @@ from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodCreate,
+    IngredientFoodOut,
+    IngredientUnitCreate,
+    IngredientUnitOut,
     ParsedIngredient,
 )
 from mealie.schema.response.pagination import PaginationQuery
@@ -30,14 +30,14 @@ class DataMatcher:
         self._food_fuzzy_match_threshold = food_fuzzy_match_threshold
         self._unit_fuzzy_match_threshold = unit_fuzzy_match_threshold
 
-        self._foods_by_id: dict[UUID4, IngredientFood] | None = None
-        self._units_by_id: dict[UUID4, IngredientUnit] | None = None
+        self._foods_by_id: dict[UUID4, IngredientFoodOut] | None = None
+        self._units_by_id: dict[UUID4, IngredientUnitOut] | None = None
 
-        self._foods_by_alias: dict[str, IngredientFood] | None = None
-        self._units_by_alias: dict[str, IngredientUnit] | None = None
+        self._foods_by_alias: dict[str, IngredientFoodOut] | None = None
+        self._units_by_alias: dict[str, IngredientUnitOut] | None = None
 
     @property
-    def foods_by_id(self) -> dict[UUID4, IngredientFood]:
+    def foods_by_id(self) -> dict[UUID4, IngredientFoodOut]:
         if self._foods_by_id is None:
             foods_repo = self.repos.ingredient_foods
             query = PaginationQuery(page=1, per_page=-1)
@@ -47,7 +47,7 @@ class DataMatcher:
         return self._foods_by_id
 
     @property
-    def units_by_id(self) -> dict[UUID4, IngredientUnit]:
+    def units_by_id(self) -> dict[UUID4, IngredientUnitOut]:
         if self._units_by_id is None:
             units_repo = self.repos.ingredient_units
             query = PaginationQuery(page=1, per_page=-1)
@@ -57,9 +57,9 @@ class DataMatcher:
         return self._units_by_id
 
     @property
-    def foods_by_alias(self) -> dict[str, IngredientFood]:
+    def foods_by_alias(self) -> dict[str, IngredientFoodOut]:
         if self._foods_by_alias is None:
-            foods_by_alias: dict[str, IngredientFood] = {}
+            foods_by_alias: dict[str, IngredientFoodOut] = {}
             for food in self.foods_by_id.values():
                 if food.name:
                     foods_by_alias[IngredientFoodModel.normalize(food.name)] = food
@@ -75,9 +75,9 @@ class DataMatcher:
         return self._foods_by_alias
 
     @property
-    def units_by_alias(self) -> dict[str, IngredientUnit]:
+    def units_by_alias(self) -> dict[str, IngredientUnitOut]:
         if self._units_by_alias is None:
-            units_by_alias: dict[str, IngredientUnit] = {}
+            units_by_alias: dict[str, IngredientUnitOut] = {}
             for unit in self.units_by_id.values():
                 if unit.name:
                     units_by_alias[IngredientUnitModel.normalize(unit.name)] = unit
@@ -102,8 +102,8 @@ class DataMatcher:
     ) -> T | None:
         return find_match(match_value, store_map=store_map, fuzzy_match_threshold=fuzzy_match_threshold)
 
-    def find_food_match(self, food: IngredientFood | CreateIngredientFood | str) -> IngredientFood | None:
-        if isinstance(food, IngredientFood):
+    def find_food_match(self, food: IngredientFoodOut | IngredientFoodCreate | str) -> IngredientFoodOut | None:
+        if isinstance(food, IngredientFoodOut):
             return food
 
         food_name = food if isinstance(food, str) else food.name
@@ -114,8 +114,8 @@ class DataMatcher:
             fuzzy_match_threshold=self._food_fuzzy_match_threshold,
         )
 
-    def find_unit_match(self, unit: IngredientUnit | CreateIngredientUnit | str) -> IngredientUnit | None:
-        if isinstance(unit, IngredientUnit):
+    def find_unit_match(self, unit: IngredientUnitOut | IngredientUnitCreate | str) -> IngredientUnitOut | None:
+        if isinstance(unit, IngredientUnitOut):
             return unit
 
         unit_name = unit if isinstance(unit, str) else unit.name

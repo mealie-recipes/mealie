@@ -5,10 +5,10 @@ from functools import cached_property
 from mealie.lang.locale_config import resolve_food_plural, resolve_plural
 from mealie.schema.labels import MultiPurposeLabelOut, MultiPurposeLabelSave
 from mealie.schema.recipe.recipe_ingredient import (
-    IngredientFood,
-    IngredientUnit,
-    SaveIngredientFood,
-    SaveIngredientUnit,
+    IngredientFoodOut,
+    IngredientFoodSave,
+    IngredientUnitOut,
+    IngredientUnitSave,
 )
 from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
@@ -22,10 +22,10 @@ class IngredientUnitsSeeder(AbstractSeeder):
         locale_path = cls.resources / "units" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else units.en_US
 
-    def get_all_units(self) -> list[IngredientUnit]:
+    def get_all_units(self) -> list[IngredientUnitOut]:
         return self.repos.ingredient_units.get_all()
 
-    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit]:
+    def load_data(self, locale: str | None = None) -> Generator[IngredientUnitSave]:
         file = self.get_file(locale)
 
         seen_unit_names = {unit.name for unit in self.get_all_units()}
@@ -37,7 +37,7 @@ class IngredientUnitsSeeder(AbstractSeeder):
 
             # an unrecognized key has nothing to compare against, so treat it as untranslated
             source = self.source_data.get(key, unit)
-            yield SaveIngredientUnit(
+            yield IngredientUnitSave(
                 group_id=self.repos.group_id,
                 name=unit["name"],
                 plural_name=resolve_plural(
@@ -80,7 +80,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
     def get_label(self, value: str) -> MultiPurposeLabelOut | None:
         return self.repos.group_multi_purpose_labels.get_one(value, "name")
 
-    def get_all_foods(self) -> list[IngredientFood]:
+    def get_all_foods(self) -> list[IngredientFoodOut]:
         return self.repos.ingredient_foods.get_all()
 
     def seed_labels(self, locale: str | None = None) -> None:
@@ -97,7 +97,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
             except Exception as e:
                 self.logger.error(e)
 
-    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood]:
+    def load_data(self, locale: str | None = None) -> Generator[IngredientFoodSave]:
         file = self.get_file(locale)
 
         # de-duplicate on the localized name rather than the English seed key, otherwise seeding
@@ -116,7 +116,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
 
                 # an unrecognized key has nothing to compare against, so treat it as untranslated
                 source = source_foods.get(food_key, attributes)
-                yield SaveIngredientFood(
+                yield IngredientFoodSave(
                     group_id=self.repos.group_id,
                     name=name,
                     plural_name=resolve_food_plural(

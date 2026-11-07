@@ -1,5 +1,5 @@
 /* tslint:disable */
-
+/* eslint-disable */
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -12,7 +12,11 @@ export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
-export interface CreatePlanEntry {
+export interface MealPlanICalTokenOut {
+  householdId: string;
+  mealplanIcalToken: string | null;
+}
+export interface PlanEntryCreate {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
@@ -21,16 +25,93 @@ export interface CreatePlanEntry {
   recipeId?: string | null;
   recipeScale?: number;
 }
-export interface CreateRandomEntry {
+export interface PlanEntryOut {
+  date: string;
+  endDate: string | null;
+  entryType: PlanEntryType;
+  title: string;
+  text: string;
+  recipeId: string | null;
+  recipeScale: number;
+  id: number;
+  groupId: string;
+  userId: string;
+  householdId: string;
+  recipe: RecipeSummary | null;
+  updatedAt: string | null;
+}
+export interface RecipeSummary {
+  id: string;
+  userId: string;
+  householdId: string;
+  groupId: string;
+  name: string;
+  slug: string;
+  image: string | null;
+  recipeServings: number;
+  recipeYieldQuantity: number;
+  recipeYield: string | null;
+  totalTime: string | null;
+  prepTime: string | null;
+  performTime: string | null;
+  totalTimeSeconds: number | null;
+  prepTimeSeconds: number | null;
+  performTimeSeconds: number | null;
+  description: string | null;
+  recipeCategory: CategoryOut[];
+  tags: TagOut[];
+  tools: ToolOut[];
+  rating: number | null;
+  orgURL: string | null;
+  dateAdded: string | null;
+  dateUpdated: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+}
+export interface CategoryOut {
+  id: string;
+  groupId: string;
+  name: string;
+  slug: string;
+  recipeCount: number;
+}
+export interface TagOut {
+  id: string;
+  groupId: string;
+  name: string;
+  slug: string;
+  recipeCount: number;
+}
+export interface ToolOut {
+  id: string;
+  groupId: string;
+  name: string;
+  slug: string;
+  recipeCount: number;
+  householdsWithTool: string[];
+}
+export interface PlanEntrySave {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
-}
-export interface ListItem {
-  title?: string | null;
+  title?: string;
   text?: string;
-  quantity?: number;
-  checked?: boolean;
+  recipeId?: string | null;
+  recipeScale?: number;
+  groupId: string;
+  userId: string;
+}
+export interface PlanEntryUpdate {
+  date: string;
+  endDate?: string | null;
+  entryType?: PlanEntryType;
+  title?: string;
+  text?: string;
+  recipeId?: string | null;
+  recipeScale?: number;
+  id: number;
+  groupId: string;
+  userId: string;
 }
 export interface PlanRulesCreate {
   day?: PlanRulesDay;
@@ -38,13 +119,13 @@ export interface PlanRulesCreate {
   queryFilterString?: string;
 }
 export interface PlanRulesOut {
-  day?: PlanRulesDay;
-  entryType?: PlanRulesType;
-  queryFilterString?: string;
+  day: PlanRulesDay;
+  entryType: PlanRulesType;
+  queryFilterString: string;
   groupId: string;
   householdId: string;
   id: string;
-  queryFilter?: QueryFilterJSON;
+  queryFilter: QueryFilterJSON;
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
@@ -65,106 +146,9 @@ export interface PlanRulesSave {
   groupId: string;
   householdId: string;
 }
-export interface ReadMealPlanICalToken {
-  householdId: string;
-  mealplanIcalToken?: string | null;
-}
-export interface ReadPlanEntry {
+export interface RandomPlanEntryCreate {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
-  title?: string;
-  text?: string;
-  recipeId?: string | null;
-  recipeScale?: number;
-  id: number;
-  groupId: string;
-  userId: string;
-  householdId: string;
-  recipe?: RecipeSummary | null;
 }
-export interface RecipeSummary {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  cookTime?: string | null;
-  performTime?: string | null;
-  totalTimeSeconds?: number | null;
-  prepTimeSeconds?: number | null;
-  performTimeSeconds?: number | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-}
-export interface RecipeCategory {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  recipeCount?: number;
-}
-export interface RecipeTag {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  recipeCount?: number;
-}
-export interface RecipeTool {
-  id: string;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  recipeCount?: number;
-  householdsWithTool?: string[];
-}
-export interface SavePlanEntry {
-  date: string;
-  endDate?: string | null;
-  entryType?: PlanEntryType;
-  title?: string;
-  text?: string;
-  recipeId?: string | null;
-  recipeScale?: number;
-  groupId: string;
-  userId: string;
-}
-export interface ShoppingListIn {
-  name: string;
-  group?: string | null;
-  items: ListItem[];
-}
-export interface ShoppingListOut {
-  name: string;
-  group?: string | null;
-  items: ListItem[];
-  id: number;
-}
-export interface UpdatePlanEntry {
-  date: string;
-  endDate?: string | null;
-  entryType?: PlanEntryType;
-  title?: string;
-  text?: string;
-  recipeId?: string | null;
-  recipeScale?: number;
-  id: number;
-  groupId: string;
-  userId: string;
-}
+export interface MealieOutModel {}

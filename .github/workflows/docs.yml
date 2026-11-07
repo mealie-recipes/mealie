@@ -5,6 +5,7 @@ on:
     branches: [mealie-next]
     paths:
       - 'docs/**'
+      - 'CONTRIBUTING.md'
       - '.github/workflows/docs.yml'
   workflow_dispatch:
 
@@ -27,8 +28,10 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v4
+      - name: Set up tools
+        uses: ./.github/actions/setup-tools
+        with:
+          tools: python uv
 
       - name: Install dependencies
         run: uv sync --only-group docs --no-install-project

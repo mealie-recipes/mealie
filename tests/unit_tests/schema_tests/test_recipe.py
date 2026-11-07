@@ -4,7 +4,9 @@ from uuid import uuid4
 import pytest
 
 from mealie.schema.recipe import RecipeSummary
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
+from mealie.schema.recipe.recipe_nutrition import Nutrition
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 
 SHOULD_ERROR = "this_test_should_error"
 
@@ -16,11 +18,11 @@ def test_recipe_organizer_string_list_coercion(field: str):
     organizer objects rather than rejected or silently dropped. `tools` previously
     lacked this coercion entirely, unlike `tags`/`recipe_category`.
 
-    The before-validators live on `Recipe` (not `RecipeSummary`, despite the fields
+    The before-validators live on `RecipeDraft` (not `RecipeSummary`, despite the fields
     themselves being declared there), matching where the actual API route validates
     incoming data.
     """
-    recipe = Recipe(
+    recipe = RecipeDraft(
         id=uuid4(),
         user_id=uuid4(),
         household_id=uuid4(),
@@ -50,7 +52,7 @@ def test_recipe_organizer_string_list_coercion(field: str):
 )
 def test_recipe_number_sanitation(field: str, val: Any, expected: Any):
     try:
-        recipe = RecipeSummary(
+        recipe = RecipeDraft(
             id=uuid4(),
             user_id=uuid4(),
             household_id=uuid4(),
@@ -82,7 +84,7 @@ def test_recipe_number_sanitation(field: str, val: Any, expected: Any):
 )
 def test_recipe_duration_bounds(field: str, val: Any, expected: Any):
     try:
-        recipe = RecipeSummary(
+        recipe = RecipeDraft(
             id=uuid4(),
             user_id=uuid4(),
             household_id=uuid4(),
@@ -99,7 +101,7 @@ def test_recipe_duration_bounds(field: str, val: Any, expected: Any):
     assert getattr(recipe, field) == expected
 
 
-@pytest.mark.parametrize("field", ["recipe_yield", "total_time", "prep_time", "cook_time", "perform_time"])
+@pytest.mark.parametrize("field", ["recipe_yield", "total_time", "prep_time", "perform_time"])
 @pytest.mark.parametrize(
     ["val", "expected"],
     [
@@ -111,7 +113,7 @@ def test_recipe_duration_bounds(field: str, val: Any, expected: Any):
     ],
 )
 def test_recipe_string_sanitation(field: str, val: Any, expected: Any):
-    recipe = RecipeSummary(
+    recipe = RecipeDraft(
         id=uuid4(),
         user_id=uuid4(),
         household_id=uuid4(),
@@ -153,6 +155,8 @@ def test_recipe_yield_display(
         user_id=uuid4(),
         household_id=uuid4(),
         group_id=uuid4(),
+        name="Bread",
+        slug="bread",
         recipe_yield_quantity=recipe_yield_quantity,
         recipe_yield=recipe_yield,
         recipe_servings=recipe_servings,
@@ -162,7 +166,7 @@ def test_recipe_yield_display(
 
 
 def test_recipe_preserves_existing_slug():
-    recipe = RecipeSummary(
+    recipe = RecipeDraft(
         id=uuid4(),
         user_id=uuid4(),
         household_id=uuid4(),
@@ -172,3 +176,39 @@ def test_recipe_preserves_existing_slug():
     )
 
     assert recipe.slug == "nourish-bowls-zuppa-copycat"
+
+
+@pytest.mark.parametrize(
+    ["payload", "expected"],
+    [
+        ({"cookTime": "20 minutes"}, "20 minutes"),
+        ({"cook_time": "20 minutes"}, "20 minutes"),
+        ({"cookTime": "1 hour", "performTime": "20 minutes"}, "20 minutes"),
+        ({"cookTime": "1 hour", "performTimeSeconds": 1200}, None),
+        ({"cookTime": None}, None),
+    ],
+)
+def test_recipe_legacy_cook_time_input(payload: dict[str, Any], expected: str | None):
+    recipe = RecipeDraft.model_validate({"name": "Soup", **payload})
+
+    assert recipe.perform_time == expected
+    assert "cookTime" not in recipe.model_dump(by_alias=True)
+
+
+def test_recipe_out_fills_missing_settings_and_nutrition():
+    """Old rows can lack a settings or nutrition row, but the saved type requires both."""
+    recipe = RecipeOut.model_validate(
+        {
+            "id": uuid4(),
+            "user_id": uuid4(),
+            "household_id": uuid4(),
+            "group_id": uuid4(),
+            "name": "test",
+            "slug": "test",
+            "settings": None,
+            "nutrition": None,
+        }
+    )
+
+    assert recipe.settings == RecipeSettings()
+    assert recipe.nutrition == Nutrition()

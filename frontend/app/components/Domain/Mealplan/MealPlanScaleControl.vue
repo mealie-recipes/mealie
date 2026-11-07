@@ -10,10 +10,10 @@
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import type { useMealplans } from "~/composables/use-group-mealplan";
 import { useMealPlanScale } from "~/composables/use-mealplan-scale";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
 
 const props = defineProps<{
-  meal: ReadPlanEntry;
+  meal: PlanEntryOut;
   actions: ReturnType<typeof useMealplans>["actions"];
 }>();
 

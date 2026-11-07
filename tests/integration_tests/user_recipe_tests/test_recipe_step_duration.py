@@ -7,7 +7,7 @@ from zipfile import ZipFile
 
 import pytest
 
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeDraft
 from mealie.services.recipe.template_service import TemplateService
 from tests.utils import api_routes
 
@@ -33,7 +33,7 @@ def test_duration_persists_edits_clears_and_exports_for_zip_import(api_client, u
     assert api_client.put(route, json=reloaded, headers=unique_user.token).status_code == 200
     reloaded = api_client.get(route, headers=unique_user.token).json()
     assert reloaded["recipeInstructions"][2]["durationSeconds"] == 42
-    exported = TemplateService(temp=tmp_path).render(Recipe.model_validate(reloaded), "raw")
+    exported = TemplateService(temp=tmp_path).render(RecipeDraft.model_validate(reloaded), "raw")
     imported = json.loads(exported.read_text())
     assert [step["durationSeconds"] for step in imported["recipeInstructions"]] == [None, None, 42]
     imported["id"] = str(uuid4())

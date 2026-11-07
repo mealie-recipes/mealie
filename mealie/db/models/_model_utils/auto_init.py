@@ -1,7 +1,9 @@
+from collections.abc import Iterable
 from functools import wraps
+from typing import TypedDict
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field
 from sqlalchemy import inspect, select
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY, Session
 from sqlalchemy.orm.mapper import Mapper
@@ -14,6 +16,15 @@ from .helpers import safe_call
 
 def _default_exclusion() -> set[str]:
     return {"id"}
+
+
+class AutoInitOptions(TypedDict, total=False):
+    """Options a model sets as its `model_config` to change how `auto_init` treats it."""
+
+    get_attr: str
+    """Attribute to look related rows up by, instead of the primary key."""
+    exclude: Iterable[str]
+    """Keyword arguments for `auto_init` to skip, because the model's `__init__` handles them."""
 
 
 class AutoInitConfig(BaseModel):
@@ -33,21 +44,16 @@ def _get_config(relation_cls: type[SqlAlchemyBase], *, protect_primary_key: bool
     `protect_primary_key` merges the default `{"id"}` exclusion into the model's own `exclude`.
     """
     cfg = AutoInitConfig()
-    cfgKeys = cfg.model_dump().keys()
-    # Get the config for the class
-    try:
-        class_config: ConfigDict = relation_cls.model_config
-    except AttributeError:
+    options: AutoInitOptions | None = getattr(relation_cls, "model_config", None)
+    if not options:
         return cfg
-    # Map all matching attributes in Config to all AutoInitConfig attributes
-    for attr in class_config:
-        if attr not in cfgKeys:
-            continue
 
-        if attr == "exclude" and protect_primary_key:
-            cfg.exclude = cfg.exclude | set(class_config[attr])
-        else:
-            setattr(cfg, attr, class_config[attr])
+    if "get_attr" in options:
+        cfg.get_attr = options["get_attr"]
+
+    if "exclude" in options:
+        exclude = set(options["exclude"])
+        cfg.exclude = cfg.exclude | exclude if protect_primary_key else exclude
 
     return cfg
 

@@ -3,9 +3,7 @@ from dataclasses import dataclass
 from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe import TagOut
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
-from mealie.schema.recipe.recipe_tool import RecipeToolOut, RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import CategoryOut, CategorySave, TagOut, TagSave, ToolOut, ToolSave
 
 
 class NoContextException(Exception):
@@ -59,7 +57,7 @@ class ScrapedExtras:
 
         return tags
 
-    def use_categories(self, ctx: ScraperContext) -> list[TagOut]:
+    def use_categories(self, ctx: ScraperContext) -> list[CategoryOut]:
         if not self._categories:
             return []
 
@@ -86,7 +84,7 @@ class ScrapedExtras:
 
         return categories
 
-    def use_tools(self, ctx: ScraperContext) -> list[RecipeToolOut]:
+    def use_tools(self, ctx: ScraperContext) -> list[ToolOut]:
         if not self._tools:
             return []
 
@@ -106,7 +104,7 @@ class ScrapedExtras:
                 tools.append(db_tool)
                 continue
 
-            save_data = RecipeToolSave(name=tool, group_id=ctx.repos.group_id)
+            save_data = ToolSave(name=tool, group_id=ctx.repos.group_id)
             db_tool = repo.create(save_data)
 
             tools.append(db_tool)

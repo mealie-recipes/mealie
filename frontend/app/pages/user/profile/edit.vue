@@ -87,6 +87,7 @@
                     <v-text-field
                       v-model="userCopy.email"
                       :label="$t('user.email')"
+                      :rules="[validators.required, validators.email]"
                       validate-on="blur"
                       required
                       density="comfortable"
@@ -231,6 +232,7 @@ import { useUserActivityPreferences } from "~/composables/use-users/preferences"
 import useDefaultActivity from "~/composables/use-default-activity";
 import { ActivityKey } from "~/lib/api/types/activity";
 import type { UserBase } from "~/lib/api/types/user";
+import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
   middleware: ["auth"],
@@ -267,7 +269,12 @@ const password = reactive({
 
 const passwordsMatch = computed(() => password.newOne === password.newTwo && password.newOne.length > 0);
 
+const userUpdate = ref<VForm | null>(null);
+
 async function updateUser() {
+  const { valid } = (await userUpdate.value?.validate()) ?? { valid: false };
+  if (!valid) return;
+
   const userData = userCopy.value;
   if (!userData?.id || !userData.email) return;
 

@@ -16,8 +16,8 @@ from mealie.db.fixes.fix_migration_data import fix_migration_data
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
-from mealie.schema.household.household import HouseholdCreate, HouseholdInDB
-from mealie.schema.user.user import GroupBase, GroupInDB
+from mealie.schema.household.household import HouseholdCreate, HouseholdOut
+from mealie.schema.user.user import GroupBase, GroupOut
 from mealie.services.group_services.group_service import GroupService
 from mealie.services.household_services.household_service import HouseholdService
 
@@ -40,12 +40,12 @@ def init_db(session: orm.Session) -> None:
     default_user_init(household_repos)
 
 
-def default_group_init(repos: AllRepositories, name: str) -> GroupInDB:
+def default_group_init(repos: AllRepositories, name: str) -> GroupOut:
     logger.info("Generating Default Group and Household")
     return GroupService.create_group(repos, GroupBase(name=name))
 
 
-def default_household_init(repos: AllRepositories, name: str) -> HouseholdInDB:
+def default_household_init(repos: AllRepositories, name: str) -> HouseholdOut:
     logger.info("Generating Default Household")
     return HouseholdService.create_household(repos, HouseholdCreate(name=name))
 

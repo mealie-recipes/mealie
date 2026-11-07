@@ -7,7 +7,7 @@ from mealie.schema.group.group import GroupAdminUpdate
 from mealie.schema.mapper import mapper
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
-from mealie.schema.user.user import GroupBase, GroupInDB, GroupPagination
+from mealie.schema.user.user import GroupBase, GroupOut, GroupPagination
 from mealie.services.group_services.group_service import GroupService
 
 from .._base import BaseAdminController, controller
@@ -30,7 +30,7 @@ class AdminGroupManagementRoutes(BaseAdminController):
 
     @property
     def mixins(self):
-        return HttpRepo[GroupBase, GroupInDB, GroupAdminUpdate](
+        return HttpRepo[GroupBase, GroupOut, GroupAdminUpdate](
             self.repo,
             self.logger,
             self.registered_exceptions,
@@ -40,21 +40,21 @@ class AdminGroupManagementRoutes(BaseAdminController):
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         response = self.repo.page_all(
             pagination=q,
-            override=GroupInDB,
+            override=GroupOut,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=GroupInDB, status_code=status.HTTP_201_CREATED)
+    @router.post("", response_model=GroupOut, status_code=status.HTTP_201_CREATED)
     def create_one(self, data: GroupBase):
         return GroupService.create_group(self.repos, data)
 
-    @router.get("/{item_id}", response_model=GroupInDB)
+    @router.get("/{item_id}", response_model=GroupOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=GroupInDB)
+    @router.put("/{item_id}", response_model=GroupOut)
     def update_one(self, item_id: UUID4, data: GroupAdminUpdate):
         group = self.repo.get_one(item_id)
 
@@ -75,7 +75,7 @@ class AdminGroupManagementRoutes(BaseAdminController):
 
         return group
 
-    @router.delete("/{item_id}", response_model=GroupInDB)
+    @router.delete("/{item_id}", response_model=GroupOut)
     def delete_one(self, item_id: UUID4):
         item = self.repo.get_one(item_id)
 

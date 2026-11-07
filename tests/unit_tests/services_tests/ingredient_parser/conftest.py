@@ -5,12 +5,12 @@ from sqlalchemy.orm import Session
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFoodAlias,
-    CreateIngredientUnitAlias,
-    IngredientFood,
-    IngredientUnit,
-    SaveIngredientFood,
-    SaveIngredientUnit,
+    IngredientFoodAliasCreate,
+    IngredientFoodOut,
+    IngredientFoodSave,
+    IngredientUnitAliasCreate,
+    IngredientUnitOut,
+    IngredientUnitSave,
 )
 from mealie.schema.user.user import GroupBase
 from tests.utils.factories import random_int, random_string
@@ -29,23 +29,23 @@ def unique_db(session: Session, unique_local_group_id: str):
 @pytest.fixture()
 def parsed_ingredient_data(
     unique_db: AllRepositories, unique_local_group_id: UUID4
-) -> tuple[list[IngredientFood], list[IngredientUnit]]:
+) -> tuple[list[IngredientFoodOut], list[IngredientUnitOut]]:
     foods = unique_db.ingredient_foods.create_many(
         [
-            SaveIngredientFood(name="potatoes", group_id=unique_local_group_id),
-            SaveIngredientFood(name="onion", group_id=unique_local_group_id),
-            SaveIngredientFood(name="green onion", group_id=unique_local_group_id),
-            SaveIngredientFood(name="frozen pearl onions", group_id=unique_local_group_id),
-            SaveIngredientFood(name="bell peppers", group_id=unique_local_group_id),
-            SaveIngredientFood(name="red pepper flakes", group_id=unique_local_group_id),
-            SaveIngredientFood(name="fresh ginger", group_id=unique_local_group_id),
-            SaveIngredientFood(name="ground ginger", group_id=unique_local_group_id),
-            SaveIngredientFood(name="ñör̃m̈ãl̈ĩz̈ẽm̈ẽ", group_id=unique_local_group_id),
-            SaveIngredientFood(name="PluralFoodTest", plural_name="myfoodisplural", group_id=unique_local_group_id),
-            SaveIngredientFood(
+            IngredientFoodSave(name="potatoes", group_id=unique_local_group_id),
+            IngredientFoodSave(name="onion", group_id=unique_local_group_id),
+            IngredientFoodSave(name="green onion", group_id=unique_local_group_id),
+            IngredientFoodSave(name="frozen pearl onions", group_id=unique_local_group_id),
+            IngredientFoodSave(name="bell peppers", group_id=unique_local_group_id),
+            IngredientFoodSave(name="red pepper flakes", group_id=unique_local_group_id),
+            IngredientFoodSave(name="fresh ginger", group_id=unique_local_group_id),
+            IngredientFoodSave(name="ground ginger", group_id=unique_local_group_id),
+            IngredientFoodSave(name="ñör̃m̈ãl̈ĩz̈ẽm̈ẽ", group_id=unique_local_group_id),
+            IngredientFoodSave(name="PluralFoodTest", plural_name="myfoodisplural", group_id=unique_local_group_id),
+            IngredientFoodSave(
                 name="IHaveAnAlias",
                 group_id=unique_local_group_id,
-                aliases=[CreateIngredientFoodAlias(name="thisismyalias")],
+                aliases=[IngredientFoodAliasCreate(name="thisismyalias")],
             ),
         ]
     )
@@ -53,7 +53,7 @@ def parsed_ingredient_data(
     foods.extend(
         unique_db.ingredient_foods.create_many(
             [
-                SaveIngredientFood(name=f"{random_string()} food", group_id=unique_local_group_id)
+                IngredientFoodSave(name=f"{random_string()} food", group_id=unique_local_group_id)
                 for _ in range(random_int(10, 15))
             ]
         )
@@ -61,22 +61,22 @@ def parsed_ingredient_data(
 
     units = unique_db.ingredient_units.create_many(
         [
-            SaveIngredientUnit(name="Cups", group_id=unique_local_group_id),
-            SaveIngredientUnit(name="Tablespoon", group_id=unique_local_group_id),
-            SaveIngredientUnit(name="Teaspoon", group_id=unique_local_group_id),
-            SaveIngredientUnit(name="Stalk", group_id=unique_local_group_id),
-            SaveIngredientUnit(name="My Very Long Unit Name", abbreviation="mvlun", group_id=unique_local_group_id),
-            SaveIngredientUnit(
+            IngredientUnitSave(name="Cups", group_id=unique_local_group_id),
+            IngredientUnitSave(name="Tablespoon", group_id=unique_local_group_id),
+            IngredientUnitSave(name="Teaspoon", group_id=unique_local_group_id),
+            IngredientUnitSave(name="Stalk", group_id=unique_local_group_id),
+            IngredientUnitSave(name="My Very Long Unit Name", abbreviation="mvlun", group_id=unique_local_group_id),
+            IngredientUnitSave(
                 name="PluralUnitName",
                 plural_name="abc123",
                 abbreviation="doremiabc",
                 plural_abbreviation="doremi123",
                 group_id=unique_local_group_id,
             ),
-            SaveIngredientUnit(
+            IngredientUnitSave(
                 name="IHaveAnAliasToo",
                 group_id=unique_local_group_id,
-                aliases=[CreateIngredientUnitAlias(name="thisismyalias")],
+                aliases=[IngredientUnitAliasCreate(name="thisismyalias")],
             ),
         ]
     )
@@ -84,7 +84,7 @@ def parsed_ingredient_data(
     units.extend(
         unique_db.ingredient_foods.create_many(
             [
-                SaveIngredientUnit(name=f"{random_string()} unit", group_id=unique_local_group_id)
+                IngredientUnitSave(name=f"{random_string()} unit", group_id=unique_local_group_id)
                 for _ in range(random_int(10, 15))
             ]
         )

@@ -4,12 +4,13 @@
 </template>
 
 <script setup lang="ts">
+import type { PropType } from "vue";
 import { marked } from "marked";
 import { sanitizeMarkdownHtml } from "~/lib/sanitize/markdown";
 
 const props = defineProps({
   source: {
-    type: String,
+    type: String as PropType<string | null>,
     default: "",
   },
 });

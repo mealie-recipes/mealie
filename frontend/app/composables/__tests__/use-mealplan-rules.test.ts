@@ -23,6 +23,7 @@ function createRule(day: PlanRulesDay, entryType: PlanRulesType, queryFilterStri
     day,
     entryType,
     queryFilterString,
+    queryFilter: {},
   };
 }
 

@@ -15,10 +15,10 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v6
 
-      - name: Setup Python
-        uses: actions/setup-python@v6
+      - name: Set up tools
+        uses: ./.github/actions/setup-tools
         with:
-          python-version: "3.14"
+          tools: python
 
       - name: Set PY
         shell: bash

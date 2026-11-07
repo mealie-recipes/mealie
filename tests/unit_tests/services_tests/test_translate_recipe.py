@@ -6,7 +6,7 @@ import pytest
 from mealie.lang import get_locale_provider
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.recipe import OpenAIRecipe, OpenAIRecipeIngredient, OpenAIRecipeInstruction
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.services.recipe.import_workflow.compilers.structured_data import StructuredDataCompiler
@@ -37,10 +37,10 @@ def _ctx(
     )
 
 
-def _draft(recipe_yield: str) -> Recipe:
+def _draft(recipe_yield: str) -> RecipeOut:
     """A draft recipe as the build step leaves it: already cleaned once."""
 
-    recipe = Recipe(
+    recipe = RecipeDraft(
         name="Veganes Tzatziki",
         recipe_yield=recipe_yield,
         total_time="PT10M",

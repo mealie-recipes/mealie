@@ -24,7 +24,7 @@ from mealie.schema.response.pagination import (
 from mealie.schema.response.query_search import SearchFilter
 from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder
 
-from ._utils import NOT_SET, NotSet
+from ._utils import NotSet
 
 
 class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
@@ -33,6 +33,10 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
     Args:
         Schema: Represents the Pydantic Model
         Model: Represents the SqlAlchemyModel Model
+
+    Subclasses that coerce their own input (to set slugs, owners and so on) narrow the
+    accepted input of create, update and patch to their own schema. Those overrides
+    carry `# type: ignore[override]` on purpose.
     """
 
     session: Session
@@ -193,7 +197,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         return self.schema.model_validate(new_document)
 
-    def create_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
+    def create_many(self, data: Iterable[Schema | BaseModel | dict]) -> list[Schema]:
         new_documents = []
         try:
             for document in data:
@@ -230,7 +234,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         self.session.commit()
         return self.schema.model_validate(entry)
 
-    def update_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
+    def update_many(self, data: Iterable[Schema | BaseModel | dict]) -> list[Schema]:
         document_data_by_id: dict[str, dict] = {}
         for document in data:
             document_data = document if isinstance(document, dict) else document.model_dump()
@@ -511,9 +515,9 @@ class GroupRepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase](Reposit
         group_id: UUID4 | None | NotSet,
     ) -> None:
         super().__init__(session, primary_key, sql_model, schema)
-        if group_id is NOT_SET:
+        if isinstance(group_id, NotSet):
             raise ValueError("group_id must be set")
-        self._group_id = group_id if group_id else None
+        self._group_id = group_id or None
 
 
 class HouseholdRepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase](RepositoryGeneric[Schema, Model]):
@@ -528,10 +532,10 @@ class HouseholdRepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase](Rep
         household_id: UUID4 | None | NotSet,
     ) -> None:
         super().__init__(session, primary_key, sql_model, schema)
-        if group_id is NOT_SET:
+        if isinstance(group_id, NotSet):
             raise ValueError("group_id must be set")
-        self._group_id = group_id if group_id else None
+        self._group_id = group_id or None
 
-        if household_id is NOT_SET:
+        if isinstance(household_id, NotSet):
             raise ValueError("household_id must be set")
-        self._household_id = household_id if household_id else None
+        self._household_id = household_id or None

@@ -1,7 +1,9 @@
 from mealie.schema._mealie.mealie_model import MealieModel
-from mealie.schema.recipe.recipe import RecipeSummary, RecipeTool
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientFoodSummary
+from mealie.schema.recipe.recipe import RecipeSummary
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut, IngredientFoodSummary
 from mealie.schema.response.pagination import RequestQuery
+
+from .recipe_organizers import ToolOut
 
 
 class RecipeSuggestionQuery(RequestQuery):
@@ -18,15 +20,15 @@ class RecipeSuggestionQuery(RequestQuery):
 class RecipeSuggestionSubstitutedFood(MealieModel):
     """A food the recipe calls for that the user doesn't have, and the one covering it."""
 
-    food: IngredientFood
+    food: IngredientFoodOut
     substitute_food: IngredientFoodSummary
 
 
 class RecipeSuggestionResponseItem(MealieModel):
     recipe: RecipeSummary
-    missing_foods: list[IngredientFood]
+    missing_foods: list[IngredientFoodOut]
     substituted_foods: list[RecipeSuggestionSubstitutedFood]
-    missing_tools: list[RecipeTool]
+    missing_tools: list[ToolOut]
 
 
 class RecipeSuggestionResponse(MealieModel):

@@ -2,7 +2,7 @@ import tempfile
 from pathlib import Path
 from uuid import UUID
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
 from mealie.services.scheduler.tasks.purge_group_exports import purge_group_data_exports
 from tests.utils.factories import random_int, random_string
@@ -20,7 +20,7 @@ def test_purge_group_exports(unique_user: TestUser):
     recipe_exporter = RecipeBulkActionsService(database, user, group)
     recipes = [
         database.recipes.create(
-            Recipe(
+            RecipeDraft(
                 name=random_string(),
                 group_id=UUID(unique_user.group_id),
                 user_id=unique_user.user_id,

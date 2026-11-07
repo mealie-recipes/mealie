@@ -11,10 +11,10 @@ from text_unidecode import unidecode
 from mealie.db.db_setup import session_context
 from mealie.lang.providers import get_locale_provider
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodCreate,
+    IngredientFoodOut,
+    IngredientUnitCreate,
+    IngredientUnitOut,
     RecipeIngredient,
 )
 from mealie.services.parser_services import RegisteredParser, get_parser
@@ -130,7 +130,9 @@ async def test_nlp_parser_keeps_all_text(unique_local_group_id: UUID4, source_st
 
 def test_nlp_parser_converts_extra_ingredients(
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
 ):
     """
     An alternative naming a known food becomes a food substitution; anything else keeps its text,
@@ -144,12 +146,12 @@ def test_nlp_parser_converts_extra_ingredients(
 
         substitutions = parser._convert_extra_ingredients(
             [
-                RecipeIngredient(food=CreateIngredientFood(name="onion")),
-                RecipeIngredient(food=CreateIngredientFood(name="unobtainium extract")),
+                RecipeIngredient(food=IngredientFoodCreate(name="onion")),
+                RecipeIngredient(food=IngredientFoodCreate(name="unobtainium extract")),
                 RecipeIngredient(
                     quantity=2,
-                    unit=CreateIngredientUnit(name="cups"),
-                    food=CreateIngredientFood(name="onion"),
+                    unit=IngredientUnitCreate(name="cups"),
+                    food=IngredientFoodCreate(name="onion"),
                 ),
             ]
         )

@@ -61,7 +61,7 @@ function mountDialog(providerId?: string) {
         VExpansionPanelText: { template: "<div><slot /></div>" },
         VAlert: { template: "<div><slot /></div>" },
         VDivider: { template: "<div />" },
-        VBtn: { template: "<button type=\"button\"><slot /></button>" },
+        VBtn: { props: ["disabled"], template: "<button type=\"button\" :disabled=\"disabled\"><slot /></button>" },
       },
     },
   });
@@ -150,5 +150,45 @@ describe("groupAIProviderDialog", () => {
 
     expect(text).toContain("Connection successful");
     expect(text).toContain(note);
+  });
+
+  describe("changing the base URL of a saved provider", () => {
+    async function mountSaved(overrides: Partial<AIProviderOut> = {}) {
+      mocks.getOne.mockResolvedValue({
+        data: provider({ id: "provider-a", baseUrl: "https://api.example.com/v1", ...overrides }),
+      });
+      const wrapper = mountDialog("provider-a");
+      await flushPromises();
+
+      const [, , apiKey, baseUrl] = wrapper.findAll("input");
+      const testButton = () => wrapper.findAll("button").find(button => button.text() === "Test Connection")!;
+      return { wrapper, apiKey: apiKey!, baseUrl: baseUrl!, testButton };
+    }
+
+    test("needs a new API key before the provider can be tested", async () => {
+      const { apiKey, baseUrl, testButton } = await mountSaved();
+      expect(testButton().attributes("disabled")).toBeUndefined();
+
+      await baseUrl.setValue("https://other.example.com/v1");
+      expect(testButton().attributes("disabled")).toBeDefined();
+
+      await apiKey.setValue("new-key");
+      expect(testButton().attributes("disabled")).toBeUndefined();
+    });
+
+    test("needs hidden header values re-entered even with a new API key", async () => {
+      const { wrapper, apiKey, baseUrl, testButton } = await mountSaved({
+        requestHeaders: { Authorization: "********" },
+      });
+
+      await baseUrl.setValue("https://other.example.com/v1");
+      await apiKey.setValue("new-key");
+      expect(testButton().attributes("disabled")).toBeDefined();
+      expect(wrapper.text()).toContain("re-enter each hidden");
+
+      await baseUrl.setValue("https://api.example.com/v1");
+      expect(testButton().attributes("disabled")).toBeUndefined();
+      expect(wrapper.text()).not.toContain("re-enter each hidden");
+    });
   });
 });

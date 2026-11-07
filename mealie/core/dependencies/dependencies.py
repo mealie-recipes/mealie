@@ -18,7 +18,7 @@ from mealie.core.security.tokens import ALGORITHM
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
-from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
+from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupOut
 
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 app_dirs = get_app_dirs()
@@ -63,7 +63,7 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
         return False
 
 
-async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(generate_session)) -> GroupInDB:
+async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(generate_session)) -> GroupOut:
     repos = get_repositories(session)
     group = repos.groups.get_by_slug_or_id(group_slug)
 

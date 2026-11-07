@@ -8,7 +8,7 @@ Integration tests for:
 
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
