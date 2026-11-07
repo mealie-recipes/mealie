@@ -67,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { IngredientFood, CategoryOut, TagOut, ToolOut } from "~/lib/api/types/recipe";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { useCategoryStore, useFoodStore, useLabelStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
@@ -94,9 +94,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const selected = defineModel<(
   | HouseholdSummary
-  | RecipeTag
-  | RecipeCategory
-  | RecipeTool
+  | TagOut
+  | CategoryOut
+  | ToolOut
   | IngredientFood
   | UserSummary
 )[] | undefined>({ required: true });

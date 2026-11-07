@@ -64,9 +64,9 @@ from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.labels import MultiPurposeLabelOut
 from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
-from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeToolOut
-from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
+from mealie.schema.recipe import Recipe, RecipeCommentOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.recipe.recipe_organizers import CategoryOut, TagOut, ToolOut
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
@@ -168,7 +168,7 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
         return self.get_one(to_tag)
 
 
-class RepositoryTools(GroupRepositoryGeneric[RecipeToolOut, Tool]):
+class RepositoryTools(GroupRepositoryGeneric[ToolOut, Tool]):
     def _query(self, override_schema=None, with_options=True):
         q = super()._query(override_schema=override_schema, with_options=with_options)
         count_sq = (
@@ -183,7 +183,7 @@ class RepositoryTools(GroupRepositoryGeneric[RecipeToolOut, Tool]):
         stmt = select(Tool).filter(~Tool.recipes.any()).filter_by(**self._filter_builder())
         return self.session.execute(stmt).scalars().all()
 
-    def merge(self, from_tool: UUID4, to_tool: UUID4) -> RecipeToolOut | None:
+    def merge(self, from_tool: UUID4, to_tool: UUID4) -> ToolOut | None:
         already_in_to = select(recipes_to_tools.c.recipe_id).where(recipes_to_tools.c.tool_id == to_tool)
 
         try:
@@ -295,7 +295,7 @@ class AllRepositories:
 
     @cached_property
     def tools(self) -> RepositoryTools:
-        return RepositoryTools(self.session, PK_ID, Tool, RecipeToolOut, group_id=self.group_id)
+        return RepositoryTools(self.session, PK_ID, Tool, ToolOut, group_id=self.group_id)
 
     @cached_property
     def comments(self) -> GroupRepositoryGeneric[RecipeCommentOut, RecipeComment]:

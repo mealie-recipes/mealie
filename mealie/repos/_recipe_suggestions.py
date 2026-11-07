@@ -20,12 +20,12 @@ from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_t
 from mealie.db.models.users.users import User
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientFoodSummary
+from mealie.schema.recipe.recipe_organizers import ToolOut
 from mealie.schema.recipe.recipe_suggestion import (
     RecipeSuggestionQuery,
     RecipeSuggestionResponseItem,
     RecipeSuggestionSubstitutedFood,
 )
-from mealie.schema.recipe.recipe_tool import RecipeToolOut
 from mealie.schema.response.pagination import RequestQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
@@ -306,8 +306,8 @@ class RecipeSuggestionMixin:
         return missing_foods, substituted_foods
 
     @staticmethod
-    def _missing_tools(recipe: RecipeModel, on_hand_tool_ids: set[UUID4]) -> list[RecipeToolOut]:
-        missing_tools: list[RecipeToolOut] = []
+    def _missing_tools(recipe: RecipeModel, on_hand_tool_ids: set[UUID4]) -> list[ToolOut]:
+        missing_tools: list[ToolOut] = []
 
         seen_tool_ids: set[UUID4] = set(on_hand_tool_ids)
         for tool in recipe.tools:
@@ -315,7 +315,7 @@ class RecipeSuggestionMixin:
                 continue
 
             seen_tool_ids.add(tool.id)
-            missing_tools.append(RecipeToolOut.model_validate(tool))
+            missing_tools.append(ToolOut.model_validate(tool))
 
         return missing_tools
 

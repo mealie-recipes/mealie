@@ -39,16 +39,9 @@ from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
-from mealie.schema.recipe.recipe import (
-    CreateRecipe,
-    CreateRecipeByUrlBulk,
-    RecipeCategoryIn,
-    RecipeDraft,
-    RecipeLastMade,
-    RecipeSummary,
-    RecipeTagIn,
-)
+from mealie.schema.recipe.recipe import CreateRecipe, CreateRecipeByUrlBulk, RecipeDraft, RecipeLastMade, RecipeSummary
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
@@ -414,13 +407,11 @@ class RecipeController(BaseRecipeController):
     ) -> str:
         if extras and req.include_tags:
             ctx = ScraperContext(self.repos)
-            recipe.tags = [RecipeTagIn.model_validate(tag) for tag in extras.use_tags(ctx)]
+            recipe.tags = [TagDraft.model_validate(tag) for tag in extras.use_tags(ctx)]
 
         if extras and req.include_categories:
             ctx = ScraperContext(self.repos)
-            recipe.recipe_category = [
-                RecipeCategoryIn.model_validate(category) for category in extras.use_categories(ctx)
-            ]
+            recipe.recipe_category = [CategoryDraft.model_validate(category) for category in extras.use_categories(ctx)]
 
         new_recipe = self.service.create_one(recipe)
         self._publish_recipe_created(new_recipe)

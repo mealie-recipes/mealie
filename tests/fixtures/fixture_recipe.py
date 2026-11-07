@@ -5,8 +5,8 @@ import sqlalchemy
 from pytest import fixture
 
 from mealie.schema.recipe.recipe import Recipe, RecipeDraft
-from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_organizers import CategoryOut, CategorySave
 from mealie.schema.recipe.recipe_step import RecipeStep
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser

@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, RecipeCategoryIn, RecipeDraft, RecipeTagIn
+from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, RecipeDraft
 from mealie.schema.reports.reports import (
     ReportCategory,
     ReportCreate,
@@ -102,10 +102,10 @@ class RecipeBulkScraperService(BaseService):
                 continue
 
             if b.tags:
-                recipe.tags = [RecipeTagIn.model_validate(tag) for tag in b.tags]
+                recipe.tags = b.tags
 
             if b.categories:
-                recipe.recipe_category = [RecipeCategoryIn.model_validate(category) for category in b.categories]
+                recipe.recipe_category = b.categories
 
             try:
                 self.service.create_one(recipe)

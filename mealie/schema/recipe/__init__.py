@@ -4,19 +4,10 @@ from .recipe import (
     CreateRecipeBulk,
     CreateRecipeByUrlBulk,
     Recipe,
-    RecipeCategory,
-    RecipeCategoryIn,
-    RecipeCategoryPagination,
     RecipeDraft,
     RecipeLastMade,
     RecipePagination,
     RecipeSummary,
-    RecipeTag,
-    RecipeTagIn,
-    RecipeTagPagination,
-    RecipeTool,
-    RecipeToolIn,
-    RecipeToolPagination,
 )
 from .recipe_asset import RecipeAsset
 from .recipe_bulk_actions import (
@@ -28,20 +19,7 @@ from .recipe_bulk_actions import (
     ExportRecipes,
     ExportTypes,
 )
-from .recipe_category import (
-    CategoryBase,
-    CategoryIn,
-    CategoryMerge,
-    CategoryOut,
-    CategorySave,
-    RecipeCategoryResponse,
-    RecipeTagResponse,
-    TagBase,
-    TagIn,
-    TagMerge,
-    TagOut,
-    TagSave,
-)
+from .recipe_category import CategoryWithRecipes, TagWithRecipes
 from .recipe_comments import (
     RecipeCommentCreate,
     RecipeCommentOut,
@@ -84,6 +62,26 @@ from .recipe_ingredient import (
 )
 from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
+from .recipe_organizers import (
+    CategoryCreate,
+    CategoryDraft,
+    CategoryOut,
+    CategoryPagination,
+    CategorySave,
+    OrganizerDraft,
+    OrganizerMerge,
+    OrganizerOut,
+    TagCreate,
+    TagDraft,
+    TagOut,
+    TagPagination,
+    TagSave,
+    ToolCreate,
+    ToolDraft,
+    ToolOut,
+    ToolPagination,
+    ToolSave,
+)
 from .recipe_scraper import ScrapeRecipe, ScrapeRecipeAI, ScrapeRecipeBase, ScrapeRecipeData, ScrapeRecipeTest
 from .recipe_settings import RecipeSettings
 from .recipe_share_token import RecipeShareToken, RecipeShareTokenCreate, RecipeShareTokenSave, RecipeShareTokenSummary
@@ -103,15 +101,11 @@ from .recipe_timeline_events import (
     TimelineEventImage,
     TimelineEventType,
 )
-from .recipe_tool import RecipeToolCreate, RecipeToolMerge, RecipeToolOut, RecipeToolResponse, RecipeToolSave
+from .recipe_tool import ToolWithRecipes
 from .request_helpers import RecipeDuplicate, UpdateImageResponse
 
 __all__ = [
-    "RecipeToolCreate",
-    "RecipeToolMerge",
-    "RecipeToolOut",
-    "RecipeToolResponse",
-    "RecipeToolSave",
+    "ToolWithRecipes",
     "RecipeTimelineEventCreate",
     "RecipeTimelineEventIn",
     "RecipeTimelineEventOut",
@@ -128,18 +122,8 @@ __all__ = [
     "RecipeDuplicate",
     "UpdateImageResponse",
     "RecipeNote",
-    "CategoryBase",
-    "CategoryIn",
-    "CategoryMerge",
-    "CategoryOut",
-    "CategorySave",
-    "RecipeCategoryResponse",
-    "RecipeTagResponse",
-    "TagBase",
-    "TagIn",
-    "TagMerge",
-    "TagOut",
-    "TagSave",
+    "CategoryWithRecipes",
+    "TagWithRecipes",
     "RecipeCommentCreate",
     "RecipeCommentOut",
     "RecipeCommentPagination",
@@ -195,22 +179,31 @@ __all__ = [
     "CreateRecipeBulk",
     "CreateRecipeByUrlBulk",
     "Recipe",
-    "RecipeCategory",
-    "RecipeCategoryIn",
-    "RecipeCategoryPagination",
     "RecipeDraft",
     "RecipeLastMade",
     "RecipePagination",
     "RecipeSummary",
-    "RecipeTag",
-    "RecipeTagIn",
-    "RecipeTagPagination",
-    "RecipeTool",
-    "RecipeToolIn",
-    "RecipeToolPagination",
     "ScrapeRecipe",
     "ScrapeRecipeAI",
     "ScrapeRecipeBase",
     "ScrapeRecipeData",
     "ScrapeRecipeTest",
+    "CategoryCreate",
+    "CategoryDraft",
+    "CategoryOut",
+    "CategoryPagination",
+    "CategorySave",
+    "OrganizerDraft",
+    "OrganizerMerge",
+    "OrganizerOut",
+    "TagCreate",
+    "TagDraft",
+    "TagOut",
+    "TagPagination",
+    "TagSave",
+    "ToolCreate",
+    "ToolDraft",
+    "ToolOut",
+    "ToolPagination",
+    "ToolSave",
 ]

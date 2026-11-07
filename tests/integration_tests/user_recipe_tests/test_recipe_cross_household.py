@@ -8,7 +8,7 @@ from sqlalchemy import select
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import RecipeDraft
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.recipe.recipe_organizers import TagSave
 from tests import data
 from tests.utils import api_routes
 from tests.utils.factories import random_string

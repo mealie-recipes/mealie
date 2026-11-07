@@ -112,7 +112,7 @@ import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
-import type { RecipeCategory } from "~/lib/api/types/recipe";
+import type { CategoryOut } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
@@ -164,10 +164,10 @@ const formItems = [
 // Create
 const createForm = reactive({
   items: formItems,
-  data: { name: "" } as RecipeCategory,
+  data: { name: "" } as CategoryOut,
 });
 
-async function handleCreate(createFormData: RecipeCategory) {
+async function handleCreate(createFormData: CategoryOut) {
   await categoryStore.actions.createOne(createFormData);
   createForm.data.name = "";
 }
@@ -176,19 +176,19 @@ async function handleCreate(createFormData: RecipeCategory) {
 // Edit
 const editForm = reactive({
   items: formItems,
-  data: {} as RecipeCategory,
+  data: {} as CategoryOut,
 });
 
-async function handleEdit(editFormData: RecipeCategory) {
+async function handleEdit(editFormData: CategoryOut) {
   await categoryStore.actions.updateOne(editFormData);
-  editForm.data = {} as RecipeCategory;
+  editForm.data = {} as CategoryOut;
 }
 
 // ============================================================
 // Bulk Actions
-async function handleBulkAction(event: string, items: RecipeCategory[]) {
+async function handleBulkAction(event: string, items: CategoryOut[]) {
   if (event === "delete-selected") {
-    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    const ids = items.map(item => item.id);
     await categoryStore.actions.deleteMany(ids);
   }
 }
@@ -196,8 +196,8 @@ async function handleBulkAction(event: string, items: RecipeCategory[]) {
 // ============================================================
 // Merge Categories
 const mergeDialog = ref(false);
-const fromCategory = ref<RecipeCategory | null>(null);
-const toCategory = ref<RecipeCategory | null>(null);
+const fromCategory = ref<CategoryOut | null>(null);
+const toCategory = ref<CategoryOut | null>(null);
 
 const canMerge = computed(() => {
   return fromCategory.value && toCategory.value && fromCategory.value.id !== toCategory.value.id;
@@ -227,7 +227,7 @@ async function mergeCategories() {
 const DELETE_UNUSED_PREVIEW_LIMIT = 10;
 
 const deleteUnusedDialog = ref(false);
-const unusedCategories = ref<RecipeCategory[]>([]);
+const unusedCategories = ref<CategoryOut[]>([]);
 const unusedCategoryIds = computed(() => unusedCategories.value.filter(c => c.id != null).map(c => c.id!));
 const unusedCategoryNamesPreview = computed(() =>
   unusedCategories.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(c => c.name),

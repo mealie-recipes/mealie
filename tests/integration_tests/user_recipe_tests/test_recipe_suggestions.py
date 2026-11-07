@@ -8,7 +8,6 @@ from fastapi.testclient import TestClient
 
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema.recipe.recipe import Recipe, RecipeDraft
-from mealie.schema.recipe.recipe_category import CategoryOut
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodSubstitution,
     IngredientFood,
@@ -16,8 +15,8 @@ from mealie.schema.recipe.recipe_ingredient import (
     RecipeIngredientSubstitution,
     SaveIngredientFood,
 )
+from mealie.schema.recipe.recipe_organizers import CategoryOut, ToolOut, ToolSave
 from mealie.schema.recipe.recipe_settings import RecipeSettings
-from mealie.schema.recipe.recipe_tool import RecipeToolOut, RecipeToolSave
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -47,7 +46,7 @@ def create_tool(user: TestUser, on_hand: bool = False):
         households = []
 
     return user.repos.tools.create(
-        RecipeToolSave(
+        ToolSave(
             id=uuid4(), name=random_string(), group_id=user.group_id, on_hand=on_hand, households_with_tool=households
         )
     )
@@ -57,7 +56,7 @@ def create_recipe(
     user: TestUser,
     *,
     foods: list[IngredientFood] | None = None,
-    tools: list[RecipeToolOut] | None = None,
+    tools: list[ToolOut] | None = None,
     **kwargs,
 ):
     if foods:

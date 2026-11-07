@@ -1,7 +1,9 @@
 from mealie.schema._mealie.mealie_model import MealieModel
-from mealie.schema.recipe.recipe import RecipeSummary, RecipeTool
+from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientFoodSummary
 from mealie.schema.response.pagination import RequestQuery
+
+from .recipe_organizers import ToolOut
 
 
 class RecipeSuggestionQuery(RequestQuery):
@@ -26,7 +28,7 @@ class RecipeSuggestionResponseItem(MealieModel):
     recipe: RecipeSummary
     missing_foods: list[IngredientFood]
     substituted_foods: list[RecipeSuggestionSubstitutedFood]
-    missing_tools: list[RecipeTool]
+    missing_tools: list[ToolOut]
 
 
 class RecipeSuggestionResponse(MealieModel):

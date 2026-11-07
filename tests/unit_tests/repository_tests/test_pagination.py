@@ -25,13 +25,12 @@ from mealie.schema.household.group_shopping_list import (
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe import RecipeDraft
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientUnit,
     SaveIngredientFood,
     SaveIngredientUnit,
 )
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.schema.response.pagination import (
     OrderByNullPosition,
     OrderDirection,
@@ -1292,8 +1291,8 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     tag_1, tag_2 = (database.tags.create(tag) for tag in tags)
 
     tools = [
-        RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
-        RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
+        ToolSave(group_id=unique_user.group_id, name=random_string(10)),
+        ToolSave(group_id=unique_user.group_id, name=random_string(10)),
     ]
     tool_1, tool_2 = (database.tools.create(tool) for tool in tools)
 

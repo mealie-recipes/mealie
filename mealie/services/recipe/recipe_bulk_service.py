@@ -5,8 +5,8 @@ from pydantic import UUID4
 from mealie.core.exceptions import NoEntryFound, UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
-from mealie.schema.recipe import CategoryBase, Recipe
-from mealie.schema.recipe.recipe_category import TagBase
+from mealie.schema.recipe import Recipe
+from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import GroupInDB, PrivateUser
@@ -89,28 +89,24 @@ class RecipeBulkActionsService(BaseService):
                 self.logger.error(f"Failed to set settings for recipe {recipe.slug}")
                 self.logger.error(e)
 
-    def assign_tags(self, recipes: list[str], tags: list[TagBase]) -> None:
+    def assign_tags(self, recipes: list[str], tags: list[TagDraft]) -> None:
         for recipe in self._get_recipes(recipes):
-            if recipe.tags is None:
-                recipe.tags = []
-
-            recipe.tags += tags  # type: ignore
+            data = recipe.model_dump()
+            data["tags"] += [tag.model_dump() for tag in tags]
 
             try:
-                self.repos.recipes.update(recipe.slug, recipe)
+                self.repos.recipes.update(recipe.slug, data)
             except Exception as e:
                 self.logger.error(f"Failed to tag recipe {recipe.slug}")
                 self.logger.error(e)
 
-    def assign_categories(self, recipes: list[str], categories: list[CategoryBase]) -> None:
+    def assign_categories(self, recipes: list[str], categories: list[CategoryDraft]) -> None:
         for recipe in self._get_recipes(recipes):
-            if recipe.recipe_category is None:
-                recipe.recipe_category = []
-
-            recipe.recipe_category += categories  # type: ignore
+            data = recipe.model_dump()
+            data["recipe_category"] += [category.model_dump() for category in categories]
 
             try:
-                self.repos.recipes.update(recipe.slug, recipe)
+                self.repos.recipes.update(recipe.slug, data)
             except Exception as e:
                 self.logger.error(f"Failed to categorize recipe {recipe.slug}")
                 self.logger.error(e)

@@ -106,8 +106,7 @@ import RecipeCardLineItem from "./RecipeCardLineItem.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLazyRecipes } from "~/composables/recipes";
 import { useCategoryStore, useTagStore } from "~/composables/store";
-import type { RecipeCategory, RecipeSummary, RecipeTag } from "~/lib/api/types/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { CategoryOut, RecipeSummary, TagOut } from "~/lib/api/types/recipe";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 interface Props {
@@ -128,8 +127,8 @@ const { store: categories } = useCategoryStore();
 const { store: tags } = useTagStore();
 
 const search = ref("");
-const selectedCategories = ref<NoUndefinedField<RecipeCategory>[]>([]);
-const selectedTags = ref<NoUndefinedField<RecipeTag>[]>([]);
+const selectedCategories = ref<CategoryOut[]>([]);
+const selectedTags = ref<TagOut[]>([]);
 
 const recipes = ref<RecipeSummary[]>([]);
 const page = ref(1);

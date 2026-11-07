@@ -12,8 +12,7 @@ from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe import Recipe, RecipeDraft
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupBase, UserRatingCreate
 from tests.utils.factories import random_email, random_string
@@ -351,8 +350,8 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     tools = [
-        RecipeToolSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
-        RecipeToolSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+        ToolSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        ToolSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
     ]
 
     created_tools = [database.tools.create(tool) for tool in tools]
@@ -932,9 +931,7 @@ def test_recipe_update_rejects_cross_group_organizer_id(unique_user: TestUser, u
     foreign_category = foreign_repos.categories.create(
         CategorySave(group_id=UUID(unique_local_group_id), name=random_string())
     )
-    foreign_tool = foreign_repos.tools.create(
-        RecipeToolSave(group_id=UUID(unique_local_group_id), name=random_string())
-    )
+    foreign_tool = foreign_repos.tools.create(ToolSave(group_id=UUID(unique_local_group_id), name=random_string()))
 
     recipe = database.recipes.create(
         RecipeDraft(

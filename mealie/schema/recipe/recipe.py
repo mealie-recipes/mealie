@@ -33,6 +33,7 @@ from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
 from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
+from .recipe_organizers import CategoryDraft, CategoryOut, TagDraft, TagOut, ToolDraft, ToolOut
 from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
 
@@ -60,97 +61,10 @@ def create_recipe_slug(name: str, max_length: int = 250) -> str:
     return generated_slug
 
 
-class RecipeTag(MealieModel):
-    id: UUID4 | None = None
-    group_id: UUID4 | None = None
-    name: str
-    slug: str
-    recipe_count: int = 0
-
-    _searchable_properties: ClassVar[list[str]] = ["name"]
-    model_config = ConfigDict(from_attributes=True)
-
-
-class RecipeTagPagination(PaginationBase):
-    items: list[RecipeTag]
-
-
-class RecipeCategory(RecipeTag):
-    pass
-
-
-class RecipeCategoryPagination(PaginationBase):
-    items: list[RecipeCategory]
-
-
-class RecipeTool(RecipeTag):
-    id: UUID4
-    households_with_tool: list[str] = []
-
-    @field_validator("households_with_tool", mode="before")
-    def convert_households_to_slugs(cls, v):
-        if not v:
-            return []
-
-        try:
-            return [household.slug for household in v]
-        except AttributeError:
-            return v
-
-
-class RecipeToolPagination(PaginationBase):
-    items: list[RecipeTool]
-
-
-class RecipeTagIn(MealieModel):
-    """Lenient variant of RecipeTag accepted only on the recipe write path (JSON import/edit),
-    where a client may omit id/slug and expect them to be resolved or generated server-side.
-    Never used for responses -- RecipeTag itself stays strictly required there.
-
-    Deliberately does not subclass RecipeTag: narrowing id/slug from required to optional in a
-    subclass would be an unsound field override (mypy correctly rejects it), so this is built as
-    an independent sibling with the same fields instead, matching how RecipeToolCreate/Save/Out
-    are already kept as separate classes elsewhere in this module rather than narrowing each other.
-    """
-
-    id: UUID4 | None = None
-    group_id: UUID4 | None = None
-    name: str
-    slug: str | None = None
-    recipe_count: int = 0
-
-    _searchable_properties: ClassVar[list[str]] = ["name"]
-    model_config = ConfigDict(from_attributes=True)
-
-    def model_post_init(self, __context: Any) -> None:
-        if not self.slug:
-            self.slug = slugify(self.name)
-
-
-class RecipeCategoryIn(RecipeTagIn):
-    pass
-
-
-class RecipeToolIn(RecipeTagIn):
-    """Lenient variant of RecipeTool accepted only on the recipe write path. See RecipeTagIn."""
-
-    households_with_tool: list[str] = []
-
-    @field_validator("households_with_tool", mode="before")
-    def convert_households_to_slugs(cls, v):
-        if not v:
-            return []
-
-        try:
-            return [household.slug for household in v]
-        except AttributeError:
-            return v
-
-
 class CreateRecipeBulk(BaseModel):
     url: str
-    categories: list[RecipeCategory] | None = None
-    tags: list[RecipeTag] | None = None
+    categories: list[CategoryDraft] | None = None
+    tags: list[TagDraft] | None = None
 
 
 class CreateRecipeByUrlBulk(BaseModel):
@@ -205,9 +119,9 @@ class RecipeDraft(MealieModel):
     perform_time_seconds: DurationSeconds | None = None
 
     description: str | None = ""
-    recipe_category: Annotated[list[RecipeCategoryIn], Field(validate_default=True)] = []
-    tags: Annotated[list[RecipeTagIn], Field(validate_default=True)] = []
-    tools: list[RecipeToolIn] = []
+    recipe_category: Annotated[list[CategoryDraft], Field(validate_default=True)] = []
+    tags: Annotated[list[TagDraft], Field(validate_default=True)] = []
+    tools: list[ToolDraft] = []
     rating: float | None = None
     org_url: str | None = Field(None, alias="orgURL")
 
@@ -287,7 +201,7 @@ class RecipeDraft(MealieModel):
         if cats is None:
             return []
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeTagIn(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
+            return [TagDraft(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @field_validator("recipe_category", mode="before")
@@ -295,7 +209,7 @@ class RecipeDraft(MealieModel):
         if cats is None:
             return []
         if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeCategoryIn(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
+            return [CategoryDraft(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
     @field_validator("tools", mode="before")
@@ -303,7 +217,7 @@ class RecipeDraft(MealieModel):
         if tools is None:
             return []
         if isinstance(tools, list) and tools and isinstance(tools[0], str):
-            return [RecipeToolIn(id=uuid4(), name=t, slug=slugify(t)) for t in tools]
+            return [ToolDraft(id=uuid4(), name=t, slug=slugify(t)) for t in tools]
         return tools
 
     @field_validator("extras", mode="before")
@@ -350,9 +264,9 @@ class RecipeSummary(MealieOutModel):
     perform_time_seconds: DurationSeconds | None = None
 
     description: str | None = ""
-    recipe_category: list[RecipeCategory] = []
-    tags: list[RecipeTag] = []
-    tools: list[RecipeTool] = []
+    recipe_category: list[CategoryOut] = []
+    tags: list[TagOut] = []
+    tools: list[ToolOut] = []
     rating: float | None = None
     org_url: str | None = Field(None, alias="orgURL")
 

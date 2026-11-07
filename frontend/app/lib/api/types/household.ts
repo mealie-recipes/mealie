@@ -410,9 +410,9 @@ export interface RecipeDraft {
   prepTimeSeconds?: number | null;
   performTimeSeconds?: number | null;
   description?: string | null;
-  recipeCategory?: RecipeCategoryIn[];
-  tags?: RecipeTagIn[];
-  tools?: RecipeToolIn[];
+  recipeCategory?: CategoryDraft[];
+  tags?: TagDraft[];
+  tools?: ToolDraft[];
   rating?: number | null;
   orgURL?: string | null;
   dateAdded?: string | null;
@@ -430,21 +430,21 @@ export interface RecipeDraft {
   };
   comments?: RecipeCommentOut[];
 }
-export interface RecipeCategoryIn {
+export interface CategoryDraft {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug?: string | null;
   recipeCount?: number;
 }
-export interface RecipeTagIn {
+export interface TagDraft {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug?: string | null;
   recipeCount?: number;
 }
-export interface RecipeToolIn {
+export interface ToolDraft {
   id?: string | null;
   groupId?: string | null;
   name: string;
@@ -713,9 +713,9 @@ export interface RecipeSummary {
   prepTimeSeconds: number | null;
   performTimeSeconds: number | null;
   description: string | null;
-  recipeCategory: RecipeCategory[];
-  tags: RecipeTag[];
-  tools: RecipeTool[];
+  recipeCategory: CategoryOut[];
+  tags: TagOut[];
+  tools: ToolOut[];
   rating: number | null;
   orgURL: string | null;
   dateAdded: string | null;
@@ -723,27 +723,27 @@ export interface RecipeSummary {
   createdAt: string | null;
   updatedAt: string | null;
 }
-export interface RecipeCategory {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  recipeCount?: number;
-}
-export interface RecipeTag {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  recipeCount?: number;
-}
-export interface RecipeTool {
+export interface CategoryOut {
   id: string;
-  groupId?: string | null;
+  groupId: string;
   name: string;
   slug: string;
-  recipeCount?: number;
-  householdsWithTool?: string[];
+  recipeCount: number;
+}
+export interface TagOut {
+  id: string;
+  groupId: string;
+  name: string;
+  slug: string;
+  recipeCount: number;
+}
+export interface ToolOut {
+  id: string;
+  groupId: string;
+  name: string;
+  slug: string;
+  recipeCount: number;
+  householdsWithTool: string[];
 }
 export interface ShoppingListRemoveRecipeParams {
   recipeDecrementQuantity?: number;

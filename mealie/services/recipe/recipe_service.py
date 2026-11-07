@@ -29,10 +29,10 @@ from mealie.schema.recipe.recipe_ingredient import (
     SaveIngredientFood,
     SaveIngredientUnit,
 )
+from mealie.schema.recipe.recipe_organizers import ToolSave
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
@@ -288,7 +288,7 @@ class RecipeService(RecipeServiceBase):
             name = self._non_empty_str(data.get("name"))
             if not name:
                 return None
-            tool = self.repos.tools.create(RecipeToolSave(name=name, group_id=self.user.group_id))
+            tool = self.repos.tools.create(ToolSave(name=name, group_id=self.user.group_id))
 
         return {"id": str(tool.id), "group_id": str(tool.group_id), "name": tool.name, "slug": tool.slug}
 

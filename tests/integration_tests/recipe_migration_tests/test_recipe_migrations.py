@@ -12,7 +12,7 @@ from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_migration import SupportedMigrations
 from mealie.schema.recipe.recipe import Recipe, RecipeDraft
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import ToolSave
 from mealie.schema.reports.reports import ReportEntryOut
 from mealie.services.migrations.utils import migration_helpers
 from tests import data as test_data
@@ -403,7 +403,7 @@ def test_mealie_alpha_migration_cannot_reach_another_group(
     """A tool id or sub-recipe slug from another group must not move that tool or expose that recipe."""
     unique_user = unique_user_fn_scoped
     other_tool_name = random_string()
-    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=other_tool_name, group_id=g2_user.group_id))
+    other_tool = g2_user.repos.tools.create(ToolSave(name=other_tool_name, group_id=g2_user.group_id))
     other_slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=g2_user.token).json()
 
     slug = random_string().lower()
@@ -437,7 +437,7 @@ def test_nextcloud_migration_cannot_take_over_another_groups_tool(
     """Migrators that go through the scraper cleaner pass `tools` through, so they need the same check."""
     unique_user = unique_user_fn_scoped
     other_tool_name = random_string()
-    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=other_tool_name, group_id=g2_user.group_id))
+    other_tool = g2_user.repos.tools.create(ToolSave(name=other_tool_name, group_id=g2_user.group_id))
 
     name = random_string()
     recipe = {

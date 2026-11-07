@@ -7,7 +7,7 @@ from mealie.core.config import get_app_settings
 from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe.recipe import RecipeDraft
-from mealie.schema.recipe.recipe_category import CategorySave
+from mealie.schema.recipe.recipe_organizers import CategorySave
 from mealie.services.household_services.mealplan_ical_service import FEED_HISTORY_DAYS
 from tests.utils import api_routes
 from tests.utils.factories import random_string

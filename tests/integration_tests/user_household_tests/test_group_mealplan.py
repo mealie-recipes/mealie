@@ -11,8 +11,8 @@ from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave, Mult
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay, PlanRulesOut, PlanRulesSave, PlanRulesType
 from mealie.schema.recipe.recipe import RecipeDraft
-from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagOut, TagSave
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, RecipeIngredient, SaveIngredientFood
+from mealie.schema.recipe.recipe_organizers import CategoryOut, CategorySave, TagOut, TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser

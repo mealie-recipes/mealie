@@ -66,10 +66,10 @@
 <script setup lang="ts">
 import UserAvatar from "../User/UserAvatar.vue";
 import RecipeChip from "./RecipeChips.vue";
-import type { RecipeCategory, RecipeSummary, RecipeTool } from "~/lib/api/types/recipe";
+import type { CategoryOut, RecipeSummary, ToolOut } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import type { UserSummary } from "~/lib/api/types/user";
-import type { RecipeTag } from "~/lib/api/types/household";
+import type { TagOut } from "~/lib/api/types/household";
 
 interface ShowHeaders {
   id: boolean;
@@ -167,7 +167,7 @@ async function refreshMembers() {
   }
 }
 
-function filterItems(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
+function filterItems(item: TagOut | CategoryOut | ToolOut, itemType: string) {
   if (!groupSlug || !item.id) {
     return;
   }

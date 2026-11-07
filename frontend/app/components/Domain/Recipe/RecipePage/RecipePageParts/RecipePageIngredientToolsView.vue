@@ -37,15 +37,12 @@
 </template>
 
 <script setup lang="ts">
+import type { RecipeToolWithOnHand } from "~/composables/store/use-tool-store";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
-import type { Recipe, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
-
-interface RecipeToolWithOnHand extends RecipeTool {
-  onHand: boolean;
-}
 
 interface Props {
   recipe: Recipe;

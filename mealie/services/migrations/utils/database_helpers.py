@@ -8,9 +8,7 @@ from slugify import slugify
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import AllRepositories
-from mealie.schema.recipe import RecipeCategory
-from mealie.schema.recipe.recipe import RecipeTag
-from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagOut, TagSave
+from mealie.schema.recipe.recipe_organizers import CategoryOut, CategorySave, TagOut, TagSave
 
 if TYPE_CHECKING:
     from mealie.repos.repository_generic import RepositoryGeneric
@@ -48,7 +46,7 @@ class DatabaseMigrationHelpers:
             items_out.append(item_model)
         return items_out
 
-    def get_or_set_category(self, categories: Iterable[str]) -> list[RecipeCategory]:
+    def get_or_set_category(self, categories: Iterable[str]) -> list[CategoryOut]:
         return self._get_or_set_generic(
             self.db.categories,
             categories,
@@ -56,7 +54,7 @@ class DatabaseMigrationHelpers:
             CategoryOut,
         )
 
-    def get_or_set_tags(self, tags: Iterable[str]) -> list[RecipeTag]:
+    def get_or_set_tags(self, tags: Iterable[str]) -> list[TagOut]:
         return self._get_or_set_generic(
             self.db.tags,
             tags,

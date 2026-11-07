@@ -23,8 +23,7 @@ from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
-from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeDraft, RecipeSummary, RecipeTag, RecipeTool
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft, RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodAlias,
     IngredientFood,
@@ -34,7 +33,15 @@ from mealie.schema.recipe.recipe_ingredient import (
     SaveIngredientUnit,
 )
 from mealie.schema.recipe.recipe_notes import RecipeNote
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import (
+    CategoryDraft,
+    CategoryOut,
+    CategorySave,
+    TagDraft,
+    TagSave,
+    ToolDraft,
+    ToolSave,
+)
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.recipe_scraper import DEFAULT_SCRAPER_STRATEGIES
 from mealie.services.scraper.scraper import ParserErrors
@@ -632,7 +639,7 @@ def test_create_recipe_from_zip_tool_from_another_group(
 ):
     """A tool id from another group must not move or rename that group's tool."""
     other_name = random_string()
-    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=other_name, group_id=g2_user.group_id))
+    other_tool = g2_user.repos.tools.create(ToolSave(name=other_name, group_id=g2_user.group_id))
 
     recipe_name = random_string()
     recipe = RecipeDraft(
@@ -641,7 +648,7 @@ def test_create_recipe_from_zip_tool_from_another_group(
         group_id=unique_user.group_id,
         name=recipe_name,
         slug=recipe_name,
-        tools=[RecipeTool(id=other_tool.id, name=random_string(), slug=other_tool.slug)],
+        tools=[ToolDraft(id=other_tool.id, name=random_string(), slug=other_tool.slug)],
     )
     r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
@@ -662,7 +669,7 @@ def test_create_recipe_from_zip_camel_case_organizers_from_another_group(
 ):
     """camelCase input carries its own `groupId`, which must not link another group's organizers."""
     other_category = g2_user.repos.categories.create(CategorySave(name=random_string(), group_id=g2_user.group_id))
-    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=random_string(), group_id=g2_user.group_id))
+    other_tool = g2_user.repos.tools.create(ToolSave(name=random_string(), group_id=g2_user.group_id))
 
     recipe_name = random_string()
     recipe = RecipeDraft(
@@ -672,11 +679,11 @@ def test_create_recipe_from_zip_camel_case_organizers_from_another_group(
         name=recipe_name,
         slug=recipe_name,
         recipe_category=[
-            RecipeCategory(
+            CategoryDraft(
                 id=other_category.id, group_id=g2_user.group_id, name=other_category.name, slug=other_category.slug
             )
         ],
-        tools=[RecipeTool(id=other_tool.id, group_id=g2_user.group_id, name=other_tool.name, slug=other_tool.slug)],
+        tools=[ToolDraft(id=other_tool.id, group_id=g2_user.group_id, name=other_tool.name, slug=other_tool.slug)],
     )
     recipe_data = json.loads(recipe.model_dump_json(by_alias=True))
     r = api_client.post(
@@ -702,7 +709,7 @@ def test_create_recipe_from_zip_blank_organizer_from_another_group(
         "tools": g2_user.repos.tools,
     }[organizer]
     other_name = random_string()
-    save_schema = RecipeToolSave if organizer == "tools" else CategorySave
+    save_schema = ToolSave if organizer == "tools" else CategorySave
     other = repo.create(save_schema(name=other_name, group_id=g2_user.group_id))
 
     recipe_name = random_string()
@@ -727,7 +734,7 @@ def test_create_recipe_from_zip_blank_organizer_from_another_group(
 
 
 def test_create_recipe_from_zip_keeps_own_tool(api_client: TestClient, unique_user: TestUser, tempdir: str):
-    own_tool = unique_user.repos.tools.create(RecipeToolSave(name=random_string(), group_id=unique_user.group_id))
+    own_tool = unique_user.repos.tools.create(ToolSave(name=random_string(), group_id=unique_user.group_id))
 
     recipe_name = random_string()
     recipe = RecipeDraft(
@@ -736,7 +743,7 @@ def test_create_recipe_from_zip_keeps_own_tool(api_client: TestClient, unique_us
         group_id=unique_user.group_id,
         name=recipe_name,
         slug=recipe_name,
-        tools=[RecipeTool(id=own_tool.id, name=own_tool.name, slug=own_tool.slug)],
+        tools=[ToolDraft(id=own_tool.id, name=own_tool.name, slug=own_tool.slug)],
     )
     r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
     assert r.status_code == 201
@@ -924,7 +931,7 @@ def test_create_recipe_from_zip_existing_category_wrong_ids(
         [{"name": random_string(), "group_id": unique_user.group_id} for _ in range(random_int(5, 10))]
     )
     category = random.choice(categories)
-    invalid_category = RecipeCategory(id=uuid4(), name=category.name, slug=category.slug)
+    invalid_category = CategoryDraft(id=uuid4(), name=category.name, slug=category.slug)
 
     recipe_name = random_string()
     recipe = RecipeDraft(
@@ -952,7 +959,7 @@ def test_create_recipe_from_zip_existing_tag_wrong_ids(api_client: TestClient, u
         [{"name": random_string(), "group_id": unique_user.group_id} for _ in range(random_int(5, 10))]
     )
     tag = random.choice(tags)
-    invalid_tag = RecipeTag(id=uuid4(), name=tag.name, slug=tag.slug)
+    invalid_tag = TagDraft(id=uuid4(), name=tag.name, slug=tag.slug)
 
     recipe_name = random_string()
     recipe = RecipeDraft(
@@ -977,7 +984,7 @@ def test_create_recipe_from_zip_existing_tag_wrong_ids(api_client: TestClient, u
 def test_create_recipe_from_zip_invalid_category(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     invalid_name = random_string()
-    invalid_category = RecipeCategory(id=uuid4(), name=invalid_name, slug=invalid_name)
+    invalid_category = CategoryDraft(id=uuid4(), name=invalid_name, slug=invalid_name)
 
     recipe_name = random_string()
     recipe = RecipeDraft(
@@ -1005,7 +1012,7 @@ def test_create_recipe_from_zip_invalid_category(api_client: TestClient, unique_
 def test_create_recipe_from_zip_invalid_tag(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     invalid_name = random_string()
-    invalid_tag = RecipeTag(id=uuid4(), name=invalid_name, slug=invalid_name)
+    invalid_tag = TagDraft(id=uuid4(), name=invalid_name, slug=invalid_name)
 
     recipe_name = random_string()
     recipe = RecipeDraft(
@@ -1167,7 +1174,7 @@ def test_create_recipe_from_zip_invalid_food_and_unit(api_client: TestClient, un
 def test_read_update(
     api_client: TestClient,
     unique_user: TestUser,
-    recipe_categories: list[RecipeCategory],
+    recipe_categories: list[CategoryOut],
 ):
     recipe_data = recipe_test_data[0]
     recipe_url = api_routes.recipes_slug(recipe_data.expected_slug)
@@ -2217,7 +2224,7 @@ def test_get_recipes_organizer_filter(api_client: TestClient, unique_user: utils
         [CategorySave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
     )
     tools = database.tools.create_many(
-        [RecipeToolSave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
+        [ToolSave(name=random_string(), group_id=unique_user.group_id) for _ in range(3)]
     )
 
     new_recipes_data: list[dict] = []

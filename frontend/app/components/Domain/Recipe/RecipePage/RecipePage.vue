@@ -246,7 +246,7 @@ import {
 } from "~/composables/recipe-page/shared-state";
 import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeIngredient, RecipeStep, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, CategoryOut, RecipeIngredient, RecipeStep, TagOut, ToolOut } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -559,7 +559,7 @@ function addStep(steps: Array<string> | null = null) {
  * RecipeChip Clicked
  */
 
-function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
+function chipClicked(item: TagOut | CategoryOut | ToolOut, itemType: string) {
   if (!item.id) {
     return;
   }

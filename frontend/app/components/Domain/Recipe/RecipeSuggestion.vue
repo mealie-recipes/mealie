@@ -70,19 +70,19 @@ import type {
   IngredientFoodSummary,
   RecipeSuggestionSubstitutedFood,
   RecipeSummary,
-  RecipeTool,
+  ToolOut,
 } from "~/lib/api/types/recipe";
 
 interface Organizer {
   type: "food" | "tool";
-  item: IngredientFood | RecipeTool;
+  item: IngredientFood | ToolOut;
   selected: boolean;
 }
 
 interface Props {
   recipe: RecipeSummary;
   missingFoods?: IngredientFood[] | null;
-  missingTools?: RecipeTool[] | null;
+  missingTools?: ToolOut[] | null;
   substitutedFoods?: RecipeSuggestionSubstitutedFood[] | null;
   disableCheckbox?: boolean;
 }
@@ -101,8 +101,8 @@ function foodLabel(food: IngredientFood | IngredientFoodSummary) {
 const emit = defineEmits<{
   "add-food": [food: IngredientFood];
   "remove-food": [food: IngredientFood];
-  "add-tool": [tool: RecipeTool];
-  "remove-tool": [tool: RecipeTool];
+  "add-tool": [tool: ToolOut];
+  "remove-tool": [tool: ToolOut];
 }>();
 
 const { $globals } = useNuxtApp();
@@ -127,7 +127,7 @@ const missingOrganizers = computed(() => [
           return reactive({ type: "tool", item: tool, selected: false } as Organizer);
         })
       : [],
-    getLabel: (item: RecipeTool) => item.name,
+    getLabel: (item: ToolOut) => item.name,
   },
 ]);
 
@@ -142,7 +142,7 @@ function handleCheckbox(organizer: Organizer) {
       emit("add-food", organizer.item as IngredientFood);
     }
     else {
-      emit("add-tool", organizer.item as RecipeTool);
+      emit("add-tool", organizer.item as ToolOut);
     }
   }
   else {
@@ -150,7 +150,7 @@ function handleCheckbox(organizer: Organizer) {
       emit("remove-food", organizer.item as IngredientFood);
     }
     else {
-      emit("remove-tool", organizer.item as RecipeTool);
+      emit("remove-tool", organizer.item as ToolOut);
     }
   }
 }

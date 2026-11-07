@@ -19,7 +19,7 @@ from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
-from ..recipe import CategoryBase
+from ..recipe import CategoryOut
 
 DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
@@ -240,7 +240,7 @@ class UpdateGroup(GroupBase):
     id: UUID4
     name: str
     slug: str
-    categories: list[CategoryBase] | None = []
+    categories: list[CategoryOut] | None = []
 
     webhooks: list[CreateWebhook] = []
 

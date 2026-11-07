@@ -285,7 +285,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         raise RuntimeError(f"Failed to resolve organizer '{name}' after {max_attempts} attempts")
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | RecipeDraft) -> Recipe:
+    def update(self, match_value: str | int | UUID4, new_data: dict | Recipe | RecipeDraft) -> Recipe:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
 

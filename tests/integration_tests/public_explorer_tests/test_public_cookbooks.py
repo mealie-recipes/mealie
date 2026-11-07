@@ -6,7 +6,7 @@ from pydantic import UUID4
 
 from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
 from mealie.schema.recipe.recipe import RecipeDraft
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.recipe.recipe_organizers import TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser

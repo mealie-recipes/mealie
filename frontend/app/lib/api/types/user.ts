@@ -54,18 +54,19 @@ export interface GroupInDB {
   name: string;
   id: string;
   slug: string;
-  categories?: CategoryBase[] | null;
+  categories?: CategoryOut[] | null;
   webhooks?: ReadWebhook[];
   households?: GroupHouseholdSummary[] | null;
   users?: UserSummary[] | null;
   preferences?: ReadGroupPreferences | null;
   aiProviderSettings?: AIProviderSettingsOut | null;
 }
-export interface CategoryBase {
-  name: string;
+export interface CategoryOut {
   id: string;
-  groupId?: string | null;
+  groupId: string;
+  name: string;
   slug: string;
+  recipeCount: number;
 }
 export interface ReadWebhook {
   enabled?: boolean;
@@ -205,7 +206,7 @@ export interface UpdateGroup {
   name: string;
   id: string;
   slug: string;
-  categories?: CategoryBase[] | null;
+  categories?: CategoryOut[] | null;
   webhooks?: CreateWebhook[];
 }
 export interface CreateWebhook {
