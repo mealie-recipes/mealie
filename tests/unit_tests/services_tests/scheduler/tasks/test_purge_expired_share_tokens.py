@@ -1,6 +1,6 @@
 from datetime import UTC, datetime, timedelta
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from mealie.services.scheduler.tasks.purge_expired_share_tokens import purge_expired_tokens
 from tests.utils.factories import random_string
@@ -15,7 +15,7 @@ def test_no_expired_tokens():
 def test_delete_expired_tokens(unique_user: TestUser):
     db = unique_user.repos
     recipe = db.recipes.create(
-        Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string(20))
+        RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string(20))
     )
     assert recipe and recipe.id
     good_token = db.recipe_share_tokens.create(

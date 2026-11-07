@@ -1,6 +1,9 @@
 import random
 import string
+from typing import Any
+from uuid import uuid4
 
+from mealie.schema.recipe.recipe import Recipe, create_recipe_slug
 from mealie.schema.user.registration import CreateUserRegistration
 
 
@@ -31,4 +34,20 @@ def user_registration_factory(advanced=None, private=None) -> CreateUserRegistra
         password_confirm="fake-password",
         advanced=advanced or random_bool(),
         private=private or random_bool(),
+    )
+
+
+def build_recipe(**fields: Any) -> Recipe:
+    """A saved recipe built in memory, for tests that render one without the database."""
+    name = fields.pop("name", None) or random_string()
+    return Recipe.model_validate(
+        {
+            "id": uuid4(),
+            "user_id": uuid4(),
+            "household_id": uuid4(),
+            "group_id": uuid4(),
+            "name": name,
+            "slug": create_recipe_slug(name),
+            **fields,
+        }
     )

@@ -118,10 +118,9 @@
 import type { Recipe } from "~/lib/api/types/recipe";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
 interface Props {
-  recipe?: NoUndefinedField<Recipe>;
+  recipe?: Recipe;
 }
 withDefaults(defineProps<Props>(), {
   recipe: undefined,

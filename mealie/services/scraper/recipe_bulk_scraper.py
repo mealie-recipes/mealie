@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
+from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, RecipeCategoryIn, RecipeDraft, RecipeTagIn
 from mealie.schema.reports.reports import (
     ReportCategory,
     ReportCreate,
@@ -82,7 +82,7 @@ class RecipeBulkScraperService(BaseService):
     async def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
         sem = asyncio.Semaphore(3)
 
-        async def _do(url: str) -> Recipe | None:
+        async def _do(url: str) -> RecipeDraft | None:
             async with sem:
                 try:
                     recipe, _ = await create_from_html(url, self.repos, self.translator)
@@ -102,10 +102,10 @@ class RecipeBulkScraperService(BaseService):
                 continue
 
             if b.tags:
-                recipe.tags = b.tags
+                recipe.tags = [RecipeTagIn.model_validate(tag) for tag in b.tags]
 
             if b.categories:
-                recipe.recipe_category = b.categories
+                recipe.recipe_category = [RecipeCategoryIn.model_validate(category) for category in b.categories]
 
             try:
                 self.service.create_one(recipe)

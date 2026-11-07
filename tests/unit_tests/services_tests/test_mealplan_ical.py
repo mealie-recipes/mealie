@@ -62,7 +62,15 @@ def test_render_template_collapses_empty_fields():
 def test_last_modified_uses_latest_of_entry_and_recipe():
     entry_updated = datetime(2026, 1, 1, 12, 0, tzinfo=UTC)
     recipe_updated = datetime(2026, 1, 2, 12, 0, tzinfo=UTC)
-    recipe = RecipeSummary(name="Pasta", slug="pasta", updated_at=recipe_updated)
+    recipe = RecipeSummary(
+        id=uuid4(),
+        user_id=uuid4(),
+        household_id=uuid4(),
+        group_id=uuid4(),
+        name="Pasta",
+        slug="pasta",
+        updated_at=recipe_updated,
+    )
     entry = ReadPlanEntry(
         id=1,
         date=date(2026, 1, 3),
@@ -86,7 +94,15 @@ def test_last_modified_uses_latest_of_entry_and_recipe():
 
 
 def test_merge_fields_cook_time_comes_from_perform_time():
-    recipe = RecipeSummary(name="Soup", slug="soup", perform_time="20 minutes")
+    recipe = RecipeSummary(
+        id=uuid4(),
+        user_id=uuid4(),
+        household_id=uuid4(),
+        group_id=uuid4(),
+        name="Soup",
+        slug="soup",
+        perform_time="20 minutes",
+    )
     entry = ReadPlanEntry(
         id=1,
         date=date(2026, 1, 3),

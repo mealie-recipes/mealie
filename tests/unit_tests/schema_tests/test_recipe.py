@@ -4,7 +4,7 @@ from uuid import uuid4
 import pytest
 
 from mealie.schema.recipe import RecipeSummary
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 
 SHOULD_ERROR = "this_test_should_error"
 
@@ -20,7 +20,7 @@ def test_recipe_organizer_string_list_coercion(field: str):
     themselves being declared there), matching where the actual API route validates
     incoming data.
     """
-    recipe = Recipe(
+    recipe = RecipeDraft(
         id=uuid4(),
         user_id=uuid4(),
         household_id=uuid4(),
@@ -50,7 +50,7 @@ def test_recipe_organizer_string_list_coercion(field: str):
 )
 def test_recipe_number_sanitation(field: str, val: Any, expected: Any):
     try:
-        recipe = RecipeSummary(
+        recipe = RecipeDraft(
             id=uuid4(),
             user_id=uuid4(),
             household_id=uuid4(),
@@ -82,7 +82,7 @@ def test_recipe_number_sanitation(field: str, val: Any, expected: Any):
 )
 def test_recipe_duration_bounds(field: str, val: Any, expected: Any):
     try:
-        recipe = RecipeSummary(
+        recipe = RecipeDraft(
             id=uuid4(),
             user_id=uuid4(),
             household_id=uuid4(),
@@ -111,7 +111,7 @@ def test_recipe_duration_bounds(field: str, val: Any, expected: Any):
     ],
 )
 def test_recipe_string_sanitation(field: str, val: Any, expected: Any):
-    recipe = RecipeSummary(
+    recipe = RecipeDraft(
         id=uuid4(),
         user_id=uuid4(),
         household_id=uuid4(),
@@ -153,6 +153,8 @@ def test_recipe_yield_display(
         user_id=uuid4(),
         household_id=uuid4(),
         group_id=uuid4(),
+        name="Bread",
+        slug="bread",
         recipe_yield_quantity=recipe_yield_quantity,
         recipe_yield=recipe_yield,
         recipe_servings=recipe_servings,
@@ -162,7 +164,7 @@ def test_recipe_yield_display(
 
 
 def test_recipe_preserves_existing_slug():
-    recipe = RecipeSummary(
+    recipe = RecipeDraft(
         id=uuid4(),
         user_id=uuid4(),
         household_id=uuid4(),
@@ -185,7 +187,7 @@ def test_recipe_preserves_existing_slug():
     ],
 )
 def test_recipe_legacy_cook_time_input(payload: dict[str, Any], expected: str | None):
-    recipe = Recipe.model_validate({"name": "Soup", **payload})
+    recipe = RecipeDraft.model_validate({"name": "Soup", **payload})
 
     assert recipe.perform_time == expected
     assert "cookTime" not in recipe.model_dump(by_alias=True)

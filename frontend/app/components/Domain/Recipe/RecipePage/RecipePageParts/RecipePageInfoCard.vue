@@ -102,10 +102,9 @@ import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { useUserStore } from "~/composables/store/use-user-store";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { UserSummary } from "~/lib/api/types/user";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
 interface Props {
-  recipe: NoUndefinedField<Recipe>;
+  recipe: Recipe;
   recipeScale?: number;
   landscape: boolean;
 }

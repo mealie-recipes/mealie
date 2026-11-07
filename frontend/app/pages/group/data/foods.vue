@@ -571,7 +571,7 @@ async function onDeleteDialogOpen(items: IngredientFoodWithOnHand[]) {
   const ids = items.map(item => item.id);
   const { data } = await userApi.recipes.search({ foods: ids, perPage: 5 });
   affectedRecipes.value = (data?.items ?? []).map(r => ({
-    name: r.name ?? "",
+    name: r.name,
     slug: r.slug,
     url: `/g/${userGroup.value}/r/${r.slug}`,
   }));

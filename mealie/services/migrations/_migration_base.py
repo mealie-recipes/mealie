@@ -8,7 +8,7 @@ from mealie.core import root_logger
 from mealie.core.exceptions import UnexpectedNone
 from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import AllRepositories
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.reports.reports import (
     ReportCategory,
@@ -165,15 +165,15 @@ class BaseMigrator(BaseService):
 
         return result
 
-    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[tuple[str, UUID4, bool]]:
+    def import_recipes_to_database(self, validated_recipes: list[RecipeDraft]) -> list[tuple[str, UUID4, bool]]:
         """
-        Used as a single access point to process a list of Recipe objects into the
+        Used as a single access point to process a list of RecipeDraft objects into the
         database in a predictable way. If an error occurs the session is rolled back
         and the process will continue. All import information is appended to the
         'migration_report' attribute to be returned to the frontend for display.
 
         Args:
-            validated_recipes (list[Recipe]):
+            validated_recipes (list[RecipeDraft]):
         """
         if self.add_migration_tag:
             migration_tag = self.helpers.get_or_set_tags([self.name])[0]
@@ -219,7 +219,7 @@ class BaseMigrator(BaseService):
                 to_create = recipe.model_copy(update={"image": None})
                 # Archive data can carry ids of tools or sub-recipes from other groups, which the
                 # recipe model would otherwise link (and overwrite) by primary key.
-                to_create = Recipe(**self.recipe_service.clean_recipe_dict(to_create.model_dump(mode="json")))
+                to_create = RecipeDraft(**self.recipe_service.clean_recipe_dict(to_create.model_dump(mode="json")))
                 recipe = self.recipe_service.create_one(to_create)
                 status = True
 
@@ -278,10 +278,10 @@ class BaseMigrator(BaseService):
 
         return recipe_dict
 
-    def clean_recipe_dictionary(self, recipe_dict: dict) -> Recipe:
+    def clean_recipe_dictionary(self, recipe_dict: dict) -> RecipeDraft:
         """
         Calls the rewrite_alias function and the Cleaner.clean function on a
-        dictionary and returns the result unpacked into a Recipe object
+        dictionary and returns the result unpacked into a RecipeDraft object
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
 

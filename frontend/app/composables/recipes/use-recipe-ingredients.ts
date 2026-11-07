@@ -1,7 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
 import { useLocales } from "../use-locales";
-import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientFoodSummary, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientFoodSummary, IngredientUnit, RecipeDraft, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
 
@@ -40,7 +40,7 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
-function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined): string | undefined {
+function useRecipeLink(recipe: RecipeDraft | undefined, groupSlug: string | undefined): string | undefined {
   if (!(recipe && recipe.slug && recipe.name && groupSlug)) {
     return undefined;
   }

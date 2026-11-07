@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 from pydantic import UUID4
 
 from mealie.schema.cookbook.cookbook import SaveCookBook
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_category import TagSave
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
 from tests.utils import api_routes
@@ -108,7 +108,7 @@ def test_get_all_public_recipes(
 
         default_recipes = database.recipes.create_many(
             [
-                Recipe(
+                RecipeDraft(
                     user_id=user.user_id,
                     group_id=user.group_id,
                     name=random_string(),
@@ -360,7 +360,7 @@ def test_public_recipe_cookbook_filter_with_recipes(
 
     tag = database.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
     public_recipe, private_recipe = database.recipes.create_many(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -388,7 +388,7 @@ def test_public_recipe_cookbook_filter_with_recipes(
     other_database.household_preferences.update(other_household.id, other_household.preferences)
 
     other_household_recipe = other_database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=h2_user.user_id,
             group_id=h2_user.group_id,
             name=random_string(),

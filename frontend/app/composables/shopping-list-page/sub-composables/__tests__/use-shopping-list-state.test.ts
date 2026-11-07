@@ -38,7 +38,7 @@ describe("use-shopping-list-state", () => {
       const { recipeMap } = wrapper();
       expect(recipeMap).toEqual(new Map([
         [MOCK_RECIPE.id, MOCK_RECIPE],
-        ["", MOCK_RECIPE2],
+        [MOCK_RECIPE2.id, MOCK_RECIPE2],
       ]));
     });
     test("handles nulls", () => {

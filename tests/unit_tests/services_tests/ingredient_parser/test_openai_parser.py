@@ -10,7 +10,7 @@ from pydantic import UUID4
 from mealie.db.db_setup import session_context
 from mealie.lang.providers import get_locale_provider
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientUnit,
@@ -180,7 +180,7 @@ def test_openai_parser_sanitize_output(
         )
         parsed_ing.ingredient.food = food
         unique_user.repos.recipes.create(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),

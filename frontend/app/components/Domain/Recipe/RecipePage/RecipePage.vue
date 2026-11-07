@@ -257,7 +257,7 @@ import { useNavigationWarning } from "~/composables/use-navigation-warning";
 import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
 import { useHouseholdSelf } from "~/composables/use-households";
 
-const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const recipe = defineModel<Recipe>({ required: true });
 
 const display = useDisplay();
 const auth = useMealieAuth();
@@ -294,7 +294,7 @@ const { convertIngredient } = useUnitConversion();
  * mutate in place, so handing them a derived copy would silently drop edits. Conversion is
  * display-only and never reaches anything that saves.
  */
-const displayedRecipe = computed<NoUndefinedField<Recipe>>(() => {
+const displayedRecipe = computed<Recipe>(() => {
   if (isEditMode.value || !unitSystem.value) {
     return recipe.value;
   }
@@ -358,7 +358,7 @@ function hasUnsavedChanges(): boolean {
 
 function restoreOriginalRecipe() {
   if (originalRecipe.value) {
-    recipe.value = deepCopy(originalRecipe.value) as NoUndefinedField<Recipe>;
+    recipe.value = deepCopy(originalRecipe.value);
   }
 }
 
@@ -479,8 +479,8 @@ async function saveRecipe() {
     }
     setMode(PageMode.VIEW);
   }
-  if (data?.slug) {
-    recipe.value = data as NoUndefinedField<Recipe>;
+  if (data) {
+    recipe.value = data;
     originalRecipe.value = deepCopy(recipe.value);
     if (data.slug !== route.params.slug) {
       router.replace(`/g/${groupSlug.value}/r/` + data.slug);

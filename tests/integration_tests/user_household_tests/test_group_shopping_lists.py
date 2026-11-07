@@ -10,7 +10,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListItemUpdateBulk,
     ShoppingListOut,
 )
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
 from tests import utils
 from tests.utils import api_routes
@@ -279,7 +279,7 @@ def test_shopping_lists_add_nested_recipe_ingredients(
 
     # Create recipe_c with a single food ingredient (base recipe)
     recipe_c: Recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -291,7 +291,7 @@ def test_shopping_lists_add_nested_recipe_ingredients(
 
     # Create recipe_b with its own food ingredient and a reference to recipe_c (c -> b)
     recipe_b: Recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -304,7 +304,7 @@ def test_shopping_lists_add_nested_recipe_ingredients(
 
     # Create recipe_a with its own food ingredient and a reference to recipe_b (b -> a, creating chain c -> b -> a)
     recipe_a: Recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -383,7 +383,7 @@ def test_shopping_lists_add_cross_household_recipe(
 
     # set up recipe
     recipe = h2_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=h2_user.user_id,
             group_id=h2_user.group_id,
             name=random_string(10),
@@ -687,7 +687,7 @@ def test_shopping_list_nested_recipe_refs_restored_when_unchecked(
         for _ in range(2)
     )
     recipe_b: Recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -695,7 +695,7 @@ def test_shopping_list_nested_recipe_refs_restored_when_unchecked(
         )
     )
     recipe_a: Recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -1062,7 +1062,7 @@ def test_shopping_list_add_recipe_scale_merges_duplicate_foods(
     database = unique_user.repos
     food = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
     recipe: Recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -1667,7 +1667,7 @@ def test_shopping_lists_add_recipe_on_hand_food(
         SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id)
     )
     recipe: Recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -1718,7 +1718,7 @@ def test_shopping_lists_add_recipe_from_other_group_is_rejected(
     shopping_lists: list[ShoppingListOut],
 ):
     foreign_recipe = g2_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=g2_user.user_id,
             group_id=g2_user.group_id,
             name=random_string(10),

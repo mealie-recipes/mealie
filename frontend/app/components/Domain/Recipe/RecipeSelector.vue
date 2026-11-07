@@ -67,7 +67,7 @@
       >
         <RecipeCardLineItem
           v-for="recipe in recipes"
-          :key="recipe.id!"
+          :key="recipe.id"
           :recipe="recipe"
           :active="recipe.id === modelValue?.id"
           disable-link

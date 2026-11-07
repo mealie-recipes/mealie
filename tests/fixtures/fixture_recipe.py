@@ -4,7 +4,7 @@ from collections.abc import Generator
 import sqlalchemy
 from pytest import fixture
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_step import RecipeStep
@@ -32,7 +32,7 @@ def recipe_store():
 def recipe_ingredient_only(unique_user: TestUser):
     database = unique_user.repos
     # Create a recipe
-    recipe = Recipe(
+    recipe = RecipeDraft(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=random_string(10),
@@ -61,7 +61,7 @@ def recipes_ingredient_only(unique_user: TestUser):
 
     for _ in range(3):
         # Create a recipe
-        recipe = Recipe(
+        recipe = RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(10),
@@ -107,7 +107,7 @@ def recipe_categories(unique_user: TestUser) -> Generator[list[CategoryOut]]:
 @fixture(scope="function")
 def random_recipe(unique_user: TestUser) -> Generator[Recipe]:
     database = unique_user.repos
-    recipe = Recipe(
+    recipe = RecipeDraft(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=random_string(10),

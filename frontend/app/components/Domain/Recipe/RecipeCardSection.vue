@@ -118,20 +118,20 @@
         <v-row v-if="!useMobileCards">
           <v-col
             v-for="recipe in recipes"
-            :key="recipe.id!"
+            :key="recipe.id"
             :sm="6"
             :md="6"
             :lg="4"
             :xl="3"
           >
             <RecipeCard
-              :name="recipe.name!"
+              :name="recipe.name"
               :description="recipe.description!"
               :slug="recipe.slug"
               :rating="recipe.rating!"
               :image="recipe.image!"
-              :tags="recipe.tags!"
-              :recipe-id="recipe.id!"
+              :tags="recipe.tags"
+              :recipe-id="recipe.id"
             />
           </v-col>
         </v-row>
@@ -141,7 +141,7 @@
         >
           <v-col
             v-for="recipe in recipes"
-            :key="recipe.id!"
+            :key="recipe.id"
             cols="12"
             :sm="singleColumn ? '12' : '12'"
             :md="singleColumn ? '12' : '6'"
@@ -149,13 +149,13 @@
             :xl="singleColumn ? '12' : '3'"
           >
             <RecipeCardMobile
-              :name="recipe.name!"
+              :name="recipe.name"
               :description="recipe.description!"
               :slug="recipe.slug"
               :rating="recipe.rating!"
               :image="recipe.image!"
-              :tags="recipe.tags!"
-              :recipe-id="recipe.id!"
+              :tags="recipe.tags"
+              :recipe-id="recipe.id"
             />
           </v-col>
         </v-row>

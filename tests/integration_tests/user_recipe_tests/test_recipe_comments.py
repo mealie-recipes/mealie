@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -20,7 +20,7 @@ def unique_recipe(api_client: TestClient, unique_user: TestUser):
     response_data = response.json()
     recipe_response = api_client.get(api_routes.recipes_slug(response_data), headers=unique_user.token)
 
-    return Recipe(**recipe_response.json())
+    return RecipeDraft(**recipe_response.json())
 
 
 def random_comment(recipe_id: UUID4) -> dict:

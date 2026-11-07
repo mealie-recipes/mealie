@@ -168,7 +168,7 @@ const newTimelineEvent = ref<RecipeTimelineEventIn>({
   eventType: "comment",
   eventMessage: "",
   timestamp: undefined,
-  recipeId: props.recipe?.id || "",
+  recipeId: props.recipe.id,
 });
 const newTimelineEventImage = ref<Blob | File>();
 const newTimelineEventImageName = ref<string>("");
@@ -247,7 +247,7 @@ function resetMadeThisForm() {
 }
 
 async function createTimelineEvent() {
-  if (!(newTimelineEventTimestampString.value && props.recipe?.id && props.recipe?.slug)) {
+  if (!newTimelineEventTimestampString.value) {
     return;
   }
 

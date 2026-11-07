@@ -12,7 +12,7 @@ from mealie.schema.household.group_recipe_action import (
     GroupRecipeActionType,
     SaveGroupRecipeAction,
 )
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from tests.utils import api_routes, assert_deserialize
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -43,7 +43,7 @@ def save_action(
 
 
 def new_recipe(user: TestUser) -> Recipe:
-    return Recipe(
+    return RecipeDraft(
         user_id=user.user_id,
         group_id=UUID(user.group_id),
         name=random_string(),

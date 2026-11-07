@@ -3,7 +3,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
@@ -36,7 +36,7 @@ class MealieAlphaMigrator(BaseMigrator):
         else:
             return potential_path
 
-    def _convert_to_new_schema(self, recipe: dict) -> Recipe:
+    def _convert_to_new_schema(self, recipe: dict) -> RecipeDraft:
         if recipe.get("categories", False):
             recipe["recipeCategory"] = recipe.get("categories")
             del recipe["categories"]
@@ -59,7 +59,7 @@ class MealieAlphaMigrator(BaseMigrator):
         # Reset ID on migration
         recipe["id"] = None
 
-        return Recipe(**recipe)
+        return RecipeDraft(**recipe)
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -68,7 +68,7 @@ class MealieAlphaMigrator(BaseMigrator):
             temp_path = self.get_zip_base_path(Path(tmpdir))
             recipe_lookup: dict[str, Path] = {}
 
-            recipes: list[Recipe] = []
+            recipes: list[RecipeDraft] = []
             for recipe_json_path in temp_path.rglob("**/recipes/**/[!.]*.json"):
                 try:
                     if (recipe_as_dict := MigrationReaders.json(recipe_json_path)) is not None:

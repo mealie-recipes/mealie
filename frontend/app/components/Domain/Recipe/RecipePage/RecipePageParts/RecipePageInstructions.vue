@@ -528,7 +528,6 @@ import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
@@ -547,7 +546,7 @@ const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: (
 
 const props = defineProps({
   recipe: {
-    type: Object as () => NoUndefinedField<Recipe>,
+    type: Object as () => Recipe,
     required: true,
   },
   scale: {

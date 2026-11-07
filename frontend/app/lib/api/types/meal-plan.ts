@@ -79,13 +79,13 @@ export interface ReadPlanEntry {
   updatedAt?: string | null;
 }
 export interface RecipeSummary {
-  id: string | null;
+  id: string;
   userId: string;
   householdId: string;
   groupId: string;
-  name: string | null;
+  name: string;
   slug: string;
-  image: unknown;
+  image: string | null;
   recipeServings: number;
   recipeYieldQuantity: number;
   recipeYield: string | null;
@@ -96,8 +96,8 @@ export interface RecipeSummary {
   prepTimeSeconds: number | null;
   performTimeSeconds: number | null;
   description: string | null;
-  recipeCategory: RecipeCategory[] | null;
-  tags: RecipeTag[] | null;
+  recipeCategory: RecipeCategory[];
+  tags: RecipeTag[];
   tools: RecipeTool[];
   rating: number | null;
   orgURL: string | null;

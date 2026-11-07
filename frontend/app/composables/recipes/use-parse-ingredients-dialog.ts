@@ -15,7 +15,7 @@ export const enum ParseStep {
 }
 
 export function useParseIngredientsDialog(
-  ingredients: NoUndefinedField<RecipeIngredient[]>,
+  ingredients: RecipeIngredient[],
   onSave: (ingredients: NoUndefinedField<RecipeIngredient>[]) => void,
 ) {
   const { ingredientToParserString } = useIngredientTextParser();

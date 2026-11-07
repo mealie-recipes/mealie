@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from mealie.core.config import get_app_settings
 from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_category import CategorySave
 from mealie.services.household_services.mealplan_ical_service import FEED_HISTORY_DAYS
 from tests.utils import api_routes
@@ -54,7 +54,9 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
     user = unique_user_fn_scoped
     category = user.repos.categories.create(CategorySave(group_id=UUID(user.group_id), name="Pasta, Italian"))
     recipe = user.repos.recipes.create(
-        Recipe(user_id=user.user_id, group_id=UUID(user.group_id), name=random_string(), recipe_category=[category])
+        RecipeDraft(
+            user_id=user.user_id, group_id=UUID(user.group_id), name=random_string(), recipe_category=[category]
+        )
     )
     group = user.repos.groups.get_one(UUID(user.group_id))
     assert group
@@ -94,7 +96,9 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
 
 def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scoped: TestUser):
     user = unique_user_fn_scoped
-    recipe = user.repos.recipes.create(Recipe(user_id=user.user_id, group_id=UUID(user.group_id), name=random_string()))
+    recipe = user.repos.recipes.create(
+        RecipeDraft(user_id=user.user_id, group_id=UUID(user.group_id), name=random_string())
+    )
     create_entry(api_client, user, date=JULY_1, entry_type="dinner", recipe_id=recipe.id)
     create_entry(api_client, user, date=JULY_1, entry_type="breakfast", recipe_id=recipe.id)
     note = create_entry(api_client, user, date=JULY_1, entry_type="dinner", title=random_string())
@@ -125,7 +129,7 @@ def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scop
 def test_ical_feed_templates(api_client: TestClient, unique_user_fn_scoped: TestUser):
     user = unique_user_fn_scoped
     recipe = user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=UUID(user.group_id),
             name=random_string(),

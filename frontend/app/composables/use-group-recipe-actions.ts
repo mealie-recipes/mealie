@@ -56,7 +56,7 @@ export const useGroupRecipeActions = function (
 
     return url
       .replace("${url}", window.location.href)
-      .replace("${id}", recipe.id || "")
+      .replace("${id}", recipe.id)
       .replace("${slug}", recipe.slug)
       .replace("${servings}", recipeServings.toString())
       .replace("${yieldQuantity}", recipeYieldQuantity.toString())

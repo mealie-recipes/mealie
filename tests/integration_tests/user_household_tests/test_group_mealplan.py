@@ -10,7 +10,7 @@ from mealie.schema.household.household import HouseholdSummary
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave, MultiPurposeLabelSummary
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay, PlanRulesOut, PlanRulesSave, PlanRulesType
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagOut, TagSave
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, RecipeIngredient, SaveIngredientFood
 from tests.utils import api_routes
@@ -31,7 +31,7 @@ def create_recipe(
     foods: list[IngredientFood] | None = None,
 ):
     return unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),
             name=random_string(),

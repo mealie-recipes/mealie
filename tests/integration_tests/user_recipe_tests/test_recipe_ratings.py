@@ -4,7 +4,7 @@ from collections.abc import Generator
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.user.user import UserRatingUpdate
 from tests.utils import api_routes
 from tests.utils.factories import random_bool, random_int, random_string
@@ -22,7 +22,7 @@ def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe]]:
         slug = random_string()
         recipes.append(
             recipes_repo.create(
-                Recipe(
+                RecipeDraft(
                     user_id=unique_user.user_id,
                     group_id=unique_user.group_id,
                     name=slug,

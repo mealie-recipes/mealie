@@ -167,16 +167,28 @@ MAX_DURATION_SECONDS = 2**31 - 1
 DurationSeconds = Annotated[int, Field(ge=0, le=MAX_DURATION_SECONDS)]
 
 
-class RecipeSummary(MealieOutModel):
-    id: UUID4 | None = None
-    _normalize_search: ClassVar[bool] = True
-    # Stricter than _fuzzy_similarity_threshold: at 0.5 short words in ingredient lines match far too
-    # much ("salt" scores ~0.57 against "salmon").
-    _fuzzy_ingredient_similarity_threshold: ClassVar[float] = 0.6
+def _drop_legacy_int_id(value: Any) -> Any:
+    # Old Mealie exports used integer ids, which mean nothing on this instance.
+    return None if isinstance(value, int) else value
 
-    user_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
-    household_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
-    group_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
+
+class RecipeDraft(MealieModel):
+    """
+    A recipe that is not saved yet, or a client's edit of a saved one.
+
+    Scrapers, importers and migrations build drafts, and the recipe write routes accept them as request
+    bodies. Every field is optional: RecipeService sets the owner when it saves a new draft, and the
+    repository keeps the stored id and owner when a draft updates a saved recipe. Read a saved recipe
+    back as `Recipe`, which guarantees those fields.
+
+    A draft can carry an id before it is saved, so that files such as a scraped image can be written to
+    the recipe's directory first.
+    """
+
+    id: UUID4 | None = None
+    user_id: UUID4 | None = None
+    household_id: UUID4 | None = None
+    group_id: UUID4 | None = None
 
     name: str | None = None
     slug: Annotated[str, Field(validate_default=True)] = ""
@@ -193,17 +205,26 @@ class RecipeSummary(MealieOutModel):
     perform_time_seconds: DurationSeconds | None = None
 
     description: str | None = ""
-    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] = []
-    tags: Annotated[list[RecipeTag] | None, Field(validate_default=True)] = []
-    tools: list[RecipeTool] = []
+    recipe_category: Annotated[list[RecipeCategoryIn], Field(validate_default=True)] = []
+    tags: Annotated[list[RecipeTagIn], Field(validate_default=True)] = []
+    tools: list[RecipeToolIn] = []
     rating: float | None = None
     org_url: str | None = Field(None, alias="orgURL")
 
     date_added: datetime.date | None = None
     date_updated: datetime.datetime | None = None
-
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
+
+    recipe_ingredient: Annotated[list[RecipeIngredient], Field(validate_default=True)] = []
+    recipe_instructions: list[RecipeStep] = []
+    nutrition: Nutrition | None = None
+    settings: RecipeSettings | None = None
+    assets: list[RecipeAsset] = []
+    notes: list[RecipeNote] = []
+    extras: dict = {}
+    comments: list[RecipeCommentOut] = []
+
     model_config = ConfigDict(from_attributes=True)
 
     @model_validator(mode="before")
@@ -221,6 +242,10 @@ class RecipeSummary(MealieOutModel):
             data = {**data, "performTime": cook_time}
         return data
 
+    @field_validator("id", "user_id", "household_id", "group_id", mode="before")
+    def drop_legacy_int_ids(cls, value: Any):
+        return _drop_legacy_int_id(value)
+
     @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")
     def clean_numbers(val: Any):
         return val or 0
@@ -233,6 +258,114 @@ class RecipeSummary(MealieOutModel):
             return str(val)
 
         return val
+
+    @field_validator("slug", mode="before")
+    def validate_slug(slug: str, info: ValidationInfo):
+        if slug or not info.data.get("name"):
+            return slug or ""
+
+        return create_recipe_slug(info.data["name"])
+
+    @field_validator("recipe_instructions", "assets", "notes", "comments", mode="before")
+    def null_list_as_empty(value: Any):
+        return [] if value is None else value
+
+    @field_validator("recipe_ingredient", mode="before")
+    def validate_ingredients(recipe_ingredient):
+        if recipe_ingredient is None:
+            return []
+        if not isinstance(recipe_ingredient, list):
+            return recipe_ingredient
+
+        if recipe_ingredient and all(isinstance(elem, str) for elem in recipe_ingredient):
+            return [RecipeIngredient(note=x) for x in recipe_ingredient]
+
+        return recipe_ingredient
+
+    @field_validator("tags", mode="before")
+    def validate_tags(cats: Any):
+        if cats is None:
+            return []
+        if isinstance(cats, list) and cats and isinstance(cats[0], str):
+            return [RecipeTagIn(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
+        return cats
+
+    @field_validator("recipe_category", mode="before")
+    def validate_categories(cats: Any):
+        if cats is None:
+            return []
+        if isinstance(cats, list) and cats and isinstance(cats[0], str):
+            return [RecipeCategoryIn(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
+        return cats
+
+    @field_validator("tools", mode="before")
+    def validate_tools(tools: Any):
+        if tools is None:
+            return []
+        if isinstance(tools, list) and tools and isinstance(tools[0], str):
+            return [RecipeToolIn(id=uuid4(), name=t, slug=slugify(t)) for t in tools]
+        return tools
+
+    @field_validator("extras", mode="before")
+    def convert_extras_to_dict(cls, v):
+        if isinstance(v, dict):
+            return v
+
+        return {x.key_name: x.value for x in v} if v else {}
+
+    @field_validator("nutrition", mode="before")
+    def validate_nutrition(cls, v):
+        return v or None
+
+
+class RecipeSummary(MealieOutModel):
+    """
+    A saved recipe without its ingredients, instructions and other details, as list views show it.
+
+    Every recipe has an owner: list queries skip rows whose user (and so household) is gone.
+    """
+
+    _normalize_search: ClassVar[bool] = True
+    # Stricter than _fuzzy_similarity_threshold: at 0.5 short words in ingredient lines match far too
+    # much ("salt" scores ~0.57 against "salmon").
+    _fuzzy_ingredient_similarity_threshold: ClassVar[float] = 0.6
+
+    id: UUID4
+    user_id: UUID4
+    household_id: UUID4
+    group_id: UUID4
+
+    name: str
+    slug: str
+    image: str | None = None
+    recipe_servings: float = 0
+    recipe_yield_quantity: float = 0
+    recipe_yield: str | None = None
+
+    total_time: str | None = None
+    prep_time: str | None = None
+    perform_time: str | None = None
+    total_time_seconds: DurationSeconds | None = None
+    prep_time_seconds: DurationSeconds | None = None
+    perform_time_seconds: DurationSeconds | None = None
+
+    description: str | None = ""
+    recipe_category: list[RecipeCategory] = []
+    tags: list[RecipeTag] = []
+    tools: list[RecipeTool] = []
+    rating: float | None = None
+    org_url: str | None = Field(None, alias="orgURL")
+
+    date_added: datetime.date | None = None
+    date_updated: datetime.datetime | None = None
+    created_at: datetime.datetime | None = None
+    updated_at: datetime.datetime | None = UpdatedAtField(None)
+
+    model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")
+    def clean_numbers(val: Any):
+        return val or 0
 
     @property
     def recipe_yield_display(self) -> str:
@@ -257,17 +390,21 @@ class RecipePagination(PaginationBase):
 
 
 class Recipe(RecipeSummary):
-    recipe_ingredient: Annotated[list[RecipeIngredient], Field(validate_default=True)] = []
-    recipe_instructions: list[RecipeStep] | None = []
-    nutrition: Nutrition | None = None
+    """A saved recipe with all of its details."""
+
+    recipe_ingredient: list[RecipeIngredient] = []
+    recipe_instructions: list[RecipeStep] = []
+    nutrition: Nutrition = Field(default_factory=Nutrition)
 
     # Mealie Specific
-    settings: RecipeSettings | None = None
-    assets: list[RecipeAsset] | None = []
-    notes: list[RecipeNote] | None = []
-    extras: dict | None = {}
+    settings: RecipeSettings = Field(default_factory=RecipeSettings)
+    assets: list[RecipeAsset] = []
+    notes: list[RecipeNote] = []
+    extras: dict = {}
 
-    comments: list[RecipeCommentOut] | None = []
+    comments: list[RecipeCommentOut] = []
+
+    model_config = ConfigDict(from_attributes=True)
 
     @staticmethod
     def _get_dir(dir: Path) -> Path:
@@ -294,79 +431,15 @@ class Recipe(RecipeSummary):
 
     @property
     def directory(self) -> Path:
-        if not self.id:
-            raise ValueError("Recipe has no ID")
-
         return self.directory_from_id(self.id)
 
     @property
     def asset_dir(self) -> Path:
-        if not self.id:
-            raise ValueError("Recipe has no ID")
-
         return self.asset_dir_from_id(self.id)
 
     @property
     def image_dir(self) -> Path:
-        if not self.id:
-            raise ValueError("Recipe has no ID")
-
         return self.image_dir_from_id(self.id)
-
-    model_config = ConfigDict(from_attributes=True)
-
-    @field_validator("slug", mode="before")
-    def validate_slug(slug: str, info: ValidationInfo):
-        if slug or not info.data.get("name"):
-            return slug
-
-        return create_recipe_slug(info.data["name"])
-
-    @field_validator("recipe_ingredient", mode="before")
-    def validate_ingredients(recipe_ingredient):
-        if not recipe_ingredient or not isinstance(recipe_ingredient, list):
-            return recipe_ingredient
-
-        if all(isinstance(elem, str) for elem in recipe_ingredient):
-            return [RecipeIngredient(note=x) for x in recipe_ingredient]
-
-        return recipe_ingredient
-
-    @field_validator("tags", mode="before")
-    def validate_tags(cats: list[Any]):
-        if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeTag(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
-        return cats
-
-    @field_validator("recipe_category", mode="before")
-    def validate_categories(cats: list[Any]):
-        if isinstance(cats, list) and cats and isinstance(cats[0], str):
-            return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
-        return cats
-
-    @field_validator("tools", mode="before")
-    def validate_tools(tools: list[Any]):
-        if isinstance(tools, list) and tools and isinstance(tools[0], str):
-            return [RecipeTool(id=uuid4(), name=t, slug=slugify(t)) for t in tools]
-        return tools
-
-    @field_validator("group_id", mode="before")
-    def validate_group_id(group_id: Any):
-        if isinstance(group_id, int):
-            return uuid4()
-        return group_id
-
-    @field_validator("household_id", mode="before")
-    def validate_household_id(household_id: Any):
-        if isinstance(household_id, int):
-            return uuid4()
-        return household_id
-
-    @field_validator("user_id", mode="before")
-    def validate_user_id(user_id: Any):
-        if isinstance(user_id, int):
-            return uuid4()
-        return user_id
 
     @field_validator("extras", mode="before")
     def convert_extras_to_dict(cls, v):
@@ -376,8 +449,12 @@ class Recipe(RecipeSummary):
         return {x.key_name: x.value for x in v} if v else {}
 
     @field_validator("nutrition", mode="before")
-    def validate_nutrition(cls, v):
-        return v or None
+    def default_nutrition(cls, v):
+        return v if v is not None else Nutrition()
+
+    @field_validator("settings", mode="before")
+    def default_settings(cls, v):
+        return v if v is not None else RecipeSettings()
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -481,26 +558,12 @@ class Recipe(RecipeSummary):
             ).order_by(desc(RecipeModel.name_normalized.like(f"%{search}%")))
 
 
-class RecipeIn(Recipe):
-    """Recipe as accepted on the write path only (create/update/patch request bodies).
-
-    Unlike Recipe -- which is also used for responses and must guarantee real ids/slugs on
-    its organizers -- this allows a client (e.g. hand-edited or re-imported JSON) to submit
-    tags/categories/tools that omit id/slug, to be resolved or generated server-side.
-    """
-
-    tags: Annotated[list[RecipeTagIn] | None, Field(validate_default=True)] = []
-    recipe_category: Annotated[list[RecipeCategoryIn] | None, Field(validate_default=True)] = []
-    tools: list[RecipeToolIn] = []
-
-    model_config = ConfigDict(json_schema_serialization_defaults_required=False)
-
-
 class RecipeLastMade(BaseModel):
     timestamp: datetime.datetime
 
 
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
 
+RecipeDraft.model_rebuild()
 RecipeSummary.model_rebuild()
 Recipe.model_rebuild()

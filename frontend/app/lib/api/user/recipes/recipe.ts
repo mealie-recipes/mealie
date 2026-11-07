@@ -6,7 +6,7 @@ import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import type {
   Recipe,
-  RecipeIn,
+  RecipeDraft,
   RecipeSummary,
   CreateRecipe,
   RecipeAsset,
@@ -93,7 +93,7 @@ export type RecipeSearchQuery = {
 };
 
 /** Creating a recipe responds with the new recipe's slug, not the recipe. */
-export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn, RecipeSummary, string> {
+export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeDraft, RecipeSummary, string> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
@@ -150,7 +150,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn, Recip
   }
 
   async testCreateOneUrl(url: string, useOpenAI = false) {
-    return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
+    return await this.requests.post<RecipeDraft | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
 
   private streamRecipeCreate(streamRoute: string, payload: object | FormData, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
@@ -283,12 +283,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn, Recip
     return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
   }
 
-  async updateMany(payload: RecipeIn[]) {
-    return await this.requests.put<Recipe[], RecipeIn[]>(routes.recipesBase, payload);
+  async updateMany(payload: RecipeDraft[]) {
+    return await this.requests.put<Recipe[], RecipeDraft[]>(routes.recipesBase, payload);
   }
 
-  async patchMany(payload: Partial<RecipeIn>[]) {
-    return await this.requests.patch<Recipe[], Partial<RecipeIn>[]>(routes.recipesBase, payload);
+  async patchMany(payload: Partial<RecipeDraft>[]) {
+    return await this.requests.patch<Recipe[], Partial<RecipeDraft>[]>(routes.recipesBase, payload);
   }
 
   async updateLastMade(recipeSlug: string, timestamp: string) {

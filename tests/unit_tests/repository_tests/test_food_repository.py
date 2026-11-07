@@ -4,7 +4,7 @@ import sqlalchemy as sa
 
 from mealie.db.models.recipe.ingredient import IngredientFoodSubstitutionModel
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodAlias,
     CreateIngredientFoodSubstitution,
@@ -38,7 +38,7 @@ def test_food_merger(unique_user: TestUser):
     )
 
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=slug1,
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),
@@ -243,7 +243,7 @@ def create_recipe_with_ingredient(
     user: TestUser, food: IngredientFood | None, substitute_food_ids: list | None = None
 ) -> Recipe:
     return user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=user.user_id,
             group_id=UUID(user.group_id),

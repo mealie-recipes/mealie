@@ -21,7 +21,7 @@ from mealie.db.models.users.users import User
 from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe import RecipeDraft, RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
@@ -111,9 +111,12 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             ):
                 raise HTTPException(400, "last_made is only available for authenticated household queries")
 
-    def create(self, document: Recipe) -> Recipe:  # type: ignore
+    def create(self, document: RecipeDraft) -> Recipe:  # type: ignore[override]
+        if not document.name:
+            raise ValueError("A recipe needs a name before it is saved")
+
         max_retries = 10
-        original_name: str = document.name  # type: ignore
+        original_name = document.name
         name_suffix = 0
 
         for i in range(1, max_retries + 1):
@@ -142,6 +145,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                     )
                     if not exists:
                         break
+
+        raise RuntimeError(f"Failed to create recipe '{original_name}' after {max_retries} attempts")
 
     def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
         recipe_as_model = self.schema.model_validate(recipe)
@@ -280,7 +285,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
         raise RuntimeError(f"Failed to resolve organizer '{name}' after {max_attempts} attempts")
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
+    def update(self, match_value: str | int | UUID4, new_data: dict | RecipeDraft) -> Recipe:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
 

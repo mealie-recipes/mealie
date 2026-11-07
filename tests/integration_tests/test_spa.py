@@ -5,11 +5,11 @@ import pytest
 from bs4 import BeautifulSoup
 
 from mealie.routes import spa
-from mealie.schema.recipe.recipe import Recipe, RecipeSettings
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft, RecipeSettings
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from tests import data as test_data
-from tests.utils.factories import random_string
+from tests.utils.factories import build_recipe, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -42,7 +42,7 @@ def set_recipe_is_public(unique_user: TestUser, recipe: Recipe, *, is_public: bo
 
 def create_recipe(user: TestUser) -> Recipe:
     recipe = user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=random_string(),
@@ -137,7 +137,7 @@ def test_spa_iso_duration(seconds: int | None, expected: str | None):
 
 
 def test_spa_recipe_json_times(unique_user: TestUser):
-    recipe = Recipe(
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=random_string(),
@@ -303,7 +303,7 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
     ],
 )
 def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
-    recipe = Recipe(
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=malicious_content,

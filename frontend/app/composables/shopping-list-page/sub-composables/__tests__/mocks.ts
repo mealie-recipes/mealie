@@ -20,7 +20,7 @@ export const MOCK_RECIPE: RecipeSummary = makeRecipeSummary({
 
 export const MOCK_RECIPE2: RecipeSummary = {
   ...MOCK_RECIPE,
-  id: null,
+  id: "recipe-id-2",
   name: "Recipe 2!",
 };
 

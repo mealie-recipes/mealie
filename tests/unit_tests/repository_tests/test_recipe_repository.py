@@ -11,7 +11,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
@@ -23,7 +23,7 @@ from tests.utils.fixture_schemas import TestUser
 def test_create_recipe_stops_retrying_integrity_errors(unique_user: TestUser, monkeypatch: pytest.MonkeyPatch) -> None:
     create = Mock(side_effect=IntegrityError("INSERT", {}, Exception("unrelated constraint failure")))
     monkeypatch.setattr(RepositoryGeneric, "create", create)
-    recipe = Recipe(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
+    recipe = RecipeDraft(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
 
     with pytest.raises(IntegrityError):
         unique_user.repos.recipes.create(recipe)
@@ -85,7 +85,7 @@ def unique_db(session: Session, unique_ids: tuple[str, str, str]):
 def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str]) -> list[Recipe]:
     group_id, _, user_id = unique_ids
     recipes = [
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Steinbock Sloop",
@@ -94,7 +94,7 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
                 RecipeIngredient(note="alpine animal"),
             ],
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Fiddlehead Fern Stir Fry",
@@ -102,44 +102,44 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
                 RecipeIngredient(note="moss"),
             ],
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Animal Sloop",
         ),
         # Test diacritics
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Rátàtôuile",
         ),
         # Add a bunch of recipes for stable randomization
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
@@ -166,7 +166,7 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
     for i in range(10):
         # None of the categories
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -175,7 +175,7 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
 
         # Only one of the categories
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -185,7 +185,7 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
 
         # Both of the categories
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -265,7 +265,7 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
     for i in range(10):
         # None of the tags
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -274,7 +274,7 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
 
         # Only one of the tags
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -284,7 +284,7 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
 
         # Both of the tags
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -363,7 +363,7 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
     for i in range(10):
         # None of the tools
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -372,7 +372,7 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
 
         # Only one of the tools
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -382,7 +382,7 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
 
         # Both of the tools
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -460,7 +460,7 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
     for i in range(10):
         # None of the foods
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -469,7 +469,7 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
 
         # Only one of the foods
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -479,7 +479,7 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
 
         # Both of the foods
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -636,7 +636,7 @@ def test_fuzzy_recipe_search_ingredient_threshold(
 
     group_id, _, user_id = unique_ids
     unique_db.recipes.create(
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Plain Toast",
@@ -674,7 +674,7 @@ def test_order_by_last_made(unique_user: TestUser, h2_user: TestUser):
 
     recipe_1, recipe_2 = (
         unique_user.repos.recipes.create(
-            Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
+            RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
         )
         for _ in range(2)
     )
@@ -730,7 +730,7 @@ def test_coalesce_last_made(unique_user: TestUser):
 
     made_recipe, unmade_recipe = (
         unique_user.repos.recipes.create(
-            Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
+            RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
         )
         for _ in range(2)
     )
@@ -776,7 +776,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
         slug = f"recipe-{i + 1}-{random_string(5)}"
         recipes.append(
             repo.create(
-                Recipe(
+                RecipeDraft(
                     user_id=user_1.user_id,
                     group_id=user_1.group_id,
                     name=slug,
@@ -895,7 +895,7 @@ def test_recipe_update_preserves_identity_when_omitted(unique_user: TestUser):
     # update() must always preserve these from the existing DB entry rather than erroring.
     database = unique_user.repos
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -937,7 +937,7 @@ def test_recipe_update_rejects_cross_group_organizer_id(unique_user: TestUser, u
     )
 
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -981,7 +981,7 @@ def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
     # Regression test for #6802 - Ensure explicit group_id injection works for new organizers
     database = unique_user.repos
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -992,7 +992,7 @@ def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
     new_cat_name = random_string()
     new_tool_name = random_string()
 
-    patch_data = Recipe(
+    patch_data = RecipeDraft(
         name=recipe.name,
         tags=[new_tag_name],
         recipe_category=[new_cat_name],
@@ -1030,7 +1030,7 @@ def test_recipe_note_step_references(unique_user: TestUser) -> None:
 
     # Create a recipe with one note
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -1058,7 +1058,7 @@ def test_recipe_note_step_references(unique_user: TestUser) -> None:
 def test_recipe_create_keeps_provided_id(unique_user: TestUser) -> None:
     recipe_id = uuid4()
     recipe = unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             id=recipe_id,
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -1072,7 +1072,7 @@ def test_recipe_create_keeps_provided_id(unique_user: TestUser) -> None:
 def test_recipe_update_ignores_id_in_payload(unique_user: TestUser) -> None:
     database = unique_user.repos
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -1090,7 +1090,7 @@ def test_recipe_repo_count_all(
 ):
     group_id, household_id, user_id = unique_ids
     for _ in range(2):
-        unique_db.recipes.create(Recipe(group_id=group_id, user_id=user_id, name=random_string()))
+        unique_db.recipes.create(RecipeDraft(group_id=group_id, user_id=user_id, name=random_string()))
 
     # group_id is a column on recipes, household_id is an association proxy through the user
     assert unfiltered_database.recipes.count_all("group_id", UUID(group_id)) == 2

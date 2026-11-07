@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import AllRepositories, get_repositories
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnitAlias, RecipeIngredient, SaveIngredientUnit
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import GroupBase
@@ -44,7 +44,7 @@ def test_unit_merger(unique_user: TestUser):
     )
 
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=slug1,
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),

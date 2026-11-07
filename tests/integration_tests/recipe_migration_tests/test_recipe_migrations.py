@@ -11,7 +11,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_migration import SupportedMigrations
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.reports.reports import ReportEntryOut
 from mealie.services.migrations.utils import migration_helpers
@@ -202,7 +202,7 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
 
     # Validate recipe content
     response = api_client.get(api_routes.recipes_slug(mig.search_slug), headers=unique_user.token)
-    recipe = Recipe(**assert_deserialize(response))
+    recipe = RecipeDraft(**assert_deserialize(response))
 
     if mig.typ is SupportedMigrations.copymethat:
         response = api_client.get(
@@ -325,7 +325,9 @@ def test_recipekeeper_imports_categories_and_yield(api_client: TestClient, uniqu
     assert response.status_code == 200
 
     def get(slug: str) -> Recipe:
-        return Recipe(**assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)))
+        return RecipeDraft(
+            **assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token))
+        )
 
     # a bare number in recipeYield is a yield quantity
     recipe = get("zucchini-bread")
@@ -368,7 +370,7 @@ def test_paprika_imports_notes(api_client: TestClient, unique_user_fn_scoped: Te
     assert response.status_code == 200
 
     response = api_client.get(api_routes.recipes_slug("paprika-notes-test"), headers=unique_user.token)
-    recipe = Recipe(**assert_deserialize(response))
+    recipe = RecipeDraft(**assert_deserialize(response))
 
     assert recipe.notes
     assert recipe.notes[0].text == note_text

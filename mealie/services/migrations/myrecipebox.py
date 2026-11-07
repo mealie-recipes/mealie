@@ -5,7 +5,7 @@ from typing import Any
 
 from slugify import slugify
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.services.migrations.utils.migration_alias import MigrationAlias
 from mealie.services.scraper import cleaner
 
@@ -101,7 +101,7 @@ class MyRecipeBoxMigrator(BaseMigrator):
     def _migrate(self) -> None:
         recipe_image_urls: dict = {}
 
-        recipes: list[Recipe] = []
+        recipes: list[RecipeDraft] = []
         for row in self.extract_rows(self.archive):
             recipe_dict = self.pre_process_row(row)
             if (title := recipe_dict.get("title")) and (image_url := recipe_dict.get("originalPicture")):

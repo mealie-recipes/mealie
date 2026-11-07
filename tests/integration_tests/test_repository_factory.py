@@ -14,7 +14,7 @@ from mealie.repos.repository_generic import GroupRepositoryGeneric, HouseholdRep
 from mealie.schema._mealie.mealie_model import MealieModel
 from mealie.schema.household.group_shopping_list import ShoppingListCreate
 from mealie.schema.household.webhook import SaveWebhook
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.household_services.shopping_lists import ShoppingListService
@@ -219,14 +219,14 @@ def test_recipe_repo_filter_by_household_with_proxy(session: Session):
     household_1_repos = get_repositories(session, group_id=group.id, household_id=household_1.id)
     household_2_repos = get_repositories(session, group_id=group.id, household_id=household_2.id)
     recipe_1 = household_1_repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user_1.id,
             group_id=group.id,
             name=random_string(),
         )
     )
     recipe_2 = household_2_repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user_2.id,
             group_id=group.id,
             name=random_string(),

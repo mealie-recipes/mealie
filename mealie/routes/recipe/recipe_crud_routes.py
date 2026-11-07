@@ -42,9 +42,11 @@ from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
-    RecipeIn,
+    RecipeCategoryIn,
+    RecipeDraft,
     RecipeLastMade,
     RecipeSummary,
+    RecipeTagIn,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
@@ -80,7 +82,7 @@ from mealie.services.recipe.recipe_data_service import (
     RecipeDataService,
 )
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
-from mealie.services.scraper.scraped_extras import ScraperContext
+from mealie.services.scraper.scraped_extras import ScrapedExtras, ScraperContext
 from mealie.services.scraper.scraper import create_from_html
 from mealie.services.scraper.scraper_strategies import (
     ForceTimeoutException,
@@ -407,14 +409,18 @@ class RecipeController(BaseRecipeController):
 
         return self._stream_recipe_creation(create)
 
-    def _finish_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData, recipe: Recipe, extras: object) -> str:
-        if req.include_tags:
+    def _finish_recipe_from_web(
+        self, req: ScrapeRecipe | ScrapeRecipeData, recipe: RecipeDraft, extras: ScrapedExtras | None
+    ) -> str:
+        if extras and req.include_tags:
             ctx = ScraperContext(self.repos)
-            recipe.tags = extras.use_tags(ctx)  # type: ignore
+            recipe.tags = [RecipeTagIn.model_validate(tag) for tag in extras.use_tags(ctx)]
 
-        if req.include_categories:
+        if extras and req.include_categories:
             ctx = ScraperContext(self.repos)
-            recipe.recipe_category = extras.use_categories(ctx)  # type: ignore
+            recipe.recipe_category = [
+                RecipeCategoryIn.model_validate(category) for category in extras.use_categories(ctx)
+            ]
 
         new_recipe = self.service.create_one(recipe)
         self._publish_recipe_created(new_recipe)
@@ -700,7 +706,7 @@ class RecipeController(BaseRecipeController):
         return new_recipe
 
     @router.put("/{slug}", response_model=Recipe)
-    def update_one(self, slug: str, data: RecipeIn):
+    def update_one(self, slug: str, data: RecipeDraft):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.update_one(slug, data)
@@ -723,7 +729,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.put("", response_model=list[Recipe])
-    def update_many(self, data: list[RecipeIn]):
+    def update_many(self, data: list[RecipeDraft]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )
@@ -748,7 +754,7 @@ class RecipeController(BaseRecipeController):
         return all_updated
 
     @router.patch("/{slug}", response_model=Recipe)
-    def patch_one(self, slug: str, data: RecipeIn):
+    def patch_one(self, slug: str, data: RecipeDraft):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.patch_one(slug, data)
@@ -771,7 +777,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.patch("", response_model=list[Recipe])
-    def patch_many(self, data: list[RecipeIn]):
+    def patch_many(self, data: list[RecipeDraft]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )

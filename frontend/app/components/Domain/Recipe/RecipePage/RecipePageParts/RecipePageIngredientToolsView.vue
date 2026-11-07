@@ -40,7 +40,6 @@
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe, RecipeTool } from "~/lib/api/types/recipe";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 
@@ -49,7 +48,7 @@ interface RecipeToolWithOnHand extends RecipeTool {
 }
 
 interface Props {
-  recipe: NoUndefinedField<Recipe>;
+  recipe: Recipe;
   scale: number;
   isCookMode?: boolean;
   ingredientStorageKey?: string;

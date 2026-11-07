@@ -22,7 +22,7 @@
     <template #[`item.tags`]="{ item }">
       <RecipeChip
         small
-        :items="item.tags!"
+        :items="item.tags"
         :is-category="false"
         url-prefix="tags"
         @item-selected="filterItems"
@@ -31,7 +31,7 @@
     <template #[`item.recipeCategory`]="{ item }">
       <RecipeChip
         small
-        :items="item.recipeCategory!"
+        :items="item.recipeCategory"
         @item-selected="filterItems"
       />
     </template>

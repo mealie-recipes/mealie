@@ -34,11 +34,10 @@ import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { Recipe } from "~/lib/api/types/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageState, usePageUser, PageMode } from "~/composables/recipe-page/shared-state";
 
 interface Props {
-  recipe: NoUndefinedField<Recipe>;
+  recipe: Recipe;
   recipeScale?: number;
   landscape?: boolean;
 }

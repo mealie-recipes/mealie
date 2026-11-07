@@ -7,7 +7,7 @@ import sqlalchemy as sa
 from fastapi.testclient import TestClient
 
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_category import CategoryOut
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodSubstitution,
@@ -66,7 +66,7 @@ def create_recipe(
         ingredients = []
 
     recipe = user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=kwargs.pop("name", random_string()),
@@ -712,7 +712,7 @@ def set_food_substitutions(user: TestUser, food: IngredientFood, substitutions: 
 
 def create_recipe_with_ingredient_substitutions(user: TestUser, food: IngredientFood, substitutions: list):
     return user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=random_string(),

@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.lang.providers import get_all_translations
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeDraft
 from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventOut,
     RecipeTimelineEventPagination,
@@ -34,7 +34,7 @@ def recipes(api_client: TestClient, unique_user: TestUser):
         response = api_client.get(f"{api_routes.recipes}/{slug}", headers=unique_user.token)
         assert response.status_code == 200
 
-        recipe = Recipe.model_validate(response.json())
+        recipe = RecipeDraft.model_validate(response.json())
         recipes.append(recipe)
 
     yield recipes

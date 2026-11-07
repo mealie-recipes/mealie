@@ -241,7 +241,7 @@ import { useNewShoppingListForm } from "~/composables/shopping-list-page/use-add
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { RecipeIngredient, ShoppingListAddRecipeParamsBulk, ShoppingListSummary } from "~/lib/api/types/household";
-import type { Recipe, RecipeSummary } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeDraft, RecipeSummary } from "~/lib/api/types/recipe";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 
 /** Ingredients are fetched on demand when the caller only has a summary. */
@@ -265,7 +265,7 @@ export interface ShoppingListRecipeIngredientSection {
   recipeName: string;
   recipeScale: number;
   ingredientSections: ShoppingListIngredientSection[];
-  parentRecipe?: RecipeSummary;
+  parentRecipe?: Pick<RecipeDraft, "name">;
 }
 
 interface Props {
@@ -362,7 +362,7 @@ function buildIngredientSections(ingredients: ShoppingListIngredient[]): Shoppin
 async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
   const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
 
-  function addSubRecipeToMap(ing: RecipeIngredient, parentQuantity: number, parentScale: number, parentRecipe: RecipeSummary) {
+  function addSubRecipeToMap(ing: RecipeIngredient, parentQuantity: number, parentScale: number, parentRecipe: Pick<RecipeDraft, "name">) {
     const subRecipe = ing.referencedRecipe!;
     const key = subRecipe.id || subRecipe.slug || "";
     const ownIngs: ShoppingListIngredient[] = [];
@@ -435,8 +435,8 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
     });
 
     recipeSectionMap.set(recipe.slug, {
-      recipeId: recipeData.id || "",
-      recipeName: recipeData.name || "",
+      recipeId: recipeData.id,
+      recipeName: recipeData.name,
       recipeScale: recipe.scale,
       ingredientSections: buildIngredientSections(ownIngs),
     });

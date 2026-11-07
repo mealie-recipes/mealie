@@ -24,7 +24,6 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListSave,
 )
-from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
@@ -441,9 +440,9 @@ class ShoppingListService:
 
         list_items: list[ShoppingListItemCreate] = []
         for ingredient in recipe_ingredients:
-            if isinstance(ingredient.referenced_recipe, Recipe):
+            sub_recipe = ingredient.referenced_recipe
+            if sub_recipe is not None and sub_recipe.id is not None:
                 # Recursively process sub-recipe ingredients
-                sub_recipe = ingredient.referenced_recipe
                 sub_scale = (ingredient.quantity or 1) * scale
                 sub_items = self.get_shopping_list_items_from_recipe(
                     list_id,

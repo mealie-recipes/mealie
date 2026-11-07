@@ -26,10 +26,9 @@ import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import type { Recipe } from "~/lib/api/types/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
 interface Props {
-  recipe: NoUndefinedField<Recipe>;
+  recipe: Recipe;
   maxWidth?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
