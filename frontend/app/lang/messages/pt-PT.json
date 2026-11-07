@@ -238,6 +238,8 @@
       "api-key": "Chave API",
       "api-key-description-create": "A chave API do seu fornecedor para autenticação. Se o seu serviço (por exemplo, Ollama) não utilizar uma chave API, ainda assim precisa de introduzir algo aqui.",
       "api-key-description-edit": "Deixe em branco, a não ser que pretenda alterar.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "URL Base",
       "base-url-description": "Se estiver a utilizar a OpenAI, deixe este campo em branco. Deve ser um endpoint compatível com a OpenAI (por exemplo, \"http://localhost:11434/v1\").",
       "model": "Modelo",
