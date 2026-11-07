@@ -1,12 +1,24 @@
 from enum import StrEnum
 from typing import Any, Self
 
-from pydantic import UUID4, ConfigDict, Field, ValidationInfo, computed_field, field_validator, model_validator
+from pydantic import (
+    UUID4,
+    ConfigDict,
+    Field,
+    ValidationInfo,
+    computed_field,
+    field_serializer,
+    field_validator,
+    model_validator,
+)
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.group.ai_providers import AIProvider, AIProviderSettings
 from mealie.schema._mealie import MealieModel
+
+REDACTED_VALUE = "********"
+"""Stands in for header and param values in API responses. Clients send it back to mean "keep the stored value"."""
 
 
 class AIProviderCreate(MealieModel):
@@ -56,6 +68,39 @@ class AIProviderOut(AIProviderCreate):
             return v
 
         return {x.key_name: x.value for x in v} if v else {}
+
+    @field_serializer("request_headers", "request_params", when_used="json")
+    def redact_values(self, v: dict[str, str]) -> dict[str, str]:
+        # Headers and params routinely carry credentials (e.g. Authorization), so like api_key they are write-only.
+        return dict.fromkeys(v, REDACTED_VALUE)
+
+    def resolve_update(self, data: AIProviderCreate) -> dict[str, Any]:
+        """
+        Fill omitted or redacted secrets in an edit from the stored values.
+
+        Only while the base URL is unchanged, so a secret never goes to a host it was not saved for.
+        """
+        destination_changed = data.base_url != self.base_url
+
+        if destination_changed and not data.api_key:
+            raise ValueError("A new API key is required when the base URL changes")
+
+        resolved = data.model_dump()
+        resolved["api_key"] = data.api_key or self.api_key
+
+        for field in ("request_headers", "request_params"):
+            stored: dict[str, str] = getattr(self, field)
+            submitted: dict[str, str] = resolved[field]
+            for key, value in submitted.items():
+                if value != REDACTED_VALUE:
+                    continue
+
+                if destination_changed or key not in stored:
+                    raise ValueError(f"A new value is required for {key} in {field}")
+
+                submitted[key] = stored[key]
+
+        return resolved
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
