@@ -54,10 +54,6 @@ class GroupEventNotifierOptions(MealieModel):
     label_deleted: bool = False
 
 
-class GroupEventNotifierOptionsSave(GroupEventNotifierOptions):
-    notifier_id: UUID4
-
-
 class GroupEventNotifierOptionsOut(GroupEventNotifierOptions):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)

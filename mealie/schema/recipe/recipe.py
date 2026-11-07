@@ -17,7 +17,7 @@ from mealie.core.config import get_app_dirs
 from mealie.core.exceptions import SlugError
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel, SearchType
-from mealie.schema._mealie.mealie_model import UpdatedAtField
+from mealie.schema._mealie.mealie_model import MealieOutModel, UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
@@ -167,7 +167,7 @@ MAX_DURATION_SECONDS = 2**31 - 1
 DurationSeconds = Annotated[int, Field(ge=0, le=MAX_DURATION_SECONDS)]
 
 
-class RecipeSummary(MealieModel):
+class RecipeSummary(MealieOutModel):
     id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
     # Stricter than _fuzzy_similarity_threshold: at 0.5 short words in ingredient lines match far too
@@ -492,6 +492,8 @@ class RecipeIn(Recipe):
     tags: Annotated[list[RecipeTagIn] | None, Field(validate_default=True)] = []
     recipe_category: Annotated[list[RecipeCategoryIn] | None, Field(validate_default=True)] = []
     tools: list[RecipeToolIn] = []
+
+    model_config = ConfigDict(json_schema_serialization_defaults_required=False)
 
 
 class RecipeLastMade(BaseModel):

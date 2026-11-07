@@ -258,42 +258,42 @@ export interface RecipeIngredient {
   referenceId?: string;
 }
 export interface Recipe {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  performTime?: string | null;
-  totalTimeSeconds?: number | null;
-  prepTimeSeconds?: number | null;
-  performTimeSeconds?: number | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  recipeIngredient?: RecipeIngredient[];
-  recipeInstructions?: RecipeStep[] | null;
-  nutrition?: Nutrition | null;
-  settings?: RecipeSettings | null;
-  assets?: RecipeAsset[] | null;
-  notes?: RecipeNote[] | null;
-  extras?: {
+  id: string | null;
+  userId: string;
+  householdId: string;
+  groupId: string;
+  name: string | null;
+  slug: string;
+  image: unknown;
+  recipeServings: number;
+  recipeYieldQuantity: number;
+  recipeYield: string | null;
+  totalTime: string | null;
+  prepTime: string | null;
+  performTime: string | null;
+  totalTimeSeconds: number | null;
+  prepTimeSeconds: number | null;
+  performTimeSeconds: number | null;
+  description: string | null;
+  recipeCategory: RecipeCategory[] | null;
+  tags: RecipeTag[] | null;
+  tools: RecipeTool[];
+  rating: number | null;
+  orgURL: string | null;
+  dateAdded: string | null;
+  dateUpdated: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  recipeIngredient: RecipeIngredient[];
+  recipeInstructions: RecipeStep[] | null;
+  nutrition: Nutrition | null;
+  settings: RecipeSettings | null;
+  assets: RecipeAsset[] | null;
+  notes: RecipeNote[] | null;
+  extras: {
     [k: string]: unknown;
   } | null;
-  comments?: RecipeCommentOut[] | null;
+  comments: RecipeCommentOut[] | null;
 }
 export interface RecipeTool {
   id: string;
@@ -357,32 +357,32 @@ export interface RecipeCategoryResponse {
   recipes?: RecipeSummary[];
 }
 export interface RecipeSummary {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  performTime?: string | null;
-  totalTimeSeconds?: number | null;
-  prepTimeSeconds?: number | null;
-  performTimeSeconds?: number | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
+  id: string | null;
+  userId: string;
+  householdId: string;
+  groupId: string;
+  name: string | null;
+  slug: string;
+  image: unknown;
+  recipeServings: number;
+  recipeYieldQuantity: number;
+  recipeYield: string | null;
+  totalTime: string | null;
+  prepTime: string | null;
+  performTime: string | null;
+  totalTimeSeconds: number | null;
+  prepTimeSeconds: number | null;
+  performTimeSeconds: number | null;
+  description: string | null;
+  recipeCategory: RecipeCategory[] | null;
+  tags: RecipeTag[] | null;
+  tools: RecipeTool[];
+  rating: number | null;
+  orgURL: string | null;
+  dateAdded: string | null;
+  dateUpdated: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
 }
 export interface RecipeCommentCreate {
   recipeId: string;
@@ -487,9 +487,6 @@ export interface RecipeShareTokenSummary {
   groupId: string;
   id: string;
   createdAt: string;
-}
-export interface RecipeSlug {
-  slug: string;
 }
 export interface RecipeSuggestionQuery {
   orderBy?: string | null;
@@ -647,7 +644,6 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse {}
 export interface SubstitutionBase {
   substituteFoodId?: string | null;
   note?: string | null;
@@ -682,6 +678,7 @@ export interface UnitFoodBase {
 export interface UpdateImageResponse {
   image: string;
 }
+export interface MealieOutModel {}
 export interface RequestQuery {
   orderBy?: string | null;
   orderByNullPosition?: OrderByNullPosition | null;

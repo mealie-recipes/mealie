@@ -127,7 +127,7 @@
             <RecipeCard
               :name="recipe.name!"
               :description="recipe.description!"
-              :slug="recipe.slug!"
+              :slug="recipe.slug"
               :rating="recipe.rating!"
               :image="recipe.image!"
               :tags="recipe.tags!"
@@ -151,7 +151,7 @@
             <RecipeCardMobile
               :name="recipe.name!"
               :description="recipe.description!"
-              :slug="recipe.slug!"
+              :slug="recipe.slug"
               :rating="recipe.rating!"
               :image="recipe.image!"
               :tags="recipe.tags!"
@@ -179,7 +179,7 @@ import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useLazyRecipes } from "~/composables/recipes";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
@@ -192,7 +192,7 @@ interface Props {
   icon?: string | null;
   title?: string | null;
   singleColumn?: boolean;
-  recipes?: Recipe[];
+  recipes?: RecipeSummary[];
   query?: RecipeSearchQuery | null;
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -206,8 +206,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  replaceRecipes: [recipes: Recipe[]];
-  appendRecipes: [recipes: Recipe[]];
+  replaceRecipes: [recipes: RecipeSummary[]];
+  appendRecipes: [recipes: RecipeSummary[]];
 }>();
 
 const display = useDisplay();

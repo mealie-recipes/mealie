@@ -21,7 +21,7 @@ export abstract class BaseAPI {
   }
 }
 
-export abstract class BaseCRUDAPIReadOnly<ReadType>
+export abstract class BaseCRUDAPIReadOnly<ReadType, ListType = ReadType>
   extends BaseAPI
   implements CrudAPIInterface {
   public baseRoute: string;
@@ -47,7 +47,7 @@ export abstract class BaseCRUDAPIReadOnly<ReadType>
 
   async getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>, config?: AxiosRequestConfig) {
     params = Object.fromEntries(Object.entries(params).filter(([_, v]) => v !== null && v !== undefined));
-    return await this.requests.get<PaginationData<ReadType>>(route(this.baseRoute, { page, perPage, ...params }), undefined, config);
+    return await this.requests.get<PaginationData<ListType>>(route(this.baseRoute, { page, perPage, ...params }), undefined, config);
   }
 
   async getOne(itemId: string | number, config?: AxiosRequestConfig) {
@@ -55,11 +55,17 @@ export abstract class BaseCRUDAPIReadOnly<ReadType>
   }
 }
 
-export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
-  extends BaseCRUDAPIReadOnly<ReadType>
+export abstract class BaseCRUDAPI<
+  CreateType,
+  ReadType,
+  UpdateType = CreateType,
+  ListType = ReadType,
+  CreateResponseType = ReadType,
+>
+  extends BaseCRUDAPIReadOnly<ReadType, ListType>
   implements CrudAPIInterface {
   async createOne(payload: CreateType, config?: AxiosRequestConfig) {
-    return await this.requests.post<ReadType>(this.baseRoute, payload, config);
+    return await this.requests.post<CreateResponseType>(this.baseRoute, payload, config);
   }
 
   async updateOne(itemId: string | number, payload: UpdateType, config?: AxiosRequestConfig) {

@@ -38,10 +38,6 @@ class AIProviderCreate(MealieModel):
         return val
 
 
-class AIProviderSave(AIProviderCreate):
-    settings_id: UUID4
-
-
 class AIProviderUpdate(AIProviderCreate): ...
 
 
@@ -105,10 +101,6 @@ class AIPromptOverrideCreate(AIPromptOverrideUpdate):
     base_prompt_hash: str | None = None
 
 
-class AIPromptOverrideSave(AIPromptOverrideCreate):
-    settings_id: UUID4
-
-
 class AIPromptOverrideOut(AIPromptOverrideCreate):
     id: UUID4
 
@@ -131,10 +123,6 @@ class AIPromptOut(MealieModel):
 class AIPromptsOut(MealieModel):
     global_instructions: str | None = None
     prompts: list[AIPromptOut]
-
-
-class AIProviderSettingsCreate(MealieModel):
-    group_id: UUID4
 
 
 class AIProviderSettingsUpdate(MealieModel):

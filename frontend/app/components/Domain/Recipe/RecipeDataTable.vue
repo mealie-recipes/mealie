@@ -46,13 +46,13 @@
     <template #[`item.userId`]="{ item }">
       <div class="d-flex align-center">
         <UserAvatar
-          :user-id="item.userId!"
+          :user-id="item.userId"
           :tooltip="false"
           size="40"
         />
         <div class="pl-2">
           <span class="text-left">
-            {{ getMember(item.userId!) }}
+            {{ getMember(item.userId) }}
           </span>
         </div>
       </div>
@@ -66,7 +66,7 @@
 <script setup lang="ts">
 import UserAvatar from "../User/UserAvatar.vue";
 import RecipeChip from "./RecipeChips.vue";
-import type { Recipe, RecipeCategory, RecipeTool } from "~/lib/api/types/recipe";
+import type { RecipeCategory, RecipeSummary, RecipeTool } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import type { UserSummary } from "~/lib/api/types/user";
 import type { RecipeTag } from "~/lib/api/types/household";
@@ -85,7 +85,7 @@ interface ShowHeaders {
 
 interface Props {
   loading?: boolean;
-  recipes?: Recipe[];
+  recipes?: RecipeSummary[];
   showHeaders?: ShowHeaders;
   search?: string;
 }
@@ -109,7 +109,7 @@ defineEmits<{
   click: [];
 }>();
 
-const selected = defineModel<Recipe[]>({ default: () => [] });
+const selected = defineModel<RecipeSummary[]>({ default: () => [] });
 
 const i18n = useI18n();
 const auth = useMealieAuth();

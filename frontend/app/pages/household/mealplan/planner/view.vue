@@ -35,7 +35,7 @@
                           :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
                           :scale="mealplan.recipeScale ?? 1"
                           :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
-                          :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
+                          :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title!"
                           :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
                           :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
                           :image="mealplan.recipe ? mealplan.recipe.image! : undefined"

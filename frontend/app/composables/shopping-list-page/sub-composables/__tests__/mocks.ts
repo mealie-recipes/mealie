@@ -1,4 +1,5 @@
 import type { IngredientFood, RecipeSummary, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
+import { makeRecipeSummary } from "~/tests/factories";
 
 export const MOCK_ITEM: ShoppingListItemOut = {
   shoppingListId: "",
@@ -12,14 +13,14 @@ export const MOCK_ITEM: ShoppingListItemOut = {
   createdAt: "100",
 };
 
-export const MOCK_RECIPE: RecipeSummary = {
+export const MOCK_RECIPE: RecipeSummary = makeRecipeSummary({
   id: "recipe-id",
   name: "Recipe!",
-};
+});
 
 export const MOCK_RECIPE2: RecipeSummary = {
   ...MOCK_RECIPE,
-  id: undefined,
+  id: null,
   name: "Recipe 2!",
 };
 

@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { effectScope, ref } from "vue";
 import { MEALPLAN_SCALE_SAVE_DELAY_MS, useMealPlanScale } from "../use-mealplan-scale";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import { makeRecipeSummary } from "~/tests/factories";
 
 function createMeal(overrides: Partial<ReadPlanEntry> = {}): ReadPlanEntry {
   return {
@@ -13,7 +14,7 @@ function createMeal(overrides: Partial<ReadPlanEntry> = {}): ReadPlanEntry {
     householdId: "my-household-id",
     recipeId: "my-recipe-id",
     recipeScale: 1,
-    recipe: { id: "my-recipe-id", name: "Pancakes", recipeServings: 4 },
+    recipe: makeRecipeSummary({ id: "my-recipe-id", name: "Pancakes", recipeServings: 4 }),
     ...overrides,
   };
 }
@@ -46,7 +47,7 @@ describe("useMealPlanScale", () => {
     [{ recipeServings: 0, recipeYieldQuantity: 0 }, 1],
     [{}, 1],
   ])("reads the servings of recipe %o as %d", (recipe, expected) => {
-    const { recipeServings } = useMealPlanScale(createMeal({ recipe }), save);
+    const { recipeServings } = useMealPlanScale(createMeal({ recipe: makeRecipeSummary(recipe) }), save);
     expect(recipeServings.value).toBe(expected);
   });
 

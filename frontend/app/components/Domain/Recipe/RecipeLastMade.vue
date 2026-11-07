@@ -182,7 +182,7 @@ const lastMade = ref<string>();
 const lastMadeReady = ref(false);
 onMounted(async () => {
   if (auth.user?.value?.householdSlug) {
-    const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug || "");
+    const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug);
     lastMade.value = data?.lastMade;
   }
 

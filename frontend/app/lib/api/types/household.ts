@@ -107,36 +107,6 @@ export interface GroupEventNotifierOptionsOut {
   labelDeleted?: boolean;
   id: string;
 }
-export interface GroupEventNotifierOptionsSave {
-  testMessage?: boolean;
-  webhookTask?: boolean;
-  recipeCreated?: boolean;
-  recipeUpdated?: boolean;
-  recipeDeleted?: boolean;
-  userSignup?: boolean;
-  dataMigrations?: boolean;
-  dataExport?: boolean;
-  dataImport?: boolean;
-  mealplanEntryCreated?: boolean;
-  mealplanEntryUpdated?: boolean;
-  mealplanEntryDeleted?: boolean;
-  shoppingListCreated?: boolean;
-  shoppingListUpdated?: boolean;
-  shoppingListDeleted?: boolean;
-  cookbookCreated?: boolean;
-  cookbookUpdated?: boolean;
-  cookbookDeleted?: boolean;
-  tagCreated?: boolean;
-  tagUpdated?: boolean;
-  tagDeleted?: boolean;
-  categoryCreated?: boolean;
-  categoryUpdated?: boolean;
-  categoryDeleted?: boolean;
-  labelCreated?: boolean;
-  labelUpdated?: boolean;
-  labelDeleted?: boolean;
-  notifierId: string;
-}
 export interface GroupEventNotifierOut {
   id: string;
   name: string;
@@ -423,42 +393,42 @@ export interface CreateIngredientFoodSubstitution {
   note?: string | null;
 }
 export interface Recipe {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  performTime?: string | null;
-  totalTimeSeconds?: number | null;
-  prepTimeSeconds?: number | null;
-  performTimeSeconds?: number | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  recipeIngredient?: RecipeIngredient[];
-  recipeInstructions?: RecipeStep[] | null;
-  nutrition?: Nutrition | null;
-  settings?: RecipeSettings | null;
-  assets?: RecipeAsset[] | null;
-  notes?: RecipeNote[] | null;
-  extras?: {
+  id: string | null;
+  userId: string;
+  householdId: string;
+  groupId: string;
+  name: string | null;
+  slug: string;
+  image: unknown;
+  recipeServings: number;
+  recipeYieldQuantity: number;
+  recipeYield: string | null;
+  totalTime: string | null;
+  prepTime: string | null;
+  performTime: string | null;
+  totalTimeSeconds: number | null;
+  prepTimeSeconds: number | null;
+  performTimeSeconds: number | null;
+  description: string | null;
+  recipeCategory: RecipeCategory[] | null;
+  tags: RecipeTag[] | null;
+  tools: RecipeTool[];
+  rating: number | null;
+  orgURL: string | null;
+  dateAdded: string | null;
+  dateUpdated: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  recipeIngredient: RecipeIngredient[];
+  recipeInstructions: RecipeStep[] | null;
+  nutrition: Nutrition | null;
+  settings: RecipeSettings | null;
+  assets: RecipeAsset[] | null;
+  notes: RecipeNote[] | null;
+  extras: {
     [k: string]: unknown;
   } | null;
-  comments?: RecipeCommentOut[] | null;
+  comments: RecipeCommentOut[] | null;
 }
 export interface RecipeCategory {
   id?: string | null;
@@ -726,32 +696,32 @@ export interface ShoppingListRecipeRefOut {
   recipe: RecipeSummary;
 }
 export interface RecipeSummary {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  performTime?: string | null;
-  totalTimeSeconds?: number | null;
-  prepTimeSeconds?: number | null;
-  performTimeSeconds?: number | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
+  id: string | null;
+  userId: string;
+  householdId: string;
+  groupId: string;
+  name: string | null;
+  slug: string;
+  image: unknown;
+  recipeServings: number;
+  recipeYieldQuantity: number;
+  recipeYield: string | null;
+  totalTime: string | null;
+  prepTime: string | null;
+  performTime: string | null;
+  totalTimeSeconds: number | null;
+  prepTimeSeconds: number | null;
+  performTimeSeconds: number | null;
+  description: string | null;
+  recipeCategory: RecipeCategory[] | null;
+  tags: RecipeTag[] | null;
+  tools: RecipeTool[];
+  rating: number | null;
+  orgURL: string | null;
+  dateAdded: string | null;
+  dateUpdated: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
 }
 export interface ShoppingListRemoveRecipeParams {
   recipeDecrementQuantity?: number;

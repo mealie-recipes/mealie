@@ -56,7 +56,7 @@
         show-print
         :menu-top="false"
         :name="recipe.name!"
-        :slug="recipe.slug!"
+        :slug="recipe.slug"
         :menu-icon="$globals.icons.dotsVertical"
         fab
         color="info"

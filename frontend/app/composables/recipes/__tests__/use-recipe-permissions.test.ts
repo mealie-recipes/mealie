@@ -4,13 +4,14 @@ import { useRecipePermissions } from "../use-recipe-permissions";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { UserOut } from "~/lib/api/types/user";
+import { makeRecipe } from "~/tests/factories";
 
 describe("test use recipe permissions", () => {
   const commonUserId = "my-user-id";
   const commonGroupId = "my-group-id";
   const commonHouseholdId = "my-household-id";
 
-  const createRecipe = (overrides: Partial<Recipe>, isLocked = false): Recipe => ({
+  const createRecipe = (overrides: Partial<Recipe>, isLocked = false): Recipe => makeRecipe({
     id: "my-recipe-id",
     userId: commonUserId,
     groupId: commonGroupId,

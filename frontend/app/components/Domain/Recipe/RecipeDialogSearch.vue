@@ -58,7 +58,7 @@
             :class="{ 'keyboard-selected': index === selectedIndex }"
             :name="recipe.name ?? ''"
             :description="recipe.description ?? ''"
-            :slug="recipe.slug ?? ''"
+            :slug="recipe.slug"
             :rating="recipe.rating ?? 0"
             :image="recipe.image"
             :recipe-id="recipe.id ?? ''"

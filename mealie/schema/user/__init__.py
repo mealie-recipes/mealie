@@ -34,7 +34,6 @@ from .user import (
     UserRatingSummary,
     UserRatingUpdate,
     UserSummary,
-    UserSummaryPagination,
 )
 from .user_passwords import (
     ForgotPassword,
@@ -78,7 +77,6 @@ __all__ = [
     "UserRatingUpdate",
     "UserRatings",
     "UserSummary",
-    "UserSummaryPagination",
     "ForgotPassword",
     "PasswordResetToken",
     "PrivatePasswordResetToken",

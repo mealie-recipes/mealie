@@ -699,7 +699,7 @@ class RecipeController(BaseRecipeController):
 
         return new_recipe
 
-    @router.put("/{slug}")
+    @router.put("/{slug}", response_model=Recipe)
     def update_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
@@ -722,7 +722,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    @router.put("")
+    @router.put("", response_model=list[Recipe])
     def update_many(self, data: list[RecipeIn]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
@@ -747,7 +747,7 @@ class RecipeController(BaseRecipeController):
 
         return all_updated
 
-    @router.patch("/{slug}")
+    @router.patch("/{slug}", response_model=Recipe)
     def patch_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
@@ -770,7 +770,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    @router.patch("")
+    @router.patch("", response_model=list[Recipe])
     def patch_many(self, data: list[RecipeIn]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
@@ -795,7 +795,7 @@ class RecipeController(BaseRecipeController):
 
         return all_updated
 
-    @router.patch("/{slug}/last-made")
+    @router.patch("/{slug}/last-made", response_model=Recipe)
     def update_last_made(self, slug: str, data: RecipeLastMade):
         """Update a recipe's last made timestamp"""
 
@@ -819,7 +819,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    @router.delete("/{slug}")
+    @router.delete("/{slug}", response_model=Recipe)
     def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
         try:

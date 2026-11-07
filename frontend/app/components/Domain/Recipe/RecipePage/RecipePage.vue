@@ -401,7 +401,7 @@ onBeforeRouteLeave((to) => {
 
 onUnmounted(() => {
   deactivateNavigationWarning();
-  clearPageState(recipe.value.slug || "");
+  clearPageState(recipe.value.slug);
 });
 const hasLinkedIngredients = computed(() => {
   return recipe.value.recipeInstructions.some(

@@ -4,6 +4,7 @@ import { defineComponent } from "vue";
 import MealPlanScaleControl from "./MealPlanScaleControl.vue";
 import { MEALPLAN_SCALE_SAVE_DELAY_MS } from "~/composables/use-mealplan-scale";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import { makeRecipeSummary } from "~/tests/factories";
 
 // the real button needs vuetify; all this control adds on top of it is the debounced save
 const RecipeScaleEditButton = defineComponent({
@@ -26,7 +27,7 @@ const meal: ReadPlanEntry = {
   householdId: "my-household-id",
   recipeId: "my-recipe-id",
   recipeScale: 1.5,
-  recipe: { id: "my-recipe-id", name: "Pancakes", recipeServings: 4 },
+  recipe: makeRecipeSummary({ id: "my-recipe-id", name: "Pancakes", recipeServings: 4 }),
 };
 
 function mountControl() {

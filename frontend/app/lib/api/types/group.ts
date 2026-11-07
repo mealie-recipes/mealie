@@ -39,13 +39,6 @@ export interface AIPromptOverrideOut {
   basePromptHash?: string | null;
   id: string;
 }
-export interface AIPromptOverrideSave {
-  mode: AIPromptMode;
-  content: string;
-  name: string;
-  basePromptHash?: string | null;
-  settingsId: string;
-}
 export interface AIPromptOverrideUpdate {
   mode: AIPromptMode;
   content: string;
@@ -78,22 +71,6 @@ export interface AIProviderOut {
     [k: string]: string;
   };
   id: string;
-}
-export interface AIProviderSave {
-  name: string;
-  baseUrl?: string | null;
-  model: string;
-  timeout?: number;
-  requestHeaders?: {
-    [k: string]: string;
-  };
-  requestParams?: {
-    [k: string]: string;
-  };
-  settingsId: string;
-}
-export interface AIProviderSettingsCreate {
-  groupId: string;
 }
 export interface AIProviderSettingsOut {
   defaultProviderId: string | null;

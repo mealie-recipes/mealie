@@ -26,12 +26,6 @@ export interface CreateRandomEntry {
   endDate?: string | null;
   entryType?: PlanEntryType;
 }
-export interface ListItem {
-  title?: string | null;
-  text?: string;
-  quantity?: number;
-  checked?: boolean;
-}
 export interface PlanRulesCreate {
   day?: PlanRulesDay;
   entryType?: PlanRulesType;
@@ -85,32 +79,32 @@ export interface ReadPlanEntry {
   updatedAt?: string | null;
 }
 export interface RecipeSummary {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  performTime?: string | null;
-  totalTimeSeconds?: number | null;
-  prepTimeSeconds?: number | null;
-  performTimeSeconds?: number | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
+  id: string | null;
+  userId: string;
+  householdId: string;
+  groupId: string;
+  name: string | null;
+  slug: string;
+  image: unknown;
+  recipeServings: number;
+  recipeYieldQuantity: number;
+  recipeYield: string | null;
+  totalTime: string | null;
+  prepTime: string | null;
+  performTime: string | null;
+  totalTimeSeconds: number | null;
+  prepTimeSeconds: number | null;
+  performTimeSeconds: number | null;
+  description: string | null;
+  recipeCategory: RecipeCategory[] | null;
+  tags: RecipeTag[] | null;
+  tools: RecipeTool[];
+  rating: number | null;
+  orgURL: string | null;
+  dateAdded: string | null;
+  dateUpdated: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
 }
 export interface RecipeCategory {
   id?: string | null;
@@ -144,17 +138,6 @@ export interface SavePlanEntry {
   recipeScale?: number;
   groupId: string;
   userId: string;
-}
-export interface ShoppingListIn {
-  name: string;
-  group?: string | null;
-  items: ListItem[];
-}
-export interface ShoppingListOut {
-  name: string;
-  group?: string | null;
-  items: ListItem[];
-  id: number;
 }
 export interface UpdatePlanEntry {
   date: string;

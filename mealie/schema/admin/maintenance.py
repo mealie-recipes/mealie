@@ -13,7 +13,3 @@ class MaintenanceStorageDetails(MealieModel):
     groups_dir_size: str
     recipes_dir_size: str
     user_dir_size: str
-
-
-class MaintenanceLogs(MealieModel):
-    logs: list[str]

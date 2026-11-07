@@ -57,7 +57,7 @@ export const useGroupRecipeActions = function (
     return url
       .replace("${url}", window.location.href)
       .replace("${id}", recipe.id || "")
-      .replace("${slug}", recipe.slug || "")
+      .replace("${slug}", recipe.slug)
       .replace("${servings}", recipeServings.toString())
       .replace("${yieldQuantity}", recipeYieldQuantity.toString())
       .replace("${yieldText}", recipe.recipeYield || "");
@@ -72,7 +72,7 @@ export const useGroupRecipeActions = function (
         window.open(url, "_blank")?.focus();
         return;
       case "post":
-        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug || "", recipeScale);
+        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug, recipeScale);
       default:
         break;
     }

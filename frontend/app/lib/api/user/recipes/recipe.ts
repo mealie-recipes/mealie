@@ -7,6 +7,7 @@ import { RecipeShareApi } from "./recipe-share";
 import type {
   Recipe,
   RecipeIn,
+  RecipeSummary,
   CreateRecipe,
   RecipeAsset,
   CreateRecipeByUrlBulk,
@@ -44,7 +45,6 @@ const routes = {
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
   recipesCreateWithAI: `${prefix}/recipes/create/ai/stream`,
   recipesCreateFromHtmlOrJson: `${prefix}/recipes/create/html-or-json/stream`,
-  recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
   recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
@@ -92,7 +92,8 @@ export type RecipeSearchQuery = {
   _searchSeed?: string;
 };
 
-export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
+/** Creating a recipe responds with the new recipe's slug, not the recipe. */
+export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn, RecipeSummary, string> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
@@ -107,13 +108,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
   }
 
   async search(rsq: RecipeSearchQuery) {
-    return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesBase, rsq));
-  }
-
-  async getAllByCategory(categories: string[]) {
-    return await this.requests.get<Recipe[]>(routes.recipesCategory, {
-      categories,
-    });
+    return await this.requests.get<PaginationData<RecipeSummary>>(route(routes.recipesBase, rsq));
   }
 
   async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[] | null = null) {
@@ -288,12 +283,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
     return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
   }
 
-  async updateMany(payload: Recipe[]) {
-    return await this.requests.put<Recipe[]>(routes.recipesBase, payload);
+  async updateMany(payload: RecipeIn[]) {
+    return await this.requests.put<Recipe[], RecipeIn[]>(routes.recipesBase, payload);
   }
 
-  async patchMany(payload: Recipe[]) {
-    return await this.requests.patch<Recipe[]>(routes.recipesBase, payload);
+  async patchMany(payload: Partial<RecipeIn>[]) {
+    return await this.requests.patch<Recipe[], Partial<RecipeIn>[]>(routes.recipesBase, payload);
   }
 
   async updateLastMade(recipeSlug: string, timestamp: string) {

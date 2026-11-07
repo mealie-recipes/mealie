@@ -201,10 +201,6 @@ class UserPagination(PaginationBase):
     items: list[UserOut]
 
 
-class UserSummaryPagination(PaginationBase):
-    items: list[UserSummary]
-
-
 class PrivateUser(UserOut):
     password: str
     login_attemps: int = 0
