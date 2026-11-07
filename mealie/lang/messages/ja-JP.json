@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "レシピ画像を削除しました",
         "recipe-defaults": {
-            "ingredient-note": "小麦粉1カップ",
-            "name": "New Recipe",
-            "step-text": "レシピの手順など、レシピページはmarkdown構文に対応しています\n\n例）\n[ミーリー](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "作成",
