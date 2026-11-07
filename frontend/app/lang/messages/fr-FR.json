@@ -382,12 +382,12 @@
     "calendar-feed-reset-hint": "La réinitialisation ou la désactivation du lien empêche les abonnements existants de se mettre à jour.",
     "calendar-feed-include-notes": "Inclure des remarques",
     "calendar-feed-times-hint": "Les repas sans heure précise apparaissent comme des événements d'une journée entière.",
-    "calendar-feed-duration": "Length (minutes)",
-    "calendar-feed-event-details": "Event Details",
-    "calendar-feed-event-details-description": "Customize how meals show up in your calendar. You can use merge fields to fill in each meal's details (see the docs for the full list).",
-    "calendar-feed-event-details-change-warning": "Changing these will update the calendar link, so if you've already subscribed you'll need to replace it with the new link.",
-    "calendar-feed-event-title": "Event Title",
-    "calendar-feed-event-description": "Event Description",
+    "calendar-feed-duration": "Durée (minutes)",
+    "calendar-feed-event-details": "Détails de l'événement",
+    "calendar-feed-event-details-description": "Personnalisez la façon dont les repas s'affichent dans votre calendrier. Vous pouvez utiliser des champs de fusion pour renseigner les détails de chaque repas (consultez la documentation pour obtenir la liste complète).",
+    "calendar-feed-event-details-change-warning": "Toute modification de ces informations entraînera la mise à jour du lien vers le calendrier ; si vous êtes déjà abonné, vous devrez donc le remplacer par le nouveau lien.",
+    "calendar-feed-event-title": "Titre de l'événement",
+    "calendar-feed-event-description": "Description de l'évènement",
     "calendar-feed-url": "Lien du calendrier"
   },
   "migration": {
