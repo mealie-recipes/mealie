@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imagem da receita deletada",
         "recipe-defaults": {
-            "ingredient-note": "1 Xícara de Farinha",
-            "name": "New Recipe",
-            "step-text": "Passos das receitas, assim como outros campos na página da receita, suportam sintaxe \"markdown\".\n\n**Adicione um link**\n\n[Meu Link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Produz",
