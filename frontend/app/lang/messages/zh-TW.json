@@ -238,6 +238,8 @@
       "api-key": "API 密鑰",
       "api-key-description-create": "你的提供者用作認證的API密鑰。如果你的服務 (如 Ollama) 不使用API密鑰，你仍需在此欄填寫一些東西。",
       "api-key-description-edit": "除非你需要更改，請留空此欄。",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "基本網址",
       "base-url-description": "如使用OpenAI請留空。必須為OpenAI兼容接口 (如 \"http://localhost:11434/v1\")。",
       "model": "模型",
