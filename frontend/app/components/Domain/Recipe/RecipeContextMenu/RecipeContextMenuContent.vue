@@ -89,7 +89,7 @@ import { useHouseholdSelf } from "~/composables/use-households";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { alert } from "~/composables/use-toast";
 import type { GroupRecipeActionOut, HouseholdSummary } from "~/lib/api/types/household";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
 
 export interface ContextMenuIncludes {
@@ -123,7 +123,7 @@ interface Props {
   slug: string;
   menuIcon?: string | null;
   name: string;
-  recipe?: Recipe;
+  recipe?: RecipeOut;
   recipeId: string;
   recipeScale?: number;
 }
@@ -280,7 +280,7 @@ menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendIte
 // ===========================================================================
 // Context Menu Event Handler
 
-const recipeRef = ref<Recipe | undefined>(props.recipe);
+const recipeRef = ref<RecipeOut | undefined>(props.recipe);
 const recipeRefWithScale = computed(() =>
   recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
 );

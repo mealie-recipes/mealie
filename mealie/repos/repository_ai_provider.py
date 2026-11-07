@@ -20,7 +20,7 @@ def _get_settings_id(repo: GroupRepositoryGeneric) -> UUID4:
 
 
 class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider]):
-    def create(self, data: AIProviderCreate | dict):
+    def create(self, data: AIProviderCreate | dict):  # type: ignore[override]
         if isinstance(data, AIProviderCreate):
             api_key = data.api_key
             data = data.model_dump()
@@ -34,7 +34,7 @@ class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider
 
         return super().create(data)
 
-    def update(self, match_value: str | int | UUID4, new_data: AIProviderCreate | dict):
+    def update(self, match_value: str | int | UUID4, new_data: AIProviderCreate | dict):  # type: ignore[override]
         if not isinstance(new_data, AIProviderCreate):
             raise TypeError("AI provider updates must be an AIProviderCreate so resolve_update() checks the base URL")
 
@@ -70,7 +70,7 @@ class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider
 
 
 class GroupRepositoryAIPromptOverride(GroupRepositoryGeneric[AIPromptOverrideOut, AIPromptOverride]):
-    def create(self, data: AIPromptOverrideCreate | dict):
+    def create(self, data: AIPromptOverrideCreate | dict):  # type: ignore[override]
         if isinstance(data, AIPromptOverrideCreate):
             data = data.model_dump()
 

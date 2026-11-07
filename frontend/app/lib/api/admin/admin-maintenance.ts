@@ -1,17 +1,15 @@
 import { BaseAPI } from "../base/base-clients";
 import type { SuccessResponse } from "~/lib/api/types/response";
-import type { MaintenanceLogs, MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
+import type { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
 const prefix = "/api";
 
 const routes = {
   base: `${prefix}/admin/maintenance`,
   storage: `${prefix}/admin/maintenance/storage`,
-  logs: (lines: number) => `${prefix}/admin/maintenance/logs?lines=${lines}`,
   cleanTemp: `${prefix}/admin/maintenance/clean/temp`,
   cleanImages: `${prefix}/admin/maintenance/clean/images`,
   cleanRecipeFolders: `${prefix}/admin/maintenance/clean/recipe-folders`,
-  cleanLogFile: `${prefix}/admin/maintenance/clean/logs`,
 };
 
 export class AdminMaintenanceApi extends BaseAPI {
@@ -33,13 +31,5 @@ export class AdminMaintenanceApi extends BaseAPI {
 
   async cleanRecipeFolders() {
     return await this.requests.post<SuccessResponse>(routes.cleanRecipeFolders, {});
-  }
-
-  async cleanLogFile() {
-    return await this.requests.post<SuccessResponse>(routes.cleanLogFile, {});
-  }
-
-  async logs(lines: number) {
-    return await this.requests.get<MaintenanceLogs>(routes.logs(lines));
   }
 }

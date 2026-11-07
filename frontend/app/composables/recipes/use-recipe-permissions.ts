@@ -1,10 +1,10 @@
 import { computed } from "vue";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { UserOut } from "~/lib/api/types/user";
 
 export function useRecipePermissions(
-  recipe: Recipe,
+  recipe: RecipeOut,
   recipeHousehold: Ref<HouseholdSummary | undefined>,
   user: UserOut | null,
 ) {

@@ -48,9 +48,9 @@
 import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import type { FieldDefinition } from "~/composables/use-query-filter-builder";
-import type { ReadCookBook } from "~/lib/api/types/cookbook";
+import type { CookBookOut } from "~/lib/api/types/cookbook";
 
-const modelValue = defineModel<ReadCookBook>({ required: true });
+const modelValue = defineModel<CookBookOut>({ required: true });
 const i18n = useI18n();
 const cookbook = toRef(modelValue);
 function handleInput(value: string | undefined) {

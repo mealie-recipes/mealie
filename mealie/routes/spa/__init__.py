@@ -19,7 +19,7 @@ from mealie.db.db_setup import generate_session
 from mealie.repos.public_visibility import is_recipe_publicly_visible
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes.spa.manifest import serve_manifest
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.schema.user.user import PrivateUser
 
 
@@ -142,7 +142,7 @@ def inject_recipe_json(contents: str, schema: dict) -> str:
     return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
 
 
-def content_with_meta(group_slug: str, recipe: Recipe) -> str:
+def content_with_meta(group_slug: str, recipe: RecipeOut) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
     if recipe.image:
@@ -231,7 +231,7 @@ def serve_recipe_with_meta_public(
         group_repos = AllRepositories(session, group_id=group.id, household_id=None)
         recipe = group_repos.recipes.get_one(recipe_slug)
 
-        household = recipe and group_repos.households.get_one(recipe.household_id)
+        household = group_repos.households.get_one(recipe.household_id) if recipe else None
         if not is_recipe_publicly_visible(recipe, household):
             return response_404()
 

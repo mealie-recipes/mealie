@@ -1,6 +1,14 @@
-import type { IngredientFood, RecipeSummary, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
+import type { IngredientFoodOut, RecipeSummary, ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
+import {
+  makeIngredientFood,
+  makeLabel,
+  makeRecipeSummary,
+  makeShoppingList,
+  makeShoppingListItem,
+  makeShoppingListLabelSetting,
+} from "~/tests/factories";
 
-export const MOCK_ITEM: ShoppingListItemOut = {
+export const MOCK_ITEM: ShoppingListItemOut = makeShoppingListItem({
   shoppingListId: "",
   id: "",
   groupId: "",
@@ -10,69 +18,56 @@ export const MOCK_ITEM: ShoppingListItemOut = {
   position: 1,
   checked: false,
   createdAt: "100",
-};
+});
 
-export const MOCK_RECIPE: RecipeSummary = {
+export const MOCK_RECIPE: RecipeSummary = makeRecipeSummary({
   id: "recipe-id",
   name: "Recipe!",
-};
+});
 
 export const MOCK_RECIPE2: RecipeSummary = {
   ...MOCK_RECIPE,
-  id: undefined,
+  id: "recipe-id-2",
   name: "Recipe 2!",
 };
 
-export const MOCK_FOOD: IngredientFood = {
+export const MOCK_FOOD: IngredientFoodOut = makeIngredientFood({
   id: "1",
   name: "food 1",
-};
+});
 
-export const MOCK_FOOD2: IngredientFood = {
+export const MOCK_FOOD2: IngredientFoodOut = makeIngredientFood({
   id: "2",
   name: "food 2",
-};
+});
 
-export const MOCK_LABEL: ShoppingListMultiPurposeLabelOut = {
+export const MOCK_LABEL: ShoppingListMultiPurposeLabelOut = makeShoppingListLabelSetting({
   shoppingListId: "",
   labelId: "",
   id: "",
-  label: {
-    name: "MOCK_LABEL",
-    groupId: "",
-    id: "",
-    color: "color1",
-  },
-};
+  label: makeLabel({ name: "MOCK_LABEL", groupId: "", id: "", color: "color1" }),
+});
 
-export const MOCK_LABEL2: ShoppingListMultiPurposeLabelOut = {
+export const MOCK_LABEL2: ShoppingListMultiPurposeLabelOut = makeShoppingListLabelSetting({
   shoppingListId: "",
   labelId: "",
   id: "",
-  label: {
-    name: "MOCK_LABEL2",
-    groupId: "",
-    id: "",
-    color: "color2",
-  },
-};
+  label: makeLabel({ name: "MOCK_LABEL2", groupId: "", id: "", color: "color2" }),
+});
 
-export const MOCK_LABEL3: ShoppingListMultiPurposeLabelOut = {
+export const MOCK_LABEL3: ShoppingListMultiPurposeLabelOut = makeShoppingListLabelSetting({
   shoppingListId: "",
   labelId: "",
   id: "",
-  label: {
-    name: "",
-    groupId: "",
-    id: "",
-  },
-};
+  label: makeLabel({ name: "", groupId: "", id: "", color: "" }),
+});
 
-export const MOCK_SHOPPING_LIST: ShoppingListOut = {
+export const MOCK_SHOPPING_LIST: ShoppingListOut = makeShoppingList({
   groupId: "",
   userId: "",
   id: "",
   householdId: "",
+  name: null,
   labelSettings: [
     MOCK_LABEL,
     MOCK_LABEL2,
@@ -93,4 +88,4 @@ export const MOCK_SHOPPING_LIST: ShoppingListOut = {
     recipeQuantity: 0,
     recipe: MOCK_RECIPE2,
   }],
-};
+});

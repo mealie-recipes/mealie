@@ -9,6 +9,7 @@ import os
 import shutil
 import wave
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 from functools import cached_property
 from pathlib import Path
 from textwrap import dedent
@@ -143,7 +144,8 @@ class OpenAIService(BaseService):
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
-        self.provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
+        group_id = repos.scoped_group_id
+        self.provider_settings = repos.group_ai_provider_settings.get_one(group_id) if group_id else None
 
         # Load providers
         self.default_provider = (
@@ -285,7 +287,7 @@ class OpenAIService(BaseService):
             wav.writeframes(b"\x00\x00" * int(sample_rate * seconds))
         return buffer.getvalue()
 
-    def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
+    def _get_provider(self, attachments: Sequence[OpenAIAttachment] | None = None) -> AIProviderOut:
         """Select the appropriate provider based on attachment types, falling back to the default."""
         has_image = any(isinstance(a, OpenAIImageBase) for a in (attachments or []))
         has_audio = any(isinstance(a, OpenAILocalAudio) for a in (attachments or []))
@@ -524,7 +526,7 @@ class OpenAIService(BaseService):
         message: str,
         *,
         response_schema: type[T],
-        attachments: list[OpenAIAttachment] | None = None,
+        attachments: Sequence[OpenAIAttachment] | None = None,
         provider: AIProviderOut | None = None,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""

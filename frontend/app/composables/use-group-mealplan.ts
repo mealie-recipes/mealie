@@ -3,7 +3,7 @@ import type { Day } from "date-fns";
 import { useHouseholdSelf } from "./use-households";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, RecipeSummary, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryCreate, PlanEntryType, PlanEntryOut, RecipeSummary, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
@@ -83,7 +83,7 @@ export function useMealPlanEntryDates() {
 }
 export type DaySection = {
   title: string;
-  meals: ReadPlanEntry[];
+  meals: PlanEntryOut[];
 };
 
 export type ScaledRecipe = RecipeSummary & { scale: number };
@@ -100,7 +100,7 @@ export type Days = {
  * The recipes of the given meal plan entries, each carrying the scale set on its entry.
  * Entries without a recipe (notes) are skipped.
  */
-export function getScaledRecipes(meals: ReadPlanEntry[]): ScaledRecipe[] {
+export function getScaledRecipes(meals: PlanEntryOut[]): ScaledRecipe[] {
   return meals.flatMap(meal => meal.recipe ? [{ ...meal.recipe, scale: meal.recipeScale ?? 1 }] : []);
 }
 
@@ -108,7 +108,7 @@ export type MealsByDate = {
   date: Date;
   /** Set for a week, whose meals aren't planned for a specific day */
   endDate?: Date | null;
-  meals: ReadPlanEntry[];
+  meals: PlanEntryOut[];
 };
 
 export interface Meal {
@@ -172,7 +172,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
 
       loading.value = false;
     },
-    async createOne(payload: CreatePlanEntry) {
+    async createOne(payload: PlanEntryCreate) {
       loading.value = true;
 
       const { data } = await api.mealplans.createOne(payload);
@@ -182,7 +182,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
 
       loading.value = false;
     },
-    async updateOne(updateData: UpdatePlanEntry) {
+    async updateOne(updateData: PlanEntryUpdate) {
       if (!updateData.id) {
         return;
       }
@@ -204,7 +204,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
       loading.value = false;
     },
 
-    async setType(payload: UpdatePlanEntry, type: PlanEntryType) {
+    async setType(payload: PlanEntryUpdate, type: PlanEntryType) {
       payload.entryType = type;
       await this.updateOne(payload);
     },

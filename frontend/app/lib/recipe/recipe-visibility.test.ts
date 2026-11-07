@@ -1,25 +1,26 @@
 import { describe, expect, test } from "vitest";
 import { isRecipeFullyPublic } from "./recipe-visibility";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { GroupSummary } from "~/lib/api/types/user";
+import { makeGroupPreferences, makeHouseholdPreferences } from "~/tests/factories";
 
 const groupId = "group-1";
 const householdId = "household-1";
 
-function fakeRecipe(overrides: Partial<Recipe> = {}): Recipe {
+function fakeRecipe(overrides: Partial<RecipeOut> = {}): RecipeOut {
   return {
     groupId,
     householdId,
     settings: { public: true },
     ...overrides,
-  } as Recipe;
+  } as RecipeOut;
 }
 
 function fakeGroup(overrides: Partial<GroupSummary> = {}): GroupSummary {
   return {
     id: groupId,
-    preferences: { privateGroup: false },
+    preferences: makeGroupPreferences({ privateGroup: false }),
     ...overrides,
   } as GroupSummary;
 }
@@ -28,7 +29,7 @@ function fakeHousehold(overrides: Partial<HouseholdSummary> = {}): HouseholdSumm
   return {
     id: householdId,
     groupId,
-    preferences: { privateHousehold: false },
+    preferences: makeHouseholdPreferences({ privateHousehold: false }),
     ...overrides,
   } as HouseholdSummary;
 }
@@ -50,12 +51,12 @@ describe("isRecipeFullyPublic", () => {
   });
 
   test("rejects when the group is private", () => {
-    const group = fakeGroup({ preferences: { privateGroup: true } });
+    const group = fakeGroup({ preferences: makeGroupPreferences({ privateGroup: true }) });
     expect(isRecipeFullyPublic(fakeRecipe(), group, fakeHousehold())).toBe(false);
   });
 
   test("rejects when the recipe's household is private", () => {
-    const household = fakeHousehold({ preferences: { privateHousehold: true } });
+    const household = fakeHousehold({ preferences: makeHouseholdPreferences({ privateHousehold: true }) });
     expect(isRecipeFullyPublic(fakeRecipe(), fakeGroup(), household)).toBe(false);
   });
 

@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
-from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, literal, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, query_expression
@@ -11,7 +10,7 @@ from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchem
 from mealie.db.models.recipe.api_extras import IngredientFoodExtras, api_extras
 from mealie.db.models.recipe.labels import MultiPurposeLabel
 
-from .._model_utils.auto_init import auto_init
+from .._model_utils.auto_init import AutoInitOptions, auto_init
 from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
@@ -264,7 +263,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
     plural_name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "households_with_ingredient_food",
             # substitutions are resolved explicitly, since auto_init creates rows it can't find
@@ -541,7 +540,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     note_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
     original_text_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
 
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "id",
             # substitutions are resolved explicitly, since auto_init creates rows it can't find

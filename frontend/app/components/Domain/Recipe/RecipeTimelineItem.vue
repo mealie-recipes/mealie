@@ -96,13 +96,13 @@ import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import type { TimelineEventEdit } from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
-import type { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
+import type { RecipeSummary, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
 interface Props {
   event: RecipeTimelineEventOut;
-  recipe?: Recipe;
+  recipe?: RecipeSummary;
   showRecipeCards?: boolean;
 }
 

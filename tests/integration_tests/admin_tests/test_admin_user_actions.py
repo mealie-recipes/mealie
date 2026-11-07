@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.db.models.users.users import AuthMethod
-from mealie.schema.meal_plan.new_meal import CreatePlanEntry
+from mealie.schema.meal_plan.new_meal import PlanEntryCreate
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_email, random_string
@@ -156,7 +156,7 @@ def test_delete_user_with_multiple_mealplans_and_shopping_lists(
     subsequent `DELETE FROM users` would fail with a foreign key violation.
     """
     for _ in range(3):
-        new_plan = CreatePlanEntry(
+        new_plan = PlanEntryCreate(
             date=datetime.now(UTC).date(), entry_type="dinner", title=random_string(), text=random_string()
         ).model_dump()
         new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")

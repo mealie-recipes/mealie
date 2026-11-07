@@ -1,4 +1,4 @@
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { GroupSummary } from "~/lib/api/types/user";
 
@@ -14,7 +14,7 @@ import type { GroupSummary } from "~/lib/api/types/user";
  * user's household; a recipe may live in another household of the same group.
  */
 export function isRecipeFullyPublic(
-  recipe: Recipe | null | undefined,
+  recipe: RecipeOut | null | undefined,
   group: GroupSummary | null | undefined,
   recipeHousehold: HouseholdSummary | null | undefined,
 ): boolean {

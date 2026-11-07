@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave, IngredientUnitSave, RecipeIngredient
 from mealie.schema.reports.reports import ReportEntryCreate
 from mealie.services.parser_services._base import DataMatcher
 from mealie.services.parser_services.parser_utils.string_utils import extract_quantity_from_string
@@ -92,7 +92,7 @@ class CooknMigrator(BaseMigrator):
             # fuzzy match
             match = self.matcher.find_unit_match(name)
             if match is None:
-                save = SaveIngredientUnit(
+                save = IngredientUnitSave(
                     group_id=self.group.id,
                     name=name,
                     plural_name=plural_name,
@@ -120,7 +120,7 @@ class CooknMigrator(BaseMigrator):
 
             match = self.matcher.find_food_match(name)
             if match is None:
-                save = SaveIngredientFood(group_id=self.group.id, name=name, plural_name=plural_name, description="")
+                save = IngredientFoodSave(group_id=self.group.id, name=name, plural_name=plural_name, description="")
                 # update DataMatcher
                 self.matcher = DataMatcher(self.db, food_fuzzy_match_threshold=95, unit_fuzzy_match_threshold=100)
                 try:
@@ -382,28 +382,18 @@ class CooknMigrator(BaseMigrator):
         for r in recipes_as_dicts:
             # Clean recipes and re-add ingredient w/ amounts
             ingredients = r["_parsed_ingredients"]
-            r = self.clean_recipe_dictionary(r)
-            r.recipe_ingredient = ingredients
-            recipes.append(r)
+            draft = self.clean_recipe_dictionary(r)
+            draft.recipe_ingredient = ingredients
+            recipes.append(draft)
 
         # add recipes and images to database
         results = self.import_recipes_to_database(recipes)
+        # import_recipes_to_database gives each saved draft its final slug, which differs from the
+        # original when a recipe with the same name already exists
         recipe_lookup = {r.slug: r for r in recipes}
         for slug, recipe_id, status in results:
-            if status:
-                recipe = recipe_lookup.get(slug)
-                if recipe:
-                    if recipe.image:
-                        self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
-                else:
-                    index_len = len(slug.split("-")[-1])
-                    recipe = recipe_lookup.get(slug[: -(index_len + 1)])
-                    if recipe:
-                        self.logger.warning("Duplicate recipe (%s) found! Saved as copy...", recipe.name)
-                        if recipe.image:
-                            self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
-                    else:
-                        self.logger.warning("Failed to lookup recipe! (%s)", slug)
+            if status and recipe_id and (recipe := recipe_lookup.get(slug)) and recipe.image:
+                self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
 
     def _migrate(self) -> None:
         """Migrates recipes from Cook'n cookboop .zip. Also will handle a .zip folder of .zip folders"""

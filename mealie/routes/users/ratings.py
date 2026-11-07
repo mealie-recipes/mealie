@@ -8,7 +8,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user.user import UserRatingCreate, UserRatingOut, UserRatings, UserRatingUpdate
+from mealie.schema.user.user import UserRatingOut, UserRatings, UserRatingSave, UserRatingUpdate
 
 router = UserAPIRouter()
 
@@ -58,7 +58,7 @@ class UserRatingsController(BaseUserController):
         user_rating = self.repos.user_ratings.get_by_user_and_recipe(id, recipe.id)
         if not user_rating:
             self.repos.user_ratings.create(
-                UserRatingCreate(
+                UserRatingSave(
                     user_id=id,
                     recipe_id=recipe.id,
                     rating=data.rating,

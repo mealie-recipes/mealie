@@ -170,6 +170,18 @@ class MealieModel(BaseModel):
             return query.filter(or_(*filters)).order_by(desc(model_properties[0].like(f"%{search}%")))
 
 
+class MealieOutModel(MealieModel):
+    """
+    Base for schemas the API sends back to clients.
+
+    The serializer always emits fields that have defaults, so the serialization JSON schema (and the
+    generated TypeScript types) marks them as required instead of optional. Request bodies must keep
+    inheriting from MealieModel, or clients would have to send every defaulted field.
+    """
+
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
+
+
 class HasUUID(Protocol):
     id: UUID4
 
