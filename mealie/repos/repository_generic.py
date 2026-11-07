@@ -8,7 +8,7 @@ from typing import Any
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy import ColumnElement, Select, case, delete, func, inspect, nulls_first, nulls_last, select
 from sqlalchemy.orm.session import Session
 
 from mealie.core.root_logger import get_logger
@@ -394,7 +394,14 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                 self.logger.error(e)
                 raise HTTPException(status_code=400, detail=str(e)) from e
 
-        count_query = select(func.count()).select_from(query.order_by(None).distinct().subquery())
+        # Only a join can repeat a row, so a query on the model's table alone needs no DISTINCT. With a
+        # join, distinct on the primary key counts the same rows as distinct on the whole row, without
+        # comparing every column (long text fields included) of every matching row.
+        primary_key = inspect(self.model).primary_key
+        rows = query.order_by(None).with_only_columns(*primary_key)
+        if rows.get_final_froms() != [self.model.__table__]:
+            rows = rows.distinct()
+        count_query = select(func.count()).select_from(rows.subquery())
         count = self.session.scalar(count_query)
         if not count:
             count = 0
