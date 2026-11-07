@@ -8,11 +8,16 @@ import sqlalchemy as sa
 from fastapi import HTTPException
 from humps import decamelize
 from pydantic import UUID4
+from sqlalchemy import orm
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import RecipeIngredientModel, RecipeIngredientSubstitutionModel
+from mealie.db.models.recipe.ingredient import (
+    IngredientFoodModel,
+    RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
+)
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
@@ -22,6 +27,7 @@ from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe_duplicate import DuplicateIngredientIn, RecipeDuplicateMatchOut
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
@@ -499,3 +505,168 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
     def all_ids(self, group_id: UUID4) -> Sequence[UUID4]:
         stmt = sa.select(RecipeModel.id).filter(RecipeModel.group_id == group_id)
         return self.session.execute(stmt).scalars().all()
+
+    def _calculate_ingredient_overlap(
+        self, cand_ingredients: Sequence[RecipeIngredientModel], input_food_names: list[str]
+    ) -> tuple[float, int, list[str]]:
+        if not input_food_names or not cand_ingredients:
+            return 0.0, 0, []
+
+        cand_food_names: list[str] = []
+        for c_ing in cand_ingredients:
+            if c_ing.food and c_ing.food.name:
+                cand_food_names.append(c_ing.food.name.lower().strip())
+            elif c_ing.note:
+                cand_food_names.append(c_ing.note.lower().strip())
+
+        matching_ings: list[str] = []
+        matching_count = 0
+        for in_food in input_food_names:
+            for c_food in cand_food_names:
+                if in_food == c_food or in_food in c_food or c_food in in_food:
+                    matching_ings.append(in_food)
+                    matching_count += 1
+                    break
+
+        overlap_ratio = matching_count / max(len(input_food_names), len(cand_food_names))
+        return overlap_ratio, matching_count, matching_ings
+
+    def _evaluate_duplicate_candidate(
+        self,
+        candidate: RecipeModel,
+        url_clean: str | None,
+        name_clean: str | None,
+        input_food_names: list[str],
+    ) -> RecipeDuplicateMatchOut | None:
+        cand_name = candidate.name or ""
+        cand_url = candidate.org_url or ""
+        reasons: list[str] = []
+        similarity = 0.0
+
+        # URL match
+        is_url_match = False
+        if url_clean and cand_url and (cand_url == url_clean or cand_url.rstrip("/") == url_clean.rstrip("/")):
+            is_url_match = True
+            reasons.append("Same source URL")
+            similarity = max(similarity, 1.0)
+
+        # Name match
+        is_exact_name = False
+        is_similar_name = False
+        if name_clean:
+            cand_norm = candidate.name_normalized or RecipeModel.normalize(cand_name)
+            input_norm = RecipeModel.normalize(name_clean)
+            cand_slug = candidate.slug or ""
+            target_slug = create_recipe_slug(name_clean)
+
+            if cand_name.lower() == name_clean.lower() or cand_norm == input_norm or cand_slug == target_slug:
+                is_exact_name = True
+            elif input_norm in cand_norm or cand_norm in input_norm:
+                is_similar_name = True
+
+        overlap_ratio, matching_count, matching_ings = self._calculate_ingredient_overlap(
+            candidate.recipe_ingredient or [], input_food_names
+        )
+
+        if is_exact_name and (overlap_ratio >= 0.5 or matching_count >= 2):
+            similarity = max(similarity, 1.0)
+            reasons.append("Identical name and matching ingredients")
+        elif is_exact_name:
+            similarity = max(similarity, 0.95)
+            reasons.append("Identical recipe name")
+        elif is_similar_name and (overlap_ratio >= 0.5 or matching_count >= 2):
+            similarity = max(similarity, 0.85)
+            reasons.append("Similar name and matching ingredients")
+        elif overlap_ratio >= 0.75 and matching_count >= 3:
+            similarity = max(similarity, 0.8)
+            reasons.append(f"Highly matching ingredients ({matching_count} shared)")
+        elif is_similar_name:
+            similarity = max(similarity, 0.7)
+            reasons.append("Similar recipe name")
+
+        if similarity < 0.7 and not is_url_match:
+            return None
+
+        return RecipeDuplicateMatchOut(
+            id=candidate.id,
+            name=cand_name,
+            slug=candidate.slug or "",
+            org_url=candidate.org_url,
+            similarity_score=round(similarity, 2),
+            match_reason=", ".join(reasons) if reasons else "Potential duplicate",
+            matching_ingredients=list(set(matching_ings)),
+        )
+
+    def check_duplicates(
+        self,
+        name: str | None = None,
+        url: str | None = None,
+        ingredients: list[DuplicateIngredientIn] | None = None,
+        recipe_id: UUID4 | None = None,
+    ) -> list[RecipeDuplicateMatchOut]:
+        if not name and not url and not ingredients:
+            return []
+
+        url_clean = url.strip() if url else None
+        name_clean = name.strip() if name else None
+
+        stmt = sa.select(RecipeModel).options(
+            orm.selectinload(RecipeModel.recipe_ingredient).joinedload(RecipeIngredientModel.food)
+        )
+
+        if self.group_id:
+            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
+        if self.household_id:
+            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+        if recipe_id:
+            stmt = stmt.filter(RecipeModel.id != recipe_id)
+
+        candidate_filters = []
+        if url_clean:
+            url_no_slash = url_clean.rstrip("/")
+            candidate_filters.append(
+                sa.or_(
+                    RecipeModel.org_url == url_clean,
+                    RecipeModel.org_url == url_no_slash,
+                    RecipeModel.org_url == f"{url_no_slash}/",
+                )
+            )
+
+        if name_clean:
+            norm_name = RecipeModel.normalize(name_clean)
+            target_slug = create_recipe_slug(name_clean)
+            candidate_filters.append(
+                sa.or_(
+                    sa.func.lower(RecipeModel.name) == name_clean.lower(),
+                    RecipeModel.name_normalized == norm_name,
+                    RecipeModel.slug == target_slug,
+                    RecipeModel.name_normalized.like(f"%{norm_name}%"),
+                )
+            )
+
+        input_food_names: list[str] = []
+        if ingredients:
+            for ing in ingredients:
+                if ing.name and ing.name.strip():
+                    input_food_names.append(ing.name.strip().lower())
+
+        if input_food_names and not candidate_filters:
+            candidate_filters.append(
+                RecipeModel.recipe_ingredient.any(
+                    RecipeIngredientModel.food.has(sa.func.lower(IngredientFoodModel.name).in_(input_food_names))
+                )
+            )
+
+        if candidate_filters:
+            stmt = stmt.filter(sa.or_(*candidate_filters))
+
+        candidates = self.session.execute(stmt).scalars().unique().all()
+        matches: list[RecipeDuplicateMatchOut] = []
+
+        for candidate in candidates:
+            match = self._evaluate_duplicate_candidate(candidate, url_clean, name_clean, input_food_names)
+            if match:
+                matches.append(match)
+
+        matches.sort(key=lambda x: x.similarity_score, reverse=True)
+        return matches

@@ -13,6 +13,8 @@ import type {
   ParsedIngredient,
   UpdateImageResponse,
   RecipeLastMade,
+  RecipeDuplicateCheckIn,
+  RecipeDuplicateCheckOut,
   RecipeSuggestionQuery,
   RecipeSuggestionResponse,
   RecipeTimelineEventIn,
@@ -37,6 +39,7 @@ const prefix = "/api";
 const routes = {
   recipesCreate: `${prefix}/recipes/create`,
   recipesBase: `${prefix}/recipes`,
+  recipesCheckDuplicate: `${prefix}/recipes/check-duplicate`,
   recipesSuggestions: `${prefix}/recipes/suggestions`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
   recipesCreateUrl: `${prefix}/recipes/create/url/stream`,
@@ -327,5 +330,9 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
     formData.append("extension", fileName.split(".").pop() ?? "");
 
     return await this.requests.put<UpdateImageResponse, FormData>(routes.recipesTimelineEventIdImage(eventId), formData);
+  }
+
+  async checkDuplicate(payload: RecipeDuplicateCheckIn) {
+    return await this.requests.post<RecipeDuplicateCheckOut>(routes.recipesCheckDuplicate, payload);
   }
 }

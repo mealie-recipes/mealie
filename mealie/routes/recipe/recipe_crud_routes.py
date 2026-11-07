@@ -47,6 +47,7 @@ from mealie.schema.recipe.recipe import (
     RecipeSummary,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_duplicate import RecipeDuplicateCheckIn, RecipeDuplicateCheckOut
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
@@ -641,6 +642,15 @@ class RecipeController(BaseRecipeController):
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)
+
+    @router.post("/check-duplicate", response_model=RecipeDuplicateCheckOut)
+    def check_duplicate_recipe(self, data: RecipeDuplicateCheckIn) -> RecipeDuplicateCheckOut:
+        """Checks if a recipe with the given name or URL already exists in the household collection"""
+        try:
+            return self.service.check_duplicates(data)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return RecipeDuplicateCheckOut(is_duplicate=False, matches=[])
 
     @router.get("/{slug}", response_model=Recipe)
     def get_one(self, slug: str = Path(..., description="A recipe's slug or id")):

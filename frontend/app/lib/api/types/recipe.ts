@@ -689,3 +689,27 @@ export interface RequestQuery {
   queryFilter?: string | null;
   paginationSeed?: string | null;
 }
+export interface DuplicateIngredientIn {
+  name?: string | null;
+  quantity?: number | null;
+  unit?: string | null;
+}
+export interface RecipeDuplicateCheckIn {
+  recipeId?: string | null;
+  name?: string | null;
+  url?: string | null;
+  ingredients?: DuplicateIngredientIn[];
+}
+export interface RecipeDuplicateMatchOut {
+  id: string;
+  name: string;
+  slug: string;
+  orgUrl?: string | null;
+  similarityScore: number;
+  matchReason: string;
+  matchingIngredients?: string[];
+}
+export interface RecipeDuplicateCheckOut {
+  isDuplicate: boolean;
+  matches: RecipeDuplicateMatchOut[];
+}
