@@ -11,7 +11,7 @@
       style="max-width: 500px"
       @click="$emit('clickIngredientField', 'title')"
     />
-    <RecipeIngredientEditorLayout :header="enableDragHandle || enableContextMenu">
+    <RecipeIngredientEditorLayout :header="enableDragHandle || enableContextMenu" :stacked="stackedLayout">
       <template v-if="enableDragHandle" #dragHandle>
         <v-icon class="ma-2 handle" size="large">
           {{ $globals.icons.arrowUpDown }}
@@ -33,7 +33,7 @@
       </template>
       <template #form>
         <div class="flex-grow-1">
-          <div class="d-flex ga-2 py-2" :class="$vuetify.display.mdAndDown ? 'flex-column' : ''">
+          <div class="d-flex ga-2 py-2" :class="stackedLayout ? 'flex-column' : ''">
             <v-number-input
               v-model="model.quantity"
               variant="filled"
@@ -42,7 +42,7 @@
               hide-details
               inset
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 3 0 50px;'"
+              :style="stackedLayout ? '' : 'flex: 3 0 50px;'"
               :placeholder="$t('recipe.quantity')"
               @keypress="quantityFilter"
             />
@@ -53,7 +53,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+              :style="stackedLayout ? '' : 'flex: 4 0 50px;'"
               variant="filled"
               return-object
               :items="filteredUnits"
@@ -105,7 +105,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              :style="stackedLayout ? '' : 'flex: 7 0 50px;'"
               variant="filled"
               return-object
               :items="filteredFoods"
@@ -156,7 +156,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              :style="stackedLayout ? '' : 'flex: 7 0 50px;'"
               variant="filled"
               return-object
               :items="search.data.value || []"
@@ -171,7 +171,7 @@
               v-model="model.note"
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              :style="stackedLayout ? '' : 'flex: 7 0 50px;'"
               variant="filled"
               :placeholder="$t('recipe.notes')"
               class=""
@@ -181,7 +181,7 @@
         </div>
       </template>
     </RecipeIngredientEditorLayout>
-    <div class="px-2" :class="{ 'ml-10': !$vuetify.display.mdAndDown }">
+    <div class="px-2" :class="{ 'ml-10': !stackedLayout }">
       <!-- shown whenever the ingredient carries substitutions, so the toggle can't hide saved data -->
       <div v-if="substitutionsVisible" class="py-2">
         <div class="d-flex align-center text-caption mb-1">
@@ -218,6 +218,10 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 const model = defineModel<RecipeIngredient>({ required: true });
 
 const props = defineProps({
+  stacked: {
+    type: Boolean,
+    default: false,
+  },
   menuAttachTarget: {
     type: String,
     default: "body",
@@ -262,6 +266,9 @@ defineEmits([
   "insert-below",
   "delete",
 ]);
+
+const display = useDisplay();
+const stackedLayout = computed(() => props.stacked || display.mdAndDown.value);
 
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
