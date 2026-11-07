@@ -64,6 +64,7 @@ Mealie is a self-hosted recipe manager, meal planner, and shopping list applicat
 
 **Development workflow:**
 ```bash
+mise install
 task setup              # Install all dependencies (Python + Node)
 task dev:services       # Start Postgres & Mailpit containers
 task py                 # Start FastAPI backend (port 9000)
@@ -167,6 +168,9 @@ task docker:prod        # Build and run production Docker compose
 ## Pull Request Best Practices
 
 ### Before Submitting a PR
+
+Read `CONTRIBUTING.md` first. Its "Writing Style" section sets the rules for PR titles, PR bodies, and commit messages written by an LLM.
+
 
 1. **Draft PRs are optional:** Create a draft PR early if you want feedback while working, or open directly as ready when complete
 2. **Verify code generation:** If you modified Pydantic schemas, ensure `task dev:generate` was run

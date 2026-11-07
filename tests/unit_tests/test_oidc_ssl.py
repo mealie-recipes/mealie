@@ -32,12 +32,25 @@ def test_default_oidc_ssl_context_returns_none():
     assert ctx is None
 
 
-def test_relaxed_strict_default_ca():
+def test_relaxed_strict_default_ca(monkeypatch: MonkeyPatch):
     """When relaxed strict is requested with default CAs, return an SSLContext with VERIFY_X509_STRICT cleared."""
+    # get_ca_certs() can't prove the system CAs are present: when OpenSSL's default location is a
+    # directory (python-build-standalone on Debian/Ubuntu), certs load lazily during the handshake
+    # and get_ca_certs() returns []. Check that the context asked for the default certs instead.
+    loaded_purposes: list[ssl.Purpose] = []
+    load_default_certs = ssl.SSLContext.load_default_certs
+
+    def spy(self: ssl.SSLContext, purpose: ssl.Purpose = ssl.Purpose.SERVER_AUTH) -> None:
+        loaded_purposes.append(purpose)
+        load_default_certs(self, purpose)
+
+    monkeypatch.setattr(ssl.SSLContext, "load_default_certs", spy)
+
     ctx = auth_routes._create_oidc_ssl_context(cafile=None, verify_strict=False)
     assert isinstance(ctx, ssl.SSLContext)
     assert not (ctx.verify_flags & ssl.VERIFY_X509_STRICT)
-    assert len(ctx.get_ca_certs()) > 0
+    assert ctx.verify_mode == ssl.CERT_REQUIRED
+    assert loaded_purposes == [ssl.Purpose.SERVER_AUTH]
 
 
 def test_custom_ca_strict(tmp_path: Path):

@@ -4,7 +4,8 @@
 FROM node:24@sha256:e7add2a490bb17d97b485b8641bd88455fff7839ade0f5eba493c3508124d413 \
     AS frontend-builder
 
-RUN npm install --global pnpm@11
+# renovate: datasource=npm depName=pnpm
+RUN npm install --global pnpm@11.23.0
 
 WORKDIR /frontend
 
@@ -51,7 +52,8 @@ RUN apt-get update \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install uv
+# renovate: datasource=pypi depName=uv
+RUN pip install uv==0.13.6
 
 # Install from the committed lockfile; never re-resolve. The rolling
 # `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise make

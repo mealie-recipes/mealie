@@ -1171,6 +1171,19 @@ def test_create_recipe_from_zip_invalid_food_and_unit(api_client: TestClient, un
     assert str(fetched_recipe.recipe_ingredient[1].food.id) == str(fetched_recipe.recipe_ingredient[0].food.id)
 
 
+def test_create_by_name_has_no_ingredients_or_steps(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    slug = json.loads(response.text)
+
+    response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
+    assert response.status_code == 200
+    recipe = json.loads(response.text)
+
+    assert recipe["recipeIngredient"] == []
+    assert recipe["recipeInstructions"] == []
+
+
 def test_read_update(
     api_client: TestClient,
     unique_user: TestUser,
@@ -2199,6 +2212,10 @@ def test_get_recipe_ingredient_missing_reference_id(api_client: TestClient, uniq
     slug = random_string()
     response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
     assert response.status_code == 201
+    recipe_data = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    recipe_data["recipeIngredient"] = [{"note": random_string()}]
+    response = api_client.put(api_routes.recipes_slug(slug), json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 200
 
     # Manually edit the database to remove the reference id from the ingredient
     session = unique_user.repos.session

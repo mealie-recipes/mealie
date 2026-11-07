@@ -532,14 +532,8 @@ import DropZone from "~/components/global/DropZone.vue";
 import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
+import { mergeSteps, undoStepMerge, type StepMerge } from "~/lib/recipe/instruction-merge";
 import CookTime from "./CookTime.vue";
-
-interface MergerHistory {
-  target: number;
-  source: number;
-  targetText: string;
-  sourceText: string;
-}
 
 const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
 const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: () => [] });
@@ -890,43 +884,23 @@ const groupedUsedIngredients = computed((): Record<string, RecipeIngredient[]> =
 
 // ===============================================================
 // Instruction Merger
-const mergeHistory = ref<MergerHistory[]>([]);
+const mergeHistory = ref<StepMerge[]>([]);
 
 function mergeAbove(target: number, source: number) {
-  if (target < 0) {
-    return;
+  const merge = mergeSteps(instructionList.value, target, source);
+  if (merge) {
+    mergeHistory.value.push(merge);
   }
-
-  mergeHistory.value.push({
-    target,
-    source,
-    targetText: instructionList.value[target].text,
-    sourceText: instructionList.value[source].text,
-  });
-
-  instructionList.value[target].text += " " + instructionList.value[source].text;
-  instructionList.value.splice(source, 1);
 }
 
 function undoMerge(event: KeyboardEvent) {
-  if (event.ctrlKey && event.code === "KeyZ") {
-    if (!(mergeHistory.value?.length > 0)) {
-      return;
-    }
+  if (!(event.ctrlKey && event.code === "KeyZ")) {
+    return;
+  }
 
-    const lastMerge = mergeHistory.value.pop();
-    if (!lastMerge) {
-      return;
-    }
-
-    instructionList.value[lastMerge.target].text = lastMerge.targetText;
-    instructionList.value.splice(lastMerge.source, 0, {
-      id: uuid4(),
-      title: "",
-      text: lastMerge.sourceText,
-      ingredientReferences: [],
-      noteReferences: [],
-    });
+  const lastMerge = mergeHistory.value.pop();
+  if (lastMerge) {
+    undoStepMerge(instructionList.value, lastMerge);
   }
 }
 
