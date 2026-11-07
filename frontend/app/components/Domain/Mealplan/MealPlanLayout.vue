@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
-defineProps<{
+const props = defineProps<{
   mealplans: MealsByDate[];
 }>();
 const planTypeOptions = usePlanTypeOptions();
@@ -32,7 +32,7 @@ function getDay(day: MealsByDate): Days {
     sections: planTypeOptions
       .map(({ text, value }) => ({ title: text, meals: forSection(value) }))
       .filter(({ meals }) => meals.length > 0),
-    recipes: getScaledRecipes(day.meals),
+    recipes: getScaledRecipes(day.endDate ? getWeekMeals(day, props.mealplans) : day.meals),
   };
 }
 </script>
