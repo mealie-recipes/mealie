@@ -291,10 +291,12 @@ class RecipeSummary(MealieOutModel):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
+        # selectinload, not joinedload: joining three collections multiplies the rows per recipe
+        # (categories x tags x tools), which made list pages several times slower.
         return [
-            joinedload(RecipeModel.recipe_category),
-            joinedload(RecipeModel.tags),
-            joinedload(RecipeModel.tools),
+            selectinload(RecipeModel.recipe_category),
+            selectinload(RecipeModel.tags),
+            selectinload(RecipeModel.tools).options(*ToolOut.loader_options()),
             joinedload(RecipeModel.user).load_only(User.household_id),
         ]
 
