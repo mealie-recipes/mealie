@@ -164,7 +164,7 @@ Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), whi
 - `json` and `jsons`
 - `xml` and `xmls`
 
-Only users with the **Manage household** permission can view and change notifiers.
+Only users with the **Manage household** permission can view and change notifiers. Notifiers can reach services on your internal network; admins can limit which services are allowed with `APPRISE_ALLOWED_SCHEMAS`. See [Security](./installation/security.md#notifiers-and-webhooks).
 
 [Notifiers Demo](https://demo.mealie.io/household/notifiers){ .md-button .md-button--primary }
 
