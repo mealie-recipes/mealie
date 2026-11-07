@@ -247,6 +247,35 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
+def test_recipe_repo_random_order_is_stable_across_pages(unique_user_fn_scoped: TestUser):
+    database = unique_user_fn_scoped.repos
+    for _ in range(10):
+        database.recipes.create(
+            RecipeDraft(
+                user_id=unique_user_fn_scoped.user_id, group_id=unique_user_fn_scoped.group_id, name=random_string()
+            )
+        )
+
+    seed = random_string()
+    all_at_once = [
+        r.id
+        for r in database.recipes.page_all(
+            PaginationQuery(page=1, per_page=-1, order_by="random", pagination_seed=seed)
+        ).items
+    ]
+
+    paged: list[UUID] = []
+    for page in range(1, 5):
+        query = PaginationQuery(page=page, per_page=3, order_by="random", pagination_seed=seed)
+        paged.extend(r.id for r in database.recipes.page_all(query).items)
+
+    assert len(all_at_once) == 10
+    assert paged == all_at_once
+
+    past_the_end = PaginationQuery(page=5, per_page=3, order_by="random", pagination_seed=seed)
+    assert database.recipes.page_all(past_the_end).items == []
+
+
 def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
     database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
