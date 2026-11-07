@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { CreateWebhook, ReadWebhook } from "~/lib/api/types/household";
+import type { WebhookCreate, WebhookOut } from "~/lib/api/types/household";
 
 const prefix = "/api";
 
@@ -9,7 +9,7 @@ const routes = {
   webhooksIdTest: (id: string | number) => `${prefix}/households/webhooks/${id}/test`,
 };
 
-export class WebhooksAPI extends BaseCRUDAPI<CreateWebhook, ReadWebhook> {
+export class WebhooksAPI extends BaseCRUDAPI<WebhookCreate, WebhookOut> {
   baseRoute = routes.webhooks;
   itemRoute = routes.webhooksId;
   itemTestRoute = routes.webhooksIdTest;

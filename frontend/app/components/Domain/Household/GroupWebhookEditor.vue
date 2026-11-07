@@ -51,16 +51,16 @@
 </template>
 
 <script setup lang="ts">
-import type { ReadWebhook } from "~/lib/api/types/household";
+import type { WebhookOut } from "~/lib/api/types/household";
 import { timeLocalToUTC, timeUTCToLocal } from "~/composables/use-group-webhooks";
 
 const props = defineProps<{
-  webhook: ReadWebhook;
+  webhook: WebhookOut;
 }>();
 
 const emit = defineEmits<{
   delete: [id: string];
-  save: [webhook: ReadWebhook];
+  save: [webhook: WebhookOut];
   test: [id: string];
 }>();
 

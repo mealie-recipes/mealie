@@ -7,6 +7,7 @@ from uuid import uuid4
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.ai_providers import (
+    REDACTED_VALUE,
     AIPromptMode,
     AIPromptOverrideCreate,
     AIProviderCreate,
@@ -149,6 +150,110 @@ def test_update_provider_without_an_api_key_keeps_the_stored_one(api_client: Tes
         stored = unique_user.repos.group_ai_providers.get_one(provider.id)
         assert stored is not None
         assert stored.api_key == "original-key"
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def _create_provider_with_secrets(unique_user: TestUser):
+    return unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(
+            name=random_string(),
+            model="gpt-4o",
+            api_key="original-key",
+            base_url="https://1.1.1.1/v1",
+            request_headers={"Authorization": "Bearer header-secret"},
+            request_params={"token": "param-secret"},
+        )
+    )
+
+
+def test_get_provider_redacts_header_and_param_values(api_client: TestClient, unique_user: TestUser):
+    provider = _create_provider_with_secrets(unique_user)
+
+    try:
+        response = api_client.get(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token
+        )
+        assert response.status_code == 200
+        assert "header-secret" not in response.text
+        assert "param-secret" not in response.text
+        assert list(response.json()["requestHeaders"]) == ["Authorization"]
+        assert list(response.json()["requestParams"]) == ["token"]
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_update_provider_keeps_redacted_header_values_when_base_url_is_unchanged(
+    api_client: TestClient, unique_user: TestUser
+):
+    provider = _create_provider_with_secrets(unique_user)
+
+    try:
+        got = api_client.get(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token
+        ).json()
+        got["name"] = random_string()
+        got["model"] = "gpt-4-turbo"
+        response = api_client.put(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), json=got, headers=unique_user.token
+        )
+        assert response.status_code == 200
+
+        stored = unique_user.repos.group_ai_providers.get_one(provider.id)
+        assert stored is not None
+        assert stored.name == got["name"]
+        assert stored.api_key == "original-key"
+        assert stored.request_headers == {"Authorization": "Bearer header-secret"}
+        assert stored.request_params == {"token": "param-secret"}
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_update_provider_changing_base_url_requires_a_new_api_key(api_client: TestClient, unique_user: TestUser):
+    provider = _create_provider_with_secrets(unique_user)
+    url = api_routes.groups_ai_providers_providers_provider_id(provider.id)
+
+    try:
+        body = {"name": provider.name, "model": provider.model, "baseUrl": "https://8.8.8.8/v1"}
+        response = api_client.put(url, json=body, headers=unique_user.token)
+        assert response.status_code == 400
+
+        stored = unique_user.repos.group_ai_providers.get_one(provider.id)
+        assert stored is not None
+        assert stored.base_url == "https://1.1.1.1/v1"
+        assert stored.api_key == "original-key"
+
+        response = api_client.put(url, json={**body, "apiKey": "new-key"}, headers=unique_user.token)
+        assert response.status_code == 200
+        stored = unique_user.repos.group_ai_providers.get_one(provider.id)
+        assert stored is not None
+        assert stored.base_url == "https://8.8.8.8/v1"
+        assert stored.api_key == "new-key"
+    finally:
+        api_client.delete(url, headers=unique_user.token)
+
+
+def test_update_provider_changing_base_url_rejects_redacted_header_values(
+    api_client: TestClient, unique_user: TestUser
+):
+    provider = _create_provider_with_secrets(unique_user)
+
+    try:
+        body = {
+            "name": provider.name,
+            "model": provider.model,
+            "apiKey": "new-key",
+            "baseUrl": "https://8.8.8.8/v1",
+            "requestHeaders": {"Authorization": REDACTED_VALUE},
+        }
+        response = api_client.put(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), json=body, headers=unique_user.token
+        )
+        assert response.status_code == 400
+
+        stored = unique_user.repos.group_ai_providers.get_one(provider.id)
+        assert stored is not None
+        assert stored.base_url == "https://1.1.1.1/v1"
     finally:
         api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
@@ -582,6 +687,78 @@ def test_test_saved_provider_uses_override_values(api_client: TestClient, unique
         assert seen_providers
         assert all(p.model == "gpt-4o-mini" for p in seen_providers)
         assert all(p.api_key == "original-key" for p in seen_providers)
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_test_saved_provider_with_new_base_url_does_not_use_stored_secrets(
+    api_client: TestClient, unique_user: TestUser, monkeypatch
+):
+    provider = _create_provider_with_secrets(unique_user)
+
+    seen_providers = []
+
+    async def _fake_ping(self, provider, message, images=None):
+        seen_providers.append(provider)
+        return _FakeOpenAIText("Hello!")
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
+    url = api_routes.groups_ai_providers_providers_provider_id_test(provider.id)
+
+    try:
+        overrides = {"name": provider.name, "model": provider.model, "baseUrl": "https://8.8.8.8/v1"}
+        response = api_client.post(url, json=overrides, headers=unique_user.token)
+        assert response.status_code == 400
+
+        response = api_client.post(
+            url,
+            json={**overrides, "requestHeaders": {"Authorization": REDACTED_VALUE}, "apiKey": "typed-key"},
+            headers=unique_user.token,
+        )
+        assert response.status_code == 400
+        assert not seen_providers
+
+        response = api_client.post(url, json={**overrides, "apiKey": "typed-key"}, headers=unique_user.token)
+        assert response.status_code == 200
+        assert seen_providers
+        for seen in seen_providers:
+            assert seen.base_url == "https://8.8.8.8/v1"
+            assert seen.api_key == "typed-key"
+            assert seen.request_headers == {}
+            assert seen.request_params == {}
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_test_saved_provider_keeps_stored_secrets_when_base_url_is_unchanged(
+    api_client: TestClient, unique_user: TestUser, monkeypatch
+):
+    provider = _create_provider_with_secrets(unique_user)
+
+    seen_providers = []
+
+    async def _fake_ping(self, provider, message, images=None):
+        seen_providers.append(provider)
+        return _FakeOpenAIText("Hello!")
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
+
+    try:
+        overrides = {
+            "name": provider.name,
+            "model": "gpt-4o-mini",
+            "baseUrl": provider.base_url,
+            "requestHeaders": {"Authorization": REDACTED_VALUE},
+        }
+        response = api_client.post(
+            api_routes.groups_ai_providers_providers_provider_id_test(provider.id),
+            json=overrides,
+            headers=unique_user.token,
+        )
+        assert response.status_code == 200
+        assert seen_providers
+        assert all(p.api_key == "original-key" for p in seen_providers)
+        assert all(p.request_headers == {"Authorization": "Bearer header-secret"} for p in seen_providers)
     finally:
         api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 

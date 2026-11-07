@@ -2,11 +2,10 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from pydantic import ConfigDict
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
-from .._model_utils.auto_init import auto_init
+from .._model_utils.auto_init import AutoInitOptions, auto_init
 from .._model_utils.guid import GUID
 from ..recipe.ingredient import households_to_ingredient_foods
 from ..recipe.tool import households_to_tools
@@ -78,7 +77,7 @@ class Household(SqlAlchemyBase, BaseMixins):
         "Tool", secondary=households_to_tools, back_populates="households_with_tool"
     )
 
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "users",
             "webhooks",

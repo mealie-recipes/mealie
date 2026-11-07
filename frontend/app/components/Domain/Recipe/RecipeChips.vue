@@ -24,14 +24,14 @@
 </template>
 
 <script setup lang="ts">
-import type { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { CategoryOut, TagOut, ToolOut } from "~/lib/api/types/recipe";
 import { truncateText as truncatePlainText } from "~/lib/sanitize/text";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
 
 interface Props {
   truncate?: boolean;
-  items?: RecipeCategory[] | RecipeTag[] | RecipeTool[];
+  items?: CategoryOut[] | TagOut[] | ToolOut[];
   title?: boolean;
   urlPrefix?: UrlPrefixParam;
   limit?: number;

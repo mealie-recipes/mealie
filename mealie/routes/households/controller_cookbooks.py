@@ -12,7 +12,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
-from mealie.schema.cookbook import CreateCookBook, ReadCookBook, SaveCookBook, UpdateCookBook
+from mealie.schema.cookbook import CookBookCreate, CookBookOut, CookBookSave, CookBookUpdate
 from mealie.schema.cookbook.cookbook import CookBookPagination
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_types import (
@@ -43,7 +43,7 @@ class GroupCookbookController(BaseCrudController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[CreateCookBook, ReadCookBook, UpdateCookBook](
+        return HttpRepo[CookBookCreate, CookBookOut, CookBookUpdate](
             self.cookbooks,
             self.logger,
             self.registered_exceptions,
@@ -54,15 +54,15 @@ class GroupCookbookController(BaseCrudController):
         # Fetch all cookbooks for the group, rather than the household
         response = self.group_cookbooks.page_all(
             pagination=q,
-            override=ReadCookBook,
+            override=CookBookOut,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=ReadCookBook, status_code=201)
-    def create_one(self, data: CreateCookBook):
-        data = mapper.cast(data, SaveCookBook, group_id=self.group_id, household_id=self.household_id)
+    @router.post("", response_model=CookBookOut, status_code=201)
+    def create_one(self, data: CookBookCreate):
+        data = mapper.cast(data, CookBookSave, group_id=self.group_id, household_id=self.household_id)
         cookbook = self.mixins.create_one(data)
 
         if cookbook:
@@ -76,9 +76,9 @@ class GroupCookbookController(BaseCrudController):
 
         return cookbook
 
-    @router.put("", response_model=list[ReadCookBook])
-    def update_many(self, data: list[UpdateCookBook]):
-        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[ReadCookBook]]] = defaultdict(
+    @router.put("", response_model=list[CookBookOut])
+    def update_many(self, data: list[CookBookUpdate]):
+        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[CookBookOut]]] = defaultdict(
             lambda: defaultdict(list)
         )
 
@@ -86,7 +86,7 @@ class GroupCookbookController(BaseCrudController):
             cb = self.mixins.update_one(cookbook, cookbook.id)
             updated_by_group_and_household[cb.group_id][cb.household_id].append(cb)
 
-        all_updated: list[ReadCookBook] = []
+        all_updated: list[CookBookOut] = []
         if updated_by_group_and_household:
             for group_id, household_dict in updated_by_group_and_household.items():
                 for household_id, updated_cookbooks in household_dict.items():
@@ -102,7 +102,7 @@ class GroupCookbookController(BaseCrudController):
 
         return all_updated
 
-    @router.get("/{item_id}", response_model=ReadCookBook)
+    @router.get("/{item_id}", response_model=CookBookOut)
     def get_one(self, item_id: UUID4 | str):
         if isinstance(item_id, UUID):
             match_attr = "id"
@@ -120,8 +120,8 @@ class GroupCookbookController(BaseCrudController):
 
         return cookbook
 
-    @router.put("/{item_id}", response_model=ReadCookBook)
-    def update_one(self, item_id: str, data: CreateCookBook):
+    @router.put("/{item_id}", response_model=CookBookOut)
+    def update_one(self, item_id: str, data: CookBookCreate):
         cookbook = self.mixins.update_one(data, item_id)  # type: ignore
         if cookbook:
             self.publish_event(
@@ -134,7 +134,7 @@ class GroupCookbookController(BaseCrudController):
 
         return cookbook
 
-    @router.delete("/{item_id}", response_model=ReadCookBook)
+    @router.delete("/{item_id}", response_model=CookBookOut)
     def delete_one(self, item_id: str):
         cookbook = self.mixins.delete_one(item_id)
         if cookbook:

@@ -47,6 +47,9 @@ jobs:
                [[ "$file" == "uv.lock" ]] || \
                [[ "$file" == "frontend/package.json" ]] || \
                [[ "$file" == "frontend/pnpm-lock.yaml" ]] || \
+               [[ "$file" == "mise.toml" ]] || \
+               [[ "$file" == ".devcontainer/Dockerfile" ]] || \
+               [[ "$file" == ".github/actions/setup-tools/action.yml" ]] || \
                [[ "$file" =~ ^docker/ ]]; then
               continue
             fi

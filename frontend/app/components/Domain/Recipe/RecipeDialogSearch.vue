@@ -56,12 +56,12 @@
             :key="index"
             class="ma-1 arrow-nav"
             :class="{ 'keyboard-selected': index === selectedIndex }"
-            :name="recipe.name ?? ''"
+            :name="recipe.name"
             :description="recipe.description ?? ''"
-            :slug="recipe.slug ?? ''"
+            :slug="recipe.slug"
             :rating="recipe.rating ?? 0"
             :image="recipe.image"
-            :recipe-id="recipe.id ?? ''"
+            :recipe-id="recipe.id"
             v-bind="$attrs.selected ? { selected: () => handleSelect(recipe) } : {}"
           />
         </div>

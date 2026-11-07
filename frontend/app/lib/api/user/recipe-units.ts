@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { CreateIngredientUnit, IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientUnitCreate, IngredientUnitOut } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 
@@ -9,11 +9,11 @@ const routes = {
   merge: `${prefix}/units/merge`,
 };
 
-export class UnitAPI extends BaseCRUDAPI<CreateIngredientUnit, IngredientUnit> {
+export class UnitAPI extends BaseCRUDAPI<IngredientUnitCreate, IngredientUnitOut> {
   baseRoute: string = routes.unit;
   itemRoute = routes.unitsUnit;
 
   merge(fromId: string, toId: string) {
-    return this.requests.put<IngredientUnit>(routes.merge, { fromUnit: fromId, toUnit: toId });
+    return this.requests.put<IngredientUnitOut>(routes.merge, { fromUnit: fromId, toUnit: toId });
   }
 }

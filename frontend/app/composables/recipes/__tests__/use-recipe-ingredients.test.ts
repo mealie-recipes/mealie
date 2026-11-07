@@ -2,6 +2,7 @@ import { describe, test, expect, vi, beforeEach } from "vitest";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { useIngredientTextParser } from "../use-recipe-ingredients";
 import { useLocales } from "~/composables/use-locales";
+import { makeRecipe } from "~/tests/factories";
 
 vi.mock("~/composables/use-locales");
 
@@ -66,11 +67,11 @@ describe("parseIngredientText", () => {
 
   test("referenced recipe links navigate in the current page", () => {
     const ingredient = createRecipeIngredient({
-      referencedRecipe: {
+      referencedRecipe: makeRecipe({
         id: "recipe-1",
         name: "Curry Paste",
         slug: "curry-paste",
-      },
+      }),
     });
 
     const result = useParsedIngredientText(ingredient, 1, true, "home");

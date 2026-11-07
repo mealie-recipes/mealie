@@ -4,8 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
-from mealie.schema.recipe.recipe import RecipeCategory
-from mealie.schema.recipe.recipe_category import CategorySave
+from mealie.schema.recipe.recipe_organizers import CategoryOut, CategorySave
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -47,7 +46,7 @@ def plan_rule(api_client: TestClient, unique_user: TestUser):
     api_client.delete(api_routes.households_mealplans_rules_item_id(plan_rule.id), headers=unique_user.token)
 
 
-def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUser, category: RecipeCategory):
+def test_group_mealplan_rules_create(api_client: TestClient, unique_user: TestUser, category: CategoryOut):
     database = unique_user.repos
     query_filter_string = f'recipe_category.id IN ["{category.id}"]'
     payload = {
