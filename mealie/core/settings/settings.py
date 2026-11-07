@@ -210,6 +210,22 @@ class AppSettings(AppLoggingSettings):
     def http_disallow_list(self) -> list[str]:
         return [host.strip() for host in self.HTTP_DISALLOW_LIST.split(",") if host.strip()]
 
+    APPRISE_ALLOWED_SCHEMAS: str = ""
+    """Comma-separated Apprise URL schemas (e.g. `ntfys,discord,mailtos`) that notifiers may use.
+    Empty allows every schema Apprise supports. Notifiers send through Apprise, which is not covered
+    by `HTTP_ALLOW_LIST`/`HTTP_DISALLOW_LIST`, so this is how to limit where they can send."""
+
+    @property
+    def apprise_allowed_schemas(self) -> set[str]:
+        return {schema.strip().lower() for schema in self.APPRISE_ALLOWED_SCHEMAS.split(",") if schema.strip()}
+
+    def is_apprise_url_allowed(self, url: str) -> bool:
+        allowed = self.apprise_allowed_schemas
+        if not allowed:
+            return True
+        schema, sep, _ = url.partition("://")
+        return bool(sep) and schema.strip().lower() in allowed
+
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""
 

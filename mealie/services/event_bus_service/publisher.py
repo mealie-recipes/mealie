@@ -22,9 +22,20 @@ class ApprisePublisher:
 
     def publish(self, event: Event, notification_urls: list[str]):
         """Publishses a list of notification URLs"""
+        from mealie.core.config import get_app_settings
+        from mealie.core.root_logger import get_logger
 
+        settings = get_app_settings()
         tags = []
         for dest in notification_urls:
+            # Notifiers saved before an admin narrowed APPRISE_ALLOWED_SCHEMAS are still in the
+            # database, so the check runs on every send, not only when a notifier is saved.
+            if not settings.is_apprise_url_allowed(dest):
+                get_logger().warning("Skipped a notifier whose schema is not in APPRISE_ALLOWED_SCHEMAS")
+                if self.hard_fail:
+                    raise Exception("Apprise URL schema not allowed")
+                continue
+
             # we tag the url so it only sends each notification once
             tag = str(event.event_id)
             tags.append(tag)
