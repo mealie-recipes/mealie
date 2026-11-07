@@ -238,6 +238,8 @@
       "api-key": "Cheie API",
       "api-key-description-create": "Cheia API a furnizorului dvs. pentru autentificare. Dacă serviciul dvs. (de ex. Ollama) nu utilizează o cheie API, tot trebuie să puneți ceva aici.",
       "api-key-description-edit": "Lasă necompletat dacă nu vrei să îl schimbi.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "URL de bază",
       "base-url-description": "Dacă utilizaţi OpenAI lăsaţi acest câmp gol. Trebuie să fie un endpoint compatibil cu OpenAI-(ex. \"http://localhost:11434/v1\").",
       "model": "Model",
