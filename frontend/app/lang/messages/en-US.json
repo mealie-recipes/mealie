@@ -746,6 +746,8 @@
     "advanced": "Advanced",
     "auto-search": "Auto Search",
     "no-results": "No results found",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "We couldn't find any recipes matching your search.",
     "type-to-search": "Type to search..."
   },
   "settings": {
