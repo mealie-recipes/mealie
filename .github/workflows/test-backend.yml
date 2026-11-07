@@ -52,7 +52,7 @@ jobs:
       - name: Set up tools
         uses: ./.github/actions/setup-tools
         with:
-          tools: python uv
+          tools: python uv pipx:semgrep
 
       # Catches a lockfile resolved by an out-of-date uv, which silently ignores
       # the `exclude-newer` cooling window instead of erroring. UV_FROZEN must be

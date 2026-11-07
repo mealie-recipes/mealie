@@ -4,6 +4,8 @@ node = "24"
 pnpm = "11.23.0"
 uv = "0.13.6"
 "npm:json-schema-to-typescript" = "16.0.0"
+# semgrep still imports pkg_resources and does not support every Python version uv picks.
+"pipx:semgrep" = { version = "1.179.0", uvx_args = "--python 3.12 --with setuptools" }
 
 [env]
 DEFAULT_GROUP = "Home"
@@ -87,8 +89,15 @@ run = "uv run python mealie/app.py"
 
 [tasks."py:postgres"]
 description = "Run the backend server against the dev:services Postgres"
-env = { DB_ENGINE = "postgres", POSTGRES_USER = "mealie", POSTGRES_PASSWORD = "mealie", POSTGRES_SERVER = "localhost", POSTGRES_PORT = "5432", POSTGRES_DB = "mealie" }
 run = "uv run python mealie/app.py"
+
+[tasks."py:postgres".env]
+DB_ENGINE = "postgres"
+POSTGRES_USER = "mealie"
+POSTGRES_PASSWORD = "mealie"
+POSTGRES_SERVER = "localhost"
+POSTGRES_PORT = "5432"
+POSTGRES_DB = "mealie"
 
 [tasks."py:test"]
 description = "Run Python tests in parallel (pass pytest args after --)"
@@ -109,12 +118,10 @@ run = "uv run mypy mealie"
 
 [tasks."py:semgrep"]
 description = "Run the authz semgrep rules in .semgrep and their tests"
-# semgrep still imports pkg_resources and does not support every Python version uv picks.
-run = '''
-semgrep="uvx --python 3.12 --with setuptools semgrep==1.179.0"
-$semgrep scan --test --metrics off --config .semgrep/authz.yml .semgrep/authz.py
-$semgrep scan --error --metrics off --config .semgrep mealie
-'''
+run = [
+  "semgrep scan --test --metrics off --config .semgrep/authz.yml .semgrep/authz.py",
+  "semgrep scan --error --metrics off --config .semgrep mealie",
+]
 
 [tasks."py:check"]
 description = "Run all Python formatters, linters, type checks, and tests"
@@ -206,10 +213,11 @@ run = "docker compose -f docker-compose.yml -p mealie up -d --build"
 
 [tasks.e2e]
 description = "Run the full e2e suite: build and start the server, test, and stop the server"
+env = { PLAYWRIGHT_HTML_OPEN = "never" }
 run = '''
 mise run e2e:start-server
 trap 'mise run e2e:stop-server' EXIT
-PLAYWRIGHT_HTML_OPEN=never mise run e2e:test
+mise run e2e:test
 '''
 
 [tasks."e2e:build-image"]
