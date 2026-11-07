@@ -22,6 +22,23 @@ Note that some models are capable of handling multiple features (e.g. `gpt-5` ca
 
 While Mealie has prompts for each AI task, you can customize them with your own instructions if you'd like. See [Custom prompts](#custom-prompts) below.
 
+### API keys from files
+
+Instead of pasting an API key, you can set a provider's API key to `file:<name>`. Mealie then reads the key from `/run/secrets/ai-providers/<name>` on every request, so a key that is rotated on disk (such as a short-lived token refreshed by a sidecar, or a Kubernetes projected service account token) is picked up without a restart. Mount the file into that directory, readable by the user Mealie runs as. Files elsewhere, including the rest of `/run/secrets`, can't be referenced, and `<name>` can't contain `/` or start with `.`.
+
+```yaml
+# Kubernetes: send the pod's service account token, refreshed by the kubelet, to an AI gateway
+volumes:
+  - name: ai-provider-token
+    projected:
+      sources:
+        - serviceAccountToken:
+            audience: my-ai-gateway
+            expirationSeconds: 3600
+            path: gateway
+# mounted at /run/secrets/ai-providers; the provider's API key is `file:gateway`
+```
+
 ## AI Features
 - The AI Ingredient Parser can be used as an alternative to the NLP and Brute Force parsers. Simply choose the AI parser while parsing ingredients (:octicons-tag-24: v1.7.0)
 - When importing a recipe via URL, if the default recipe scraper is unable to read the recipe data from a webpage, the webpage contents will be parsed by AI (:octicons-tag-24: v1.9.0)
