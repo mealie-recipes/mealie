@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "食譜圖片已刪除",
         "recipe-defaults": {
-            "ingredient-note": "1 杯麵粉",
-            "name": "New Recipe",
-            "step-text": "食譜步驟以及食譜頁面中的其他欄位皆支援 Markdown 語法。\n\n**新增連結**\n\n[我的連結](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "製作",
