@@ -141,6 +141,26 @@ image_cleaner_test_cases = (
         input=[{"url": "https://example.com/image.jpg"}],
         expected=["https://example.com/image.jpg"],
     ),
+    CleanerCase(
+        test_id="hellofresh scaled to width and height",
+        input="https://img.hellofresh.com/f_auto,fl_lossy,h_640,q_auto,w_1200/hellofresh_s3/image/image.jpg",
+        expected=["https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/image.jpg"],
+    ),
+    CleanerCase(
+        test_id="hellofresh with crop mode",
+        input="https://img.hellofresh.com/c_fill,h_640,w_1200/hellofresh_s3/image/image.jpg",
+        expected=["https://img.hellofresh.com/c_fill,h_640,w_1200/hellofresh_s3/image/image.jpg"],
+    ),
+    CleanerCase(
+        test_id="hellofresh without transformation",
+        input="https://img.hellofresh.com/hellofresh_s3/image/image.jpg",
+        expected=["https://img.hellofresh.com/hellofresh_s3/image/image.jpg"],
+    ),
+    CleanerCase(
+        test_id="other host scaled to width and height",
+        input="https://example.com/h_640,w_1200/image.jpg",
+        expected=["https://example.com/h_640,w_1200/image.jpg"],
+    ),
 )
 
 
