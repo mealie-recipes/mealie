@@ -111,13 +111,13 @@ def test_spa_recipe_json_injection():
     fp = test_data.html_mealie_recipe
     with open(fp) as f:
         soup = BeautifulSoup(f, "lxml")
-        assert "https://schema.org" not in str(soup)
+        assert soup.find("script", type="application/ld+json") is None
 
         html = spa.inject_recipe_json(str(soup), schema)
 
-    assert "@context" in html
-    assert "https://schema.org" in html
-    assert recipe_name in html
+    script = BeautifulSoup(html, "lxml").find("script", type="application/ld+json")
+    assert script is not None
+    assert json.loads(script.text) == schema
 
 
 @pytest.mark.parametrize(
