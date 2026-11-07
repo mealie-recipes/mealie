@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} lagde dette til dessert",
         "recipe-image-deleted": "Oppskriftsbilde slettet",
         "recipe-defaults": {
-            "ingredient-note": "1 kopp mel",
-            "name": "Ny oppskrift",
-            "step-text": "Oppskriftstrinn og andre felt på oppskriftssiden støtter Markdown-syntaks.\n\n**Legg til en lenke**\n\n[Min lenke](https://demo.mealie.io)\n"
+            "name": "Ny oppskrift"
         },
         "servings-text": {
             "makes": "Gir",

@@ -238,6 +238,8 @@
       "api-key": "API ключ",
       "api-key-description-create": "API ключът на вашия доставчик за удостоверяване. Ако вашата услуга (напр. Ollama) не използва API ключ, пак трябва да въведете нещо тук.",
       "api-key-description-edit": "Оставете полето празно, освен ако не искате да го промените.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Основен линк",
       "base-url-description": "Ако използвате OpenAI, оставете това празно. Трябва да е съвместима OpenAI крайна точка (напр. \"http://localhost:11434/v1\").",
       "model": "Модел",

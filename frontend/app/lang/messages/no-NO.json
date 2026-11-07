@@ -238,6 +238,8 @@
       "api-key": "API-nøkkel",
       "api-key-description-create": "API-nøkkelen til leverandøren din brukes til autentisering. Hvis tjenesten din, for eksempel Ollama, ikke bruker en API-nøkkel, må du likevel skrive inn noe her.",
       "api-key-description-edit": "La dette stå tomt med mindre du vil endre det.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Basis-URL",
       "base-url-description": "Hvis du bruker OpenAI, la dette stå tomt. Må være et OpenAI-kompatibelt endepunkt (f.eks. «http://localhost:11434/v1»).",
       "model": "Modell",

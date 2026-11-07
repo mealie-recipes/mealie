@@ -238,6 +238,8 @@
       "api-key": "API Ključ",
       "api-key-description-create": "Ključ API vašega ponudnika za preverjanje pristnosti. Če vaša storitev (npr. Ollama) ne uporablja ključa API, morate vseeno nekaj vnesti tukaj.",
       "api-key-description-edit": "Pustite to prazno, razen če želite to spremeniti.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Osnovni URL",
       "base-url-description": "Če uporabljate OpenAI, pustite to polje prazno. Mora biti končna točka, združljiva z OpenAI (npr. \"http://localhost:11434/v1\").",
       "model": "Model",

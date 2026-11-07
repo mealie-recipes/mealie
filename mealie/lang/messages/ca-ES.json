@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} ha fet això de postres",
         "recipe-image-deleted": "S'ha suprimit la imatge de la recepta",
         "recipe-defaults": {
-            "ingredient-note": "1 tassa de farina",
-            "name": "Recepta nova",
-            "step-text": "Passos de recepta i altres camps són compatibles amb sintaxi markdown.\n\n**Afegir un enllaç**\n\n[El meu enllaç](https://demo.mealie.io)\n"
+            "name": "Recepta nova"
         },
         "servings-text": {
             "makes": "Crea",

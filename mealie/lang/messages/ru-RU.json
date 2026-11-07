@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} приготовил это на десерт",
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
-            "ingredient-note": "1 чашка муки",
-            "name": "Новый рецепт",
-            "step-text": "Шаги рецепта и прочие поля на странице рецепта поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя ссылка](https://demo.mealie.io)\n"
+            "name": "Новый рецепт"
         },
         "servings-text": {
             "makes": "Получается",

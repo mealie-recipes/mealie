@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imagem da receita eliminada",
         "recipe-defaults": {
-            "ingredient-note": "1 Chávena de Farinha",
-            "name": "New Recipe",
-            "step-text": "Os passos da receita, bem como outros campos na página da receita, suportam a sintaxe markdown.\n\n**Adicionar um link**\n\n[Meu link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Faz",

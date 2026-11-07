@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} a fait ceci pour le dessert",
         "recipe-image-deleted": "L'image de la recette a été supprimée",
         "recipe-defaults": {
-            "ingredient-note": "1 tasse de Farine",
-            "name": "Nouvelle recette",
-            "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
+            "name": "Nouvelle recette"
         },
         "servings-text": {
             "makes": "Fait",

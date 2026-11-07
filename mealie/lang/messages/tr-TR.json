@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Tarif görseli silindi",
         "recipe-defaults": {
-            "ingredient-note": "1 Bardak Un",
-            "name": "Yeni Tarif",
-            "step-text": "Tarif sayfasındaki tarif adımlarının yanı sıra diğer alanlar da markdown destekler.\n\n**Bağlantı ekle**\n\n[Bağlantım](https://demo.mealie.io)\n"
+            "name": "Yeni Tarif"
         },
         "servings-text": {
             "makes": "Miktar",

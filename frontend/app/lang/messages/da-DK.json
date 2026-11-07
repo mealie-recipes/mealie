@@ -238,6 +238,8 @@
       "api-key": "API-nøgle",
       "api-key-description-create": "Din udbyders API-nøgle til godkendelse. Hvis din udbyder ikke benytter en API-nøgle (eks. Ollama), skal du stadig skrive ét eller andet.",
       "api-key-description-edit": "Undlad at udfylde dette, medmindre du vil ændre det.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Basis-URL",
       "base-url-description": "Undlad at udfylde, hvis du benytter OpenAI. Skal være et OpenAI-kompatibelt endpoint (eks. \"http://localhost:11434/v1\").",
       "model": "Model",

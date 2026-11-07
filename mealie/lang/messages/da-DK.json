@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} lavede dette som dessert",
         "recipe-image-deleted": "Opskriftsbillede slettet",
         "recipe-defaults": {
-            "ingredient-note": "1 kop mel",
-            "name": "Ny opskrift",
-            "step-text": "Du kan bruge markdown-kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
+            "name": "Ny opskrift"
         },
         "servings-text": {
             "makes": "Udgør",

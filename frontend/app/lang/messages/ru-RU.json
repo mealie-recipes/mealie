@@ -238,6 +238,8 @@
       "api-key": "API ключ",
       "api-key-description-create": "API ключ вашего провайдера для аутентификации. Если ваш сервис (например, Ollama) не использует API ключ, вам всё равно нужно что-то написать здесь.",
       "api-key-description-edit": "Оставьте поле пустым, если вы не хотите изменить его.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Базовый URL",
       "base-url-description": "Если вы используете OpenAI, оставьте это поле пустым. Должно быть OpenAI-совместимым (например \"http://localhost:11434/v1\").",
       "model": "Модель",
