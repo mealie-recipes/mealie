@@ -97,7 +97,7 @@ class IngredientFoodSummary(MealieOutModel):
     """
     A trimmed projection of a food, with nothing on it that can recurse.
 
-    Substitutions reference this rather than the full IngredientFood, which would make
+    Substitutions reference this rather than the full IngredientFoodOut, which would make
     Pydantic walk food -> substitutions -> food forever and generate an equally circular
     TypeScript type.
     """

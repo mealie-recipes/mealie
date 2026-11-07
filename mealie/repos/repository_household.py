@@ -47,7 +47,7 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdOut, Household]):
 
                 data["name"] = f"{original_name} ({attempts})"
 
-    def create_many(self, data: Iterable[HouseholdOut | dict]) -> list[HouseholdOut]:  # type: ignore[override]
+    def create_many(self, data: Iterable[HouseholdCreate | dict]) -> list[HouseholdOut]:  # type: ignore[override]
         # since create uses special logic for resolving slugs, we don't want to use the standard create_many method
         return [self.create(new_household) for new_household in data]
 

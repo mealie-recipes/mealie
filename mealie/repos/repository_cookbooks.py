@@ -28,7 +28,7 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[CookBookOut, CookBook]):
 
         raise  # raise the last IntegrityError
 
-    def create_many(self, data: Iterable[CookBookOut | dict]) -> list[CookBookOut]:  # type: ignore[override]
+    def create_many(self, data: Iterable[CookBookSave | dict]) -> list[CookBookOut]:  # type: ignore[override]
         return [self.create(entry) for entry in data]
 
     def update(self, match_value: str | int | UUID4, data: CookBookSave | dict) -> CookBookOut:  # type: ignore[override]

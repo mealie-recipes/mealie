@@ -34,7 +34,7 @@ class RepositoryGroup(RepositoryGeneric[GroupOut, Group]):
 
                 data["name"] = f"{original_name} ({attempts})"
 
-    def create_many(self, data: Iterable[GroupOut | dict]) -> list[GroupOut]:  # type: ignore[override]
+    def create_many(self, data: Iterable[GroupBase | dict]) -> list[GroupOut]:  # type: ignore[override]
         # since create uses special logic for resolving slugs, we don't want to use the standard create_many method
         return [self.create(new_group) for new_group in data]
 

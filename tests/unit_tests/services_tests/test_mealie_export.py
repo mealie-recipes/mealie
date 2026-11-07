@@ -35,8 +35,8 @@ def test_recognises_dump_with_surrounding_whitespace():
 @pytest.mark.parametrize(
     "data",
     [
-        json.dumps({**CAMEL_DUMP, "@context": "https://schema.org", "@type": "RecipeOut"}),
-        json.dumps({**CAMEL_DUMP, "@type": "RecipeOut"}),
+        json.dumps({**CAMEL_DUMP, "@context": "https://schema.org", "@type": "Recipe"}),
+        json.dumps({**CAMEL_DUMP, "@type": "Recipe"}),
         json.dumps({"name": "Test", "recipeIngredient": ["1 cup flour"], "recipeInstructions": [{"text": "Mix"}]}),
         json.dumps(
             {

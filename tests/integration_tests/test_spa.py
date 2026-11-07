@@ -104,7 +104,7 @@ def test_spa_recipe_json_injection():
     recipe_name = random_string()
     schema = {
         "@context": "https://schema.org",
-        "@type": "RecipeOut",
+        "@type": "Recipe",
         "name": recipe_name,
     }
 

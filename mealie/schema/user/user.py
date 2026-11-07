@@ -84,11 +84,11 @@ class UserRatingSummary(MealieOutModel):
             return v
 
 
-class UserRatingCreate(UserRatingSummary):
+class UserRatingSave(MealieModel):
+    recipe_id: UUID4
     user_id: UUID4
-
-    # a request body, although it extends a response schema
-    model_config = ConfigDict(json_schema_serialization_defaults_required=False)
+    rating: float | None = None
+    is_favorite: bool = False
 
 
 class UserRatingUpdate(MealieModel):
@@ -96,7 +96,8 @@ class UserRatingUpdate(MealieModel):
     is_favorite: bool | None = None
 
 
-class UserRatingOut(UserRatingCreate, MealieOutModel):
+class UserRatingOut(UserRatingSummary):
+    user_id: UUID4
     id: UUID4
 
     @classmethod

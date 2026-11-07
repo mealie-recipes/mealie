@@ -158,7 +158,7 @@ def test_translation_is_skipped_without_a_target_language():
     assert not TranslateRecipeStep().should_run(ctx)
 
 
-LD_JSON = json.dumps({"@type": "RecipeOut", "name": "Veganes Tzatziki", "recipeYield": ["4", "4 Portionen"]})
+LD_JSON = json.dumps({"@type": "Recipe", "name": "Veganes Tzatziki", "recipeYield": ["4", "4 Portionen"]})
 
 
 @pytest.mark.asyncio

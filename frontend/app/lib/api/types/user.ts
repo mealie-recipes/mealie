@@ -260,18 +260,18 @@ export interface UserOut {
   tokens: LongLiveTokenOut[] | null;
   cacheKey: string;
 }
-export interface UserRatingCreate {
-  recipeId: string;
-  rating?: number | null;
-  isFavorite?: boolean;
-  userId: string;
-}
 export interface UserRatingOut {
   recipeId: string;
   rating: number | null;
   isFavorite: boolean;
   userId: string;
   id: string;
+}
+export interface UserRatingSave {
+  recipeId: string;
+  userId: string;
+  rating?: number | null;
+  isFavorite?: boolean;
 }
 export interface UserRatingSummary {
   recipeId: string;

@@ -174,7 +174,7 @@ def content_with_meta(group_slug: str, recipe: RecipeOut) -> str:
 
     as_schema_org: dict[str, Any] = {
         "@context": "https://schema.org",
-        "@type": "RecipeOut",
+        "@type": "Recipe",
         "name": escape(recipe.name),
         "description": escape(recipe.description),
         "image": [image_url],

@@ -14,7 +14,7 @@ from mealie.schema.recipe import IngredientFoodSave, RecipeIngredient
 from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
-from mealie.schema.user.user import GroupBase, UserRatingCreate
+from mealie.schema.user.user import GroupBase, UserRatingSave
 from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -787,21 +787,21 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     # set the rating for user_1 and confirm both users see the same ordering
     recipe_1, recipe_2, recipe_3 = recipes
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_1.user_id,
             recipe_id=recipe_1.id,
             rating=5,
         )
     )
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_1.user_id,
             recipe_id=recipe_2.id,
             rating=4,
         )
     )
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_1.user_id,
             recipe_id=recipe_3.id,
             rating=3,
@@ -828,7 +828,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
 
     # set rating for one recipe for user_2 and confirm user_2 sees the correct order and user_1's order is unchanged
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_2.user_id,
             recipe_id=recipe_1.id,
             rating=3.5,
@@ -865,7 +865,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
 
     # verify public users see only global ratings
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_2.user_id,
             recipe_id=recipe_2.id,
             rating=1,

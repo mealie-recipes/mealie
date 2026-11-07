@@ -33,6 +33,10 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
     Args:
         Schema: Represents the Pydantic Model
         Model: Represents the SqlAlchemyModel Model
+
+    Subclasses that coerce their own input (to set slugs, owners and so on) narrow the
+    accepted input of create, update and patch to their own schema. Those overrides
+    carry `# type: ignore[override]` on purpose.
     """
 
     session: Session

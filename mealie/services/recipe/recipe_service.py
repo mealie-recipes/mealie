@@ -34,7 +34,7 @@ from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
-from mealie.schema.user.user import PrivateUser, UserRatingCreate
+from mealie.schema.user.user import PrivateUser, UserRatingSave
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.parser_services._base import DataMatcher
@@ -229,7 +229,7 @@ class RecipeService(RecipeServiceBase):
         # convert rating into user rating
         if rating_input:
             self.repos.user_ratings.create(
-                UserRatingCreate(
+                UserRatingSave(
                     user_id=self.user.id,
                     recipe_id=new_recipe.id,
                     rating=rating_input,
