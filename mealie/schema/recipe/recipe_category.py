@@ -62,6 +62,10 @@ class TagMerge(MealieModel):
     to_id: UUID4
 
 
+class TagRecipesRemove(MealieModel):
+    recipe_ids: list[UUID4]
+
+
 class RecipeTagResponse(RecipeCategoryResponse):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
