@@ -5,10 +5,29 @@ pnpm = "11.23.0"
 uv = "0.13.6"
 "npm:json-schema-to-typescript" = "16.0.0"
 
+[env]
+DEFAULT_GROUP = "Home"
+DEFAULT_HOUSEHOLD = "Family"
+PRODUCTION = "false"
+# Install from the committed lockfile; never re-resolve. Required because the
+# rolling `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise
+# make every `uv run`/`uv sync` re-resolve and fail on in-window pins.
+UV_FROZEN = "1"
+API_PORT = "9000"
+API_DOCS = "True"
+TOKEN_TIME = "256"
+SMTP_HOST = "localhost"
+SMTP_PORT = "1025"
+SMTP_FROM_NAME = "MealieDev"
+SMTP_FROM_EMAIL = "mealie@example.com"
+SMTP_AUTH_STRATEGY = "NONE"
+BASE_URL = "http://localhost:3000"
+# Local overrides; listed after the defaults so they take precedence
+_.file = [".dev.env", ".env"]
+
 [settings]
 # A mise.lock from a newer mise can't be read by the older mise in the dev container and CI
 lockfile = false
-
 
 [tasks.setup]
 description = "Install Python and frontend dependencies"
@@ -16,14 +35,12 @@ depends = ["setup:py", "setup:ui"]
 
 [tasks."setup:py"]
 description = "Install Python dependencies and pre-commit hooks"
-env = { _.source = "dev/scripts/task-env.sh" }
 sources = ["uv.lock", "pyproject.toml", ".pre-commit-config.yaml"]
 outputs = { auto = true }
 run = ["uv sync --extra pgsql --group dev", "uv run pre-commit install"]
 
 [tasks."setup:ui"]
 description = "Install frontend dependencies"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "frontend"
 sources = ["frontend/package.json", "frontend/pnpm-lock.yaml"]
 outputs = { auto = true }
@@ -31,28 +48,23 @@ run = "pnpm install"
 
 [tasks."setup:e2e"]
 description = "Install e2e test dependencies and Playwright browsers"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "tests/e2e"
 sources = ["tests/e2e/package.json", "tests/e2e/playwright.config.ts", "tests/e2e/pnpm-lock.yaml"]
 outputs = { auto = true }
 run = ["pnpm install", "pnpm run playwright install --with-deps"]
 
-
 [tasks."dev:generate"]
 description = "Run code generators (TypeScript types, schema exports, test helpers)"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = "uv run python dev/code-generation/main.py"
 depends_post = ["py:format"]
 
 [tasks."dev:services"]
 description = "Start Postgres and Mailpit containers"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "docker"
 run = "docker compose -f docker-compose.dev.yml up"
 
 [tasks."dev:clean"]
 description = "Delete all local dev data (dev/data)"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = [
   "rm -r ./dev/data/recipes/",
   "rm -r ./dev/data/users/",
@@ -66,45 +78,37 @@ run = [
 
 [tasks.docs]
 description = "Run the documentation server"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "docs"
 run = "uv run zensical serve"
 
-
 [tasks.py]
 description = "Run the backend server"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = "uv run python mealie/app.py"
 
 [tasks."py:postgres"]
 description = "Run the backend server against the dev:services Postgres"
-env = { _.source = "dev/scripts/task-env.sh", DB_ENGINE = "postgres", POSTGRES_USER = "mealie", POSTGRES_PASSWORD = "mealie", POSTGRES_SERVER = "localhost", POSTGRES_PORT = "5432", POSTGRES_DB = "mealie" }
+env = { DB_ENGINE = "postgres", POSTGRES_USER = "mealie", POSTGRES_PASSWORD = "mealie", POSTGRES_SERVER = "localhost", POSTGRES_PORT = "5432", POSTGRES_DB = "mealie" }
 run = "uv run python mealie/app.py"
 
 [tasks."py:test"]
 description = "Run Python tests in parallel (pass pytest args after --)"
-env = { _.source = "dev/scripts/task-env.sh" }
 # --dist loadfile: each test file runs in order on a single worker
 run = "uv run pytest -n auto --dist loadfile"
 
 [tasks."py:format"]
 description = "Format Python code"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = "uv run ruff format ."
 
 [tasks."py:lint"]
 description = "Lint Python code"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = "uv run ruff check ."
 
 [tasks."py:mypy"]
 description = "Type check Python code"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = "uv run mypy mealie"
 
 [tasks."py:semgrep"]
 description = "Run the authz semgrep rules in .semgrep and their tests"
-env = { _.source = "dev/scripts/task-env.sh" }
 # semgrep still imports pkg_resources and does not support every Python version uv picks.
 run = '''
 semgrep="uvx --python 3.12 --with setuptools semgrep==1.179.0"
@@ -118,7 +122,6 @@ depends = ["py:format", "py:lint", "py:semgrep", "py:mypy", "py:test"]
 
 [tasks."py:coverage"]
 description = "Run Python tests with coverage and open the HTML report"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = [
   "uv run pytest",
   "uv run coverage report -m",
@@ -129,14 +132,11 @@ run = [
 
 [tasks."py:migrate"]
 description = 'Generate a database migration, e.g. mise run py:migrate -- "add new column"'
-env = { _.source = "dev/scripts/task-env.sh" }
 run = "uv run alembic --config mealie/alembic/alembic.ini revision --autogenerate -m"
 depends_post = ["py:format"]
 
-
 [tasks."py:package"]
 description = "Build the Python sdist and wheel plus pinned requirements files in dist/"
-env = { _.source = "dev/scripts/task-env.sh" }
 depends = ["py:package:build"]
 run = '''
 version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
@@ -151,7 +151,6 @@ pip hash "dist/mealie-$version.tar.gz" | tail -n1 >> dist/requirements.txt
 
 [tasks."py:package:build"]
 hide = true
-env = { _.source = "dev/scripts/task-env.sh" }
 # CI builds the frontend in an earlier step and sets SKIP_PACKAGE_DEPS=true
 run = '''
 if [ "${SKIP_PACKAGE_DEPS:-false}" != "true" ]; then
@@ -162,39 +161,32 @@ uv build --out-dir dist
 
 [tasks."py:package:copy-frontend"]
 hide = true
-env = { _.source = "dev/scripts/task-env.sh" }
 depends = ["ui:generate"]
 run = ["rm -rf mealie/frontend", "cp -a frontend/dist mealie/frontend"]
 
-
 [tasks.ui]
 description = "Run the frontend dev server"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "frontend"
 run = "pnpm run dev --no-fork"
 
 [tasks."ui:build"]
 description = "Build the frontend in frontend/dist"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "frontend"
 run = "pnpm build"
 
 [tasks."ui:generate"]
 description = "Generate a static frontend in frontend/dist"
-env = { _.source = "dev/scripts/task-env.sh" }
 depends = ["setup:ui"]
 dir = "frontend"
 run = "pnpm generate"
 
 [tasks."ui:lint"]
 description = "Lint the frontend"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "frontend"
 run = "pnpm lint --max-warnings=0"
 
 [tasks."ui:test"]
 description = "Run the frontend tests"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "frontend"
 run = "pnpm test"
 
@@ -202,23 +194,18 @@ run = "pnpm test"
 description = "Run all frontend checks"
 depends = ["ui:lint", "ui:test"]
 
-
 [tasks."docker:build-from-package"]
 description = "Build the Docker image from the Python package in dist/"
-env = { _.source = "dev/scripts/task-env.sh" }
 depends = ["py:package"]
 run = 'docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT="$(git rev-parse HEAD)" --build-context packages=dist .'
 
 [tasks."docker:prod"]
 description = "Build and run the production Docker image locally"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "docker"
 run = "docker compose -f docker-compose.yml -p mealie up -d --build"
 
-
 [tasks.e2e]
 description = "Run the full e2e suite: build and start the server, test, and stop the server"
-env = { _.source = "dev/scripts/task-env.sh" }
 run = '''
 mise run e2e:start-server
 trap 'mise run e2e:stop-server' EXIT
@@ -227,26 +214,22 @@ PLAYWRIGHT_HTML_OPEN=never mise run e2e:test
 
 [tasks."e2e:build-image"]
 description = "Build the e2e Docker image"
-env = { _.source = "dev/scripts/task-env.sh" }
 depends = ["py:package"]
 run = "docker build --tag mealie:e2e --file docker/Dockerfile --build-context packages=dist ."
 
 [tasks."e2e:start-server"]
 description = "Build the image and start the e2e containers"
-env = { _.source = "dev/scripts/task-env.sh" }
 depends = ["e2e:build-image"]
 dir = "tests/e2e/docker"
 run = "docker compose up -d --wait"
 
 [tasks."e2e:stop-server"]
 description = "Stop the e2e containers"
-env = { _.source = "dev/scripts/task-env.sh" }
 dir = "tests/e2e/docker"
 run = "docker compose down --volumes"
 
 [tasks."e2e:test"]
 description = "Run the e2e tests"
-env = { _.source = "dev/scripts/task-env.sh" }
 depends = ["setup:e2e"]
 dir = "tests/e2e"
 run = "pnpm playwright test"
