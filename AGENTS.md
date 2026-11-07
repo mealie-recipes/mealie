@@ -163,6 +163,9 @@ task docker:prod        # Build and run production Docker compose
 
 ### Before Submitting a PR
 
+Read `CONTRIBUTING.md` first. Its "Writing Style" section sets the rules for PR titles, PR bodies, and commit messages written by an LLM.
+
+
 1. **Draft PRs are optional:** Create a draft PR early if you want feedback while working, or open directly as ready when complete
 2. **Verify code generation:** If you modified Pydantic schemas, ensure `task dev:generate` was run
 3. **Follow Conventional Commits:** Title your PR according to the conventional commits format (see PR template)
