@@ -62,7 +62,9 @@
               :placeholder="$t('recipe.choose-unit')"
               clearable
               :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+              enterkeyhint="next"
               @keyup.enter="handleUnitEnter"
+              @blur="handleUnitBlur"
             >
               <template v-if="unitError" #prepend-inner>
                 <v-tooltip location="bottom">
@@ -114,7 +116,9 @@
               :placeholder="$t('recipe.choose-food')"
               clearable
               :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+              enterkeyhint="next"
               @keyup.enter="handleFoodEnter"
+              @blur="handleFoodBlur"
             >
               <template v-if="foodError" #prepend-inner>
                 <v-tooltip location="bottom">
@@ -450,6 +454,22 @@ function handleFoodEnter() {
     || !model.value.food.name.includes(foodSearch.value)
   ) {
     createAssignFood();
+  }
+}
+
+function handleUnitBlur() {
+  // Select the first filtered item when focus leaves the field
+  // This handles mobile "next" button which typically only fires blur, not Enter
+  if (unitSearch.value && !model.value.unit && filteredUnits.value.length > 0) {
+    model.value.unit = filteredUnits.value[0];
+  }
+}
+
+function handleFoodBlur() {
+  // Select the first filtered item when focus leaves the field
+  // This handles mobile "next" button which typically only fires blur, not Enter
+  if (foodSearch.value && !model.value.food && filteredFoods.value.length > 0) {
+    model.value.food = filteredFoods.value[0];
   }
 }
 
