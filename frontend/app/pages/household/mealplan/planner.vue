@@ -26,7 +26,7 @@
             <v-icon start>
               {{ $globals.icons.calendar }}
             </v-icon>
-            {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+            {{ $d(selectedRange.start, "short") }} - {{ $d(selectedRange.end, "short") }}
           </v-btn>
         </template>
 
@@ -37,6 +37,7 @@
             :multiple="'range'"
             :first-day-of-week="firstDayOfWeek"
             :local="$i18n.locale"
+            @update:model-value="snapToWeeks = false"
           />
 
           <v-card-text>
@@ -119,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { addDays, addWeeks, differenceInCalendarDays, format, isSameDay, isValid, parseISO } from "date-fns";
+import { addDays, addWeeks, differenceInCalendarDays, format, isSameDay, isValid, isWithinInterval, parseISO, startOfDay } from "date-fns";
 import GroupMealPlanCalendarDialog from "~/components/Domain/Household/GroupMealPlanCalendarDialog.vue";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
@@ -201,6 +202,10 @@ function defaultEndDate() {
 const initialStartDate = safeParseISO(route.query.start as string, defaultStartDate());
 const initialEndDate = safeParseISO(route.query.end as string, defaultEndDate());
 
+// The default range is the whole weeks around today. A range picked by hand (or from the URL) is kept as is:
+// the planner still shows whole weeks, but the days outside the range are set back and left out of the shopping list.
+const snapToWeeks = ref(!(route.query.start && route.query.end));
+
 const state = ref({
   range: [initialStartDate, initialEndDate] as [Date, Date],
   start: initialStartDate,
@@ -212,9 +217,10 @@ const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
 });
 
+// Moves by as many whole weeks as are shown, so a picked range keeps its days of the week
 function changeWeek(step: number) {
-  const { start, end } = weekRange.value;
-  const stepSize = differenceInCalendarDays(end, start) + 1;
+  const stepSize = differenceInCalendarDays(weekRange.value.end, weekRange.value.start) + 1;
+  const { start, end } = selectedRange.value;
   state.value.range = [
     addDays(start, step * stepSize),
     addDays(end, step * stepSize),
@@ -234,17 +240,29 @@ const weekRange = computed(() => {
   };
 });
 
-// Once a range is fully picked, show the whole weeks in the picker too. A half-picked range (one date)
+// The days the user asked for. Until the range is fully picked (one date), it's the week around that date.
+const selectedRange = computed(() => {
+  const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
+  const first = sorted[0];
+  const last = sorted[sorted.length - 1];
+  if (sorted.length < 2 || !first || !last) return weekRange.value;
+
+  return { start: startOfDay(first), end: startOfDay(last) };
+});
+
+// With the default range, show the whole weeks in the picker too. A half-picked range (one date)
 // is left alone, so the picker can still take the second click.
 watch(weekRange, ({ start, end }) => {
+  if (!snapToWeeks.value) return;
+
   const [first, last] = state.value.range;
   if (state.value.range.length === 2 && !(first && last && isSameDay(first, start) && isSameDay(last, end))) {
     state.value.range = [start, end];
   }
-});
+}, { immediate: true });
 
 // Update query parameters when date range changes
-watch(weekRange, (newRange) => {
+watch(selectedRange, (newRange) => {
   // Keep current route name and params, just update the query
   router.replace({
     name: route.name || TABS.view,
@@ -288,7 +306,7 @@ const days = computed(() => {
 
 const mealsByDate = computed(() => {
   return days.value.map((day) => {
-    return { date: day, meals: filterMealByDate(day) };
+    return { date: day, meals: filterMealByDate(day), outOfRange: !isWithinInterval(day, selectedRange.value) };
   });
 });
 
@@ -324,7 +342,8 @@ const mealsByWeek = computed(() => {
 /** Each week followed by its days, the order the planner pages lay them out in */
 const plans = computed(() => mealsByWeek.value.flatMap(({ week, days }) => [week, ...days]));
 
-const allMeals = computed(() => plans.value.flatMap(({ meals }) => meals));
+/** The meals in the selected range: its days, plus the week entries of every week it touches */
+const allMeals = computed(() => plans.value.flatMap(({ meals, outOfRange }) => outOfRange ? [] : meals));
 
 const hasRecipes = computed(() => {
   return allMeals.value.some(meal => meal.recipe);

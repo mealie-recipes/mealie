@@ -6,7 +6,7 @@
       :key="index"
       v-bind="plan.endDate ? WEEK_COLS : DAY_COLS"
       class="col-borders my-1 d-flex flex-column"
-      :class="{ 'week-section': plan.endDate, 'mt-6': plan.endDate && index > 0 }"
+      :class="{ 'week-section': plan.endDate, 'mt-6': plan.endDate && index > 0, 'out-of-range': plan.outOfRange }"
     >
       <slot v-bind="{ plan, index, day: getDay(plan) }" />
     </v-col>
@@ -29,6 +29,7 @@ function getDay(day: MealsByDate): Days {
   return {
     date: day.date,
     endDate: day.endDate,
+    outOfRange: day.outOfRange,
     sections: planTypeOptions
       .map(({ text, value }) => ({ title: text, meals: forSection(value) }))
       .filter(({ meals }) => meals.length > 0),
@@ -42,6 +43,11 @@ function getDay(day: MealsByDate): Days {
 .week-section {
   background-color: rgba(var(--v-theme-primary), 0.08);
   border-radius: 4px;
+}
+
+/* days outside the selected range only complete their week: still there to plan in, but set back */
+.out-of-range {
+  opacity: 0.45;
 }
 
 /* a week spans the full row, so its meals are laid out side by side instead of in one long column */

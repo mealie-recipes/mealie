@@ -92,6 +92,8 @@ export type Days = {
   date: Date;
   /** Set for a week, whose meals aren't planned for a specific day */
   endDate?: Date | null;
+  /** Set for a day shown only to complete its week, outside the selected date range */
+  outOfRange?: boolean;
   sections: DaySection[];
   recipes: ScaledRecipe[];
 };
@@ -108,6 +110,8 @@ export type MealsByDate = {
   date: Date;
   /** Set for a week, whose meals aren't planned for a specific day */
   endDate?: Date | null;
+  /** Set for a day shown only to complete its week, outside the selected date range */
+  outOfRange?: boolean;
   meals: ReadPlanEntry[];
 };
 
