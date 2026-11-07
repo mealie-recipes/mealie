@@ -238,6 +238,8 @@
       "api-key": "Klíč API",
       "api-key-description-create": "API klíč vašeho providera pro ověření. Pokud vaše služba (např. Ollama) nepoužívá API klíč, stále je potřeba sem něco vložit.",
       "api-key-description-edit": "Vyplňte pouze pokud chcete změnit.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Výchozí URL",
       "base-url-description": "Pokud používáte OpenAI, nechte toto prázdné. Musí být koncový bod kompatibilní s OpenAI (např. \"http://localhost:11434/v1\").",
       "model": "Model",
