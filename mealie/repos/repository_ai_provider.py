@@ -35,8 +35,11 @@ class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider
         return super().create(data)
 
     def update(self, match_value: str | int | UUID4, new_data: AIProviderCreate | dict):
+        if not isinstance(new_data, AIProviderCreate):
+            raise TypeError("AI provider updates must be an AIProviderCreate so resolve_update() checks the base URL")
+
         existing = self.get_one(match_value)
-        if existing and isinstance(new_data, AIProviderCreate):
+        if existing:
             new_data = existing.resolve_update(new_data)
 
         return super().update(match_value, new_data)

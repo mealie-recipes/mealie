@@ -76,13 +76,9 @@ class AIProviderOut(AIProviderCreate):
 
     def resolve_update(self, data: AIProviderCreate) -> dict[str, Any]:
         """
-        Merge an edit of this saved provider into the full set of values to store or test.
+        Fill omitted or redacted secrets in an edit from the stored values.
 
-        Stored secrets (API key, redacted header and param values) are write-only, so clients omit
-        or echo a placeholder for the ones they did not change. Those are filled in from the stored
-        values, but only while the base URL stays the same: a secret must never be sent to a
-        destination other than the one it was saved with. When the base URL changes the caller has
-        to supply every secret again.
+        Only while the base URL is unchanged, so a secret never goes to a host it was not saved for.
         """
         destination_changed = data.base_url != self.base_url
 
