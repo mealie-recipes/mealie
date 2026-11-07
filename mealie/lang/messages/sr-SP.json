@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Слика рецепта је обрисана",
         "recipe-defaults": {
-            "ingredient-note": "1 шоља брашна",
-            "name": "New Recipe",
-            "step-text": "Упутство за рецепт као и остала поља подржавају markdown синтаксу\n\n**Додати линк**\n\n[Мој линк](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Прави",
