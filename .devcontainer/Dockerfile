@@ -12,7 +12,6 @@ RUN apt-get update \
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1
 
-# node, pnpm, uv, and task come from mise.toml (`mise install` runs in onCreateCommand).
 # Python stays with the base image so the interpreter path in devcontainer.json doesn't move.
 COPY --from=jdxcode/mise:2026.10.25 /usr/local/bin/mise /usr/local/bin/mise
 ENV MISE_DISABLE_TOOLS=python \

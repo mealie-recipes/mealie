@@ -17,7 +17,7 @@ Prerequisites
 
 First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
 
-The dev container installs Node, pnpm, uv, and task with [mise](https://mise.jdx.dev/) from `mise.toml`, so it uses the same tool versions as a local setup. Python comes from the container's base image.
+The dev container installs its tools with [mise](https://mise.jdx.dev/) from `mise.toml`, so it uses the same tool versions as a local setup. Python comes from the container's base image.
 
 ### Windows
 
@@ -34,7 +34,7 @@ Make sure the VSCode Dev Containers extension is installed, then select "Dev Con
 
 ### Prerequisites
 
-The tool versions the project expects are listed in `mise.toml` at the root of the repo. The easiest way to get them is [mise](https://mise.jdx.dev/getting-started.html):
+[`mise.toml`](https://github.com/mealie-recipes/mealie/blob/mealie-next/mise.toml) at the root of the repo lists the tools and versions the project needs. The easiest way to install them is [mise](https://mise.jdx.dev/getting-started.html):
 
 ```bash
 cd /path/to/project
@@ -42,13 +42,7 @@ mise trust      # first time only
 mise install
 ```
 
-If you'd rather install them yourself, you need:
-
-- [Python 3.14](https://www.python.org/downloads/)
-- [uv](https://docs.astral.sh/uv/)
-- [Node 24](https://nodejs.org/en/)
-- [pnpm 11](https://pnpm.io/installation) (the exact version is pinned in `frontend/package.json`)
-- [task](https://taskfile.dev/#/installation)
+If you'd rather install them yourself, use the versions in `mise.toml`.
 
 ### Installing Dependencies
 

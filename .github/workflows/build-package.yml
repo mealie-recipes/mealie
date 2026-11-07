@@ -24,6 +24,7 @@ jobs:
       - name: Set up tools
         uses: ./.github/actions/setup-tools
         with:
+          tools: python node pnpm uv task
           cache-pnpm-store: true
 
       - name: Install dependencies 👨🏻‍💻
