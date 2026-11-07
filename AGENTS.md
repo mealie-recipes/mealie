@@ -59,6 +59,7 @@ Mealie is a self-hosted recipe manager, meal planner, and shopping list applicat
 
 **Development workflow:**
 ```bash
+mise install
 task setup              # Install all dependencies (Python + Node)
 task dev:services       # Start Postgres & Mailpit containers
 task py                 # Start FastAPI backend (port 9000)

@@ -11,14 +11,11 @@ jobs:
         working-directory: ./tests/e2e
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v6
+      - name: Set up tools
+        uses: ./.github/actions/setup-tools
         with:
-          version: 11
-      - uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: "pnpm"
-          cache-dependency-path: "**/pnpm-lock.yaml"
+          tools: node pnpm
+          cache-pnpm-store: true
       - name: Install dependencies
         run: pnpm install
       # This install takes about 50 seconds and needs nothing the image build
