@@ -43,16 +43,16 @@ class PasswordResetService(BaseService):
         self.db.session.execute(delete(PasswordResetModel).where(PasswordResetModel.user_id == user_id))
         self.db.session.commit()
 
-    def _is_expired(self, token: str) -> bool:
-        created_at = self.db.session.execute(
-            select(PasswordResetModel.created_at).where(PasswordResetModel.token == token)
-        ).scalar_one_or_none()
-
-        if created_at is None:
-            return True
+    def _get_valid_token(self, token: str) -> PasswordResetModel | None:
+        token_row = self.db.session.scalars(
+            select(PasswordResetModel).where(PasswordResetModel.token == token)
+        ).one_or_none()
 
         lifetime = timedelta(hours=self.settings.PASSWORD_RESET_TOKEN_TIME)
-        return datetime.now(UTC) - created_at > lifetime
+        if token_row is None or datetime.now(UTC) - token_row.created_at > lifetime:
+            return None
+
+        return token_row
 
     def send_reset_email(self, email: str, accept_language: str | None = None) -> None:
         """Never raises: callers run this in the background and must not leak account existence."""
@@ -69,9 +69,9 @@ class PasswordResetService(BaseService):
 
     def reset_password(self, token: str, new_password: str):
         # Validate Token
-        token_entry = self.db.tokens_pw_reset.get_one(token, "token")
+        token_entry = self._get_valid_token(token)
 
-        if token_entry is None or self._is_expired(token_entry.token):
+        if token_entry is None:
             self.logger.error("failed to reset password: invalid token")
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid token")
 
