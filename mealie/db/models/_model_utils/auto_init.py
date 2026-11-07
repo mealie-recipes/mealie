@@ -79,33 +79,69 @@ def get_lookup_attr(relation_cls: type[SqlAlchemyBase]) -> str:
     return get_attr
 
 
-def handle_many_to_many(session, get_attr, relation_cls, all_elements: list[dict]):
+# Ownership columns of a related row never come from a nested payload. Moving a row between
+# groups or households is not something a payload may do.
+_OWNERSHIP_COLUMNS = frozenset({"group_id", "household_id"})
+
+
+def _is_group_scoped(relation_cls: type[SqlAlchemyBase], group_id) -> bool:
+    # Only a real `group_id` column counts. Models such as LongLiveToken proxy `group_id` through
+    # their owner; scoping them to the parent's group misses existing rows when that group changes.
+    return group_id is not None and "group_id" in inspect(relation_cls).columns
+
+
+def _lookup_stmt(relation_cls: type[SqlAlchemyBase], lookup_attr: str, value, group_id):
+    """Select the related row by `lookup_attr`, limited to `group_id` when the model is group-scoped.
+
+    Without `group_id` (the parent carries no group) the lookup stays unscoped.
+    """
+    stmt = select(relation_cls).filter_by(**{lookup_attr: value})
+    if _is_group_scoped(relation_cls, group_id):
+        stmt = stmt.where(relation_cls.group_id == group_id)
+    return stmt
+
+
+def handle_many_to_many(session, get_attr, relation_cls, all_elements: list[dict], group_id=None):
     """
     Proxy call to `handle_one_to_many_list` for many-to-many relationships. Because functionally, they do the same
     """
-    return handle_one_to_many_list(session, get_attr, relation_cls, all_elements)
+    return handle_one_to_many_list(session, get_attr, relation_cls, all_elements, group_id)
 
 
 def handle_one_to_many_list(
-    session: Session, get_attr, relation_cls: type[SqlAlchemyBase], all_elements: list[dict] | list[str]
+    session: Session,
+    get_attr,
+    relation_cls: type[SqlAlchemyBase],
+    all_elements: list[dict] | list[str],
+    group_id=None,
 ):
     elems_to_create: list[dict] = []
     updated_elems: list[dict] = []
 
     cfg = _get_config(relation_cls)
+    scoped = _is_group_scoped(relation_cls, group_id)
 
     for elem in all_elements:
         elem_id = elem.get(get_attr, None) if isinstance(elem, dict) else elem
-        stmt = select(relation_cls).filter_by(**{get_attr: elem_id})
+        stmt = _lookup_stmt(relation_cls, get_attr, elem_id, group_id)
         existing_elem = session.execute(stmt).scalars().one_or_none()
 
         if existing_elem is None and isinstance(elem, dict):
+            if scoped:
+                # A row outside the caller's group is treated as unknown and created in the caller's group.
+                # Its primary key is taken, so the new row gets a fresh one.
+                elem = {**elem, "group_id": group_id}
+                if get_attr == "id" and session.execute(_lookup_stmt(relation_cls, "id", elem_id, None)).first():
+                    elem.pop("id")
             elems_to_create.append(elem)
+            continue
+
+        elif existing_elem is None:
             continue
 
         elif isinstance(elem, dict):
             for key, value in elem.items():
-                if key not in cfg.exclude:
+                if key not in cfg.exclude and key not in _OWNERSHIP_COLUMNS:
                     setattr(existing_elem, key, value)
 
         updated_elems.append(existing_elem)
@@ -142,6 +178,7 @@ def auto_init():  # sourcery no-metrics
             relationships = alchemy_mapper.relationships
 
             session: Session = kwargs.get("session", None)
+            group_id = kwargs.get("group_id")
 
             if session is None:
                 raise ValueError("Session is required to initialize the model with `auto_init`")
@@ -173,7 +210,7 @@ def auto_init():  # sourcery no-metrics
                     get_attr = get_lookup_attr(relation_cls)
 
                     if relation_dir == ONETOMANY and use_list:
-                        instances = handle_one_to_many_list(session, get_attr, relation_cls, val)
+                        instances = handle_one_to_many_list(session, get_attr, relation_cls, val, group_id)
                         setattr(self, key, instances)
 
                     elif relation_dir == ONETOMANY:
@@ -194,7 +231,7 @@ def auto_init():  # sourcery no-metrics
                                 raise ValueError(f"Expected '{lookup_attr}' to be provided for {key}")
 
                         if isinstance(val, str | int | UUID):
-                            stmt = select(relation_cls).filter_by(**{lookup_attr: val})
+                            stmt = _lookup_stmt(relation_cls, lookup_attr, val, group_id)
                             instance = session.execute(stmt).scalars().one_or_none()
                             setattr(self, key, instance)
                         else:
@@ -203,7 +240,7 @@ def auto_init():  # sourcery no-metrics
                             pass
 
                     elif relation_dir == MANYTOMANY:
-                        instances = handle_many_to_many(session, get_attr, relation_cls, val)
+                        instances = handle_many_to_many(session, get_attr, relation_cls, val, group_id)
                         setattr(self, key, instances)
 
             return init(self, *args, **kwargs)
