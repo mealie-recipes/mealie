@@ -533,14 +533,8 @@ import DropZone from "~/components/global/DropZone.vue";
 import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
+import { mergeSteps, undoStepMerge, type StepMerge } from "~/lib/recipe/instruction-merge";
 import CookTime from "./CookTime.vue";
-
-interface MergerHistory {
-  target: number;
-  source: number;
-  targetStep: Pick<RecipeStep, "text" | "ingredientReferences" | "noteReferences">;
-  sourceStep: RecipeStep;
-}
 
 const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
 const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: () => [] });
@@ -891,35 +885,13 @@ const groupedUsedIngredients = computed((): Record<string, RecipeIngredient[]> =
 
 // ===============================================================
 // Instruction Merger
-const mergeHistory = ref<MergerHistory[]>([]);
-
-function mergeReferences<T extends { referenceId?: string | null }>(target: T[] = [], source: T[] = []): T[] {
-  const targetIds = new Set(target.map(ref => ref.referenceId));
-  return [...target, ...source.filter(ref => !targetIds.has(ref.referenceId))];
-}
+const mergeHistory = ref<StepMerge[]>([]);
 
 function mergeAbove(target: number, source: number) {
-  const targetStep = instructionList.value[target];
-  const sourceStep = instructionList.value[source];
-  if (!targetStep || !sourceStep) {
-    return;
+  const merge = mergeSteps(instructionList.value, target, source);
+  if (merge) {
+    mergeHistory.value.push(merge);
   }
-
-  mergeHistory.value.push({
-    target,
-    source,
-    targetStep: {
-      text: targetStep.text,
-      ingredientReferences: targetStep.ingredientReferences,
-      noteReferences: targetStep.noteReferences,
-    },
-    sourceStep,
-  });
-
-  targetStep.text += " " + sourceStep.text;
-  targetStep.ingredientReferences = mergeReferences(targetStep.ingredientReferences, sourceStep.ingredientReferences);
-  targetStep.noteReferences = mergeReferences(targetStep.noteReferences, sourceStep.noteReferences);
-  instructionList.value.splice(source, 1);
 }
 
 function undoMerge(event: KeyboardEvent) {
@@ -928,13 +900,9 @@ function undoMerge(event: KeyboardEvent) {
   }
 
   const lastMerge = mergeHistory.value.pop();
-  const targetStep = lastMerge && instructionList.value[lastMerge.target];
-  if (!lastMerge || !targetStep) {
-    return;
+  if (lastMerge) {
+    undoStepMerge(instructionList.value, lastMerge);
   }
-
-  Object.assign(targetStep, lastMerge.targetStep);
-  instructionList.value.splice(lastMerge.source, 0, lastMerge.sourceStep);
 }
 
 function moveTo(dest: string, source: number) {
