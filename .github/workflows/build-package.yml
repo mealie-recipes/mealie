@@ -24,7 +24,7 @@ jobs:
       - name: Set up tools
         uses: ./.github/actions/setup-tools
         with:
-          tools: python node pnpm uv task
+          tools: python node pnpm uv
           cache-pnpm-store: true
 
       - name: Install dependencies 👨🏻‍💻
@@ -48,7 +48,7 @@ jobs:
         env:
           SKIP_PACKAGE_DEPS: true
         run: |
-          task py:package
+          mise run py:package
 
       - name: Archive built package
         uses: actions/upload-artifact@v6

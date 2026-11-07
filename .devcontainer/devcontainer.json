@@ -41,7 +41,7 @@
     51204, // used for test coverage report
     24678 // used by nuxt when hot-reloading using polling
   ],
-  "onCreateCommand": "sudo chown vscode:vscode /workspaces/mealie/.venv /workspaces/mealie/frontend/node_modules && mise install && task setup --force",
+  "onCreateCommand": "sudo chown vscode:vscode /workspaces/mealie/.venv /workspaces/mealie/frontend/node_modules && mise install && mise run setup --force",
   "remoteUser": "vscode",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {},

@@ -18,6 +18,13 @@ runs:
         # renovate: datasource=github-releases depName=jdx/mise extractVersion=^v(?<version>.+)$
         version: 2026.10.25
         install_args: ${{ inputs.tools }}
+        # [env] in mise.toml is for mise tasks; don't export it to every later step
+        env: false
+
+    # `mise run` would otherwise install every tool in mise.toml, not only the ones this job asked for
+    - name: Keep mise run to the installed tools
+      shell: bash
+      run: echo "MISE_TASK_RUN_AUTO_INSTALL=false" >> "$GITHUB_ENV"
 
     - name: Find pnpm store
       id: pnpm-store

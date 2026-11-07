@@ -13,7 +13,7 @@ Pull requests are the best way to propose changes to the codebase (we use [GitHu
 3. If you're interested on working on major changes please get in touch on discord and coordinate with other developers. No sense in doubling up on work if someones already on it.
 4. Once you've got an idea of what changes you want to make, create a draft PR as soon as you can to let us know what you're working on and how we can help!
 5. If you've changed APIs, update the documentation.
-6. Run tests, including `task py:check`.
+6. Run tests, including `mise run py:check`.
 7. Issue that pull request! First make a draft PR, make sure that the automated GitHub tests all pass, then mark as ready for review. We follow Conventional Commits syntax; please title your PR as described in the PR template.
 8. Be sure to add release notes to the pull request.
 
@@ -24,7 +24,7 @@ This guidance applies to all contributor prose. It includes pull request titles,
 
 **LLM authors**: Use [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) for all text. Use this practical subset:
 
-- Use words from the STE approved-vocabulary dictionary. Technical names that are not in the dictionary can be used as-is (for example `mealie-next`, `task py:check`, `BaseUserController`, or `HttpRepo`).
+- Use words from the STE approved-vocabulary dictionary. Technical names that are not in the dictionary can be used as-is (for example `mealie-next`, `mise run py:check`, `BaseUserController`, or `HttpRepo`).
 - Use one word for one meaning. Do not vary synonyms for style.
 - Use active voice only. Do not use passive constructions.
 - Use present or simple past tense. Do not use `-ing` gerunds or participles as nouns.
