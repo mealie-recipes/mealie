@@ -3,15 +3,14 @@ from uuid import uuid4
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood, SaveIngredientUnit
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave, IngredientUnitSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
-SAVE_SCHEMAS = {"tags": TagSave, "categories": CategorySave, "tools": RecipeToolSave}
+SAVE_SCHEMAS = {"tags": TagSave, "categories": CategorySave, "tools": ToolSave}
 
 # repo name, recipe attribute (snake_case), recipe field in the API payload
 ORGANIZERS = [
@@ -51,7 +50,7 @@ def test_recipe_create_cannot_adopt_organizer_from_another_group(
     }
 
     created = unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string(), **{attribute: [reference]}
         )
     )
@@ -85,12 +84,12 @@ def test_recipe_update_cannot_adopt_organizer_from_another_group(
 
 @pytest.mark.parametrize(
     "repo_name, schema, field",
-    [("ingredient_foods", SaveIngredientFood, "food"), ("ingredient_units", SaveIngredientUnit, "unit")],
+    [("ingredient_foods", IngredientFoodSave, "food"), ("ingredient_units", IngredientUnitSave, "unit")],
     ids=["foods", "units"],
 )
 def test_recipe_ingredient_cannot_link_food_or_unit_from_another_group(
     repo_name: str,
-    schema: type[SaveIngredientFood] | type[SaveIngredientUnit],
+    schema: type[IngredientFoodSave] | type[IngredientUnitSave],
     field: str,
     api_client: TestClient,
     unique_user: TestUser,

@@ -84,13 +84,19 @@ def get_lookup_attr(relation_cls: type[SqlAlchemyBase]) -> str:
 _OWNERSHIP_COLUMNS = frozenset({"group_id", "household_id"})
 
 
+def _is_group_scoped(relation_cls: type[SqlAlchemyBase], group_id) -> bool:
+    # Only a real `group_id` column counts. Models such as LongLiveToken proxy `group_id` through
+    # their owner; scoping them to the parent's group misses existing rows when that group changes.
+    return group_id is not None and "group_id" in inspect(relation_cls).columns
+
+
 def _lookup_stmt(relation_cls: type[SqlAlchemyBase], lookup_attr: str, value, group_id):
     """Select the related row by `lookup_attr`, limited to `group_id` when the model is group-scoped.
 
     Without `group_id` (the parent carries no group) the lookup stays unscoped.
     """
     stmt = select(relation_cls).filter_by(**{lookup_attr: value})
-    if group_id is not None and hasattr(relation_cls, "group_id"):
+    if _is_group_scoped(relation_cls, group_id):
         stmt = stmt.where(relation_cls.group_id == group_id)
     return stmt
 
@@ -113,7 +119,7 @@ def handle_one_to_many_list(
     updated_elems: list[dict] = []
 
     cfg = _get_config(relation_cls)
-    scoped = group_id is not None and hasattr(relation_cls, "group_id")
+    scoped = _is_group_scoped(relation_cls, group_id)
 
     for elem in all_elements:
         elem_id = elem.get(get_attr, None) if isinstance(elem, dict) else elem
