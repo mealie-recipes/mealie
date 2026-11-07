@@ -1,7 +1,7 @@
 [tools]
 python = "3.14.10"
 node = "24"
-pnpm = "11.23.0"
+pnpm = "12.17.0"
 uv = "0.13.6"
 task = "3.54.0"
 "npm:json-schema-to-typescript" = "16.0.0"
