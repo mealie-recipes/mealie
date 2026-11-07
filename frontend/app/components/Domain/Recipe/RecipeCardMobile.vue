@@ -114,6 +114,7 @@
                     print: false,
                     printPreferences: false,
                     share: true,
+                    recipeActions: true,
                   }"
                   :leading-items="contextMenuLeadingItems"
                   :append-items="contextMenuAppendItems"
