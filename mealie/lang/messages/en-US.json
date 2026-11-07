@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "name": "New Recipe",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Makes",
