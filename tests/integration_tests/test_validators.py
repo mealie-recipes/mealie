@@ -3,7 +3,7 @@ from uuid import UUID
 
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from tests.utils import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -83,7 +83,7 @@ class RecipeValidators:
     is_valid: bool
 
 
-def test_validators_recipe(api_client: TestClient, random_recipe: Recipe):
+def test_validators_recipe(api_client: TestClient, random_recipe: RecipeOut):
     recipes = [
         RecipeValidators(name=random_recipe.name or "", group=random_recipe.group_id, is_valid=False),
         RecipeValidators(name=random_string(), group=random_recipe.group_id, is_valid=True),

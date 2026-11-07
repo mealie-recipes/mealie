@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { GroupBase, GroupInDB } from "~/lib/api/types/user";
+import type { GroupBase, GroupOut } from "~/lib/api/types/user";
 import type { GroupAdminUpdate } from "~/lib/api/types/group";
 
 const prefix = "/api";
@@ -9,7 +9,7 @@ const routes = {
   adminUsersId: (id: string) => `${prefix}/admin/groups/${id}`,
 };
 
-export class AdminGroupsApi extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate> {
+export class AdminGroupsApi extends BaseCRUDAPI<GroupBase, GroupOut, GroupAdminUpdate> {
   baseRoute: string = routes.adminUsers;
   itemRoute = routes.adminUsersId;
 }

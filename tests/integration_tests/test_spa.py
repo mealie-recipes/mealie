@@ -5,11 +5,11 @@ import pytest
 from bs4 import BeautifulSoup
 
 from mealie.routes import spa
-from mealie.schema.recipe.recipe import Recipe, RecipeSettings
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut, RecipeSettings
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from tests import data as test_data
-from tests.utils.factories import random_string
+from tests.utils.factories import build_recipe, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -34,15 +34,15 @@ def set_household_is_private(unique_user: TestUser, *, is_private: bool):
     unique_user.repos.household_preferences.update(household.id, household.preferences)
 
 
-def set_recipe_is_public(unique_user: TestUser, recipe: Recipe, *, is_public: bool):
+def set_recipe_is_public(unique_user: TestUser, recipe: RecipeOut, *, is_public: bool):
     assert recipe.settings
     recipe.settings.public = is_public
     unique_user.repos.recipes.update(recipe.slug, recipe)
 
 
-def create_recipe(user: TestUser) -> Recipe:
+def create_recipe(user: TestUser) -> RecipeOut:
     recipe = user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=random_string(),
@@ -111,13 +111,13 @@ def test_spa_recipe_json_injection():
     fp = test_data.html_mealie_recipe
     with open(fp) as f:
         soup = BeautifulSoup(f, "lxml")
-        assert "https://schema.org" not in str(soup)
+        assert soup.find("script", type="application/ld+json") is None
 
         html = spa.inject_recipe_json(str(soup), schema)
 
-    assert "@context" in html
-    assert "https://schema.org" in html
-    assert recipe_name in html
+    script = BeautifulSoup(html, "lxml").find("script", type="application/ld+json")
+    assert script is not None
+    assert json.loads(script.text) == schema
 
 
 @pytest.mark.parametrize(
@@ -137,7 +137,7 @@ def test_spa_iso_duration(seconds: int | None, expected: str | None):
 
 
 def test_spa_recipe_json_times(unique_user: TestUser):
-    recipe = Recipe(
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=random_string(),
@@ -303,7 +303,7 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
     ],
 )
 def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
-    recipe = Recipe(
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=malicious_content,

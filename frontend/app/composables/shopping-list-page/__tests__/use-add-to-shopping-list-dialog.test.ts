@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { useAddToShoppingListDialog, useNewShoppingListForm } from "../use-add-to-shopping-list-dialog";
 import type { ShoppingListSummary } from "~/lib/api/types/household";
+import { makeShoppingList } from "~/tests/factories";
 
 const getAll = vi.fn();
 const createOne = vi.fn();
@@ -22,15 +23,13 @@ vi.mock("vue-i18n", async importOriginal => ({
 }));
 
 function createList(id: string, name = `List ${id}`): ShoppingListSummary {
-  return {
+  return makeShoppingList({
     id,
     name,
     groupId: "my-group-id",
     userId: "my-user-id",
     householdId: "my-household-id",
-    recipeReferences: [],
-    labelSettings: [],
-  };
+  });
 }
 
 beforeEach(() => {

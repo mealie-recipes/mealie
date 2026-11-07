@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Obrazek przepisu został usunięty",
         "recipe-defaults": {
-            "ingredient-note": "1 szklanka mąki",
-            "name": "New Recipe",
-            "step-text": "Kroki przepisu, jak również inne pola na stronie przepisu obsługują składnię markdown.\n\n**Dodaj link**\n\n[Mój link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Daje",

@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from mealie.lang.providers import get_locale_provider
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import scraper
 from mealie.services.scraper.recipe_scraper import RecipeScraper
@@ -25,7 +25,7 @@ async def test_create_from_html_truncates_long_slug(monkeypatch):
     long_name = "High Protein Low Calorie Recipes Smash Or Pass " * 28
 
     async def fake_scrape(self, url, html=None, on_progress=None, **kwargs):
-        return Recipe(name=long_name), ScrapedExtras()
+        return RecipeDraft(name=long_name), ScrapedExtras()
 
     monkeypatch.setattr(RecipeScraper, "scrape", fake_scrape)
 
@@ -70,7 +70,7 @@ async def test_finalize_only_stamps_a_cache_key_when_an_image_landed(
     monkeypatch.setattr(RecipeDataService, "scrape_image", fake_scrape_image)
 
     recipe = await scraper.finalize_scraped_recipe(
-        Recipe(name="Test Recipe", image=scraped_image),
+        RecipeDraft(name="Test Recipe", image=scraped_image),
         get_locale_provider(),
     )
 

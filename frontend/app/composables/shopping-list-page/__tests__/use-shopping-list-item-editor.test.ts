@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { ModelRef } from "vue";
-import type { IngredientFood, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { IngredientFoodOut, ShoppingListItemOut } from "~/lib/api/types/household";
+import { makeIngredientFood, makeIngredientUnit } from "~/tests/factories";
 import { MOCK_ITEM } from "../sub-composables/__tests__/mocks";
 import { resolveFood, useShoppingListItemEditor } from "../use-shopping-list-item-editor";
 
@@ -40,12 +41,12 @@ describe("useShoppingListItemEditor", () => {
   });
   describe("createAssignFood", () => {
     test("creates food", () => {
-      item.value.food = { id: "food_id", name: "Soylent Green" };
+      item.value.food = makeIngredientFood({ id: "food_id", name: "Soylent Green" });
       createAssignFood("Soylent Green");
       expect(foodStore.actions.createOne).toHaveBeenCalled();
     });
     test("creates unit when unit is undefined", () => {
-      item.value.food = undefined;
+      item.value.food = null;
       createAssignFood("Soylent Green");
       expect(foodStore.actions.createOne).toHaveBeenCalled();
     });
@@ -57,12 +58,12 @@ describe("useShoppingListItemEditor", () => {
   });
   describe("createAssignUnit", () => {
     test("creates unit", () => {
-      item.value.unit = { id: "unit_id", name: "Wafer" };
+      item.value.unit = makeIngredientUnit({ id: "unit_id", name: "Wafer" });
       createAssignUnit("Wafer");
       expect(unitStore.actions.createOne).toHaveBeenCalled();
     });
     test("creates unit when unit is undefined", () => {
-      item.value.unit = undefined;
+      item.value.unit = null;
       createAssignUnit("Wafer");
       expect(unitStore.actions.createOne).toHaveBeenCalled();
     });
@@ -74,7 +75,7 @@ describe("useShoppingListItemEditor", () => {
   });
   describe("assignLabelToFood", () => {
     beforeEach(() => {
-      item.value.food = { id: "food_id", name: "Soylent Green" };
+      item.value.food = makeIngredientFood({ id: "food_id", name: "Soylent Green" });
       item.value.foodId = "food_id";
       item.value.labelId = "label_id";
     });
@@ -83,17 +84,17 @@ describe("useShoppingListItemEditor", () => {
       expect(foodStore.actions.updateOne).toHaveBeenCalled();
     });
     test("doesn't update when there's no food", () => {
-      item.value.food = undefined;
+      item.value.food = null;
       assignLabelToFood();
       expect(foodStore.actions.updateOne).not.toHaveBeenCalled();
     });
     test("doesn't update when there's no food id", () => {
-      item.value.foodId = undefined;
+      item.value.foodId = null;
       assignLabelToFood();
       expect(foodStore.actions.updateOne).not.toHaveBeenCalled();
     });
     test("doesn't update when there's no label", () => {
-      item.value.labelId = undefined;
+      item.value.labelId = null;
       assignLabelToFood();
       expect(foodStore.actions.updateOne).not.toHaveBeenCalled();
     });
@@ -101,12 +102,12 @@ describe("useShoppingListItemEditor", () => {
 });
 
 describe("resolveFood", () => {
-  const foods = [
-    { id: "tomato", name: "Tomato", pluralName: "Tomatoes" },
-    { id: "jalapeno", name: "Jalapeño" },
-    { id: "scallion", name: "Scallion", aliases: [{ name: "Green Onion" }] },
-    { id: "cornstarch", name: "Cornstarch" },
-  ] as IngredientFood[];
+  const foods: IngredientFoodOut[] = [
+    makeIngredientFood({ id: "tomato", name: "Tomato", pluralName: "Tomatoes" }),
+    makeIngredientFood({ id: "jalapeno", name: "Jalapeño" }),
+    makeIngredientFood({ id: "scallion", name: "Scallion", aliases: [{ name: "Green Onion" }] }),
+    makeIngredientFood({ id: "cornstarch", name: "Cornstarch" }),
+  ];
 
   test("matches name", () => {
     expect(resolveFood("Tomato", foods)?.id).toBe("tomato");

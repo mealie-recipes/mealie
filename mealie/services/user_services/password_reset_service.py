@@ -4,7 +4,7 @@ from sqlalchemy.orm.session import Session
 from mealie.core.security import hash_password, url_safe_token
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.user.user_passwords import SavePasswordResetToken
+from mealie.schema.user.user_passwords import PasswordResetTokenSave
 from mealie.services._base_service import BaseService
 from mealie.services.email import EmailService
 
@@ -14,7 +14,7 @@ class PasswordResetService(BaseService):
         self.db = get_repositories(session, group_id=None, household_id=None)
         super().__init__()
 
-    def generate_reset_token(self, email: str) -> SavePasswordResetToken | None:
+    def generate_reset_token(self, email: str) -> PasswordResetTokenSave | None:
         user = self.db.users.get_one(email, "email", any_case=True)
 
         if user is None:
@@ -28,7 +28,7 @@ class PasswordResetService(BaseService):
         # Create Reset Token
         token = url_safe_token()
 
-        save_token = SavePasswordResetToken(user_id=user.id, token=token)
+        save_token = PasswordResetTokenSave(user_id=user.id, token=token)
 
         return self.db.tokens_pw_reset.create(save_token)
 

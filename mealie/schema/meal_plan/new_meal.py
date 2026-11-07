@@ -13,7 +13,7 @@ from mealie.db.models.household import GroupMealPlan
 from mealie.db.models.recipe import RecipeModel
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
-from mealie.schema._mealie.mealie_model import UpdatedAtField
+from mealie.schema._mealie.mealie_model import MealieOutModel, UpdatedAtField
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
@@ -41,7 +41,7 @@ def validate_end_date(value: date | None, info: ValidationInfo) -> date | None:
     return value
 
 
-class CreateRandomEntry(MealieModel):
+class RandomPlanEntryCreate(MealieModel):
     date: date
     end_date: datetime.date | None = None
     entry_type: PlanEntryType = PlanEntryType.dinner
@@ -49,7 +49,7 @@ class CreateRandomEntry(MealieModel):
     _validate_end_date = field_validator("end_date")(validate_end_date)
 
 
-class CreatePlanEntry(MealieModel):
+class PlanEntryCreate(MealieModel):
     date: date
     end_date: datetime.date | None = None
     entry_type: PlanEntryType = PlanEntryType.breakfast
@@ -69,19 +69,19 @@ class CreatePlanEntry(MealieModel):
     _validate_end_date = field_validator("end_date")(validate_end_date)
 
 
-class UpdatePlanEntry(CreatePlanEntry):
+class PlanEntryUpdate(PlanEntryCreate):
     id: int
     group_id: UUID
     user_id: UUID
 
 
-class SavePlanEntry(CreatePlanEntry):
+class PlanEntrySave(PlanEntryCreate):
     group_id: UUID
     user_id: UUID
     model_config = ConfigDict(from_attributes=True)
 
 
-class ReadPlanEntry(UpdatePlanEntry):
+class PlanEntryOut(PlanEntryUpdate, MealieOutModel):
     household_id: UUID
     recipe: RecipeSummary | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
@@ -98,4 +98,4 @@ class ReadPlanEntry(UpdatePlanEntry):
 
 
 class PlanEntryPagination(PaginationBase):
-    items: list[ReadPlanEntry]
+    items: list[PlanEntryOut]

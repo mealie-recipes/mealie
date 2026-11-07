@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Зображення рецепту видалено",
         "recipe-defaults": {
-            "ingredient-note": "Стакан борошна",
-            "name": "New Recipe",
-            "step-text": "Кроки рецептів, так само як і інші поля сторінки, підтримують синтаксис markdown.\n\n**Додати посилання**\n\n[Моє посилання](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Робить",

@@ -131,7 +131,7 @@ import RecipeCardLineItem from "~/components/Domain/Recipe/RecipeCardLineItem.vu
 import { useUserApi } from "~/composables/api";
 import type { MealsByDate, useMealplans } from "~/composables/use-group-mealplan";
 import { getEntryTypeText, usePlanTypeOptions } from "~/composables/use-group-mealplan";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
 
 const props = defineProps<{
   mealplans: MealsByDate[];
@@ -147,7 +147,7 @@ function planKey(plan: MealsByDate) {
 }
 
 // Local mutable meals object
-const mealplansByDate = reactive<{ [key: string]: ReadPlanEntry[] }>({});
+const mealplansByDate = reactive<{ [key: string]: PlanEntryOut[] }>({});
 watch(
   () => props.mealplans,
   (plans) => {
@@ -186,11 +186,11 @@ function onMoveCallback(evt: SortableEvent) {
 
 const dialog = reactive({
   open: false,
-  entry: null as ReadPlanEntry | null,
+  entry: null as PlanEntryOut | null,
   date: null as Date | null,
 });
 
-function editMeal(mealplan: ReadPlanEntry) {
+function editMeal(mealplan: PlanEntryOut) {
   if (!mealplan.entryType) return;
 
   dialog.entry = mealplan;
@@ -198,7 +198,7 @@ function editMeal(mealplan: ReadPlanEntry) {
   dialog.open = true;
 }
 
-async function randomizeMeal(mealplan: ReadPlanEntry) {
+async function randomizeMeal(mealplan: PlanEntryOut) {
   if (!mealplan.entryType) {
     return;
   }

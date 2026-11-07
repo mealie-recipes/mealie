@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { HouseholdCreate, HouseholdInDB, UpdateHouseholdAdmin } from "~/lib/api/types/household";
+import type { HouseholdCreate, HouseholdOut, HouseholdAdminUpdate } from "~/lib/api/types/household";
 
 const prefix = "/api";
 
@@ -8,7 +8,7 @@ const routes = {
   adminHouseholdsId: (id: string) => `${prefix}/admin/households/${id}`,
 };
 
-export class AdminHouseholdsApi extends BaseCRUDAPI<HouseholdCreate, HouseholdInDB, UpdateHouseholdAdmin> {
+export class AdminHouseholdsApi extends BaseCRUDAPI<HouseholdCreate, HouseholdOut, HouseholdAdminUpdate> {
   baseRoute: string = routes.adminHouseholds;
   itemRoute = routes.adminHouseholdsId;
 }

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Retsepti pilt kustutatud",
         "recipe-defaults": {
-            "ingredient-note": "1 tass jahu",
-            "name": "New Recipe",
-            "step-text": "Retsepti sammud nagu ka teised väljad retsepti lehed toetavad Markdown-i süntaksit\n\n** Lisa link **\n[Minu link](https://demo.mealie.io)"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Teeb",

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} l'ha preparato come dolce",
         "recipe-image-deleted": "Immagine della ricetta eliminata",
         "recipe-defaults": {
-            "ingredient-note": "1 tazza di farina",
-            "name": "Nuova ricetta",
-            "step-text": "I passaggi della ricetta e altri campi nella pagina delle ricette supportano la sintassi markdown.\n\n**Aggiungi un link**\n\n[Il mio Link](https://demo.mealie.io)\nrecipe.recipe-defaults.step-text"
+            "name": "Nuova ricetta"
         },
         "servings-text": {
             "makes": "Rende",

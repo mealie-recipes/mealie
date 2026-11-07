@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -34,7 +34,7 @@ def test_get_all_foods(
 
     ## Set Up Foods
     foods = database.ingredient_foods.create_many(
-        [SaveIngredientFood(name=random_string(), group_id=unique_user.group_id) for _ in range(random_int(15, 20))]
+        [IngredientFoodSave(name=random_string(), group_id=unique_user.group_id) for _ in range(random_int(15, 20))]
     )
 
     ## Test Foods
@@ -79,7 +79,7 @@ def test_get_one_food(
     database.household_preferences.update(household.id, household.preferences)
 
     ## Set Up Food
-    food = database.ingredient_foods.create(SaveIngredientFood(name=random_string(), group_id=unique_user.group_id))
+    food = database.ingredient_foods.create(IngredientFoodSave(name=random_string(), group_id=unique_user.group_id))
 
     ## Test Food
     response = api_client.get(api_routes.explore_groups_group_slug_foods_item_id(unique_user.group_id, food.id))

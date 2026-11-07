@@ -50,7 +50,7 @@ class ChowdownMigrator(BaseMigrator):
             recipe_lookup = {r.slug: r for r in recipes}
 
             for slug, recipe_id, status in results:
-                if status:
+                if status and recipe_id:
                     try:
                         r = recipe_lookup.get(slug)
 

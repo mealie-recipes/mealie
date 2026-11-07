@@ -238,6 +238,8 @@
       "api-key": "מפתח API",
       "api-key-description-create": "מפתח ה־API של הספק שלך לצורך אימות. אם השירות שלך (למשל Ollama) לא משתמש במפתח API, עדיין צריך להזין כאן משהו.",
       "api-key-description-edit": "יש להשאיר את השדה ריק, אלא אם רוצים לשנות את הערך.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "כתובת בסיס",
       "base-url-description": "אם משתמשים ב־OpenAI, יש להשאיר את השדה ריק. נקודת הקצה חייבת להיות תואמת ל־OpenAI (למשל \"http://localhost:11434/v1\").",
       "model": "מודל",

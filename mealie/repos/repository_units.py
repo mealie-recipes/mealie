@@ -6,12 +6,12 @@ from sqlalchemy import select, update
 from mealie.db.models.household.shopping_list import ShoppingListItem
 from mealie.db.models.recipe.ingredient import IngredientUnitModel
 from mealie.lang.providers import get_locale_context
-from mealie.schema.recipe.recipe_ingredient import IngredientUnit, StandardizedUnitType
+from mealie.schema.recipe.recipe_ingredient import IngredientUnitOut, StandardizedUnitType
 
 from .repository_generic import GroupRepositoryGeneric
 
 
-class RepositoryUnit(GroupRepositoryGeneric[IngredientUnit, IngredientUnitModel]):
+class RepositoryUnit(GroupRepositoryGeneric[IngredientUnitOut, IngredientUnitModel]):
     _standardized_unit_map: dict[str, str] | None = None
 
     @property
@@ -110,15 +110,15 @@ class RepositoryUnit(GroupRepositoryGeneric[IngredientUnit, IngredientUnitModel]
 
         return data
 
-    def create(self, data: IngredientUnit | dict) -> IngredientUnit:
+    def create(self, data: BaseModel | dict) -> IngredientUnitOut:
         data = self._add_standardized_unit(data)
         return super().create(data)
 
-    def create_many(self, data: Iterable[IngredientUnit | dict]) -> list[IngredientUnit]:
+    def create_many(self, data: Iterable[BaseModel | dict]) -> list[IngredientUnitOut]:
         data = [self._add_standardized_unit(i) for i in data]
         return super().create_many(data)
 
-    def merge(self, from_unit: UUID4, to_unit: UUID4) -> IngredientUnit | None:
+    def merge(self, from_unit: UUID4, to_unit: UUID4) -> IngredientUnitOut | None:
         from_model = self._get_unit(from_unit)
         to_model = self._get_unit(to_unit)
 

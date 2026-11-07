@@ -112,7 +112,7 @@ class CopyMeThatMigrator(BaseMigrator):
             results = self.import_recipes_to_database(recipes)
             household_service = HouseholdService(self.group.id, self.household.id, self.db)
             for (slug, recipe_id, status), recipe, recipe_data in zip(results, recipes, recipes_as_dicts, strict=True):
-                if status:
+                if status and recipe_id:
                     if "made_this" in recipe_data:
                         household_service.set_household_recipe(slug, HouseholdRecipeUpdate(last_made=datetime.now(UTC)))
                     try:

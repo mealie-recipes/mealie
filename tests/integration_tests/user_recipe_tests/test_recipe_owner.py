@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.services.recipe.recipe_service import RecipeDataService
 from tests import data
@@ -162,7 +162,7 @@ def test_other_user_cant_delete_recipe(api_client: TestClient, user_tuple: list[
     unique_user, other_user = user_tuple
 
     unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -180,7 +180,7 @@ def test_other_user_cant_delete_unlocked_recipe(api_client: TestClient, user_tup
     unique_user, other_user = user_tuple
 
     unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -198,7 +198,7 @@ def test_other_user_bulk_delete(api_client: TestClient, user_tuple: list[TestUse
     unique_user, other_user = user_tuple
 
     unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug_locked,
@@ -206,7 +206,7 @@ def test_other_user_bulk_delete(api_client: TestClient, user_tuple: list[TestUse
         )
     )
     unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug_unlocked,
@@ -230,7 +230,7 @@ def test_other_user_cant_bulk_delete_unlocked_recipes(api_client: TestClient, us
 
     for slug in (slug_1, slug_2):
         unique_user.repos.recipes.create(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=slug,
@@ -251,7 +251,7 @@ def test_admin_can_delete_locked_recipe_owned_by_another_user(
 ):
     slug = random_string(10)
     unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -347,9 +347,9 @@ def test_user_can_delete_recipe_image(api_client: TestClient, unique_user: TestU
     assert not service.dir_image.exists() or not any(f.is_file() for f in service.dir_image.iterdir())
 
 
-def _create_recipe(owner: TestUser, *, locked: bool) -> Recipe:
+def _create_recipe(owner: TestUser, *, locked: bool) -> RecipeOut:
     return owner.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=owner.user_id,
             group_id=owner.group_id,
             name=random_string(10),
@@ -379,7 +379,7 @@ def _assert_recipe_unchanged(owner: TestUser, slug: str):
     assert not recipe.settings.show_nutrition
 
 
-def _recipe_locked_to_other_households(owner: TestUser) -> Recipe:
+def _recipe_locked_to_other_households(owner: TestUser) -> RecipeOut:
     household = owner.repos.households.get_one(owner.household_id)
     assert household and household.preferences
     household.preferences.lock_recipe_edits_from_other_households = True

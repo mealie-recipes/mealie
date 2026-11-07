@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} ezt készítette desszertnek",
         "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
-            "ingredient-note": "1 csésze liszt",
-            "name": "Új recept",
-            "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
+            "name": "Új recept"
         },
         "servings-text": {
             "makes": "Elkészítések",

@@ -3,7 +3,8 @@ import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { defineComponent } from "vue";
 import MealPlanScaleControl from "./MealPlanScaleControl.vue";
 import { MEALPLAN_SCALE_SAVE_DELAY_MS } from "~/composables/use-mealplan-scale";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
+import { makePlanEntry, makeRecipeSummary } from "~/tests/factories";
 
 // the real button needs vuetify; all this control adds on top of it is the debounced save
 const RecipeScaleEditButton = defineComponent({
@@ -17,7 +18,7 @@ const RecipeScaleEditButton = defineComponent({
   template: "<div />",
 });
 
-const meal: ReadPlanEntry = {
+const meal: PlanEntryOut = makePlanEntry({
   id: 1,
   date: "2026-08-19",
   entryType: "dinner",
@@ -26,8 +27,8 @@ const meal: ReadPlanEntry = {
   householdId: "my-household-id",
   recipeId: "my-recipe-id",
   recipeScale: 1.5,
-  recipe: { id: "my-recipe-id", name: "Pancakes", recipeServings: 4 },
-};
+  recipe: makeRecipeSummary({ id: "my-recipe-id", name: "Pancakes", recipeServings: 4 }),
+});
 
 function mountControl() {
   const actions = { updateOne: vi.fn() };

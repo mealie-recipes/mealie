@@ -3,6 +3,7 @@ import { afterEach, expect, test, vi } from "vitest";
 import { createVuetify } from "vuetify";
 import { VBtn, VCardText, VContainer, VDataTable, VIcon } from "vuetify/components";
 import ReportPage from "./[id].vue";
+import { makeReportEntry } from "~/tests/factories";
 import { i18n } from "~/tests/setup";
 import type { ReportOut } from "~/lib/api/types/reports";
 
@@ -28,11 +29,13 @@ test("report entries expand to show their exception and collapse again", async (
     groupId: "group-1",
     name: "Migration report",
     category: "migration",
+    timestamp: "2026-09-25T12:00:00Z",
+    status: "success",
     entries: [
-      { id: "failed", reportId: "report-1", message: "Failed recipe", success: false, exception: "Invalid recipe data" },
-      { id: "success", reportId: "report-1", message: "Imported recipe", success: true, exception: "" },
-      { id: "no-details", reportId: "report-1", message: "No details", success: false },
-    ].map(entry => ({ ...entry, timestamp: "2026-09-25T12:00:00Z" })),
+      makeReportEntry({ id: "failed", reportId: "report-1", message: "Failed recipe", success: false, exception: "Invalid recipe data" }),
+      makeReportEntry({ id: "success", reportId: "report-1", message: "Imported recipe", success: true, exception: "" }),
+      makeReportEntry({ id: "no-details", reportId: "report-1", message: "No details", success: false }),
+    ],
   };
   getOne.mockResolvedValue({ data: report });
   const wrapper = mount(ReportPage, {
@@ -52,16 +55,16 @@ test("report entries expand to show their exception and collapse again", async (
     expect(rows).toHaveLength(3);
     expect(wrapper.text()).not.toContain("Invalid recipe data");
 
-    await rows[0].get("button").trigger("click");
-    const details = wrapper.findAll("tbody > tr")[1];
+    await rows[0]!.get("button").trigger("click");
+    const details = wrapper.findAll("tbody > tr")[1]!;
     expect(details.text()).toBe("Invalid recipe data");
     expect(details.get("td").attributes("colspan")).toBe("4");
 
-    await rows[0].get("button").trigger("click");
+    await rows[0]!.get("button").trigger("click");
     expect(wrapper.text()).not.toContain("Invalid recipe data");
     expect(wrapper.findAll("tbody > tr")).toHaveLength(3);
-    expect(rows[1].find("button").exists()).toBe(false);
-    expect(rows[2].find("button").exists()).toBe(false);
+    expect(rows[1]!.find("button").exists()).toBe(false);
+    expect(rows[2]!.find("button").exists()).toBe(false);
   }
   finally {
     wrapper.unmount();

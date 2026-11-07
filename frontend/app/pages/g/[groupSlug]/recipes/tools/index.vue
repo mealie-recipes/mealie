@@ -16,13 +16,9 @@
 </template>
 
 <script setup lang="ts">
+import type { RecipeToolWithOnHand } from "~/composables/store/use-tool-store";
 import RecipeOrganizerPage from "~/components/Domain/Recipe/RecipeOrganizerPage.vue";
 import { useToolStore } from "~/composables/store";
-import type { RecipeTool } from "~/lib/api/types/recipe";
-
-interface RecipeToolWithOnHand extends RecipeTool {
-  onHand: boolean;
-}
 
 definePageMeta({
   middleware: ["auth", "group-only"],

@@ -5,6 +5,7 @@ on:
     branches: [mealie-next]
     paths:
       - 'docs/**'
+      - 'CONTRIBUTING.md'
       - '.github/workflows/docs.yml'
   workflow_dispatch:
 

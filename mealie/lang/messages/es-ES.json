@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} hizo esto como postre",
         "recipe-image-deleted": "Imagen de receta eliminada",
         "recipe-defaults": {
-            "ingredient-note": "1 Taza de harina",
-            "name": "Nueva receta",
-            "step-text": "Los pasos de receta, así como otros campos en la página de recetas, soportan sintaxis Markdown.\n\n**Agregar un enlace**\n\n[Mi Enlace](https://demo.mealie.io)\n"
+            "name": "Nueva receta"
         },
         "servings-text": {
             "makes": "Realizadas",

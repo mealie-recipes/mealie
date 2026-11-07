@@ -6,14 +6,14 @@ from fastapi.testclient import TestClient
 from PIL import Image
 from slugify import slugify
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from tests import data
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
+def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut):
     recipe = recipe_ingredient_only
     payload = {
         "name": random_string(10),
@@ -47,7 +47,7 @@ def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, rec
 
 
 def test_recipe_assets_create_duplicate_name(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
 ):
     """
     Regression test for https://github.com/mealie-recipes/mealie/issues/5623
@@ -89,7 +89,7 @@ def test_recipe_assets_create_duplicate_name(
     assert len(assets) == 2
 
 
-def test_recipe_asset_exploit(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
+def test_recipe_asset_exploit(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut):
     """
     Test to ensure that users are unable to circumvent the destination directory when uploading a file
     as an asset to the recipe. This was reported via huntr and was confirmed to be a severe security issue.
@@ -135,7 +135,7 @@ def test_recipe_asset_exploit(api_client: TestClient, unique_user: TestUser, rec
 
 
 def test_recipe_asset_dangerous_extension_blocked(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
 ):
     """Ensure scriptable extensions are rejected to prevent stored XSS (GHSA-gfwc-pjx4-mg9p)."""
     recipe = recipe_ingredient_only
@@ -154,7 +154,7 @@ def test_recipe_asset_dangerous_extension_blocked(
 
 
 def test_recipe_asset_served_as_attachment(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
 ):
     """Assets must be served as downloads with MIME sniffing disabled so uploaded files cannot
     execute as active content in Mealie's origin."""
@@ -180,7 +180,7 @@ def test_recipe_asset_served_as_attachment(
     assert media_response.headers["x-content-type-options"] == "nosniff"
 
 
-def test_recipe_image_upload(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
+def test_recipe_image_upload(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut):
     data_payload = {"extension": "jpg"}
     file_payload = {"image": data.images_test_image_1.read_bytes()}
 
@@ -202,7 +202,7 @@ def test_recipe_image_upload(api_client: TestClient, unique_user: TestUser, reci
 
 
 def test_recipe_update_without_image_field_keeps_image(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
 ):
     """An update that doesn't mention `image` must leave the stored value alone.
 
@@ -237,7 +237,7 @@ def test_recipe_update_without_image_field_keeps_image(
 
 
 def test_recipe_update_can_still_clear_image(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
 ):
     """Preserving an omitted image must not make the field unwritable."""
     slug = recipe_ingredient_only.slug
@@ -262,7 +262,7 @@ def test_recipe_update_can_still_clear_image(
 
 @pytest.mark.parametrize("extension", ["svg", "svg+xml", "pdf", "mp4", "exe", "."])
 def test_recipe_image_upload_rejects_unsupported_extension(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, extension: str
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut, extension: str
 ):
     slug = recipe_ingredient_only.slug
 
@@ -280,7 +280,7 @@ def test_recipe_image_upload_rejects_unsupported_extension(
 
 
 def test_recipe_image_upload_rejects_corrupt_image(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
 ):
     slug = recipe_ingredient_only.slug
 
@@ -298,7 +298,7 @@ def test_recipe_image_upload_rejects_corrupt_image(
 
 
 def test_recipe_image_upload_accepts_uppercase_extension(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
 ):
     response = api_client.put(
         api_routes.recipes_slug_image(recipe_ingredient_only.slug),
@@ -312,7 +312,7 @@ def test_recipe_image_upload_accepts_uppercase_extension(
 
 @pytest.mark.parametrize("image_format", ["GIF", "BMP"])
 def test_recipe_image_upload_accepts_gif_and_bmp(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, image_format: str
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut, image_format: str
 ):
     buffer = BytesIO()
     Image.new("RGB", (8, 8), "red").save(buffer, image_format)
@@ -327,7 +327,9 @@ def test_recipe_image_upload_accepts_gif_and_bmp(
     assert response.json()["image"]
 
 
-def test_recipe_image_upload_accepts_png(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
+def test_recipe_image_upload_accepts_png(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut
+):
     response = api_client.put(
         api_routes.recipes_slug_image(recipe_ingredient_only.slug),
         data={"extension": "png"},
