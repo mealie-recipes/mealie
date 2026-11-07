@@ -5,7 +5,7 @@
         {{ $t("recipe.ingredients") }}
       </h2>
       <v-alert
-        v-if="!hasFoodOrUnit"
+        v-if="recipe.recipeIngredient.length > 0 && !hasFoodOrUnit"
         border="start"
         color="info"
         :icon="$globals.icons.information"
