@@ -46,7 +46,7 @@ If you'd rather install them yourself, use the versions in `mise.toml`.
 
 ### Installing Dependencies
 
-Once the prerequisites are installed you can cd into the project base directory and run `task setup` to install the python and node dependencies, and download the NLP model.
+Once the prerequisites are installed you can cd into the project base directory and run `mise run setup` to install the python and node dependencies, and download the NLP model.
 
 === "Linux / macOS"
 
@@ -54,16 +54,16 @@ Once the prerequisites are installed you can cd into the project base directory 
     # Navigate To The Root Directory
     cd /path/to/project
 
-    # Utilize the Taskfile to Install Dependencies
-    task setup
+    # Install Python and frontend dependencies
+    mise run setup
     ```
 
 ## Postgres
 
-The taskfile has two commands that need to be run to run the development environment against a postgres database.
+There are two tasks that need to be run to run the development environment against a postgres database.
 
-- `task dev:services` - This will start the postgres database, and a smtp server for email testing.
-- `task py:postgres` - This will run that backend API configured for the local postgres database.
+- `mise run dev:services` - This will start the postgres database, and a smtp server for email testing.
+- `mise run py:postgres` - This will run that backend API configured for the local postgres database.
 
 ## Starting The Server
 
@@ -73,10 +73,10 @@ Now you're ready to start the servers. You'll need two shells open, One for the 
 
     ```bash
     # Terminal #1
-    task py
+    mise run py
 
     # Terminal #2
-    task ui
+    mise run ui
     ```
 
 ## Internationalization

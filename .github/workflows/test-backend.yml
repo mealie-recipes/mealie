@@ -52,7 +52,7 @@ jobs:
       - name: Set up tools
         uses: ./.github/actions/setup-tools
         with:
-          tools: python uv task
+          tools: python uv
 
       # Catches a lockfile resolved by an out-of-date uv, which silently ignores
       # the `exclude-newer` cooling window instead of erroring. UV_FROZEN must be
@@ -102,11 +102,11 @@ jobs:
 
       - name: Mypy Typecheck
         run: |
-          task py:mypy
+          mise run py:mypy
 
       - name: Semgrep (authz rules)
         run: |
-          task py:semgrep
+          mise run py:semgrep
 
       - name: Pytest
         env:
@@ -125,4 +125,4 @@ jobs:
           LDAP_NAME_ATTRIBUTE: cn
           LDAP_MAIL_ATTRIBUTE: mail
         run: |
-          task py:test
+          mise run py:test
