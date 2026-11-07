@@ -209,6 +209,7 @@
               <!-- the label colour fills the header bar; an uncoloured (or unlabelled) header is muted instead -->
               <v-expansion-panel-title
                 :color="getLabelColor(key)"
+                :style="labelHeaderStyle(key)"
                 class="body-1 section-title"
                 :class="getLabelColor(key) ? '' : 'text-medium-emphasis'"
               >
@@ -391,7 +392,9 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
+import type { CSSProperties } from "vue";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
+import { textColorForBackground } from "~/lib/labels/text-color";
 
 definePageMeta({
   middleware: ["auth"],
@@ -399,6 +402,11 @@ definePageMeta({
 
 const { smAndUp } = useDisplay();
 const i18n = useI18n();
+
+function labelHeaderStyle(label: string) {
+  const color = textColorForBackground(getLabelColor(label));
+  return color ? ({ color } as CSSProperties) : undefined;
+}
 
 useSeoMeta({
   title: i18n.t("shopping-list.shopping-list"),
