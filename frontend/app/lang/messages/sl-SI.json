@@ -475,6 +475,8 @@
     "an-error-occurred": "Prišlo je do napake"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Čas (minute)",
     "step-duration-saved": "Shranjen čas: {duration}. Urejanje tega polja ga nadomesti s celimi minutami.",
     "step-duration-placeholder": "Minute",
