@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "لا تريد رؤية هذه الرسالة بعد الآن؟ تأكد من تغيير بريدك الإلكتروني في إعدادات المستخدم الخاصة بك!",
     "forgot-password": "نسيت كلمة المرور",
     "forgot-password-text": "الرجاء إدخال بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "التغييرات التي ستطرأ على هذا المستخدم ستنعكس على الفور.",
     "default-activity": "النشاط الافتراضي",
     "default-activity-hint": "حدد الصفحة التي ترغب في الانتقال إليها عند تسجيل الدخول من هذا الجهاز"
