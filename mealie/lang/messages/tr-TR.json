@@ -25,6 +25,16 @@
             "yields": "Verim"
         },
         "and-amount": "ve {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "YZ hizmetleri etkin değil",
             "ai-request-failed": "YZ sağlayıcısı isteği tamamlayamadı. Lütfen tekrar deneyin",
