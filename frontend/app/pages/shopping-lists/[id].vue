@@ -557,7 +557,7 @@ watch(isSearching, (searching) => {
     height: 28px;
   }
 
-  .shopping-list-item-row .v-btn--size-small {
+  .shopping-list-item-row .v-btn--icon.v-btn--size-small {
     width: 32px;
     height: 32px;
     margin-left: 0 !important;
