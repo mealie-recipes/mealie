@@ -85,7 +85,7 @@ RUN uv export --no-dev --no-editable --no-emit-project --extra pgsql --format re
 
 ###############################################
 # Package Container
-# Only role is to hold the packages, or be overriden by a --build-context flag.
+# Only role is to hold the packages, or be overridden by a --build-context flag.
 ###############################################
 FROM scratch AS packages
 COPY --from=backend-builder /mealie/dist /
