@@ -25,6 +25,16 @@
             "yields": "產出"
         },
         "and-amount": "和 {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "尚未啟用 AI 服務",
             "ai-request-failed": "AI 服務無法完成請求，請重試",
