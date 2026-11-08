@@ -67,6 +67,7 @@
         :use-items="{
           edit: false,
           download: loggedIn,
+          downloadPdf: loggedIn,
           duplicate: loggedIn,
           mealplanner: loggedIn,
           shoppingList: loggedIn,
