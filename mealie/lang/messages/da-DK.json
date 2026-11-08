@@ -26,14 +26,14 @@
         },
         "and-amount": "og {amount}",
         "pdf": {
-            "cookbook": "Cookbook",
-            "contents": "Contents",
-            "ingredients": "Ingredients",
-            "instructions": "Instructions",
-            "notes": "Notes",
-            "prep-time": "Prep",
-            "cook-time": "Cook",
-            "total-time": "Total"
+            "cookbook": "Kogebog",
+            "contents": "Indhold",
+            "ingredients": "Ingredienser",
+            "instructions": "Instruktioner",
+            "notes": "Noter",
+            "prep-time": "Forberedelse",
+            "cook-time": "Tilberedning",
+            "total-time": "I alt"
         },
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke slået til",
