@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Už toto nechcete vidět? Nezapomeňte si změnit svůj e-mail v uživatelském nastavení!",
     "forgot-password": "Zapomenuté heslo",
     "forgot-password-text": "Zadejte prosím svou e-mailovou adresu a my vám zašleme odkaz pro obnovení hesla.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Změny tohoto uživatele budou okamžitě zohledněny.",
     "default-activity": "Výchozí aktivita",
     "default-activity-hint": "Vyberte stránku, na kterou chcete přejít po přihlášení z tohoto zařízení"
