@@ -25,6 +25,16 @@
             "yields": "Raciones"
         },
         "and-amount": "y {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Los servicios de IA no están activado",
             "ai-request-failed": "El proveedor de IA no pudo completar la solicitud. Por favor, inténtelo de nuevo",
