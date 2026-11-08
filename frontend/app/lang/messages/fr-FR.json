@@ -475,6 +475,8 @@
     "an-error-occurred": "Une erreur est survenue"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Durée (minutes)",
     "step-duration-saved": "Durée sauvegardée : {duration}. Modifier ce champ le remplace par des minutes entières.",
     "step-duration-placeholder": "Minutes",
