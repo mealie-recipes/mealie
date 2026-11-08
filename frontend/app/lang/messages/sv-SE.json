@@ -475,6 +475,8 @@
     "an-error-occurred": "Ett fel inträffade"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Tidsåtgång (minuter)",
     "step-duration-saved": "Sparad tidsåtgång: {duration}. Om du ändrar fältet ersätts värdet med ett antal hela minuter.",
     "step-duration-placeholder": "Minuter",
