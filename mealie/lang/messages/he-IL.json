@@ -26,14 +26,14 @@
         },
         "and-amount": "וגם {amount}",
         "pdf": {
-            "cookbook": "Cookbook",
-            "contents": "Contents",
-            "ingredients": "Ingredients",
-            "instructions": "Instructions",
-            "notes": "Notes",
-            "prep-time": "Prep",
-            "cook-time": "Cook",
-            "total-time": "Total"
+            "cookbook": "ספר בישול",
+            "contents": "תוכן",
+            "ingredients": "מרכיבים",
+            "instructions": "הוראות",
+            "notes": "הערות",
+            "prep-time": "הכנה",
+            "cook-time": "בישול",
+            "total-time": "סה״כ"
         },
         "import-errors": {
             "ai-not-enabled": "שירותי AI אינם מופעלים",
