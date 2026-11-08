@@ -1,10 +1,14 @@
 from collections import defaultdict
 from functools import cached_property
+from shutil import rmtree
 from uuid import UUID
 
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
+from starlette.background import BackgroundTask
+from starlette.responses import FileResponse
 
+from mealie.core.dependencies import get_temporary_path
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
@@ -21,6 +25,7 @@ from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventTypes,
 )
+from mealie.services.recipe.recipe_pdf_service import RecipePdfRenderer, render_cookbook_pdf
 
 router = APIRouter(prefix="/households/cookbooks", tags=["Households: Cookbooks"], route_class=MealieCrudRoute)
 
@@ -104,6 +109,24 @@ class GroupCookbookController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=CookBookOut)
     def get_one(self, item_id: UUID4 | str):
+        return self._get_group_cookbook(item_id)
+
+    @router.get("/{item_id}/pdf", response_class=FileResponse)
+    def get_one_as_pdf(self, item_id: UUID4 | str, include_images: bool = True):
+        cookbook = self._get_group_cookbook(item_id)
+        recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+
+        with get_temporary_path(auto_unlink=False) as temp_path:
+            renderer = RecipePdfRenderer(self.translator, include_images=include_images)
+            file = render_cookbook_pdf(renderer, recipes, cookbook).output(temp_path / f"{cookbook.slug}.pdf")
+            return FileResponse(
+                file,
+                media_type="application/pdf",
+                filename=file.name,
+                background=BackgroundTask(rmtree, temp_path),
+            )
+
+    def _get_group_cookbook(self, item_id: UUID4 | str) -> CookBookOut:
         if isinstance(item_id, UUID):
             match_attr = "id"
         else:
