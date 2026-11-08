@@ -475,6 +475,8 @@
     "an-error-occurred": "Произошла ошибка"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Длительность (мин)",
     "step-duration-saved": "Сохранённая длительность: {duration}. При редактировании этого поля она заменится целым числом минут.",
     "step-duration-placeholder": "Минуты",

@@ -25,6 +25,16 @@
             "yields": "Porcje"
         },
         "and-amount": "i {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Usługi AI nie są włączone",
             "ai-request-failed": "Dostawca AI nie był w stanie wykonać żądania. Spróbuj ponownie później",

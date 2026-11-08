@@ -25,6 +25,16 @@
             "yields": "Ergibt"
         },
         "and-amount": "und {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "KI-Dienste sind nicht aktiviert",
             "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuche es erneut",

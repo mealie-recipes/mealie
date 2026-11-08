@@ -475,6 +475,8 @@
     "an-error-occurred": "Si è verificato un errore"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Durata (minuti)",
     "step-duration-saved": "Durata salvata: {duration}. Se modifichi questo campo, verrà sostituita con un numero intero di minuti.",
     "step-duration-placeholder": "Minuti",

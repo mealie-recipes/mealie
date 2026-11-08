@@ -25,6 +25,16 @@
             "yields": "Mængde"
         },
         "and-amount": "og {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke slået til",
             "ai-request-failed": "AI-udbyderen var ikke i stand til at færdiggøre forespørgslen. Prøv igen",

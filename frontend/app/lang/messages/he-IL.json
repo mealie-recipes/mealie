@@ -475,6 +475,8 @@
     "an-error-occurred": "אירעה שגיאה"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "משך (בדקות)",
     "step-duration-saved": "משך שמור: {duration}. עריכת השדה הזה תחליף אותו למספר שלם של דקות.",
     "step-duration-placeholder": "דקות",
