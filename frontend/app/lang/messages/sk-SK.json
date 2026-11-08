@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Želáte si, aby sa vám toto už viackrát nezobrazovalo? Zmeňte si prosím váš e-mail v nastaveniach používateľa!",
     "forgot-password": "Zabudnuté heslo",
     "forgot-password-text": "Prosím zadajte svoju e-mailovú adresu a my vám zašleme odkaz, ktorý vám umožní heslo obnoviť.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Zmeny týkajúce sa tohto používateľa budú vykonané okamžite.",
     "default-activity": "Predvolená aktivita",
     "default-activity-hint": "Vyberte na ktorú štránku chcete byť nasmerovaný po prihlásení z tohto zariadenia"

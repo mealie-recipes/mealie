@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vill du slippa se det här igen? Ändra din e-postadress i användarinställningarna.",
     "forgot-password": "Glömt lösenord",
     "forgot-password-text": "Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Ändringar av användarkontot träder i kraft direkt.",
     "default-activity": "Startsida efter inloggning",
     "default-activity-hint": "Välj vilken sida du vill gå till när du loggar in från den här enheten"

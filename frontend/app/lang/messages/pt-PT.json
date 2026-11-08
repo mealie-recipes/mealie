@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer voltar a ver isto? Não se esqueça de alterar o seu email nas suas definições de utilizador!",
     "forgot-password": "Esqueceu-se da palavra-passe",
     "forgot-password-text": "Por favor, digite o seu endereço de email para enviarmos um link para redefinir a sua palavra-passe.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "As alterações a este utilizador serão aplicadas imediatamente.",
     "default-activity": "Atividade predefinida",
     "default-activity-hint": "Selecione para que página pretende navegar ao iniciar sessão a partir deste dispositivo"

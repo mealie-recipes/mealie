@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vaihda sähköpostisi asetuksista, jos et halua nähdä tätä enää.",
     "forgot-password": "Unohditko salasanasi",
     "forgot-password-text": "Syötä sähköpostiosoitteesi, niin voit muuttaa salasanaasi linkin kautta.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Muutokset tähän käyttäjään astuvat välittömästi voimaan.",
     "default-activity": "Oletusnäkymä",
     "default-activity-hint": "Valitse haluamasi sivu, johon haluat navigoida kirjautuessasi tältä laitteelta"

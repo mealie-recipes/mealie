@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer mais ver isto? Não se esqueça de alterar seu e-mail nas configurações do seu usuário!",
     "forgot-password": "Esqueci minha senha",
     "forgot-password-text": "Digite seu endereço de e-mail e enviaremos um link para redefinir sua senha.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "As alterações deste usuário serão refletidas imediatamente.",
     "default-activity": "Atividade padrão",
     "default-activity-hint": "Selecione para qual página você deseja ser direcionado ao fazer \"login\" neste dispositivo"

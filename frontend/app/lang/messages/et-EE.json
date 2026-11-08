@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ei taha enam seda näha? Ära unusta muuta oma email kasutaja seadetes",
     "forgot-password": "Unustasid salasõna",
     "forgot-password-text": "Sisestage oma meiliaadress, et saada e-kiri  uue salasõna määramiseks.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Selle kasutaja muudatused on koheselt nähtaval",
     "default-activity": "Vaikimisi tegevus",
     "default-activity-hint": "Valige, millisele lehele soovite navigeerida, kui logite sisse sellelt seadmelt"

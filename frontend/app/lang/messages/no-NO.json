@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ønsker du ikke å se dette lenger? Sørg for å endre e-posten din i brukerinnstillingene dine!",
     "forgot-password": "Glemt passord",
     "forgot-password-text": "Skriv inn e-postadressen din. Vi sender deg en e-post slik at du kan tilbakestille passordet ditt.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Endringer på denne brukeren gjenspeiles umiddelbart.",
     "default-activity": "Standard aktivitet",
     "default-activity-hint": "Velg hvilken side du vil navigere til når du logger inn fra denne enheten"

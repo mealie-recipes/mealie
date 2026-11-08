@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ef þú villt ekki sjá þessi skilaboð aftur þá þarftu að breyta lykilorðinu þínu í notandastillingum.",
     "forgot-password": "Gleymt Lykilorð",
     "forgot-password-text": "Vinsamlegast sláðu inn netfangið þitt og við munum senda þér tengil til að endursetja lykilorðið þitt.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Breytingar á þessum notanda koma strax fram.",
     "default-activity": "Sjálfgefin upphafssíða",
     "default-activity-hint": "Veldu þá síðu sem þú vilt byrja á þegar þú skráir þig inn á þessu tæki"

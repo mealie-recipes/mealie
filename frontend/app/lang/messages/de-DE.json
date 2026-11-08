@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!",
     "forgot-password": "Passwort vergessen",
     "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam.",
     "default-activity": "Standardaktivität",
     "default-activity-hint": "Wähle die Seite, auf die du navigieren möchtest, wenn du dich von diesem Gerät aus anmeldest"
