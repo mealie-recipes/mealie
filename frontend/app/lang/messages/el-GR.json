@@ -475,6 +475,8 @@
     "an-error-occurred": "Παρουσιάστηκε ένα σφάλμα"
   },
   "recipe": {
+    "download-pdf": "Λήψη αρχείου PDF",
+    "preparing-pdf": "Προετοιμασία αρχείου PDF...",
     "step-duration-minutes": "Διάρκεια (λεπτά)",
     "step-duration-saved": "Αποθηκευμένη διάρκεια: {duration}. Η επεξεργασία αυτού του πεδίου το αντικαθιστά με ολόκληρα λεπτά.",
     "step-duration-placeholder": "Λεπτά",
