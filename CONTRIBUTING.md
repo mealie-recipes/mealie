@@ -31,6 +31,8 @@ This guidance applies to all contributor prose. It includes pull request titles,
 - Limit procedures to 20 words per sentence. Limit descriptions to 25 words per sentence.
 - Put one instruction in each sentence.
 - Do not use idioms, metaphors, or hedging.
+- Never write transient comments or comments that document point-in-time intent (e.g. notes about what changed, why an edit was made, or what was there before).
+- Write comments that document what the code does only when the code is not self-documenting.
 
 The goal is text that each reviewer can understand in one read.
 
