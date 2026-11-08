@@ -36,7 +36,7 @@ FOOTER_RULE_FROM_BOTTOM_MM = 15
 # as small JPEGs because fpdf2 stores anything that isn't JPEG as deflated raw pixels, which makes
 # a cookbook with hundreds of photos balloon in size.
 IMAGE_ASPECT = 2.4
-IMAGE_PX = (1080, 450)
+IMAGE_PX = (1080, round(1080 / IMAGE_ASPECT))
 IMAGE_JPEG_QUALITY = 78
 
 STEP_GUTTER_MM = 10
@@ -107,6 +107,8 @@ class RecipePdfRenderer:
         pdf.set_title(name)
         pdf.running_title = name
         self._cover(name, description)
+        if recipe_count == 0:
+            return self
 
         pdf.add_page()
         # fpdf2 draws a page's footer when the next page starts, so the cover's footer has already
