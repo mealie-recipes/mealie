@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: ${{ inputs.ref || github.sha }}
 
@@ -40,11 +40,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - uses: depot/setup-action@v1
+      - uses: depot/setup-action@91bc8495a33ebfc504ffc89e5674379ccf23c29c # v1
 
       - name: Generate Docker metadata
         id: meta
-        uses: docker/metadata-action@v6
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6
         with:
           images: |
             hkotel/mealie
@@ -55,13 +55,13 @@ jobs:
             org.opencontainers.image.revision=${{ inputs.ref || github.sha }}
 
       - name: Retrieve Python package
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
         with:
           name: backend-dist
           path: dist
 
       - name: Build and push Docker image, via Depot.dev
-        uses: depot/build-push-action@v1
+        uses: depot/build-push-action@0f27be7c41d76663a98518dfe68f1c46582242c4 # v1
         with:
           project: srzjb6mhzm
           file: ./docker/Dockerfile
