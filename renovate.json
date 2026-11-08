@@ -9,10 +9,12 @@
     "dockerfile",
     "npm",
     "mise",
-    "custom.regex"
+    "custom.regex",
+    "github-actions"
   ],
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
   ],
   "minimumReleaseAge": "5 days",
   "internalChecksFilter": "strict",
@@ -33,6 +35,13 @@
     }
   ],
   "packageRules": [
+    {
+      "description": "One PR for all GitHub Actions updates. No auto-merge: these change what CI runs.",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions"
+    },
     {
       "matchManagers": [
         "npm"

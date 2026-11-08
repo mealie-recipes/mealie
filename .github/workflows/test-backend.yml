@@ -101,10 +101,12 @@ jobs:
           uv run pre-commit run --all-files --show-diff-on-failure --color=always
 
       - name: Mypy Typecheck
+        if: matrix.Database == 'sqlite'
         run: |
           mise run py:mypy
 
       - name: Semgrep (authz rules)
+        if: matrix.Database == 'sqlite'
         run: |
           mise run py:semgrep
 
