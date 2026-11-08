@@ -42,8 +42,11 @@ jobs:
           push: false
           load: true
           tags: mealie:e2e
+          # Read-only: the nightly workflow writes this cache from mealie-next,
+          # which every PR and merge queue ref can read. A cache that a PR or
+          # merge queue ref writes is visible to that ref only, and the export
+          # costs about 2 minutes per run.
           cache-from: type=gha
-          cache-to: type=gha,mode=max
       - name: Deploy E2E Test Environment
         run: |
           docker compose up -d --wait
