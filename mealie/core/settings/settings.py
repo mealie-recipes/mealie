@@ -172,6 +172,16 @@ class AppSettings(AppLoggingSettings):
         # Certain browsers (webkit) have issues with very long-lived cookies, so we limit to 400 days
         return min(v, 400 * 24)
 
+    PASSWORD_RESET_TOKEN_TIME: int = 1
+    """time in hours"""
+
+    @field_validator("PASSWORD_RESET_TOKEN_TIME")
+    @classmethod
+    def validate_password_reset_token_time(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("PASSWORD_RESET_TOKEN_TIME must be at least 1 hour")
+        return v
+
     SECRET: str
     SESSION_SECRET: str
 
