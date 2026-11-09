@@ -12,6 +12,7 @@
       <MealPlanDatePicker v-model="pickerModel" :multiple="pickerMultiple" :entry-type="newMealType" />
       <!-- the dates are part of the label, so they stay with the switch instead of floating above the next field -->
       <v-switch
+        v-if="mealPlanPreferences.mode === 'weeks'"
         v-model="isWeekEntry"
         color="primary"
         hide-details
@@ -42,6 +43,7 @@
 import { useUserApi } from "~/composables/api";
 import { useMealPlanEntryDates } from "~/composables/use-group-mealplan";
 import { alert } from "~/composables/use-toast";
+import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
 const props = withDefaults(defineProps<{
@@ -60,6 +62,7 @@ const api = useUserApi();
 const planTypeOptions = usePlanTypeOptions();
 const router = useRouter();
 
+const mealPlanPreferences = useUserMealPlanPreferences();
 const newMealType = ref<PlanEntryType>("dinner");
 const { isWeekEntry, weekRange, entryDatesPayload, pickerModel, pickerMultiple } = useMealPlanEntryDates();
 
