@@ -134,10 +134,16 @@ def clean_image(image: str | list | dict | None = None, default: str = NO_IMAGE)
     match image:
         case str(image):
             return [image]
+        # [] - sekwencja
+        # str(_) - str() czy string str(_) czy str, _ to dowolna wartość i nigdzie jej nie zapisujemy
+        # * to reszta argumentów *_ reszta argumentów i nigdzie jej nie zapisujemy 
         case [str(_), *_]:
             # Only return non-null strings in list
             return [x for x in image if x]
         case [{"url": str(_)}, *_]:
+            # dla każdego słownika w liście
+            # jeśli ma klucz url
+            # weź jego wartość 
             return [x["url"] for x in image if "url" in x]
         case {"url": str(image)}:
             return [image]
@@ -502,6 +508,7 @@ def clean_duration(time_entry: typing.Any) -> int | None:
             seconds = time_entry.total_seconds()
         case {"minValue": value}:
             return clean_duration(value)
+        # tutaj rekurencyjnie, bierzemy pierwszą wartosć z słownika i wywolujemy jeszcze raz
         case [first, *_]:
             return clean_duration(first)
         case _:
