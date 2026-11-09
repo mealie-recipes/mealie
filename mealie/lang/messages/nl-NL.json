@@ -5,13 +5,13 @@
     "recipe": {
         "unique-name-error": "Receptnamen moeten uniek zijn",
         "recipe-created": "Recept aangemaakt op",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-as-side": "{name} heeft dit gemaakt als bijgerecht",
+        "made-this-for-breakfast": "{name} heeft dit gemaakt als ontbijt",
+        "made-this-for-lunch": "{name} heeft dit gemaakt als lunch",
+        "made-this-for-dinner": "{name} heeft dit gemaakt als diner",
+        "made-this-for-snack": "{name} heeft dit gemaakt als snack",
         "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-for-dessert": "{name} heeft dit gemaakt als nagerecht",
         "recipe-image-deleted": "Receptafbeelding verwijderd",
         "recipe-defaults": {
             "name": "New Recipe"
