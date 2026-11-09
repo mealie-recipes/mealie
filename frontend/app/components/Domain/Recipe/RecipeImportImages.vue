@@ -4,7 +4,7 @@
       class="ml-auto"
       url="none"
       file-name="images"
-      accept="image/*"
+      accept="image/*,application/pdf"
       :text="images.length ? $t('recipe.upload-more-images') : $t('recipe.upload-images')"
       :text-btn="false"
       :post="false"
@@ -26,7 +26,27 @@
           xl="3"
         >
           <v-col>
+            <v-card
+              v-if="isPdf(index)"
+              variant="outlined"
+              class="mt-4 mb-2 pa-4 d-flex align-center"
+            >
+              <v-icon size="x-large" start>
+                {{ $globals.icons.filePDF }}
+              </v-icon>
+              <span class="text-truncate">{{ fileName(index) }}</span>
+              <v-spacer />
+              <v-btn
+                :disabled="disabled"
+                icon
+                variant="text"
+                @click="clearImage(index)"
+              >
+                <v-icon>{{ $globals.icons.delete }}</v-icon>
+              </v-btn>
+            </v-card>
             <ImageCropper
+              v-else
               :img="imageUrl"
               cropper-width="100%"
               :submitted="disabled"
@@ -36,7 +56,7 @@
             />
 
             <v-btn
-              v-if="images.length > 1"
+              v-if="images.length > 1 && !isPdf(index)"
               :disabled="disabled || index === 0"
               color="primary"
               @click="() => setCoverImage(index)"
@@ -68,6 +88,15 @@ const previewUrls = ref<string[]>([]);
 function uploadImages(files: File[]) {
   images.value = [...images.value, ...files];
   previewUrls.value = [...previewUrls.value, ...files.map(file => URL.createObjectURL(file))];
+}
+
+function isPdf(index: number) {
+  return images.value[index]?.type === "application/pdf";
+}
+
+function fileName(index: number) {
+  const file = images.value[index];
+  return file instanceof File ? file.name : "";
 }
 
 function clearImage(index: number) {

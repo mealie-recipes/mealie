@@ -5,6 +5,7 @@ from pathlib import Path
 from fastapi import UploadFile
 
 from mealie.core.dependencies.dependencies import get_temporary_path
+from mealie.pkgs.img.pdf import is_pdf, render_pdf
 from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraper import finalize_scraped_recipe
@@ -42,11 +43,16 @@ class AIRecipeService(RecipeService):
         """
         Creates a recipe from any combination of content, images, and a URL.
 
-        The first image, if any, becomes the recipe's cover image.
+        Each PDF becomes one image per page, and its text is added to the content.
+        The first image that is not a PDF, if any, becomes the recipe's cover image.
         """
 
         with get_temporary_path() as temp_path:
-            local_images = self._store_images(images or [], temp_path)
+            local_files = self._store_images(images or [], temp_path)
+            cover_image = next((path for path in local_files if not is_pdf(path)), None)
+            local_images, pdf_text = self._expand_pdfs(local_files)
+            if pdf_text:
+                content = f"{content}\n\n{pdf_text}" if content else pdf_text
 
             recipe_data = await self.build_recipe(
                 content=content,
@@ -58,8 +64,8 @@ class AIRecipeService(RecipeService):
             )
 
             recipe = self.create_one(recipe_data)
-            if local_images:
-                with open(local_images[0], "rb") as f:
+            if cover_image:
+                with open(cover_image, "rb") as f:
                     RecipeDataService(recipe.id).write_image(f.read(), "webp")
                 # write_image only writes the files; record the cover on the recipe as the image upload route does
                 recipe.image = self.group_recipes.update_image(recipe.slug, "webp")
@@ -119,6 +125,23 @@ class AIRecipeService(RecipeService):
             local_images.append(image_path)
 
         return local_images
+
+    @staticmethod
+    def _expand_pdfs(files: list[Path]) -> tuple[list[Path], str]:
+        """Replaces each PDF with images of its pages. Returns the images and the text of all PDFs."""
+        images: list[Path] = []
+        texts: list[str] = []
+        for path in files:
+            if not is_pdf(path):
+                images.append(path)
+                continue
+
+            pages, text = render_pdf(path)
+            images.extend(pages)
+            if text:
+                texts.append(f"Text from {path.name}:\n\n{text}")
+
+        return images, "\n\n".join(texts)
 
     def _validate_providers(self, ai_service: OpenAIService, *, has_images: bool) -> None:
         settings = ai_service.provider_settings

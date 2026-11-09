@@ -53,6 +53,8 @@ Reading the source material is the only step that needs to understand images or 
 
 This means an import with photos attached is read by your image provider even if you also pasted text alongside them.
 
+You can also attach PDF files. Mealie converts each page to an image, up to 10 pages for each file. Mealie also adds the text of the PDF to the source material. Your image provider reads a PDF import. A PDF page never becomes the cover image.
+
 ## Custom prompts
 
 :octicons-tag-24: v3.30.0
