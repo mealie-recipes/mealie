@@ -103,7 +103,7 @@
             color="primary"
             inline
           >
-            {{ $t("meal-plan.weeks") }}
+            <span :class="{ 'me-1': hiddenWeekMealCount > 0 }">{{ $t("meal-plan.weeks") }}</span>
           </v-badge>
           <v-tooltip v-if="hiddenWeekMealCount > 0" activator="parent" location="bottom">
             {{ $t("meal-plan.week-meals-hidden", hiddenWeekMealCount) }}
