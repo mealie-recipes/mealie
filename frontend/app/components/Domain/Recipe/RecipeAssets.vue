@@ -160,6 +160,7 @@ import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { RecipeAsset } from "~/lib/api/types/recipe";
 import { useCopy } from "~/composables/use-copy";
+import { isRecipePhoto as isImage } from "~/lib/recipe/photos";
 
 const props = defineProps({
   slug: {
@@ -225,11 +226,6 @@ const serverBase = useRequestURL().origin;
 
 function getIconDefinition(icon: string) {
   return iconOptions.find(item => item.name === icon) || iconOptions[0];
-}
-
-function isImage(fileName?: string | null) {
-  if (!fileName) return false;
-  return /\.(png|jpe?g|gif|webp|bmp|avif)$/i.test(fileName);
 }
 
 const lightbox = reactive({

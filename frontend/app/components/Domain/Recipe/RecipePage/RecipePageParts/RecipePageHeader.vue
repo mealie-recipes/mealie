@@ -10,7 +10,7 @@
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"
-      :can-edit="canEditRecipe"
+      :can-edit="canEditRecipe && !photosBusy"
       :name="recipe.name"
       :logged-in="isOwnGroup"
       :open="isEditMode"
@@ -23,6 +23,13 @@
       @delete="$emit('delete')"
       @print="printRecipe"
     />
+    <RecipePhotos
+      v-if="!isEditMode"
+      v-model="recipe"
+      :can-edit="canEditRecipe"
+      @busy="photosBusy = $event"
+      @saved="$emit('photos-saved')"
+    />
   </div>
 </template>
 
@@ -31,36 +38,38 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useRecipePermissions } from "~/composables/recipes";
 import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCard.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
+import RecipePhotos from "~/components/Domain/Recipe/RecipePhotos.vue";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { RecipeOut } from "~/lib/api/types/recipe";
 import { usePageState, usePageUser, PageMode } from "~/composables/recipe-page/shared-state";
 
 interface Props {
-  recipe: RecipeOut;
   recipeScale?: number;
   landscape?: boolean;
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   recipeScale: 1,
   landscape: false,
 });
 
-defineEmits(["save", "delete", "print", "close"]);
+defineEmits(["save", "delete", "print", "close", "photos-saved"]);
+const recipe = defineModel<RecipeOut>({ required: true });
+const photosBusy = ref(false);
 
 const { recipeImage } = useStaticRoutes();
-const { imageKey, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
+const { imageKey, setMode, toggleEditMode, isEditMode } = usePageState(recipe.value.slug);
 const { user } = usePageUser();
 const { isOwnGroup } = useLoggedInState();
 
 const recipeHousehold = ref<HouseholdSummary>();
 if (user) {
   const userApi = useUserApi();
-  userApi.households.getOne(props.recipe.householdId).then(({ data }) => {
+  userApi.households.getOne(recipe.value.householdId).then(({ data }) => {
     recipeHousehold.value = data || undefined;
   });
 }
-const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);
+const { canEditRecipe } = useRecipePermissions(recipe.value, recipeHousehold, user);
 
 function printRecipe() {
   window.print();
@@ -69,7 +78,7 @@ function printRecipe() {
 const hideImage = ref(false);
 
 const recipeImageUrl = computed(() => {
-  return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+  return recipeImage(recipe.value.id, recipe.value.image, imageKey.value);
 });
 
 watch(

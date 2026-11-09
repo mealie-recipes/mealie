@@ -4,6 +4,8 @@
     fullscreen
     scrim="transparent"
     transition="fade-transition"
+    @keydown.left.prevent="emit('previous')"
+    @keydown.right.prevent="emit('next')"
   >
     <div
       class="lightbox-content"
@@ -27,6 +29,26 @@
         >
       </div>
       <v-btn
+        v-if="navigation"
+        icon
+        variant="flat"
+        class="lightbox-previous"
+        :aria-label="$t('recipe.previous-photo')"
+        @click.stop="emit('previous')"
+      >
+        <v-icon>{{ $globals.icons.chevronLeft }}</v-icon>
+      </v-btn>
+      <v-btn
+        v-if="navigation"
+        icon
+        variant="flat"
+        class="lightbox-next"
+        :aria-label="$t('recipe.next-photo')"
+        @click.stop="emit('next')"
+      >
+        <v-icon>{{ $globals.icons.chevronRight }}</v-icon>
+      </v-btn>
+      <v-btn
         icon
         variant="text"
         class="lightbox-close"
@@ -45,9 +67,11 @@ import { useTheme } from "vuetify";
 interface Props {
   imageUrl?: string;
   imageAlt?: string;
+  navigation?: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+const emit = defineEmits<{ previous: []; next: [] }>();
 const model = defineModel<boolean>({ required: true });
 
 const theme = useTheme();
@@ -109,6 +133,7 @@ const pan = reactive({ x: 0, y: 0 });
 const dragging = ref(false);
 const dragMoved = ref(false);
 let dragStart = { x: 0, y: 0, panX: 0, panY: 0 };
+let swipeStart: { x: number; y: number } | null = null;
 
 // Keep the zoomed image overlapping its frame: at most half the overhang in each
 // direction, so it can never be dragged completely out of view.
@@ -136,6 +161,13 @@ watch(model, (open) => {
   }
 });
 
+watch(() => props.imageUrl, () => {
+  resetZoom();
+  dragging.value = false;
+  naturalSize.w = 0;
+  naturalSize.h = 0;
+});
+
 function onBackgroundClick() {
   model.value = false;
 }
@@ -156,11 +188,12 @@ function onImageClick(event: MouseEvent) {
 
 function onPointerDown(event: PointerEvent) {
   event.stopPropagation();
+  dragMoved.value = false;
   if (!zoomed.value) {
+    swipeStart = { x: event.clientX, y: event.clientY };
     return;
   }
   dragging.value = true;
-  dragMoved.value = false;
   dragStart = { x: event.clientX, y: event.clientY, panX: pan.x, panY: pan.y };
   (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
 }
@@ -179,6 +212,16 @@ function onPointerMove(event: PointerEvent) {
 
 function onPointerUp(event: PointerEvent) {
   event.stopPropagation();
+  if (props.navigation && !zoomed.value && swipeStart && event.type !== "pointercancel") {
+    const dx = event.clientX - swipeStart.x;
+    const dy = event.clientY - swipeStart.y;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) emit("next");
+      else emit("previous");
+      dragMoved.value = true;
+    }
+  }
+  swipeStart = null;
   dragging.value = false;
 }
 
@@ -209,6 +252,21 @@ const imgStyle = computed(() => ({
 .lightbox-close {
   position: absolute;
   top: 12px;
+  right: 12px;
+}
+
+.lightbox-previous,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-previous {
+  left: 12px;
+}
+
+.lightbox-next {
   right: 12px;
 }
 

@@ -25,12 +25,13 @@
       <v-card flat class="d-print-none">
         <RecipePageHeader
           ref="recipeToolbar"
-          :recipe="recipe"
+          v-model="recipe"
           :recipe-scale="scale"
           :landscape="landscape"
           @save="saveRecipe"
           @delete="deleteRecipe"
           @close="closeEditor"
+          @photos-saved="syncPhotoSnapshot"
         />
         <RecipeJsonEditor
           v-if="isEditJSON"
@@ -359,6 +360,13 @@ function hasUnsavedChanges(): boolean {
 function restoreOriginalRecipe() {
   if (originalRecipe.value) {
     recipe.value = deepCopy(originalRecipe.value);
+  }
+}
+
+function syncPhotoSnapshot() {
+  if (originalRecipe.value) {
+    originalRecipe.value.assets = deepCopy(recipe.value.assets);
+    originalRecipe.value.image = recipe.value.image;
   }
 }
 
