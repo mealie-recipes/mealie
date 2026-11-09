@@ -10,84 +10,87 @@
     <GroupMealPlanCalendarDialog v-model="calendarDialog" />
     <!-- range navigation and page actions share one toolbar, kept apart from the plan below -->
     <div class="d-flex flex-wrap align-center ga-2">
-      <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
-      <v-menu
-        v-model="state.picker"
-        :close-on-content-click="false"
-        transition="scale-transition"
-        offset-y
-        min-width="auto"
-      >
-        <template #activator="{ props }">
-          <v-btn
-            color="primary"
-            v-bind="props"
-          >
-            <v-icon start>
-              {{ $globals.icons.calendar }}
-            </v-icon>
-            {{ $d(visibleRange.start, "short") }} - {{ $d(visibleRange.end, "short") }}
-          </v-btn>
-        </template>
-
-        <v-card>
-          <MealPlanDatePicker
-            v-model="state.range"
-            hide-header
-            :multiple="'range'"
-            :first-day-of-week="firstDayOfWeek"
-            :local="$i18n.locale"
-          />
-
-          <template v-if="isDaysMode">
-            <v-card-text>
-              <v-number-input
-                v-model="numberOfDaysPast"
-                :min="0"
-                inset
-                :label="$t('meal-plan.numberOfDaysPast-label')"
-                :hint="$t('meal-plan.numberOfDaysPast-hint')"
-                persistent-hint
-              />
-            </v-card-text>
-
-            <v-card-text>
-              <v-number-input
-                v-model="numberOfDays"
-                :min="1"
-                inset
-                :label="$t('meal-plan.numberOfDays-label')"
-                :hint="$t('meal-plan.numberOfDays-hint')"
-                persistent-hint
-              />
-            </v-card-text>
+      <div class="range-nav d-flex align-center ga-2">
+        <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
+        <v-menu
+          v-model="state.picker"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template #activator="{ props }">
+            <v-btn
+              class="range-button"
+              color="primary"
+              v-bind="props"
+            >
+              <v-icon start>
+                {{ $globals.icons.calendar }}
+              </v-icon>
+              {{ $d(visibleRange.start, "short") }} - {{ $d(visibleRange.end, "short") }}
+            </v-btn>
           </template>
-          <template v-else>
-            <v-card-text>
-              <v-number-input
-                v-model="numberOfWeeksPast"
-                :min="0"
-                inset
-                :label="$t('meal-plan.numberOfWeeksPast-label')"
-                :hint="$t('meal-plan.numberOfWeeksPast-hint')"
-                persistent-hint
-              />
-            </v-card-text>
 
-            <v-card-text>
-              <v-number-input
-                v-model="numberOfWeeks"
-                :min="1"
-                inset
-                :label="$t('meal-plan.numberOfWeeks-label')"
-                :hint="$t('meal-plan.numberOfWeeks-hint')"
-                persistent-hint
-              />
-            </v-card-text>
-          </template>
-        </v-card>
-      </v-menu>
-      <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
+          <v-card>
+            <MealPlanDatePicker
+              v-model="state.range"
+              hide-header
+              :multiple="'range'"
+              :first-day-of-week="firstDayOfWeek"
+              :local="$i18n.locale"
+            />
+
+            <template v-if="isDaysMode">
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfDaysPast"
+                  :min="0"
+                  inset
+                  :label="$t('meal-plan.numberOfDaysPast-label')"
+                  :hint="$t('meal-plan.numberOfDaysPast-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfDays"
+                  :min="1"
+                  inset
+                  :label="$t('meal-plan.numberOfDays-label')"
+                  :hint="$t('meal-plan.numberOfDays-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+            </template>
+            <template v-else>
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfWeeksPast"
+                  :min="0"
+                  inset
+                  :label="$t('meal-plan.numberOfWeeksPast-label')"
+                  :hint="$t('meal-plan.numberOfWeeksPast-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfWeeks"
+                  :min="1"
+                  inset
+                  :label="$t('meal-plan.numberOfWeeks-label')"
+                  :hint="$t('meal-plan.numberOfWeeks-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+            </template>
+          </v-card>
+        </v-menu>
+        <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
+      </div>
       <v-btn-toggle
         v-model="mealPlanPreferences.mode"
         mandatory
@@ -413,3 +416,22 @@ const weekRecipesWithScales = computed(() => {
   return getScaledRecipes(allMeals.value);
 });
 </script>
+
+<style scoped>
+/* the arrows stay beside the range on narrow screens, and a long range wraps inside its button instead */
+.range-nav {
+  min-width: 0;
+}
+
+.range-button {
+  flex-shrink: 1;
+  min-width: 0;
+  height: auto;
+  min-height: var(--v-btn-height);
+  padding-block: 0.25em;
+}
+
+.range-button :deep(.v-btn__content) {
+  white-space: normal;
+}
+</style>
