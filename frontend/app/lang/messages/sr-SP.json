@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Не желите више ово да видите? Обавезно промените е-пошту у корисничким подешавањима!",
     "forgot-password": "Заборављена лозинка",
     "forgot-password-text": "Молимо унесите вашу адресу е-поште и ми ћемо вам послати линк за ресетовање лозинке.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Промене на овом кориснику ће се одразити одмах.",
     "default-activity": "Подразумевана активност",
     "default-activity-hint": "Изаберите на коју страницу желите да будете преусмерени након пријављивања са овог уређаја"

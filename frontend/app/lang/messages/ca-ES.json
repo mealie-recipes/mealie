@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
     "forgot-password": "Contrasenya oblidada",
     "forgot-password-text": "Introdueix siusplau la teva adreça de correu electrònic i t'enviarem un enllaç per restablir la teva contrassenya.",
+    "reset-link-invalid": "Aquest enllaç de restabliment ha caducat o no és vàlid. Demana un enllaç nou.",
     "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament.",
     "default-activity": "Activitat per defecte",
     "default-activity-hint": "Seleccioneu a quina pàgina voleu navegar en iniciar sessió des d'aquest dispositiu"

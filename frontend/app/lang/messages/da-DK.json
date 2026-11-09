@@ -476,7 +476,7 @@
   },
   "recipe": {
     "download-pdf": "Download PDF",
-    "preparing-pdf": "Preparing PDF...",
+    "preparing-pdf": "Forbereder PDF...",
     "step-duration-minutes": "Varighed (minutter)",
     "step-duration-saved": "Gemt varighed: {duration}. Redigering af dette felt afrundes til hele minutter",
     "step-duration-placeholder": "Minutter",
@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
     "forgot-password": "Glemt adgangskode",
     "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
+    "reset-link-invalid": "Dette nulstillingslink er enten udløbet eller ugyldigt. Anmod om et nyt link.",
     "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme.",
     "default-activity": "Standardaktivitet",
     "default-activity-hint": "Vælg den side, du vil navigere til, når du logger ind fra denne enhed"

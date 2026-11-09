@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "不想再看到這個提示？請至使用者設定中更新您的電子郵件！",
     "forgot-password": "忘記密碼",
     "forgot-password-text": "請輸入您的電子郵件地址，我們將寄送重設密碼的連結給您。",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "對此使用者的變更將立即生效。",
     "default-activity": "預設活動",
     "default-activity-hint": "選擇從此裝置登入後要前往的頁面"

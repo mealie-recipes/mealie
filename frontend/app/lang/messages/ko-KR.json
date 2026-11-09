@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "더 이상 이걸 보고 싶지 않으신가요? 사용자 설정에서 이메일 주소를 꼭 변경하세요!",
     "forgot-password": "비밀번호 찾기",
     "forgot-password-text": "이메일 주소를 입력해 주시면 비밀번호 재설정 링크를 보내드리겠습니다.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "이 사용자에 대한 변경 사항은 즉시 반영됩니다.",
     "default-activity": "기본 활동",
     "default-activity-hint": "이 기기에서 로그인 시 이동할 페이지를 선택하세요"

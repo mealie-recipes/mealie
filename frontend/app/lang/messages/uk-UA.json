@@ -974,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!",
     "forgot-password": "Нагадати пароль",
     "forgot-password-text": "Будь ласка, введіть адресу вашої електронної пошти й вам надійде повідомлення, щоб відновити пароль.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені.",
     "default-activity": "Дія за замовчуванням",
     "default-activity-hint": "Виберіть, на яку сторінку ви хочете перейти після входу з цього пристрою"
