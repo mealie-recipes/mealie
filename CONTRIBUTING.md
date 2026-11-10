@@ -36,6 +36,15 @@ This guidance applies to all contributor prose. It includes pull request titles,
 
 The goal is text that each reviewer can understand in one read.
 
+### UI Text
+New or changed strings in `frontend/app/lang/messages/en-US.json` are what users read, so they follow their own rules. The guidance above applies to contributor prose, not to UI text.
+
+- Write what a person would naturally say on that screen. Read the string out loud in context.
+- Text written with an LLM is fine, but it should not sound like it. Avoid filler, marketing tone, and over-explaining.
+- Match the existing app. Reuse an existing string when one fits, and use the same terms the rest of the app uses for the same thing.
+- Match the capitalization of similar elements. Short labels such as buttons, titles, menu items, and field labels use Title Case. Messages and descriptions written as sentences use sentence case.
+- Only edit `en-US.json`. All other locales are managed through Crowdin.
+
 ## Any contributions you make will be under the AGPL Software License
 In short, when you submit code changes, your submissions are understood to be under the same [AGPL License](https://choosealicense.com/licenses/agpl-3.0/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
