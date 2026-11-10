@@ -190,6 +190,16 @@ class AppSettings(AppLoggingSettings):
     ALLOW_SIGNUP: bool = False
     ALLOW_PASSWORD_LOGIN: bool = True
 
+    MAX_UPLOAD_SIZE_MB: int = 1024
+    """Largest request body, in MiB, the API accepts. Larger uploads (migrations, backups, images) get a 413."""
+
+    @field_validator("MAX_UPLOAD_SIZE_MB")
+    @classmethod
+    def validate_max_upload_size_mb(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("MAX_UPLOAD_SIZE_MB must be at least 1")
+        return v
+
     ALLOWED_IFRAME_HOSTS: str = ""
     """Comma-separated list of additional hostnames allowed as `<iframe>` sources in user content
     (recipe instructions, notes, descriptions). Extends `DEFAULT_ALLOWED_IFRAME_HOSTS`. Subdomains of

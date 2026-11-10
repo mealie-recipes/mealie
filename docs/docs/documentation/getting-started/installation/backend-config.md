@@ -19,6 +19,7 @@
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                                                        |
 | ALLOW_PASSWORD_LOGIN          |         true          | Whether or not to display the username+password input fields. Keep set to true unless you use OIDC authentication                                       |
+| MAX_UPLOAD_SIZE_MB            |         1024          | Largest upload, in MiB, the API accepts. Raise it to upload a larger migration archive or backup.                                                       |
 | LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                                                                                      |
 | LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug)                                                                                              |
 | DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run daily server tasks, in HH:MM format. Use the server's local time, *not* UTC                                                      |

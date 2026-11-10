@@ -7,6 +7,7 @@ from pydantic import UUID4
 from mealie.core import root_logger
 from mealie.core.exceptions import UnexpectedNone
 from mealie.lang.providers import Translator
+from mealie.pkgs.archive import ArchiveTooLargeError
 from mealie.repos.all_repositories import AllRepositories
 from mealie.schema.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft
@@ -26,7 +27,7 @@ from mealie.services.scraper import cleaner
 from .._base_service import BaseService
 from .utils.database_helpers import DatabaseMigrationHelpers
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import ArchiveTooLargeError, import_image, scrape_image
+from .utils.migration_helpers import import_image, scrape_image
 
 
 class BaseMigrator(BaseService):

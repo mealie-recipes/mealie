@@ -10,7 +10,7 @@ from mealie.services.parser_services._base import DataMatcher
 from mealie.services.parser_services.parser_utils.string_utils import extract_quantity_from_string
 
 from ._migration_base import BaseMigrator
-from .utils.migration_helpers import MAX_EXTRACTED_ARCHIVE_SIZE, extract_zip, safe_local_path
+from .utils.migration_helpers import extract_zip, migration_budget, safe_local_path
 
 
 class DSVParser:
@@ -398,7 +398,8 @@ class CooknMigrator(BaseMigrator):
     def _migrate(self) -> None:
         """Migrates recipes from Cook'n cookboop .zip. Also will handle a .zip folder of .zip folders"""
         with tempfile.TemporaryDirectory() as tmpdir:
-            budget = MAX_EXTRACTED_ARCHIVE_SIZE - extract_zip(self.archive, tmpdir)
+            budget = migration_budget()
+            extract_zip(self.archive, tmpdir, budget)
 
             # Process single zipped cookbook
             if Path(f"{tmpdir}/temp_recipe.dsv").exists():
@@ -407,5 +408,5 @@ class CooknMigrator(BaseMigrator):
             # Process a zip folder of zipped cookbooks
             for file in Path(tmpdir).glob("*.zip"):
                 with tempfile.TemporaryDirectory() as tmpdir2:
-                    budget -= extract_zip(file, tmpdir2, max_size=budget)
+                    extract_zip(file, tmpdir2, budget)
                     self._process_cookbook(Path(tmpdir2))

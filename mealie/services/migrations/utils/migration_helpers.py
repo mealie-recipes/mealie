@@ -7,6 +7,7 @@ from PIL import UnidentifiedImageError
 from pydantic import UUID4
 
 from mealie.core import root_logger
+from mealie.pkgs.archive import ArchiveBudget
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 
@@ -48,30 +49,33 @@ class MigrationReaders:
 MAX_EXTRACTED_ARCHIVE_SIZE = 5 * 1024**3
 """Upper bound, in bytes, on what a single migration may unpack, nested archives included"""
 
+MAX_EXTRACTED_FILE_SIZE = 100 * 1024**2
+"""Upper bound, in bytes, on one unpacked file; recipe documents and photos run to a few MB"""
 
-class ArchiveTooLargeError(ValueError):
-    pass
+MAX_ARCHIVE_ENTRIES = 100_000
+"""Upper bound on files a single migration may unpack, nested archives included"""
 
 
-def extract_zip(archive: Path, dest: str | Path, max_size: int | None = None) -> int:
-    """Extracts `archive` into `dest` and returns the number of bytes written.
+def migration_budget() -> ArchiveBudget:
+    return ArchiveBudget(
+        bytes_left=MAX_EXTRACTED_ARCHIVE_SIZE,
+        entries_left=MAX_ARCHIVE_ENTRIES,
+        max_file_size=MAX_EXTRACTED_FILE_SIZE,
+    )
 
-    Raises ArchiveTooLargeError, before writing anything, when the archive would unpack to more
-    than `max_size` bytes. The declared member sizes can be trusted for this: zipfile stops reading
-    each member at its declared size. Callers that unpack nested archives pass what is left of
-    the budget as `max_size`, so a zip of zips cannot multiply the limit.
+
+def extract_zip(archive: Path, dest: str | Path, budget: ArchiveBudget | None = None) -> None:
+    """Extracts `archive` into `dest`, charging it against `budget` (a fresh migration budget by default).
+
+    Raises ArchiveTooLargeError, before writing anything, when the archive is over the budget.
+    Migrators that unpack nested archives pass one budget to every call.
     """
-    if max_size is None:
-        max_size = MAX_EXTRACTED_ARCHIVE_SIZE
+    if budget is None:
+        budget = migration_budget()
 
     with zipfile.ZipFile(archive) as zip_file:
-        total = sum(info.file_size for info in zip_file.infolist())
-        if total > max_size:
-            raise ArchiveTooLargeError(f"Archive unpacks to {total} bytes, over the {max_size} byte limit")
-
+        budget.spend(zip_file)
         zip_file.extractall(dest)
-
-    return total
 
 
 def split_by_comma(tag_string: str):
