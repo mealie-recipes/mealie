@@ -456,7 +456,7 @@ watch(isEditMode, (newVal) => {
 });
 
 watch(isParsing, () => {
-  if (!isParsing.value) {
+  if (!isParsing.value && paramsParse.value) {
     paramsParse.value = undefined;
   }
 });
