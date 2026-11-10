@@ -36,11 +36,27 @@
   ],
   "packageRules": [
     {
-      "description": "One PR for all GitHub Actions updates. No auto-merge: these change what CI runs.",
+      "description": "One PR for all GitHub Actions updates",
       "matchManagers": [
         "github-actions"
       ],
       "groupName": "github-actions"
+    },
+    {
+      "description": "Auto-merge non-major GitHub Actions updates and digest pins",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "pin",
+        "pinDigest",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
     },
     {
       "matchManagers": [
