@@ -658,10 +658,16 @@ class RecipeService(RecipeServiceBase):
         becomes the new owner's household, so the new owner finds the recipe in
         their own household.
         """
-        changed_user = new_data.user_id is not None and str(new_data.user_id) != str(recipe.user_id)
-        changed_household = new_data.household_id is not None and str(new_data.household_id) != str(recipe.household_id)
+        new_user_id = (
+            new_data.user_id if new_data.user_id is not None and str(new_data.user_id) != str(recipe.user_id) else None
+        )
+        new_household_id = (
+            new_data.household_id
+            if new_data.household_id is not None and str(new_data.household_id) != str(recipe.household_id)
+            else None
+        )
 
-        if not changed_user and not changed_household:
+        if new_user_id is None and new_household_id is None:
             return new_data
 
         if not self.user.admin and str(recipe.user_id) != str(self.user.id):
@@ -669,19 +675,20 @@ class RecipeService(RecipeServiceBase):
                 "Only the recipe owner or an admin can change the recipe's owner or household."
             )
 
-        if changed_user:
-            new_owner = self.repos.users.get_one(new_data.user_id)
+        if new_user_id is not None:
+            new_owner = self.repos.users.get_one(new_user_id)
             if new_owner is None:
-                raise exceptions.NoEntryFound(f"User with id '{new_data.user_id}' not found in this group")
+                raise exceptions.NoEntryFound(f"User with id '{new_user_id}' not found in this group")
 
             # the UI sends only the new owner, so default that owner's household
-            if not changed_household:
-                new_data = new_data.model_copy(update={"household_id": new_owner.household_id})
+            if new_household_id is None:
+                new_household_id = new_owner.household_id
+                new_data = new_data.model_copy(update={"household_id": new_household_id})
 
-        if new_data.household_id is not None:
-            household = self.repos.households.get_one(new_data.household_id)
+        if new_household_id is not None:
+            household = self.repos.households.get_one(new_household_id)
             if household is None or str(household.group_id) != str(self.user.group_id):
-                raise exceptions.NoEntryFound(f"Household with id '{new_data.household_id}' not found in this group")
+                raise exceptions.NoEntryFound(f"Household with id '{new_household_id}' not found in this group")
 
         return new_data
 
