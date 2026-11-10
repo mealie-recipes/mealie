@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import DOMPurify from "dompurify";
+import { sanitizeInlineHtml } from "~/lib/sanitize/inline";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 interface Props {
@@ -41,13 +41,6 @@ const props = withDefaults(defineProps<Props>(), {
   color: "accent custom-transparent",
 });
 
-function sanitizeHTML(rawHtml: string) {
-  return DOMPurify.sanitize(rawHtml, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["strong", "sup"],
-  });
-}
-
 const yieldDisplay = computed<string>(() => {
   const components: string[] = [];
 
@@ -61,6 +54,6 @@ const yieldDisplay = computed<string>(() => {
     components.push(text);
   }
 
-  return sanitizeHTML(components.join(" "));
+  return sanitizeInlineHtml(components.join(" "));
 });
 </script>

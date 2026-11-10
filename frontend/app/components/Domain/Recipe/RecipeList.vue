@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import DOMPurify from "dompurify";
+import { sanitizeInlineHtml } from "~/lib/sanitize/inline";
 import RecipeCardLineItem from "./RecipeCardLineItem.vue";
 import { useFraction } from "~/composables/recipes/use-fraction";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
@@ -84,13 +84,6 @@ const attrs = computed(() => {
     },
   };
 });
-
-function sanitizeHTML(rawHtml: string) {
-  return DOMPurify.sanitize(rawHtml, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["strong", "sup"],
-  });
-}
 
 const listItemDescriptions = computed<string[]>(() => {
   if (
@@ -140,7 +133,7 @@ const listItemDescriptions = computed<string[]>(() => {
       listItemDescription += `, ${itemRef.recipeNote}`;
     }
 
-    listItemDescriptions.push(sanitizeHTML(listItemDescription));
+    listItemDescriptions.push(sanitizeInlineHtml(listItemDescription));
   }
 
   return listItemDescriptions;

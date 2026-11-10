@@ -11,13 +11,15 @@ const ALLOWED_STYLE_PROPERTIES = [
 
 const BASE_ALLOWED_TAGS = [
   "strong", "em", "b", "i", "u", "p", "code", "pre", "samp", "kbd", "var", "sub", "sup", "dfn", "cite",
-  "small", "address", "hr", "br", "id", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
+  "small", "address", "hr", "br", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
   "ul", "ol", "li", "dl", "dt", "dd", "abbr", "a", "img", "blockquote",
   "del", "ins", "table", "thead", "tbody", "tfoot", "tr", "th", "td", "colgroup",
 ];
 
+// No `class`: Vuetify's utility classes (position-fixed, top-0, w-100, h-screen, bg-white, ...)
+// are enough to build a full-screen overlay out of user content, which the style filter can't stop.
 const BASE_ALLOWED_ATTR = [
-  "href", "src", "alt", "height", "width", "class", "title",
+  "href", "src", "alt", "height", "width", "title",
   "cite", "datetime", "name", "abbr", "target", "border", "start", "style",
 ];
 
@@ -88,6 +90,8 @@ export function sanitizeMarkdownHtml(rawHtml: string | null | undefined, allowed
   const sanitized = DOMPurify.sanitize(rawHtml, {
     ALLOWED_TAGS: allowIframe ? [...BASE_ALLOWED_TAGS, "iframe"] : BASE_ALLOWED_TAGS,
     ALLOWED_ATTR: allowIframe ? [...BASE_ALLOWED_ATTR, ...IFRAME_ALLOWED_ATTR] : BASE_ALLOWED_ATTR,
+    // Prefixes `name` values with "user-content-" so user content can't clobber window/document globals.
+    SANITIZE_NAMED_PROPS: true,
   });
 
   Object.values(DOMPurifyHook).forEach((hook) => {

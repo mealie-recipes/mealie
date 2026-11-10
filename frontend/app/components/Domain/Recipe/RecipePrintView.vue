@@ -223,7 +223,7 @@
 </template>
 
 <script setup lang="ts">
-import DOMPurify from "dompurify";
+import { sanitizeInlineHtml } from "~/lib/sanitize/inline";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
 import type { RecipeOut, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
@@ -259,12 +259,6 @@ const { recipeImage } = useStaticRoutes();
 const { imageKey } = usePageState(props.recipe.slug);
 const { labels } = useNutritionLabels();
 
-function sanitizeHTML(rawHtml: string) {
-  return DOMPurify.sanitize(rawHtml, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["strong", "sup"],
-  });
-}
 const servingsDisplay = computed(() => {
   const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeYieldQuantity, props.scale);
   return scaledAmountDisplay || props.recipe.recipeYield
@@ -282,10 +276,10 @@ const yieldDisplay = computed(() => {
 
 const recipeYield = computed(() => {
   if (servingsDisplay.value && yieldDisplay.value) {
-    return sanitizeHTML(`${yieldDisplay.value}; ${servingsDisplay.value}`);
+    return sanitizeInlineHtml(`${yieldDisplay.value}; ${servingsDisplay.value}`);
   }
   else {
-    return sanitizeHTML(yieldDisplay.value || servingsDisplay.value);
+    return sanitizeInlineHtml(yieldDisplay.value || servingsDisplay.value);
   }
 });
 

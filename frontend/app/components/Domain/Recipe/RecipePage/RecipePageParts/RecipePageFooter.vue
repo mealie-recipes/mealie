@@ -9,7 +9,7 @@
         :label="$t('recipe.original-url')"
       />
       <v-btn
-        v-else-if="recipe.orgURL && !isCookMode"
+        v-else-if="isHttpUrl(recipe.orgURL) && !isCookMode"
         :hover="false"
         :ripple="false"
         variant="flat"
@@ -84,6 +84,7 @@
 <script setup lang="ts">
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import type { RecipeOut } from "~/lib/api/types/recipe";
+import { isHttpUrl } from "~/lib/validators/url";
 
 const recipe = defineModel<RecipeOut>({ required: true });
 const { isEditForm, isCookMode } = usePageState(recipe.value.slug);
