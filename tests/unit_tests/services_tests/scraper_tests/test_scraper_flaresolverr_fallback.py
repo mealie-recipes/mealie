@@ -6,7 +6,7 @@ import pytest
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.lang.providers import get_locale_provider
 from mealie.pkgs.safehttp.fetch import FetchResult
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.services.scraper.recipe_scraper import RecipeScraper
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 from mealie.services.scraper.scraper_strategies import ABCScraperStrategy
@@ -34,15 +34,27 @@ class MarkerStrategy(ABCScraperStrategy):
     async def parse(self, on_progress=None):
         MarkerStrategy.pages.append(self.raw_html or "")
         if self.raw_html and "RECIPE" in self.raw_html:
-            return Recipe(name="Soup", slug="soup"), ScrapedExtras()
+            return RecipeDraft(name="Soup", slug="soup"), ScrapedExtras()
         return None, None
+
+
+class AnyPageFallbackStrategy(MarkerStrategy):
+    """Accepts any page, like the OpenGraph strategy does with a bot wall's og tags."""
+
+    is_fallback = True
+
+    async def parse(self, on_progress=None):
+        AnyPageFallbackStrategy.pages.append(self.raw_html or "")
+        return RecipeDraft(name="Stub", slug="stub"), ScrapedExtras()
 
 
 @pytest.fixture(autouse=True)
 def _reset_pages():
     MarkerStrategy.pages = []
+    AnyPageFallbackStrategy.pages = []
     yield
     MarkerStrategy.pages = []
+    AnyPageFallbackStrategy.pages = []
 
 
 def _patch_fetch(monkeypatch: pytest.MonkeyPatch, fetched: FetchResult, solved: FetchResult | None) -> list[str]:
@@ -95,3 +107,29 @@ async def test_no_second_escalation_when_fetch_already_used_flaresolverr(monkeyp
     assert recipe is None
     assert MarkerStrategy.pages == [BOT_WALL_HTML]
     assert calls == []
+
+
+@pytest.mark.asyncio
+async def test_escalates_before_fallback_strategies(monkeypatch: pytest.MonkeyPatch):
+    calls = _patch_fetch(monkeypatch, _fetch(BOT_WALL_HTML), _fetch(RECIPE_HTML, via_flaresolverr=True))
+
+    scraper = RecipeScraper(MagicMock(), get_locale_provider(), scrapers=[MarkerStrategy, AnyPageFallbackStrategy])
+    recipe, _ = await scraper.scrape(URL)
+
+    assert recipe is not None
+    assert recipe.name == "Soup"
+    assert AnyPageFallbackStrategy.pages == []
+    assert calls == [URL]
+
+
+@pytest.mark.asyncio
+async def test_fallback_strategies_run_when_flaresolverr_cannot_help(monkeypatch: pytest.MonkeyPatch):
+    calls = _patch_fetch(monkeypatch, _fetch(BOT_WALL_HTML), None)
+
+    scraper = RecipeScraper(MagicMock(), get_locale_provider(), scrapers=[MarkerStrategy, AnyPageFallbackStrategy])
+    recipe, _ = await scraper.scrape(URL)
+
+    assert recipe is not None
+    assert recipe.name == "Stub"
+    assert AnyPageFallbackStrategy.pages == [BOT_WALL_HTML]
+    assert calls == [URL]
