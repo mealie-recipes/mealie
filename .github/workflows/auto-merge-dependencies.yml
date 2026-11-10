@@ -48,8 +48,11 @@ jobs:
                [[ "$file" == "frontend/package.json" ]] || \
                [[ "$file" == "frontend/pnpm-lock.yaml" ]] || \
                [[ "$file" == "mise.toml" ]] || \
+               [[ "$file" == "tests/e2e/package.json" ]] || \
+               [[ "$file" == "tests/e2e/pnpm-lock.yaml" ]] || \
                [[ "$file" == ".devcontainer/Dockerfile" ]] || \
-               [[ "$file" == ".github/actions/setup-tools/action.yml" ]] || \
+               [[ "$file" =~ ^\.github/actions/ ]] || \
+               [[ "$file" =~ ^\.github/workflows/ ]] || \
                [[ "$file" =~ ^docker/ ]]; then
               continue
             fi
