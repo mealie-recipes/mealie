@@ -12,6 +12,7 @@
       :submit-text="$t('general.save')"
       :submit-disabled="!editTarget.queryFilterString"
       can-submit
+      disable-submit-on-enter
       @submit="editCookbook"
     >
       <v-card-text>
@@ -45,9 +46,7 @@
             @download-pdf="downloadPdf"
           />
         </div>
-        <div v-if="book.description" class="subtitle-1 text-grey-lighten-1 mb-2">
-          {{ book.description }}
-        </div>
+        <SafeMarkdown v-if="book.description" :source="book.description" class="subtitle-1 text-grey-lighten-1 mb-2" />
       </v-sheet>
 
       <v-container class="pa-0">
