@@ -384,7 +384,9 @@ class IngredientUnitAliasModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units_aliases"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    unit_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_units.id"), primary_key=True)
+    unit_id: FilterableColumn[GUID] = mapped_column(
+        GUID, ForeignKey("ingredient_units.id"), primary_key=True, index=True
+    )
     unit: Mapped[IngredientUnitModel] = orm.relationship("IngredientUnitModel", back_populates="aliases")
 
     name: FilterableColumn[str] = mapped_column(String)
@@ -425,7 +427,9 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_foods_aliases"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    food_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), primary_key=True)
+    food_id: FilterableColumn[GUID] = mapped_column(
+        GUID, ForeignKey("ingredient_foods.id"), primary_key=True, index=True
+    )
     food: Mapped[IngredientFoodModel] = orm.relationship("IngredientFoodModel", back_populates="aliases")
 
     name: FilterableColumn[str] = mapped_column(String)
@@ -505,7 +509,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id: FilterableColumn[int] = mapped_column(Integer, primary_key=True)
     position: FilterableColumn[int | None] = mapped_column(Integer, index=True)
-    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
+    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
 
     title: FilterableColumn[str | None] = mapped_column(String)  # Section Header - Shows if Present
     note: FilterableColumn[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
