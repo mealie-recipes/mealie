@@ -5,7 +5,7 @@ pnpm = "12.18.0"
 uv = "0.13.7"
 "npm:json-schema-to-typescript" = "16.0.0"
 # semgrep still imports pkg_resources and does not support every Python version uv picks.
-"pipx:semgrep" = { version = "1.183.0", uvx_args = "--python 3.12 --with setuptools" }
+"pipx:semgrep" = { version = "1.184.0", uvx_args = "--python 3.12 --with setuptools" }
 
 [env]
 DEFAULT_GROUP = "Home"
