@@ -109,6 +109,9 @@ class ABCScraperStrategy(ABC):
     url: str
     resolved_url: str | None
 
+    is_fallback: bool = False
+    """Fallback strategies accept any page, so they run only after a FlareSolverr retry has been tried."""
+
     def __init__(
         self,
         url: str,
@@ -375,6 +378,8 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
     page's contents rather than trying to scrape it directly.
     """
 
+    is_fallback = True
+
     def can_scrape(self) -> bool:
         group_id = self.repos.scoped_group_id
         settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
@@ -506,6 +511,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):
+    is_fallback = True
+
     def can_scrape(self) -> bool:
         return bool(self.url or self.raw_html)
 
