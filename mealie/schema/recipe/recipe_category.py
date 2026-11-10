@@ -2,7 +2,7 @@ from pydantic import ConfigDict
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.recipe import RecipeModel, Tag
+from mealie.db.models.recipe import Tag
 
 from .recipe_organizers import CategoryOut, TagOut
 
@@ -19,9 +19,7 @@ class TagWithRecipes(TagOut):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
-            selectinload(Tag.recipes).joinedload(RecipeModel.recipe_category),
-            selectinload(Tag.recipes).joinedload(RecipeModel.tags),
-            selectinload(Tag.recipes).joinedload(RecipeModel.tools),
+            selectinload(Tag.recipes).options(*RecipeSummary.loader_options()),
         ]
 
 

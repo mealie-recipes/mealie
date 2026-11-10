@@ -21,8 +21,6 @@ from mealie.schema._mealie.mealie_model import MealieOutModel, UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
-    IngredientFoodModel,
-    IngredientFoodSubstitutionModel,
     RecipeComment,
     RecipeIngredientModel,
     RecipeIngredientSubstitutionModel,
@@ -380,18 +378,14 @@ class RecipeOut(RecipeSummary):
             selectinload(RecipeModel.extras),
             joinedload(RecipeModel.recipe_category),
             selectinload(RecipeModel.tags),
-            selectinload(RecipeModel.tools),
-            selectinload(RecipeModel.recipe_ingredient).joinedload(RecipeIngredientModel.unit),
+            selectinload(RecipeModel.tools).options(*ToolOut.loader_options()),
+            joinedload(RecipeModel.user).load_only(User.household_id),
+            selectinload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.unit)
+            .options(*IngredientUnitOut.loader_options()),
             selectinload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food)
-            .joinedload(IngredientFoodModel.extras),
-            selectinload(RecipeModel.recipe_ingredient)
-            .joinedload(RecipeIngredientModel.food)
-            .joinedload(IngredientFoodModel.label),
-            selectinload(RecipeModel.recipe_ingredient)
-            .joinedload(RecipeIngredientModel.food)
-            .selectinload(IngredientFoodModel.substitutions)
-            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
+            .options(*IngredientFoodOut.loader_options()),
             selectinload(RecipeModel.recipe_ingredient)
             .selectinload(RecipeIngredientModel.substitutions)
             .joinedload(RecipeIngredientSubstitutionModel.substitute_food),
@@ -478,7 +472,7 @@ class RecipeLastMade(BaseModel):
     timestamp: datetime.datetime
 
 
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut, IngredientUnitOut, RecipeIngredient  # noqa: E402
 
 RecipeDraft.model_rebuild()
 RecipeSummary.model_rebuild()
