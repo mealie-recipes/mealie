@@ -99,5 +99,5 @@ const recipe = defineModel<RecipeOut>({ required: true });
 const { isEditForm, imageKey } = usePageState(recipe.value.slug);
 const { recipeImage } = useStaticRoutes();
 
-const heroImageUrl = computed(() => recipeImage(recipe.value.id, recipe.value.image, imageKey.value));
+const heroImageUrl = computed(() => recipe.value.image ? recipeImage(recipe.value.id, recipe.value.image, imageKey.value) : undefined);
 </script>
