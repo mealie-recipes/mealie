@@ -198,6 +198,7 @@
     <div v-if="preferences.showNutrition">
       <v-card-title class="headline pl-0">
         {{ $t("recipe.nutrition") }}
+        <span class="nutrition-per-serving">({{ $t("recipe.per-serving") }})</span>
       </v-card-title>
 
       <section>
@@ -507,6 +508,11 @@ ul {
 li {
   list-style-type: none;
   margin-bottom: 0.25rem;
+}
+
+.nutrition-per-serving {
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 
 .nutrition-table {
