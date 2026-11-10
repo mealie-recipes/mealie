@@ -476,6 +476,13 @@ const {
   hasSearchResults,
 } = shoppingListPage;
 
+// Once per streak of failures: the items stay queued and look saved, so this is the only sign they aren't
+watch(shoppingListPage.hasFailedWrites, (failed) => {
+  if (failed) {
+    alert.error(i18n.t("shopping-list.changes-not-saved"));
+  }
+});
+
 // Expand the checked section while searching, so an item that has already been
 // checked off can be found and unchecked without expanding the section by hand.
 const checkedPanel = ref<number | undefined>(undefined);
