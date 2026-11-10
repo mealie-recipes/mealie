@@ -7,7 +7,7 @@
         <p class="text-subtitle-2 my-0 py-0">
           {{ $t("household.private-household-description") }}
         </p>
-        <DocLink class="mt-2" link="/documentation/getting-started/faq/#how-do-private-groups-and-recipes-work" />
+        <DocLink class="mt-2" link="/documentation/getting-started/faq/#how-do-private-groups-households-and-recipes-work" />
       </div>
     </div>
     <div class="mb-6">
