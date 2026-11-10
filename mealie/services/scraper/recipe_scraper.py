@@ -61,6 +61,7 @@ class RecipeScraper:
         """
 
         resolved_url: str | None = None
+        can_escalate = False
         if not html:
             if on_progress:
                 await on_progress(self.translator.t("recipe.create-progress.fetching-webpage"))
@@ -70,53 +71,52 @@ class RecipeScraper:
                 return None, None
             html = fetched.text
             resolved_url = fetched.url
+            can_escalate = not fetched.via_flaresolverr
 
-            result = await self._scrape_with_strategies(
-                url,
-                html,
-                resolved_url,
-                on_progress=on_progress,
-                include_tags=include_tags,
-                include_categories=include_categories,
-            )
-            if result[0] is not None or fetched.via_flaresolverr:
-                return result
-
-            # The direct fetch returned a page no strategy could extract a recipe from.
-            # That is typically a JavaScript bot wall served with a 200 status, which the
-            # fetch-level challenge detection cannot recognize. FlareSolverr drives a real
-            # browser, so escalate to it as a last resort and try once more.
-            solved = await fetch_via_flaresolverr(url)
-            if solved is None or not solved.text or solved.text == html:
-                return result
+        async def run(
+            strategies: list[type[ABCScraperStrategy]], page_html: str, page_url: str | None
+        ) -> tuple[RecipeDraft, ScrapedExtras] | tuple[None, None]:
             return await self._scrape_with_strategies(
+                strategies,
                 url,
-                solved.text,
-                solved.url,
+                page_html,
+                page_url,
                 on_progress=on_progress,
                 include_tags=include_tags,
                 include_categories=include_categories,
             )
 
-        return await self._scrape_with_strategies(
-            url,
-            html,
-            resolved_url,
-            on_progress=on_progress,
-            include_tags=include_tags,
-            include_categories=include_categories,
-        )
+        primary = [scraper for scraper in self.scrapers if not scraper.is_fallback]
+        fallbacks = [scraper for scraper in self.scrapers if scraper.is_fallback]
+
+        result = await run(primary, html, resolved_url)
+        if result[0] is not None:
+            return result
+
+        # A page with no recipe is often a JavaScript bot wall served with a 200 status, which the
+        # fetch-level challenge detection cannot recognize. FlareSolverr drives a real browser, so
+        # retry through it before the fallback strategies accept the bot wall as a recipe.
+        if can_escalate:
+            solved = await fetch_via_flaresolverr(url)
+            if solved is not None and solved.text and solved.text != html:
+                html, resolved_url = solved.text, solved.url
+                result = await run(primary, html, resolved_url)
+                if result[0] is not None:
+                    return result
+
+        return await run(fallbacks, html, resolved_url)
 
     async def _scrape_with_strategies(
         self,
+        strategies: list[type[ABCScraperStrategy]],
         url: str,
         html: str,
         resolved_url: str | None,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
         include_tags: bool = False,
         include_categories: bool = False,
-    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
-        for ScraperClass in self.scrapers:
+    ) -> tuple[RecipeDraft, ScrapedExtras] | tuple[None, None]:
+        for ScraperClass in strategies:
             scraper = ScraperClass(
                 url,
                 self.translator,
