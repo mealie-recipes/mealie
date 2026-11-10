@@ -48,6 +48,7 @@
         :key="ingredient.referenceId"
         v-model="recipe.recipeIngredient[index]"
         :is-recipe="ingredientIsRecipe(ingredient)"
+        :autofocus="ingredient.referenceId === autofocusIngredientId"
         enable-drag-handle
         enable-context-menu
         @delete="recipe.recipeIngredient.splice(index, 1)"
@@ -132,6 +133,8 @@ const recipe = defineModel<RecipeOut>({ required: true });
 const ingredientsWithRecipe = new Map<string, boolean>();
 
 const drag = ref(false);
+// a row added one at a time takes focus so the user can type straight into it
+const autofocusIngredientId = ref<string | null>(null);
 const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
 const { toggleIsParsing } = usePageState(recipe.value.slug);
 
@@ -183,8 +186,10 @@ function addIngredient(ingredients: Array<string> | null = null) {
     }
   }
   else {
+    const referenceId = uuid4();
+    autofocusIngredientId.value = referenceId;
     recipe.value.recipeIngredient.push({
-      referenceId: uuid4(),
+      referenceId,
       title: "",
       note: "",
       unit: undefined,
@@ -215,6 +220,7 @@ function addRecipe(recipes: Array<string> | null = null) {
     }
   }
   else {
+    autofocusIngredientId.value = refId;
     recipe.value.recipeIngredient.push({
       referenceId: refId,
       title: "",
@@ -227,8 +233,10 @@ function addRecipe(recipes: Array<string> | null = null) {
 }
 
 function insertNewIngredient(dest: number) {
+  const referenceId = uuid4();
+  autofocusIngredientId.value = referenceId;
   recipe.value.recipeIngredient.splice(dest, 0, {
-    referenceId: uuid4(),
+    referenceId,
     title: "",
     note: "",
     unit: undefined,
