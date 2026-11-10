@@ -73,5 +73,5 @@ class RecipeToolController(BaseUserController):
         return self.mixins.delete_one(item_id)  # type: ignore
 
     @router.get("/slug/{tool_slug}", response_model=ToolWithRecipes)
-    async def get_one_by_slug(self, tool_slug: str):
+    def get_one_by_slug(self, tool_slug: str):
         return self.repo.get_one(tool_slug, "slug", override_schema=ToolWithRecipes)
