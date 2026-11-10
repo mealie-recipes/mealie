@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, ForeignKey, Integer, String, UniqueConstraint, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -25,9 +25,9 @@ class CookBook(SqlAlchemyBase, BaseMixins):
     position: FilterableColumn[int] = mapped_column(Integer, nullable=False, default=1)
 
     group_id: FilterableColumn[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"), index=True)
-    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="cookbooks")
+    group: Mapped[Group | None] = orm.relationship("Group", back_populates="cookbooks")
     household_id: FilterableColumn[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("households.id"), index=True)
-    household: Mapped[Optional["Household"]] = orm.relationship("Household", back_populates="cookbooks")
+    household: Mapped[Household | None] = orm.relationship("Household", back_populates="cookbooks")
 
     name: FilterableColumn[str] = mapped_column(String, nullable=False)
     slug: FilterableColumn[str] = mapped_column(String, nullable=False, index=True)

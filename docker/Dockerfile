@@ -1,14 +1,20 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:6dac556d980b7f0e5498d08f08cee0ca67798b4ad6c23964a9214920e67758d0 \
+FROM node:26@sha256:438603bbb5cda404b9416f0b5c8026f61501ab911760d861ec28c36b5d675725 \
     AS frontend-builder
 
-RUN npm install --global pnpm@11
+# renovate: datasource=npm depName=pnpm
+RUN npm install --global pnpm@12.18.0
 
 WORKDIR /frontend
 
 COPY frontend .
+
+# The lang files import the seeded ingredient unit names, which live with the backend rather
+# than in frontend/. Copy them to the same path they occupy in the repo, so the relative import
+# in app/lang/locales/*.ts resolves identically here and in local dev.
+COPY mealie/repos/seed/resources/units/locales /mealie/repos/seed/resources/units/locales
 
 RUN pnpm clean-install
 
@@ -17,7 +23,7 @@ RUN pnpm generate
 ###############################################
 # Base Image - Python
 ###############################################
-FROM python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9 \
+FROM python:3.14-slim@sha256:a2b82f3c48559aa0a8446d9af49826b6e2b2016f4cd2afabfe6013ec53729170 \
     AS python-base
 
 ENV MEALIE_HOME="/app"
@@ -46,7 +52,8 @@ RUN apt-get update \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install uv
+# renovate: datasource=pypi depName=uv
+RUN pip install uv==0.13.7
 
 # Install from the committed lockfile; never re-resolve. The rolling
 # `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise make
@@ -65,10 +72,11 @@ COPY --from=frontend-builder /frontend/dist ./mealie/frontend
 # Build the source and binary package
 RUN uv build --out-dir dist
 
-# Create the requirements file, which is used to install the built package and
-# its pinned dependencies later. mealie is included to ensure the built one is
-# what's installed.
-RUN uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/requirements.txt \
+# dependencies.txt changes only when uv.lock does, so the venv build can cache
+# the install. requirements.txt adds the wheel that was just built, so an
+# install from it gets that exact one.
+RUN uv export --no-dev --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt \
+    && cp dist/dependencies.txt dist/requirements.txt \
     && MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])") \
     && echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt \
     && pip hash dist/mealie-${MEALIE_VERSION}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt \
@@ -77,7 +85,7 @@ RUN uv export --no-editable --no-emit-project --extra pgsql --format requirement
 
 ###############################################
 # Package Container
-# Only role is to hold the packages, or be overriden by a --build-context flag.
+# Only role is to hold the packages, or be overridden by a --build-context flag.
 ###############################################
 FROM scratch AS packages
 COPY --from=backend-builder /mealie/dist /
@@ -102,10 +110,15 @@ RUN python3 -m venv --upgrade-deps $VENV_PATH
 # Install the wheel and all dependencies into the venv
 FROM venv-builder-base AS venv-builder
 
+# Cache key is dependencies.txt, so a mealie-only commit reuses this layer.
+COPY --from=packages dependencies.txt /dist/dependencies.txt
+RUN . $VENV_PATH/bin/activate \
+    && pip install --require-hashes -r /dist/dependencies.txt
+
 # Copy built package (wheel) and its dependency requirements
 COPY --from=packages * /dist/
 
-# Install the wheel with exact versions of dependencies into the venv
+# The dependencies are already in place, so pip only installs mealie itself.
 RUN . $VENV_PATH/bin/activate \
     && pip install --require-hashes -r /dist/requirements.txt --find-links /dist
 

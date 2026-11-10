@@ -1,5 +1,4 @@
 import random
-import time
 from collections import defaultdict
 from datetime import UTC, datetime, timedelta
 from random import randint
@@ -7,12 +6,14 @@ from unittest.mock import patch
 from urllib.parse import parse_qsl, urlsplit
 
 import pytest
+import sqlalchemy as sa
 from dateutil.relativedelta import relativedelta
 from fastapi.testclient import TestClient
 from freezegun import freeze_time
 from humps import camelize
 from pydantic import UUID4
 
+from mealie.db.models.recipe.ingredient import IngredientUnitModel
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.household.group_shopping_list import (
@@ -22,15 +23,14 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListSave,
 )
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
-from mealie.schema.meal_plan.new_meal import CreatePlanEntry
-from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from mealie.schema.meal_plan.new_meal import PlanEntryCreate
+from mealie.schema.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import (
-    IngredientUnit,
-    SaveIngredientFood,
-    SaveIngredientUnit,
+    IngredientFoodSave,
+    IngredientUnitOut,
+    IngredientUnitSave,
 )
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.schema.response.pagination import (
     OrderByNullPosition,
     OrderDirection,
@@ -141,7 +141,7 @@ def test_pagination_total_calculation(unique_user: TestUser):
         db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(2)
     )
     recipe_1, recipe_2 = (
-        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        db.recipes.create(RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
         for _ in range(2)
     )
     recipe_1.recipe_category = [unique_category_1]
@@ -206,26 +206,33 @@ def test_pagination_guides(unique_user: TestUser):
 @pytest.fixture(scope="function")
 def query_units(unique_user: TestUser):
     database = unique_user.repos
-    unit_1 = database.ingredient_units.create(
-        SaveIngredientUnit(name="test unit 1", group_id=unique_user.group_id, use_abbreviation=True)
-    )
+    units_repo = database.ingredient_units
 
-    # wait a moment so we can test datetime filters
-    time.sleep(0.25)
+    created = [
+        units_repo.create(IngredientUnitSave(name="test unit 1", group_id=unique_user.group_id, use_abbreviation=True)),
+        units_repo.create(
+            IngredientUnitSave(name="test unit 2", group_id=unique_user.group_id, use_abbreviation=False)
+        ),
+        units_repo.create(
+            IngredientUnitSave(name="test unit 3", group_id=unique_user.group_id, use_abbreviation=False)
+        ),
+    ]
 
-    unit_2 = database.ingredient_units.create(
-        SaveIngredientUnit(name="test unit 2", group_id=unique_user.group_id, use_abbreviation=False)
-    )
+    # the datetime filter tests query the whole group, so these rows need a known order and
+    # must stay newer than every other unit in it
+    now = datetime.now(UTC).replace(tzinfo=None)
+    for position, unit in enumerate(created):
+        units_repo.session.execute(
+            sa.update(IngredientUnitModel)
+            .where(IngredientUnitModel.id == unit.id)
+            .values(created_at=now - timedelta(milliseconds=250 * (len(created) - 1 - position)))
+        )
+    units_repo.session.commit()
 
-    # wait a moment so we can test datetime filters
-    time.sleep(0.25)
-
-    unit_3 = database.ingredient_units.create(
-        SaveIngredientUnit(name="test unit 3", group_id=unique_user.group_id, use_abbreviation=False)
-    )
+    unit_1, unit_2, unit_3 = (units_repo.get_one(unit.id) for unit in created)
+    assert unit_1 and unit_2 and unit_3
 
     unit_ids = [unit.id for unit in [unit_1, unit_2, unit_3]]
-    units_repo = database.ingredient_units
 
     yield units_repo, unit_1, unit_2, unit_3
 
@@ -233,7 +240,9 @@ def query_units(unique_user: TestUser):
         units_repo.delete(unit_id)
 
 
-def test_pagination_filter_basic(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_basic(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo = query_units[0]
     unit_2 = query_units[2]
 
@@ -244,7 +253,7 @@ def test_pagination_filter_basic(query_units: tuple[RepositoryUnit, IngredientUn
 
 
 def test_pagination_filter_string_case_insensitive(
-    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
 ):
     units_repo, *units = query_units
     target_unit = random.choice(units)
@@ -255,7 +264,7 @@ def test_pagination_filter_string_case_insensitive(
     assert unit_results[0].id == target_unit.id
 
     upper_unit = units_repo.create(
-        SaveIngredientUnit(name="mIxEd-CaSe uNiT", group_id=units_repo.group_id, use_abbreviation=True)
+        IngredientUnitSave(name="mIxEd-CaSe uNiT", group_id=units_repo.group_id, use_abbreviation=True)
     )
     try:
         query = PaginationQuery(page=1, per_page=-1, query_filter=f'name="{upper_unit.name.lower()}"')
@@ -269,66 +278,68 @@ def test_pagination_filter_string_case_insensitive(
 def test_pagination_filter_null(unique_user_fn_scoped: TestUser):
     database = unique_user_fn_scoped.repos
     recipe_not_made_1 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user_fn_scoped.user_id,
             group_id=unique_user_fn_scoped.group_id,
             name=random_string(),
         )
     )
     recipe_not_made_2 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user_fn_scoped.user_id,
             group_id=unique_user_fn_scoped.group_id,
             name=random_string(),
         )
     )
 
-    # give one recipe a last made date
-    recipe_made = database.recipes.create(
-        Recipe(
+    # give one recipe a non-null URL
+    recipe_with_url = database.recipes.create(
+        RecipeDraft(
             user_id=unique_user_fn_scoped.user_id,
             group_id=unique_user_fn_scoped.group_id,
             name=random_string(),
-            last_made=datetime.now(UTC),
+            org_url="https://example.com",
         )
     )
 
     recipe_repo = database.recipes
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NONE")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NONE")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 2
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id in result_ids
     assert recipe_not_made_2.id in result_ids
-    assert recipe_made.id not in result_ids
+    assert recipe_with_url.id not in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NULL")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NULL")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 2
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id in result_ids
     assert recipe_not_made_2.id in result_ids
-    assert recipe_made.id not in result_ids
+    assert recipe_with_url.id not in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NOT NONE")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NOT NONE")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 1
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id not in result_ids
     assert recipe_not_made_2.id not in result_ids
-    assert recipe_made.id in result_ids
+    assert recipe_with_url.id in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NOT NULL")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NOT NULL")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 1
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id not in result_ids
     assert recipe_not_made_2.id not in result_ids
-    assert recipe_made.id in result_ids
+    assert recipe_with_url.id in result_ids
 
 
-def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_in(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"name IN [{unit_1.name}, {unit_2.name}]")
@@ -348,7 +359,9 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     assert unit_3.id in result_ids
 
 
-def test_pagination_filter_not_in(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_not_in(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"name NOT IN [{unit_1.name}, {unit_2.name}]")
@@ -366,7 +379,7 @@ def test_pagination_filter_in_m2m(unique_user: TestUser):
         db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
     )
     recipe_1, recipe_2 = (
-        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        db.recipes.create(RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
         for _ in range(2)
     )
 
@@ -387,7 +400,7 @@ def test_pagination_filter_not_in_m2m(unique_user: TestUser):
         db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
     )
     recipe_1, recipe_2 = (
-        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        db.recipes.create(RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
         for _ in range(2)
     )
 
@@ -410,7 +423,7 @@ def test_pagination_filter_not_in_includes_null(unique_user: TestUser):
         db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
     )
     recipe_1, recipe_2, recipe_3 = (
-        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        db.recipes.create(RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
         for _ in range(3)
     )
 
@@ -443,7 +456,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     # Bootstrap the database with recipes
     slug = random_string()
     recipe_0 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -454,7 +467,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
 
     slug = random_string()
     recipe_1 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -465,7 +478,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
 
     slug = random_string()
     recipe_2 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -476,7 +489,7 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
 
     slug = random_string()
     recipe_1_2 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -530,7 +543,9 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     assert recipe_1_2.id in recipe_ids
 
 
-def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_like(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     query = PaginationQuery(page=1, per_page=-1, query_filter=r'name LIKE "test u_it%"')
@@ -562,7 +577,7 @@ def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUni
 
 
 def test_pagination_filter_like_case_insensitive(
-    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
 ):
     units_repo, unit_1, *_ = query_units
 
@@ -576,7 +591,7 @@ def test_pagination_filter_like_case_insensitive(
 def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):
     database = unique_user.repos
     recipe_rating_1 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -584,7 +599,7 @@ def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):
         )
     )
     recipe_rating_2 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -593,7 +608,7 @@ def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):
     )
 
     recipe_rating_3 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -634,7 +649,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
     # Bootstrap the database with recipes
     slug = random_string()
     recipe_category_0 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -644,7 +659,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
 
     slug = random_string()
     recipe_category_1 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -655,7 +670,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
 
     slug = random_string()
     recipe_category_2 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -675,7 +690,7 @@ def test_pagination_filter_logical_namespace_conflict(unique_user: TestUser):
 
 
 def test_pagination_filter_datetimes(
-    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
 ):
     # units are created in order with increasing createdAt values
     units_repo, unit_1, unit_2, unit_3 = query_units
@@ -786,11 +801,11 @@ def test_pagination_order_by_multiple(unique_user: TestUser, order_direction: Or
     while abbreviations == descriptions:
         random.shuffle(descriptions)
 
-    units_to_create: list[SaveIngredientUnit] = []
+    units_to_create: list[IngredientUnitSave] = []
     for abbreviation in abbreviations:
         for description in descriptions:
             units_to_create.append(
-                SaveIngredientUnit(
+                IngredientUnitSave(
                     group_id=unique_user.group_id,
                     name=random_string(),
                     abbreviation=abbreviation,
@@ -847,11 +862,11 @@ def test_pagination_order_by_multiple_directions(
     while abbreviations == descriptions:
         random.shuffle(descriptions)
 
-    units_to_create: list[SaveIngredientUnit] = []
+    units_to_create: list[IngredientUnitSave] = []
     for abbreviation in abbreviations:
         for description in descriptions:
             units_to_create.append(
-                SaveIngredientUnit(
+                IngredientUnitSave(
                     group_id=unique_user.group_id,
                     name=random_string(),
                     abbreviation=abbreviation,
@@ -896,7 +911,7 @@ def test_pagination_order_by_nested_model(unique_user: TestUser, order_direction
     random.shuffle(labels)
 
     sorted_foods = database.ingredient_foods.create_many(
-        [SaveIngredientFood(group_id=unique_user.group_id, name=random_string(), label_id=label.id) for label in labels]
+        [IngredientFoodSave(group_id=unique_user.group_id, name=random_string(), label_id=label.id) for label in labels]
     )
 
     sorted_foods.sort(key=lambda x: x.label.name, reverse=order_direction is OrderDirection.desc)  # type: ignore
@@ -921,10 +936,10 @@ def test_pagination_order_by_doesnt_filter(unique_user: TestUser):
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
     )
     food_with_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
     )
     food_without_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), group_id=unique_user.group_id)
     )
 
     query = database.ingredient_foods.page_all(
@@ -965,10 +980,10 @@ def test_pagination_order_by_nulls(
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
     )
     food_with_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), label_id=label.id, group_id=unique_user.group_id)
     )
     food_without_label = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), group_id=unique_user.group_id)
+        IngredientFoodSave(name=random_string(), group_id=unique_user.group_id)
     )
 
     query = database.ingredient_foods.page_all(
@@ -988,6 +1003,46 @@ def test_pagination_order_by_nulls(
     else:
         assert query.items[0] == food_with_label
         assert query.items[1] == food_without_label
+
+
+@pytest.mark.parametrize("order_direction", [OrderDirection.asc, OrderDirection.desc], ids=["asc", "desc"])
+def test_pagination_order_recipes_by_total_time_nulls_last(
+    api_client: TestClient, unique_user_fn_scoped: TestUser, order_direction: OrderDirection
+):
+    unique_user = unique_user_fn_scoped
+    times = [3600, None, 600, 5400, None, 1800]
+    recipes = [
+        unique_user.repos.recipes.create(
+            RecipeDraft(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                total_time_seconds=seconds,
+            )
+        )
+        for seconds in times
+    ]
+
+    params: dict[str, str | int] = {
+        "page": 1,
+        "perPage": -1,
+        "orderBy": "total_time_seconds",
+        "orderDirection": order_direction.value,
+        "orderByNullPosition": OrderByNullPosition.last.value,
+    }
+    response = api_client.get(api_routes.recipes, params=params, headers=unique_user.token)
+    assert response.status_code == 200
+    items = response.json()["items"]
+    assert len(items) == len(recipes)
+
+    with_time = sorted(
+        (r for r in recipes if r.total_time_seconds is not None),
+        key=lambda r: r.total_time_seconds or 0,
+        reverse=order_direction is OrderDirection.desc,
+    )
+    expected_ids = [str(r.id) for r in with_time]
+    assert [item["id"] for item in items[: len(with_time)]] == expected_ids
+    assert [item["totalTimeSeconds"] for item in items[len(with_time) :]] == [None, None]
 
 
 def test_pagination_shopping_list_items_with_labels(unique_user: TestUser):
@@ -1071,8 +1126,8 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     tomorrow = today + timedelta(days=1)
     day_after_tomorrow = today + timedelta(days=2)
 
-    mealplan_today = CreatePlanEntry(date=today, entry_type="breakfast", title=random_string(), text=random_string())
-    mealplan_tomorrow = CreatePlanEntry(
+    mealplan_today = PlanEntryCreate(date=today, entry_type="breakfast", title=random_string(), text=random_string())
+    mealplan_tomorrow = PlanEntryCreate(
         date=tomorrow,
         entry_type="breakfast",
         title=random_string(),
@@ -1191,7 +1246,9 @@ def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
     assert len(response_json["items"]) == 0
 
 
-def test_pagination_filter_booleans(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_booleans(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo = query_units[0]
     unit_1 = query_units[1]
 
@@ -1205,7 +1262,9 @@ def test_pagination_filter_booleans(query_units: tuple[RepositoryUnit, Ingredien
     assert unit_results[0].id == unit_1.id
 
 
-def test_pagination_filter_advanced(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+def test_pagination_filter_advanced(
+    query_units: tuple[RepositoryUnit, IngredientUnitOut, IngredientUnitOut, IngredientUnitOut],
+):
     units_repo, unit_1, unit_2, unit_3 = query_units
 
     dt = str(unit_3.created_at.isoformat())  # type: ignore
@@ -1244,15 +1303,15 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     tag_1, tag_2 = (database.tags.create(tag) for tag in tags)
 
     tools = [
-        RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
-        RecipeToolSave(group_id=unique_user.group_id, name=random_string(10)),
+        ToolSave(group_id=unique_user.group_id, name=random_string(10)),
+        ToolSave(group_id=unique_user.group_id, name=random_string(10)),
     ]
     tool_1, tool_2 = (database.tools.create(tool) for tool in tools)
 
     # Bootstrap the database with recipes
     slug = random_string()
     recipe_ct0_tg0_tl0 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1262,7 +1321,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
 
     slug = random_string()
     recipe_ct1_tg0_tl0 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1273,7 +1332,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
 
     slug = random_string()
     recipe_ct12_tg0_tl0 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1284,7 +1343,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
 
     slug = random_string()
     recipe_ct1_tg1_tl0 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1296,7 +1355,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
 
     slug = random_string()
     recipe_ct1_tg0_tl1 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1308,7 +1367,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
 
     slug = random_string()
     recipe_ct0_tg2_tl2 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1320,7 +1379,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
 
     slug = random_string()
     recipe_ct12_tg12_tl2 = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1478,7 +1537,7 @@ def test_pagination_filter_nested(api_client: TestClient, user_tuple: list[TestU
 def test_pagination_filter_by_custom_last_made(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     recipe_1, recipe_2 = (
         unique_user.repos.recipes.create(
-            Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
+            RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
         )
         for _ in range(2)
     )
@@ -1530,7 +1589,7 @@ def test_pagination_filter_by_custom_last_made(api_client: TestClient, unique_us
 def test_pagination_filter_by_custom_rating(api_client: TestClient, user_tuple: list[TestUser]):
     user_1, user_2 = user_tuple
     recipe_1, recipe_2 = (
-        user_1.repos.recipes.create(Recipe(user_id=user_1.user_id, group_id=user_1.group_id, name=random_string()))
+        user_1.repos.recipes.create(RecipeDraft(user_id=user_1.user_id, group_id=user_1.group_id, name=random_string()))
         for _ in range(2)
     )
 
@@ -1714,7 +1773,7 @@ def test_pagination_filter_multi_tag_page_is_not_short(unique_user: TestUser):
     for _ in range(5):
         slug = random_string()
         database.recipes.create(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=slug,
@@ -1744,7 +1803,7 @@ def test_pagination_filter_two_tag_conditions_anded(unique_user: TestUser):
 
     slug = random_string()
     both = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1755,7 +1814,7 @@ def test_pagination_filter_two_tag_conditions_anded(unique_user: TestUser):
 
     slug = random_string()
     database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=slug,
@@ -1819,7 +1878,7 @@ def test_pagination_filter_not_in_related_field(unique_user: TestUser):
         slug = random_string()
         recipes.append(
             database.recipes.create(
-                Recipe(
+                RecipeDraft(
                     user_id=unique_user.user_id,
                     group_id=unique_user.group_id,
                     name=slug,
@@ -1852,7 +1911,7 @@ def test_pagination_order_by_to_many_field_page_is_not_short(unique_user: TestUs
 
         slug = random_string()
         database.recipes.create(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=slug,
@@ -1892,7 +1951,7 @@ def test_pagination_order_by_to_many_field(unique_user: TestUser, order_directio
         slug = random_string()
         recipes.append(
             database.recipes.create(
-                Recipe(
+                RecipeDraft(
                     user_id=unique_user.user_id,
                     group_id=unique_user.group_id,
                     name=slug,

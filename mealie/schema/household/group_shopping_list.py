@@ -16,13 +16,13 @@ from mealie.db.models.household import (
 from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitutionModel, RecipeModel
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
-from mealie.schema._mealie.mealie_model import UpdatedAtField
+from mealie.schema._mealie.mealie_model import MealieOutModel, UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import (
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodOut,
+    IngredientUnitOut,
     RecipeIngredient,
     RecipeIngredientBase,
 )
@@ -51,7 +51,7 @@ class ShoppingListItemRecipeRefUpdate(ShoppingListItemRecipeRefCreate):
     shopping_list_item_id: UUID4
 
 
-class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRefUpdate):
+class ShoppingListItemRecipeRefOut(ShoppingListItemRecipeRefUpdate, MealieOutModel):
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -103,14 +103,14 @@ class ShoppingListItemUpdateBulk(ShoppingListItemUpdate):
     id: UUID4
 
 
-class ShoppingListItemOut(ShoppingListItemBase):
+class ShoppingListItemOut(ShoppingListItemBase, MealieOutModel):
     id: UUID4
     group_id: UUID4
     household_id: UUID4
 
-    food: IngredientFood | None = None
+    food: IngredientFoodOut | None = None
     label: MultiPurposeLabelSummary | None = None
-    unit: IngredientUnit | None = None
+    unit: IngredientUnitOut | None = None
 
     recipe_references: list[ShoppingListItemRecipeRefOut] = []
 
@@ -146,7 +146,7 @@ class ShoppingListItemOut(ShoppingListItemBase):
         ]
 
 
-class ShoppingListItemsCollectionOut(MealieModel):
+class ShoppingListItemsCollectionOut(MealieOutModel):
     """Container for bulk shopping list item changes"""
 
     created_items: list[ShoppingListItemOut] = []
@@ -164,7 +164,7 @@ class ShoppingListMultiPurposeLabelUpdate(ShoppingListMultiPurposeLabelCreate):
     id: UUID4
 
 
-class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate):
+class ShoppingListMultiPurposeLabelOut(ShoppingListMultiPurposeLabelUpdate, MealieOutModel):
     label: MultiPurposeLabelSummary
     model_config = ConfigDict(from_attributes=True)
 
@@ -192,7 +192,7 @@ class ShoppingListCreate(MealieModel):
         return {x.key_name: x.value for x in v} if v else {}
 
 
-class ShoppingListRecipeRefOut(MealieModel):
+class ShoppingListRecipeRefOut(MealieOutModel):
     id: UUID4
     shopping_list_id: UUID4
     recipe_id: UUID4
@@ -216,7 +216,7 @@ class ShoppingListSave(ShoppingListCreate):
     user_id: UUID4
 
 
-class ShoppingListSummary(ShoppingListSave):
+class ShoppingListSummary(ShoppingListSave, MealieOutModel):
     id: UUID4
     household_id: UUID4
     recipe_references: list[ShoppingListRecipeRefOut]
@@ -250,7 +250,7 @@ class ShoppingListUpdate(ShoppingListSave):
     list_items: list[ShoppingListItemOut] = []
 
 
-class ShoppingListOut(ShoppingListUpdate):
+class ShoppingListOut(ShoppingListUpdate, MealieOutModel):
     household_id: UUID4
     recipe_references: list[ShoppingListRecipeRefOut] = []
     label_settings: list[ShoppingListMultiPurposeLabelOut] = []

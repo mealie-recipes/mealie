@@ -4,7 +4,8 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
 from starlette.responses import FileResponse
 
-from mealie.schema.recipe import Recipe
+from mealie.routes._base.permissions import not_found
+from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 
 router = APIRouter(prefix="/recipes")
@@ -22,12 +23,12 @@ async def get_recipe_img(recipe_id: UUID4, file_name: ImageType = ImageType.orig
     Takes in a recipe id, returns the static image. This route is proxied in the docker image
     and should not hit the API in production
     """
-    recipe_image = Recipe.directory_from_id(recipe_id).joinpath("images", file_name.value)
+    recipe_image = RecipeOut.directory_from_id(recipe_id).joinpath("images", file_name.value)
 
     if recipe_image.exists():
         return FileResponse(recipe_image, media_type="image/webp")
     else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise not_found()
 
 
 @router.get("/{recipe_id}/images/timeline/{timeline_event_id}/{file_name}")
@@ -45,13 +46,13 @@ async def get_recipe_timeline_event_img(
     if timeline_event_image.exists():
         return FileResponse(timeline_event_image, media_type="image/webp")
     else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise not_found()
 
 
 @router.get("/{recipe_id}/assets/{file_name}")
 async def get_recipe_asset(recipe_id: UUID4, file_name: str):
     """Returns a recipe asset"""
-    asset_dir = Recipe.directory_from_id(recipe_id).joinpath("assets")
+    asset_dir = RecipeOut.directory_from_id(recipe_id).joinpath("assets")
     file = asset_dir.joinpath(file_name).resolve()
 
     if not file.is_relative_to(asset_dir.resolve()):
@@ -67,4 +68,4 @@ async def get_recipe_asset(recipe_id: UUID4, file_name: str):
             headers={"X-Content-Type-Options": "nosniff"},
         )
     else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise not_found()

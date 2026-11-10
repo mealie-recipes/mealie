@@ -13,20 +13,15 @@ jobs:
 
     steps:
       - name: Checkout 🛎
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ inputs.ref || github.sha }}
 
-      - uses: pnpm/action-setup@v6
+      - name: Set up tools
+        uses: ./.github/actions/setup-tools
         with:
-          version: 11
-
-      - name: Setup node env 🏗
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: "pnpm"
-          cache-dependency-path: "**/pnpm-lock.yaml"
+          tools: node pnpm
+          cache-pnpm-store: true
 
       - name: Install dependencies 👨🏻‍💻
         run: pnpm install --prefer-offline

@@ -1,15 +1,14 @@
 import contextlib
 import shutil
 import tempfile
-import zipfile
 from pathlib import Path
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import MigrationReaders, split_by_comma
+from .utils.migration_helpers import MigrationReaders, extract_zip, split_by_comma
 
 
 class MealieAlphaMigrator(BaseMigrator):
@@ -37,7 +36,7 @@ class MealieAlphaMigrator(BaseMigrator):
         else:
             return potential_path
 
-    def _convert_to_new_schema(self, recipe: dict) -> Recipe:
+    def _convert_to_new_schema(self, recipe: dict) -> RecipeDraft:
         if recipe.get("categories", False):
             recipe["recipeCategory"] = recipe.get("categories")
             del recipe["categories"]
@@ -60,17 +59,16 @@ class MealieAlphaMigrator(BaseMigrator):
         # Reset ID on migration
         recipe["id"] = None
 
-        return Recipe(**recipe)
+        return RecipeDraft(**recipe)
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            extract_zip(self.archive, tmpdir)
 
             temp_path = self.get_zip_base_path(Path(tmpdir))
             recipe_lookup: dict[str, Path] = {}
 
-            recipes: list[Recipe] = []
+            recipes: list[RecipeDraft] = []
             for recipe_json_path in temp_path.rglob("**/recipes/**/[!.]*.json"):
                 try:
                     if (recipe_as_dict := MigrationReaders.json(recipe_json_path)) is not None:
@@ -91,10 +89,10 @@ class MealieAlphaMigrator(BaseMigrator):
 
             results = self.import_recipes_to_database(recipes)
             for slug, recipe_id, status in results:
-                if not status:
+                if not status or not recipe_id:
                     continue
 
-                dest_dir = Recipe.directory_from_id(recipe_id)
+                dest_dir = RecipeOut.directory_from_id(recipe_id)
                 source_dir = recipe_lookup.get(slug)
 
                 if dest_dir.exists():

@@ -9,6 +9,7 @@ from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
 from mealie.pkgs.stats.fs_stats import pretty_size
 from mealie.routes._base import BaseAdminController, controller
+from mealie.routes._base.permissions import not_found
 from mealie.schema.admin.backup import AllBackups, BackupFile
 from mealie.schema.response.responses import ErrorResponse, FileTokenResponse, SuccessResponse
 
@@ -60,7 +61,7 @@ class AdminBackupController(BaseAdminController):
         file = self._backup_path(file_name)
 
         if not file.exists():
-            raise HTTPException(status.HTTP_404_NOT_FOUND)
+            raise not_found()
 
         return FileTokenResponse.respond(create_file_token(file))
 

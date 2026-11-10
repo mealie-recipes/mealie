@@ -15,12 +15,21 @@ export function getDayOfWeek(date: Date): PlanRulesDay {
   return DAYS_OF_WEEK[date.getDay()] ?? "unset";
 }
 
+/**
+ * The rules that apply to a meal plan entry: rules for its weekday, plus rules that apply to all days.
+ *
+ * Entries with an `endDate` span a date range (e.g. a week) rather than falling on a specific weekday,
+ * so they're looked up as day "unset", which only matches rules that apply to all days. Applying every
+ * weekday's rule to them would combine unrelated rules into one overly strict filter.
+ * This mirrors the server's rule lookup.
+ */
 export function getApplicableRules(
   rules: PlanRulesOut[],
   date: Date,
   entryType: PlanEntryType,
+  endDate: Date | null = null,
 ): PlanRulesOut[] {
-  const day = getDayOfWeek(date);
+  const day: PlanRulesDay = endDate ? "unset" : getDayOfWeek(date);
 
   return rules.filter((rule) => {
     const dayMatches = !rule.day || rule.day === "unset" || rule.day === day;
@@ -33,8 +42,9 @@ export function buildRuleQueryFilter(
   rules: PlanRulesOut[],
   date: Date,
   entryType: PlanEntryType,
+  endDate: Date | null = null,
 ): string | null {
-  const queryFilters = getApplicableRules(rules, date, entryType)
+  const queryFilters = getApplicableRules(rules, date, entryType, endDate)
     .map(rule => rule.queryFilterString)
     .filter(queryFilterString => !!queryFilterString)
     .map(queryFilterString => `(${queryFilterString})`);

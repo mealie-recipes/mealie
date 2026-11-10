@@ -1,4 +1,6 @@
+import io
 import json
+import wave
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 from uuid import uuid4
@@ -7,10 +9,9 @@ import httpx
 import openai
 import pytest
 
-import mealie.services.openai.openai as openai_module
-from mealie.schema.group.ai_providers import AIProviderOut
+from mealie.schema.group.ai_providers import AIPromptMode, AIPromptOverrideOut, AIProviderOut
 from mealie.schema.openai._base import OpenAIBase
-from mealie.services.openai.openai import OpenAIService
+from mealie.services.openai.openai import GLOBAL_PROMPT_NAME, OpenAIDataInjection, OpenAIService
 
 
 def _make_mock_repos() -> MagicMock:
@@ -27,52 +28,18 @@ def _make_mock_repos() -> MagicMock:
     return repos
 
 
-class _SettingsStub:
-    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
-
-
 @pytest.fixture()
 def settings_stub(tmp_path, monkeypatch):
-    s = _SettingsStub()
-
     prompts_dir = tmp_path / "prompts"
     (prompts_dir / "recipes").mkdir(parents=True)
     default_prompt = prompts_dir / "recipes" / "parse-recipe-ingredients.txt"
     default_prompt.write_text("DEFAULT PROMPT")
 
     monkeypatch.setattr(OpenAIService, "PROMPTS_DIR", prompts_dir)
-
-    def _fake_get_app_settings():
-        return s
-
-    monkeypatch.setattr(openai_module, "get_app_settings", _fake_get_app_settings)
-    return s
+    return prompts_dir
 
 
 def test_get_prompt_default_only(settings_stub):
-    svc = OpenAIService(_make_mock_repos())
-    out = svc.get_prompt("recipes.parse-recipe-ingredients")
-    assert out == "DEFAULT PROMPT"
-
-
-def test_get_prompt_custom_dir_used(settings_stub, tmp_path):
-    custom_dir = tmp_path / "custom"
-    (custom_dir / "recipes").mkdir(parents=True)
-    (custom_dir / "recipes" / "parse-recipe-ingredients.txt").write_text("CUSTOM PROMPT")
-
-    settings_stub.OPENAI_CUSTOM_PROMPT_DIR = str(custom_dir)
-
-    svc = OpenAIService(_make_mock_repos())
-    out = svc.get_prompt("recipes.parse-recipe-ingredients")
-    assert out == "CUSTOM PROMPT"
-
-
-def test_get_prompt_custom_empty_falls_back_to_default(settings_stub, tmp_path):
-    custom_dir = tmp_path / "custom"
-    (custom_dir / "recipes").mkdir(parents=True)
-    (custom_dir / "recipes" / "parse-recipe-ingredients.txt").write_text("")
-
-    settings_stub.OPENAI_CUSTOM_PROMPT_DIR = str(custom_dir)
     svc = OpenAIService(_make_mock_repos())
     out = svc.get_prompt("recipes.parse-recipe-ingredients")
     assert out == "DEFAULT PROMPT"
@@ -88,6 +55,104 @@ def test_get_prompt_raises_when_no_files(settings_stub, monkeypatch):
     with pytest.raises(OSError) as ei:
         svc.get_prompt("recipes.parse-recipe-ingredients")
     assert "Unable to load prompt" in str(ei.value)
+
+
+def _make_override(name: str, mode: AIPromptMode, content: str) -> AIPromptOverrideOut:
+    return AIPromptOverrideOut(id=uuid4(), name=name, mode=mode, content=content)
+
+
+def _make_repos_with_overrides(*overrides: AIPromptOverrideOut) -> MagicMock:
+    repos = _make_mock_repos()
+    repos.group_ai_prompt_overrides.get_all.return_value = list(overrides)
+    return repos
+
+
+def test_get_prompt_append_adds_instructions_after_default(settings_stub):
+    repos = _make_repos_with_overrides(
+        _make_override("recipes.parse-recipe-ingredients", AIPromptMode.append, "EXTRA"),
+    )
+    out = OpenAIService(repos).get_prompt("recipes.parse-recipe-ingredients")
+
+    assert out.startswith("DEFAULT PROMPT\n")
+    assert out.endswith("\nEXTRA")
+    assert "take priority" in out
+
+
+def test_get_prompt_override_replaces_default(settings_stub):
+    repos = _make_repos_with_overrides(
+        _make_override("recipes.parse-recipe-ingredients", AIPromptMode.override, "OVERRIDE"),
+    )
+    out = OpenAIService(repos).get_prompt("recipes.parse-recipe-ingredients")
+    assert out == "OVERRIDE"
+
+
+def test_get_prompt_ignores_other_prompts_overrides(settings_stub):
+    repos = _make_repos_with_overrides(
+        _make_override("recipes.build-recipe", AIPromptMode.override, "OVERRIDE"),
+    )
+    out = OpenAIService(repos).get_prompt("recipes.parse-recipe-ingredients")
+    assert out == "DEFAULT PROMPT"
+
+
+def test_get_prompt_global_instructions_come_before_prompt_instructions(settings_stub):
+    repos = _make_repos_with_overrides(
+        _make_override("recipes.parse-recipe-ingredients", AIPromptMode.append, "PROMPT EXTRA"),
+        _make_override(GLOBAL_PROMPT_NAME, AIPromptMode.append, "GLOBAL EXTRA"),
+    )
+    out = OpenAIService(repos).get_prompt("recipes.parse-recipe-ingredients")
+
+    assert out.startswith("DEFAULT PROMPT\n")
+    assert out.endswith("GLOBAL EXTRA\n\nPROMPT EXTRA")
+
+
+def test_get_prompt_global_instructions_apply_to_overridden_prompt(settings_stub):
+    repos = _make_repos_with_overrides(
+        _make_override("recipes.parse-recipe-ingredients", AIPromptMode.override, "OVERRIDE"),
+        _make_override(GLOBAL_PROMPT_NAME, AIPromptMode.append, "GLOBAL EXTRA"),
+    )
+    out = OpenAIService(repos).get_prompt("recipes.parse-recipe-ingredients")
+
+    assert out.startswith("OVERRIDE\n")
+    assert out.endswith("\nGLOBAL EXTRA")
+    assert "DEFAULT PROMPT" not in out
+
+
+def test_get_prompt_data_injections_come_after_instructions(settings_stub):
+    repos = _make_repos_with_overrides(
+        _make_override("recipes.parse-recipe-ingredients", AIPromptMode.override, "OVERRIDE"),
+        _make_override(GLOBAL_PROMPT_NAME, AIPromptMode.append, "GLOBAL EXTRA"),
+    )
+    out = OpenAIService(repos).get_prompt(
+        "recipes.parse-recipe-ingredients",
+        data_injections=[OpenAIDataInjection(description="Units", value="cup")],
+    )
+
+    assert out.index("OVERRIDE") < out.index("GLOBAL EXTRA") < out.index("Units") < out.index("cup")
+
+
+def test_get_prompt_system_prompt_skips_global_instructions(settings_stub):
+    (OpenAIService.PROMPTS_DIR / "system").mkdir()
+    (OpenAIService.PROMPTS_DIR / "system" / "compile-source.txt").write_text("SYSTEM PROMPT")
+    repos = _make_repos_with_overrides(
+        _make_override("system.compile-source", AIPromptMode.append, "PROMPT EXTRA"),
+        _make_override(GLOBAL_PROMPT_NAME, AIPromptMode.append, "GLOBAL EXTRA"),
+    )
+    out = OpenAIService(repos).get_prompt("system.compile-source")
+
+    assert out.startswith("SYSTEM PROMPT\n")
+    assert out.endswith("\nPROMPT EXTRA")
+    assert "GLOBAL EXTRA" not in out
+
+
+def test_get_prompt_without_group_skips_overrides(settings_stub):
+    repos = _make_repos_with_overrides(
+        _make_override(GLOBAL_PROMPT_NAME, AIPromptMode.append, "GLOBAL EXTRA"),
+    )
+    repos.group_id = None
+    out = OpenAIService(repos).get_prompt("recipes.parse-recipe-ingredients")
+
+    assert out == "DEFAULT PROMPT"
+    repos.group_ai_prompt_overrides.get_all.assert_not_called()
 
 
 def _make_test_provider() -> AIProviderOut:
@@ -129,9 +194,7 @@ def _patch_ping(monkeypatch, *, text_response="Hello!", image_response: str | No
 
 
 @pytest.mark.asyncio
-async def test_ping_builds_debug_prompt_and_delegates_to_get_response(settings_stub, monkeypatch):
-    monkeypatch.setattr(OpenAIService, "get_prompt", lambda self, name: f"PROMPT:{name}")
-
+async def test_ping_uses_debug_prompt_and_delegates_to_get_response(settings_stub, monkeypatch):
     captured = {}
 
     async def _fake_get_response(self, prompt, message, *, response_schema, attachments=None, provider=None):
@@ -146,7 +209,7 @@ async def test_ping_builds_debug_prompt_and_delegates_to_get_response(settings_s
 
     assert result.text == "ok"
     assert captured == {
-        "prompt": "PROMPT:general.debug",
+        "prompt": (OpenAIService.TESTING_DIR / "debug.txt").read_text(),
         "message": "hello there",
         "attachments": ["fake-image"],
         "provider": provider,
@@ -349,6 +412,21 @@ async def test_get_response_strips_markdown_fence_from_strict_response(settings_
 
 
 @pytest.mark.asyncio
+async def test_get_response_ignores_unknown_service_tier(settings_stub):
+    # Groq returns "on_demand", which isn't one of the OpenAI SDK's service tiers
+    body = json.loads(_make_body('{"answer": "hi"}'))
+    body["service_tier"] = "on_demand"
+    svc = OpenAIService(_make_mock_repos())
+    completions = _FakeCompletions(parse_result=json.dumps(body))
+    svc.get_client = MagicMock(return_value=_FakeClient(completions))
+
+    result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+    assert result is not None
+    assert result.answer == "hi"
+
+
+@pytest.mark.asyncio
 async def test_get_response_returns_none_when_no_choices(settings_stub):
     svc = OpenAIService(_make_mock_repos())
     completions = _FakeCompletions(parse_result=_make_body(None))
@@ -387,3 +465,106 @@ async def test_get_response_raises_on_content_filter_finish_reason(settings_stub
 
     with pytest.raises(Exception, match="content filter"):
         await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+
+class _FakeTranscriptions:
+    def __init__(self, error: Exception | None = None):
+        self.error = error
+        self.calls: list[dict] = []
+
+    async def create(self, **kwargs):
+        self.calls.append(kwargs)
+        if self.error:
+            raise self.error
+        return SimpleNamespace(text="")
+
+
+def _patch_transcription(monkeypatch, *, error: Exception | None = None) -> _FakeTranscriptions:
+    """Stubs get_client() so the transcription leg of test_connection never reaches a real provider."""
+    transcriptions = _FakeTranscriptions(error)
+    client = SimpleNamespace(audio=SimpleNamespace(transcriptions=transcriptions))
+    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: client)
+    return transcriptions
+
+
+def _make_audio_only_service(provider: AIProviderOut) -> OpenAIService:
+    repos = _make_mock_repos()
+    repos.group_ai_provider_settings.get_one.return_value.audio_provider_id = provider.id
+    return OpenAIService(repos)
+
+
+@pytest.mark.asyncio
+async def test_connection_audio_only_provider_passes_on_transcription(settings_stub, monkeypatch):
+    # A transcription-only model can't answer the chat ping, so an audio-only provider is tested by
+    # transcribing a moment of silence first (#8577). The chat ping is set up to fail, so a success
+    # here can only come from the transcription.
+    transcriptions = _patch_transcription(monkeypatch)
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    result = await _make_audio_only_service(provider).test_connection(provider)
+
+    assert result.success is True
+    assert result.supports_images is None
+    assert len(transcriptions.calls) == 1
+    assert transcriptions.calls[0]["model"] == provider.model
+    filename, audio, content_type = transcriptions.calls[0]["file"]
+    assert (filename, content_type) == ("connection-test.wav", "audio/wav")
+    with wave.open(io.BytesIO(audio)) as wav:
+        assert wav.getnframes() > 0
+
+
+@pytest.mark.asyncio
+async def test_connection_audio_only_provider_falls_back_to_chat(settings_stub, monkeypatch):
+    # Some audio providers are chat models that take audio input, and an import falls back to chat
+    # for them. The test does the same, so they still pass.
+    transcriptions = _patch_transcription(monkeypatch, error=RuntimeError("no transcription endpoint"))
+    _patch_ping(monkeypatch, image_response="Tomato & Egg Stir-Fry")
+
+    provider = _make_test_provider()
+    result = await _make_audio_only_service(provider).test_connection(provider)
+
+    assert result.success is True
+    assert len(transcriptions.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_connection_audio_only_provider_fails_when_neither_works(settings_stub, monkeypatch):
+    _patch_transcription(monkeypatch, error=RuntimeError("bad key"))
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    result = await _make_audio_only_service(provider).test_connection(provider)
+
+    assert result.success is False
+
+
+@pytest.mark.parametrize("other_role", ["default_provider_id", "image_provider_id"])
+@pytest.mark.asyncio
+async def test_connection_skips_transcription_when_provider_has_other_roles(settings_stub, monkeypatch, other_role):
+    # A provider that also handles chat or images has to pass the chat test, otherwise that role could
+    # be broken while the test still reported success.
+    transcriptions = _patch_transcription(monkeypatch)
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    repos = _make_mock_repos()
+    settings = repos.group_ai_provider_settings.get_one.return_value
+    settings.audio_provider_id = provider.id
+    setattr(settings, other_role, provider.id)
+
+    result = await OpenAIService(repos).test_connection(provider)
+
+    assert result.success is False
+    assert transcriptions.calls == []
+
+
+@pytest.mark.asyncio
+async def test_connection_skips_transcription_for_non_audio_provider(settings_stub, monkeypatch):
+    transcriptions = _patch_transcription(monkeypatch)
+    _patch_ping(monkeypatch, image_response="Tomato & Egg Stir-Fry")
+
+    result = await OpenAIService(_make_mock_repos()).test_connection(_make_test_provider())
+
+    assert result.success is True
+    assert transcriptions.calls == []

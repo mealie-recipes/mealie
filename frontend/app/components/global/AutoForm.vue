@@ -50,6 +50,14 @@
                 <span class="ml-4">
                   {{ inputField.label }}
                 </span>
+                <v-tooltip v-if="inputField.tooltip" location="bottom">
+                  <template #activator="{ props: tooltipProps }">
+                    <v-icon v-bind="tooltipProps" size="small" class="ms-2">
+                      {{ $globals.icons.informationOutline }}
+                    </v-icon>
+                  </template>
+                  <span>{{ inputField.tooltip }}</span>
+                </v-tooltip>
               </template>
             </v-checkbox>
 

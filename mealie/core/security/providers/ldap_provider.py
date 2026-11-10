@@ -136,7 +136,7 @@ class LDAPProvider(CredentialsProvider):
 
         try:
             conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
-        except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        except ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT:
             self._logger.error("[LDAP] Unable to bind to with provided user/password")
             conn.unbind_s()
             return None
@@ -150,7 +150,7 @@ class LDAPProvider(CredentialsProvider):
         try:
             self._logger.debug(f"[LDAP] Attempting to bind with '{user_dn}' using the provided password")
             conn.simple_bind_s(user_dn, data.password)
-        except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        except ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT:
             self._logger.error("[LDAP] Bind failed")
             conn.unbind_s()
             return None
@@ -189,6 +189,8 @@ class LDAPProvider(CredentialsProvider):
 
         if settings.LDAP_ADMIN_FILTER:
             try:
+                # the connection is bound as the user at this point, who may not be allowed to search
+                conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
                 should_be_admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
             except (ldap.FILTER_ERROR, ldap.NO_SUCH_OBJECT) as e:
                 self._logger.warning(

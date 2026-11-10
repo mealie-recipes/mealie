@@ -2,7 +2,7 @@ from pydantic.alias_generators import to_camel
 
 from mealie.core.exceptions import SlugError
 from mealie.schema.openai.recipe import OpenAIRecipe
-from mealie.schema.recipe.recipe import Recipe, create_recipe_slug
+from mealie.schema.recipe.recipe import RecipeDraft, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_nutrition import Nutrition
@@ -47,7 +47,7 @@ def convert_nutrition(openai_recipe: OpenAIRecipe) -> Nutrition | None:
     return Nutrition(**cleaned) if cleaned else None
 
 
-def to_recipe(ctx: WorkflowContext, openai_recipe: OpenAIRecipe) -> Recipe:
+def to_recipe(ctx: WorkflowContext, openai_recipe: OpenAIRecipe) -> RecipeDraft:
     """
     Turns a provider's recipe into a draft recipe.
 
@@ -65,7 +65,7 @@ def to_recipe(ctx: WorkflowContext, openai_recipe: OpenAIRecipe) -> Recipe:
         else {}
     )
 
-    return Recipe(
+    return RecipeDraft(
         **owner,
         name=name,
         slug=slug,

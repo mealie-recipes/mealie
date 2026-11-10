@@ -4,12 +4,13 @@
 </template>
 
 <script setup lang="ts">
+import type { PropType } from "vue";
 import { marked } from "marked";
 import { sanitizeMarkdownHtml } from "~/lib/sanitize/markdown";
 
 const props = defineProps({
   source: {
-    type: String,
+    type: String as PropType<string | null>,
     default: "",
   },
 });
@@ -43,5 +44,12 @@ const value = computed(() => {
 :deep(ol) {
   margin: 8px 0;
   padding-left: 20px;
+}
+
+/* The app removes paragraph margins globally, which would show a blank line in the
+   source as a plain line break. Space only between paragraphs, so a single paragraph
+   keeps its layout. */
+:deep(p + p) {
+  margin-top: 0.5em;
 }
 </style>

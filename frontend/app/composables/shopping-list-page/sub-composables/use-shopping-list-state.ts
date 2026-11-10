@@ -13,7 +13,6 @@ export function useShoppingListState() {
   const edit = ref(false);
   const threeDot = ref(false);
   const reorderLabelsDialog = ref(false);
-  const createEditorOpen = ref(false);
 
   // Dialog states
   const state = reactive({
@@ -47,7 +46,7 @@ export function useShoppingListState() {
 
   const recipeMap = computed(() => new Map(
     (shoppingList.value?.recipeReferences?.map(ref => ref.recipe) ?? [])
-      .map(recipe => [recipe.id || "", recipe])),
+      .map(recipe => [recipe.id, recipe])),
   );
 
   const recipeList = computed(() => Array.from(recipeMap.value.values()));
@@ -60,7 +59,6 @@ export function useShoppingListState() {
     edit,
     threeDot,
     reorderLabelsDialog,
-    createEditorOpen,
     state,
     listItems,
     recipeMap,

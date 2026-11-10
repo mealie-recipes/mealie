@@ -47,6 +47,12 @@
         "description": "",
         "abbreviation": "ml"
     },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
+    },
     "liter": {
         "name": "litra",
         "plural_name": "litraa",

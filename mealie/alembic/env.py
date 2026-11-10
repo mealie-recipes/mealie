@@ -50,6 +50,19 @@ def include_object(object: Any, name: str, type_: str, reflected: bool, compare_
     ):
         return False
 
+    # skip changing the auth_method column in users; it's an enum on postgres, but a VARCHAR sized to the
+    # longest value at creation on sqlite, which doesn't enforce the length
+    # see: revision f3a8b6c1d2e4
+    if (
+        type_ == "column"
+        and name == "auth_method"
+        and object.table.name == "users"
+        and hasattr(compare_to, "type")
+        and isinstance(compare_to.type, sa.String)
+        and not isinstance(compare_to.type, sa.Enum)
+    ):
+        return False
+
     return True
 
 

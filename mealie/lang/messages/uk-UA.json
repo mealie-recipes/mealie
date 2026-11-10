@@ -5,11 +5,16 @@
     "recipe": {
         "unique-name-error": "Назва рецепту повинна бути унікальною",
         "recipe-created": "Рецепт створено",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Зображення рецепту видалено",
         "recipe-defaults": {
-            "ingredient-note": "Стакан борошна",
-            "name": "New Recipe",
-            "step-text": "Кроки рецептів, так само як і інші поля сторінки, підтримують синтаксис markdown.\n\n**Додати посилання**\n\n[Моє посилання](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Робить",
@@ -20,10 +25,21 @@
             "yields": "Вихід"
         },
         "and-amount": "та {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
@@ -68,7 +84,7 @@
         "report-deleted": "Звіт видалено."
     },
     "exceptions": {
-        "permission_denied": "У вас немає дозволу на виконання цієї дії",
+        "permission-denied": "У вас немає дозволу на виконання цієї дії",
         "recursive-recipe-link": "Рецепт не може посилатися на себе безпосередньо, або опосередковано",
         "no-entry-found": "Ресурс не знайдено",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -116,7 +132,10 @@
         "test-message-body": "This is a test notification from Mealie.",
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
-        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "рік|роки",

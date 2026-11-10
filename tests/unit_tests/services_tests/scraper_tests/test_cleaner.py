@@ -88,3 +88,56 @@ def test_clean_scraper_preserves_notes():
     assert recipe.notes[0].text == "Keep refrigerated up to 3 days"
     assert recipe.notes[1].title == "Variation"
     assert recipe.notes[1].text == "Add chili flakes for extra heat"
+
+
+def test_cleaner_clean_structures_times():
+    translator = get_locale_provider()
+    recipe = cleaner.clean(
+        {
+            "name": "Test Recipe",
+            "totalTime": "PT1H30M",
+            "prepTime": 20,
+            "performTime": "about an hour",
+        },
+        translator,
+    )
+
+    assert recipe.total_time_seconds == 5400
+    assert recipe.total_time is None
+    assert recipe.prep_time_seconds == 1200
+    assert recipe.prep_time is None
+    assert recipe.perform_time_seconds is None
+    assert recipe.perform_time == "about an hour"
+
+
+def test_cleaner_clean_keeps_existing_seconds():
+    translator = get_locale_provider()
+    recipe = cleaner.clean({"name": "Test Recipe", "totalTime": "PT2H", "totalTimeSeconds": 60}, translator)
+
+    assert recipe.total_time_seconds == 60
+    assert recipe.total_time == "2 hours"
+
+
+def test_clean_scraper_structures_times():
+    ld_json = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": "Test Recipe",
+            "totalTime": "PT1H30M",
+            "prepTime": "PT20M",
+            "cookTime": "PT1H10M",
+            "recipeIngredient": ["1 cup flour"],
+            "recipeInstructions": [{"@type": "HowToStep", "text": "Mix everything together"}],
+        }
+    )
+    html = RecipeScraperPackage.ld_json_to_html(ld_json)
+    scraped = scrape_html(html, org_url="https://example.com", supported_only=False)
+    translator = get_locale_provider()
+    strategy = RecipeScraperPackage("https://example.com", translator, None)  # type: ignore[arg-type]
+
+    recipe, _ = strategy.clean_scraper(scraped, "https://example.com")
+    recipe = cleaner.clean(recipe, translator)
+
+    assert (recipe.total_time_seconds, recipe.prep_time_seconds, recipe.perform_time_seconds) == (5400, 1200, 4200)
+    assert (recipe.total_time, recipe.prep_time, recipe.perform_time) == (None, None, None)

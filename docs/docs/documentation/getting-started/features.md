@@ -8,7 +8,7 @@
 Mealie offers several ways to create recipes:
 
 - **Recipe Scraper:** Create recipes from hundreds of websites by simply providing a URL.
-- **Recipe HTML or JSON:** Copy/paste structured HTML or JSON and Mealie can import it.
+- **Recipe HTML or JSON:** Copy/paste structured HTML or JSON and Mealie can import it. A recipe copied from Mealie's own JSON editor, or the JSON file from a Mealie recipe export, is imported with its full structure: ingredient foods and units, step titles and ingredient links, notes, tools, and tags and categories (when those import options are ticked).
 - **Manual Editor:** Create recipes from scratch using the integrated editor.
 
 Mealie's [AI integration](./installation/ai-providers.md) adds an **Import with AI** page, which creates a recipe out of just about anything:
@@ -85,6 +85,8 @@ Mealie uses a calendar like view to help you plan your meals. It shows you the p
 !!! tip
     You can also add a "Note" type entry to your meal plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 
+Each recipe on your meal plan has its own serving size, which you can adjust right from the planner without changing the recipe itself. When you add a day or the whole plan to a shopping list, the ingredient quantities follow the serving sizes you've planned, and opening a recipe from the planner shows it at that size too.
+
 [Meal Planner Demo](https://demo.mealie.io/household/mealplan/planner/view){ .md-button .md-button--primary }
 
 ### Planner Rules
@@ -92,6 +94,29 @@ Mealie uses a calendar like view to help you plan your meals. It shows you the p
 The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe, or on its ingredients. Ingredients can be matched by their Food Label as well, so a "fish day" only takes one rule instead of a list of every fish you cook with. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
 
 [Planner Settings Demo](https://demo.mealie.io/household/mealplan/settings){ .md-button .md-button--primary }
+
+### Calendar Feed
+
+You can subscribe to your household's meal plan from any calendar app that supports iCal links. The event title and description can be customized using merge fields, which are replaced with each meal's details, similar to [Recipe Actions](#recipe-actions):
+
+- ${type}
+- ${title}
+- ${note}
+- ${url}
+- ${id}
+- ${slug}
+- ${servings}
+- ${yieldQuantity}
+- ${yieldText}
+- ${description}
+- ${totalTime}
+- ${prepTime}
+- ${cookTime}
+- ${tags}
+- ${categories}
+- ${tools}
+
+Recipe fields are left empty for note entries.
 
 ## Shopping Lists
 
@@ -139,11 +164,13 @@ Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), whi
 - `json` and `jsons`
 - `xml` and `xmls`
 
+Only users with the **Manage household** permission can view and change notifiers. Notifiers can reach services on your internal network; admins can limit which services are allowed with `APPRISE_ALLOWED_SCHEMAS`. See [Security](./installation/security.md#notifiers-and-webhooks).
+
 [Notifiers Demo](https://demo.mealie.io/household/notifiers){ .md-button .md-button--primary }
 
 ### Webhooks
 
-Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled meal plan, at the specified time, and contain the meal plan data in the request.
+Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled meal plan, at the specified time, and contain the meal plan data in the request. Only users with the **Manage household** permission can view and change webhooks.
 
 [Webhooks Demo](https://demo.mealie.io/household/webhooks){ .md-button .md-button--primary }
 
@@ -182,7 +209,7 @@ To add, modify, or delete Recipe Actions, visit the Data Management page (more o
 
 ## Data Management
 
-Managing a robust collection of recipes inevitable requires a lot of data. Mealie has a robust data management system that allows you to easily export some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
+Managing a robust collection of recipes inevitably requires a lot of data. Mealie has a robust data management system that allows you to easily export some of the more important data sets in your collection. Here's some of the features that are available in the `group/data/<type>` pages:
 
 - Recipes
     - Bulk Actions

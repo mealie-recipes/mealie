@@ -238,6 +238,8 @@
       "api-key": "API Ključ",
       "api-key-description-create": "Ključ API vašega ponudnika za preverjanje pristnosti. Če vaša storitev (npr. Ollama) ne uporablja ključa API, morate vseeno nekaj vnesti tukaj.",
       "api-key-description-edit": "Pustite to prazno, razen če želite to spremeniti.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Osnovni URL",
       "base-url-description": "Če uporabljate OpenAI, pustite to polje prazno. Mora biti končna točka, združljiva z OpenAI (npr. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -257,6 +259,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "Pozivi za umetno inteligenco",
+      "ai-prompts-description": "Za vsako opravilo lahko prilagodite navodila, ki jih Mealie posreduje vašemu ponudniku umetne inteligence. Navodila (t. i. »prompti«) v aplikaciji Mealie so napisana v angleščini, vendar to ne vpliva na jezik vaših receptov – ti ohranijo jezik izvirnika, razen če se odločite za prevod. Svoja navodila lahko napišete v katerem koli jeziku.",
+      "global-instructions": "Navodila za vse pozive",
+      "global-instructions-description": "Doda se vsakemu pozivu, ki ustvarja podatke o receptih, kot so sestavljanje receptov, razčlenjevanje sestavin in prevajanje. Sistemski pozivi pri tem niso vključeni.",
+      "global-instructions-placeholder": "npr. Vedno uporabljajte metrične enote.",
+      "prompts": "Pozivi",
+      "system": "Sistem",
+      "system-description": "To je sistemski poziv. Vaše izvorno gradivo prepiše čim bolj zvesto, še preden se to spremeni v recept, zato vanj niso vključena navodila za druge pozive. Spreminjanje tega poziva običajno ni potrebno in lahko zmanjša zanesljivost uvoza.",
+      "appended": "Priloženo",
+      "overridden": "Preglasovano",
+      "mode-default": "Privzeto",
+      "mode-append": "Dodaj",
+      "mode-override": "Preglasitev",
+      "append-description": "Ta navodila so dodana Mealiejvemu pozivu in imajo prednost v vseh primerih, ko pride do nasprotja med njimi.",
+      "override-description": "Vaš poziv v celoti nadomesti Mealiejev poziv, zato prihodnje posodobitve Mealiejevega poziva zanj ne bodo veljale. Vsi podatki, ki jih opravilo potrebuje – na primer vaš seznam enot – se še vedno dodajo za vašim pozivom.",
+      "default-changed": "Mealiejev poziv se je spremenil, odkar ste ga preglasili. Primerjajte ga s svojim ali pa preklopite nazaj na privzeto nastavitev, da boste uporabljali novo različico.",
+      "view-default-prompt": "Prikaži privzeti poziv",
+      "hide-default-prompt": "Skrij privzeti poziv",
+      "default-prompt": "Privzeti poziv",
+      "prompt-saved": "Poziv shranjen",
+      "prompt-save-failed": "Shranjevanje poziva ni uspelo",
+      "prompt-titles": {
+        "recipes-build-recipe": "Zgradi recept",
+        "recipes-parse-recipe-ingredients": "Razčleni sestavine",
+        "recipes-parse-recipe-video": "Recept iz videoposnetka",
+        "recipes-resolve-organizers": "Določi organizatorje",
+        "recipes-translate-recipe": "Prevedi recept",
+        "system-compile-source": "Preberite izvorno gradivo",
+        "system-transcribe-audio": "Prepiši zvok"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Pretvori izvorno gradivo, pridobljeno s spletne strani, fotografije ali besedila, v strukturiran recept.",
+        "recipes-parse-recipe-ingredients": "Uporablja ga razčlenjevalnik sestavin z umetno inteligenco za razdelitev posamezne sestavine na količino, enoto, živilo in opombo.",
+        "recipes-parse-recipe-video": "Pretvori prepis in podnapise videoposnetka v recept.",
+        "recipes-resolve-organizers": "Izbere oznake, kategorije in orodja za uvožen recept.",
+        "recipes-translate-recipe": "Prevede uvožen recept v jezik, ki ga izberete.",
+        "system-compile-source": "Prebere spletne strani, fotografije in besedilo ter jih pretvori v zapis recepta v obliki navadnega besedila.",
+        "system-transcribe-audio": "Prepiše zvok, kadar ga vaš ponudnik zvočnih storitev ne more prepisati neposredno."
+      }
     }
   },
   "household": {
@@ -274,6 +317,7 @@
     "private-household-description": "Če svoje gospodinjstvo nastavite na zasebno, boste onemogočili vse možnosti javnega pogleda. To preglasi vse posamezne nastavitve javnega pogleda",
     "lock-recipe-edits-from-other-households": "Zakleni urejanje receptov iz drugih gospodinjstev",
     "lock-recipe-edits-from-other-households-description": "Ko je omogočeno, lahko samo uporabniki v vašem gospodinjstvu urejajo recepte, ki jih je ustvarilo vaše gospodinjstvo",
+    "lock-recipe-edits-from-other-households-admin-note": "Skrbniki spletnega mesta lahko v katerem koli gospodinjstvu vedno urejajo ali brišejo recepte, ne glede na to nastavitev.",
     "household-recipe-preferences": "Nastavitve gospodinjskih receptov",
     "default-recipe-preferences-description": "To so privzete nastavitve, ko se v vašem gospodinjstvu ustvari nov recept. Te lahko spremenite za posamezne recepte v meniju z nastavitvami receptov.",
     "household-preferences": "Nastavitve gospodinjstva"
@@ -288,10 +332,10 @@
     "any-category": "Vse kategorije",
     "any-tag": "Vse oznake",
     "any-household": "Vsa gospodinjstva",
-    "numberOfDaysPast-hint": "Število dni v preteklosti ob nalaganju strani",
-    "numberOfDaysPast-label": "Privzeti dnevi v preteklosti",
-    "numberOfDays-hint": "Število dni na začetni strani",
-    "numberOfDays-label": "Privzeto dni",
+    "numberOfWeeksPast-hint": "Število preteklih tednov ob nalaganju strani",
+    "numberOfWeeksPast-label": "Privzeto število tednov v preteklosti",
+    "numberOfWeeks-hint": "Število tednov ob nalaganju strani, vključno s trenutnim tednom",
+    "numberOfWeeks-label": "Privzeti tedni",
     "side": "Priloga",
     "rule-day": "Izberi dan",
     "meal-type": "Izberi tip obroka",
@@ -307,6 +351,9 @@
     "meal-note": "Zaznamek k obroku",
     "note": "Opomba",
     "ignore-rules": "Prezri pravila Načrtovalca",
+    "plan-for-the-whole-week": "Načrt za ves teden",
+    "cooking-it-today": "Kuhanje danes",
+    "weekday-rules-skip-week-entries": "Pravila za določen dan ne veljajo za obroke, načrtovane za ves teden.",
     "no-recipes-match-your-rules": "Noben recept se ne ujema z vašimi načrti obroka",
     "random-meal": "Naključni obrok",
     "random-dinner": "Naključna večerja",
@@ -326,7 +373,24 @@
     "meal-plan-settings": "Nastavitve jedilnika",
     "add-all-to-list": "Dodaj vse na seznam",
     "add-day-to-list": "Dodaj dan na seznam",
-    "randomize-recipe": "Naključni recept"
+    "add-week-to-list": "Dodaj teden na seznam",
+    "randomize-recipe": "Naključni recept",
+    "calendar-feed": "Naroči se na koledar",
+    "calendar-feed-description": "Naročite se na načrt obrokov vašega gospodinjstva v Google Koledarju, Apple Calendarju, Home Assistant ali kateri koli drugi aplikaciji, ki podpira povezave iCal. Vsakdo s povezavo lahko vidi vaš načrt obrokov.",
+    "calendar-feed-off": "Povezava do koledarja je za vaše gospodinjstvo onemogočena.",
+    "calendar-feed-ask-manager": "Prosite nekoga, ki lahko upravlja vaše gospodinjstvo, da to vklopi.",
+    "calendar-feed-turn-on": "Vklopi",
+    "calendar-feed-turn-off": "Izklopi",
+    "calendar-feed-reset-hint": "Ponastavitev ali izklop povezave ustavi posodabljanje obstoječih naročnin.",
+    "calendar-feed-include-notes": "Vključi opombe",
+    "calendar-feed-times-hint": "Obroki brez določenega časa so prikazani kot celodnevni dogodki.",
+    "calendar-feed-duration": "Length (minutes)",
+    "calendar-feed-event-details": "Event Details",
+    "calendar-feed-event-details-description": "Customize how meals show up in your calendar. You can use merge fields to fill in each meal's details (see the docs for the full list).",
+    "calendar-feed-event-details-change-warning": "Changing these will update the calendar link, so if you've already subscribed you'll need to replace it with the new link.",
+    "calendar-feed-event-title": "Event Title",
+    "calendar-feed-event-description": "Event Description",
+    "calendar-feed-url": "Povezava do koledarja"
   },
   "migration": {
     "new-migration": "Nova migracija",
@@ -352,7 +416,7 @@
       "title": "Urejevalnik receptov Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie lahko uvozi recepte izpred Mealie verzije v1.0. Izvozi recepte iz stare instance in spodaj uvozi zip datoteko. Omogočen je uvoz samo za recepte.",
+      "description-long": "Mealie lahko uvozi recepte iz različice aplikacije Mealie, starejše od v1.0. Izvozite recepte iz svoje stare instance in naložite spodnjo datoteko ZIP. Upoštevajte, da je iz izvožene datoteke mogoče uvoziti le recepte. To velja samo za instance, starejše od različice v1.0. Varnostne kopije, ustvarjene v različici v1.0 ali novejši, je treba obnoviti z ustreznimi orodji za varnostno kopiranje in obnovitev.",
       "title": "Mealie pred v1.0"
     },
     "tandoor": {
@@ -364,8 +428,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracije receptov",
-    "recipe-data-migrations-explanation": "Recepte lahko migriraš iz drugih podprtih aplikacij v Mealie. To je super način za čim hitrejši začetek z Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Prihajaš iz druge aplijacije ali celo starejše verzije Mealie aplikacije? Poglej podprte migracije in preveri, če lahko uvoziš svoje podatke.",
+    "recipe-data-migrations-explanation": "Recepte je mogoče prenesti v Mealie iz druge podprte aplikacije. To je odličen način za začetek uporabe programa Mealie. Za prenos podatkov med različnimi namestitvami programa Mealie ali za obnovitev prejšnje varnostne kopije pa se namesto tega uporabljajo orodja za varnostno kopiranje in obnovitev.",
+    "migration-description": "Prihajate iz druge aplikacije ali različice programa Mealie, starejše od v1.0? Preverite možnosti migracije in poglejte, ali je mogoče uvoziti vaše podatke.",
     "choose-migration-type": "Izberi tip migracije",
     "tag-all-recipes": "Označi vse recepte z {tag-name} značko",
     "recipe-1": "Recept 1",
@@ -411,6 +475,14 @@
     "an-error-occurred": "Prišlo je do napake"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
+    "step-duration-minutes": "Čas (minute)",
+    "step-duration-saved": "Shranjen čas: {duration}. Urejanje tega polja ga nadomesti s celimi minutami.",
+    "step-duration-placeholder": "Minute",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value-hours": "{hours}u",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "Dodajte med priljubljene",
     "api-extras": "API dodatno",
     "calories": "Kalorije",
@@ -445,6 +517,7 @@
     "prep-time": "Čas priprav",
     "protein-content": "Beljakovine",
     "public-recipe": "Javen recept",
+    "public-recipe-visibility-note": "Odvisno je tudi od nastavitev zasebnosti vaše skupine in gospodinjstva – recept ne bo javno viden, če je katera koli od teh nastavitev nastavljena na zasebno.",
     "recipe-created": "Recept je ustvarjen",
     "recipe-image": "Slika recepta",
     "delete-image": "Izbriši sliko recepta",
@@ -526,6 +599,8 @@
     "ingredients-not-parsed-description": "Zdi se, da vaše sestavine še niso razčlenjene. Kliknite spodnji gumb »{parse}«, da jih razčlenite v strukturirana živila.",
     "attach-images-hint": "Slike pripneš z odlaganjem v urejevalnik",
     "drop-image": "Odloži sliko",
+    "failed-to-attach-image": "Prilaganje slike ni uspelo",
+    "image-drop-unsupported": "Te slike ni mogoče neposredno pripeti. Shranite jo v svojo napravo in nato povlecite datoteko.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepti z enotami ali živili ne morejo biti sparsani.",
     "parse-ingredients": "Razloči sestavine",
     "edit-markdown": "Uredi markdown",
@@ -588,8 +663,8 @@
     "report-deletion-failed": "Brisanje poročila ni bilo uspešno",
     "recipe-debugger": "Odpravljanje težav v strganju recepta",
     "recipe-debugger-description": "Prilepi povezavo do recepta, ki ga želiš postrgati. Strgalnik receptov bo postrgal spletno stran in prikazal rezultate. Če ne vidiš nobenih podatkov, potem spletna stran, ki jo želiš strgati ni podprta v Mealie oz. v strgalniku, ki ga uporablja.",
-    "use-openai": "Uporabi OpenAI",
-    "recipe-debugger-use-openai-description": "Za razčlenitev rezultatov uporabite OpenAI, namesto da se zanašate na knjižnico strgala. Ko ustvarjate recept prek URL-ja, se to izvede samodejno, če knjižnica strgala odpove, vendar ga lahko tukaj preizkusite ročno.",
+    "use-ai": "Uporabite umetno inteligenco",
+    "recipe-debugger-use-ai-description": "Za razčlenjevanje rezultatov uporabite umetno inteligenco, namesto da se zanašate na knjižnico za zajemanje podatkov (scraper). Pri ustvarjanju recepta prek URL-naslova se to izvede samodejno, če knjižnica za zajemanje podatkov ne deluje, vendar lahko postopek tukaj preizkusite tudi ročno.",
     "debug": "Razhroščevanje",
     "tree-view": "Drevesni prikaz",
     "recipe-servings": "Rocept obrokov",
@@ -601,15 +676,22 @@
     "remove-image": "Odstrani sliko",
     "nextStep": "Naslednji korak",
     "recipe-actions": "Opravila na receptu",
+    "unit-system": {
+      "as-written": "Kot je zapisano",
+      "metric": "Metrični",
+      "metric-with-hint": "Metrične enote (g, ml)",
+      "imperial": "Imperialni",
+      "imperial-with-hint": "Imperialne enote (skodelice, unče)"
+    },
     "parser": {
       "ingredient-parser": "Razčlenjevalnik sestavin",
       "select-parser": "Izberi razčlenjevalnik",
       "dont-show-again": "Tega ne prikaži več",
       "try-again-with-parser": "Poskusite znova z {parser}",
       "natural-language-processor": "Procesor naravnega jezika",
-      "natural-language-processor-english-only": "Orodje za obdelavo naravnega jezika je usposobljeno na receptih v angleščini. Pri receptih v drugih jezikih običajno prepozna količino, ne pa tudi enote, zato Brute Parser ali OpenAI Parser običajno zagotavljata boljše rezultate.",
+      "natural-language-processor-english-only": "Sistem za obdelavo naravnega jezika je usposobljen na podlagi receptov v angleščini. Pri receptih v drugih jezikih običajno prepozna količino, ne pa tudi enote, zato »Brute Parser« ali »AI Parser« običajno zagotavljata boljše rezultate.",
       "brute-parser": "Surov razčlenjevalnik",
-      "openai-parser": "Razčlenjevalnik OpenAI",
+      "ai-parser": "Razčlenjevalnik umetne inteligence",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
       "missing-food": "Ustvari manjkajoče živilo: {food}",
       "this-unit-could-not-be-parsed-automatically": "Te enote ni bilo mogoče samodejno razčleniti",
@@ -784,7 +866,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
     "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?",
     "no-shopping-lists-found": "Ni nakupovalnih seznamov",
-    "item-checked-off": "Odkljukano {item}"
+    "new-list-name": "Ime seznama",
+    "failed-to-create-shopping-list": "Ustvarjanje nakupovalnega seznama ni uspelo",
+    "item-checked-off": "Odkljukano {item}",
+    "more-options": "Več možnosti",
+    "fewer-options": "Manj možnosti",
+    "save-as-new-food": "Shrani \"{text}\" kot novo živilo"
   },
   "sidebar": {
     "backups": "Varnostne kopije",
@@ -872,15 +959,22 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Dovoljenja",
     "administrator": "Skrbnik",
+    "administrator-hint": "Popoln dostop v vseh skupinah in gospodinjstvih na tej instanci.",
     "user-can-invite-other-to-group": "Uporabnih lahko povabi druge v skupino",
+    "user-can-invite-other-to-group-hint": "Uporabnik lahko v svojo skupino in gospodinjstvo povabi nove uporabnike.",
     "user-can-manage-group": "Uporabnik lahko upravlja nastavitve skupine",
+    "user-can-manage-group-hint": "Uporabnik lahko upravlja skupne nastavitve skupine, na primer ponudnike umetne inteligence, ter ureja dovoljenja za člane svojega gospodinjstva.",
     "user-can-manage-household": "Uporabnik lahko upravlja gospodinjstvo",
-    "user-can-organize-group-data": "Uporabnik lahko upravlja živila, oznake in kategorije",
+    "user-can-manage-household-hint": "Uporabnik lahko upravlja nastavitve gospodinjstva, ki mu pripada, kot so njegovo ime, zasebnost, pravila za urejanje receptov, obvestila in spletne kljuke (webhooks).",
+    "user-can-organize-group-data": "Uporabnik lahko upravlja podatke skupine kot so živila, enote, oznake in kategorije",
+    "user-can-organize-group-data-hint": "Ustvari, uredi in briši živila, enote, oznake, kategorije, pripomočke, značke ter postopke priprave receptov, ki so v skupni rabi znotraj skupine.",
     "enable-advanced-features": "Vključi napredne funkcije",
+    "enable-advanced-features-hint": "Omogoča spletne kljuke (webhooks), obveščevalce in migracije podatkov",
     "it-looks-like-this-is-your-first-time-logging-in": "Zgleda, kot da se prvič prijavljaš.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ne želiš več videti tega sporočila? Spremeni svoj email v uporabiških nastavitvah!",
     "forgot-password": "Ste pozabili geslo",
     "forgot-password-text": "Vnesi svoj email naslov, poslali ti bomo povezavo za ponastavitev gesla.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Spremembe na tem uporabniku se poznajo takoj.",
     "default-activity": "Privzeta dejavnost",
     "default-activity-hint": "Izberite, na katero stran želite priti ob prijavi iz te naprave"
@@ -909,6 +1003,8 @@
       "food-data": "Podatki o živilih",
       "label-overwrite-warning": "S tem boste izbrano oznako dodelili vsem izbranim živilom in morda prepisali vaše obstoječe oznake.",
       "on-hand-checkbox-label": "Če nastavite to zastavico, bo to živilo privzeto odstranjeno, ko dodate recept na nakupovalni seznam.",
+      "delete-unused-confirm": "Ali naj izbrišem to neuporabljeno živilo? Tega dejanja ni mogoče razveljaviti. | Ali naj izbrišem teh {count} neuporabljenih živil? Tega dejanja ni mogoče razveljaviti.",
+      "no-unused-foods": "Ni neuporabljenih živil za izbris",
       "substitutions": "Zamenjave",
       "manage-substitutions": "Upravljanje zamenjav",
       "substitution-dialog-text": "Predlagajte živila, ki jih lahko uporabite namesto {food}. Zamenjava je lahko živilo, opomba ali oboje.",
@@ -944,11 +1040,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Napolni podatkovno bazi s običajnimi oznakami, glede na vaš lokalni jezik.",
       "edit-label": "Uredi oznako",
       "new-label": "Nova oznaka",
       "labels": "Oznake",
-      "assign-label": "Dodeli oznako"
+      "assign-label": "Dodeli oznako",
+      "combine-label": "Združi oznako",
+      "source-label": "Oznaka vira",
+      "target-label": "Ciljna oznaka",
+      "merge-dialog-text": "Z združevanjem izbranih oznak se izvorna in ciljna oznaka združita v eno samo oznako. Izvorna oznaka bo izbrisana, vse sklice na izvorno oznako pa se posodobi tako, da kažejo na ciljno oznako.",
+      "merge-label-example": "Združevanje {label1} v {label2}",
+      "delete-unused-confirm": "Ali naj izbrišem to neuporabljeno oznako? Tega dejanja ni mogoče razveljaviti. | Ali naj izbrišem teh {count} neuporabljenih oznak? Tega dejanja ni mogoče razveljaviti.",
+      "no-unused-labels": "Ni neuporabljenih oznak za brisanje"
     },
     "recipes": {
       "purge-exports": "Počisti izvoze",
@@ -1021,7 +1123,14 @@
     "tools": {
       "new-tool": "Nova oprema",
       "edit-tool": "Uredi opremo",
-      "tool-data": "Podatki o opremi"
+      "tool-data": "Podatki o opremi",
+      "combine-tool": "Orodje za združevanje",
+      "source-tool": "Izvorno orodje",
+      "target-tool": "Ciljno orodje",
+      "merge-dialog-text": "Z združevanjem izbranih orodij se izvorno orodje in ciljno orodje združita v eno samo orodje. Izvorno orodje bo izbrisano, vse sklice na izvorno orodje pa bodo posodobljene tako, da bodo kazale na ciljno orodje.",
+      "merge-tool-example": "Združevanje {tool1} v {tool2}",
+      "delete-unused-confirm": "Ali naj izbrišem to neuporabljeno orodje? Tega dejanja ni mogoče razveljaviti. | Ali naj izbrišem teh {count} neuporabljenih orodij? Tega dejanja ni mogoče razveljaviti.",
+      "no-unused-tools": "Ni neuporabljenih orodij za izbris"
     }
   },
   "user-registration": {
@@ -1052,6 +1161,8 @@
     "share-recipe": "Deli recept",
     "default-30-days": "Privzeto 30 dni",
     "expires-at": "Poteče ob",
+    "show-qr-code": "Pokaži QR kodo",
+    "scan-qr-code": "Skenirajte s kamero telefona, da odprete ta recept",
     "recipe-link-copied-message": "Povezava recepta je kopirana v odložišče"
   },
   "banner-experimental": {
@@ -1103,7 +1214,7 @@
     "ingredients-natural-language-processor-explanation-2": "Rezultati niso popolni, ampak so v splošnem uporabni in služijo kot dobro izhodišče za ročno urejanje sestavin v posamezna polja. Kot alternativo lahko uporabiš \"Brute\" procesor, ki deluje na osnovi ujemanja vzorcev za identifikacijo sestavin.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "Ponudniki umetne inteligence",
     "show-individual-confidence": "Pokaži zaupanje v posamezne postavke",
     "ingredient-text": "Besedilo s sestavino",
     "average-confident": "{0} zanesljivost",
@@ -1120,8 +1231,8 @@
       "restore-from-v1-backup": "Imaš varnostno kopijo iz predhodnje instance Mealie v1? Obnoviš jo lahko tule.",
       "manage-profile-or-get-invite-link": "Upravljaj s svojim profilom ali skopiraj povezavo z vabilom in jo deli z drugimi."
     },
-    "debug-openai-services": "Odpravljanje napak v storitvah OpenAI",
-    "debug-openai-services-description": "Uporabite to stran za odpravljanje napak v storitvah OpenAI. Tukaj lahko preizkusite svojo povezavo OpenAI in si ogledate rezultate. Če imate omogočene slikovne storitve, lahko zagotovite tudi sliko.",
+    "debug-ai-providers": "Ponudniki umetne inteligence za odpravljanje napak",
+    "debug-ai-providers-description": "To stran uporabite za odpravljanje težav s ponudniki umetne inteligence. Tukaj lahko preizkusite svojo povezavo z umetno inteligenco in si ogledate rezultate. Če imate omogočene storitve za delo s slikami, lahko predložite tudi sliko.",
     "run-test": "Zaženi test",
     "test-results": "Rezultati testa",
     "group-delete-note": "Skupine z uporabniki ali gospodinjstvi ne morejo biti izbrisane",
@@ -1197,7 +1308,9 @@
       "is-less-than": "je manj kot",
       "is-less-than-or-equal-to": "je manj kot ali enako kot",
       "is-older-than": "je starejše od",
-      "is-newer-than": "je novejše od"
+      "is-newer-than": "je novejše od",
+      "has-a-value": "ima vrednost",
+      "has-no-value": "nima vrednosti"
     },
     "relational-keywords": {
       "is": "je",

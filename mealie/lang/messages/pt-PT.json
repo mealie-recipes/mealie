@@ -5,11 +5,16 @@
     "recipe": {
         "unique-name-error": "Os nomes de receitas devem ser únicos",
         "recipe-created": "Receita criada",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imagem da receita eliminada",
         "recipe-defaults": {
-            "ingredient-note": "1 Chávena de Farinha",
-            "name": "New Recipe",
-            "step-text": "Os passos da receita, bem como outros campos na página da receita, suportam a sintaxe markdown.\n\n**Adicionar um link**\n\n[Meu link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Faz",
@@ -20,10 +25,21 @@
             "yields": "Rendimentos"
         },
         "and-amount": "e {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Serviços IA não estão ativados",
             "ai-request-failed": "O fornecedor de IA não conseguiu concluir o pedido. Tente novamente",
             "image-provider-not-enabled": "Os serviços de imagem por IA não estão ativados",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "Não foi encontrada nenhuma receita na fonte fornecida",
             "no-source": "Nenhum conteúdo, imagem ou URL foi fornecido",
             "provider-returned-nothing": "O fornecedor de IA não retornou uma receita",
@@ -68,7 +84,7 @@
         "report-deleted": "Relatório eliminado."
     },
     "exceptions": {
-        "permission_denied": "Não tem permissões para efetuar esta ação",
+        "permission-denied": "Não tem permissão para realizar esta ação",
         "recursive-recipe-link": "Uma receita não pode referenciar-se a si própria, direta ou indiretamente",
         "no-entry-found": "O recurso solicitado não foi encontrado",
         "rate-limit-error": "O fornecedor de IA está a limitar a taxa de pedidos. Por favor, aguarde um momento e tente novamente",
@@ -116,7 +132,10 @@
         "test-message-body": "This is a test notification from Mealie.",
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
-        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "ano|anos",

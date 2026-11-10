@@ -5,6 +5,7 @@ Integration tests for admin AI provider management across groups.
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.ai_providers import AIProviderCreate
+from mealie.services.openai import OpenAIService
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -134,3 +135,50 @@ def test_admin_can_manage_providers_across_groups(api_client: TestClient, admin_
         )
     finally:
         api_client.delete(api_routes.admin_groups_item_id(foreign_group_id), headers=admin_user.token)
+
+
+# =======================================================================
+# Prompts
+
+PROMPT_NAME = "recipes.build-recipe"
+
+
+def test_admin_ai_prompt_routes_require_admin(api_client: TestClient, unique_user: TestUser):
+    group_id = unique_user.group_id
+    route = api_routes.admin_groups_group_id_ai_providers_prompts_prompt_name(group_id, PROMPT_NAME)
+
+    response = api_client.get(
+        api_routes.admin_groups_group_id_ai_providers_prompts(group_id), headers=unique_user.token
+    )
+    assert response.status_code == 403
+    response = api_client.put(route, json={"mode": "append", "content": "x"}, headers=unique_user.token)
+    assert response.status_code == 403
+    response = api_client.delete(route, headers=unique_user.token)
+    assert response.status_code == 403
+
+
+def test_admin_customize_ai_prompt_for_group(
+    api_client: TestClient, admin_user: TestUser, unique_user_fn_scoped: TestUser
+):
+    group_id = unique_user_fn_scoped.group_id
+    route = api_routes.admin_groups_group_id_ai_providers_prompts_prompt_name(group_id, PROMPT_NAME)
+
+    response = api_client.put(route, json={"mode": "override", "content": "custom"}, headers=admin_user.token)
+    assert response.status_code == 200
+    assert OpenAIService(unique_user_fn_scoped.repos).get_prompt(PROMPT_NAME) == "custom"
+
+    response = api_client.get(api_routes.admin_groups_group_id_ai_providers_prompts(group_id), headers=admin_user.token)
+    assert response.status_code == 200
+    prompt = next(prompt for prompt in response.json()["prompts"] if prompt["name"] == PROMPT_NAME)
+    assert prompt["mode"] == "override"
+    assert prompt["content"] == "custom"
+
+    response = api_client.delete(route, headers=admin_user.token)
+    assert response.status_code == 200
+    assert unique_user_fn_scoped.repos.group_ai_prompt_overrides.get_all() == []
+
+
+def test_admin_customize_unknown_ai_prompt(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
+    route = api_routes.admin_groups_group_id_ai_providers_prompts_prompt_name(unique_user.group_id, "recipes.nope")
+    response = api_client.put(route, json={"mode": "append", "content": "x"}, headers=admin_user.token)
+    assert response.status_code == 404

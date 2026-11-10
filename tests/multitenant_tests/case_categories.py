@@ -1,14 +1,13 @@
 from requests import Response
 
-from mealie.schema.recipe.recipe import RecipeCategory
-from mealie.schema.recipe.recipe_category import CategorySave
+from mealie.schema.recipe.recipe_organizers import CategoryOut, CategorySave
 from tests import utils
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
 from tests.utils import api_routes
 
 
 class CategoryTestCase(ABCMultiTenantTestCase):
-    items: list[RecipeCategory]
+    items: list[CategoryOut]
 
     def seed_action(self, group_id: str) -> set[str]:
         category_ids: set[str] = set()

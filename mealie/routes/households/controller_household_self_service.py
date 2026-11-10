@@ -4,10 +4,11 @@ from fastapi import Depends, HTTPException, status
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
+from mealie.routes._base.permissions import Perm, require
 from mealie.routes._base.routers import UserAPIRouter
-from mealie.schema.household import HouseholdInDB, HouseholdRecipeSummary
+from mealie.schema.household import HouseholdOut, HouseholdRecipeSummary
 from mealie.schema.household.household_permissions import SetPermissions
-from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
+from mealie.schema.household.household_preferences import HouseholdPreferencesOut, HouseholdPreferencesUpdate
 from mealie.schema.household.household_statistics import HouseholdStatistics
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.schema.user.user import UserOut
@@ -23,7 +24,7 @@ class HouseholdSelfServiceController(BaseUserController):
     def service(self) -> HouseholdService:
         return HouseholdService(self.group_id, self.household_id, self.repos)
 
-    @router.get("/self", response_model=HouseholdInDB)
+    @router.get("/self", response_model=HouseholdOut)
     def get_logged_in_user_household(self):
         """Returns the Household Data for the Current User"""
         return self.household
@@ -37,10 +38,9 @@ class HouseholdSelfServiceController(BaseUserController):
 
         return response
 
-    @router.get("/members", response_model=PaginationBase[UserOut])
+    @router.get("/members", response_model=PaginationBase[UserOut], dependencies=[require(Perm.GROUP_MANAGE)])
     def get_household_members(self, q: PaginationQuery = Depends()):
         """Returns all users belonging to the current household"""
-        self.checks.can_manage()
         q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, f"household_id={self.household_id}")
 
         response = self.repos.users.page_all(q, override=UserOut)
@@ -48,20 +48,16 @@ class HouseholdSelfServiceController(BaseUserController):
         response.set_pagination_guides(router.url_path_for("get_household_members"), q.model_dump())
         return response
 
-    @router.get("/preferences", response_model=ReadHouseholdPreferences)
+    @router.get("/preferences", response_model=HouseholdPreferencesOut)
     def get_household_preferences(self):
         return self.household.preferences
 
-    @router.put("/preferences", response_model=ReadHouseholdPreferences)
-    def update_household_preferences(self, new_pref: UpdateHouseholdPreferences):
-        self.checks.can_manage_household()
-
+    @router.put("/preferences", response_model=HouseholdPreferencesOut, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    def update_household_preferences(self, new_pref: HouseholdPreferencesUpdate):
         return self.repos.household_preferences.update(self.household_id, new_pref)
 
-    @router.put("/permissions", response_model=UserOut)
+    @router.put("/permissions", response_model=UserOut, dependencies=[require(Perm.GROUP_MANAGE)])
     def set_member_permissions(self, permissions: SetPermissions):
-        self.checks.can_manage()
-
         target_user = self.repos.users.get_one(permissions.user_id)
 
         if not target_user:

@@ -2,7 +2,7 @@ import { useClipboard } from "@vueuse/core";
 import { alert } from "./use-toast";
 
 export function useCopy() {
-  const { copy, copied, isSupported } = useClipboard();
+  const { copy, copied, isSupported } = useClipboard({ legacy: true });
   const i18n = useI18n();
 
   function copyText(text: string) {
@@ -25,7 +25,7 @@ export function useCopy() {
 }
 
 export function useCopyList() {
-  const { copy, isSupported, copied } = useClipboard();
+  const { copy, isSupported, copied } = useClipboard({ legacy: true });
   const i18n = useI18n();
 
   function checkClipboard() {

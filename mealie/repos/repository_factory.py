@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session, with_expression
 
 from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.group import Group, ReportEntryModel, ReportModel
-from mealie.db.models.group.ai_providers import AIProvider, AIProviderSettings
+from mealie.db.models.group.ai_providers import AIPromptOverride, AIProvider, AIProviderSettings
 from mealie.db.models.group.exports import GroupDataExportsModel
 from mealie.db.models.group.preferences import GroupPreferencesModel
 from mealie.db.models.household.cookbook import CookBook
@@ -34,20 +34,20 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag, recipes_to_tags
-from mealie.db.models.recipe.tool import Tool
+from mealie.db.models.recipe.tool import Tool, recipes_to_tools
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
-from mealie.repos.repository_ai_provider import GroupRepositoryAIProvider
+from mealie.repos.repository_ai_provider import GroupRepositoryAIPromptOverride, GroupRepositoryAIProvider
 from mealie.repos.repository_cookbooks import RepositoryCookbooks
 from mealie.repos.repository_foods import RepositoryFood
 from mealie.repos.repository_household import RepositoryHousehold, RepositoryHouseholdRecipes
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
 from mealie.repos.repository_units import RepositoryUnit
-from mealie.schema.cookbook.cookbook import ReadCookBook
-from mealie.schema.group.ai_providers import AIProviderOut, AIProviderSettingsOut
+from mealie.schema.cookbook.cookbook import CookBookOut
+from mealie.schema.group.ai_providers import AIPromptOverrideOut, AIProviderOut, AIProviderSettingsOut
 from mealie.schema.group.group_exports import GroupDataExport
-from mealie.schema.group.group_preferences import ReadGroupPreferences
+from mealie.schema.group.group_preferences import GroupPreferencesOut
 from mealie.schema.household.group_events import GroupEventNotifierOut
 from mealie.schema.household.group_recipe_action import GroupRecipeActionOut
 from mealie.schema.household.group_shopping_list import (
@@ -57,20 +57,20 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListRecipeRefOut,
 )
-from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeOut
-from mealie.schema.household.household_preferences import ReadHouseholdPreferences
-from mealie.schema.household.invite_token import ReadInviteToken
-from mealie.schema.household.webhook import ReadWebhook
+from mealie.schema.household.household import HouseholdOut, HouseholdRecipeOut
+from mealie.schema.household.household_preferences import HouseholdPreferencesOut
+from mealie.schema.household.invite_token import InviteTokenOut
+from mealie.schema.household.webhook import WebhookOut
 from mealie.schema.labels import MultiPurposeLabelOut
-from mealie.schema.meal_plan.new_meal import ReadPlanEntry
+from mealie.schema.meal_plan.new_meal import PlanEntryOut
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
-from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeToolOut
-from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
-from mealie.schema.recipe.recipe_share_token import RecipeShareToken
+from mealie.schema.recipe import RecipeCommentOut, RecipeOut
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut, IngredientUnitOut
+from mealie.schema.recipe.recipe_organizers import CategoryOut, TagOut, ToolOut
+from mealie.schema.recipe.recipe_share_token import RecipeShareTokenOut
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
-from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser
+from mealie.schema.user import GroupOut, LongLiveTokenInDB, PrivateUser
 from mealie.schema.user.user import UserRatingOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
 
@@ -101,7 +101,7 @@ class RepositoryCategories(GroupRepositoryGeneric[CategoryOut, Category]):
         return q.options(with_expression(Category.recipe_count, count_sq))
 
     def get_empty(self) -> Sequence[Category]:
-        stmt = select(Category).filter(~Category.recipes.any())
+        stmt = select(Category).filter(~Category.recipes.any()).filter_by(**self._filter_builder())
 
         return self.session.execute(stmt).scalars().all()
 
@@ -143,7 +143,7 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
         return q.options(with_expression(Tag.recipe_count, count_sq))
 
     def get_empty(self) -> Sequence[Tag]:
-        stmt = select(Tag).filter(~Tag.recipes.any())
+        stmt = select(Tag).filter(~Tag.recipes.any()).filter_by(**self._filter_builder())
         return self.session.execute(stmt).scalars().all()
 
     def merge(self, from_tag: UUID4, to_tag: UUID4) -> TagOut | None:
@@ -168,6 +168,89 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
         return self.get_one(to_tag)
 
 
+class RepositoryTools(GroupRepositoryGeneric[ToolOut, Tool]):
+    def _query(self, override_schema=None, with_options=True):
+        q = super()._query(override_schema=override_schema, with_options=with_options)
+        count_sq = (
+            select(func.count(recipes_to_tools.c.recipe_id))
+            .where(recipes_to_tools.c.tool_id == Tool.id)
+            .correlate(Tool)
+            .scalar_subquery()
+        )
+        return q.options(with_expression(Tool.recipe_count, count_sq))
+
+    def get_empty(self) -> Sequence[Tool]:
+        stmt = select(Tool).filter(~Tool.recipes.any()).filter_by(**self._filter_builder())
+        return self.session.execute(stmt).scalars().all()
+
+    def merge(self, from_tool: UUID4, to_tool: UUID4) -> ToolOut | None:
+        already_in_to = select(recipes_to_tools.c.recipe_id).where(recipes_to_tools.c.tool_id == to_tool)
+
+        try:
+            self.session.execute(
+                update(recipes_to_tools)
+                .where(recipes_to_tools.c.tool_id == from_tool)
+                .where(recipes_to_tools.c.recipe_id.not_in(already_in_to))
+                .values(tool_id=to_tool)
+            )
+            self.session.execute(delete(recipes_to_tools).where(recipes_to_tools.c.tool_id == from_tool))
+
+            from_model = self._query_one(from_tool)
+            self.session.delete(from_model)
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
+        return self.get_one(to_tool)
+
+
+class RepositoryMultiPurposeLabels(GroupRepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]):
+    def get_empty(self) -> Sequence[MultiPurposeLabel]:
+        stmt = (
+            select(MultiPurposeLabel)
+            .filter(~MultiPurposeLabel.foods.any(), ~MultiPurposeLabel.shopping_list_items.any())
+            .filter_by(**self._filter_builder())
+        )
+        return self.session.execute(stmt).scalars().all()
+
+    def merge(self, from_label: UUID4, to_label: UUID4) -> MultiPurposeLabelOut | None:
+        # Unlike tags/categories, labels are referenced from two independent tables (foods and
+        # shopping list items) rather than a single association table, plus a third table
+        # (shopping list label settings) with a uniqueness constraint on (shopping_list_id, label_id)
+        # that needs the same overlap de-duplication as the tag/category association-table merge.
+        already_in_to_lists = select(ShoppingListMultiPurposeLabel.shopping_list_id).where(
+            ShoppingListMultiPurposeLabel.label_id == to_label
+        )
+
+        try:
+            self.session.execute(
+                update(IngredientFoodModel).where(IngredientFoodModel.label_id == from_label).values(label_id=to_label)
+            )
+            self.session.execute(
+                update(ShoppingListItem).where(ShoppingListItem.label_id == from_label).values(label_id=to_label)
+            )
+            self.session.execute(
+                delete(ShoppingListMultiPurposeLabel)
+                .where(ShoppingListMultiPurposeLabel.label_id == from_label)
+                .where(ShoppingListMultiPurposeLabel.shopping_list_id.in_(already_in_to_lists))
+            )
+            self.session.execute(
+                update(ShoppingListMultiPurposeLabel)
+                .where(ShoppingListMultiPurposeLabel.label_id == from_label)
+                .values(label_id=to_label)
+            )
+
+            from_model = self._query_one(from_label)
+            self.session.delete(from_model)
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
+        return self.get_one(to_label)
+
+
 class AllRepositories:
     """
     `AllRepositories` class is the data access layer for all database actions within
@@ -187,6 +270,11 @@ class AllRepositories:
         self.group_id = group_id
         self.household_id = household_id
 
+    @property
+    def scoped_group_id(self) -> UUID4 | None:
+        """The group these repositories are limited to, or None when they see every group."""
+        return None if isinstance(self.group_id, NotSet) else self.group_id
+
     def uuid_to_str(self, val: UUID4) -> str:
         """Helper method to convert a UUID into a database-safe string"""
 
@@ -199,20 +287,20 @@ class AllRepositories:
     @cached_property
     def recipes(self) -> RepositoryRecipes:
         return RepositoryRecipes(
-            self.session, PK_SLUG, RecipeModel, Recipe, group_id=self.group_id, household_id=self.household_id
+            self.session, PK_SLUG, RecipeModel, RecipeOut, group_id=self.group_id, household_id=self.household_id
         )
 
     @cached_property
     def ingredient_foods(self) -> RepositoryFood:
-        return RepositoryFood(self.session, PK_ID, IngredientFoodModel, IngredientFood, group_id=self.group_id)
+        return RepositoryFood(self.session, PK_ID, IngredientFoodModel, IngredientFoodOut, group_id=self.group_id)
 
     @cached_property
     def ingredient_units(self) -> RepositoryUnit:
-        return RepositoryUnit(self.session, PK_ID, IngredientUnitModel, IngredientUnit, group_id=self.group_id)
+        return RepositoryUnit(self.session, PK_ID, IngredientUnitModel, IngredientUnitOut, group_id=self.group_id)
 
     @cached_property
-    def tools(self) -> GroupRepositoryGeneric[RecipeToolOut, Tool]:
-        return GroupRepositoryGeneric(self.session, PK_ID, Tool, RecipeToolOut, group_id=self.group_id)
+    def tools(self) -> RepositoryTools:
+        return RepositoryTools(self.session, PK_ID, Tool, ToolOut, group_id=self.group_id)
 
     @cached_property
     def comments(self) -> GroupRepositoryGeneric[RecipeCommentOut, RecipeComment]:
@@ -229,9 +317,9 @@ class AllRepositories:
         return RepositoryTags(self.session, PK_ID, Tag, TagOut, group_id=self.group_id)
 
     @cached_property
-    def recipe_share_tokens(self) -> GroupRepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:
+    def recipe_share_tokens(self) -> GroupRepositoryGeneric[RecipeShareTokenOut, RecipeShareTokenModel]:
         return GroupRepositoryGeneric(
-            self.session, PK_ID, RecipeShareTokenModel, RecipeShareToken, group_id=self.group_id
+            self.session, PK_ID, RecipeShareTokenModel, RecipeShareTokenOut, group_id=self.group_id
         )
 
     @cached_property
@@ -268,12 +356,12 @@ class AllRepositories:
 
     @cached_property
     def groups(self) -> RepositoryGroup:
-        return RepositoryGroup(self.session, PK_ID, Group, GroupInDB)
+        return RepositoryGroup(self.session, PK_ID, Group, GroupOut)
 
     @cached_property
-    def group_preferences(self) -> GroupRepositoryGeneric[ReadGroupPreferences, GroupPreferencesModel]:
+    def group_preferences(self) -> GroupRepositoryGeneric[GroupPreferencesOut, GroupPreferencesModel]:
         return GroupRepositoryGeneric(
-            self.session, PK_GROUP_ID, GroupPreferencesModel, ReadGroupPreferences, group_id=self.group_id
+            self.session, PK_GROUP_ID, GroupPreferencesModel, GroupPreferencesOut, group_id=self.group_id
         )
 
     @cached_property
@@ -300,20 +388,26 @@ class AllRepositories:
     def group_ai_providers(self) -> GroupRepositoryAIProvider:
         return GroupRepositoryAIProvider(self.session, PK_ID, AIProvider, AIProviderOut, group_id=self.group_id)
 
+    @cached_property
+    def group_ai_prompt_overrides(self) -> GroupRepositoryAIPromptOverride:
+        return GroupRepositoryAIPromptOverride(
+            self.session, PK_ID, AIPromptOverride, AIPromptOverrideOut, group_id=self.group_id
+        )
+
     # ================================================================
     # Household
 
     @cached_property
     def households(self) -> RepositoryHousehold:
-        return RepositoryHousehold(self.session, PK_ID, Household, HouseholdInDB, group_id=self.group_id)
+        return RepositoryHousehold(self.session, PK_ID, Household, HouseholdOut, group_id=self.group_id)
 
     @cached_property
-    def household_preferences(self) -> HouseholdRepositoryGeneric[ReadHouseholdPreferences, HouseholdPreferencesModel]:
+    def household_preferences(self) -> HouseholdRepositoryGeneric[HouseholdPreferencesOut, HouseholdPreferencesModel]:
         return HouseholdRepositoryGeneric(
             self.session,
             PK_HOUSEHOLD_ID,
             HouseholdPreferencesModel,
-            ReadHouseholdPreferences,
+            HouseholdPreferencesOut,
             group_id=self.group_id,
             household_id=self.household_id,
         )
@@ -332,16 +426,16 @@ class AllRepositories:
     @cached_property
     def cookbooks(self) -> RepositoryCookbooks:
         return RepositoryCookbooks(
-            self.session, PK_ID, CookBook, ReadCookBook, group_id=self.group_id, household_id=self.household_id
+            self.session, PK_ID, CookBook, CookBookOut, group_id=self.group_id, household_id=self.household_id
         )
 
     @cached_property
-    def group_invite_tokens(self) -> HouseholdRepositoryGeneric[ReadInviteToken, GroupInviteToken]:
+    def group_invite_tokens(self) -> HouseholdRepositoryGeneric[InviteTokenOut, GroupInviteToken]:
         return HouseholdRepositoryGeneric(
             self.session,
             PK_TOKEN,
             GroupInviteToken,
-            ReadInviteToken,
+            InviteTokenOut,
             group_id=self.group_id,
             household_id=self.household_id,
         )
@@ -363,7 +457,7 @@ class AllRepositories:
     @cached_property
     def meals(self) -> RepositoryMeals:
         return RepositoryMeals(
-            self.session, PK_ID, GroupMealPlan, ReadPlanEntry, group_id=self.group_id, household_id=self.household_id
+            self.session, PK_ID, GroupMealPlan, PlanEntryOut, group_id=self.group_id, household_id=self.household_id
         )
 
     @cached_property
@@ -437,8 +531,8 @@ class AllRepositories:
         )
 
     @cached_property
-    def group_multi_purpose_labels(self) -> GroupRepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]:
-        return GroupRepositoryGeneric(
+    def group_multi_purpose_labels(self) -> RepositoryMultiPurposeLabels:
+        return RepositoryMultiPurposeLabels(
             self.session, PK_ID, MultiPurposeLabel, MultiPurposeLabelOut, group_id=self.group_id
         )
 
@@ -457,7 +551,7 @@ class AllRepositories:
         )
 
     @cached_property
-    def webhooks(self) -> HouseholdRepositoryGeneric[ReadWebhook, GroupWebhooksModel]:
+    def webhooks(self) -> HouseholdRepositoryGeneric[WebhookOut, GroupWebhooksModel]:
         return HouseholdRepositoryGeneric(
-            self.session, PK_ID, GroupWebhooksModel, ReadWebhook, group_id=self.group_id, household_id=self.household_id
+            self.session, PK_ID, GroupWebhooksModel, WebhookOut, group_id=self.group_id, household_id=self.household_id
         )

@@ -1,9 +1,8 @@
-from pydantic import ConfigDict
 from sqlalchemy import ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .._model_base import BaseMixins, SqlAlchemyBase
-from .._model_utils.auto_init import auto_init
+from .._model_utils.auto_init import AutoInitOptions, auto_init
 from .._model_utils.guid import GUID
 
 
@@ -36,12 +35,13 @@ class RecipeInstruction(SqlAlchemyBase):
     title: Mapped[str | None] = mapped_column(String)  # This is the section title
     text: Mapped[str | None] = mapped_column(String)
     summary: Mapped[str | None] = mapped_column(String)
+    duration_seconds: Mapped[int | None] = mapped_column(Integer)
 
     ingredient_references: Mapped[list[RecipeIngredientRefLink]] = orm.relationship(
         RecipeIngredientRefLink, cascade="all, delete-orphan"
     )
     note_references: Mapped[list[RecipeNoteRefLink]] = orm.relationship(RecipeNoteRefLink, cascade="all, delete-orphan")
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "id",
             "ingredient_references",

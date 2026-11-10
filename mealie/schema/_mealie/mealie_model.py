@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import re
+import types
 from collections.abc import Sequence
 from datetime import UTC, datetime
 from enum import Enum
-from typing import ClassVar, Protocol, Self
+from functools import cache
+from typing import Annotated, Any, ClassVar, Protocol, Self, Union, get_args, get_origin
 
 from humps.main import camelize
 from pydantic import UUID4, AliasChoices, BaseModel, ConfigDict, Field, model_validator
@@ -15,6 +17,33 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.db.models._model_base import SqlAlchemyBase
 
 HOUR_ONLY_TZ_PATTERN = re.compile(r"[+-]\d{2}$")
+
+
+def _may_hold_datetime(annotation: Any) -> bool:
+    if annotation is Any or annotation is object:
+        return True
+    if isinstance(annotation, type):
+        return issubclass(annotation, datetime)
+    if get_origin(annotation) is Annotated:
+        return _may_hold_datetime(get_args(annotation)[0])
+    if get_origin(annotation) in (Union, types.UnionType):
+        return any(_may_hold_datetime(arg) for arg in get_args(annotation))
+    # Unresolved forward refs, TypeVars and the like: check them at runtime to be safe
+    return get_origin(annotation) is None
+
+
+@cache
+def _exact_datetime_fields(cls: type[BaseModel]) -> tuple[str, ...]:
+    return tuple(name for name, info in cls.model_fields.items() if info.annotation == datetime)
+
+
+@cache
+def _datetime_fields(cls: type[BaseModel]) -> tuple[str, ...]:
+    """
+    Fields that can hold a datetime. The timezone validators run on every model, nested ones
+    included, so checking every field of every model was a noticeable part of list responses.
+    """
+    return tuple(name for name, info in cls.model_fields.items() if _may_hold_datetime(info.annotation))
 
 
 def UpdatedAtField(*args, **kwargs):
@@ -61,9 +90,7 @@ class MealieModel(BaseModel):
         Pydantic assumes timezones are in the format +HH:MM, but postgres returns +HH.
         https://github.com/pydantic/pydantic/issues/8609
         """
-        for field, field_info in cls.model_fields.items():
-            if field_info.annotation != datetime:
-                continue
+        for field in _exact_datetime_fields(cls):
             try:
                 if not isinstance(val := getattr(data, field), str):
                     continue
@@ -80,7 +107,7 @@ class MealieModel(BaseModel):
         Adds UTC timezone information to all datetimes in the model.
         The server stores everything in UTC without timezone info.
         """
-        for field in self.__class__.model_fields:
+        for field in _datetime_fields(self.__class__):
             val = getattr(self, field)
             if not isinstance(val, datetime):
                 continue
@@ -168,6 +195,18 @@ class MealieModel(BaseModel):
 
             # order by how close the result is to the first searchable property
             return query.filter(or_(*filters)).order_by(desc(model_properties[0].like(f"%{search}%")))
+
+
+class MealieOutModel(MealieModel):
+    """
+    Base for schemas the API sends back to clients.
+
+    The serializer always emits fields that have defaults, so the serialization JSON schema (and the
+    generated TypeScript types) marks them as required instead of optional. Request bodies must keep
+    inheriting from MealieModel, or clients would have to send every defaulted field.
+    """
+
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
 
 
 class HasUUID(Protocol):

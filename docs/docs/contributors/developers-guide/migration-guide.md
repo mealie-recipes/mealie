@@ -42,6 +42,18 @@ AI recipe creation is now a workflow of separate steps, each with its own prompt
 
 `compile-source.txt` transcribes whatever the user supplied, and `build-recipe.txt` turns that transcription into recipe data. Overrides of the removed files are ignored. `recipes/parse-recipe-video.txt` and `recipes/parse-recipe-ingredients.txt` are unchanged.
 
+### `OPENAI_CUSTOM_PROMPT_DIR` → in-app custom prompts (:octicons-tag-24: v3.30.0)
+
+`OPENAI_CUSTOM_PROMPT_DIR` has been removed. Prompts are now customized per group, in the group settings, or through the `/groups/ai-providers/prompts` and `/admin/groups/{group_id}/ai-providers/prompts` endpoints. On upgrade, each non-empty file in the folder is imported into every group as an override, so no action is needed beyond removing the folder and the variable.
+
+Two prompts have moved, and the debug prompt can no longer be customized:
+
+| Before | After |
+| --- | --- |
+| `recipes/compile-source.txt` | `system.compile-source` |
+| `general/transcribe-audio.txt` | `system.transcribe-audio` |
+| `general/debug.txt` | — |
+
 ## V1 → V2
 
 The biggest change between V1 and V2 is the introduction of Households. For more information on how households work in relation to groups/users, check out the [Groups and Households](../../documentation/getting-started/features.md#groups-and-households) section in the Features guide.

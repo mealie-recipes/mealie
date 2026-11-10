@@ -113,7 +113,7 @@ class GroupMealPlanRules(SqlAlchemyBase):
 
     categories: orm.Mapped[list[Category]] = orm.relationship(Category, secondary=plan_rules_to_categories)
     tags: orm.Mapped[list[Tag]] = orm.relationship(Tag, secondary=plan_rules_to_tags)
-    households: orm.Mapped[list["Household"]] = orm.relationship("Household", secondary=plan_rules_to_households)
+    households: orm.Mapped[list[Household]] = orm.relationship("Household", secondary=plan_rules_to_households)
 
 
 def migrate_cookbooks():

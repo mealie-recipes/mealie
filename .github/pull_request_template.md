@@ -70,3 +70,10 @@ _(REQUIRED)_
   Describe to which degree an LLM was used in creating this pull request. Failure to accurately disclose LLM usage may result in
   review delays or closure of your PR.
 -->
+
+<!--
+If an LLM writes this pull request title, body, or any commit message on the
+branch, use ASD-STE100 Simplified Technical English. Use active voice,
+approved-vocabulary words, sentences of 20 words or fewer, and no gerunds.
+See CONTRIBUTING.md > Writing Style.
+-->

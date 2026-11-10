@@ -22,7 +22,7 @@ from mealie.schema.openai.recipe import (
     OpenAIRecipeNotes,
     OpenAIRecipeNutrition,
 )
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.recipe.recipe_organizers import TagSave
 from mealie.services.openai import OpenAINotEnabledException, OpenAIService
 from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -44,7 +44,7 @@ def html_fetch_result(html: str, url: str) -> FetchResult:
 
 
 @pytest.fixture(autouse=True)
-def ai_providers(unique_user: TestUser) -> Generator[None, None, None]:
+def ai_providers(unique_user: TestUser) -> Generator[None]:
     """Enable both the default and image providers, restoring the original settings afterwards."""
 
     provider = unique_user.repos.group_ai_providers.create(
@@ -118,7 +118,7 @@ class AIResponses:
         self.prompts: list[str] = []
         self.messages: list[str] = []
 
-    def install(self, monkeypatch: pytest.MonkeyPatch) -> "AIResponses":
+    def install(self, monkeypatch: pytest.MonkeyPatch) -> AIResponses:
         responses = self
 
         async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
@@ -209,6 +209,8 @@ def test_create_from_images(
     assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
 
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    # the uploaded image is the recipe's cover, not just a file on disk
+    assert recipe["image"]
     r = api_client.get(
         api_routes.media_recipes_recipe_id_images_file_name(recipe["id"], "original.webp"),
         headers=unique_user.token,
@@ -667,6 +669,30 @@ def test_create_preserves_sections_and_nutrition(
     assert recipe["nutrition"]["proteinContent"] == "12"
 
 
+@pytest.mark.parametrize("field", ["sodium_content", "cholesterol_content"])
+def test_create_ignores_unparseable_nutrition(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    field: str,
+) -> None:
+    assert openai_recipe.nutrition is not None
+    setattr(openai_recipe.nutrition, field, "trace g")
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == openai_recipe.name
+    assert recipe["nutrition"]["calories"] == "250"
+    assert recipe["nutrition"]["proteinContent"] == "12"
+    assert recipe["nutrition"]["sodiumContent"] is None
+    assert recipe["nutrition"]["cholesterolContent"] is None
+
+
 def test_requesting_a_translation_does_not_change_the_build_request(
     api_client: TestClient,
     unique_user: TestUser,
@@ -755,6 +781,41 @@ def test_create_translates_in_its_own_step(
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["name"] == translated_name
+
+
+def test_create_structures_times_through_translation(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """ISO times become structured durations, and survive a translation that never sees them."""
+
+    built = openai_recipe.model_copy(update={"total_time": "PT1H30M", "prep_time": "overnight"})
+    # structured times are left out of the translate request, so they can't come back in the response
+    translated = openai_recipe.model_copy(update={"total_time": None, "prep_time": "la nuit"})
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        messages.append(message)
+        return translated if len(messages) > 1 else built
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string(), "translateLanguage": "French"})
+    assert r.status_code == 201
+    assert len(messages) == 2
+    assert "PT1H30M" not in messages[1]
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["totalTimeSeconds"] == 5400
+    assert recipe["totalTime"] is None
+    assert recipe["prepTimeSeconds"] is None
+    assert recipe["prepTime"] == "la nuit"
 
 
 def test_translation_is_skipped_when_the_source_is_already_in_the_language(

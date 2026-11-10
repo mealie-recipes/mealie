@@ -18,7 +18,7 @@ from mealie.core.security.tokens import ALGORITHM
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
-from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
+from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupOut
 
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 app_dirs = get_app_dirs()
@@ -63,7 +63,7 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
         return False
 
 
-async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(generate_session)) -> GroupInDB:
+async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(generate_session)) -> GroupOut:
     repos = get_repositories(session)
     group = repos.groups.get_by_slug_or_id(group_slug)
 
@@ -206,7 +206,7 @@ def validate_file_token(token: str | None = None) -> Path:
 
 
 @contextmanager
-def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
+def get_temporary_zip_path(auto_unlink=True) -> Generator[Path]:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     temp_path = app_dirs.TEMP_DIR / f"{uuid4().hex}.zip"
     try:
@@ -217,7 +217,7 @@ def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
 
 
 @contextmanager
-def get_temporary_path(auto_unlink=True) -> Generator[Path, None, None]:
+def get_temporary_path(auto_unlink=True) -> Generator[Path]:
     temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
     temp_path.mkdir(exist_ok=True, parents=True)
     try:
@@ -227,7 +227,7 @@ def get_temporary_path(auto_unlink=True) -> Generator[Path, None, None]:
             rmtree(temp_path)
 
 
-def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper, None, None]]:
+def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper]]:
     """
     Returns a temporary file with the specified extension
     """

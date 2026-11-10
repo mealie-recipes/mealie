@@ -8,7 +8,8 @@ from mealie.core import root_logger
 from mealie.core.exceptions import UnexpectedNone
 from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import AllRepositories
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.reports.reports import (
     ReportCategory,
@@ -25,7 +26,7 @@ from mealie.services.scraper import cleaner
 from .._base_service import BaseService
 from .utils.database_helpers import DatabaseMigrationHelpers
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import import_image, scrape_image
+from .utils.migration_helpers import ArchiveTooLargeError, import_image, scrape_image
 
 
 class BaseMigrator(BaseService):
@@ -145,7 +146,17 @@ class BaseMigrator(BaseService):
 
     def migrate(self, report_name: str) -> ReportSummary:
         self._create_report(report_name)
-        self._migrate()
+        try:
+            self._migrate()
+        except ArchiveTooLargeError as e:
+            self.report_entries.append(
+                ReportEntryCreate(
+                    report_id=self.report_id,
+                    success=False,
+                    message="Archive is too large to import",
+                    exception=str(e),
+                )
+            )
         self._save_all_entries()
 
         result = self.db.group_reports.get_one(self.report_id)
@@ -155,20 +166,24 @@ class BaseMigrator(BaseService):
 
         return result
 
-    def import_recipes_to_database(self, validated_recipes: list[Recipe]) -> list[tuple[str, UUID4, bool]]:
+    def import_recipes_to_database(self, validated_recipes: list[RecipeDraft]) -> list[tuple[str, UUID4 | None, bool]]:
         """
-        Used as a single access point to process a list of Recipe objects into the
+        Used as a single access point to process a list of RecipeDraft objects into the
         database in a predictable way. If an error occurs the session is rolled back
         and the process will continue. All import information is appended to the
         'migration_report' attribute to be returned to the frontend for display.
 
+        Each saved draft gets the slug and id of the recipe it became. The slug can differ from
+        the draft's when another recipe already has its name, so look drafts up by the returned
+        slug only after this returns. A failed draft keeps its own slug and has no id.
+
         Args:
-            validated_recipes (list[Recipe]):
+            validated_recipes (list[RecipeDraft]):
         """
         if self.add_migration_tag:
-            migration_tag = self.helpers.get_or_set_tags([self.name])[0]
+            migration_tag = TagDraft.model_validate(self.helpers.get_or_set_tags([self.name])[0])
 
-        return_vars: list[tuple[str, UUID4, bool]] = []
+        return_vars: list[tuple[str, UUID4 | None, bool]] = []
 
         if not self.household.preferences:
             raise ValueError("Household preferences not found")
@@ -187,13 +202,13 @@ class BaseMigrator(BaseService):
             recipe.user_id = self.user.id
             recipe.group_id = self.group.id
 
-            if recipe.tags:
-                recipe.tags = self.helpers.get_or_set_tags(x.name for x in recipe.tags)
-            else:
-                recipe.tags = []
-
-            if recipe.recipe_category:
-                recipe.recipe_category = self.helpers.get_or_set_category(x.name for x in recipe.recipe_category)
+            recipe.tags = [
+                TagDraft.model_validate(t) for t in self.helpers.get_or_set_tags(x.name for x in recipe.tags)
+            ]
+            recipe.recipe_category = [
+                CategoryDraft.model_validate(c)
+                for c in self.helpers.get_or_set_category(x.name for x in recipe.recipe_category)
+            ]
 
             if self.add_migration_tag:
                 recipe.tags.append(migration_tag)
@@ -206,7 +221,12 @@ class BaseMigrator(BaseService):
                 # locate the file, so it is dropped from the persisted copy only. The key is
                 # recorded by `import_image`/`scrape_image` once a file actually lands, so a
                 # recipe never claims an image the media route cannot serve.
-                recipe = self.recipe_service.create_one(recipe.model_copy(update={"image": None}))
+                to_create = recipe.model_copy(update={"image": None})
+                # Archive data can carry ids of tools or sub-recipes from other groups, which the
+                # recipe model would otherwise link (and overwrite) by primary key.
+                to_create = RecipeDraft(**self.recipe_service.clean_recipe_dict(to_create.model_dump(mode="json")))
+                created = self.recipe_service.create_one(to_create)
+                recipe.slug, recipe.id = created.slug, created.id
                 status = True
 
             except Exception as inst:
@@ -219,7 +239,7 @@ class BaseMigrator(BaseService):
             else:
                 message = f"Failed to import {recipe.name}"
 
-            return_vars.append((recipe.slug, recipe.id, status))  # type: ignore
+            return_vars.append((recipe.slug, recipe.id, status))
 
             self.report_entries.append(
                 ReportEntryCreate(
@@ -264,10 +284,10 @@ class BaseMigrator(BaseService):
 
         return recipe_dict
 
-    def clean_recipe_dictionary(self, recipe_dict: dict) -> Recipe:
+    def clean_recipe_dictionary(self, recipe_dict: dict) -> RecipeDraft:
         """
         Calls the rewrite_alias function and the Cleaner.clean function on a
-        dictionary and returns the result unpacked into a Recipe object
+        dictionary and returns the result unpacked into a RecipeDraft object
         """
         recipe_dict = self.rewrite_alias(recipe_dict)
 

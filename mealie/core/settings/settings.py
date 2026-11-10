@@ -11,6 +11,7 @@ from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from mealie.core.settings.branding import Branding
 from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
@@ -26,7 +27,7 @@ class ScraperProxyMode(StrEnum):
     """Try direct first; only retry through the proxy when a block is detected."""
 
     @classmethod
-    def _missing_(cls, value: object) -> "ScraperProxyMode":
+    def _missing_(cls, value: object) -> ScraperProxyMode:
         # Default any unrecognized configuration value to the safest, most useful mode.
         return cls.always
 
@@ -138,6 +139,7 @@ class AppLoggingSettings(BaseSettings):
 
 class AppSettings(AppLoggingSettings):
     theme: Theme = Theme()
+    branding: Branding = Branding()
 
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
@@ -154,7 +156,9 @@ class AppSettings(AppLoggingSettings):
 
     HOST_IP: str = "*"
 
-    API_HOST: str = "0.0.0.0"
+    API_HOST: str = ""
+    """Listening address. Empty binds IPv4 and IPv6 when dual-stack is available, else IPv4."""
+
     API_PORT: int = 9000
     API_DOCS: bool = True
     TOKEN_TIME: int = 48
@@ -167,6 +171,16 @@ class AppSettings(AppLoggingSettings):
             raise ValueError("TOKEN_TIME must be at least 1 hour")
         # Certain browsers (webkit) have issues with very long-lived cookies, so we limit to 400 days
         return min(v, 400 * 24)
+
+    PASSWORD_RESET_TOKEN_TIME: int = 1
+    """time in hours"""
+
+    @field_validator("PASSWORD_RESET_TOKEN_TIME")
+    @classmethod
+    def validate_password_reset_token_time(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("PASSWORD_RESET_TOKEN_TIME must be at least 1 hour")
+        return v
 
     SECRET: str
     SESSION_SECRET: str
@@ -205,6 +219,22 @@ class AppSettings(AppLoggingSettings):
     @property
     def http_disallow_list(self) -> list[str]:
         return [host.strip() for host in self.HTTP_DISALLOW_LIST.split(",") if host.strip()]
+
+    APPRISE_ALLOWED_SCHEMAS: str = ""
+    """Comma-separated Apprise URL schemas (e.g. `ntfys,discord,mailtos`) that notifiers may use.
+    Empty allows every schema Apprise supports. Notifiers send through Apprise, which is not covered
+    by `HTTP_ALLOW_LIST`/`HTTP_DISALLOW_LIST`, so this is how to limit where they can send."""
+
+    @property
+    def apprise_allowed_schemas(self) -> set[str]:
+        return {schema.strip().lower() for schema in self.APPRISE_ALLOWED_SCHEMAS.split(",") if schema.strip()}
+
+    def is_apprise_url_allowed(self, url: str) -> bool:
+        allowed = self.apprise_allowed_schemas
+        if not allowed:
+            return True
+        schema, sep, _ = url.partition("://")
+        return bool(sep) and schema.strip().lower() in allowed
 
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""
@@ -407,7 +437,16 @@ class AppSettings(AppLoggingSettings):
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
+    OIDC_VERIFY_X509_STRICT: bool = True
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
+
+    OIDC_NATIVE_CLIENT_ID: str | None = None
+    """Client ID used by the native (mobile/desktop) OIDC endpoints. Falls back to OIDC_CLIENT_ID when unset."""
+
+    OIDC_NATIVE_CONFIDENTIAL: bool = True
+    """When false, the native client is treated as a public client: the client secret is omitted from the token
+    exchange and PKCE alone is relied on. Required for Google and Microsoft, which do not allow custom-scheme
+    redirects on confidential clients."""
 
     @property
     def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:
@@ -444,13 +483,39 @@ class AppSettings(AppLoggingSettings):
         return self.OIDC_FEATURE.enabled
 
     # ===============================================
-    # OpenAI Configuration
+    # Reverse Proxy Auth Configuration
+    REVERSE_PROXY_AUTH_ENABLED: bool = False
+    REVERSE_PROXY_AUTH_HEADER: str = "X-Forwarded-User"
+    REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = False
 
-    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
-    """
-    Path to a folder containing custom prompt files;
-    files are individually optional, each prompt name will fall back to the default if no custom file exists
-    """
+    REVERSE_PROXY_AUTH_SECRET: str | None = None
+    """Shared secret the proxy must send in REVERSE_PROXY_AUTH_SECRET_HEADER on every request. Checking
+    the connecting IP instead doesn't work: with the default HOST_IP="*", uvicorn trusts every peer and
+    will happily replace request.client with whatever X-Forwarded-For a direct request supplies, letting
+    an attacker impersonate the proxy's address; narrowing HOST_IP to the proxy instead makes
+    request.client the *end user's* IP, which isn't a fixed value to allowlist. A shared secret isn't
+    forgeable either way. Strongly recommended in production; left unset for backwards compatibility
+    with simple setups that trust their whole network."""
+
+    REVERSE_PROXY_AUTH_SECRET_HEADER: str = "X-Mealie-Reverse-Proxy-Secret"
+    """The header REVERSE_PROXY_AUTH_SECRET is expected in."""
+
+    @property
+    def REVERSE_PROXY_AUTH_FEATURE(self) -> FeatureDetails:
+        description = None if self.REVERSE_PROXY_AUTH_ENABLED else "REVERSE_PROXY_AUTH_ENABLED is false"
+        has_header = bool(self.REVERSE_PROXY_AUTH_HEADER)
+        if not has_header and not description:
+            description = "REVERSE_PROXY_AUTH_HEADER is not set"
+
+        return FeatureDetails(
+            enabled=self.REVERSE_PROXY_AUTH_ENABLED and has_header,
+            description=description,
+        )
+
+    @property
+    def REVERSE_PROXY_AUTH_READY(self) -> bool:
+        """Validates reverse proxy auth settings are all set"""
+        return self.REVERSE_PROXY_AUTH_FEATURE.enabled
 
     # ===============================================
     # Scraper Configuration

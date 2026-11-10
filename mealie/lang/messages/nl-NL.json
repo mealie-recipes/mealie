@@ -5,11 +5,16 @@
     "recipe": {
         "unique-name-error": "Receptnamen moeten uniek zijn",
         "recipe-created": "Recept aangemaakt op",
+        "made-this-as-side": "{name} heeft dit gemaakt als bijgerecht",
+        "made-this-for-breakfast": "{name} heeft dit gemaakt als ontbijt",
+        "made-this-for-lunch": "{name} heeft dit gemaakt als lunch",
+        "made-this-for-dinner": "{name} heeft dit gemaakt als diner",
+        "made-this-for-snack": "{name} heeft dit gemaakt als snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} heeft dit gemaakt als nagerecht",
         "recipe-image-deleted": "Receptafbeelding verwijderd",
         "recipe-defaults": {
-            "ingredient-note": "250 gram bloem",
-            "name": "New Recipe",
-            "step-text": "Receptstappen en andere velden op de receptpagina ondersteunen Markdown syntaxis.\n\n**Voeg een link toe**\n\n[Mijn Link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Maakt",
@@ -20,10 +25,21 @@
             "yields": "Opbrengsten"
         },
         "and-amount": "en {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
@@ -68,7 +84,7 @@
         "report-deleted": "Rapport verwijderd."
     },
     "exceptions": {
-        "permission_denied": "Je hebt geen toestemming om deze actie uit te voeren",
+        "permission-denied": "Je hebt geen toestemming om deze actie uit te voeren",
         "recursive-recipe-link": "Een recept kan niet naar zichzelf verwijzen, direct of indirect",
         "no-entry-found": "Het opgevraagde is niet gevonden",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -83,7 +99,7 @@
         "generic-updated-with-url": "{name} is bijgewerkt, {url}",
         "generic-duplicated": "{name} is gekopieerd",
         "generic-deleted": "{name} is verwijderd",
-        "logged-out": "",
+        "logged-out": "Uitgelogd",
         "event-title": {
             "test-message": "Test Message",
             "webhook-task": "Webhook Task",
@@ -116,7 +132,10 @@
         "test-message-body": "This is a test notification from Mealie.",
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
-        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "jaar|jaren",

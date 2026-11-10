@@ -7,10 +7,10 @@ from pydantic import BaseModel, Field
 
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.household.household import HouseholdInDB
+from mealie.schema.household.household import HouseholdOut
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.organizers import OpenAIOrganizers
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.user.user import PrivateUser
 from mealie.services.openai import OpenAIService
 
@@ -34,6 +34,8 @@ class WorkflowInput(BaseModel):
     """
     The page's own content, for callers that have already fetched it. Unlike `content` this is
     not a separate source, so supplying it skips the fetch rather than adding to the material.
+    Callers that followed redirects should also set `WorkflowContext.resolved_url` to the landing
+    URL; otherwise URL compilers still see only `url`.
     """
 
     @property
@@ -77,7 +79,7 @@ class WorkflowContext:
     ai: OpenAIService
 
     user: PrivateUser | None = None
-    household: HouseholdInDB | None = None
+    household: HouseholdOut | None = None
     """Recipe owner. Optional, since callers that persist the recipe themselves assign it."""
 
     on_progress: Callable[[str], Awaitable[None]] | None = None
@@ -91,7 +93,7 @@ class WorkflowContext:
     organizer_names: OpenAIOrganizers | None = None
     """Organizer names returned by the organizer step, before they're matched to the database"""
 
-    draft_recipe: Recipe | None = None
+    draft_recipe: RecipeDraft | None = None
     """Recipe under construction. Not persisted; the caller is responsible for saving it."""
 
     async def report_progress(self, key: str) -> None:
@@ -100,5 +102,5 @@ class WorkflowContext:
 
 
 class WorkflowResult(BaseModel):
-    recipe: Recipe
+    recipe: RecipeDraft
     outcomes: dict[str, StepOutcome] = Field(default_factory=dict)

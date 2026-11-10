@@ -1,15 +1,14 @@
 import enum
 from datetime import UTC, datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
-from pydantic import ConfigDict
 from sqlalchemy import Boolean, Enum, ForeignKey, Integer, String, orm, select
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, Session, mapped_column
 
 from mealie.core.config import get_app_settings
-from mealie.db.models._model_utils.auto_init import auto_init
+from mealie.db.models._model_utils.auto_init import AutoInitOptions, auto_init
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 
@@ -31,7 +30,7 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
     token: Mapped[str] = mapped_column(String, nullable=False, index=True)
 
     user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
-    user: Mapped[Optional["User"]] = orm.relationship("User")
+    user: Mapped[User | None] = orm.relationship("User")
 
     group_id: AssociationProxy[GUID] = association_proxy("user", "group_id")
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
@@ -46,6 +45,7 @@ class AuthMethod(enum.Enum):
     MEALIE = "Mealie"
     LDAP = "LDAP"
     OIDC = "OIDC"
+    REVERSE_PROXY = "ReverseProxy"
 
 
 class User(SqlAlchemyBase, BaseMixins):
@@ -61,11 +61,11 @@ class User(SqlAlchemyBase, BaseMixins):
     advanced: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="users")
+    group: Mapped[Group] = orm.relationship("Group", back_populates="users")
     household_id: FilterableColumn[GUID | None] = mapped_column(
         GUID, ForeignKey("households.id"), nullable=True, index=True
     )
-    household: Mapped["Household"] = orm.relationship("Household", back_populates="users")
+    household: Mapped[Household] = orm.relationship("Household", back_populates="users")
 
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")
     # Digest of the OIDC picture claim the stored avatar was built from, so repeat logins
@@ -94,32 +94,30 @@ class User(SqlAlchemyBase, BaseMixins):
     }
 
     tokens: Mapped[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
-    comments: Mapped[list["RecipeComment"]] = orm.relationship("RecipeComment", **sp_args)
-    recipe_timeline_events: Mapped[list["RecipeTimelineEvent"]] = orm.relationship("RecipeTimelineEvent", **sp_args)
-    password_reset_tokens: Mapped[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
+    comments: Mapped[list[RecipeComment]] = orm.relationship("RecipeComment", **sp_args)
+    recipe_timeline_events: Mapped[list[RecipeTimelineEvent]] = orm.relationship("RecipeTimelineEvent", **sp_args)
+    password_reset_tokens: Mapped[list[PasswordResetModel]] = orm.relationship("PasswordResetModel", **sp_args)
 
     owned_recipes_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
-    owned_recipes: Mapped[Optional["RecipeModel"]] = orm.relationship(
+    owned_recipes: Mapped[RecipeModel | None] = orm.relationship(
         "RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id]
     )
-    mealplans: Mapped[list["GroupMealPlan"]] = orm.relationship(
-        "GroupMealPlan", order_by="GroupMealPlan.date", **sp_args
-    )
-    shopping_lists: Mapped[list["ShoppingList"]] = orm.relationship("ShoppingList", **sp_args)
-    rated_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+    mealplans: Mapped[list[GroupMealPlan]] = orm.relationship("GroupMealPlan", order_by="GroupMealPlan.date", **sp_args)
+    shopping_lists: Mapped[list[ShoppingList]] = orm.relationship("ShoppingList", **sp_args)
+    rated_recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel",
         secondary=UserToRecipe.__tablename__,
         back_populates="rated_by",
         overlaps="recipe,favorited_by,favorited_recipes",
     )
-    favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+    favorite_recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel",
         secondary=UserToRecipe.__tablename__,
         primaryjoin="and_(User.id==UserToRecipe.user_id, UserToRecipe.is_favorite==True)",
         viewonly=True,
         overlaps="recipe,rated_by,rated_recipes",
     )
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "password",
             "admin",

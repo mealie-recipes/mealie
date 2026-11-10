@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { describe, expect, test } from "vitest";
 import type { ISearchableItem } from "./use-search";
-import { useSearch } from "./use-search";
+import { isExactMatch, useSearch } from "./use-search";
 
 function item(name: string, extra: Partial<ISearchableItem> = {}): ISearchableItem {
   return { id: name, name, ...extra };
@@ -111,5 +111,24 @@ describe("useSearch ranking tiers", () => {
   test("regex metacharacters in the query are treated literally", () => {
     const names = searchFor([item("half & half"), item("a.b"), item("axb")], "a.b");
     expect(names).toEqual(["a.b"]);
+  });
+});
+
+describe("isExactMatch", () => {
+  test("matches name, plural, abbreviation, and alias", () => {
+    const unit = item("teaspoon", { pluralName: "teaspoons", abbreviation: "tsp", aliases: [{ name: "tea spoon" }] });
+    expect(isExactMatch(unit, "teaspoon")).toBe(true);
+    expect(isExactMatch(unit, "teaspoons")).toBe(true);
+    expect(isExactMatch(unit, "tsp")).toBe(true);
+    expect(isExactMatch(unit, "tea spoon")).toBe(true);
+  });
+
+  test("ignores case, accents, and surrounding whitespace", () => {
+    expect(isExactMatch(item("Jalapeño"), "  JALAPENO ")).toBe(true);
+  });
+
+  test("does not match prefixes or empty text", () => {
+    expect(isExactMatch(item("cornstarch"), "corn")).toBe(false);
+    expect(isExactMatch(item("cornstarch"), "  ")).toBe(false);
   });
 });

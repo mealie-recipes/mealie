@@ -5,7 +5,7 @@ from typing import Any
 
 from slugify import slugify
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.services.migrations.utils.migration_alias import MigrationAlias
 from mealie.services.scraper import cleaner
 
@@ -33,9 +33,9 @@ class MyRecipeBoxMigrator(BaseMigrator):
 
         self.key_aliases = [
             MigrationAlias(key="name", alias="title", func=None),
-            MigrationAlias(key="prepTime", alias="preparationTime", func=self.parse_time),
-            MigrationAlias(key="performTime", alias="cookingTime", func=self.parse_time),
-            MigrationAlias(key="totalTime", alias="totalTime", func=self.parse_time),
+            MigrationAlias(key="prepTime", alias="preparationTime", func=None),
+            MigrationAlias(key="performTime", alias="cookingTime", func=None),
+            MigrationAlias(key="totalTime", alias="totalTime", func=None),
             MigrationAlias(key="recipeYield", alias="quantity", func=str),
             MigrationAlias(key="recipeIngredient", alias="ingredients", func=None),
             MigrationAlias(key="recipeInstructions", alias="instructions", func=split_by_line_break),
@@ -45,25 +45,6 @@ class MyRecipeBoxMigrator(BaseMigrator):
             MigrationAlias(key="tags", alias="tags", func=split_by_semicolon),
             MigrationAlias(key="orgURL", alias="source", func=None),
         ]
-
-    def parse_time(self, time: Any) -> str | None:
-        """Converts a time value to a string with minutes"""
-        try:
-            if not time:
-                return None
-            if not (isinstance(time, int) or isinstance(time, float) or isinstance(time, str)):
-                time = str(time)
-
-            if isinstance(time, str):
-                try:
-                    time = int(time)
-                except ValueError:
-                    return time
-
-            unit = self.translator.t("datetime.minute", count=time)
-            return f"{time} {unit}"
-        except Exception:
-            return None
 
     def parse_nutrition(self, input_: Any) -> dict | None:
         if not input_ or not isinstance(input_, str):
@@ -120,7 +101,7 @@ class MyRecipeBoxMigrator(BaseMigrator):
     def _migrate(self) -> None:
         recipe_image_urls: dict = {}
 
-        recipes: list[Recipe] = []
+        recipes: list[RecipeDraft] = []
         for row in self.extract_rows(self.archive):
             recipe_dict = self.pre_process_row(row)
             if (title := recipe_dict.get("title")) and (image_url := recipe_dict.get("originalPicture")):
@@ -135,7 +116,7 @@ class MyRecipeBoxMigrator(BaseMigrator):
 
         results = self.import_recipes_to_database(recipes)
         for slug, recipe_id, status in results:
-            if not status or not (recipe_image_url := recipe_image_urls.get(slug)):
+            if not status or not recipe_id or not (recipe_image_url := recipe_image_urls.get(slug)):
                 continue
 
             try:

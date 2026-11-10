@@ -12,10 +12,15 @@ var url = document.URL.endsWith('/') ?
     document.URL;
 var mealie = "http://localhost:8080";
 var group_slug = "home" // Change this to your group slug. You can obtain this from your URL after logging-in to Mealie
+var use_keywords = "" // Optional: "1" to import the original keywords as tags, "0" to not. Leave empty to use your last choice
+var edit = "" // Optional: "1" to stay in edit mode after importing, "0" to not. Leave empty to use your last choice
 
 if (mealie.slice(-1) === "/") {
     mealie = mealie.slice(0, -1)
 }
-var dest = mealie + "/g/" + group_slug + "/r/create/url?recipe_import_url=" + url;
+var dest = mealie + "/g/" + group_slug + "/r/create/url"
+    + "?use_keywords=" + use_keywords
+    + "&edit=" + edit
+    + "&recipe_import_url=" + encodeURIComponent(url);
 window.open(dest, "_blank");
 ```

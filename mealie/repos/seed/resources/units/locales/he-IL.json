@@ -47,6 +47,12 @@
         "description": "",
         "abbreviation": "מ\"ל"
     },
+    "centiliter": {
+        "name": "סנטיליטר",
+        "plural_name": "סנטיליטרים",
+        "description": "",
+        "abbreviation": "ס״ל"
+    },
     "liter": {
         "name": "ליטר",
         "plural_name": "ליטרים",

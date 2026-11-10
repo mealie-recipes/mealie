@@ -5,11 +5,16 @@
     "recipe": {
         "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük",
         "recipe-created": "Recept létrehozva",
+        "made-this-as-side": "{name} ezt főétel mellé készítette",
+        "made-this-for-breakfast": "{name} ezt készítette reggelire",
+        "made-this-for-lunch": "{name} ezt készítette ebédre",
+        "made-this-for-dinner": "{name} ezt készítette vacsorára",
+        "made-this-for-snack": "{name} ezt készítette uzsonnára",
+        "made-this-for-drink": "{name} ezt italhoz készítette",
+        "made-this-for-dessert": "{name} ezt készítette desszertnek",
         "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
-            "ingredient-note": "1 csésze liszt",
-            "name": "Új recept",
-            "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
+            "name": "Új recept"
         },
         "servings-text": {
             "makes": "Elkészítések",
@@ -20,10 +25,21 @@
             "yields": "Késleltetve"
         },
         "and-amount": "és {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "Az AI képszolgáltatások nem engedélyezettek",
+            "invalid-mealie-export": "Úgy tűnik, ez egy a Mealie-ből exportált recept, de nem sikerült importálni",
             "no-recipe-found": "A megadott forrásban nem található recept",
             "no-source": "Nincs tartalom, kép vagy URL megadva",
             "provider-returned-nothing": "Az AI szolgáltató nem adott vissza receptet",
@@ -68,7 +84,7 @@
         "report-deleted": "A jelentés törlésre került."
     },
     "exceptions": {
-        "permission_denied": "Nincs engedélye a műveletet végrehajtásához",
+        "permission-denied": "Nincs jogosultsága a műveletet végrehajtásához",
         "recursive-recipe-link": "Egy recept nem hivatkozhat önmagára, sem közvetlenül, sem közvetve",
         "no-entry-found": "A kért erőforrás nem található",
         "rate-limit-error": "Az AI-szolgáltató korlátozza a kérések számát. Kérjük, várjon egy kis időt, majd próbálja meg újra",
@@ -116,7 +132,10 @@
         "test-message-body": "Ez egy teszt értesítés a Mealie-től.",
         "mealplan-entry-created": "Menüterv bejegyzés létrehozva {date}-ra/re, mint {entry_type} típus",
         "mealplan-entry-updated": "Menüterv bejegyzés frissítve {date}-ra/re, mint {entry_type} típus",
-        "mealplan-entry-deleted": "Menüterv bejegyzés törölve {date}-ra/re, mint {entry_type} típus"
+        "mealplan-entry-deleted": "Menüterv bejegyzés törölve {date}-ra/re, mint {entry_type} típus",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "év",

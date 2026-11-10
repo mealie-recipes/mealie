@@ -176,14 +176,26 @@ export function usePageUser(): { user: UserOut } {
     return {
       user: {
         id: "",
+        username: null,
+        fullName: null,
+        email: "",
+        authMethod: "Mealie",
+        admin: false,
         group: "",
+        household: "",
+        advanced: false,
+        showAnnouncements: false,
+        lastReadAnnouncement: null,
+        canInvite: false,
+        canManage: false,
+        canManageHousehold: false,
+        canOrganize: false,
         groupId: "",
         groupSlug: "",
-        household: "",
         householdId: "",
         householdSlug: "",
+        tokens: null,
         cacheKey: "",
-        email: "",
       },
     };
   }

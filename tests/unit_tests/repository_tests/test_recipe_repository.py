@@ -1,20 +1,33 @@
 from datetime import UTC, datetime, timedelta
+from unittest.mock import Mock
 from uuid import UUID, uuid4
 
 import pytest
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
-from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe import IngredientFoodSave, RecipeIngredient
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
-from mealie.schema.user.user import GroupBase, UserRatingCreate
+from mealie.schema.user.user import GroupBase, UserRatingSave
 from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+def test_create_recipe_stops_retrying_integrity_errors(unique_user: TestUser, monkeypatch: pytest.MonkeyPatch) -> None:
+    create = Mock(side_effect=IntegrityError("INSERT", {}, Exception("unrelated constraint failure")))
+    monkeypatch.setattr(RepositoryGeneric, "create", create)
+    recipe = RecipeDraft(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
+
+    with pytest.raises(IntegrityError):
+        unique_user.repos.recipes.create(recipe)
+
+    assert create.call_count == 10
 
 
 @pytest.fixture()
@@ -68,10 +81,10 @@ def unique_db(session: Session, unique_ids: tuple[str, str, str]):
 
 
 @pytest.fixture()
-def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str]) -> list[Recipe]:
+def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str]) -> list[RecipeOut]:
     group_id, _, user_id = unique_ids
     recipes = [
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Steinbock Sloop",
@@ -80,7 +93,7 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
                 RecipeIngredient(note="alpine animal"),
             ],
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Fiddlehead Fern Stir Fry",
@@ -88,44 +101,44 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
                 RecipeIngredient(note="moss"),
             ],
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Animal Sloop",
         ),
         # Test diacritics
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name="Rátàtôuile",
         ),
         # Add a bunch of recipes for stable randomization
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
         ),
-        Recipe(
+        RecipeDraft(
             group_id=group_id,
             user_id=user_id,
             name=f"{random_string(10)} soup",
@@ -152,7 +165,7 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
     for i in range(10):
         # None of the categories
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -161,7 +174,7 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
 
         # Only one of the categories
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -171,7 +184,7 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
 
         # Both of the categories
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -234,6 +247,35 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
     assert not all(i == random_ordered[0] for i in random_ordered)
 
 
+def test_recipe_repo_random_order_is_stable_across_pages(unique_user_fn_scoped: TestUser):
+    database = unique_user_fn_scoped.repos
+    for _ in range(10):
+        database.recipes.create(
+            RecipeDraft(
+                user_id=unique_user_fn_scoped.user_id, group_id=unique_user_fn_scoped.group_id, name=random_string()
+            )
+        )
+
+    seed = random_string()
+    all_at_once = [
+        r.id
+        for r in database.recipes.page_all(
+            PaginationQuery(page=1, per_page=-1, order_by="random", pagination_seed=seed)
+        ).items
+    ]
+
+    paged: list[UUID] = []
+    for page in range(1, 5):
+        query = PaginationQuery(page=page, per_page=3, order_by="random", pagination_seed=seed)
+        paged.extend(r.id for r in database.recipes.page_all(query).items)
+
+    assert len(all_at_once) == 10
+    assert paged == all_at_once
+
+    past_the_end = PaginationQuery(page=5, per_page=3, order_by="random", pagination_seed=seed)
+    assert database.recipes.page_all(past_the_end).items == []
+
+
 def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
     database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
@@ -251,7 +293,7 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
     for i in range(10):
         # None of the tags
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -260,7 +302,7 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
 
         # Only one of the tags
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -270,7 +312,7 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
 
         # Both of the tags
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -337,8 +379,8 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     tools = [
-        RecipeToolSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
-        RecipeToolSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
+        ToolSave(group_id=unique_user.group_id, name=slug1, slug=slug1),
+        ToolSave(group_id=unique_user.group_id, name=slug2, slug=slug2),
     ]
 
     created_tools = [database.tools.create(tool) for tool in tools]
@@ -349,7 +391,7 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
     for i in range(10):
         # None of the tools
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -358,7 +400,7 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
 
         # Only one of the tools
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -368,7 +410,7 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
 
         # Both of the tools
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -434,8 +476,8 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
     slug1, slug2 = (random_string(10) for _ in range(2))
 
     foods = [
-        SaveIngredientFood(group_id=unique_user.group_id, name=slug1),
-        SaveIngredientFood(group_id=unique_user.group_id, name=slug2),
+        IngredientFoodSave(group_id=unique_user.group_id, name=slug1),
+        IngredientFoodSave(group_id=unique_user.group_id, name=slug2),
     ]
 
     created_foods = [database.ingredient_foods.create(food) for food in foods]
@@ -446,7 +488,7 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
     for i in range(10):
         # None of the foods
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -455,7 +497,7 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
 
         # Only one of the foods
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -465,7 +507,7 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
 
         # Both of the foods
         recipes.append(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -541,7 +583,7 @@ def test_basic_recipe_search(
     unique_db: AllRepositories,
     search: str,
     expected_names: list[str],
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     repo = unique_db.recipes
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
@@ -558,7 +600,7 @@ def test_basic_recipe_search(
 
 def test_fuzzy_recipe_search(
     unique_db: AllRepositories,
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     # this only works on postgres
     if unique_db.session.get_bind().name != "postgresql":
@@ -571,9 +613,73 @@ def test_fuzzy_recipe_search(
     assert results and results[0].name == "Steinbock Sloop"
 
 
+@pytest.mark.parametrize(
+    "search, expected_name",
+    [
+        ("Steinbuck", "Steinbock Sloop"),
+        ("delicous", "Steinbock Sloop"),
+        ("mosss", "Fiddlehead Fern Stir Fry"),
+        ("alpine animl", "Steinbock Sloop"),
+    ],
+    ids=["fuzzy_title", "fuzzy_description", "fuzzy_ingredient_note", "fuzzy_ingredient_phrase"],
+)
+def test_fuzzy_recipe_search_sources(
+    unique_db: AllRepositories,
+    search: str,
+    expected_name: str,
+    search_recipes: list[RecipeOut],  # required so database is populated
+):
+    # fuzzy search is postgres-only
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    results = repo.page_all(pagination, search=search).items
+    names = [recipe.name for recipe in results]
+
+    assert expected_name in names
+    assert len(names) == len(set(names)), "a recipe matching in several places must be returned once"
+
+
+def test_fuzzy_recipe_search_no_match(
+    unique_db: AllRepositories,
+    search_recipes: list[RecipeOut],  # required so database is populated
+):
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    assert repo.page_all(pagination, search="qzxwvjk").items == []
+
+
+def test_fuzzy_recipe_search_ingredient_threshold(
+    unique_db: AllRepositories,
+    unique_ids: tuple[str, str, str],
+):
+    # ingredients match at pg_trgm's default threshold: "salt" scores ~0.57 against "salmon"
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    group_id, _, user_id = unique_ids
+    unique_db.recipes.create(
+        RecipeDraft(
+            group_id=group_id,
+            user_id=user_id,
+            name="Plain Toast",
+            recipe_ingredient=[RecipeIngredient(note="1 teaspoon salt")],
+        )
+    )
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    assert "Plain Toast" not in [recipe.name for recipe in repo.page_all(pagination, search="salmon").items]
+
+
 def test_random_order_recipe_search(
     unique_db: AllRepositories,
-    search_recipes: list[Recipe],  # required so database is populated
+    search_recipes: list[RecipeOut],  # required so database is populated
 ):
     repo = unique_db.recipes
     pagination = PaginationQuery(
@@ -596,7 +702,7 @@ def test_order_by_last_made(unique_user: TestUser, h2_user: TestUser):
 
     recipe_1, recipe_2 = (
         unique_user.repos.recipes.create(
-            Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
+            RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
         )
         for _ in range(2)
     )
@@ -652,7 +758,7 @@ def test_coalesce_last_made(unique_user: TestUser):
 
     made_recipe, unmade_recipe = (
         unique_user.repos.recipes.create(
-            Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
+            RecipeDraft(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
         )
         for _ in range(2)
     )
@@ -693,12 +799,12 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     database = user_1.repos
     repo = database.recipes
 
-    recipes: list[Recipe] = []
+    recipes: list[RecipeOut] = []
     for i in range(3):
         slug = f"recipe-{i + 1}-{random_string(5)}"
         recipes.append(
             repo.create(
-                Recipe(
+                RecipeDraft(
                     user_id=user_1.user_id,
                     group_id=user_1.group_id,
                     name=slug,
@@ -710,21 +816,21 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     # set the rating for user_1 and confirm both users see the same ordering
     recipe_1, recipe_2, recipe_3 = recipes
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_1.user_id,
             recipe_id=recipe_1.id,
             rating=5,
         )
     )
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_1.user_id,
             recipe_id=recipe_2.id,
             rating=4,
         )
     )
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_1.user_id,
             recipe_id=recipe_3.id,
             rating=3,
@@ -751,7 +857,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
 
     # set rating for one recipe for user_2 and confirm user_2 sees the correct order and user_1's order is unchanged
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_2.user_id,
             recipe_id=recipe_1.id,
             rating=3.5,
@@ -788,7 +894,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
 
     # verify public users see only global ratings
     database.user_ratings.create(
-        UserRatingCreate(
+        UserRatingSave(
             user_id=user_2.user_id,
             recipe_id=recipe_2.id,
             rating=1,
@@ -812,12 +918,52 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     assert data[2].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)
 
 
-@pytest.mark.parametrize("route", ["patch", "update"])
-def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
-    # Regression test for #6802 - Ensure explicit group_id injection works for new organizers
+def test_recipe_update_preserves_identity_when_omitted(unique_user: TestUser):
+    # A client (e.g. a hand-edited JSON import) may omit or null id/user_id/household_id/group_id.
+    # update() must always preserve these from the existing DB entry rather than erroring.
     database = unique_user.repos
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    new_name = random_string()
+    payload = {
+        "name": new_name,
+        "id": None,
+        "user_id": None,
+        "household_id": None,
+        "group_id": None,
+    }
+
+    updated_recipe = database.recipes.update(recipe.slug, payload)
+
+    assert updated_recipe.id == recipe.id
+    assert updated_recipe.user_id == recipe.user_id
+    assert updated_recipe.household_id == recipe.household_id
+    assert str(updated_recipe.group_id) == unique_user.group_id
+    assert updated_recipe.name == new_name
+
+
+def test_recipe_update_rejects_cross_group_organizer_id(unique_user: TestUser, unique_local_group_id: str):
+    # Regression test for the CHANGES_REQUESTED security fix on PR #7785:
+    # a client-supplied organizer id belonging to a *different* group must never be
+    # accepted as-is (it would force-overwrite that organizer's group_id to the caller's
+    # group). It should instead be treated as not-found and resolved/created by name.
+    database = unique_user.repos
+    foreign_repos = get_repositories(database.session, group_id=UUID(unique_local_group_id), household_id=None)
+
+    foreign_tag = foreign_repos.tags.create(TagSave(group_id=UUID(unique_local_group_id), name=random_string()))
+    foreign_category = foreign_repos.categories.create(
+        CategorySave(group_id=UUID(unique_local_group_id), name=random_string())
+    )
+    foreign_tool = foreign_repos.tools.create(ToolSave(group_id=UUID(unique_local_group_id), name=random_string()))
+
+    recipe = database.recipes.create(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -828,7 +974,51 @@ def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
     new_cat_name = random_string()
     new_tool_name = random_string()
 
-    patch_data = Recipe(
+    payload = {
+        "name": recipe.name,
+        "tags": [{"id": str(foreign_tag.id), "name": new_tag_name}],
+        "recipe_category": [{"id": str(foreign_category.id), "name": new_cat_name}],
+        "tools": [{"id": str(foreign_tool.id), "name": new_tool_name}],
+    }
+
+    updated_recipe = database.recipes.update(recipe.slug, payload)
+
+    # None of the foreign organizer ids were accepted...
+    assert updated_recipe.tags[0].id != foreign_tag.id
+    assert updated_recipe.recipe_category[0].id != foreign_category.id
+    assert updated_recipe.tools[0].id != foreign_tool.id
+
+    # ...and each was resolved/created by name in the *caller's* group instead.
+    assert str(updated_recipe.tags[0].group_id) == unique_user.group_id
+    assert updated_recipe.tags[0].name == new_tag_name
+    assert str(updated_recipe.recipe_category[0].group_id) == unique_user.group_id
+    assert updated_recipe.recipe_category[0].name == new_cat_name
+    assert str(updated_recipe.tools[0].group_id) == unique_user.group_id
+    assert updated_recipe.tools[0].name == new_tool_name
+
+    # The foreign group's organizers themselves were left untouched.
+    assert foreign_repos.tags.get_one(foreign_tag.id).group_id == UUID(unique_local_group_id)
+    assert foreign_repos.categories.get_one(foreign_category.id).group_id == UUID(unique_local_group_id)
+    assert foreign_repos.tools.get_one(foreign_tool.id).group_id == UUID(unique_local_group_id)
+
+
+@pytest.mark.parametrize("route", ["patch", "update"])
+def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
+    # Regression test for #6802 - Ensure explicit group_id injection works for new organizers
+    database = unique_user.repos
+    recipe = database.recipes.create(
+        RecipeDraft(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    new_tag_name = random_string()
+    new_cat_name = random_string()
+    new_tool_name = random_string()
+
+    patch_data = RecipeDraft(
         name=recipe.name,
         tags=[new_tag_name],
         recipe_category=[new_cat_name],
@@ -866,7 +1056,7 @@ def test_recipe_note_step_references(unique_user: TestUser) -> None:
 
     # Create a recipe with one note
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -894,7 +1084,7 @@ def test_recipe_note_step_references(unique_user: TestUser) -> None:
 def test_recipe_create_keeps_provided_id(unique_user: TestUser) -> None:
     recipe_id = uuid4()
     recipe = unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             id=recipe_id,
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
@@ -908,7 +1098,7 @@ def test_recipe_create_keeps_provided_id(unique_user: TestUser) -> None:
 def test_recipe_update_ignores_id_in_payload(unique_user: TestUser) -> None:
     database = unique_user.repos
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -919,3 +1109,16 @@ def test_recipe_update_ignores_id_in_payload(unique_user: TestUser) -> None:
 
     assert updated.id == recipe.id
     assert updated.description == "changed"
+
+
+def test_recipe_repo_count_all(
+    unique_db: AllRepositories, unfiltered_database: AllRepositories, unique_ids: tuple[str, str, str]
+):
+    group_id, household_id, user_id = unique_ids
+    for _ in range(2):
+        unique_db.recipes.create(RecipeDraft(group_id=group_id, user_id=user_id, name=random_string()))
+
+    # group_id is a column on recipes, household_id is an association proxy through the user
+    assert unfiltered_database.recipes.count_all("group_id", UUID(group_id)) == 2
+    assert unfiltered_database.recipes.count_all("household_id", UUID(household_id)) == 2
+    assert unfiltered_database.recipes.count_all("household_id", uuid4()) == 0

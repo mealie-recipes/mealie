@@ -7,7 +7,7 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
-from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
+from mealie.schema.cookbook.cookbook import CookBookOut, CookBookSave
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -39,10 +39,10 @@ class TestCookbook:
 def cookbooks(unique_user: TestUser) -> Generator[list[TestCookbook]]:
     database = unique_user.repos
 
-    data: list[ReadCookBook] = []
+    data: list[CookBookOut] = []
     yield_data: list[TestCookbook] = []
     for _ in range(3):
-        cb = database.cookbooks.create(SaveCookBook(**get_page_data(unique_user.group_id, unique_user.household_id)))
+        cb = database.cookbooks.create(CookBookSave(**get_page_data(unique_user.group_id, unique_user.household_id)))
         assert cb.slug
         data.append(cb)
         yield_data.append(TestCookbook(id=cb.id, slug=cb.slug, name=cb.name, data=cb.model_dump()))
@@ -249,4 +249,4 @@ def test_cookbook_validate_query_filter_string(
     assert response.status_code == expected_code if expected_code != 201 else 200
 
     # Out; should skip validation, so this should never error out
-    ReadCookBook(**cb_data)
+    CookBookOut(**cb_data)

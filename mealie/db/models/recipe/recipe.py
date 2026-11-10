@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from pydantic import ConfigDict
 from sqlalchemy import event
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
@@ -11,7 +10,7 @@ from sqlalchemy.orm import Mapped, mapped_column, validates
 from sqlalchemy.orm.attributes import get_history
 from sqlalchemy.orm.session import object_session
 
-from mealie.db.models._model_utils.auto_init import auto_init
+from mealie.db.models._model_utils.auto_init import AutoInitOptions, auto_init
 from mealie.db.models._model_utils.datetime import NaiveDateTime, get_utc_today
 from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
@@ -41,8 +40,11 @@ if TYPE_CHECKING:
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
-    __table_args__: tuple[sa.UniqueConstraint, ...] = (
+    __table_args__: tuple[sa.UniqueConstraint | sa.Index, ...] = (
         sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+        # The recipe list's default sort. Without it the database reads and sorts the whole group to
+        # return one page, and recipes arriving in created_at order is the worst case for that sort.
+        sa.Index("ix_recipes_group_id_created_at", "group_id", "created_at"),
     )
 
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
@@ -50,22 +52,22 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # ID Relationships
     group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
+    group: Mapped[Group] = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
-    household: AssociationProxy["Household"] = association_proxy("user", "household")
+    household: AssociationProxy[Household] = association_proxy("user", "household")
 
     user_id: FilterableColumn[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
-    user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
+    user: Mapped[User] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
     rating: FilterableColumn[float | None] = mapped_column(sa.Float, index=True, nullable=True)
-    rated_by: Mapped[list["User"]] = orm.relationship(
+    rated_by: Mapped[list[User]] = orm.relationship(
         "User",
         secondary=UserToRecipe.__tablename__,
         back_populates="rated_recipes",
         overlaps="recipe,favorited_by,favorited_recipes",
     )
-    favorited_by: Mapped[list["User"]] = orm.relationship(
+    favorited_by: Mapped[list[User]] = orm.relationship(
         "User",
         secondary=UserToRecipe.__tablename__,
         primaryjoin="and_(RecipeModel.id==UserToRecipe.recipe_id, UserToRecipe.is_favorite==True)",
@@ -73,7 +75,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         overlaps="recipe,rated_by,rated_recipes",
     )
 
-    meal_entries: Mapped[list["GroupMealPlan"]] = orm.relationship(
+    meal_entries: Mapped[list[GroupMealPlan]] = orm.relationship(
         "GroupMealPlan", back_populates="recipe", cascade="all, delete-orphan"
     )
 
@@ -87,7 +89,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     total_time: FilterableColumn[str | None] = mapped_column(sa.String)
     prep_time: FilterableColumn[str | None] = mapped_column(sa.String)
     perform_time: FilterableColumn[str | None] = mapped_column(sa.String)
-    cook_time: FilterableColumn[str | None] = mapped_column(sa.String)
+    total_time_seconds: FilterableColumn[int | None] = mapped_column(sa.Integer)
+    prep_time_seconds: FilterableColumn[int | None] = mapped_column(sa.Integer)
+    perform_time_seconds: FilterableColumn[int | None] = mapped_column(sa.Integer)
 
     recipe_yield: FilterableColumn[str | None] = mapped_column(sa.String)
     recipe_yield_quantity: FilterableColumn[float] = mapped_column(sa.Float, index=True, default=0)
@@ -95,19 +99,19 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     assets: Mapped[list[RecipeAsset]] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Mapped[Nutrition] = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
-    recipe_category: Mapped[list["Category"]] = orm.relationship(
+    recipe_category: Mapped[list[Category]] = orm.relationship(
         "Category", secondary=recipes_to_categories, back_populates="recipes"
     )
-    tools: Mapped[list["Tool"]] = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
+    tools: Mapped[list[Tool]] = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
 
-    recipe_ingredient: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
+    recipe_ingredient: Mapped[list[RecipeIngredientModel]] = orm.relationship(
         "RecipeIngredientModel",
         cascade="all, delete-orphan",
         order_by="RecipeIngredientModel.position",
         collection_class=ordering_list("position"),
         foreign_keys="RecipeIngredientModel.recipe_id",
     )
-    referenced_ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
+    referenced_ingredients: Mapped[list[RecipeIngredientModel]] = orm.relationship(
         "RecipeIngredientModel",
         foreign_keys="RecipeIngredientModel.referenced_recipe_id",
         back_populates="referenced_recipe",
@@ -132,10 +136,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # Mealie Specific
-    settings: Mapped[list["RecipeSettings"]] = orm.relationship(
+    settings: Mapped[list[RecipeSettings]] = orm.relationship(
         "RecipeSettings", uselist=False, cascade="all, delete-orphan"
     )
-    tags: Mapped[list["Tag"]] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
+    tags: Mapped[list[Tag]] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
     notes: Mapped[list[Note]] = orm.relationship("Note", cascade="all, delete-orphan")
     org_url: FilterableColumn[str | None] = mapped_column(sa.String)
     extras: Mapped[list[ApiExtras]] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
@@ -144,18 +148,17 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     date_added: FilterableColumn[date | None] = mapped_column(sa.Date, default=get_utc_today)
     date_updated: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
 
-    last_made: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
-    made_by: Mapped[list["Household"]] = orm.relationship(
+    made_by: Mapped[list[Household]] = orm.relationship(
         "Household", secondary=HouseholdToRecipe.__tablename__, back_populates="made_recipes"
     )
 
     # Shopping List Refs
-    shopping_list_refs: Mapped[list["ShoppingListRecipeReference"]] = orm.relationship(
+    shopping_list_refs: Mapped[list[ShoppingListRecipeReference]] = orm.relationship(
         "ShoppingListRecipeReference",
         back_populates="recipe",
         cascade="all, delete-orphan",
     )
-    shopping_list_item_refs: Mapped[list["ShoppingListItemRecipeReference"]] = orm.relationship(
+    shopping_list_item_refs: Mapped[list[ShoppingListItemRecipeReference]] = orm.relationship(
         "ShoppingListItemRecipeReference",
         back_populates="recipe",
         cascade="all, delete-orphan",
@@ -164,7 +167,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: FilterableColumn[str] = mapped_column(sa.String, nullable=False, index=True)
     description_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         get_attr="slug",
         exclude={
             "assets",
@@ -179,6 +182,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # Deprecated
+    # Kept as a query-filter anchor until aliases can be defined without a model column.
+    last_made: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
     recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
     is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 

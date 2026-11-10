@@ -7,11 +7,9 @@
     item-title="name"
     return-object
     :items="filteredItems"
-    :prepend-inner-icon="icon || (search ? $globals.icons.search : $globals.icons.tags)"
-    :menu-icon="search ? '' : undefined"
-    :rounded="search ? true : '4px'"
+    :prepend-inner-icon="icon || $globals.icons.tags"
+    rounded="4px"
     :custom-filter="() => true"
-    :variant="search ? 'solo-filled' : undefined"
     color="primary"
     auto-select-first
     clearable
@@ -35,18 +33,18 @@
 
 <script setup lang="ts">
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
-import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, IngredientUnitOut } from "~/lib/api/types/recipe";
 import { useSearch } from "~/composables/use-search";
 
 // v-model for the selected item
-const modelValue = defineModel<MultiPurposeLabelSummary | IngredientFood | IngredientUnit | null>({ default: () => null });
+const modelValue = defineModel<MultiPurposeLabelSummary | IngredientFoodOut | IngredientUnitOut | null>({ default: () => null });
 
 // support v-model:item-id binding
 const itemId = defineModel<string | null | undefined>("item-id", { default: undefined });
 
 const props = defineProps({
   items: {
-    type: Array as () => Array<MultiPurposeLabelSummary | IngredientFood | IngredientUnit>,
+    type: Array as () => Array<MultiPurposeLabelSummary | IngredientFoodOut | IngredientUnitOut>,
     required: true,
   },
   icon: {
@@ -55,10 +53,6 @@ const props = defineProps({
     default: undefined,
   },
   create: {
-    type: Boolean,
-    default: false,
-  },
-  search: {
     type: Boolean,
     default: false,
   },
@@ -93,8 +87,4 @@ function emitCreate() {
   emit("create", searchInput.value);
   autocompleteRef.value?.blur();
 }
-
-defineExpose({
-  focus: () => autocompleteRef.value?.focus(),
-});
 </script>

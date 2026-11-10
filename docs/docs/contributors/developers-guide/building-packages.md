@@ -4,7 +4,7 @@ Released packages are [built and published via GitHub actions](maintainers.md#dr
 
 ## Python packages
 
-To build Python packages locally for testing, use [`task`](starting-dev-server.md#without-dev-containers). After installing `task`, run `task py:package` to perform all the steps needed to build the package and a requirements file. To do it manually, run:
+To build Python packages locally for testing, use [mise](starting-dev-server.md#without-dev-containers). Run `mise run py:package` to perform all the steps needed to build the package and a requirements file. To do it manually, run:
 ```sh
 pushd frontend
 yarnpkg install
@@ -13,13 +13,16 @@ popd
 rm -r mealie/frontend
 cp -a frontend/dist mealie/frontend
 uv build --out-dir dist
-uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/requirements.txt
+uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt
+cp dist/dependencies.txt dist/requirements.txt
 MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
 echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt
 pip hash dist/mealie-${MEALIE_VERSION}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt
 echo " \\" >> dist/requirements.txt
 pip hash dist/mealie-${MEALIE_VERSION}.tar.gz | tail -n1 >> dist/requirements.txt
 ```
+
+This writes two files. `dist/dependencies.txt` pins the dependencies alone, and `dist/requirements.txt` adds the package that was just built. The Docker image installs from both, so that a change to mealie's own code does not rebuild the dependencies.
 
 The Python package can be installed with all of its dependencies pinned to the versions tested by the developers with:
 ```sh
@@ -34,7 +37,7 @@ One way to build the Docker image is to run the following command in the project
 docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT=$(git rev-parse HEAD) .
 ```
 
-The Docker image can be built from the pre-built Python packages with the task command `task docker:build-from-package`. This is equivalent to:
+The Docker image can be built from the pre-built Python packages with `mise run docker:build-from-package`. This is equivalent to:
 ```sh
 docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT=$(git rev-parse HEAD) --build-context packages=dist .
 ```

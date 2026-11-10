@@ -4,6 +4,7 @@ from fastapi import HTTPException, status
 
 from mealie.core.security import create_access_token
 from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.permissions import forbidden
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import (
     CreateToken,
@@ -60,4 +61,4 @@ class UserApiTokensController(BaseUserController):
             deleted_token = self.repos.api_tokens.delete(token_id)
             return DeleteTokenResponse(token_delete=deleted_token.name)
         else:
-            raise HTTPException(status.HTTP_403_FORBIDDEN)
+            raise forbidden()

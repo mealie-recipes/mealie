@@ -43,6 +43,9 @@
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"
                 :perform-time="recipe.performTime"
+                :prep-time-seconds="recipe.prepTimeSeconds"
+                :total-time-seconds="recipe.totalTimeSeconds"
+                :perform-time-seconds="recipe.performTimeSeconds"
                 small
                 color="white"
                 class="ml-4"
@@ -222,8 +225,7 @@
 import DOMPurify from "dompurify";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { RecipeOut, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { ingredientSubstitutionSummary, useFoodPlurality, useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
@@ -241,7 +243,7 @@ type InstructionSection = {
 };
 
 interface Props {
-  recipe: NoUndefinedField<Recipe>;
+  recipe: RecipeOut;
   scale?: number;
   dense?: boolean;
 }

@@ -65,7 +65,7 @@
             </v-list-item-subtitle>
             <div
               class="d-flex flex-nowrap justify-start ma-0 pt-2 pb-0"
-              style="overflow-x: hidden; overflow-y: hidden; white-space: nowrap;"
+              style="overflow-x: hidden; overflow-y: hidden; white-space: nowrap; min-height: 38px;"
             >
               <RecipeChips
                 :truncate="true"
@@ -74,7 +74,7 @@
                 :limit="2"
                 small
                 url-prefix="tags"
-                v-bind="$attrs"
+                @item-selected="(item, urlPrefix) => $emit('itemSelected', item, urlPrefix)"
               />
             </div>
           </div>
@@ -103,11 +103,13 @@
                   :menu-icon="$globals.icons.dotsHorizontal"
                   :name="name"
                   :recipe-id="recipeId"
+                  :recipe-scale="scale"
                   class="ml-auto"
                   :use-items="{
                     delete: false,
                     edit: false,
                     download: true,
+                    downloadPdf: true,
                     mealplanner: true,
                     shoppingList: true,
                     print: false,
@@ -134,10 +136,11 @@
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
-import RecipeChips from "./RecipeChips.vue";
+import RecipeChips, { type UrlPrefixParam } from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import type { ContextMenuItem } from "./RecipeContextMenu/RecipeContextMenu.vue";
+import type { TagOut } from "~/lib/api/types/recipe";
 
 interface Props {
   name: string;
@@ -153,6 +156,7 @@ interface Props {
   disableHighlight?: boolean;
   contextMenuAppendItems?: ContextMenuItem[];
   contextMenuLeadingItems?: ContextMenuItem[];
+  scale?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
@@ -162,6 +166,7 @@ const props = withDefaults(defineProps<Props>(), {
   isFlat: false,
   height: 150,
   disableHighlight: false,
+  scale: 1,
 });
 
 defineEmits<{
@@ -169,6 +174,7 @@ defineEmits<{
   mealplanEdit: [];
   selected: [];
   delete: [slug: string];
+  itemSelected: [item: TagOut, urlPrefix: UrlPrefixParam];
 }>();
 
 const auth = useMealieAuth();
@@ -178,7 +184,13 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 const showRecipeContent = computed(() => props.recipeId && props.slug);
 const recipeRoute = computed<string>(() => {
-  return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
+  if (!showRecipeContent.value) {
+    return "";
+  }
+
+  const recipePath = `/g/${groupSlug.value}/r/${props.slug}`;
+  // open the recipe at the same scale it's shown with here (e.g. the scale of a meal plan entry)
+  return props.scale === 1 ? recipePath : `${recipePath}?scale=${props.scale}`;
 });
 const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 </script>

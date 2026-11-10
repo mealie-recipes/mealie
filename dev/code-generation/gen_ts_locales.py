@@ -2,10 +2,13 @@ import json
 import os
 import pathlib
 import re
+import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import dotenv
 import requests
+import yaml
 from jinja2 import Template
 from pydantic import ConfigDict
 from requests import Response
@@ -79,6 +82,48 @@ class CrowdinApi:
         )
         data = response.json()["data"]
         return {p["data"]["languageId"]: p["data"]["translationProgress"] for p in data}
+
+    def _request(self, method: str, path: str, **params) -> Response:
+        url = f"https://api.crowdin.com/api/v2/projects/{self.project_id}{path}"
+        for attempt in range(5):
+            response = requests.request(method, url, headers=self.headers, params=params)
+            if response.status_code != 429 or attempt == 4:
+                break
+            time.sleep(2**attempt)
+        response.raise_for_status()
+        return response
+
+    def _get_all(self, path: str, **params) -> list[dict]:
+        items: list[dict] = []
+        while True:
+            page = self._request("GET", path, limit=500, offset=len(items), **params).json()["data"]
+            items.extend(p["data"] for p in page)
+            if len(page) < 500:
+                return items
+
+    def get_json_files(self) -> list[dict]:
+        return [f for f in self._get_all("/files") if f["path"].endswith(".json")]
+
+    def remove_all_approvals(self) -> int:
+        """
+        Remove every translation approval, returning the number of strings affected.
+
+        An approved translation is always exported and can't be outvoted, so approvals would
+        lock out the community; without them Crowdin exports translations based on votes.
+        """
+        languages = self.get_project().json()["data"]["targetLanguageIds"]
+        string_ids = {
+            approval["stringId"]
+            for file in self.get_json_files()
+            for language in languages
+            for approval in self._get_all("/approvals", fileId=file["id"], languageId=language)
+        }
+
+        # Removal by fileId only works for asset files, so remove per string.
+        # Crowdin allows 20 simultaneous requests per account; stay well under it.
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            list(pool.map(lambda sid: self._request("DELETE", "/approvals", stringId=sid), string_ids))
+        return len(string_ids)
 
 
 PROJECT_DIR = Path(__file__).parent.parent.parent
@@ -228,6 +273,23 @@ def generate_locales_ts_file():
     log.debug(f"generating locales ts file -> {CodeDest.use_locales}")
     with open(CodeDest.use_locales, "w") as f:
         f.write(rendered)  # type:ignore
+
+
+def remove_crowdin_approvals():
+    if not API_KEY:
+        log.error("CROWDIN_API_KEY is not set, cannot remove Crowdin approvals")
+        return
+
+    api = CrowdinApi(None)
+    log.info(f"removed Crowdin approvals from {api.remove_all_approvals()} strings")
+
+    # A source file that moves gets a new file in Crowdin, and the old one keeps collecting translations
+    # that are never exported; flag those so they can be cleaned up
+    with open(BASE / "crowdin.yml") as f:
+        sources = [file["source"] for file in yaml.safe_load(f)["files"]]
+    for file in api.get_json_files():
+        if not any(file["path"].endswith(source) for source in sources):
+            log.warning(f"Crowdin file {file['path']} (id {file['id']}) is not in crowdin.yml and is never exported")
 
 
 def main():

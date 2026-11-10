@@ -9,7 +9,7 @@ from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeDraft
 from mealie.schema.recipe.recipe import create_recipe_slug
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
@@ -32,9 +32,9 @@ async def create_from_html(
     on_progress: Callable[[str], Awaitable[None]] | None = None,
     include_tags: bool = False,
     include_categories: bool = False,
-) -> tuple[Recipe, ScrapedExtras | None]:
+) -> tuple[RecipeDraft, ScrapedExtras | None]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
-    a Recipe object will be returned if successful. Optionally pass in the HTML to skip fetching it.
+    a RecipeDraft object will be returned if successful. Optionally pass in the HTML to skip fetching it.
 
     Args:
         url (str): a valid string representing a URL
@@ -42,7 +42,7 @@ async def create_from_html(
         on_progress: optional async callable invoked with a status message at each stage.
 
     Returns:
-        Recipe: Recipe Object
+        RecipeDraft: RecipeDraft Object
     """
     scraper = RecipeScraper(repos, translator)
 
@@ -68,10 +68,10 @@ async def create_from_html(
 
 
 async def finalize_scraped_recipe(
-    recipe: Recipe,
+    recipe: RecipeDraft,
     translator: Translator,
     on_progress: Callable[[str], Awaitable[None]] | None = None,
-) -> Recipe:
+) -> RecipeDraft:
     """Assigns an id to a freshly scraped recipe, downloads its image, and guarantees it has a name and slug.
 
     The recipe is not persisted; that's up to the caller.

@@ -15,13 +15,13 @@ jobs:
     steps:
       - name: Generate GitHub App Token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
         with:
           app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
           private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout 🛎
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           token: ${{ steps.app-token.outputs.token }}
 
@@ -118,13 +118,13 @@ jobs:
     steps:
       - name: Generate GitHub App Token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
         with:
           app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
           private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout 🛎
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0
@@ -153,6 +153,6 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
-        uses: Ilshidur/action-discord@0.3.2
+        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554 # 0.4.0
         with:
           args: "🚀  Version {{ EVENT_PAYLOAD.release.tag_name }} of Mealie has been released. See the release notes https://github.com/mealie-recipes/mealie/releases/tag/{{ EVENT_PAYLOAD.release.tag_name }}"

@@ -5,11 +5,16 @@
     "recipe": {
         "unique-name-error": "Reseptien nimien täytyy olla yksilöllisiä",
         "recipe-created": "Resepti luotu",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Reseptikuva poistettu",
         "recipe-defaults": {
-            "ingredient-note": "1 kupillinen jauhoja",
-            "name": "New Recipe",
-            "step-text": "Reseptin vaiheet sekä muut kentät reseptisivulla tukevat markdown-syntaksia.\n\n**Lisää linkki**\n\n[Oma linkki](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Tekee",
@@ -20,10 +25,21 @@
             "yields": "Tuottaa"
         },
         "and-amount": "ja {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
+            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
@@ -68,7 +84,7 @@
         "report-deleted": "Raportti poistettu."
     },
     "exceptions": {
-        "permission_denied": "Sinulla ei ole oikeutta tämän toiminnon suorittamiseen",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Reseptillä ei voida viitata itseensä, joko suoraan tai välillisesti",
         "no-entry-found": "Pyydettyä resurssia ei löytynyt",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -116,7 +132,10 @@
         "test-message-body": "This is a test notification from Mealie.",
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
-        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "vuosi|vuotta",

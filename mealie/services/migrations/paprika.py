@@ -3,12 +3,12 @@ import io
 import json
 import re
 import tempfile
-import zipfile
 from gzip import GzipFile
 from pathlib import Path
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
+from .utils.migration_helpers import extract_zip
 
 
 def split_paprika_ingredients(value: str) -> list[str]:
@@ -18,8 +18,7 @@ def split_paprika_ingredients(value: str) -> list[str]:
 def paprika_recipes(file: Path):
     """Yields all recipes inside the export file as JSON"""
     with tempfile.TemporaryDirectory() as tmpdir:
-        with zipfile.ZipFile(file) as zip_file:
-            zip_file.extractall(tmpdir)
+        extract_zip(file, tmpdir)
 
         for name in Path(tmpdir).glob("**/[!.]*.paprikarecipe"):
             with open(name, "rb") as fd:
@@ -72,7 +71,7 @@ class PaprikaMigrator(BaseMigrator):
         results = self.import_recipes_to_database(recipe_models)
 
         for (slug, recipe_id, status), recipe in zip(results, recipes, strict=True):
-            if not status:
+            if not status or not recipe_id:
                 continue
 
             image_data = recipe.get("photo_data")

@@ -16,9 +16,10 @@ from text_unidecode import os
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
 from mealie.db.db_setup import generate_session
+from mealie.repos.public_visibility import is_recipe_publicly_visible
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes.spa.manifest import serve_manifest
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.schema.user.user import PrivateUser
 
 
@@ -126,12 +127,22 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
     return str(soup)
 
 
+def iso_duration(seconds: int | None) -> str | None:
+    """schema.org requires ISO 8601 durations, e.g. 5400 -> "PT1H30M" """
+    if not seconds:
+        return None
+
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return "PT" + "".join(f"{n}{unit}" for n, unit in ((hours, "H"), (minutes, "M"), (seconds, "S")) if n)
+
+
 def inject_recipe_json(contents: str, schema: dict) -> str:
     schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
     return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
 
 
-def content_with_meta(group_slug: str, recipe: Recipe) -> str:
+def content_with_meta(group_slug: str, recipe: RecipeOut) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
     if recipe.image:
@@ -141,15 +152,18 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
 
     ingredients: list[str] = []
     for ing in recipe.recipe_ingredient:
-        s = ""
+        components: list[str] = []
         if ing.quantity:
-            s += f"{ing.quantity} "
+            # Keep decimals machine-readable, even for units displayed as fractions.
+            quantity = int(ing.quantity) if ing.quantity.is_integer() else ing.quantity
+            components.append(str(quantity))
         if ing.unit:
-            s += f"{ing.unit.name} "
+            components.append(ing._format_unit_for_display())
         if ing.food:
-            s += f"{ing.food.name} "
+            components.append(ing.food.name)
+        s = " ".join(components)
         if ing.note:
-            s += f"{ing.note}"
+            s = f"{s}, {ing.note}" if s else ing.note
 
         ingredients.append(escape(s))
 
@@ -165,9 +179,9 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "description": escape(recipe.description),
         "image": [image_url],
         "datePublished": recipe.created_at,
-        "prepTime": escape(recipe.prep_time),
-        "cookTime": escape(recipe.cook_time),
-        "totalTime": escape(recipe.total_time),
+        "prepTime": iso_duration(recipe.prep_time_seconds),
+        "cookTime": iso_duration(recipe.perform_time_seconds),
+        "totalTime": iso_duration(recipe.total_time_seconds),
         "recipeYield": escape(recipe.recipe_yield_display),
         "recipeIngredient": ingredients,
         "recipeInstructions": [escape(i.text) for i in recipe.recipe_instructions]
@@ -217,7 +231,8 @@ def serve_recipe_with_meta_public(
         group_repos = AllRepositories(session, group_id=group.id, household_id=None)
         recipe = group_repos.recipes.get_one(recipe_slug)
 
-        if not (recipe and recipe.settings) or not recipe.settings.public:
+        household = group_repos.households.get_one(recipe.household_id) if recipe else None
+        if not is_recipe_publicly_visible(recipe, household):
             return response_404()
 
         # Inject meta tags
@@ -252,7 +267,7 @@ async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session:
     try:
         public_repos = AllRepositories(session, group_id=None)
         token_summary = public_repos.recipe_share_tokens.get_one(token_id)
-        if token_summary is None:
+        if token_summary is None or token_summary.is_expired:
             raise Exception("Token Not Found")
 
         return Response(content_with_meta(group_slug, token_summary.recipe), media_type="text/html")

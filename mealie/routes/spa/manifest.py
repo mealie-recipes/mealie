@@ -11,8 +11,8 @@ def serve_manifest():
     sub_path = urlparse(settings.BASE_URL).path or "/"
 
     manifest = {
-        "name": "Mealie",
-        "short_name": "Mealie",
+        "name": settings.branding.name,
+        "short_name": settings.branding.name,
         "id": "/",
         "start_url": sub_path,
         "scope": sub_path,

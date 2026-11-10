@@ -74,17 +74,20 @@ class OpenAIRecipe(OpenAIBase):
 
     total_time: str | None = Field(
         None,
-        description="Total time as text (e.g., '1 hour 30 minutes'). Use if only one time is available.",
+        description="Total time as an ISO 8601 duration, e.g., 'PT1H30M', or plain text if it isn't a clear "
+        "duration, e.g., 'overnight'. Use if only one time is available.",
     )
 
     prep_time: str | None = Field(
         None,
-        description="Prep time as text, e.g., '30 minutes'. Do not duplicate total_time.",
+        description="Prep time as an ISO 8601 duration, e.g., 'PT30M', or plain text if it isn't a clear duration. "
+        "Do not duplicate total_time.",
     )
 
     perform_time: str | None = Field(
         None,
-        description="Cook/perform time as text, e.g., '1 hour'. Do not duplicate total_time.",
+        description="Cook/perform time as an ISO 8601 duration, e.g., 'PT1H', or plain text if it isn't a clear "
+        "duration. Do not duplicate total_time.",
     )
 
     ingredients: list[OpenAIRecipeIngredient] = Field(

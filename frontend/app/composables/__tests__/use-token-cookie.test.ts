@@ -31,7 +31,7 @@ describe("getTokenCookieOptions", () => {
     vi.unstubAllGlobals();
   });
 
-  test("top-level https connection gets a lax cookie", () => {
+  test("top-level https connection gets a lax, non-partitioned cookie", () => {
     stubNuxtApp(true);
     setLocation("https:");
     setFramed(false);
@@ -40,9 +40,10 @@ describe("getTokenCookieOptions", () => {
 
     expect(options.secure).toBe(true);
     expect(options.sameSite).toBe("lax");
+    expect(options.partitioned).toBe(false);
   });
 
-  test("iframe-embedded https connection gets a none cookie", () => {
+  test("iframe-embedded https connection gets a none, partitioned cookie", () => {
     stubNuxtApp(true);
     setLocation("https:");
     setFramed(true);
@@ -51,9 +52,10 @@ describe("getTokenCookieOptions", () => {
 
     expect(options.secure).toBe(true);
     expect(options.sameSite).toBe("none");
+    expect(options.partitioned).toBe(true);
   });
 
-  test("insecure (http) connection stays lax even when framed", () => {
+  test("insecure (http) connection stays lax and non-partitioned even when framed", () => {
     stubNuxtApp(true);
     setLocation("http:");
     setFramed(true);
@@ -62,9 +64,10 @@ describe("getTokenCookieOptions", () => {
 
     expect(options.secure).toBe(false);
     expect(options.sameSite).toBe("lax");
+    expect(options.partitioned).toBe(false);
   });
 
-  test("non-production build stays lax even when framed over https", () => {
+  test("non-production build stays lax and non-partitioned even when framed over https", () => {
     stubNuxtApp(false);
     setLocation("https:");
     setFramed(true);
@@ -73,14 +76,7 @@ describe("getTokenCookieOptions", () => {
 
     expect(options.secure).toBe(false);
     expect(options.sameSite).toBe("lax");
-  });
-
-  test("never asks for Partitioned, which the server cannot set", () => {
-    stubNuxtApp(true);
-    setLocation("https:");
-    setFramed(true);
-
-    expect(getTokenCookieOptions()).not.toHaveProperty("partitioned");
+    expect(options.partitioned).toBe(false);
   });
 
   test("carries no max-age, since the server owns the cookie's lifetime", () => {

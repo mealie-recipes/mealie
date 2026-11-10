@@ -1,18 +1,20 @@
 <template>
   <RecipeDialogAddToShoppingList
     v-model="shoppingListDialog"
-    :recipes="recipesWithScales"
+    :recipes="recipes"
     :shopping-lists="shoppingLists"
+    @list-created="addShoppingList"
   />
   <GroupMealPlanEntryDialog
     v-model="dialog.open"
     :entry="dialog.entry"
     :date="dialog.date"
+    :end-date="endDate"
     @create="actions.createOne($event)"
     @update="actions.updateOne($event)"
   />
   <template v-if="inlineActions">
-    <MealPlanDayHeader :day="day" />
+    <MealPlanDayHeader :day="day" :end-date="endDate" />
     <slot />
     <!-- Day Column Actions -->
     <div class="d-flex justify-end">
@@ -23,7 +25,7 @@
     </div>
   </template>
   <template v-else>
-    <MealPlanDayHeader :day="day">
+    <MealPlanDayHeader :day="day" :end-date="endDate">
       <BaseButtonGroup
         v-bind="bindings"
         :buttons="[{
@@ -32,7 +34,7 @@
           text: '',
           children: [
             {
-              text: $t('meal-plan.add-day-to-list'),
+              text: endDate ? $t('meal-plan.add-week-to-list') : $t('meal-plan.add-day-to-list'),
               icon: $globals.icons.cartCheck,
               event: 'shopping-list',
               loading: addAllLoading,
@@ -52,22 +54,25 @@
 import { format } from "date-fns";
 import { useUserApi } from "~/composables/api";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
-import type { PlanEntryType, ReadPlanEntry } from "~/lib/api/types/meal-plan";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { ScaledRecipe } from "~/composables/use-group-mealplan";
+import type { PlanEntryType, PlanEntryOut } from "~/lib/api/types/meal-plan";
 
 interface Props {
-  recipes?: Recipe[];
+  recipes?: ScaledRecipe[];
   day: Date;
+  /** Set for a week, whose meals aren't planned for a specific day */
+  endDate?: Date | null;
   actions: ReturnType<typeof useMealplans>["actions"];
   inlineActions?: boolean;
 }
 
-const { open: shoppingListDialog, shoppingLists, addAllLoading, addAllToList } = useAddToShoppingListDialog();
+const { open: shoppingListDialog, shoppingLists, addAllLoading, addAllToList, addShoppingList } = useAddToShoppingListDialog();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
 const api = useUserApi();
 const props = withDefaults(defineProps<Props>(), {
   recipes: () => [],
+  endDate: null,
   meal: () => ({}),
 });
 
@@ -129,13 +134,10 @@ const inlineButtons = [
   },
 ];
 
-const recipesWithScales = computed(() => {
-  return props.recipes.map(recipe => ({ scale: 1, ...recipe }));
-});
-
 async function randomMeal(date: Date, type: PlanEntryType) {
   const { data } = await api.mealplans.setRandom({
     date: format(date, "yyyy-MM-dd"),
+    endDate: props.endDate ? format(props.endDate, "yyyy-MM-dd") : null,
     entryType: type,
   });
 
@@ -146,7 +148,7 @@ async function randomMeal(date: Date, type: PlanEntryType) {
 
 const dialog = reactive({
   open: false,
-  entry: null as ReadPlanEntry | null,
+  entry: null as PlanEntryOut | null,
   date: null as Date | null,
 });
 

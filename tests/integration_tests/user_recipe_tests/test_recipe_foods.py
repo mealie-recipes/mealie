@@ -3,7 +3,7 @@ from collections.abc import Generator
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodCreate
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -11,8 +11,8 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict, None, None]:
-    data = CreateIngredientFood(
+def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict]:
+    data = IngredientFoodCreate(
         name=random_string(10),
         description=random_string(10),
     ).model_dump(by_alias=True)
@@ -27,7 +27,7 @@ def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict, None,
 
 
 def test_create_food(api_client: TestClient, unique_user: TestUser):
-    data = CreateIngredientFood(
+    data = IngredientFoodCreate(
         name=random_string(10),
         description=random_string(10),
     ).model_dump(by_alias=True)

@@ -5,7 +5,7 @@ from pathlib import Path
 from fastapi import UploadFile
 
 from mealie.core.dependencies.dependencies import get_temporary_path
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraper import finalize_scraped_recipe
 
@@ -38,7 +38,7 @@ class AIRecipeService(RecipeService):
         translate_language: str | None = None,
         create_new_organizers: bool = False,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
-    ) -> Recipe:
+    ) -> RecipeOut:
         """
         Creates a recipe from any combination of content, images, and a URL.
 
@@ -61,6 +61,8 @@ class AIRecipeService(RecipeService):
             if local_images:
                 with open(local_images[0], "rb") as f:
                     RecipeDataService(recipe.id).write_image(f.read(), "webp")
+                # write_image only writes the files; record the cover on the recipe as the image upload route does
+                recipe.image = self.group_recipes.update_image(recipe.slug, "webp")
 
             return recipe
 
@@ -73,7 +75,7 @@ class AIRecipeService(RecipeService):
         translate_language: str | None = None,
         create_new_organizers: bool = False,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
-    ) -> Recipe:
+    ) -> RecipeDraft:
         """
         Compiles the given source material into a recipe.
 

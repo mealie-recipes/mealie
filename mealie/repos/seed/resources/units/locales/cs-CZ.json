@@ -47,6 +47,12 @@
         "description": "",
         "abbreviation": "ml"
     },
+    "centiliter": {
+        "name": "centiliter",
+        "plural_name": "centiliters",
+        "description": "",
+        "abbreviation": "cl"
+    },
     "liter": {
         "name": "litr",
         "plural_name": "litrů",
@@ -116,7 +122,7 @@
     },
     "can": {
         "name": "konzerva",
-        "plural_name": "konzerv",
+        "plural_name": "konzervy",
         "description": "",
         "abbreviation": ""
     },

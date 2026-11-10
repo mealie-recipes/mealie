@@ -5,12 +5,13 @@ from fastapi import APIRouter, Header, HTTPException, status
 from mealie.core.config import get_app_settings
 from mealie.core.security import url_safe_token
 from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema.household.invite_token import (
-    CreateInviteToken,
-    EmailInitationResponse,
     EmailInvitation,
-    ReadInviteToken,
-    SaveInviteToken,
+    EmailInvitationResponse,
+    InviteTokenCreate,
+    InviteTokenOut,
+    InviteTokenSave,
 )
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.email.email_service import EmailService
@@ -20,7 +21,7 @@ router = APIRouter(prefix="/households/invitations", tags=["Households: Invitati
 
 @controller(router)
 class GroupInvitationsController(BaseUserController):
-    @router.get("", response_model=list[ReadInviteToken])
+    @router.get("", response_model=list[InviteTokenOut])
     def get_invite_tokens(self):
         if not self.user.admin:
             raise HTTPException(
@@ -30,19 +31,18 @@ class GroupInvitationsController(BaseUserController):
 
         return self.repos.group_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
 
-    @router.post("", response_model=ReadInviteToken, status_code=status.HTTP_201_CREATED)
-    def create_invite_token(self, body: CreateInviteToken):
+    @router.post(
+        "",
+        response_model=InviteTokenOut,
+        status_code=status.HTTP_201_CREATED,
+        dependencies=[require(Perm.GROUP_INVITE)],
+    )
+    def create_invite_token(self, body: InviteTokenCreate):
         settings = get_app_settings()
         if not settings.ALLOW_PASSWORD_LOGIN:
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN,
                 detail="Invitation tokens are disabled when password login is not allowed",
-            )
-
-        if not self.user.can_invite:
-            raise HTTPException(
-                status.HTTP_403_FORBIDDEN,
-                detail="User is not allowed to create invite tokens",
             )
 
         body.group_id = body.group_id or self.group_id
@@ -54,12 +54,12 @@ class GroupInvitationsController(BaseUserController):
                 detail="Only admins can create invite tokens for other groups or households",
             )
 
-        token = SaveInviteToken(
+        token = InviteTokenSave(
             uses_left=body.uses, group_id=body.group_id, household_id=body.household_id, token=url_safe_token()
         )
         return self.repos.group_invite_tokens.create(token)
 
-    @router.post("/email", response_model=EmailInitationResponse)
+    @router.post("/email", response_model=EmailInvitationResponse, dependencies=[require(Perm.GROUP_INVITE)])
     def email_invitation(
         self,
         invite: EmailInvitation,
@@ -72,12 +72,6 @@ class GroupInvitationsController(BaseUserController):
                 detail="Invitation email are disabled when password login is not allowed",
             )
 
-        if not self.user.can_invite:
-            raise HTTPException(
-                status.HTTP_403_FORBIDDEN,
-                detail="This user can't send email invitations",
-            )
-
         email_service = EmailService(locale=accept_language)
         url = f"{self.settings.BASE_URL}/register?token={invite.token}"
 
@@ -88,4 +82,4 @@ class GroupInvitationsController(BaseUserController):
         except Exception as e:
             error = str(e)
 
-        return EmailInitationResponse(success=success, error=error)
+        return EmailInvitationResponse(success=success, error=error)

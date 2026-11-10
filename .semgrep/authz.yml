@@ -1,0 +1,46 @@
+rules:
+  - id: mealie-permission-flag-in-handler
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Declare the permission on the route with `dependencies=[require(Perm.X)]` instead of checking
+      `$FLAG` in the handler. The route table test in tests/integration_tests/test_route_permissions.py
+      then shows the permission.
+    paths:
+      include:
+        - /mealie/routes/
+      exclude:
+        - /mealie/routes/_base/permissions.py
+    patterns:
+      - pattern: |
+          if <... $USER.$FLAG ...>:
+              ...
+      - metavariable-regex:
+          metavariable: $FLAG
+          regex: ^can_(organize|manage|manage_household|invite)$
+
+  - id: mealie-use-forbidden-not-found
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Raise `forbidden()` or `not_found()` from mealie/routes/_base/permissions.py. Answer 404 when the caller
+      cannot see the resource and 403 when they can see it but may not change it.
+    paths:
+      include:
+        - /mealie/routes/
+      exclude:
+        - /mealie/routes/_base/permissions.py
+    patterns:
+      - pattern-either:
+          - pattern: HTTPException($STATUS)
+          - pattern: HTTPException(status_code=$STATUS)
+          - pattern: HTTPException($STATUS, ErrorResponse.respond($MSG))
+          - pattern: HTTPException($STATUS, detail=ErrorResponse.respond($MSG))
+          - pattern: HTTPException($STATUS, detail=ErrorResponse.respond(message=$MSG))
+          - pattern: HTTPException(status_code=$STATUS, detail=ErrorResponse.respond($MSG))
+          - pattern: HTTPException(status_code=$STATUS, detail=ErrorResponse.respond(message=$MSG))
+          - pattern: HTTPException($STATUS, detail=ErrorResponse(message=$MSG))
+          - pattern: HTTPException(status_code=$STATUS, detail=ErrorResponse(message=$MSG))
+      - metavariable-regex:
+          metavariable: $STATUS
+          regex: ^(403|404|status\.HTTP_403_FORBIDDEN|status\.HTTP_404_NOT_FOUND)$

@@ -232,6 +232,8 @@
                 :placeholder="$t('recipe.section-title')"
                 bg-color="primary"
                 hide-details
+                :autofocus="autofocusSectionId === step.id"
+                @update:focused="onSectionTitleFocused(step.id, $event)"
               />
             </template>
             <template v-else>
@@ -268,7 +270,7 @@
                   </v-text-field>
                   <div
                     v-else
-                    class="summary-wrapper"
+                    class="summary-wrapper d-flex justify-space-between"
                   >
                     <template v-if="step.summary">
                       <SafeMarkdown
@@ -281,6 +283,7 @@
                         {{ $t('recipe.step-index', { step: index + 1 }) }}
                       </span>
                     </template>
+                    <CookTime :model-value="step.durationSeconds ?? null" :is-edit-mode="false" />
                   </div>
                   <template v-if="isEditForm">
                     <div class="ml-auto">
@@ -387,7 +390,11 @@
               />
 
               <!-- Content -->
-              <DropZone @drop="(f) => handleImageDrop(index, f)">
+              <DropZone
+                @drop="(f) => handleImageDrop(index, f)"
+                @drop-url="(u) => handleImageUrlDrop(index, u)"
+                @drop-unsupported="notifyUnsupportedDrop"
+              >
                 <v-card-text
                   v-if="isEditForm"
                   @click="$emit('click-instruction-field', `${index}.text`)"
@@ -404,7 +411,7 @@
                   />
                   <div
                     v-if="step.ingredientReferences && step.ingredientReferences.length"
-                    class="linked-ingredients-editor"
+                    class="linked-ingredients-editor pb-2"
                   >
                     <div
                       v-for="(linkRef, i) in step.ingredientReferences"
@@ -433,8 +440,14 @@
                       {{ noteRef.referenceId != null ? (noteLookup[noteRef.referenceId] || $t('recipe.note')) : '' }}
                     </div>
                   </div>
+                  <CookTime
+                    :model-value="step.durationSeconds ?? null"
+                    :is-edit-mode="isEditForm"
+                    @update:model-value="step.durationSeconds = $event"
+                  />
                 </v-card-text>
               </DropZone>
+
               <v-expand-transition>
                 <div
                   v-if="!isChecked(index) && !isEditForm"
@@ -510,29 +523,24 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
+import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, RecipeOut } from "~/lib/api/types/recipe";
 import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
+import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
-
-interface MergerHistory {
-  target: number;
-  source: number;
-  targetText: string;
-  sourceText: string;
-}
+import { mergeSteps, undoStepMerge, type StepMerge } from "~/lib/recipe/instruction-merge";
+import CookTime from "./CookTime.vue";
 
 const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
 const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: () => [] });
 
 const props = defineProps({
   recipe: {
-    type: Object as () => NoUndefinedField<Recipe>,
+    type: Object as () => RecipeOut,
     required: true,
   },
   scale: {
@@ -557,6 +565,9 @@ const unusedIngredients = ref<RecipeIngredient[]>([]);
 const usedIngredients = ref<RecipeIngredient[]>([]);
 
 const showTitleEditor = ref<{ [key: string]: boolean }>({});
+// set when a section is opened from the toolbar, cleared once its field takes focus, so that
+// scrolling an already-open section back into view does not pull focus again
+const autofocusSectionId = ref<string | null>(null);
 
 // ===============================================================
 // UI State Helpers
@@ -569,8 +580,11 @@ watch(instructionList, (v) => {
   disabledSteps.value = [];
 
   v.forEach((element: RecipeStep) => {
-    if (element.id !== undefined) {
-      showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
+    // Only derive visibility for steps we have not seen yet. This watcher is deep, so it also
+    // fires while the user is typing a section title, and re-deriving would close the editor
+    // the moment they cleared the text they had just entered.
+    if (element.id !== undefined && !(element.id in showTitleEditor.value)) {
+      showTitleEditor.value[element.id] = hasSectionTitle(element.title!);
     }
   });
 }, { deep: true });
@@ -622,6 +636,12 @@ function sectionTitleLabel(id?: string) {
     : i18n.t("recipe.add-section");
 }
 
+function onSectionTitleFocused(id: string | undefined, focused: boolean) {
+  if (focused && id && autofocusSectionId.value === id) {
+    autofocusSectionId.value = null;
+  }
+}
+
 function toggleShowTitle(id?: string) {
   if (!id) {
     return;
@@ -629,12 +649,15 @@ function toggleShowTitle(id?: string) {
 
   const showing = showTitleEditor.value[id];
   if (showing) {
-    // visibility is re-derived from the title whenever the list changes, so hiding a section
-    // only sticks if the title goes with it
+    // the button clears the section rather than just hiding it, so drop the title with it
     const step = instructionList.value.find(element => element.id === id);
     if (step) {
       step.title = "";
     }
+  }
+  else {
+    // the field is rendered by the line below, so ask for focus and let it claim it on mount
+    autofocusSectionId.value = id;
   }
 
   showTitleEditor.value[id] = !showing;
@@ -861,43 +884,23 @@ const groupedUsedIngredients = computed((): Record<string, RecipeIngredient[]> =
 
 // ===============================================================
 // Instruction Merger
-const mergeHistory = ref<MergerHistory[]>([]);
+const mergeHistory = ref<StepMerge[]>([]);
 
 function mergeAbove(target: number, source: number) {
-  if (target < 0) {
-    return;
+  const merge = mergeSteps(instructionList.value, target, source);
+  if (merge) {
+    mergeHistory.value.push(merge);
   }
-
-  mergeHistory.value.push({
-    target,
-    source,
-    targetText: instructionList.value[target].text,
-    sourceText: instructionList.value[source].text,
-  });
-
-  instructionList.value[target].text += " " + instructionList.value[source].text;
-  instructionList.value.splice(source, 1);
 }
 
 function undoMerge(event: KeyboardEvent) {
-  if (event.ctrlKey && event.code === "KeyZ") {
-    if (!(mergeHistory.value?.length > 0)) {
-      return;
-    }
+  if (!(event.ctrlKey && event.code === "KeyZ")) {
+    return;
+  }
 
-    const lastMerge = mergeHistory.value.pop();
-    if (!lastMerge) {
-      return;
-    }
-
-    instructionList.value[lastMerge.target].text = lastMerge.targetText;
-    instructionList.value.splice(lastMerge.source, 0, {
-      id: uuid4(),
-      title: "",
-      text: lastMerge.sourceText,
-      ingredientReferences: [],
-      noteReferences: [],
-    });
+  const lastMerge = mergeHistory.value.pop();
+  if (lastMerge) {
+    undoStepMerge(instructionList.value, lastMerge);
   }
 }
 
@@ -979,8 +982,39 @@ async function handleImageDrop(index: number, files: File[]) {
     return; // TODO: Handle error
   }
 
-  emit("update:assets", [...assets.value, data]);
-  const assetUrl = recipeAssetPath(props.recipe.id, data.fileName as string);
+  embedAsset(index, data);
+}
+
+/**
+ * Images dragged out of another browser tab carry a URL instead of a file, so the server
+ * fetches the image on our behalf.
+ */
+async function handleImageUrlDrop(index: number, url: string) {
+  loadingStates.value[index] = true;
+
+  const { data } = await api.recipes.createAssetFromUrl(props.recipe.slug, url);
+
+  loadingStates.value[index] = false;
+
+  if (!data) {
+    alert.error(i18n.t("recipe.failed-to-attach-image"));
+    return;
+  }
+
+  embedAsset(index, data);
+}
+
+/**
+ * Some pages render images from blob: urls, which resolve only inside the origin that made
+ * them. Nothing can read those bytes from here, so point the user at what does work.
+ */
+function notifyUnsupportedDrop() {
+  alert.error(i18n.t("recipe.image-drop-unsupported"));
+}
+
+function embedAsset(index: number, asset: RecipeAsset) {
+  emit("update:assets", [...(assets.value ?? []), asset]);
+  const assetUrl = recipeAssetPath(props.recipe.id, asset.fileName as string);
   const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
   instructionList.value[index].text += text;
 }

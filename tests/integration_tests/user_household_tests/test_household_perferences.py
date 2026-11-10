@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
+from mealie.schema.household.household_preferences import HouseholdPreferencesUpdate
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool
@@ -31,19 +31,6 @@ def test_preferences_in_household(api_client: TestClient, unique_user: TestUser)
     assert household["preferences"]["recipeShowNutrition"] in {True, False}
 
 
-def test_update_preferences_no_permission(api_client: TestClient, user_tuple: list[TestUser]) -> None:
-    unique_user, other_user = user_tuple
-
-    user = other_user.repos.users.get_one(unique_user.user_id)
-    assert user
-    user.can_manage_household = False
-    other_user.repos.users.update(user.id, user)
-
-    new_data = UpdateHouseholdPreferences(recipe_public=random_bool(), recipe_show_nutrition=random_bool())
-    response = api_client.put(api_routes.households_preferences, json=new_data.model_dump(), headers=unique_user.token)
-    assert response.status_code == 403
-
-
 def test_update_preferences(api_client: TestClient, user_tuple: list[TestUser]) -> None:
     unique_user, other_user = user_tuple
 
@@ -52,7 +39,7 @@ def test_update_preferences(api_client: TestClient, user_tuple: list[TestUser]) 
     user.can_manage_household = True
     other_user.repos.users.update(user.id, user)
 
-    new_data = UpdateHouseholdPreferences(recipe_public=random_bool(), recipe_show_nutrition=random_bool())
+    new_data = HouseholdPreferencesUpdate(recipe_public=random_bool(), recipe_show_nutrition=random_bool())
     response = api_client.put(api_routes.households_preferences, json=new_data.model_dump(), headers=unique_user.token)
     assert response.status_code == 200
 

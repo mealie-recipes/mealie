@@ -88,6 +88,21 @@ clean_string_test_cases = (
         expected="",
     ),
     CleanerCase(
+        test_id="paragraphs_become_line_breaks",
+        input="<p>Boil a full kettle.</p><p>Make the stock.</p>",
+        expected="Boil a full kettle.\nMake the stock.",
+    ),
+    CleanerCase(
+        test_id="br_becomes_line_break",
+        input="Boil a full kettle.<br>Make the stock.<br/>Stir in the paste.",
+        expected="Boil a full kettle.\nMake the stock.\nStir in the paste.",
+    ),
+    CleanerCase(
+        test_id="spaces_around_line_breaks",
+        input="<p>Boil a full kettle. </p>\n<p> Make the stock.</p>",
+        expected="Boil a full kettle.\n\nMake the stock.",
+    ),
+    CleanerCase(
         test_id="unexpected type",
         input={"key": "value"},
         expected="{'key': 'value'}",
@@ -503,6 +518,22 @@ def test_cleaner_instructions(instructions: CleanerCase):
     assert result == expected
 
 
+def test_cleaner_instructions_preserves_title_and_summary():
+    """Regression test for GH #6887: JSON-edited recipes with per-step title/summary
+    fields were silently dropped by clean_instructions before ever reaching the DB."""
+    result = cleaner.clean_instructions(
+        [
+            {"text": "Preheat the oven to 400F.", "title": "Prep", "summary": "Get the oven ready"},
+            {"text": "Bake for 20 minutes."},
+        ]
+    )
+
+    assert result == [
+        {"text": "Preheat the oven to 400F.", "title": "Prep", "summary": "Get the oven ready"},
+        {"text": "Bake for 20 minutes."},
+    ]
+
+
 ingredients_test_cases = (
     CleanerCase(
         input="",
@@ -529,6 +560,24 @@ ingredients_test_cases = (
         expected=None,
         test_id="multiple ingredient dictionary",
         exception=TypeError,
+    ),
+    CleanerCase(
+        input=[
+            {"@type": "PronounceableText", "textValue": "1 cup of flour"},
+            {"@type": "PronounceableText", "textValue": "1 cup of sugar"},
+        ],
+        expected=["1 cup of flour", "1 cup of sugar"],
+        test_id="schema.org PronounceableText nodes",
+    ),
+    CleanerCase(
+        input=["1 cup of flour", {"@type": "PronounceableText", "textValue": "1 cup of sugar"}],
+        expected=["1 cup of flour", "1 cup of sugar"],
+        test_id="mixed strings and PronounceableText nodes",
+    ),
+    CleanerCase(
+        input=[{"name": "flour", "amount": "1 cup"}],
+        expected=[{"name": "flour", "amount": "1 cup"}],
+        test_id="dict without textValue is left untouched",
     ),
 )
 
@@ -706,9 +755,34 @@ time_test_cases = (
         expected="1 day 1 hour 1 minute 1 second",
     ),
     CleanerCase(
-        test_id="timedelta string (5) invalid",
+        test_id="timedelta string (5) empty",
         input="PT",
-        expected="none",
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="timedelta string zero",
+        input="PT0S",
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="timedelta zero",
+        input=timedelta(0),
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="negative minutes",
+        input=-5,
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="timedelta string months kept as text",
+        input="P1M",
+        expected="P1M",
+    ),
+    CleanerCase(
+        test_id="timedelta string negative kept as text",
+        input="-PT1H",
+        expected="-PT1H",
     ),
     CleanerCase(
         test_id="timedelta string day only",
@@ -738,6 +812,40 @@ def test_cleaner_clean_time(case: CleanerCase):
     translator = get_locale_provider()
     result = cleaner.clean_time(case.input, translator)
     assert case.expected == result
+
+
+duration_test_cases = (
+    CleanerCase(test_id="none", input=None, expected=None),
+    CleanerCase(test_id="empty string", input="", expected=None),
+    CleanerCase(test_id="int minutes", input=30, expected=1800),
+    CleanerCase(test_id="float minutes", input=1.5, expected=90),
+    CleanerCase(test_id="string minutes", input="30", expected=1800),
+    CleanerCase(test_id="bool", input=True, expected=None),
+    CleanerCase(test_id="iso", input="PT1H30M", expected=5400),
+    CleanerCase(test_id="iso lowercase", input="pt15m", expected=900),
+    CleanerCase(test_id="iso days", input="P1DT1H", expected=90000),
+    CleanerCase(test_id="iso weeks", input="P1W", expected=604800),
+    CleanerCase(test_id="iso fractional seconds", input="PT1M1.53S", expected=62),
+    CleanerCase(test_id="timedelta", input=timedelta(hours=1), expected=3600),
+    CleanerCase(test_id="min value", input={"minValue": "PT1H"}, expected=3600),
+    CleanerCase(test_id="list", input=["PT1H", "PT2H"], expected=3600),
+    # Kept as text
+    CleanerCase(test_id="free text", input="1 hour 30 minutes", expected=None),
+    CleanerCase(test_id="iso months", input="P1M", expected=None),
+    CleanerCase(test_id="iso years", input="P1Y", expected=None),
+    CleanerCase(test_id="iso invalid", input="PT", expected=None),
+    CleanerCase(test_id="iso negative", input="PT-3H", expected=None),
+    CleanerCase(test_id="zero", input=0, expected=None),
+    CleanerCase(test_id="iso zero", input="PT0M", expected=None),
+    CleanerCase(test_id="negative", input=-5, expected=None),
+    CleanerCase(test_id="too large", input="P30000D", expected=None),
+    CleanerCase(test_id="infinite", input=float("inf"), expected=None),
+)
+
+
+@pytest.mark.parametrize("case", duration_test_cases, ids=(x.test_id for x in duration_test_cases))
+def test_cleaner_clean_duration(case: CleanerCase):
+    assert cleaner.clean_duration(case.input) == case.expected
 
 
 category_test_cases = (
@@ -928,6 +1036,35 @@ nutrition_test_cases = (
 def test_cleaner_clean_nutrition(case: CleanerCase):
     result = cleaner.clean_nutrition(case.input)
     assert case.expected == result
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize("value", ["g", "trace g", "negligible", "", None, 10, ["10g"]])
+def test_clean_nutrition_skips_unparseable_nutrients(key: str, value: object) -> None:
+    assert cleaner.clean_nutrition({key: value, "proteinContent": "12 g"}) == {"proteinContent": "12"}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize("value, expected", [("0 g", "0.0"), ("0.5 g", "500.0"), ("0,5 g", "500.0")])
+def test_clean_nutrition_converts_nutrients_to_milligrams(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize(
+    "value, expected",
+    [("0.5 grams", "500.0"), ("1 gram", "1000.0"), ("2 G", "2000.0"), ("1.5 gm", "1500.0")],
+)
+def test_clean_nutrition_converts_spelled_out_grams_to_milligrams(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize(
+    "value, expected", [("500 mg", "500"), ("500 MG", "500"), ("500 milligrams", "500"), ("100 mcg", "100")]
+)
+def test_clean_nutrition_keeps_milligrams_and_smaller_units(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
 
 
 clean_notes_test_cases = (

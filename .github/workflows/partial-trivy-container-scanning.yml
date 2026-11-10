@@ -11,14 +11,22 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
+      - name: Retrieve Python package
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: backend-dist
+          path: dist
+
+      # Scan the wheel that the release uses, and not a second copy that this
+      # job builds.
       - name: Build Dockerfile
         run: |
-          docker build -t mealie --file=./docker/Dockerfile .
+          docker build -t mealie --file=./docker/Dockerfile --build-context packages=dist .
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
         with:
           ignore-unfixed: true
           image-ref: "mealie"

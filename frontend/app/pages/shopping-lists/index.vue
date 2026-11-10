@@ -102,7 +102,7 @@
           <v-icon class="mr-2">
             {{ $globals.icons.cartCheck }}
           </v-icon>
-          <span class="flex-grow-1">
+          <span class="flex-grow-1 text-truncate">
             {{ list.name }}
           </span>
           <v-btn
@@ -135,6 +135,10 @@ import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { UserOut } from "~/lib/api/types/user";
+
+definePageMeta({
+  middleware: ["auth"],
+});
 
 const auth = useMealieAuth();
 const i18n = useI18n();

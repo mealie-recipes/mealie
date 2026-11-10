@@ -1,17 +1,16 @@
 import os
 import re
 import tempfile
-import zipfile
 from pathlib import Path
 from typing import Any
 
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave, IngredientUnitSave, RecipeIngredient
 from mealie.schema.reports.reports import ReportEntryCreate
 from mealie.services.parser_services._base import DataMatcher
 from mealie.services.parser_services.parser_utils.string_utils import extract_quantity_from_string
 
 from ._migration_base import BaseMigrator
-from .utils.migration_helpers import format_time, safe_local_path
+from .utils.migration_helpers import MAX_EXTRACTED_ARCHIVE_SIZE, extract_zip, safe_local_path
 
 
 class DSVParser:
@@ -93,7 +92,7 @@ class CooknMigrator(BaseMigrator):
             # fuzzy match
             match = self.matcher.find_unit_match(name)
             if match is None:
-                save = SaveIngredientUnit(
+                save = IngredientUnitSave(
                     group_id=self.group.id,
                     name=name,
                     plural_name=plural_name,
@@ -121,7 +120,7 @@ class CooknMigrator(BaseMigrator):
 
             match = self.matcher.find_food_match(name)
             if match is None:
-                save = SaveIngredientFood(group_id=self.group.id, name=name, plural_name=plural_name, description="")
+                save = IngredientFoodSave(group_id=self.group.id, name=name, plural_name=plural_name, description="")
                 # update DataMatcher
                 self.matcher = DataMatcher(self.db, food_fuzzy_match_threshold=95, unit_fuzzy_match_threshold=100)
                 try:
@@ -304,7 +303,7 @@ class CooknMigrator(BaseMigrator):
 
     def _process_recipe_document(self, _recipe_row: dict[str, Any], db: DSVParser) -> dict:
         """Parses recipe row from the Cook'n recipe table."""
-        recipe_data: dict[str, str | list[str] | list[RecipeIngredient]] = {}
+        recipe_data: dict[str, int | str | list[str] | list[RecipeIngredient]] = {}
 
         # Select db values
         _recipe_id = db.get_data(_recipe_row, "ID")
@@ -333,9 +332,10 @@ class CooknMigrator(BaseMigrator):
         recipe_data["name"] = name
         recipe_data["description"] = description
         recipe_data["recipeYield"] = serves
-        recipe_data["prepTime"] = format_time(prep_time)
-        recipe_data["performTime"] = format_time(cook_time)
-        recipe_data["totalTime"] = format_time(prep_time + cook_time)
+        # Minutes, which the cleaner converts to durations
+        recipe_data["prepTime"] = prep_time
+        recipe_data["performTime"] = cook_time
+        recipe_data["totalTime"] = prep_time + cook_time
 
         # Parse image file
         image_path = self._parse_media(_cookbook_id, _chapter_id, _recipe_id, db)
@@ -382,43 +382,30 @@ class CooknMigrator(BaseMigrator):
         for r in recipes_as_dicts:
             # Clean recipes and re-add ingredient w/ amounts
             ingredients = r["_parsed_ingredients"]
-            r = self.clean_recipe_dictionary(r)
-            r.recipe_ingredient = ingredients
-            recipes.append(r)
+            draft = self.clean_recipe_dictionary(r)
+            draft.recipe_ingredient = ingredients
+            recipes.append(draft)
 
         # add recipes and images to database
         results = self.import_recipes_to_database(recipes)
+        # import_recipes_to_database gives each saved draft its final slug, which differs from the
+        # original when a recipe with the same name already exists
         recipe_lookup = {r.slug: r for r in recipes}
         for slug, recipe_id, status in results:
-            if status:
-                recipe = recipe_lookup.get(slug)
-                if recipe:
-                    if recipe.image:
-                        self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
-                else:
-                    index_len = len(slug.split("-")[-1])
-                    recipe = recipe_lookup.get(slug[: -(index_len + 1)])
-                    if recipe:
-                        self.logger.warning("Duplicate recipe (%s) found! Saved as copy...", recipe.name)
-                        if recipe.image:
-                            self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
-                    else:
-                        self.logger.warning("Failed to lookup recipe! (%s)", slug)
+            if status and recipe_id and (recipe := recipe_lookup.get(slug)) and recipe.image:
+                self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
 
     def _migrate(self) -> None:
         """Migrates recipes from Cook'n cookboop .zip. Also will handle a .zip folder of .zip folders"""
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            budget = MAX_EXTRACTED_ARCHIVE_SIZE - extract_zip(self.archive, tmpdir)
 
-                # Process single zipped cookbook
-                if Path(f"{tmpdir}/temp_recipe.dsv").exists():
-                    self._process_cookbook(Path(tmpdir))
+            # Process single zipped cookbook
+            if Path(f"{tmpdir}/temp_recipe.dsv").exists():
+                self._process_cookbook(Path(tmpdir))
 
-                # Process a zip folder of zipped cookbooks
-                for file in Path(tmpdir).glob("*.zip"):
-                    with tempfile.TemporaryDirectory() as tmpdir2:
-                        with zipfile.ZipFile(file) as zip_file2:
-                            zip_file2.extractall(tmpdir2)
-
-                        self._process_cookbook(Path(tmpdir2))
+            # Process a zip folder of zipped cookbooks
+            for file in Path(tmpdir).glob("*.zip"):
+                with tempfile.TemporaryDirectory() as tmpdir2:
+                    budget -= extract_zip(file, tmpdir2, max_size=budget)
+                    self._process_cookbook(Path(tmpdir2))

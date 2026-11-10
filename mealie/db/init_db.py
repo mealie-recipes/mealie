@@ -13,12 +13,11 @@ from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
 from mealie.db.fixes.fix_group_with_no_name import fix_group_with_no_name
 from mealie.db.fixes.fix_migration_data import fix_migration_data
-from mealie.db.fixes.fix_slug_foods import fix_slug_food_names
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
-from mealie.schema.household.household import HouseholdCreate, HouseholdInDB
-from mealie.schema.user.user import GroupBase, GroupInDB
+from mealie.schema.household.household import HouseholdCreate, HouseholdOut
+from mealie.schema.user.user import GroupBase, GroupOut
 from mealie.services.group_services.group_service import GroupService
 from mealie.services.household_services.household_service import HouseholdService
 
@@ -41,12 +40,12 @@ def init_db(session: orm.Session) -> None:
     default_user_init(household_repos)
 
 
-def default_group_init(repos: AllRepositories, name: str) -> GroupInDB:
+def default_group_init(repos: AllRepositories, name: str) -> GroupOut:
     logger.info("Generating Default Group and Household")
     return GroupService.create_group(repos, GroupBase(name=name))
 
 
-def default_household_init(repos: AllRepositories, name: str) -> HouseholdInDB:
+def default_household_init(repos: AllRepositories, name: str) -> HouseholdOut:
     logger.info("Generating Default Household")
     return HouseholdService.create_household(repos, HouseholdCreate(name=name))
 
@@ -60,10 +59,15 @@ def db_is_at_head(alembic_cfg: config.Config) -> bool:
         raise ValueError("No database url found")
 
     connectable = engine.create_engine(url)
-    directory = script.ScriptDirectory.from_config(alembic_cfg)
-    with connectable.begin() as connection:
-        context = migration.MigrationContext.configure(connection)
-        return set(context.get_current_heads()) == set(directory.get_heads())
+    try:
+        directory = script.ScriptDirectory.from_config(alembic_cfg)
+        with connectable.begin() as connection:
+            context = migration.MigrationContext.configure(connection)
+            return set(context.get_current_heads()) == set(directory.get_heads())
+    finally:
+        # Returning from inside the `with` only returns the connection to the pool;
+        # without this the underlying DBAPI connection stays open until GC.
+        connectable.dispose()
 
 
 def safe_try(func: Callable):
@@ -124,7 +128,6 @@ def main():
             logger.debug("Database exists")
             if run_fixes:
                 safe_try(lambda: fix_migration_data(session))
-                safe_try(lambda: fix_slug_food_names(db))
                 safe_try(lambda: fix_group_with_no_name(session))
 
         else:

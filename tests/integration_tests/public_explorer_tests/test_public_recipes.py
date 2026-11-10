@@ -6,13 +6,70 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
-from mealie.schema.cookbook.cookbook import SaveCookBook
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_category import TagSave
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
+from mealie.schema.cookbook.cookbook import CookBookSave
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave, RecipeIngredient
+from mealie.schema.recipe.recipe_organizers import TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+def test_public_recipes_reject_household_last_made_queries(api_client: TestClient, unique_user: TestUser):
+    group = unique_user.repos.groups.get_one(unique_user.group_id)
+    assert group and group.preferences
+    group.preferences.private_group = False
+    unique_user.repos.group_preferences.update(group.id, group.preferences)
+
+    route = api_routes.explore_groups_group_slug_recipes(group.slug)
+    response = api_client.get(route, params={"orderBy": "lastMade"})
+    assert response.status_code == 400
+
+    response = api_client.get(route, params={"queryFilter": "lastMade IS NOT NULL"})
+    assert response.status_code == 400
+
+    response = api_client.get(route, params={"queryFilter": 'name IS "last_made"'})
+    assert response.status_code == 400
+
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes_suggestions(group.slug), params={"orderBy": "lastMade"}
+    )
+    assert response.status_code == 400
+
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes_suggestions(group.slug),
+        params={"queryFilter": 'name IS "last_made"'},
+    )
+    assert response.status_code == 400
+
+    response = api_client.get(route, params={"queryFilter": 'name = "last_made"'})
+    assert response.status_code == 200
+
+
+def test_public_cookbook_rejects_household_last_made_filter(api_client: TestClient, unique_user: TestUser):
+    group = unique_user.repos.groups.get_one(unique_user.group_id)
+    assert group and group.preferences
+    group.preferences.private_group = False
+    unique_user.repos.group_preferences.update(group.id, group.preferences)
+
+    household = unique_user.repos.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = False
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+    cookbook = unique_user.repos.cookbooks.create(
+        CookBookSave(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            public=True,
+            query_filter_string="lastMade IS NOT NULL",
+        )
+    )
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes(group.slug), params={"cookbook": cookbook.id}
+    )
+    assert response.status_code == 400
 
 
 @pytest.mark.parametrize("is_private_group", [True, False])
@@ -34,8 +91,8 @@ def test_get_all_public_recipes(
     unique_user.repos.group_preferences.update(group.id, group.preferences)
 
     household_private_map: dict[UUID4, bool] = {}
-    public_recipes: list[Recipe] = []
-    private_recipes: list[Recipe] = []
+    public_recipes: list[RecipeOut] = []
+    private_recipes: list[RecipeOut] = []
     for user, is_private_household in [
         (unique_user, is_household_1_private),
         (h2_user, is_household_2_private),
@@ -51,7 +108,7 @@ def test_get_all_public_recipes(
 
         default_recipes = database.recipes.create_many(
             [
-                Recipe(
+                RecipeDraft(
                     user_id=user.user_id,
                     group_id=user.group_id,
                     name=random_string(),
@@ -114,7 +171,7 @@ def test_get_all_public_recipes(
 def test_get_all_public_recipes_filtered(
     api_client: TestClient,
     unique_user: TestUser,
-    random_recipe: Recipe,
+    random_recipe: RecipeOut,
     query_filter: str,
     recipe_data: dict[str, Any],
     should_fetch: bool,
@@ -153,7 +210,7 @@ def test_get_all_public_recipes_filtered(
 def test_get_all_public_recipes_filter_cannot_escape_public_filter(
     api_client: TestClient,
     unique_user: TestUser,
-    random_recipe: Recipe,
+    random_recipe: RecipeOut,
 ):
     """A query filter must not be able to break out of its group and demote the mandatory public filter"""
 
@@ -189,7 +246,7 @@ def test_get_all_public_recipes_filter_cannot_escape_public_filter(
 def test_get_one_recipe(
     api_client: TestClient,
     unique_user: TestUser,
-    random_recipe: Recipe,
+    random_recipe: RecipeOut,
     is_private_group: bool,
     is_private_household: bool,
     is_private_recipe: bool,
@@ -262,7 +319,7 @@ def test_public_recipe_cookbook_filter(
 
     ## Set Up Cookbook
     cookbook = database.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
@@ -303,7 +360,7 @@ def test_public_recipe_cookbook_filter_with_recipes(
 
     tag = database.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
     public_recipe, private_recipe = database.recipes.create_many(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -331,7 +388,7 @@ def test_public_recipe_cookbook_filter_with_recipes(
     other_database.household_preferences.update(other_household.id, other_household.preferences)
 
     other_household_recipe = other_database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=h2_user.user_id,
             group_id=h2_user.group_id,
             name=random_string(),
@@ -344,7 +401,7 @@ def test_public_recipe_cookbook_filter_with_recipes(
 
     # Create a public cookbook with tag
     cookbook = database.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
@@ -379,7 +436,7 @@ def test_public_recipe_cookbook_filter_with_recipes(
 def test_get_suggested_recipes(
     api_client: TestClient,
     unique_user: TestUser,
-    random_recipe: Recipe,
+    random_recipe: RecipeOut,
     is_private_group: bool,
     is_private_household: bool,
     is_private_recipe: bool,
@@ -408,7 +465,7 @@ def test_get_suggested_recipes(
 
     ## Add a known food to the recipe
     known_food = database.ingredient_foods.create(
-        SaveIngredientFood(id=uuid4(), name=random_string(), group_id=unique_user.group_id)
+        IngredientFoodSave(id=uuid4(), name=random_string(), group_id=unique_user.group_id)
     )
     random_recipe.recipe_ingredient = [RecipeIngredient(food_id=known_food.id, food=known_food)]
     database.recipes.update(random_recipe.slug, random_recipe)
