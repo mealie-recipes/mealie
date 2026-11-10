@@ -446,24 +446,20 @@ class RecipeOut(RecipeSummary):
             )
 
         else:
-            ingredient_ids = (
-                session.execute(
-                    select(RecipeIngredientModel.id).filter(
-                        or_(
-                            *[RecipeIngredientModel.note_normalized.like(f"%{ns}%") for ns in search_list],
-                            *[RecipeIngredientModel.original_text_normalized.like(f"%{ns}%") for ns in search_list],
-                        )
-                    )
+            # An uncorrelated subquery, so the database scans the ingredients once. Fetching the matching
+            # ingredient ids first put thousands of bind parameters into a per-recipe EXISTS.
+            ingredient_recipe_ids = select(RecipeIngredientModel.recipe_id).filter(
+                or_(
+                    *[RecipeIngredientModel.note_normalized.like(f"%{ns}%") for ns in search_list],
+                    *[RecipeIngredientModel.original_text_normalized.like(f"%{ns}%") for ns in search_list],
                 )
-                .scalars()
-                .all()
             )
 
             return query.filter(
                 or_(
                     *[RecipeModel.name_normalized.like(f"%{ns}%") for ns in search_list],
                     *[RecipeModel.description_normalized.like(f"%{ns}%") for ns in search_list],
-                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
+                    RecipeModel.id.in_(ingredient_recipe_ids),
                 )
             ).order_by(desc(RecipeModel.name_normalized.like(f"%{search}%")))
 
