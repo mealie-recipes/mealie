@@ -10,7 +10,7 @@ from mealie.schema.openai.recipe import (
     OpenAIRecipeInstruction,
     OpenAIRecipeNotes,
 )
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.services.scraper import cleaner
 
 from ..base import WorkflowStep
@@ -101,7 +101,7 @@ class TranslateRecipeStep(WorkflowStep):
         return language.strip().lower() != (source_language or "").strip().lower()
 
     @staticmethod
-    def _to_openai_recipe(recipe: Recipe) -> OpenAIRecipe:
+    def _to_openai_recipe(recipe: RecipeDraft) -> OpenAIRecipe:
         """
         Puts the draft recipe back into the provider's own schema.
 
@@ -130,7 +130,7 @@ class TranslateRecipeStep(WorkflowStep):
             notes=[OpenAIRecipeNotes(title=note.title, text=note.text) for note in recipe.notes or [] if note.text],
         )
 
-    def _build_message(self, ctx: WorkflowContext, recipe: Recipe) -> str:
+    def _build_message(self, ctx: WorkflowContext, recipe: RecipeDraft) -> str:
         translatable = self._to_openai_recipe(recipe)
 
         return "\n\n".join(

@@ -3,8 +3,7 @@ from enum import Enum
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -53,7 +52,7 @@ def test_get_all_organizers(
         repo = database.tags  # type: ignore
         route = api_routes.explore_groups_group_slug_organizers_tags
     else:
-        item_class = RecipeToolSave
+        item_class = ToolSave
         repo = database.tools  # type: ignore
         route = api_routes.explore_groups_group_slug_organizers_tools
 
@@ -114,7 +113,7 @@ def test_get_one_organizer(
         repo = database.tags  # type: ignore
         route = api_routes.explore_groups_group_slug_organizers_tags_item_id
     else:
-        item_class = RecipeToolSave
+        item_class = ToolSave
         repo = database.tools  # type: ignore
         route = api_routes.explore_groups_group_slug_organizers_tools_item_id
 

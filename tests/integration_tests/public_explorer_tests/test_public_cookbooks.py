@@ -4,9 +4,9 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
-from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.cookbook.cookbook import CookBookOut, CookBookSave
+from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_organizers import TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -32,8 +32,8 @@ def test_get_all_cookbooks(
 
     ## Set Up Household and Cookbooks
     household_private_map: dict[UUID4, bool] = {}
-    public_cookbooks: list[ReadCookBook] = []
-    private_cookbooks: list[ReadCookBook] = []
+    public_cookbooks: list[CookBookOut] = []
+    private_cookbooks: list[CookBookOut] = []
     for user, is_private_household in [
         (unique_user, is_household_1_private),
         (h2_user, is_household_2_private),
@@ -50,7 +50,7 @@ def test_get_all_cookbooks(
         ## Set Up Cookbooks
         default_cookbooks = database.cookbooks.create_many(
             [
-                SaveCookBook(name=random_string(), group_id=user.group_id, household_id=user.household_id)
+                CookBookSave(name=random_string(), group_id=user.group_id, household_id=user.household_id)
                 for _ in range(random_int(15, 20))
             ]
         )
@@ -118,7 +118,7 @@ def test_get_one_cookbook(
 
     ## Set Up Cookbook
     cookbook = database.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
@@ -161,7 +161,7 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
 
     tag = database.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
     public_recipe, private_recipe = database.recipes.create_many(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -189,7 +189,7 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
     other_database.household_preferences.update(other_household.id, other_household.preferences)
 
     other_household_public_recipe, other_household_private_recipe = database.recipes.create_many(
-        Recipe(
+        RecipeDraft(
             user_id=h2_user.user_id,
             group_id=h2_user.group_id,
             name=random_string(),
@@ -209,7 +209,7 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
 
     # Create a public cookbook with tag
     cookbook = database.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
@@ -252,7 +252,7 @@ def test_get_cookbooks_private_household(api_client: TestClient, unique_user: Te
 
     tag = database.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
     public_recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
@@ -275,7 +275,7 @@ def test_get_cookbooks_private_household(api_client: TestClient, unique_user: Te
     other_database.household_preferences.update(other_household.id, other_household.preferences)
 
     other_household_private_recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=h2_user.user_id,
             group_id=h2_user.group_id,
             name=random_string(),
@@ -290,7 +290,7 @@ def test_get_cookbooks_private_household(api_client: TestClient, unique_user: Te
 
     # Create a public cookbook with tag
     cookbook = database.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,

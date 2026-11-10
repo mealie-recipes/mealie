@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.household.webhook import ReadWebhook
+from mealie.schema.household.webhook import WebhookOut
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from mealie.services.event_bus_service.event_bus_service import EventBusService
@@ -79,7 +79,7 @@ def post_group_webhooks(
             )
 
 
-def post_test_webhook(webhook: ReadWebhook, message: str = "") -> None:
+def post_test_webhook(webhook: WebhookOut, message: str = "") -> None:
     dt = datetime.min.replace(tzinfo=UTC)
     event_type = EventTypes.test_message
 

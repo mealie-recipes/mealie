@@ -1412,7 +1412,7 @@
     "foods": {}
   },
   "condiments": {
-    "name": "Würzmittel",
+    "name": "Gewürze",
     "foods": {
       "soy sauce": {
         "name": "Sojasauce",

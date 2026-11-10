@@ -1,0 +1,41 @@
+name: Set up tools
+description: Install the dev toolchain from mise.toml (cached) and optionally restore the pnpm store
+inputs:
+  tools:
+    description: Tools from mise.toml to install, separated by spaces (e.g. "node pnpm"). Empty installs all of them.
+    required: false
+    default: ""
+  cache-pnpm-store:
+    description: Restore and save the pnpm store, keyed on every pnpm-lock.yaml in the repo.
+    required: false
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: Install tools with mise
+      uses: jdx/mise-action@v5
+      with:
+        # renovate: datasource=github-releases depName=jdx/mise extractVersion=^v(?<version>.+)$
+        version: 2026.11.2
+        install_args: ${{ inputs.tools }}
+        # [env] in mise.toml is for mise tasks; don't export it to every later step
+        env: false
+
+    # `mise run` would otherwise install every tool in mise.toml, not only the ones this job asked for
+    - name: Keep mise run to the installed tools
+      shell: bash
+      run: echo "MISE_TASK_RUN_AUTO_INSTALL=false" >> "$GITHUB_ENV"
+
+    - name: Find pnpm store
+      id: pnpm-store
+      if: inputs.cache-pnpm-store == 'true'
+      shell: bash
+      run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+    - name: Cache pnpm store
+      if: inputs.cache-pnpm-store == 'true'
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      with:
+        path: ${{ steps.pnpm-store.outputs.path }}
+        key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: pnpm-store-${{ runner.os }}-

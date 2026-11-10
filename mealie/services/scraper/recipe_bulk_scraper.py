@@ -4,7 +4,7 @@ from pydantic import UUID4
 
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeUrlBulkCreate
 from mealie.schema.reports.reports import (
     ReportCategory,
     ReportCreate,
@@ -12,7 +12,7 @@ from mealie.schema.reports.reports import (
     ReportEntryOut,
     ReportSummaryStatus,
 )
-from mealie.schema.user.user import GroupInDB
+from mealie.schema.user.user import GroupOut
 from mealie.services._base_service import BaseService
 from mealie.services.recipe.recipe_service import RecipeService
 from mealie.services.scraper.scraper import create_from_html
@@ -21,9 +21,7 @@ from mealie.services.scraper.scraper import create_from_html
 class RecipeBulkScraperService(BaseService):
     report_entries: list[ReportEntryCreate]
 
-    def __init__(
-        self, service: RecipeService, repos: AllRepositories, group: GroupInDB, translator: Translator
-    ) -> None:
+    def __init__(self, service: RecipeService, repos: AllRepositories, group: GroupOut, translator: Translator) -> None:
         self.service = service
         self.repos = repos
         self.group = group
@@ -79,10 +77,10 @@ class RecipeBulkScraperService(BaseService):
         self.report.entries = new_entries
         self.repos.group_reports.update(self.report.id, self.report)
 
-    async def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
+    async def scrape(self, urls: RecipeUrlBulkCreate) -> None:
         sem = asyncio.Semaphore(3)
 
-        async def _do(url: str) -> Recipe | None:
+        async def _do(url: str) -> RecipeDraft | None:
             async with sem:
                 try:
                     recipe, _ = await create_from_html(url, self.repos, self.translator)

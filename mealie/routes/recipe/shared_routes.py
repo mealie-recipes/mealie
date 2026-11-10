@@ -11,7 +11,7 @@ from mealie.core.root_logger import get_logger
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base.permissions import not_found
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 
 router = APIRouter()
@@ -19,8 +19,8 @@ router = APIRouter()
 logger = get_logger()
 
 
-@router.get("/shared/{token_id}", response_model=Recipe)
-def get_shared_recipe(token_id: UUID4, session: Session = Depends(generate_session)) -> Recipe:
+@router.get("/shared/{token_id}", response_model=RecipeOut)
+def get_shared_recipe(token_id: UUID4, session: Session = Depends(generate_session)) -> RecipeOut:
     db = get_repositories(session, group_id=None, household_id=None)
 
     token_summary = db.recipe_share_tokens.get_one(token_id)

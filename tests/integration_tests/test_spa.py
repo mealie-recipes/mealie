@@ -1,14 +1,15 @@
 import json
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from bs4 import BeautifulSoup
 
 from mealie.routes import spa
-from mealie.schema.recipe.recipe import Recipe, RecipeSettings
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut, RecipeSettings
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from tests import data as test_data
-from tests.utils.factories import random_string
+from tests.utils.factories import build_recipe, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -26,21 +27,29 @@ def set_group_is_private(unique_user: TestUser, *, is_private: bool):
     unique_user.repos.group_preferences.update(group.id, group.preferences)
 
 
-def set_recipe_is_public(unique_user: TestUser, recipe: Recipe, *, is_public: bool):
+def set_household_is_private(unique_user: TestUser, *, is_private: bool):
+    household = unique_user.repos.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+
+def set_recipe_is_public(unique_user: TestUser, recipe: RecipeOut, *, is_public: bool):
     assert recipe.settings
     recipe.settings.public = is_public
     unique_user.repos.recipes.update(recipe.slug, recipe)
 
 
-def create_recipe(user: TestUser) -> Recipe:
+def create_recipe(user: TestUser) -> RecipeOut:
     recipe = user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=random_string(),
         )
     )
     set_group_is_private(user, is_private=False)
+    set_household_is_private(user, is_private=False)
     set_recipe_is_public(user, recipe, is_public=True)
 
     return recipe
@@ -102,13 +111,13 @@ def test_spa_recipe_json_injection():
     fp = test_data.html_mealie_recipe
     with open(fp) as f:
         soup = BeautifulSoup(f, "lxml")
-        assert "https://schema.org" not in str(soup)
+        assert soup.find("script", type="application/ld+json") is None
 
         html = spa.inject_recipe_json(str(soup), schema)
 
-    assert "@context" in html
-    assert "https://schema.org" in html
-    assert recipe_name in html
+    script = BeautifulSoup(html, "lxml").find("script", type="application/ld+json")
+    assert script is not None
+    assert json.loads(script.text) == schema
 
 
 @pytest.mark.parametrize(
@@ -128,7 +137,7 @@ def test_spa_iso_duration(seconds: int | None, expected: str | None):
 
 
 def test_spa_recipe_json_times(unique_user: TestUser):
-    recipe = Recipe(
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=random_string(),
@@ -136,7 +145,6 @@ def test_spa_recipe_json_times(unique_user: TestUser):
         perform_time_seconds=3600,
         # Free text isn't a valid schema.org duration, so it's left out
         prep_time="a while",
-        cook_time="PT10M",
     )
 
     response = spa.content_with_meta(unique_user.group_id, recipe)
@@ -201,6 +209,58 @@ async def test_spa_serve_recipe_with_meta_invalid_data(unique_user: TestUser, us
         assert response.status_code == 200
 
 
+@pytest.mark.asyncio
+async def test_spa_serve_recipe_with_meta_private_household(unique_user: TestUser):
+    recipe = create_recipe(unique_user)
+    user = unique_user.repos.users.get_by_username(unique_user.username)
+    assert user
+
+    set_household_is_private(unique_user, is_private=True)
+    response = await spa.serve_recipe_with_meta(
+        user.group_slug, recipe.slug, user=None, session=unique_user.repos.session
+    )
+    assert response.status_code == 404
+    assert recipe.name not in response.body.decode()
+
+    # a signed-in member of the group still gets the metadata
+    response = await spa.serve_recipe_with_meta(
+        user.group_slug, recipe.slug, user=user, session=unique_user.repos.session
+    )
+    assert response.status_code == 200
+    assert recipe.name in response.body.decode()
+
+    set_household_is_private(unique_user, is_private=False)
+    response = await spa.serve_recipe_with_meta(
+        user.group_slug, recipe.slug, user=None, session=unique_user.repos.session
+    )
+    assert response.status_code == 200
+    assert recipe.name in response.body.decode()
+
+
+@pytest.mark.parametrize("is_expired", [True, False])
+@pytest.mark.asyncio
+async def test_spa_service_shared_recipe_with_meta_token_expiry(unique_user: TestUser, is_expired: bool):
+    group = unique_user.repos.groups.get_by_slug_or_id(unique_user.group_id)
+    assert group
+    recipe = create_recipe(unique_user)
+
+    token = unique_user.repos.recipe_share_tokens.create(
+        RecipeShareTokenSave(
+            recipe_id=recipe.id,
+            group_id=unique_user.group_id,
+            expires_at=datetime.now(UTC) + timedelta(days=-1 if is_expired else 1),
+        )
+    )
+
+    response = await spa.serve_shared_recipe_with_meta(group.slug, token.id, session=unique_user.repos.session)
+    if is_expired:
+        assert response.status_code == 404
+        assert recipe.name not in response.body.decode()
+    else:
+        assert response.status_code == 200
+        assert recipe.name in response.body.decode()
+
+
 @pytest.mark.parametrize("use_private_group", [True, False])
 @pytest.mark.parametrize("use_public_recipe", [True, False])
 @pytest.mark.asyncio
@@ -243,7 +303,7 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
     ],
 )
 def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
-    recipe = Recipe(
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=malicious_content,

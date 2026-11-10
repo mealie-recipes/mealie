@@ -5,48 +5,56 @@
     "recipe": {
         "unique-name-error": "Receptnamn måste vara unika",
         "recipe-created": "Recept skapat",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
-        "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-as-side": "{name} lagade det här som tillbehör",
+        "made-this-for-breakfast": "{name} lagade det här till frukost",
+        "made-this-for-lunch": "{name} lagade det här till lunch",
+        "made-this-for-dinner": "{name} lagade det här till middag",
+        "made-this-for-snack": "{name} lagade det här till mellanmål",
+        "made-this-for-drink": "{name} gjorde det här som dryck",
+        "made-this-for-dessert": "{name} lagade det här till efterrätt",
         "recipe-image-deleted": "Receptbild borttagen",
         "recipe-defaults": {
-            "ingredient-note": "1 kopp mjöl",
-            "name": "New Recipe",
-            "step-text": "Receptsteg samt andra fält i receptsidan stöder markdown syntax.\n\n**Lägg till en länk**\n\n[Min länk](https://demo.mealie.io)\n"
+            "name": "Nytt recept"
         },
         "servings-text": {
-            "makes": "Portioner",
-            "serves": "Portioner",
+            "makes": "Räcker till",
+            "serves": "Personer",
             "serving": "Portion",
             "servings": "Portioner",
             "yield": "Mängd",
             "yields": "Mängd"
         },
         "and-amount": "och {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI-tjänster är inte aktiverade",
-            "ai-request-failed": "AI-leverantören kunde inte slutföra begäran. Vänligen försök igen",
-            "image-provider-not-enabled": "AI-bildtjänster är inte aktiverat",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "ai-request-failed": "AI-leverantören kunde inte slutföra begäran. Försök igen",
+            "image-provider-not-enabled": "AI-bildtjänster är inte aktiverade",
+            "invalid-mealie-export": "Det här ser ut som ett recept som exporterats från Mealie, men det gick inte att importera",
             "no-recipe-found": "Inget recept hittades i den angivna källan",
-            "no-source": "Inget innehåll, bilder eller URL tillhandahölls",
-            "provider-returned-nothing": "AI-leverantören returnerade inte ett recept",
+            "no-source": "Innehåll, bilder och webbadress saknas",
+            "provider-returned-nothing": "AI-leverantören gav inget recept som svar",
             "unknown-error": "Något gick fel när receptet skulle skapas. Försök igen",
             "unreadable-source": "Det gick inte att läsa något innehåll från den angivna källan",
-            "video-download-failed": "Det gick inte att ladda ner videon. Den kan vara privat, borttagen, eller från en webbplats som inte stöds"
+            "video-download-failed": "Det gick inte att ladda ned videon. Den kan vara privat eller borttagen, eller så stöds inte webbplatsen."
         },
         "create-progress": {
             "creating-recipe": "Skapar recept...",
-            "creating-recipe-from-transcript-with-ai": "Skapar recept baserat på transkription med AI...",
-            "creating-recipe-from-webpage-data": "Skapar recept med hjälp av data från hemsida...",
+            "creating-recipe-from-transcript-with-ai": "Skapar ett recept med AI utifrån transkriberingen...",
+            "creating-recipe-from-webpage-data": "Skapar ett recept utifrån uppgifterna på webbsidan...",
             "downloading-image": "Laddar ned bild...",
             "downloading-video": "Laddar ned video...",
-            "extracting-recipe-data": "Extraherar recept...",
-            "fetching-webpage": "Hämtar hemsida...",
+            "extracting-recipe-data": "Läser ut receptuppgifter...",
+            "fetching-webpage": "Hämtar webbsidan...",
             "organizing-recipe": "Organiserar recept...",
             "reading-images-with-ai": "Läser bilder med AI...",
             "reading-source-with-ai": "Läser källa med AI...",
@@ -57,30 +65,30 @@
     "mealplan": {
         "no-recipes-match-your-rules": "Inga recept matchar dina regler",
         "entry-type": {
-            "breakfast": "breakfast",
+            "breakfast": "frukost",
             "lunch": "lunch",
-            "dinner": "dinner",
-            "side": "side",
-            "snack": "snack",
-            "drink": "drink",
-            "dessert": "dessert"
+            "dinner": "middag",
+            "side": "tillbehör",
+            "snack": "mellanmål",
+            "drink": "dryck",
+            "dessert": "efterrätt"
         }
     },
     "user": {
         "user-updated": "Användare uppdaterad",
         "password-updated": "Lösenord uppdaterat",
-        "invalid-current-password": "Ogiltigt nuvarande lösenord",
-        "ldap-update-password-unavailable": "Det gick inte att uppdatera lösenordet, användaren styrs av LDAP"
+        "invalid-current-password": "Det nuvarande lösenordet är felaktigt",
+        "ldap-update-password-unavailable": "Det går inte att ändra lösenordet eftersom kontot hanteras via LDAP"
     },
     "group": {
         "report-deleted": "Rapport borttagen."
     },
     "exceptions": {
         "permission-denied": "Du har inte behörighet att göra detta",
-        "recursive-recipe-link": "Ett recept kan inte referera till sig självt, varken direkt eller indirekt",
+        "recursive-recipe-link": "Ett recept får inte hänvisa till sig självt, vare sig direkt eller via andra recept",
         "no-entry-found": "Den begärda resursen hittades inte",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
-        "integrity-error": "Fel i databasens integritet",
+        "rate-limit-error": "AI-leverantören begränsar antalet förfrågningar. Vänta en stund och försök igen",
+        "integrity-error": "Integritetsfel i databasen",
         "username-conflict-error": "Detta användarnamn är upptaget",
         "email-conflict-error": "E-postadressen används redan"
     },
@@ -93,38 +101,41 @@
         "generic-deleted": "{name} har tagits bort",
         "logged-out": "Utloggad",
         "event-title": {
-            "test-message": "Test Message",
-            "webhook-task": "Webhook Task",
-            "recipe-created": "Recipe Created",
-            "recipe-updated": "Recipe Updated",
-            "recipe-deleted": "Recipe Deleted",
-            "user-signup": "User Signup",
-            "data-migrations": "Data Migrations",
-            "data-export": "Data Export",
-            "data-import": "Data Import",
-            "mealplan-entry-created": "Meal Plan Entry Created",
-            "mealplan-entry-updated": "Meal Plan Entry Updated",
-            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
-            "shopping-list-created": "Shopping List Created",
-            "shopping-list-updated": "Shopping List Updated",
-            "shopping-list-deleted": "Shopping List Deleted",
-            "cookbook-created": "Cookbook Created",
-            "cookbook-updated": "Cookbook Updated",
-            "cookbook-deleted": "Cookbook Deleted",
-            "tag-created": "Tag Created",
-            "tag-updated": "Tag Updated",
-            "tag-deleted": "Tag Deleted",
-            "category-created": "Category Created",
-            "category-updated": "Category Updated",
-            "category-deleted": "Category Deleted",
-            "label-created": "Label Created",
-            "label-updated": "Label Updated",
-            "label-deleted": "Label Deleted"
+            "test-message": "Testmeddelande",
+            "webhook-task": "Webhook-uppgift",
+            "recipe-created": "Recept skapat",
+            "recipe-updated": "Recept uppdaterat",
+            "recipe-deleted": "Recept borttaget",
+            "user-signup": "Ny användare registrerad",
+            "data-migrations": "Datamigreringar",
+            "data-export": "Dataexport",
+            "data-import": "Dataimport",
+            "mealplan-entry-created": "Ny post i måltidsplanen",
+            "mealplan-entry-updated": "Post uppdaterad i måltidsplanen",
+            "mealplan-entry-deleted": "Post borttagen från måltidsplanen",
+            "shopping-list-created": "Inköpslista skapad",
+            "shopping-list-updated": "Inköpslista uppdaterad",
+            "shopping-list-deleted": "Inköpslista borttagen",
+            "cookbook-created": "Kokbok skapad",
+            "cookbook-updated": "Kokbok uppdaterad",
+            "cookbook-deleted": "Kokbok borttagen",
+            "tag-created": "Tagg skapad",
+            "tag-updated": "Tagg uppdaterad",
+            "tag-deleted": "Tagg borttagen",
+            "category-created": "Kategori skapad",
+            "category-updated": "Kategori uppdaterad",
+            "category-deleted": "Kategori borttagen",
+            "label-created": "Etikett skapad",
+            "label-updated": "Etikett uppdaterad",
+            "label-deleted": "Etikett borttagen"
         },
-        "test-message-body": "This is a test notification from Mealie.",
-        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
-        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
-        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
+        "test-message-body": "Det här är en testavisering från Mealie.",
+        "mealplan-entry-created": "En post för {entry_type} den {date} har lagts till i måltidsplanen.",
+        "mealplan-entry-updated": "Posten för {entry_type} den {date} har uppdaterats i måltidsplanen.",
+        "mealplan-entry-deleted": "Posten för {entry_type} den {date} har tagits bort från måltidsplanen.",
+        "mealplan-range-entry-created": "En post för {entry_type} under perioden {date}–{end_date} har lagts till i måltidsplanen.",
+        "mealplan-range-entry-updated": "Posten för {entry_type} under perioden {date}–{end_date} har uppdaterats i måltidsplanen.",
+        "mealplan-range-entry-deleted": "Posten för {entry_type} under perioden {date}–{end_date} har tagits bort från måltidsplanen."
     },
     "datetime": {
         "year": "år|år",
@@ -132,16 +143,16 @@
         "hour": "timme|timmar",
         "minute": "minut|minuter",
         "second": "sekund|sekunder",
-        "millisecond": "millisekund millisekunder",
-        "microsecond": "mikrosekund mikrosekunder"
+        "millisecond": "millisekund|millisekunder",
+        "microsecond": "mikrosekund|mikrosekunder"
     },
     "emails": {
         "password": {
-            "subject": "Mealie Glömt Lösenord",
-            "header_text": "Glömt Lösenord",
-            "message_top": "Du har begärt återställning av ditt lösenord.",
+            "subject": "Återställ ditt lösenord för Mealie",
+            "header_text": "Glömt lösenordet?",
+            "message_top": "Du har begärt att få återställa ditt lösenord.",
             "message_bottom": "Klicka på knappen ovan för att återställa ditt lösenord.",
-            "button_text": "Återställ Lösenord"
+            "button_text": "Återställ lösenordet"
         },
         "invitation": {
             "subject": "Inbjudan till Mealie",
@@ -151,10 +162,10 @@
             "button_text": "Acceptera inbjudan"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "Detta är ett test email.",
-            "message_bottom": "Klicka på knappen ovan för att testa email.",
+            "subject": "Testmeddelande från Mealie",
+            "header_text": "Testmeddelande",
+            "message_top": "Det här är ett testmeddelande.",
+            "message_bottom": "Klicka på knappen ovan för att testa e-posten.",
             "button_text": "Öppna Mealie"
         }
     }

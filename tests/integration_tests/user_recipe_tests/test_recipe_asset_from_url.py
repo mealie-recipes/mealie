@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 
 from mealie.pkgs import safehttp
 from mealie.routes.recipe.recipe_crud_routes import ASSET_MAX_DOWNLOAD_BYTES
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.services.recipe.recipe_data_service import (
     InvalidDomainError,
     NotAnImageError,
@@ -31,7 +31,7 @@ def _patch_download(monkeypatch, result=None, *, raises: Exception | None = None
 
 
 def test_create_asset_from_url(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, monkeypatch
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut, monkeypatch
 ):
     recipe = recipe_ingredient_only
     captured = _patch_download(monkeypatch, (IMAGE_BYTES, "png"))
@@ -59,7 +59,7 @@ def test_create_asset_from_url(
 
 
 def test_create_asset_from_url_applies_the_download_budget(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, monkeypatch
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut, monkeypatch
 ):
     """The bytes are stored as-is, so the download must be capped rather than bounded by time."""
     captured = _patch_download(monkeypatch, (IMAGE_BYTES, "png"))
@@ -86,7 +86,7 @@ def test_create_asset_from_url_applies_the_download_budget(
 def test_create_asset_from_url_names_the_asset_after_the_file(
     api_client: TestClient,
     unique_user: TestUser,
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
     monkeypatch,
     url: str,
     expected_name: str,
@@ -104,7 +104,7 @@ def test_create_asset_from_url_names_the_asset_after_the_file(
 
 
 def test_create_asset_from_url_rejects_scriptable_image_types(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, monkeypatch
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut, monkeypatch
 ):
     """SVG is an image the browser will execute, so it must not become an asset (GHSA-gfwc-pjx4-mg9p)."""
     recipe = recipe_ingredient_only
@@ -129,7 +129,7 @@ def test_create_asset_from_url_rejects_scriptable_image_types(
     ],
 )
 def test_create_asset_from_url_reports_download_failures(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, monkeypatch, raises: Exception
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut, monkeypatch, raises: Exception
 ):
     recipe = recipe_ingredient_only
     _patch_download(monkeypatch, raises=raises)
@@ -145,7 +145,7 @@ def test_create_asset_from_url_reports_download_failures(
 
 
 def test_create_asset_from_url_when_nothing_downloads(
-    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, monkeypatch
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: RecipeOut, monkeypatch
 ):
     recipe = recipe_ingredient_only
     _patch_download(monkeypatch, None)
@@ -161,7 +161,7 @@ def test_create_asset_from_url_when_nothing_downloads(
 
 
 def test_create_asset_from_url_requires_authentication(
-    api_client: TestClient, recipe_ingredient_only: Recipe, monkeypatch
+    api_client: TestClient, recipe_ingredient_only: RecipeOut, monkeypatch
 ):
     """The server fetches whatever url it is handed, so this must never be reachable anonymously."""
     _patch_download(monkeypatch, (IMAGE_BYTES, "png"))

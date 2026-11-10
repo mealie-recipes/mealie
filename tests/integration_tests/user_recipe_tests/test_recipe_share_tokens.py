@@ -5,7 +5,7 @@ import pytest
 import sqlalchemy
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_share_token import RecipeShareToken, RecipeShareTokenSave
+from mealie.schema.recipe.recipe_share_token import RecipeShareTokenOut, RecipeShareTokenSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -95,7 +95,7 @@ def test_recipe_share_tokens_delete_one(api_client: TestClient, unique_user: Tes
     database = unique_user.repos
 
     # Create Token
-    token: RecipeShareToken | None = None
+    token: RecipeShareTokenOut | None = None
     recipe = database.recipes.get_one(slug)
     assert recipe
 

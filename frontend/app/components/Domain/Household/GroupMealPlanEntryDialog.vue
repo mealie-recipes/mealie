@@ -45,7 +45,24 @@
             </v-btn>
           </v-btn-toggle>
 
-          <MealPlanDatePicker v-model="selectedDate" :entry-type="entryType" />
+          <MealPlanDatePicker v-model="pickerModel" :multiple="pickerMultiple" :entry-type="entryType" />
+
+          <!-- the dates are part of the label, so they stay with the switch instead of floating above the next field -->
+          <v-switch
+            v-if="showWeekOption"
+            v-model="isWeekEntry"
+            color="primary"
+            hide-details
+          >
+            <template #label>
+              <div>
+                <div>{{ $t("meal-plan.plan-for-the-whole-week") }}</div>
+                <div v-if="isWeekEntry" class="text-caption text-medium-emphasis">
+                  {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+                </div>
+              </div>
+            </template>
+          </v-switch>
 
           <v-select
             v-model="entryType"
@@ -137,27 +154,30 @@
 </template>
 
 <script setup lang="ts">
-import { format } from "date-fns";
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import RecipeSelector from "~/components/Domain/Recipe/RecipeSelector.vue";
-import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
+import { useMealPlanEntryDates, usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { buildRuleQueryFilter, useMealplanRules } from "~/composables/use-mealplan-rules";
+import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 import { validators } from "~/composables/use-validators";
-import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryCreate, PlanEntryType, PlanEntryOut, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
 import type { RecipeSummary } from "~/lib/api/types/recipe";
 
 interface Props {
-  entry?: ReadPlanEntry | null;
+  entry?: PlanEntryOut | null;
   date?: Date | null;
+  /** Set when creating an entry for a week rather than a specific day */
+  endDate?: Date | null;
 }
 const props = withDefaults(defineProps<Props>(), {
   entry: null,
   date: null,
+  endDate: null,
 });
 
 const emit = defineEmits<{
-  create: [payload: CreatePlanEntry];
-  update: [payload: UpdatePlanEntry];
+  create: [payload: PlanEntryCreate];
+  update: [payload: PlanEntryUpdate];
 }>();
 
 const dialog = defineModel<boolean>({ required: true });
@@ -168,7 +188,8 @@ const planTypeOptions = usePlanTypeOptions();
 const selector = ref<InstanceType<typeof RecipeSelector> | null>(null);
 
 const entryMode = ref<"recipe" | "note">("recipe");
-const selectedDate = ref(new Date());
+const { selectedDate, isWeekEntry, weekRange, entryDates, entryDatesPayload, pickerModel, pickerMultiple }
+  = useMealPlanEntryDates();
 const entryType = ref<PlanEntryType>("dinner");
 const recipe = ref<RecipeSummary | null>(null);
 const recipeScale = ref(1);
@@ -178,7 +199,15 @@ const ignoreRules = ref(false);
 
 const isRecipe = computed(() => entryMode.value === "recipe");
 
-const applicableRuleFilter = computed(() => buildRuleQueryFilter(rules.value, selectedDate.value, entryType.value));
+const mealPlanPreferences = useUserMealPlanPreferences();
+const showWeekOption = computed(() => mealPlanPreferences.value.mode === "weeks" || isWeekEntry.value);
+
+const applicableRuleFilter = computed(() => buildRuleQueryFilter(
+  rules.value,
+  entryDates.value.date,
+  entryType.value,
+  entryDates.value.endDate,
+));
 const ruleQueryFilter = computed(() => ignoreRules.value ? null : applicableRuleFilter.value);
 
 const recipeServings = computed(() => recipe.value?.recipeServings || recipe.value?.recipeYieldQuantity || 1);
@@ -198,6 +227,7 @@ function parseEntryDate(date: string) {
 function initialize() {
   entryMode.value = props.entry && !props.entry.recipeId ? "note" : "recipe";
   selectedDate.value = props.entry ? parseEntryDate(props.entry.date) : props.date ?? new Date();
+  isWeekEntry.value = props.entry ? !!props.entry.endDate : !!props.endDate;
   entryType.value = props.entry?.entryType ?? "dinner";
   recipe.value = props.entry?.recipe ?? null;
   recipeScale.value = props.entry?.recipeScale ?? 1;
@@ -209,7 +239,7 @@ function initialize() {
 
 function submit() {
   const payload = {
-    date: format(selectedDate.value, "yyyy-MM-dd"),
+    ...entryDatesPayload.value,
     entryType: entryType.value,
     title: isRecipe.value ? "" : title.value,
     text: isRecipe.value ? "" : text.value,

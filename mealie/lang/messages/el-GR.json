@@ -14,9 +14,7 @@
         "made-this-for-dessert": "Ο/η {name} έφτιαξε αυτό για επιδόρπιο",
         "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
         "recipe-defaults": {
-            "ingredient-note": "1 Κούπα Αλεύρι",
-            "name": "Νέα συνταγή",
-            "step-text": "Βήματα συνταγής, καθώς και άλλα πεδία στη σύνταξη σήμανσης της σελίδας συνταγής.\n\n**Προσθήκη συνδέσμου**\n\n[Ο σύνδεσμος μου](https://demo.mealie.io)\n"
+            "name": "Νέα συνταγή"
         },
         "servings-text": {
             "makes": "Παράγει",
@@ -27,6 +25,16 @@
             "yields": "Ποσότητα"
         },
         "and-amount": "και {amount}",
+        "pdf": {
+            "cookbook": "Βιβλίο μαγειρικής",
+            "contents": "Περιεχόμενα",
+            "ingredients": "Συστατικά",
+            "instructions": "Οδηγίες",
+            "notes": "Σημειώσεις",
+            "prep-time": "Προετοιμασία",
+            "cook-time": "Μαγείρεμα",
+            "total-time": "Σύνολο"
+        },
         "import-errors": {
             "ai-not-enabled": "Οι υπηρεσίες τεχνητής νοημοσύνης δεν είναι ενεργοποιημένες",
             "ai-request-failed": "Ο πάροχος AI δεν ήταν σε θέση να ολοκληρώσει το αίτημα. Παρακαλώ δοκιμάστε ξανά",
@@ -124,7 +132,10 @@
         "test-message-body": "Αυτή είναι μια δοκιμαστική ειδοποίηση από το Mealie.",
         "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
         "mealplan-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
-        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}"
+        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
+        "mealplan-range-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}",
+        "mealplan-range-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}",
+        "mealplan-range-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}"
     },
     "datetime": {
         "year": "χρόνος | χρόνια",

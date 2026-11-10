@@ -15,7 +15,10 @@ Each user can be configured to have varying levels of access. Some of these perm
 | Administrator | Access to administrator tools |
 | Invite | Generating invitation links for other users |
 | Manage group | Access to group management areas and settings |
+| Manage household | Household settings, notifiers, and webhooks |
 | Organize group data | Creating, updating, deleting, and merging group data such as foods, units, tags, categories, tools, labels, and recipe actions |
+
+The **Manage household** permission lets a user make the server send requests through notifiers and webhooks, and notifiers can reach hosts on your internal network. Grant it only to users you trust with that. See [Security](../installation/security.md#notifiers-and-webhooks).
 
 The **Manage group** and **Organize group data** permissions are separate. Users need **Organize group data** to add new foods, units, tags, categories, or tools, including when creating missing ingredients during recipe parsing.
 

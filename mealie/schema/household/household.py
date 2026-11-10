@@ -7,18 +7,18 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.users.users import User
-from mealie.schema._mealie.mealie_model import MealieModel
-from mealie.schema.household.webhook import ReadWebhook
+from mealie.schema._mealie.mealie_model import MealieModel, MealieOutModel
+from mealie.schema.household.webhook import WebhookOut
 from mealie.schema.response.pagination import PaginationBase
 
-from .household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
+from .household_preferences import HouseholdPreferencesOut, HouseholdPreferencesUpdate
 
 
 class HouseholdRecipeBase(MealieModel):
     last_made: datetime | None = None
 
 
-class HouseholdRecipeSummary(HouseholdRecipeBase):
+class HouseholdRecipeSummary(HouseholdRecipeBase, MealieOutModel):
     recipe_id: UUID4
     model_config = ConfigDict(from_attributes=True)
 
@@ -31,7 +31,7 @@ class HouseholdRecipeCreate(HouseholdRecipeBase):
 class HouseholdRecipeUpdate(HouseholdRecipeBase): ...
 
 
-class HouseholdRecipeOut(HouseholdRecipeCreate):
+class HouseholdRecipeOut(HouseholdRecipeCreate, MealieOutModel):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)
 
@@ -52,31 +52,31 @@ class HouseholdSave(HouseholdCreate):
     group_id: UUID4
 
 
-class UpdateHousehold(HouseholdSave):
+class HouseholdUpdate(HouseholdSave):
     id: UUID4
     slug: str
 
 
-class UpdateHouseholdAdmin(HouseholdSave):
+class HouseholdAdminUpdate(HouseholdSave):
     id: UUID4
-    preferences: UpdateHouseholdPreferences | None = None
+    preferences: HouseholdPreferencesUpdate | None = None
 
 
-class HouseholdSummary(UpdateHousehold):
-    preferences: ReadHouseholdPreferences | None = None
+class HouseholdSummary(HouseholdUpdate, MealieOutModel):
+    preferences: HouseholdPreferencesOut | None = None
     model_config = ConfigDict(from_attributes=True)
 
 
-class HouseholdUserSummary(MealieModel):
+class HouseholdUserSummary(MealieOutModel):
     id: UUID4
     full_name: str
     model_config = ConfigDict(from_attributes=True)
 
 
-class HouseholdInDB(HouseholdSummary):
+class HouseholdOut(HouseholdSummary, MealieOutModel):
     group: str
     users: list[HouseholdUserSummary] | None = None
-    webhooks: list[ReadWebhook] = []
+    webhooks: list[WebhookOut] = []
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod
@@ -101,4 +101,4 @@ class HouseholdInDB(HouseholdSummary):
 
 
 class HouseholdPagination(PaginationBase):
-    items: list[HouseholdInDB]
+    items: list[HouseholdOut]

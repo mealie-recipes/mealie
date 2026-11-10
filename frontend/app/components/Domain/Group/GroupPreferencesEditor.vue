@@ -37,9 +37,9 @@
 </template>
 
 <script setup lang="ts">
-import type { ReadGroupPreferences } from "~/lib/api/types/user";
+import type { GroupPreferencesOut } from "~/lib/api/types/user";
 
-const preferences = defineModel<ReadGroupPreferences>({ required: true });
+const preferences = defineModel<GroupPreferencesOut>({ required: true });
 const local = reactive({ ...preferences.value });
 watch(local, (newVal) => { preferences.value = { ...newVal }; });
 watch(preferences, (newVal) => { if (newVal) Object.assign(local, newVal); });

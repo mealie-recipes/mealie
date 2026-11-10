@@ -3,7 +3,7 @@ from datetime import UTC, datetime
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.household.webhook import ReadWebhook
+from mealie.schema.household.webhook import WebhookOut
 from mealie.services.scheduler.tasks.post_webhooks import post_test_webhook
 from tests.utils import api_routes, assert_deserialize, jsonify
 from tests.utils.fixture_schemas import TestUser
@@ -111,7 +111,7 @@ def test_post_test_webhook(
     )
     webhook_dict = assert_deserialize(response, 201)
 
-    webhook = ReadWebhook(
+    webhook = WebhookOut(
         id=webhook_dict["id"],
         name=webhook_dict["name"],
         url=webhook_dict["url"],

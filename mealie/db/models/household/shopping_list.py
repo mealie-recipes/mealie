@@ -2,7 +2,6 @@ from contextvars import ContextVar
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
-from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
@@ -12,7 +11,7 @@ from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListI
 from mealie.db.models.recipe.labels import MultiPurposeLabel
 
 from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
-from .._model_utils.auto_init import auto_init
+from .._model_utils.auto_init import AutoInitOptions, auto_init
 from .._model_utils.guid import GUID
 from ..recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 
@@ -87,7 +86,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     recipe_references: Mapped[list[ShoppingListItemRecipeReference]] = orm.relationship(
         ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan"
     )
-    model_config = ConfigDict(exclude={"label", "food", "unit"})
+    model_config = AutoInitOptions(exclude={"label", "food", "unit"})
 
     # Deprecated
     is_food: Mapped[bool | None] = mapped_column(Boolean, default=False)
@@ -113,7 +112,7 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     )
 
     recipe_quantity: FilterableColumn[float] = mapped_column(Float, nullable=False)
-    model_config = ConfigDict(exclude={"id", "recipe"})
+    model_config = AutoInitOptions(exclude={"id", "recipe"})
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -137,7 +136,7 @@ class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     household_id: AssociationProxy[GUID] = association_proxy("shopping_list", "household_id")
 
     position: FilterableColumn[int] = mapped_column(Integer, nullable=False, default=0)
-    model_config = ConfigDict(exclude={"label"})
+    model_config = AutoInitOptions(exclude={"label"})
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -173,7 +172,7 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
         collection_class=ordering_list("position"),
     )
     extras: Mapped[list[ShoppingListExtras]] = orm.relationship("ShoppingListExtras", cascade="all, delete-orphan")
-    model_config = ConfigDict(exclude={"id", "list_items"})
+    model_config = AutoInitOptions(exclude={"id", "list_items"})
 
     @api_extras
     @auto_init()

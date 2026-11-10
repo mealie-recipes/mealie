@@ -418,13 +418,12 @@ import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useFoodStore, usePublicFoodStore, useToolStore, usePublicToolStore } from "~/composables/store";
-import type { IngredientFood, RecipeSuggestionQuery, RecipeSuggestionResponseItem, RecipeTool } from "~/lib/api/types/recipe";
-import { Organizer } from "~/lib/api/types/non-generated";
+import type { IngredientFoodOut, RecipeSuggestionQuery, RecipeSuggestionResponseItem, ToolOut } from "~/lib/api/types/recipe";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
+import { useRecipeFilterFields } from "~/composables/use-recipe-filter-fields";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
-import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
 import { normalizeMissingItemLimit } from "~/lib/recipe/recipe-finder";
 
@@ -527,12 +526,12 @@ const attrs = computed(() => {
 
 const foodStore = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
 const foods = foodStore.store.value;
-const selectedFoods = ref<IngredientFood[]>([]);
-function addFood(food: IngredientFood) {
+const selectedFoods = ref<IngredientFoodOut[]>([]);
+function addFood(food: IngredientFoodOut) {
   selectedFoods.value = [...selectedFoods.value, food];
   handleFoodUpdates();
 }
-function removeFood(food: IngredientFood) {
+function removeFood(food: IngredientFoodOut) {
   selectedFoods.value = selectedFoods.value.filter(f => f.id !== food.id);
   handleFoodUpdates();
 }
@@ -549,12 +548,12 @@ watch(
 
 const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
 const tools = toolStore.store.value;
-const selectedTools = ref<RecipeTool[]>([]);
-function addTool(tool: RecipeTool) {
+const selectedTools = ref<ToolOut[]>([]);
+function addTool(tool: ToolOut) {
   selectedTools.value = [...selectedTools.value, tool];
   handleToolUpdates();
 }
-function removeTool(tool: RecipeTool) {
+function removeTool(tool: ToolOut) {
   selectedTools.value = selectedTools.value.filter(t => t.id !== tool.id);
   handleToolUpdates();
 }
@@ -661,53 +660,9 @@ watchDebounced(
   },
 );
 
-const queryFilterBuilderFields: FieldDefinition[] = [
-  {
-    name: "recipe_category.id",
-    label: i18n.t("category.categories"),
-    type: Organizer.Category,
-  },
-  {
-    name: "tags.id",
-    label: i18n.t("tag.tags"),
-    type: Organizer.Tag,
-  },
-  {
-    name: "recipe_ingredient.food.id",
-    label: i18n.t("recipe.ingredients"),
-    type: Organizer.Food,
-  },
-  {
-    name: "recipe_ingredient.food.label_id",
-    label: i18n.t("data-pages.foods.food-label"),
-    type: Organizer.Label,
-  },
-  {
-    name: "household_id",
-    label: i18n.t("household.households"),
-    type: Organizer.Household,
-  },
-  {
-    name: "user_id",
-    label: i18n.t("user.users"),
-    type: Organizer.User,
-  },
-  {
-    name: "last_made",
-    label: i18n.t("general.last-made"),
-    type: "relativeDate",
-  },
-  {
-    name: "rating",
-    label: i18n.t("general.rating"),
-    type: "number",
-  },
-  {
-    name: "total_time_seconds",
-    label: i18n.t("recipe.total-time"),
-    type: "duration",
-  },
-];
+// Tools are left out on purpose: the finder has its own tool picker with "max missing tools",
+// and a second tool filter in the query builder would contradict it.
+const queryFilterBuilderFields = useRecipeFilterFields({ exclude: ["tools.id"] });
 
 function clearQueryFilter() {
   state.queryFilterEditorValue = "";

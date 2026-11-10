@@ -350,7 +350,7 @@
                 flat
                 class="bg-transparent"
                 :disabled="isOffline"
-                @click.prevent="removeRecipeReferenceToList(recipe.id!)"
+                @click.prevent="removeRecipeReferenceToList(recipe.id)"
               >
                 <v-icon color="grey-lighten-1">
                   {{ $globals.icons.minus }}
@@ -366,7 +366,7 @@
                 :disabled="isOffline"
                 flat
                 class="bg-transparent"
-                @click.prevent="addRecipeReferenceToList(recipe.id!)"
+                @click.prevent="addRecipeReferenceToList(recipe.id)"
               >
                 <v-icon color="grey-lighten-1">
                   {{ $globals.icons.createAlt }}
@@ -557,7 +557,7 @@ watch(isSearching, (searching) => {
     height: 28px;
   }
 
-  .shopping-list-item-row .v-btn--size-small {
+  .shopping-list-item-row .v-btn--icon.v-btn--size-small {
     width: 32px;
     height: 32px;
     margin-left: 0 !important;

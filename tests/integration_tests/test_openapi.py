@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 
 from mealie.schema.household.household import HouseholdRecipeSummary
-from mealie.schema.recipe.recipe import Recipe, RecipeSummary
+from mealie.schema.recipe.recipe import RecipeOut, RecipeSummary
 
 
 def test_openapi_returns_json(api_client: TestClient):
@@ -10,7 +10,7 @@ def test_openapi_returns_json(api_client: TestClient):
 
 
 def test_last_made_is_only_exposed_on_household_recipes():
-    assert "last_made" not in Recipe.model_fields
+    assert "last_made" not in RecipeOut.model_fields
     assert "last_made" not in RecipeSummary.model_fields
     assert "last_made" in HouseholdRecipeSummary.model_fields
 

@@ -102,7 +102,7 @@
           <v-icon class="mr-2">
             {{ $globals.icons.cartCheck }}
           </v-icon>
-          <span class="flex-grow-1">
+          <span class="flex-grow-1 text-truncate">
             {{ list.name }}
           </span>
           <v-btn

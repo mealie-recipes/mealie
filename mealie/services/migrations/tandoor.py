@@ -119,7 +119,7 @@ class TandoorMigrator(BaseMigrator):
             results = self.import_recipes_to_database(recipes)
             recipe_lookup = {r.slug: r for r in recipes}
             for slug, recipe_id, status in results:
-                if status:
+                if status and recipe_id:
                     try:
                         r = recipe_lookup.get(slug)
                         if not r or not r.image:

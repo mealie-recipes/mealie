@@ -112,7 +112,7 @@ import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
-import type { RecipeTag } from "~/lib/api/types/recipe";
+import type { TagOut } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
@@ -164,10 +164,10 @@ const formItems = [
 // Create
 const createForm = reactive({
   items: formItems,
-  data: { name: "" } as RecipeTag,
+  data: { name: "" } as TagOut,
 });
 
-async function handleCreate(createFormData: RecipeTag) {
+async function handleCreate(createFormData: TagOut) {
   await tagStore.actions.createOne(createFormData);
   createForm.data.name = "";
 }
@@ -176,19 +176,19 @@ async function handleCreate(createFormData: RecipeTag) {
 // Edit
 const editForm = reactive({
   items: formItems,
-  data: {} as RecipeTag,
+  data: {} as TagOut,
 });
 
-async function handleEdit(editFormData: RecipeTag) {
+async function handleEdit(editFormData: TagOut) {
   await tagStore.actions.updateOne(editFormData);
-  editForm.data = {} as RecipeTag;
+  editForm.data = {} as TagOut;
 }
 
 // ============================================================
 // Bulk Actions
-async function handleBulkAction(event: string, items: RecipeTag[]) {
+async function handleBulkAction(event: string, items: TagOut[]) {
   if (event === "delete-selected") {
-    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    const ids = items.map(item => item.id);
     await tagStore.actions.deleteMany(ids);
   }
 }
@@ -196,8 +196,8 @@ async function handleBulkAction(event: string, items: RecipeTag[]) {
 // ============================================================
 // Merge Tags
 const mergeDialog = ref(false);
-const fromTag = ref<RecipeTag | null>(null);
-const toTag = ref<RecipeTag | null>(null);
+const fromTag = ref<TagOut | null>(null);
+const toTag = ref<TagOut | null>(null);
 
 const canMerge = computed(() => {
   return fromTag.value && toTag.value && fromTag.value.id !== toTag.value.id;
@@ -227,7 +227,7 @@ async function mergeTags() {
 const DELETE_UNUSED_PREVIEW_LIMIT = 10;
 
 const deleteUnusedDialog = ref(false);
-const unusedTags = ref<RecipeTag[]>([]);
+const unusedTags = ref<TagOut[]>([]);
 const unusedTagIds = computed(() => unusedTags.value.filter(t => t.id != null).map(t => t.id!));
 const unusedTagNamesPreview = computed(() => unusedTags.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(t => t.name));
 const unusedTagNamesRemaining = computed(() => Math.max(unusedTags.value.length - DELETE_UNUSED_PREVIEW_LIMIT, 0));

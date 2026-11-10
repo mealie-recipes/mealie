@@ -156,7 +156,9 @@ class AppSettings(AppLoggingSettings):
 
     HOST_IP: str = "*"
 
-    API_HOST: str = "0.0.0.0"
+    API_HOST: str = ""
+    """Listening address. Empty binds IPv4 and IPv6 when dual-stack is available, else IPv4."""
+
     API_PORT: int = 9000
     API_DOCS: bool = True
     TOKEN_TIME: int = 48
@@ -169,6 +171,16 @@ class AppSettings(AppLoggingSettings):
             raise ValueError("TOKEN_TIME must be at least 1 hour")
         # Certain browsers (webkit) have issues with very long-lived cookies, so we limit to 400 days
         return min(v, 400 * 24)
+
+    PASSWORD_RESET_TOKEN_TIME: int = 1
+    """time in hours"""
+
+    @field_validator("PASSWORD_RESET_TOKEN_TIME")
+    @classmethod
+    def validate_password_reset_token_time(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("PASSWORD_RESET_TOKEN_TIME must be at least 1 hour")
+        return v
 
     SECRET: str
     SESSION_SECRET: str
@@ -207,6 +219,22 @@ class AppSettings(AppLoggingSettings):
     @property
     def http_disallow_list(self) -> list[str]:
         return [host.strip() for host in self.HTTP_DISALLOW_LIST.split(",") if host.strip()]
+
+    APPRISE_ALLOWED_SCHEMAS: str = ""
+    """Comma-separated Apprise URL schemas (e.g. `ntfys,discord,mailtos`) that notifiers may use.
+    Empty allows every schema Apprise supports. Notifiers send through Apprise, which is not covered
+    by `HTTP_ALLOW_LIST`/`HTTP_DISALLOW_LIST`, so this is how to limit where they can send."""
+
+    @property
+    def apprise_allowed_schemas(self) -> set[str]:
+        return {schema.strip().lower() for schema in self.APPRISE_ALLOWED_SCHEMAS.split(",") if schema.strip()}
+
+    def is_apprise_url_allowed(self, url: str) -> bool:
+        allowed = self.apprise_allowed_schemas
+        if not allowed:
+            return True
+        schema, sep, _ = url.partition("://")
+        return bool(sep) and schema.strip().lower() in allowed
 
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""

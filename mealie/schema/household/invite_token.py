@@ -3,22 +3,23 @@ from uuid import UUID
 from pydantic import ConfigDict
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 
 
-class CreateInviteToken(MealieModel):
+class InviteTokenCreate(MealieModel):
     uses: int
     group_id: UUID | None = None
     household_id: UUID | None = None
 
 
-class SaveInviteToken(MealieModel):
+class InviteTokenSave(MealieModel):
     uses_left: int
     group_id: UUID
     household_id: UUID
     token: str
 
 
-class ReadInviteToken(MealieModel):
+class InviteTokenOut(MealieOutModel):
     token: str
     uses_left: int
     group_id: UUID
@@ -31,6 +32,6 @@ class EmailInvitation(MealieModel):
     token: str
 
 
-class EmailInitationResponse(MealieModel):
+class EmailInvitationResponse(MealieModel):
     success: bool
     error: str | None = None

@@ -71,7 +71,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 const props = defineProps<{
   modelValue: boolean;
-  ingredients: NoUndefinedField<RecipeIngredient[]>;
+  ingredients: RecipeIngredient[];
 }>();
 
 const emit = defineEmits<{

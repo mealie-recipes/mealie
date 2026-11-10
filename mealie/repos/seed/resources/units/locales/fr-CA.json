@@ -21,7 +21,7 @@
         "name": "once liquide",
         "plural_name": "onces liquides",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "oz liq."
     },
     "pint": {
         "name": "pinte",
@@ -48,8 +48,8 @@
         "abbreviation": "ml"
     },
     "centiliter": {
-        "name": "centiliter",
-        "plural_name": "centiliters",
+        "name": "centilitre",
+        "plural_name": "centilitres",
         "description": "",
         "abbreviation": "cl"
     },
@@ -64,7 +64,7 @@
         "plural_name": "livres",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "lb"
     },
     "ounce": {
         "name": "once",

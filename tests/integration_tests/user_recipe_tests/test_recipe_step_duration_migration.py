@@ -18,8 +18,9 @@ def test_duration_migration_preserves_populated_database(random_recipe, unique_u
     engine = create_engine(settings.DB_URL)
     config = Config(str(Path(__file__).parents[3] / "mealie/alembic/alembic.ini"))
     scripts = ScriptDirectory.from_config(config)
-    assert scripts.get_heads() == ["afdc42353aa4"]
-    predecessor = scripts.get_revision("afdc42353aa4").down_revision
+    # target this migration directly, so later migrations don't change what's being tested
+    revision = "afdc42353aa4"
+    predecessor = scripts.get_revision(revision).down_revision
 
     def snapshot():
         metadata = MetaData()
@@ -35,7 +36,7 @@ def test_duration_migration_preserves_populated_database(random_recipe, unique_u
         command.downgrade(config, predecessor)
         before = snapshot()
         assert before["recipe_instructions"]
-        command.upgrade(config, "head")
+        command.upgrade(config, revision)
         column = next(c for c in inspect(engine).get_columns("recipe_instructions") if c["name"] == "duration_seconds")
         assert column["nullable"]
         with engine.begin() as connection:
@@ -49,7 +50,7 @@ def test_duration_migration_preserves_populated_database(random_recipe, unique_u
         with engine.begin() as connection:
             connection.execute(text("UPDATE recipe_instructions SET text = 'Legacy edit after downgrade'"))
         after_legacy_edit = snapshot()
-        command.upgrade(config, "head")
+        command.upgrade(config, revision)
         with engine.connect() as connection:
             assert (
                 connection.scalar(text("SELECT COUNT(*) FROM recipe_instructions WHERE duration_seconds IS NOT NULL"))

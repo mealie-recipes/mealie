@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut, IngredientUnitOut
 
 
 class _Row:
@@ -42,15 +42,15 @@ def _unit_row(description):
 
 
 def test_food_with_null_description_validates():
-    food = IngredientFood.model_validate(_food_row(None))
+    food = IngredientFoodOut.model_validate(_food_row(None))
     assert food.description == ""
 
 
 def test_food_preserves_non_null_description():
-    food = IngredientFood.model_validate(_food_row("all purpose"))
+    food = IngredientFoodOut.model_validate(_food_row("all purpose"))
     assert food.description == "all purpose"
 
 
 def test_unit_with_null_description_validates():
-    unit = IngredientUnit.model_validate(_unit_row(None))
+    unit = IngredientUnitOut.model_validate(_unit_row(None))
     assert unit.description == ""

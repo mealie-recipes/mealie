@@ -4,7 +4,7 @@ from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs.safehttp import fetch_via_flaresolverr, resilient_fetch
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -50,7 +50,7 @@ class RecipeScraper:
         on_progress: Callable[[str], Awaitable[None]] | None = None,
         include_tags: bool = False,
         include_categories: bool = False,
-    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    ) -> tuple[RecipeDraft, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
         Skips the network request if `html` is provided.

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} ezt készítette desszertnek",
         "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
-            "ingredient-note": "1 csésze liszt",
-            "name": "Új recept",
-            "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
+            "name": "Új recept"
         },
         "servings-text": {
             "makes": "Elkészítések",
@@ -27,6 +25,16 @@
             "yields": "Késleltetve"
         },
         "and-amount": "és {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
@@ -124,7 +132,10 @@
         "test-message-body": "Ez egy teszt értesítés a Mealie-től.",
         "mealplan-entry-created": "Menüterv bejegyzés létrehozva {date}-ra/re, mint {entry_type} típus",
         "mealplan-entry-updated": "Menüterv bejegyzés frissítve {date}-ra/re, mint {entry_type} típus",
-        "mealplan-entry-deleted": "Menüterv bejegyzés törölve {date}-ra/re, mint {entry_type} típus"
+        "mealplan-entry-deleted": "Menüterv bejegyzés törölve {date}-ra/re, mint {entry_type} típus",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "év",

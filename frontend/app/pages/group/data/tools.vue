@@ -109,6 +109,7 @@
 </template>
 
 <script setup lang="ts">
+import type { RecipeToolWithOnHand } from "~/composables/store/use-tool-store";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -116,12 +117,8 @@ import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
 import { useToolStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
-import type { RecipeTool, RecipeToolCreate } from "~/lib/api/types/recipe";
+import type { ToolOut, ToolCreate } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
-
-interface RecipeToolWithOnHand extends RecipeTool {
-  onHand: boolean;
-}
 
 const i18n = useI18n();
 const auth = useMealieAuth();
@@ -189,13 +186,13 @@ const formItems = [
 // Create
 const createForm = reactive({
   items: formItems,
-  data: { name: "", onHand: false } as RecipeToolCreate,
+  data: { name: "", onHand: false } as ToolCreate,
 });
 
-async function handleCreate(createFormData: RecipeToolCreate) {
+async function handleCreate(createFormData: ToolCreate) {
   // @ts-expect-error createOne eroniusly expects id and slug which are not preset at time of creation
-  await toolStore.actions.createOne({ name: createFormData.name, householdsWithTool: createFormData.onHand ? [userHousehold.value] : [] } as RecipeToolCreate);
-  createForm.data = { name: "", onHand: false } as RecipeToolCreate;
+  await toolStore.actions.createOne({ name: createFormData.name, householdsWithTool: createFormData.onHand ? [userHousehold.value] : [] } as ToolCreate);
+  createForm.data = { name: "", onHand: false } as ToolCreate;
 }
 
 // ============================================================
@@ -219,7 +216,7 @@ async function handleEdit(editFormData: RecipeToolWithOnHand) {
     if (idx !== -1) editFormData.householdsWithTool.splice(idx, 1);
   }
 
-  await toolStore.actions.updateOne({ ...editFormData, id: editFormData.id } as RecipeTool);
+  await toolStore.actions.updateOne({ ...editFormData, id: editFormData.id } as ToolOut);
   editForm.data = {} as RecipeToolWithOnHand;
 }
 
@@ -227,7 +224,7 @@ async function handleEdit(editFormData: RecipeToolWithOnHand) {
 // Bulk Actions
 async function handleBulkAction(event: string, items: RecipeToolWithOnHand[]) {
   if (event === "delete-selected") {
-    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    const ids = items.map(item => item.id);
     await toolStore.actions.deleteMany(ids);
   }
 }
@@ -266,7 +263,7 @@ async function mergeTools() {
 const DELETE_UNUSED_PREVIEW_LIMIT = 10;
 
 const deleteUnusedDialog = ref(false);
-const unusedTools = ref<RecipeTool[]>([]);
+const unusedTools = ref<ToolOut[]>([]);
 const unusedToolIds = computed(() => unusedTools.value.filter(t => t.id != null).map(t => t.id!));
 const unusedToolNamesPreview = computed(() => unusedTools.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(t => t.name));
 const unusedToolNamesRemaining = computed(() => Math.max(unusedTools.value.length - DELETE_UNUSED_PREVIEW_LIMIT, 0));

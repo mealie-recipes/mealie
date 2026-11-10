@@ -7,17 +7,57 @@
   "enabledManagers": [
     "pep621",
     "dockerfile",
-    "npm"
+    "npm",
+    "mise",
+    "custom.regex",
+    "github-actions"
   ],
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
   ],
   "minimumReleaseAge": "5 days",
   "internalChecksFilter": "strict",
   "addLabels": [
     "dependencies"
   ],
+  "customManagers": [
+    {
+      "description": "Versions marked with a `# renovate:` comment on the line above (docker/Dockerfile, the setup-tools action)",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/",
+        "/^\\.github/actions/.+\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: extractVersion=(?<extractVersion>\\S+))?\\s*\\n[^\\n]*?(?<currentValue>\\d+\\.\\d+\\.\\d+)"
+      ]
+    }
+  ],
   "packageRules": [
+    {
+      "description": "One PR for all GitHub Actions updates",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions"
+    },
+    {
+      "description": "Auto-merge non-major GitHub Actions updates and digest pins",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "pin",
+        "pinDigest",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
     {
       "matchManagers": [
         "npm"
@@ -67,29 +107,115 @@
       "automergeStrategy": "squash"
     },
     {
-      "description": "Keep requires-python where it is; Python upgrades are done by hand",
+      "description": "Auto-merge patch and minor toolchain updates (mise.toml and the pins grouped with it below)",
       "matchManagers": [
-        "pep621"
+        "mise",
+        "custom.regex"
       ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "requires-python moves with the Python group by hand (see below), not on its own",
       "matchPackageNames": [
         "python"
+      ],
+      "matchManagers": [
+        "pep621"
       ],
       "enabled": false
     },
     {
-      "description": "Keep the Docker base on its Python version, but let its digest update so the base gets Debian security fixes",
+      "description": "One PR per Python version across mise.toml, the dev container, and the production image",
+      "matchDepNames": [
+        "python",
+        "mcr.microsoft.com/devcontainers/python"
+      ],
       "matchManagers": [
+        "mise",
         "dockerfile"
       ],
-      "matchPackageNames": [
-        "python"
+      "groupName": "python"
+    },
+    {
+      "description": "Python minor and major upgrades wait for dashboard approval and merge by hand: they also need requires-python, mypy python_version, and ruff target-version in pyproject.toml updated",
+      "matchDepNames": [
+        "python",
+        "mcr.microsoft.com/devcontainers/python"
+      ],
+      "matchManagers": [
+        "mise",
+        "dockerfile"
       ],
       "matchUpdateTypes": [
         "major",
-        "minor",
-        "patch"
+        "minor"
       ],
-      "enabled": false
+      "dependencyDashboardApproval": true,
+      "automerge": false
+    },
+    {
+      "description": "One PR per Node version across mise.toml and the production image",
+      "matchDepNames": [
+        "node"
+      ],
+      "matchManagers": [
+        "mise",
+        "dockerfile"
+      ],
+      "groupName": "node"
+    },
+    {
+      "description": "One PR per pnpm version across mise.toml, frontend/package.json (packageManager and devEngines), and the production image. Exempt from the npm dashboard approval so the pins stay in step.",
+      "matchDepNames": [
+        "pnpm"
+      ],
+      "groupName": "pnpm",
+      "dependencyDashboardApproval": false
+    },
+    {
+      "description": "Auto-merge patch and minor pnpm updates, including the package.json packageManager pin the npm manager owns",
+      "matchDepNames": [
+        "pnpm"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "One PR per uv version across mise.toml and the production image",
+      "matchDepNames": [
+        "uv"
+      ],
+      "matchManagers": [
+        "mise",
+        "custom.regex"
+      ],
+      "groupName": "uv"
+    },
+    {
+      "description": "One PR per mise version across the dev container and the CI setup-tools action",
+      "matchDepNames": [
+        "jdx/mise",
+        "jdxcode/mise"
+      ],
+      "groupName": "mise",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ]
     }
   ]
 }

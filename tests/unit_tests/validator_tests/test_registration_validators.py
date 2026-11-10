@@ -1,10 +1,10 @@
 import pytest
 
-from mealie.schema.user.registration import CreateUserRegistration
+from mealie.schema.user.registration import UserRegistrationCreate
 
 
 def test_create_user_registration() -> None:
-    CreateUserRegistration(
+    UserRegistrationCreate(
         group="Home",
         household="Family",
         group_token=None,
@@ -17,7 +17,7 @@ def test_create_user_registration() -> None:
         private=True,
     )
 
-    CreateUserRegistration(
+    UserRegistrationCreate(
         group=None,
         household=None,
         group_token="asdfadsfasdfasdfasdf",
@@ -36,7 +36,7 @@ def test_create_user_registration() -> None:
 @pytest.mark.parametrize("group_token", [None, ""])
 def test_group_or_token_validator(group, household, group_token) -> None:
     with pytest.raises(ValueError):
-        CreateUserRegistration(
+        UserRegistrationCreate(
             group=group,
             household=household,
             group_token=group_token,
@@ -52,7 +52,7 @@ def test_group_or_token_validator(group, household, group_token) -> None:
 
 def test_group_no_args_passed() -> None:
     with pytest.raises(ValueError):
-        CreateUserRegistration(
+        UserRegistrationCreate(
             email="SomeValidEmail@example.com",
             username="SomeValidUsername",
             full_name="SomeValidFullName",
@@ -65,7 +65,7 @@ def test_group_no_args_passed() -> None:
 
 def test_password_validator() -> None:
     with pytest.raises(ValueError):
-        CreateUserRegistration(
+        UserRegistrationCreate(
             group=None,
             household=None,
             group_token="asdfadsfasdfasdfasdf",

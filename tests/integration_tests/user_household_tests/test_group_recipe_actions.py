@@ -7,12 +7,12 @@ from mealie.core.config import get_app_settings
 from mealie.pkgs import safehttp
 from mealie.routes.households import controller_group_recipe_actions
 from mealie.schema.household.group_recipe_action import (
-    CreateGroupRecipeAction,
+    GroupRecipeActionCreate,
     GroupRecipeActionOut,
+    GroupRecipeActionSave,
     GroupRecipeActionType,
-    SaveGroupRecipeAction,
 )
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from tests.utils import api_routes, assert_deserialize
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -27,8 +27,8 @@ def mock_outbound_post(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(safehttp, "validate_url", lambda *args, **kwargs: None)
 
 
-def create_action(action_type: GroupRecipeActionType = GroupRecipeActionType.link) -> CreateGroupRecipeAction:
-    return CreateGroupRecipeAction(
+def create_action(action_type: GroupRecipeActionType = GroupRecipeActionType.link) -> GroupRecipeActionCreate:
+    return GroupRecipeActionCreate(
         action_type=action_type,
         title=random_string(),
         url=f"https://example.com/{random_string()}",
@@ -37,13 +37,13 @@ def create_action(action_type: GroupRecipeActionType = GroupRecipeActionType.lin
 
 def save_action(
     user: TestUser, action_type: GroupRecipeActionType = GroupRecipeActionType.link
-) -> SaveGroupRecipeAction:
+) -> GroupRecipeActionSave:
     action = create_action(action_type)
-    return action.cast(SaveGroupRecipeAction, group_id=UUID(user.group_id), household_id=UUID(user.household_id))
+    return action.cast(GroupRecipeActionSave, group_id=UUID(user.group_id), household_id=UUID(user.household_id))
 
 
-def new_recipe(user: TestUser) -> Recipe:
-    return Recipe(
+def new_recipe(user: TestUser) -> RecipeOut:
+    return RecipeDraft(
         user_id=user.user_id,
         group_id=UUID(user.group_id),
         name=random_string(),

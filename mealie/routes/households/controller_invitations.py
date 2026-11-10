@@ -7,11 +7,11 @@ from mealie.core.security import url_safe_token
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.permissions import Perm, require
 from mealie.schema.household.invite_token import (
-    CreateInviteToken,
-    EmailInitationResponse,
     EmailInvitation,
-    ReadInviteToken,
-    SaveInviteToken,
+    EmailInvitationResponse,
+    InviteTokenCreate,
+    InviteTokenOut,
+    InviteTokenSave,
 )
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.email.email_service import EmailService
@@ -21,7 +21,7 @@ router = APIRouter(prefix="/households/invitations", tags=["Households: Invitati
 
 @controller(router)
 class GroupInvitationsController(BaseUserController):
-    @router.get("", response_model=list[ReadInviteToken])
+    @router.get("", response_model=list[InviteTokenOut])
     def get_invite_tokens(self):
         if not self.user.admin:
             raise HTTPException(
@@ -33,11 +33,11 @@ class GroupInvitationsController(BaseUserController):
 
     @router.post(
         "",
-        response_model=ReadInviteToken,
+        response_model=InviteTokenOut,
         status_code=status.HTTP_201_CREATED,
         dependencies=[require(Perm.GROUP_INVITE)],
     )
-    def create_invite_token(self, body: CreateInviteToken):
+    def create_invite_token(self, body: InviteTokenCreate):
         settings = get_app_settings()
         if not settings.ALLOW_PASSWORD_LOGIN:
             raise HTTPException(
@@ -54,12 +54,12 @@ class GroupInvitationsController(BaseUserController):
                 detail="Only admins can create invite tokens for other groups or households",
             )
 
-        token = SaveInviteToken(
+        token = InviteTokenSave(
             uses_left=body.uses, group_id=body.group_id, household_id=body.household_id, token=url_safe_token()
         )
         return self.repos.group_invite_tokens.create(token)
 
-    @router.post("/email", response_model=EmailInitationResponse, dependencies=[require(Perm.GROUP_INVITE)])
+    @router.post("/email", response_model=EmailInvitationResponse, dependencies=[require(Perm.GROUP_INVITE)])
     def email_invitation(
         self,
         invite: EmailInvitation,
@@ -82,4 +82,4 @@ class GroupInvitationsController(BaseUserController):
         except Exception as e:
             error = str(e)
 
-        return EmailInitationResponse(success=success, error=error)
+        return EmailInvitationResponse(success=success, error=error)

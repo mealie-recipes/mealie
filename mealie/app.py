@@ -110,7 +110,8 @@ app = FastAPI(
     lifespan=lifespan_fn,
 )
 
-app.add_middleware(GZipMiddleware, minimum_size=1000)
+# Level 9 (Starlette's default) took ~2.5x the CPU of level 6 on recipe list pages for ~4% smaller output
+app.add_middleware(GZipMiddleware, minimum_size=1000, compresslevel=6)
 app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
 app.add_middleware(LocaleContextMiddleware)
 

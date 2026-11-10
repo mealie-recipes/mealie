@@ -1,28 +1,26 @@
 from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import UUID4, BaseModel, ConfigDict
+from pydantic import UUID4
 
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
-from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
-from mealie.schema.recipe.recipe import RecipeCategory, RecipeCategoryPagination
-from mealie.schema.recipe.recipe_category import CategoryBase, CategoryMerge, CategoryOut, CategorySave
+from mealie.schema.recipe import CategoryWithRecipes
+from mealie.schema.recipe.recipe_organizers import (
+    CategoryCreate,
+    CategoryOut,
+    CategoryPagination,
+    CategorySave,
+    OrganizerMerge,
+)
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventCategoryData, EventOperation, EventTypes
 
 router = APIRouter(prefix="/categories", tags=["Organizer: Categories"])
-
-
-class CategorySummary(BaseModel):
-    id: UUID4
-    slug: str
-    name: str
-    model_config = ConfigDict(from_attributes=True)
 
 
 @controller(router)
@@ -37,20 +35,20 @@ class RecipeCategoryController(BaseCrudController):
     def mixins(self):
         return HttpRepo[CategorySave, CategoryOut, CategorySave](self.repo, self.logger)
 
-    @router.get("", response_model=RecipeCategoryPagination)
+    @router.get("", response_model=CategoryPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         """Returns a list of available categories in the database"""
         response = self.repo.page_all(
             pagination=q,
-            override=RecipeCategory,
+            override=CategoryOut,
             search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def create_one(self, category: CategoryIn):
+    @router.post("", response_model=CategoryOut, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def create_one(self, category: CategoryCreate):
         """Creates a Category in the database"""
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
         new_category = self.mixins.create_one(save_data)
@@ -69,13 +67,13 @@ class RecipeCategoryController(BaseCrudController):
 
         return new_category
 
-    @router.get("/empty", response_model=list[CategoryBase])
+    @router.get("/empty", response_model=list[CategoryOut])
     def get_all_empty(self):
         """Returns a list of categories that do not contain any recipes"""
         return self.repos.categories.get_empty()
 
     @router.post("/merge", response_model=CategoryOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def merge_categories(self, body: CategoryMerge):
+    def merge_categories(self, body: OrganizerMerge):
         """Merges the from_id category into the to_id category, then deletes from_id."""
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
@@ -87,16 +85,13 @@ class RecipeCategoryController(BaseCrudController):
 
         return self.repos.categories.merge(body.from_id, body.to_id)
 
-    @router.get("/{item_id}", response_model=CategorySummary)
+    @router.get("/{item_id}", response_model=CategoryOut)
     def get_one(self, item_id: UUID4):
-        """Returns a list of recipes associated with the provided category."""
-        category_obj = self.mixins.get_one(item_id)
-        category_obj = CategorySummary.model_validate(category_obj)
-        return category_obj
+        return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=CategorySummary, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def update_one(self, item_id: UUID4, update_data: CategoryIn):
-        """Updates an existing Tag in the database"""
+    @router.put("/{item_id}", response_model=CategoryOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def update_one(self, item_id: UUID4, update_data: CategoryCreate):
+        """Updates an existing Category in the database"""
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
         category = self.mixins.update_one(save_data, item_id)
 
@@ -134,18 +129,19 @@ class RecipeCategoryController(BaseCrudController):
     # =========================================================================
     # Read All Operations
 
-    @router.get("/slug/{category_slug}")
+    @router.get("/slug/{category_slug}", response_model=CategoryWithRecipes)
     def get_one_by_slug(self, category_slug: str):
         """Returns a category object with the associated recieps relating to the category"""
-        category: RecipeCategory = self.mixins.get_one(category_slug, "slug")
+        category: CategoryOut = self.mixins.get_one(category_slug, "slug")
 
         group_recipes = get_repositories(self.repos.session, group_id=self.group_id, household_id=None).recipes
         recipe_data = group_recipes.page_all(
             PaginationQuery(per_page=-1, query_filter=f'recipe_category.id IN ["{category.id}"]')
         )
 
-        return RecipeCategoryResponse.model_construct(
+        return CategoryWithRecipes(
             id=category.id,
+            group_id=category.group_id,
             slug=category.slug,
             name=category.name,
             recipes=recipe_data.items,

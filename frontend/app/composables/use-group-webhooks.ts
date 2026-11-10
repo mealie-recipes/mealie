@@ -1,6 +1,6 @@
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import type { ReadWebhook } from "~/lib/api/types/household";
+import type { WebhookOut } from "~/lib/api/types/household";
 
 export const useGroupWebhooks = function () {
   const api = useUserApi();
@@ -51,7 +51,7 @@ export const useGroupWebhooks = function () {
 
       loading.value = false;
     },
-    async updateOne(updateData: ReadWebhook) {
+    async updateOne(updateData: WebhookOut) {
       if (!updateData.id) {
         return;
       }

@@ -1,6 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG VARIANT="3.14-trixie"
-FROM mcr.microsoft.com/devcontainers/python:${VARIANT}
+FROM mcr.microsoft.com/devcontainers/python:3.14-trixie
 
 # Install additional OS packages
 RUN apt-get update \
@@ -13,13 +12,12 @@ RUN apt-get update \
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1
 
-# Install uv
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
-ENV UV_LINK_MODE=copy
-
-# Install Taskfile
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | sudo -E bash \
-    && apt-get install -y task
+# Python stays with the base image so the interpreter path in devcontainer.json doesn't move.
+COPY --from=jdxcode/mise:2026.11.2 /usr/local/bin/mise /usr/local/bin/mise
+ENV MISE_DISABLE_TOOLS=python \
+    MISE_TRUSTED_CONFIG_PATHS=/workspaces \
+    PATH="/home/vscode/.local/share/mise/shims:${PATH}" \
+    UV_LINK_MODE=copy
 
 # Create directory for Docker Secrets
 RUN mkdir -p /run/secrets

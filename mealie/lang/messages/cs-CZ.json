@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} udělal jako dezert",
         "recipe-image-deleted": "Obrázek receptu odstraněn",
         "recipe-defaults": {
-            "ingredient-note": "1 hrnek mouky",
-            "name": "Nový recept",
-            "step-text": "Kroky receptu stejně jako další pole v receptu podporují syntaxi markdown.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"
+            "name": "Nový recept"
         },
         "servings-text": {
             "makes": "Vytvoří",
@@ -27,11 +25,21 @@
             "yields": "Výnosy"
         },
         "and-amount": "a {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI služby nejsou povoleny",
             "ai-request-failed": "Poskytovatel AI nemohl požadavek dokončit. Zkuste to prosím znovu",
             "image-provider-not-enabled": "AI obrazové služby nejsou povoleny",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "invalid-mealie-export": "Vypadá to jako recept exportovaný z Mealie, ale nelze jej importovat",
             "no-recipe-found": "V poskytnutém zdroji nebyl nalezen žádný recept",
             "no-source": "Nebyl poskytnut žádný obsah, obrázky nebo URL",
             "provider-returned-nothing": "Poskytovatel AI nevrátil recept",
@@ -124,7 +132,10 @@
         "test-message-body": "Toto je testovací oznámení od Mealie.",
         "mealplan-entry-created": "Položka jídelníčku na {date} pro {entry_type} byla vytvořena",
         "mealplan-entry-updated": "Položka jídelníčku na {date} pro {entry_type} byla aktualizována",
-        "mealplan-entry-deleted": "Položka jídelníčku na {date} pro {entry_type} byla smazána"
+        "mealplan-entry-deleted": "Položka jídelníčku na {date} pro {entry_type} byla smazána",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "rok|roky",

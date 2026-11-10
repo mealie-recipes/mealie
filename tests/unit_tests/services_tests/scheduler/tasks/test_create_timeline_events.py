@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 from pydantic import UUID4
 
 from mealie.schema.household.household import HouseholdRecipeSummary
-from mealie.schema.meal_plan.new_meal import CreatePlanEntry
+from mealie.schema.meal_plan.new_meal import PlanEntryCreate
 from mealie.schema.recipe.recipe import RecipeLastMade, RecipeSummary
 from mealie.services.scheduler.tasks.create_timeline_events import create_mealplan_timeline_events
 from tests.utils import api_routes
@@ -36,7 +36,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_us
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(
+    new_plan = PlanEntryCreate(
         date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=recipe_id
     ).model_dump(by_alias=True)
     new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
@@ -114,7 +114,7 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(
+    new_plan = PlanEntryCreate(
         date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=recipe_id
     ).model_dump(by_alias=True)
     new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
@@ -160,7 +160,7 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
     for recipe in recipes:
         mealplan_count_by_recipe_id[recipe.id] = 0  # type: ignore
         for _ in range(random_int(1, 5)):
-            new_plan = CreatePlanEntry(
+            new_plan = PlanEntryCreate(
                 date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=str(recipe.id)
             ).model_dump(by_alias=True)
             new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
@@ -230,7 +230,7 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     household_recipe = HouseholdRecipeSummary.model_validate(response.json())
     assert household_recipe.last_made is None
 
-    new_plan = CreatePlanEntry(
+    new_plan = PlanEntryCreate(
         date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=recipe_id
     ).model_dump(by_alias=True)
     new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
@@ -264,7 +264,7 @@ def _create_recipe_and_mealplan(api_client: TestClient, user: TestUser, entry_ty
     response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=user.token)
     initial_event_count = len(response.json()["items"])
 
-    new_plan = CreatePlanEntry(
+    new_plan = PlanEntryCreate(
         date=datetime.now(tzlocal()).date(), entry_type=entry_type, recipe_id=recipe.id
     ).model_dump(by_alias=True)
     new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
@@ -311,9 +311,9 @@ def test_mealplan_event_subject_is_translated(api_client: TestClient, unique_use
     expected2 = f"{unique_user.full_name} made this as a side"
     assert event2["subject"] == expected2, f"expected {expected2!r}, got {event2['subject']!r}"
 
-    # --- locale fallback: fr-FR doesn't have these keys yet, should fall back to en-US ---
+    # --- locale fallback: a locale with no messages file falls back to en-US ---
     recipe3, initial_count3 = _create_recipe_and_mealplan(api_client, unique_user, "lunch")
-    event3 = _get_mealplan_event(api_client, unique_user, recipe3, initial_count3, {"Accept-Language": "fr-FR"})
+    event3 = _get_mealplan_event(api_client, unique_user, recipe3, initial_count3, {"Accept-Language": "xx-XX"})
 
     expected3 = f"{unique_user.full_name} made this for lunch"
     assert event3["subject"] == expected3, f"expected en-US fallback {expected3!r}, got {event3['subject']!r}"

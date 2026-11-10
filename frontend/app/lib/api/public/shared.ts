@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { Recipe } from "~/lib/api/types/recipe";
+import { RecipeOut } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 
@@ -9,6 +9,6 @@ const routes = {
 
 export class SharedApi extends BaseAPI {
   async getShared(item_id: string) {
-    return await this.requests.get<Recipe>(routes.recipeShareToken(item_id));
+    return await this.requests.get<RecipeOut>(routes.recipeShareToken(item_id));
   }
 }

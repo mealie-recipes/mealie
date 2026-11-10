@@ -6,10 +6,10 @@ from pydantic import UUID4
 from mealie.db.db_setup import session_context
 from mealie.lang.providers import get_locale_provider
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodCreate,
+    IngredientFoodOut,
+    IngredientUnitCreate,
+    IngredientUnitOut,
     ParsedIngredient,
     RecipeIngredient,
 )
@@ -19,9 +19,9 @@ from mealie.services.parser_services import RegisteredParser, get_parser
 def build_parsed_ing(food: str | None, unit: str | None) -> ParsedIngredient:
     ing = RecipeIngredient(unit=None, food=None)
     if food:
-        ing.food = CreateIngredientFood(name=food)
+        ing.food = IngredientFoodCreate(name=food)
     if unit:
-        ing.unit = CreateIngredientUnit(name=unit)
+        ing.unit = IngredientUnitCreate(name=unit)
 
     return ParsedIngredient(input=None, ingredient=ing)
 
@@ -97,7 +97,9 @@ def build_parsed_ing(food: str | None, unit: str | None) -> ParsedIngredient:
 )
 def test_brute_parser(
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
     input: str,
     quantity: int | float,
     unit: str,
@@ -144,7 +146,7 @@ def test_brute_parser_confidence(
     expect_food_match: bool,
     expected_avg: float,
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],
+    parsed_ingredient_data: tuple[list[IngredientFoodOut], list[IngredientUnitOut]],
 ):
     input_str = f"1 {unit} {food}"
 
@@ -332,7 +334,9 @@ def test_parser_ingredient_match(
     expect_food_match: bool,
     expect_unit_match: bool,
     input: ParsedIngredient,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
     unique_local_group_id: UUID4,
 ):
     with session_context() as session:
@@ -345,9 +349,9 @@ def test_parser_ingredient_match(
             assert parsed_ingredient.ingredient.food is None
 
         if expect_food_match:
-            assert isinstance(parsed_ingredient.ingredient.food, IngredientFood)
+            assert isinstance(parsed_ingredient.ingredient.food, IngredientFoodOut)
         elif parsed_ingredient.ingredient.food and parsed_ingredient.ingredient.food.name:
-            assert isinstance(parsed_ingredient.ingredient.food, CreateIngredientFood)
+            assert isinstance(parsed_ingredient.ingredient.food, IngredientFoodCreate)
         else:
             assert parsed_ingredient.ingredient.food is None
 
@@ -357,8 +361,8 @@ def test_parser_ingredient_match(
             assert parsed_ingredient.ingredient.unit is None
 
         if expect_unit_match:
-            assert isinstance(parsed_ingredient.ingredient.unit, IngredientUnit)
+            assert isinstance(parsed_ingredient.ingredient.unit, IngredientUnitOut)
         elif parsed_ingredient.ingredient.unit and parsed_ingredient.ingredient.unit.name:
-            assert isinstance(parsed_ingredient.ingredient.unit, CreateIngredientUnit)
+            assert isinstance(parsed_ingredient.ingredient.unit, IngredientUnitCreate)
         else:
             assert parsed_ingredient.ingredient.unit is None

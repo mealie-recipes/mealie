@@ -103,11 +103,12 @@
 <script setup lang="ts">
 import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue";
+import type { TimelineEventEdit } from "./RecipeTimelineContextMenu.vue";
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import type { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
+import type { RecipeSummary, RecipeTimelineEventOut, TimelineEventType } from "~/lib/api/types/recipe";
 
 interface Props {
   modelValue?: boolean;
@@ -134,7 +135,7 @@ const perPage = 32;
 const hasMore = ref(true);
 
 const timelineEvents = ref([] as RecipeTimelineEventOut[]);
-const recipes = new Map<string, Recipe>();
+const recipes = new Map<string, RecipeSummary>();
 const filterBadgeCount = computed(() => eventTypeOptions.value.length - preferences.value.types.length);
 const eventTypeFilterState = computed(() => {
   return eventTypeOptions.value.map((option) => {
@@ -180,16 +181,33 @@ function toggleEventTypeOption(option: TimelineEventType) {
 }
 
 // Timeline Actions
-async function updateTimelineEvent(index: number, event: RecipeTimelineEventUpdate) {
+async function updateTimelineEvent(index: number, edit: TimelineEventEdit) {
   const eventId = timelineEvents.value[index].id;
-  const { response } = await api.recipes.updateTimelineEvent(eventId, event);
+  const { response } = await api.recipes.updateTimelineEvent(eventId, edit.event);
   if (response?.status !== 200) {
     alert.error(i18n.t("events.something-went-wrong") as string);
     return;
   }
 
+  const updatedEvent = response.data;
+  if (edit.image) {
+    try {
+      const { data } = await api.recipes.updateTimelineEventImage(eventId, edit.image.file, edit.image.fileName);
+      if (!data) {
+        throw new Error("Failed to upload image");
+      }
+      updatedEvent.image = data.image;
+    }
+    catch (error) {
+      console.error("Failed to upload image for timeline event:", error);
+      timelineEvents.value[index] = updatedEvent;
+      alert.error(i18n.t("events.something-went-wrong") as string);
+      return;
+    }
+  }
+
   // Update the local event data to reflect the changes in the UI
-  timelineEvents.value[index] = response.data;
+  timelineEvents.value[index] = updatedEvent;
 
   alert.success(i18n.t("events.event-updated") as string);
 }
@@ -205,7 +223,7 @@ async function deleteTimelineEvent(index: number) {
   alert.success(i18n.t("events.event-deleted") as string);
 }
 
-async function getRecipes(recipeIds: string[]): Promise<Recipe[]> {
+async function getRecipes(recipeIds: string[]): Promise<RecipeSummary[]> {
   let qf = "";
   if (recipeIds.length) {
     qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";

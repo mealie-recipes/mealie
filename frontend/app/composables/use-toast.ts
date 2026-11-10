@@ -51,6 +51,8 @@ export const loader = {
   },
 };
 
+const ERROR_TIMEOUT = 10000;
+
 export const alert = {
   info(text: string, title: string | null = null, options?: Partial<Toast>) {
     setToast(toastAlert, text, title, "info", options);
@@ -59,7 +61,8 @@ export const alert = {
     setToast(toastAlert, text, title, "success", options);
   },
   error(text: string, title: string | null = null, options?: Partial<Toast>) {
-    setToast(toastAlert, text, title, "error", options);
+    // Errors stay longer than other alerts, so there is time to read them
+    setToast(toastAlert, text, title, "error", { timeout: ERROR_TIMEOUT, ...options });
   },
   warning(text: string, title: string | null = null, options?: Partial<Toast>) {
     setToast(toastAlert, text, title, "warning", options);

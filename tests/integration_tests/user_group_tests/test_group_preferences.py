@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from mealie.schema.group.group_preferences import UpdateGroupPreferences
+from mealie.schema.group.group_preferences import GroupPreferencesUpdate
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool
@@ -30,7 +30,7 @@ def test_preferences_in_group(api_client: TestClient, unique_user: TestUser) -> 
 
 
 def test_update_preferences(api_client: TestClient, unique_user: TestUser) -> None:
-    new_data = UpdateGroupPreferences(private_group=random_bool())
+    new_data = GroupPreferencesUpdate(private_group=random_bool())
 
     response = api_client.put(api_routes.groups_preferences, json=new_data.model_dump(), headers=unique_user.token)
 

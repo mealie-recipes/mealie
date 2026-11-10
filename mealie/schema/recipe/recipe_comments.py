@@ -7,11 +7,11 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.db.models.recipe import RecipeComment
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
-from mealie.schema._mealie.mealie_model import UpdatedAtField
+from mealie.schema._mealie.mealie_model import MealieOutModel, UpdatedAtField
 from mealie.schema.response.pagination import PaginationBase
 
 
-class UserBase(MealieModel):
+class RecipeCommentUser(MealieModel):
     id: UUID4
     username: str | None = None
     admin: bool
@@ -44,14 +44,14 @@ class RecipeCommentUpdate(MealieModel):
     _validate_text = field_validator("text")(validate_comment_text)
 
 
-class RecipeCommentOut(MealieModel):
+class RecipeCommentOut(MealieOutModel):
     id: UUID4
     recipe_id: UUID4
     text: str
     created_at: datetime
     updated_at: datetime = UpdatedAtField(...)
     user_id: UUID4
-    user: UserBase
+    user: RecipeCommentUser
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod

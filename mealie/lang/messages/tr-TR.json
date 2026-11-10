@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Tarif görseli silindi",
         "recipe-defaults": {
-            "ingredient-note": "1 Bardak Un",
-            "name": "Yeni Tarif",
-            "step-text": "Tarif sayfasındaki tarif adımlarının yanı sıra diğer alanlar da markdown destekler.\n\n**Bağlantı ekle**\n\n[Bağlantım](https://demo.mealie.io)\n"
+            "name": "Yeni Tarif"
         },
         "servings-text": {
             "makes": "Miktar",
@@ -27,6 +25,16 @@
             "yields": "Verim"
         },
         "and-amount": "ve {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "YZ hizmetleri etkin değil",
             "ai-request-failed": "YZ sağlayıcısı isteği tamamlayamadı. Lütfen tekrar deneyin",
@@ -124,7 +132,10 @@
         "test-message-body": "Bu, Mealie'den gönderilen bir test bildirimidir.",
         "mealplan-entry-created": "{date} tarihli {entry_type} için yemek planı girdisi oluşturuldu",
         "mealplan-entry-updated": "{date} tarihli {entry_type} için yemek planı girdisi güncellendi",
-        "mealplan-entry-deleted": "{date} tarihli {entry_type} için yemek planı girdisi silindi"
+        "mealplan-entry-deleted": "{date} tarihli {entry_type} için yemek planı girdisi silindi",
+        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "yıl|yıl",

@@ -56,6 +56,7 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_meal_plans"
 
     date: FilterableColumn[datetime.date] = mapped_column(Date, index=True, nullable=False)
+    end_date: FilterableColumn[datetime.date | None] = mapped_column(Date, index=True, nullable=True)
     entry_type: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     title: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     text: FilterableColumn[str] = mapped_column(String, nullable=False)
