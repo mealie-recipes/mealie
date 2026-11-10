@@ -10,59 +10,112 @@
     <GroupMealPlanCalendarDialog v-model="calendarDialog" />
     <!-- range navigation and page actions share one toolbar, kept apart from the plan below -->
     <div class="d-flex flex-wrap align-center ga-2">
-      <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
-      <v-menu
-        v-model="state.picker"
-        :close-on-content-click="false"
-        transition="scale-transition"
-        offset-y
-        min-width="auto"
+      <div class="range-nav d-flex align-center ga-2">
+        <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
+        <v-menu
+          v-model="state.picker"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template #activator="{ props }">
+            <v-btn
+              class="range-button"
+              color="primary"
+              v-bind="props"
+            >
+              <v-icon start>
+                {{ $globals.icons.calendar }}
+              </v-icon>
+              {{ $d(visibleRange.start, "short") }} - {{ $d(visibleRange.end, "short") }}
+            </v-btn>
+          </template>
+
+          <v-card>
+            <MealPlanDatePicker
+              v-model="state.range"
+              hide-header
+              :multiple="'range'"
+              :first-day-of-week="firstDayOfWeek"
+              :local="$i18n.locale"
+            />
+
+            <template v-if="isDaysMode">
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfDaysPast"
+                  :min="0"
+                  inset
+                  :label="$t('meal-plan.numberOfDaysPast-label')"
+                  :hint="$t('meal-plan.numberOfDaysPast-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfDays"
+                  :min="1"
+                  inset
+                  :label="$t('meal-plan.numberOfDays-label')"
+                  :hint="$t('meal-plan.numberOfDays-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+            </template>
+            <template v-else>
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfWeeksPast"
+                  :min="0"
+                  inset
+                  :label="$t('meal-plan.numberOfWeeksPast-label')"
+                  :hint="$t('meal-plan.numberOfWeeksPast-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+
+              <v-card-text>
+                <v-number-input
+                  v-model="numberOfWeeks"
+                  :min="1"
+                  inset
+                  :label="$t('meal-plan.numberOfWeeks-label')"
+                  :hint="$t('meal-plan.numberOfWeeks-hint')"
+                  persistent-hint
+                />
+              </v-card-text>
+            </template>
+          </v-card>
+        </v-menu>
+        <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
+      </div>
+      <v-btn-toggle
+        v-model="mealPlanPreferences.mode"
+        mandatory
+        divided
+        variant="outlined"
+        color="primary"
+        density="comfortable"
       >
-        <template #activator="{ props }">
-          <v-btn
+        <v-btn value="weeks">
+          <v-badge
+            :model-value="hiddenWeekMealCount > 0"
+            :content="hiddenWeekMealCount"
             color="primary"
-            v-bind="props"
+            inline
           >
-            <v-icon start>
-              {{ $globals.icons.calendar }}
-            </v-icon>
-            {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
-          </v-btn>
-        </template>
-
-        <v-card>
-          <MealPlanDatePicker
-            v-model="state.range"
-            hide-header
-            :multiple="'range'"
-            :first-day-of-week="firstDayOfWeek"
-            :local="$i18n.locale"
-          />
-
-          <v-card-text>
-            <v-number-input
-              v-model="numberOfWeeksPast"
-              :min="0"
-              inset
-              :label="$t('meal-plan.numberOfWeeksPast-label')"
-              :hint="$t('meal-plan.numberOfWeeksPast-hint')"
-              persistent-hint
-            />
-          </v-card-text>
-
-          <v-card-text>
-            <v-number-input
-              v-model="numberOfWeeks"
-              :min="1"
-              inset
-              :label="$t('meal-plan.numberOfWeeks-label')"
-              :hint="$t('meal-plan.numberOfWeeks-hint')"
-              persistent-hint
-            />
-          </v-card-text>
-        </v-card>
-      </v-menu>
-      <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
+            <span :class="{ 'me-1': hiddenWeekMealCount > 0 }">{{ $t("meal-plan.weeks") }}</span>
+          </v-badge>
+          <v-tooltip v-if="hiddenWeekMealCount > 0" activator="parent" location="bottom">
+            {{ $t("meal-plan.week-meals-hidden", hiddenWeekMealCount) }}
+          </v-tooltip>
+        </v-btn>
+        <v-btn value="days">
+          {{ $t("meal-plan.days") }}
+        </v-btn>
+      </v-btn-toggle>
       <BaseButtonGroup
         class="d-flex ms-auto"
         :buttons="[
@@ -157,6 +210,15 @@ onMounted(() => {
 });
 
 const mealPlanPreferences = useUserMealPlanPreferences();
+const isDaysMode = computed(() => mealPlanPreferences.value.mode === "days");
+const numberOfDaysPast = ref<number>(mealPlanPreferences.value.numberOfDaysPast || 0);
+const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
+watch(numberOfDaysPast, (val) => {
+  mealPlanPreferences.value.numberOfDaysPast = Number(val);
+});
+watch(numberOfDays, (val) => {
+  mealPlanPreferences.value.numberOfDays = Number(val);
+});
 const numberOfWeeksPast = ref<number>(mealPlanPreferences.value.numberOfWeeksPast || 0);
 const numberOfWeeks = ref<number>(mealPlanPreferences.value.numberOfWeeks || 1);
 watch(numberOfWeeksPast, (val) => {
@@ -188,13 +250,17 @@ function safeParseISO(date: string, fallback: Date | undefined = undefined) {
   }
 }
 
-// A day in the first and last week of the default range; `weekRange` rounds them out to whole weeks
+// In weeks mode these are a day in the first and last week of the default range; `visibleRange` rounds them out to whole weeks
 function defaultStartDate() {
-  return addWeeks(new Date(), -numberOfWeeksPast.value);
+  return isDaysMode.value
+    ? addDays(new Date(), -numberOfDaysPast.value)
+    : addWeeks(new Date(), -numberOfWeeksPast.value);
 }
 
 function defaultEndDate() {
-  return addWeeks(new Date(), numberOfWeeks.value - 1);
+  return isDaysMode.value
+    ? addDays(new Date(), numberOfDays.value - 1)
+    : addWeeks(new Date(), numberOfWeeks.value - 1);
 }
 
 // Initialize dates from query parameters or defaults
@@ -213,7 +279,7 @@ const firstDayOfWeek = computed(() => {
 });
 
 function changeWeek(step: number) {
-  const { start, end } = weekRange.value;
+  const { start, end } = visibleRange.value;
   const stepSize = differenceInCalendarDays(end, start) + 1;
   state.value.range = [
     addDays(start, step * stepSize),
@@ -221,12 +287,20 @@ function changeWeek(step: number) {
   ];
 }
 
-// The planner always shows whole weeks, so the selected range is rounded out to the weeks it touches
-const weekRange = computed(() => {
+watch(isDaysMode, () => {
+  state.value.range = [defaultStartDate(), defaultEndDate()];
+});
+
+// In weeks mode the planner shows whole weeks, so the selected range is rounded out to the weeks it touches
+const visibleRange = computed(() => {
   const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
 
   const start = sorted[0] ?? defaultStartDate();
   const end = sorted[sorted.length - 1] ?? defaultEndDate();
+
+  if (isDaysMode.value) {
+    return { start, end };
+  }
 
   return {
     start: getWeekRange(start, firstDayOfWeek.value).start,
@@ -236,7 +310,9 @@ const weekRange = computed(() => {
 
 // Once a range is fully picked, show the whole weeks in the picker too. A half-picked range (one date)
 // is left alone, so the picker can still take the second click.
-watch(weekRange, ({ start, end }) => {
+watch(visibleRange, ({ start, end }) => {
+  if (isDaysMode.value) return;
+
   const [first, last] = state.value.range;
   if (state.value.range.length === 2 && !(first && last && isSameDay(first, start) && isSameDay(last, end))) {
     state.value.range = [start, end];
@@ -244,7 +320,7 @@ watch(weekRange, ({ start, end }) => {
 });
 
 // Update query parameters when date range changes
-watch(weekRange, (newRange) => {
+watch(visibleRange, (newRange) => {
   // Keep current route name and params, just update the query
   router.replace({
     name: route.name || TABS.view,
@@ -257,7 +333,7 @@ watch(weekRange, (newRange) => {
   });
 }, { immediate: true });
 
-const { mealplans, actions } = useMealplans(weekRange);
+const { mealplans, actions } = useMealplans(visibleRange);
 
 function filterMealByDate(date: Date) {
   if (!mealplans.value) return [];
@@ -272,14 +348,14 @@ function filterMealByDate(date: Date) {
 
 const days = computed(() => {
   const numDays
-    = Math.floor((weekRange.value.end.getTime() - weekRange.value.start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+    = Math.floor((visibleRange.value.end.getTime() - visibleRange.value.start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
   // Calculate absolute value
   if (numDays < 0) return [];
 
   return Array.from(Array(numDays).keys()).map(
     (i) => {
-      const date = new Date(weekRange.value.start.getTime());
+      const date = new Date(visibleRange.value.start.getTime());
       date.setDate(date.getDate() + i);
       return date;
     },
@@ -321,8 +397,14 @@ const mealsByWeek = computed(() => {
   return [...weeks.values()].sort((a, b) => a.week.date.getTime() - b.week.date.getTime());
 });
 
-/** Each week followed by its days, the order the planner pages lay them out in */
-const plans = computed(() => mealsByWeek.value.flatMap(({ week, days }) => [week, ...days]));
+/** Each week followed by its days, the order the planner pages lay them out in. Days mode leaves out the weeks. */
+const plans = computed(() => isDaysMode.value
+  ? mealsByDate.value
+  : mealsByWeek.value.flatMap(({ week, days }) => [week, ...days]));
+
+const hiddenWeekMealCount = computed(() => isDaysMode.value
+  ? (mealplans.value ?? []).filter(meal => meal.endDate).length
+  : 0);
 
 const allMeals = computed(() => plans.value.flatMap(({ meals }) => meals));
 
@@ -334,3 +416,22 @@ const weekRecipesWithScales = computed(() => {
   return getScaledRecipes(allMeals.value);
 });
 </script>
+
+<style scoped>
+/* the arrows stay beside the range on narrow screens, and a long range wraps inside its button instead */
+.range-nav {
+  min-width: 0;
+}
+
+.range-button {
+  flex-shrink: 1;
+  min-width: 0;
+  height: auto;
+  min-height: var(--v-btn-height);
+  padding-block: 0.25em;
+}
+
+.range-button :deep(.v-btn__content) {
+  white-space: normal;
+}
+</style>
