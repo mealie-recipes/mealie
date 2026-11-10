@@ -4,7 +4,7 @@ from collections.abc import Generator
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.user.user import UserRatingUpdate
 from tests.utils import api_routes
 from tests.utils.factories import random_bool, random_int, random_string
@@ -12,17 +12,17 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe]]:
+def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[RecipeOut]]:
     unique_user = random.choice(user_tuple)
     database = unique_user.repos
     recipes_repo = database.recipes
 
-    recipes: list[Recipe] = []
+    recipes: list[RecipeOut] = []
     for _ in range(random_int(10, 20)):
         slug = random_string()
         recipes.append(
             recipes_repo.create(
-                Recipe(
+                RecipeDraft(
                     user_id=unique_user.user_id,
                     group_id=unique_user.group_id,
                     name=slug,
@@ -41,7 +41,7 @@ def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe]]:
 
 @pytest.mark.parametrize("use_self_route", [True, False])
 def test_user_recipe_favorites(
-    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe], use_self_route: bool
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut], use_self_route: bool
 ):
     # we use two different users because pytest doesn't support function-scopes within parametrized tests
     if use_self_route:
@@ -112,7 +112,7 @@ def test_set_user_favorite_invalid_recipe_404(
 
 @pytest.mark.parametrize("use_self_route", [True, False])
 def test_set_user_recipe_ratings(
-    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe], use_self_route: bool
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut], use_self_route: bool
 ):
     # we use two different users because pytest doesn't support function-scopes within parametrized tests
     if use_self_route:
@@ -166,7 +166,9 @@ def test_set_user_rating_invalid_recipe_404(api_client: TestClient, user_tuple: 
     assert response.status_code == 404
 
 
-def test_set_rating_and_favorite(api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]):
+def test_set_rating_and_favorite(
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut]
+):
     unique_user = random.choice(user_tuple)
     recipe = random.choice(recipes)
 
@@ -187,7 +189,7 @@ def test_set_rating_and_favorite(api_client: TestClient, user_tuple: tuple[TestU
 
 @pytest.mark.parametrize("favorite_value", [True, False])
 def test_set_rating_preserve_favorite(
-    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe], favorite_value: bool
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut], favorite_value: bool
 ):
     initial_rating_value = 1
     updated_rating_value = 5
@@ -225,7 +227,7 @@ def test_set_rating_preserve_favorite(
 
 
 def test_set_favorite_preserve_rating(
-    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut]
 ):
     rating_value = random.uniform(1, 5)
     initial_favorite_value = random_bool()
@@ -262,7 +264,7 @@ def test_set_favorite_preserve_rating(
     assert data["isFavorite"] is not initial_favorite_value
 
 
-def test_set_rating_to_zero(api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]):
+def test_set_rating_to_zero(api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut]):
     unique_user = random.choice(user_tuple)
     recipe = random.choice(recipes)
 
@@ -293,7 +295,7 @@ def test_set_rating_to_zero(api_client: TestClient, user_tuple: tuple[TestUser, 
 
 
 def test_delete_recipe_deletes_ratings(
-    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut]
 ):
     unique_user = random.choice(user_tuple)
     database = unique_user.repos
@@ -317,7 +319,7 @@ def test_delete_recipe_deletes_ratings(
 
 
 def test_recipe_rating_is_average_user_rating(
-    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut]
 ):
     recipe = random.choice(recipes)
     user_ratings = (UserRatingUpdate(rating=5), UserRatingUpdate(rating=2))
@@ -337,7 +339,7 @@ def test_recipe_rating_is_average_user_rating(
 
 
 def test_recipe_rating_is_readonly(
-    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[Recipe]
+    api_client: TestClient, user_tuple: tuple[TestUser, TestUser], recipes: list[RecipeOut]
 ):
     unique_user = random.choice(user_tuple)
     recipe = random.choice(recipes)

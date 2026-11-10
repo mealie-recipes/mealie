@@ -238,6 +238,8 @@
       "api-key": "Klíč API",
       "api-key-description-create": "API klíč vašeho providera pro ověření. Pokud vaše služba (např. Ollama) nepoužívá API klíč, stále je potřeba sem něco vložit.",
       "api-key-description-edit": "Vyplňte pouze pokud chcete změnit.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Výchozí URL",
       "base-url-description": "Pokud používáte OpenAI, nechte toto prázdné. Musí být koncový bod kompatibilní s OpenAI (např. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Došlo k chybě"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Už toto nechcete vidět? Nezapomeňte si změnit svůj e-mail v uživatelském nastavení!",
     "forgot-password": "Zapomenuté heslo",
     "forgot-password-text": "Zadejte prosím svou e-mailovou adresu a my vám zašleme odkaz pro obnovení hesla.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Změny tohoto uživatele budou okamžitě zohledněny.",
     "default-activity": "Výchozí aktivita",
     "default-activity-hint": "Vyberte stránku, na kterou chcete přejít po přihlášení z tohoto zařízení"

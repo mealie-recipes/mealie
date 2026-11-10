@@ -1,6 +1,6 @@
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 import { route } from "../../base";
-import { Recipe, RecipeSuggestionQuery, RecipeSuggestionResponse } from "~/lib/api/types/recipe";
+import { RecipeOut, RecipeSuggestionQuery, RecipeSuggestionResponse, RecipeSummary } from "~/lib/api/types/recipe";
 import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 import { RecipeSearchQuery } from "../../user/recipes/recipe";
 
@@ -12,7 +12,7 @@ const routes = {
   recipesGroupSlugRecipeSlug: (groupSlug: string | number, recipeSlug: string | number) => `${exploreGroupSlug(groupSlug)}/recipes/${recipeSlug}`,
 };
 
-export class PublicRecipeApi extends BaseCRUDAPIReadOnly<Recipe> {
+export class PublicRecipeApi extends BaseCRUDAPIReadOnly<RecipeOut, RecipeSummary> {
   constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
     super(
       requests,
@@ -22,7 +22,7 @@ export class PublicRecipeApi extends BaseCRUDAPIReadOnly<Recipe> {
   }
 
   async search(rsq: RecipeSearchQuery) {
-    return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesGroupSlug(this.groupSlug), rsq));
+    return await this.requests.get<PaginationData<RecipeSummary>>(route(routes.recipesGroupSlug(this.groupSlug), rsq));
   }
 
   async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[]| null = null) {

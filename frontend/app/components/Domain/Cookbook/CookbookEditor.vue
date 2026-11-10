@@ -47,9 +47,9 @@
 <script setup lang="ts">
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import { useRecipeFilterFields } from "~/composables/use-recipe-filter-fields";
-import type { ReadCookBook } from "~/lib/api/types/cookbook";
+import type { CookBookOut } from "~/lib/api/types/cookbook";
 
-const modelValue = defineModel<ReadCookBook>({ required: true });
+const modelValue = defineModel<CookBookOut>({ required: true });
 const cookbook = toRef(modelValue);
 function handleInput(value: string | undefined) {
   cookbook.value.queryFilterString = value || "";

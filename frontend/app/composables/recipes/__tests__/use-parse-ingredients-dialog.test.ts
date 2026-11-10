@@ -5,6 +5,7 @@ import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe"
 import { uuid4 } from "../../use-utils";
 import { ParseStep, useParseIngredientsDialog } from "../use-parse-ingredients-dialog";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
+import { makeRecipe } from "~/tests/factories";
 import { i18n } from "~/tests/setup";
 
 (global as any).uuid4 = uuid4;
@@ -182,7 +183,7 @@ describe("useParseIngredientsDialog", () => {
         confidence: { average: 0.99 },
       }, {
         ingredient: {
-          referencedRecipe: {},
+          referencedRecipe: makeRecipe(),
         },
         confidence: { average: 0.5 },
       }, {
@@ -382,7 +383,7 @@ describe("useParseIngredientsDialog", () => {
       confidence: { average: 0.99 },
     }, {
       ingredient: {
-        referencedRecipe: {},
+        referencedRecipe: makeRecipe(),
       },
       confidence: { average: 0.5 },
     }, {

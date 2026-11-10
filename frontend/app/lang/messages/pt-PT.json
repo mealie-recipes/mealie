@@ -238,6 +238,8 @@
       "api-key": "Chave API",
       "api-key-description-create": "A chave API do seu fornecedor para autenticação. Se o seu serviço (por exemplo, Ollama) não utilizar uma chave API, ainda assim precisa de introduzir algo aqui.",
       "api-key-description-edit": "Deixe em branco, a não ser que pretenda alterar.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "URL Base",
       "base-url-description": "Se estiver a utilizar a OpenAI, deixe este campo em branco. Deve ser um endpoint compatível com a OpenAI (por exemplo, \"http://localhost:11434/v1\").",
       "model": "Modelo",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Ocorreu um erro"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer voltar a ver isto? Não se esqueça de alterar o seu email nas suas definições de utilizador!",
     "forgot-password": "Esqueceu-se da palavra-passe",
     "forgot-password-text": "Por favor, digite o seu endereço de email para enviarmos um link para redefinir a sua palavra-passe.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "As alterações a este utilizador serão aplicadas imediatamente.",
     "default-activity": "Atividade predefinida",
     "default-activity-hint": "Selecione para que página pretende navegar ao iniciar sessão a partir deste dispositivo"

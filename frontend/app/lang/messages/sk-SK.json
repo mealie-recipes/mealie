@@ -238,6 +238,8 @@
       "api-key": "API kľúč",
       "api-key-description-create": "API kľúč vášho poskytovateľa AI na overenie. Ak vaša služba (napr. Ollama) nepoužíva API kľúč, aj tak sem musíte niečo zadať.",
       "api-key-description-edit": "Nechajte prázdne, pokiaľ ho nechcete zmeniť.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Základná URL adresa",
       "base-url-description": "Ak používate OpenAI, nechajte toto pole prázdne. Musí ísť o koncový bod kompatibilný s OpenAI (napr. \"http://localhost:11434/v1\").",
       "model": "Model AI",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Vyskytla sa chyba"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Želáte si, aby sa vám toto už viackrát nezobrazovalo? Zmeňte si prosím váš e-mail v nastaveniach používateľa!",
     "forgot-password": "Zabudnuté heslo",
     "forgot-password-text": "Prosím zadajte svoju e-mailovú adresu a my vám zašleme odkaz, ktorý vám umožní heslo obnoviť.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Zmeny týkajúce sa tohto používateľa budú vykonané okamžite.",
     "default-activity": "Predvolená aktivita",
     "default-activity-hint": "Vyberte na ktorú štránku chcete byť nasmerovaný po prihlásení z tohto zariadenia"

@@ -1,13 +1,16 @@
 import { useAsyncKey } from "../use-utils";
 import { useUserApi } from "~/composables/api";
 import type { VForm } from "~/types/vuetify";
-import type { RecipeTool } from "~/lib/api/types/recipe";
+import type { ToolOut } from "~/lib/api/types/recipe";
 
 export const useTools = function (eager = true) {
-  const workingToolData = reactive<RecipeTool>({
+  const workingToolData = reactive<ToolOut>({
     id: "",
+    groupId: "",
     name: "",
     slug: "",
+    recipeCount: 0,
+    householdsWithTool: [],
   });
 
   const api = useUserApi();

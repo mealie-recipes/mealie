@@ -238,6 +238,8 @@
       "api-key": "API ключ",
       "api-key-description-create": "API ключът на вашия доставчик за удостоверяване. Ако вашата услуга (напр. Ollama) не използва API ключ, пак трябва да въведете нещо тук.",
       "api-key-description-edit": "Оставете полето празно, освен ако не искате да го промените.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Основен линк",
       "base-url-description": "Ако използвате OpenAI, оставете това празно. Трябва да е съвместима OpenAI крайна точка (напр. \"http://localhost:11434/v1\").",
       "model": "Модел",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Възникна грешка"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Искате ли да виждате това по-често? Уверете се, че сте конфигурирали настройките си за email известяване правилно!",
     "forgot-password": "Забравена Парола",
     "forgot-password-text": "Въведете Вашият имейл адрес и ние ще ви изпратим линк, с който да промените Вашата парола.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Промените по този потребител ще бъдат отразени моментално.",
     "default-activity": "Действие по подразбиране",
     "default-activity-hint": "Изберете коя страница искате да отворите, след като влезете от това устройство"

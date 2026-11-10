@@ -5,18 +5,16 @@
     "recipe": {
         "unique-name-error": "Receptnamen moeten uniek zijn",
         "recipe-created": "Recept aangemaakt op",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-as-side": "{name} heeft dit gemaakt als bijgerecht",
+        "made-this-for-breakfast": "{name} heeft dit gemaakt als ontbijt",
+        "made-this-for-lunch": "{name} heeft dit gemaakt als lunch",
+        "made-this-for-dinner": "{name} heeft dit gemaakt als diner",
+        "made-this-for-snack": "{name} heeft dit gemaakt als snack",
         "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-for-dessert": "{name} heeft dit gemaakt als nagerecht",
         "recipe-image-deleted": "Receptafbeelding verwijderd",
         "recipe-defaults": {
-            "ingredient-note": "250 gram bloem",
-            "name": "New Recipe",
-            "step-text": "Receptstappen en andere velden op de receptpagina ondersteunen Markdown syntaxis.\n\n**Voeg een link toe**\n\n[Mijn Link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Maakt",
@@ -27,6 +25,16 @@
             "yields": "Opbrengsten"
         },
         "and-amount": "en {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

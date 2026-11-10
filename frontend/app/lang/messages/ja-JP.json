@@ -238,6 +238,8 @@
       "api-key": "API Key",
       "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
       "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Base URL",
       "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -473,6 +475,8 @@
     "an-error-occurred": "エラーが発生しました"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "これ以上表示したくないですか？ユーザー設定でメールアドレスを変更してください！",
     "forgot-password": "パスワードを忘れた",
     "forgot-password-text": "メールアドレスを入力すると、パスワードをリセットするためのリンクが送信されます。",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "このユーザーへの変更はすぐに反映されます。",
     "default-activity": "Default Activity",
     "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"

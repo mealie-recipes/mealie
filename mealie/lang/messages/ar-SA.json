@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "تم حذف صورة الوصفة",
         "recipe-defaults": {
-            "ingredient-note": "كوب 1 طحين",
-            "name": "New Recipe",
-            "step-text": "تدعم خطوات الوصفة بالإضافة إلى الحقول الأخرى في صفحة الوصفة صياغة تخفيض السعر. **أضف رابطًا** [الرابط الخاص بي](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "تصنع",
@@ -27,6 +25,16 @@
             "yields": "العائد"
         },
         "and-amount": "و {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "خدمات الذكاء الاصطناعي غير مفعلة",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

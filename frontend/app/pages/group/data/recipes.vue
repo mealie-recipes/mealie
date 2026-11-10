@@ -244,7 +244,7 @@ import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
-import type { Recipe, RecipeSettings } from "~/lib/api/types/recipe";
+import type { RecipeSettings, RecipeSummary } from "~/lib/api/types/recipe";
 import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
 import type { GroupDataExport } from "~/lib/api/types/group";
 import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
@@ -275,7 +275,7 @@ useSeoMeta({
 });
 
 const { refreshRecipes } = useRecipes(true, true, false, `householdId=${auth.user.value?.householdId || ""}`);
-const selected = ref<Recipe[]>([]);
+const selected = ref<RecipeSummary[]>([]);
 const search = ref("");
 
 function resetAll() {
@@ -378,7 +378,7 @@ function selectAll() {
 async function exportSelected() {
   loading.value = true;
   const { data } = await api.bulk.bulkExport({
-    recipes: selected.value.map((x: Recipe) => x.slug ?? ""),
+    recipes: selected.value.map(x => x.slug),
     exportType: "json",
   });
 
@@ -395,7 +395,7 @@ const toSetTags = ref([]);
 async function tagSelected() {
   loading.value = true;
 
-  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+  const recipes = selected.value.map(x => x.slug);
   await api.bulk.bulkTag({ recipes, tags: toSetTags.value });
   await refreshRecipes();
   resetAll();
@@ -406,7 +406,7 @@ const toSetCategories = ref([]);
 async function categorizeSelected() {
   loading.value = true;
 
-  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+  const recipes = selected.value.map(x => x.slug);
   await api.bulk.bulkCategorize({ recipes, categories: toSetCategories.value });
   await refreshRecipes();
   resetAll();
@@ -415,7 +415,7 @@ async function categorizeSelected() {
 async function deleteSelected() {
   loading.value = true;
 
-  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+  const recipes = selected.value.map(x => x.slug);
 
   await api.bulk.bulkDelete({ recipes });
 
@@ -435,7 +435,7 @@ const recipeSettings = reactive<RecipeSettings>({
 async function updateSettings() {
   loading.value = true;
 
-  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+  const recipes = selected.value.map(x => x.slug);
 
   await api.bulk.bulkSetSettings({ recipes, settings: recipeSettings });
 

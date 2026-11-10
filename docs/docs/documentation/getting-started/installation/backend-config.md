@@ -12,6 +12,7 @@
 | DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                                                                           |
 | BASE_URL                      | http://localhost:8080 | Used for notifications and the OIDC callback url                                                                                                        |
 | TOKEN_TIME                    |          48           | The time in hours a login session lasts. Must be <= 9600 (400 days, in hours).                                                                          |
+| PASSWORD_RESET_TOKEN_TIME     |           1           | The time in hours a password reset link stays valid. Issuing a new link invalidates earlier ones.                                                       |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
 | API_HOST                      |       *(empty)*       | Listening address. Empty binds IPv4 and IPv6 automatically. An explicit address is used unchanged. See below.                                          |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
@@ -54,8 +55,9 @@ Set `HOST_IP` to an empty string to trust no forwarding proxies.
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
 | SECURITY_USER_LOCKOUT_TIME  |   24    | Time in hours for how long a users account is locked                                |
 | ALLOWED_IFRAME_HOSTS        |  `""`   | Comma-separated extra hostnames allowed as `<iframe>` sources in recipe content. Extends the built-in list of trusted video providers (YouTube, Vimeo). Subdomains are included automatically. Only `https` sources are permitted. Adding hosts here opts into rendering embeds from those origins to all viewers, including the public, so add only origins you trust. |
-| HTTP_ALLOW_LIST             |  `""`   | Comma-separated hosts or CIDRs that server-initiated requests (recipe scraping, webhooks, recipe actions, OIDC profile images) may reach even when they resolve to an otherwise-blocked private/internal address. Use to allow a known internal server. |
+| HTTP_ALLOW_LIST             |  `""`   | Comma-separated hosts or CIDRs that server-initiated requests (recipe scraping, webhooks, recipe actions, OIDC profile images) may reach even when they resolve to an otherwise-blocked private/internal address. Use to allow a known internal server. Does not apply to notifiers; see `APPRISE_ALLOWED_SCHEMAS`. |
 | HTTP_DISALLOW_LIST          |  `""`   | Comma-separated hosts or CIDRs that server-initiated requests may never reach, even if public. Takes precedence over `HTTP_ALLOW_LIST`. |
+| APPRISE_ALLOWED_SCHEMAS     |  `""`   | Comma-separated Apprise URL schemas that notifiers may use, for example `ntfys,discord,mailtos`. Empty allows every service Apprise supports. List secure and plain variants separately (`json` does not allow `jsons`). Notifiers can reach internal hosts by design; see [Security](./security.md#notifiers-and-webhooks). |
 
 ### Database
 

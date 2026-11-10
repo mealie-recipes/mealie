@@ -238,6 +238,8 @@
       "api-key": "API-sleutel",
       "api-key-description-create": "Je aanbieder's API-sleutel voor authenticatie. Als je service (bijv. Ollama) geen API-sleutel gebruikt moet je hier alsnog iets invoeren.",
       "api-key-description-edit": "Laat dit leeg tenzij je het wilt wijzigen.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Basis-URL",
       "base-url-description": "Laat dit leeg als je OpenAI gebruikt. Dit moet een OpenAI-compatibel eindpunt zijn (bijv. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Er is een fout opgetreden"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
     "forgot-password": "Wachtwoord vergeten",
     "forgot-password-text": "Voer je e-mailadres in, dan sturen we je een link om het wachtwoord te herstellen.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar.",
     "default-activity": "Standaard activiteit",
     "default-activity-hint": "Kies de pagina waar u naar toe wilt, na inloggen op dit apparaat"

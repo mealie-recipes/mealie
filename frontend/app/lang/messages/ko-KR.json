@@ -238,6 +238,8 @@
       "api-key": "API Key",
       "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
       "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Base URL",
       "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -473,6 +475,8 @@
     "an-error-occurred": "오류가 발생했습니다!"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "더 이상 이걸 보고 싶지 않으신가요? 사용자 설정에서 이메일 주소를 꼭 변경하세요!",
     "forgot-password": "비밀번호 찾기",
     "forgot-password-text": "이메일 주소를 입력해 주시면 비밀번호 재설정 링크를 보내드리겠습니다.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "이 사용자에 대한 변경 사항은 즉시 반영됩니다.",
     "default-activity": "기본 활동",
     "default-activity-hint": "이 기기에서 로그인 시 이동할 페이지를 선택하세요"

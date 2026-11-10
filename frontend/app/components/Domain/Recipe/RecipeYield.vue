@@ -30,7 +30,7 @@ import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 interface Props {
   yieldQuantity?: number;
-  yieldText?: string;
+  yieldText?: string | null;
   scale?: number;
   color?: string;
 }

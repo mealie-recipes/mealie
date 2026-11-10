@@ -310,7 +310,7 @@ import { useRouteQuery } from "~/composables/use-router";
 import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import type { CreateUserRegistration } from "~/lib/api/types/user";
+import type { UserRegistrationCreate } from "~/lib/api/types/user";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
@@ -480,7 +480,7 @@ const confirmationData = computed(() => {
 const api = useUserApi();
 const router = useRouter();
 async function submitRegistration() {
-  const payload: CreateUserRegistration = {
+  const payload: UserRegistrationCreate = {
     email: accountDetails.email.value,
     username: accountDetails.username.value,
     fullName: accountDetails.fullName.value,

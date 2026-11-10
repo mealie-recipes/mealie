@@ -238,6 +238,8 @@
       "api-key": "API 密钥",
       "api-key-description-create": "您提供商用于身份验证的 API 密钥。如果您的服务（例如 Ollama）不使用 API 密钥，您仍然需要在此处填写一些内容。",
       "api-key-description-edit": "除非你想要更改它，否则将留空。",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "基本网址",
       "base-url-description": "如果您使用 OpenAI 请留空。必须是 OpenAI兼容的端点(例如，\"http://localhost:11434/v1\")。",
       "model": "模型",
@@ -473,6 +475,8 @@
     "an-error-occurred": "发生错误"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "不想再看到这条消息了吗？请务必在用户设置中更改你的邮箱！",
     "forgot-password": "忘记密码",
     "forgot-password-text": "请输入你的邮箱地址，我们会发给你重置密码的链接。",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "对用户的更改将立即生效。",
     "default-activity": "默认页面",
     "default-activity-hint": "选择在此设备登录后的默认页面"

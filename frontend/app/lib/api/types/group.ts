@@ -22,9 +22,9 @@ export interface AIPromptOut {
   name: string;
   isSystem: boolean;
   defaultContent: string;
-  mode?: AIPromptMode | null;
-  content?: string | null;
-  defaultChanged?: boolean;
+  mode: AIPromptMode | null;
+  content: string | null;
+  defaultChanged: boolean;
 }
 export interface AIPromptOverrideCreate {
   mode: AIPromptMode;
@@ -36,22 +36,15 @@ export interface AIPromptOverrideOut {
   mode: AIPromptMode;
   content: string;
   name: string;
-  basePromptHash?: string | null;
+  basePromptHash: string | null;
   id: string;
-}
-export interface AIPromptOverrideSave {
-  mode: AIPromptMode;
-  content: string;
-  name: string;
-  basePromptHash?: string | null;
-  settingsId: string;
 }
 export interface AIPromptOverrideUpdate {
   mode: AIPromptMode;
   content: string;
 }
 export interface AIPromptsOut {
-  globalInstructions?: string | null;
+  globalInstructions: string | null;
   prompts: AIPromptOut[];
 }
 export interface AIProviderCreate {
@@ -68,32 +61,16 @@ export interface AIProviderCreate {
 }
 export interface AIProviderOut {
   name: string;
-  baseUrl?: string | null;
+  baseUrl: string | null;
   model: string;
-  timeout?: number;
-  requestHeaders?: {
+  timeout: number;
+  requestHeaders: {
     [k: string]: string;
   };
-  requestParams?: {
+  requestParams: {
     [k: string]: string;
   };
   id: string;
-}
-export interface AIProviderSave {
-  name: string;
-  baseUrl?: string | null;
-  model: string;
-  timeout?: number;
-  requestHeaders?: {
-    [k: string]: string;
-  };
-  requestParams?: {
-    [k: string]: string;
-  };
-  settingsId: string;
-}
-export interface AIProviderSettingsCreate {
-  groupId: string;
 }
 export interface AIProviderSettingsOut {
   defaultProviderId: string | null;
@@ -130,21 +107,16 @@ export interface AIProviderUpdate {
     [k: string]: string;
   };
 }
-export interface CreateGroupPreferences {
-  privateGroup?: boolean;
-  showAnnouncements?: boolean;
-  groupId: string;
-}
 export interface DataMigrationCreate {
   sourceType: SupportedMigrations;
 }
 export interface GroupAdminUpdate {
   id: string;
   name: string;
-  preferences?: UpdateGroupPreferences | null;
+  preferences?: GroupPreferencesUpdate | null;
   aiProviderSettings?: AIProviderSettingsUpdate | null;
 }
-export interface UpdateGroupPreferences {
+export interface GroupPreferencesUpdate {
   privateGroup?: boolean;
   showAnnouncements?: boolean;
 }
@@ -157,18 +129,24 @@ export interface GroupDataExport {
   size: string;
   expires: string;
 }
+export interface GroupPreferencesCreate {
+  privateGroup?: boolean;
+  showAnnouncements?: boolean;
+  groupId: string;
+}
+export interface GroupPreferencesOut {
+  privateGroup: boolean;
+  showAnnouncements: boolean;
+  groupId: string;
+  id: string;
+}
 export interface GroupStorage {
   usedStorageBytes: number;
   usedStorageStr: string;
   totalStorageBytes: number;
   totalStorageStr: string;
 }
-export interface ReadGroupPreferences {
-  privateGroup?: boolean;
-  showAnnouncements?: boolean;
-  groupId: string;
-  id: string;
-}
 export interface SeederConfig {
   locale: string;
 }
+export interface MealieOutModel {}

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} hizo esto como postre",
         "recipe-image-deleted": "Imagen de receta eliminada",
         "recipe-defaults": {
-            "ingredient-note": "1 Taza de harina",
-            "name": "Nueva receta",
-            "step-text": "Los pasos de receta, así como otros campos en la página de recetas, soportan sintaxis Markdown.\n\n**Agregar un enlace**\n\n[Mi Enlace](https://demo.mealie.io)\n"
+            "name": "Nueva receta"
         },
         "servings-text": {
             "makes": "Realizadas",
@@ -27,6 +25,16 @@
             "yields": "Raciones"
         },
         "and-amount": "y {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Los servicios de IA no están activado",
             "ai-request-failed": "El proveedor de IA no pudo completar la solicitud. Por favor, inténtelo de nuevo",

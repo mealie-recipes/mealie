@@ -238,6 +238,8 @@
       "api-key": "API-nøgle",
       "api-key-description-create": "Din udbyders API-nøgle til godkendelse. Hvis din udbyder ikke benytter en API-nøgle (eks. Ollama), skal du stadig skrive ét eller andet.",
       "api-key-description-edit": "Undlad at udfylde dette, medmindre du vil ændre det.",
+      "api-key-description-base-url-changed": "Basis-URL'en er blevet ændret, så indsæt API-nøglen for den nye URL.",
+      "reenter-hidden-values": "Basis-URL'en er blevet ændret, så omskriv hver skjult (********) header- og parameterværdi til den nye URL.",
       "base-url": "Basis-URL",
       "base-url-description": "Undlad at udfylde, hvis du benytter OpenAI. Skal være et OpenAI-kompatibelt endpoint (eks. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Der opstod en fejl"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Forbereder PDF...",
     "step-duration-minutes": "Varighed (minutter)",
     "step-duration-saved": "Gemt varighed: {duration}. Redigering af dette felt afrundes til hele minutter",
     "step-duration-placeholder": "Minutter",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
     "forgot-password": "Glemt adgangskode",
     "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
+    "reset-link-invalid": "Dette nulstillingslink er enten udløbet eller ugyldigt. Anmod om et nyt link.",
     "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme.",
     "default-activity": "Standardaktivitet",
     "default-activity-hint": "Vælg den side, du vil navigere til, når du logger ind fra denne enhed"

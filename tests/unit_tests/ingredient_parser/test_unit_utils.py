@@ -1,7 +1,7 @@
 import pint
 import pytest
 
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientUnitCreate
 from mealie.services.parser_services.parser_utils import UnitConverter, UnitNotFound, merge_quantity_and_unit
 from tests.utils import random_string
 
@@ -241,8 +241,8 @@ def test_merge_volume_ounce():
 
 
 def test_merge_quantity_and_unit_simple():
-    unit_1 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
-    unit_2 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_1 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_2 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
 
     quantity, unit = merge_quantity_and_unit(1, unit_1, 2, unit_2)
 
@@ -251,16 +251,16 @@ def test_merge_quantity_and_unit_simple():
 
 
 def test_merge_quantity_and_unit_invalid():
-    unit_1 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
-    unit_2 = CreateIngredientUnit(name="mealie_random", standard_quantity=1, standard_unit=random_string())
+    unit_1 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_2 = IngredientUnitCreate(name="mealie_random", standard_quantity=1, standard_unit=random_string())
 
     with pytest.raises(UnitNotFound):
         merge_quantity_and_unit(1, unit_1, 1, unit_2)
 
 
 def test_merge_quantity_and_unit_compatible():
-    unit_1 = CreateIngredientUnit(name="mealie_pint", standard_quantity=1, standard_unit="pint")
-    unit_2 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_1 = IngredientUnitCreate(name="mealie_pint", standard_quantity=1, standard_unit="pint")
+    unit_2 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
 
     quantity, unit = merge_quantity_and_unit(1, unit_1, 1, unit_2)
 
@@ -270,8 +270,8 @@ def test_merge_quantity_and_unit_compatible():
 
 
 def test_merge_quantity_and_unit_selects_larger_unit():
-    unit_1 = CreateIngredientUnit(name="mealie_pint", standard_quantity=1, standard_unit="pint")
-    unit_2 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_1 = IngredientUnitCreate(name="mealie_pint", standard_quantity=1, standard_unit="pint")
+    unit_2 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
 
     quantity, unit = merge_quantity_and_unit(2, unit_1, 4, unit_2)
 
@@ -281,8 +281,8 @@ def test_merge_quantity_and_unit_selects_larger_unit():
 
 
 def test_merge_quantity_and_unit_selects_smaller_unit():
-    unit_1 = CreateIngredientUnit(name="mealie_pint", standard_quantity=1, standard_unit="pint")
-    unit_2 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_1 = IngredientUnitCreate(name="mealie_pint", standard_quantity=1, standard_unit="pint")
+    unit_2 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
 
     quantity, unit = merge_quantity_and_unit(0.125, unit_1, 0.5, unit_2)
 
@@ -292,16 +292,16 @@ def test_merge_quantity_and_unit_selects_smaller_unit():
 
 
 def test_merge_quantity_and_unit_missing_standard_data():
-    unit_1 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
-    unit_2 = CreateIngredientUnit(name="mealie_cup_no_std", standard_quantity=None, standard_unit=None)
+    unit_1 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_2 = IngredientUnitCreate(name="mealie_cup_no_std", standard_quantity=None, standard_unit=None)
 
     with pytest.raises(ValueError):
         merge_quantity_and_unit(1, unit_1, 1, unit_2)
 
 
 def test_merge_quantity_and_unit_volume_ounce():
-    unit_1 = CreateIngredientUnit(name="mealie_oz", standard_quantity=1, standard_unit="ounce")
-    unit_2 = CreateIngredientUnit(name="mealie_cup", standard_quantity=1, standard_unit="cup")
+    unit_1 = IngredientUnitCreate(name="mealie_oz", standard_quantity=1, standard_unit="ounce")
+    unit_2 = IngredientUnitCreate(name="mealie_cup", standard_quantity=1, standard_unit="cup")
 
     quantity, unit = merge_quantity_and_unit(8, unit_1, 1, unit_2)
 

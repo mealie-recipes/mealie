@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import type { ShoppingListOut } from "~/lib/api/types/household";
+import type { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
 import { makeWrapper } from "~/tests/utils";
 import { useShoppingListSorting } from "../use-shopping-list-sorting";
 import { MOCK_FOOD, MOCK_FOOD2, MOCK_ITEM, MOCK_LABEL, MOCK_LABEL2, MOCK_SHOPPING_LIST } from "./mocks";
@@ -32,14 +32,14 @@ describe("use-shopping-list-sorting", () => {
       expect(result).toBe(0);
     });
     test("handles nulls", () => {
-      const result = sortItems(MOCK_ITEM, { ...MOCK_ITEM, position: undefined });
-      const result2 = sortItems({ ...MOCK_ITEM, position: undefined }, MOCK_ITEM);
+      const result = sortItems(MOCK_ITEM, { ...MOCK_ITEM, position: undefined as unknown as number });
+      const result2 = sortItems({ ...MOCK_ITEM, position: undefined as unknown as number }, MOCK_ITEM);
       expect(result).toBe(1);
       expect(result2).toBe(-1);
     });
     test("handles nulls", () => {
-      const result = sortItems(MOCK_ITEM, { ...MOCK_ITEM, createdAt: undefined });
-      const result2 = sortItems({ ...MOCK_ITEM, createdAt: undefined }, MOCK_ITEM);
+      const result = sortItems(MOCK_ITEM, { ...MOCK_ITEM, createdAt: null });
+      const result2 = sortItems({ ...MOCK_ITEM, createdAt: null }, MOCK_ITEM);
       expect(result).toBe(1);
       expect(result2).toBe(-1);
     });
@@ -56,7 +56,7 @@ describe("use-shopping-list-sorting", () => {
       ]);
     });
     test("handles nulls", () => {
-      const sortedList = { ...MOCK_SHOPPING_LIST, listItems: undefined };
+      const sortedList = { ...MOCK_SHOPPING_LIST, listItems: undefined as unknown as ShoppingListItemOut[] };
       sortListItems(sortedList);
       expect(sortedList.listItems).toEqual(undefined);
     });
@@ -111,7 +111,7 @@ describe("use-shopping-list-sorting", () => {
     test("returns unordered labels if no ordering is specified", () => {
       const sortedList = {
         ...MOCK_SHOPPING_LIST,
-        labelSettings: undefined,
+        labelSettings: undefined as unknown as ShoppingListMultiPurposeLabelOut[],
         listItems: [
           MOCK_ITEM,
           { ...MOCK_ITEM, label: MOCK_LABEL2.label, labelId: "2" },
@@ -156,18 +156,18 @@ describe("use-shopping-list-sorting", () => {
     test("populates position and created at if not present", () => {
       const sortedList: ShoppingListOut = {
         ...MOCK_SHOPPING_LIST, listItems: [
-          { ...MOCK_ITEM, food: MOCK_FOOD, position: undefined },
-          { ...MOCK_ITEM, food: MOCK_FOOD2, createdAt: undefined },
+          { ...MOCK_ITEM, food: MOCK_FOOD, position: undefined as unknown as number },
+          { ...MOCK_ITEM, food: MOCK_FOOD2, createdAt: null },
         ],
       };
       groupAndSortListItemsByFood(sortedList);
       expect(sortedList.listItems).toEqual([
-        { ...MOCK_ITEM, food: MOCK_FOOD2, createdAt: undefined },
+        { ...MOCK_ITEM, food: MOCK_FOOD2, createdAt: null },
         { ...MOCK_ITEM, food: MOCK_FOOD, position: 1 },
       ]);
     });
     test("handles nulls", () => {
-      const sortedList: ShoppingListOut = { ...MOCK_SHOPPING_LIST, listItems: undefined };
+      const sortedList: ShoppingListOut = { ...MOCK_SHOPPING_LIST, listItems: undefined as unknown as ShoppingListItemOut[] };
       groupAndSortListItemsByFood(sortedList);
       expect(sortedList.listItems).toEqual(undefined);
     });

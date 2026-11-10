@@ -11,8 +11,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.group_migration import SupportedMigrations
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe import RecipeOut
+from mealie.schema.recipe.recipe_organizers import ToolSave
 from mealie.schema.reports.reports import ReportEntryOut
 from mealie.services.migrations.utils import migration_helpers
 from tests import data as test_data
@@ -202,7 +202,7 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
 
     # Validate recipe content
     response = api_client.get(api_routes.recipes_slug(mig.search_slug), headers=unique_user.token)
-    recipe = Recipe(**assert_deserialize(response))
+    recipe = RecipeOut.model_validate(assert_deserialize(response))
 
     if mig.typ is SupportedMigrations.copymethat:
         response = api_client.get(
@@ -324,8 +324,10 @@ def test_recipekeeper_imports_categories_and_yield(api_client: TestClient, uniqu
     )
     assert response.status_code == 200
 
-    def get(slug: str) -> Recipe:
-        return Recipe(**assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)))
+    def get(slug: str) -> RecipeOut:
+        return RecipeOut.model_validate(
+            assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token))
+        )
 
     # a bare number in recipeYield is a yield quantity
     recipe = get("zucchini-bread")
@@ -368,7 +370,7 @@ def test_paprika_imports_notes(api_client: TestClient, unique_user_fn_scoped: Te
     assert response.status_code == 200
 
     response = api_client.get(api_routes.recipes_slug("paprika-notes-test"), headers=unique_user.token)
-    recipe = Recipe(**assert_deserialize(response))
+    recipe = RecipeOut.model_validate(assert_deserialize(response))
 
     assert recipe.notes
     assert recipe.notes[0].text == note_text
@@ -401,7 +403,7 @@ def test_mealie_alpha_migration_cannot_reach_another_group(
     """A tool id or sub-recipe slug from another group must not move that tool or expose that recipe."""
     unique_user = unique_user_fn_scoped
     other_tool_name = random_string()
-    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=other_tool_name, group_id=g2_user.group_id))
+    other_tool = g2_user.repos.tools.create(ToolSave(name=other_tool_name, group_id=g2_user.group_id))
     other_slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=g2_user.token).json()
 
     slug = random_string().lower()
@@ -435,7 +437,7 @@ def test_nextcloud_migration_cannot_take_over_another_groups_tool(
     """Migrators that go through the scraper cleaner pass `tools` through, so they need the same check."""
     unique_user = unique_user_fn_scoped
     other_tool_name = random_string()
-    other_tool = g2_user.repos.tools.create(RecipeToolSave(name=other_tool_name, group_id=g2_user.group_id))
+    other_tool = g2_user.repos.tools.create(ToolSave(name=other_tool_name, group_id=g2_user.group_id))
 
     name = random_string()
     recipe = {
@@ -463,3 +465,19 @@ def test_migration_rejects_archive_over_size_limit(
 
     assert report["status"] == "failure"
     assert [entry["message"] for entry in report["entries"]] == ["Archive is too large to import"]
+
+
+def test_cookn_reimport_attaches_image_to_renamed_duplicate(
+    api_client: TestClient, unique_user_fn_scoped: TestUser
+) -> None:
+    """A second import renames duplicates, so the migrator must find the image by the saved slug."""
+    unique_user = unique_user_fn_scoped
+    archive = test_data.migrations_cookn.read_bytes()
+
+    for _ in range(2):
+        report = _run_migration(api_client, unique_user, SupportedMigrations.cookn, archive)
+        assert all(entry["success"] for entry in report["entries"])
+
+    for slug in ("fresh-fruit-pizza", "fresh-fruit-pizza-1"):
+        response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
+        assert RecipeOut.model_validate(assert_deserialize(response)).image

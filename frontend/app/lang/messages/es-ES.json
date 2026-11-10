@@ -238,6 +238,8 @@
       "api-key": "Clave API",
       "api-key-description-create": "La clave API de tu proveedor para la autenticación. Si tu servicio (por ejemplo, Ollama) no usa una clave API, todavía tienes que poner algo aquí.",
       "api-key-description-edit": "Deja esto en blanco a menos que quieras cambiarlo.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "URL base",
       "base-url-description": "Si estás usando OpenAI deja esto en blanco. Debe ser un endpoint compatible con OpenAI (por ejemplo, \"http://localhost:11434/v1\").",
       "model": "Modelo",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Se ha producido un error"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duración (minutos)",
     "step-duration-saved": "Duración guardada: {duration}. Si editas este campo, se sustituirá por minutos enteros.",
     "step-duration-placeholder": "Minutos",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "¿No quieres ver esto más? ¡Asegúrate de cambiar tu correo electrónico en tu configuración de usuario!",
     "forgot-password": "Olvidé mi contraseña",
     "forgot-password-text": "Por favor, introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Los cambios en este grupo se reflejarán inmediatamente.",
     "default-activity": "Actividad predeterminada",
     "default-activity-hint": "Selecciona la pagina a la que navegar al iniciar la sesion en este dispositivo"

@@ -10,7 +10,7 @@ from mealie.lang.providers import Translator
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.permissions import Perm, not_found, require
-from mealie.schema.meal_plan.mealplan_ical import ReadMealPlanICalToken
+from mealie.schema.meal_plan.mealplan_ical import MealPlanICalTokenOut
 from mealie.services.household_services.mealplan_ical_service import MealPlanICalQuery, MealPlanICalService
 
 router = APIRouter(prefix="/households/mealplans/ical", tags=["Households: Meal Plans"])
@@ -20,29 +20,29 @@ public_router = APIRouter(prefix="/households/mealplans/ical", tags=["Households
 
 @controller(router)
 class MealplanICalController(BaseUserController):
-    def _get_token(self) -> ReadMealPlanICalToken:
+    def _get_token(self) -> MealPlanICalTokenOut:
         prefs = self.repos.household_preferences.get_one(
-            self.household_id, key="household_id", override_schema=ReadMealPlanICalToken
+            self.household_id, key="household_id", override_schema=MealPlanICalTokenOut
         )
         if not prefs:
             raise not_found("Household not found")
         return prefs
 
-    def _set_token(self, token: str | None) -> ReadMealPlanICalToken:
+    def _set_token(self, token: str | None) -> MealPlanICalTokenOut:
         self.repos.household_preferences.update(self.household_id, {"mealplan_ical_token": token})
         return self._get_token()
 
-    @router.get("", response_model=ReadMealPlanICalToken)
+    @router.get("", response_model=MealPlanICalTokenOut)
     def get_ical_token(self):
         """Returns the token for the household's meal plan iCal feed, or null if the feed is disabled"""
         return self._get_token()
 
-    @router.post("", response_model=ReadMealPlanICalToken, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    @router.post("", response_model=MealPlanICalTokenOut, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
     def create_ical_token(self):
         """Enables the meal plan iCal feed, replacing any existing token so old feed URLs stop working"""
         return self._set_token(url_safe_token())
 
-    @router.delete("", response_model=ReadMealPlanICalToken, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    @router.delete("", response_model=MealPlanICalTokenOut, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
     def delete_ical_token(self):
         """Disables the meal plan iCal feed"""
         return self._set_token(None)

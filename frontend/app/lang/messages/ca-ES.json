@@ -238,6 +238,8 @@
       "api-key": "Clau d'API",
       "api-key-description-create": "La clau d'API del teu proveïdor per a l'autenticació. Si el teu servei (p. ex. Ollama) no fa servir cap clau d'API, igualment has d'escriure-hi alguna cosa.",
       "api-key-description-edit": "Deixa-ho en blanc tret que la vulguis canviar.",
+      "api-key-description-base-url-changed": "L'URL base ha canviat, així que introdueix la clau d'API per al nou URL.",
+      "reenter-hidden-values": "L'URL base ha canviat, així que torna a introduir per al nou URL cada valor ocult (********) de les capçaleres i els paràmetres.",
       "base-url": "URL base",
       "base-url-description": "Si fas servir OpenAI, deixa-ho en blanc. Ha de ser un punt final compatible amb OpenAI (p. ex. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -473,6 +475,8 @@
     "an-error-occurred": "S'ha produït un error"
   },
   "recipe": {
+    "download-pdf": "Descarrega el PDF",
+    "preparing-pdf": "S'està preparant el PDF...",
     "step-duration-minutes": "Durada (minuts)",
     "step-duration-saved": "Durada desada: {duration}. Si edites aquest camp, se substituirà per minuts sencers.",
     "step-duration-placeholder": "Minuts",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
     "forgot-password": "Contrasenya oblidada",
     "forgot-password-text": "Introdueix siusplau la teva adreça de correu electrònic i t'enviarem un enllaç per restablir la teva contrassenya.",
+    "reset-link-invalid": "Aquest enllaç de restabliment ha caducat o no és vàlid. Demana un enllaç nou.",
     "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament.",
     "default-activity": "Activitat per defecte",
     "default-activity-hint": "Seleccioneu a quina pàgina voleu navegar en iniciar sessió des d'aquest dispositiu"

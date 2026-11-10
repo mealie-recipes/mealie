@@ -7,9 +7,9 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household import HouseholdCreate, HouseholdRecipeSummary
 from mealie.schema.household.household import HouseholdRecipeCreate, HouseholdRecipeUpdate
-from mealie.schema.household.household_preferences import CreateHouseholdPreferences, SaveHouseholdPreferences
+from mealie.schema.household.household_preferences import HouseholdPreferencesCreate, HouseholdPreferencesSave
 from mealie.schema.household.household_statistics import HouseholdStatistics
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.services._base_service import BaseService
 
 
@@ -20,7 +20,7 @@ class HouseholdService(BaseService):
         self.repos = repos
         super().__init__()
 
-    def _get_recipe(self, recipe_slug: str | UUID) -> Recipe | None:
+    def _get_recipe(self, recipe_slug: str | UUID) -> RecipeOut | None:
         key = "id"
         if not isinstance(recipe_slug, UUID):
             try:
@@ -35,19 +35,19 @@ class HouseholdService(BaseService):
 
     @staticmethod
     def create_household(
-        repos: AllRepositories, h_base: HouseholdCreate, prefs: CreateHouseholdPreferences | None = None
+        repos: AllRepositories, h_base: HouseholdCreate, prefs: HouseholdPreferencesCreate | None = None
     ):
         new_household = repos.households.create(h_base)
         if prefs is None:
             group = repos.groups.get_one(new_household.group_id)
             if group and group.preferences:
-                prefs = CreateHouseholdPreferences(
+                prefs = HouseholdPreferencesCreate(
                     private_household=group.preferences.private_group,
                     recipe_public=not group.preferences.private_group,
                 )
             else:
-                prefs = CreateHouseholdPreferences()
-        save_prefs = prefs.cast(SaveHouseholdPreferences, household_id=new_household.id)
+                prefs = HouseholdPreferencesCreate()
+        save_prefs = prefs.cast(HouseholdPreferencesSave, household_id=new_household.id)
 
         household_repos = get_repositories(
             repos.session, group_id=new_household.group_id, household_id=new_household.id

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "הוכן לקינוח על ידי {name}",
         "recipe-image-deleted": "תמונת מתכון נמחקה",
         "recipe-defaults": {
-            "ingredient-note": "כוס קמח",
-            "name": "מתכון חדש",
-            "step-text": "שלבי המתכון, כמו גם שדות אחרים בעמוד המתכון, תומכים בתחביר markdown.\n\n**הוספת קישור**\n\n[הקישור שלי](https://demo.mealie.io)\n"
+            "name": "מתכון חדש"
         },
         "servings-text": {
             "makes": "תוצרת",
@@ -27,6 +25,16 @@
             "yields": "כמויות"
         },
         "and-amount": "וגם {amount}",
+        "pdf": {
+            "cookbook": "ספר בישול",
+            "contents": "תוכן",
+            "ingredients": "מרכיבים",
+            "instructions": "הוראות",
+            "notes": "הערות",
+            "prep-time": "הכנה",
+            "cook-time": "בישול",
+            "total-time": "סה״כ"
+        },
         "import-errors": {
             "ai-not-enabled": "שירותי AI אינם מופעלים",
             "ai-request-failed": "ספק הבינה המלאכותית לא הצליח להשלים את הבקשה. כדאי לנסות שוב",

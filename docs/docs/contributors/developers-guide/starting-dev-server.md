@@ -17,6 +17,8 @@ Prerequisites
 
 First ensure that docker is running. Then when you clone the repo and open with VS Code you should see a popup asking you to reopen the project inside a development container. Click yes and it will build the development container and run the setup required to run both the backend API and the frontend webserver. This also pre-configures pre-commit hooks to ensure that the code is up to date before committing.
 
+The dev container installs its tools with [mise](https://mise.jdx.dev/) from `mise.toml`, so it uses the same tool versions as a local setup. Python comes from the container's base image.
+
 ### Windows
 
 Make sure the VSCode Dev Containers extension is installed, then select "Dev Containers: Clone Repository in Container Volume..." in the command palette (F1). Select your forked repo and choose the `mealie-next` branch, which contains the latest changes. This mounts your repository directly in WSL2, which [greatly improves the performance of the container](https://code.visualstudio.com/docs/devcontainers/containers#_quick-start-open-a-git-repository-or-github-pr-in-an-isolated-container-volume), and enables hot-reloading for the frontend. Running the container on a mounted volume may not work correctly on Windows due to WSL permission mapping issues.
@@ -32,15 +34,19 @@ Make sure the VSCode Dev Containers extension is installed, then select "Dev Con
 
 ### Prerequisites
 
-- [Python 3.14](https://www.python.org/downloads/)
-- [uv](https://docs.astral.sh/uv/)
-- [Node](https://nodejs.org/en/)
-- [pnpm](https://pnpm.io/installation)
-- [task](https://taskfile.dev/#/installation)
+[`mise.toml`](https://github.com/mealie-recipes/mealie/blob/mealie-next/mise.toml) at the root of the repo lists the tools and versions the project needs. The easiest way to install them is [mise](https://mise.jdx.dev/getting-started.html):
+
+```bash
+cd /path/to/project
+mise trust      # first time only
+mise install
+```
+
+If you'd rather install them yourself, use the versions in `mise.toml`.
 
 ### Installing Dependencies
 
-Once the prerequisites are installed you can cd into the project base directory and run `task setup` to install the python and node dependencies, and download the NLP model.
+Once the prerequisites are installed you can cd into the project base directory and run `mise run setup` to install the python and node dependencies, and download the NLP model.
 
 === "Linux / macOS"
 
@@ -48,16 +54,16 @@ Once the prerequisites are installed you can cd into the project base directory 
     # Navigate To The Root Directory
     cd /path/to/project
 
-    # Utilize the Taskfile to Install Dependencies
-    task setup
+    # Install Python and frontend dependencies
+    mise run setup
     ```
 
 ## Postgres
 
-The taskfile has two commands that need to be run to run the development environment against a postgres database.
+There are two tasks that need to be run to run the development environment against a postgres database.
 
-- `task dev:services` - This will start the postgres database, and a smtp server for email testing.
-- `task py:postgres` - This will run that backend API configured for the local postgres database.
+- `mise run dev:services` - This will start the postgres database, and a smtp server for email testing.
+- `mise run py:postgres` - This will run that backend API configured for the local postgres database.
 
 ## Starting The Server
 
@@ -67,10 +73,10 @@ Now you're ready to start the servers. You'll need two shells open, One for the 
 
     ```bash
     # Terminal #1
-    task py
+    mise run py
 
     # Terminal #2
-    task ui
+    mise run ui
     ```
 
 ## Internationalization

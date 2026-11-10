@@ -418,7 +418,7 @@ import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useFoodStore, usePublicFoodStore, useToolStore, usePublicToolStore } from "~/composables/store";
-import type { IngredientFood, RecipeSuggestionQuery, RecipeSuggestionResponseItem, RecipeTool } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, RecipeSuggestionQuery, RecipeSuggestionResponseItem, ToolOut } from "~/lib/api/types/recipe";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import { useRecipeFilterFields } from "~/composables/use-recipe-filter-fields";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
@@ -526,12 +526,12 @@ const attrs = computed(() => {
 
 const foodStore = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
 const foods = foodStore.store.value;
-const selectedFoods = ref<IngredientFood[]>([]);
-function addFood(food: IngredientFood) {
+const selectedFoods = ref<IngredientFoodOut[]>([]);
+function addFood(food: IngredientFoodOut) {
   selectedFoods.value = [...selectedFoods.value, food];
   handleFoodUpdates();
 }
-function removeFood(food: IngredientFood) {
+function removeFood(food: IngredientFoodOut) {
   selectedFoods.value = selectedFoods.value.filter(f => f.id !== food.id);
   handleFoodUpdates();
 }
@@ -548,12 +548,12 @@ watch(
 
 const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
 const tools = toolStore.store.value;
-const selectedTools = ref<RecipeTool[]>([]);
-function addTool(tool: RecipeTool) {
+const selectedTools = ref<ToolOut[]>([]);
+function addTool(tool: ToolOut) {
   selectedTools.value = [...selectedTools.value, tool];
   handleToolUpdates();
 }
-function removeTool(tool: RecipeTool) {
+function removeTool(tool: ToolOut) {
   selectedTools.value = selectedTools.value.filter(t => t.id !== tool.id);
   handleToolUpdates();
 }

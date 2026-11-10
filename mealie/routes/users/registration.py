@@ -4,7 +4,7 @@ from mealie.core.config import get_app_settings
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BasePublicController, controller
 from mealie.routes._base.permissions import forbidden
-from mealie.schema.user.registration import CreateUserRegistration
+from mealie.schema.user.registration import UserRegistrationCreate
 from mealie.schema.user.user import UserOut
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventTypes, EventUserSignupData
@@ -18,7 +18,7 @@ class RegistrationController(BasePublicController):
     event_bus: EventBusService = Depends(EventBusService.as_dependency)
 
     @router.post("", response_model=UserOut, status_code=status.HTTP_201_CREATED)
-    def register_new_user(self, data: CreateUserRegistration):
+    def register_new_user(self, data: UserRegistrationCreate):
         settings = get_app_settings()
 
         if not settings.ALLOW_SIGNUP and data.group_token is None or data.group_token == "":

@@ -238,6 +238,8 @@
       "api-key": "API ключ",
       "api-key-description-create": "API ключ вашего провайдера для аутентификации. Если ваш сервис (например, Ollama) не использует API ключ, вам всё равно нужно что-то написать здесь.",
       "api-key-description-edit": "Оставьте поле пустым, если вы не хотите изменить его.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Базовый URL",
       "base-url-description": "Если вы используете OpenAI, оставьте это поле пустым. Должно быть OpenAI-совместимым (например \"http://localhost:11434/v1\").",
       "model": "Модель",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Произошла ошибка"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Длительность (мин)",
     "step-duration-saved": "Сохранённая длительность: {duration}. При редактировании этого поля она заменится целым числом минут.",
     "step-duration-placeholder": "Минуты",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Больше не хотите видеть это сообщение? Не забудьте изменить адрес электронной почты в настройках пользователя!",
     "forgot-password": "Забыли Пароль",
     "forgot-password-text": "Введите адрес вашей почты, и мы отправим на неё ссылку для сброса пароля.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно.",
     "default-activity": "Действие по умолчанию",
     "default-activity-hint": "Выберите, на какую страницу вы хотели бы перейти при входе в систему с этого устройства"

@@ -3,7 +3,7 @@
   "tasks": [
     {
       "label": "Production: Build and Start Docker Compose",
-      "command": "task docker:prod",
+      "command": "mise run docker:prod",
       "type": "shell",
       "args": [],
       "problemMatcher": [
@@ -16,7 +16,7 @@
     },
     {
       "label": "Dev: Start Backend",
-      "command": "task py",
+      "command": "mise run py",
       "type": "shell",
       "presentation": {
         "reveal": "always",
@@ -26,7 +26,7 @@
     },
     {
       "label": "Dev: Start Frontend",
-      "command": "task ui",
+      "command": "mise run ui",
       "type": "shell",
       "presentation": {
         "reveal": "always",
@@ -36,7 +36,7 @@
     },
     {
       "label": "Dev: Start Docs Server",
-      "command": "task docs",
+      "command": "mise run docs",
       "type": "shell",
       "presentation": {
         "reveal": "always",
@@ -46,7 +46,7 @@
     },
     {
       "label": "Run python tests",
-      "command": "task py:test",
+      "command": "mise run py:test",
       "type": "shell",
       "presentation": {
         "reveal": "always"

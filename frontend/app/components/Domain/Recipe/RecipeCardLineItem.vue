@@ -13,7 +13,7 @@
       >
         <RecipeCardImage
           tiny
-          :recipe-id="recipe.id!"
+          :recipe-id="recipe.id"
           :slug="recipe.slug"
           :image-version="recipe.image"
           height="40"

@@ -5,11 +5,12 @@ import { route } from "../../base";
 import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import type {
-  Recipe,
-  RecipeIn,
-  CreateRecipe,
+  RecipeOut,
+  RecipeDraft,
+  RecipeSummary,
+  RecipeCreate,
   RecipeAsset,
-  CreateRecipeByUrlBulk,
+  RecipeUrlBulkCreate,
   ParsedIngredient,
   UpdateImageResponse,
   RecipeLastMade,
@@ -44,7 +45,6 @@ const routes = {
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
   recipesCreateWithAI: `${prefix}/recipes/create/ai/stream`,
   recipesCreateFromHtmlOrJson: `${prefix}/recipes/create/html-or-json/stream`,
-  recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
   recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
@@ -53,6 +53,7 @@ const routes = {
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
   recipesRecipeSlugAssetsUrl: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets/url`,
+  recipesRecipeSlugExportsPdf: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/exports/pdf`,
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
@@ -92,7 +93,8 @@ export type RecipeSearchQuery = {
   _searchSeed?: string;
 };
 
-export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
+/** Creating a recipe responds with the new recipe's slug, not the recipe. */
+export class RecipeAPI extends BaseCRUDAPI<RecipeCreate, RecipeOut, RecipeDraft, RecipeSummary, string> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
@@ -106,14 +108,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
     this.share = new RecipeShareApi(requests);
   }
 
-  async search(rsq: RecipeSearchQuery) {
-    return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesBase, rsq));
+  getPdfUrl(recipeSlug: string) {
+    return routes.recipesRecipeSlugExportsPdf(recipeSlug);
   }
 
-  async getAllByCategory(categories: string[]) {
-    return await this.requests.get<Recipe[]>(routes.recipesCategory, {
-      categories,
-    });
+  async search(rsq: RecipeSearchQuery) {
+    return await this.requests.get<PaginationData<RecipeSummary>>(route(routes.recipesBase, rsq));
   }
 
   async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[] | null = null) {
@@ -155,7 +155,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
   }
 
   async testCreateOneUrl(url: string, useOpenAI = false) {
-    return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
+    return await this.requests.post<RecipeDraft | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
 
   private streamRecipeCreate(streamRoute: string, payload: object | FormData, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
@@ -241,7 +241,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
     return this.streamRecipeCreate(routes.recipesCreateUrl, { url, includeTags, includeCategories }, onProgress);
   }
 
-  async createManyByUrl(payload: CreateRecipeByUrlBulk) {
+  async createManyByUrl(payload: RecipeUrlBulkCreate) {
     return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
   }
 
@@ -288,16 +288,16 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
     return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
   }
 
-  async updateMany(payload: Recipe[]) {
-    return await this.requests.put<Recipe[]>(routes.recipesBase, payload);
+  async updateMany(payload: RecipeDraft[]) {
+    return await this.requests.put<RecipeOut[], RecipeDraft[]>(routes.recipesBase, payload);
   }
 
-  async patchMany(payload: Recipe[]) {
-    return await this.requests.patch<Recipe[]>(routes.recipesBase, payload);
+  async patchMany(payload: Partial<RecipeDraft>[]) {
+    return await this.requests.patch<RecipeOut[], Partial<RecipeDraft>[]>(routes.recipesBase, payload);
   }
 
   async updateLastMade(recipeSlug: string, timestamp: string) {
-    return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp });
+    return await this.requests.patch<RecipeOut, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp });
   }
 
   async createTimelineEvent(payload: RecipeTimelineEventIn) {

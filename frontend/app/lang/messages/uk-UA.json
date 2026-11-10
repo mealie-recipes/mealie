@@ -238,6 +238,8 @@
       "api-key": "Ключ API",
       "api-key-description-create": "API-ключ вашого постачальника для автентифікації. Якщо ваш сервіс (наприклад, Ollama) не використовує API-ключ, вам все одно потрібно щось сюди вписати.",
       "api-key-description-edit": "Залиште це поле порожнім, якщо не хочете його змінювати.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Основний URL",
       "base-url-description": "Якщо ви використовуєте OpenAI, залиште це поле порожнім. Це має бути OpenAI-сумісний кінцевий пункт (наприклад, \"http://localhost:11434/v1\").",
       "model": "Модель",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Сталася помилка"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!",
     "forgot-password": "Нагадати пароль",
     "forgot-password-text": "Будь ласка, введіть адресу вашої електронної пошти й вам надійде повідомлення, щоб відновити пароль.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені.",
     "default-activity": "Дія за замовчуванням",
     "default-activity-hint": "Виберіть, на яку сторінку ви хочете перейти після входу з цього пристрою"

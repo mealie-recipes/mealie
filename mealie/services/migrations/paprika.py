@@ -71,7 +71,7 @@ class PaprikaMigrator(BaseMigrator):
         results = self.import_recipes_to_database(recipe_models)
 
         for (slug, recipe_id, status), recipe in zip(results, recipes, strict=True):
-            if not status:
+            if not status or not recipe_id:
                 continue
 
             image_data = recipe.get("photo_data")

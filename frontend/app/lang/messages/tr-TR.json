@@ -238,6 +238,8 @@
       "api-key": "API Anahtarı",
       "api-key-description-create": "Kimlik doğrulama için sağlayıcınızın API anahtarı. Hizmetiniz (ör. Ollama) API anahtarı kullanmıyorsa bile buraya bir şey yazmanız gerekir.",
       "api-key-description-edit": "Değiştirmek istemiyorsanız bunu boş bırakın.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Temel URL",
       "base-url-description": "OpenAI kullanıyorsanız bunu boş bırakın. OpenAI uyumlu bir uç nokta olmalıdır (ör. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -473,6 +475,8 @@
     "an-error-occurred": "Bir hata oluştu"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -970,6 +974,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Artık bunu görmek istemiyor musunuz? Kullanıcı ayarlarınızda e-postanızı değiştirmeyi unutmayın!",
     "forgot-password": "Şifreni mi Unuttun?",
     "forgot-password-text": "Lütfen e-posta adresinizi girin, size şifrenizi sıfırlamanız için bir bağlantı göndereceğiz.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Bu kullanıcıda yapılan değişiklikler hemen yansıtılacaktır.",
     "default-activity": "Varsayılan Aktivite",
     "default-activity-hint": "Bu cihazdan giriş yaptığınızda hangi sayfaya gitmek istediğinizi seçin"
