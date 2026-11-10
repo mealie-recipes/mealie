@@ -1,5 +1,6 @@
 from collections.abc import Generator
 from datetime import UTC, datetime, timedelta
+from operator import itemgetter
 from typing import Any
 
 import pytest
@@ -245,5 +246,8 @@ def test_shared_recipe_collections_do_not_multiply_query_rows(
         assert data[0]["recipeId"] == expected["id"]
         return
     shared_recipe = data if operation == "public" else data["recipe"]
-    for field in ("recipeIngredient", "recipeInstructions", "notes", "recipeCategory", "tags", "tools"):
+    for field in ("recipeIngredient", "recipeInstructions"):
         assert shared_recipe[field] == expected[field]
+    # These collections have no defined order, so compare them by their identifiers.
+    for field, key in (("notes", "referenceId"), ("recipeCategory", "id"), ("tags", "id"), ("tools", "id")):
+        assert sorted(shared_recipe[field], key=itemgetter(key)) == sorted(expected[field], key=itemgetter(key))
