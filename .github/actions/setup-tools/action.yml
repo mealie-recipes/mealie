@@ -16,7 +16,7 @@ runs:
       uses: jdx/mise-action@v5
       with:
         # renovate: datasource=github-releases depName=jdx/mise extractVersion=^v(?<version>.+)$
-        version: 2026.11.2
+        version: 2026.11.3
         install_args: ${{ inputs.tools }}
         # [env] in mise.toml is for mise tasks; don't export it to every later step
         env: false
