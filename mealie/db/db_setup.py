@@ -1,5 +1,6 @@
 from collections.abc import Generator
 from contextlib import contextmanager
+from typing import Any
 
 import sqlalchemy as sa
 from sqlalchemy.engine import Engine
@@ -8,6 +9,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
+from mealie.core.settings.db_providers import PostgresProvider
 
 settings = get_app_settings()
 
@@ -50,7 +52,18 @@ def sql_global_init(db_url: str):
     if "sqlite" in db_url:
         connect_args["check_same_thread"] = False
 
-    engine = sa.create_engine(db_url, echo=False, connect_args=connect_args, pool_pre_ping=True, future=True)
+    pool_options: dict[str, Any] = {}
+    provider = settings.DB_PROVIDER
+    if sa.engine.make_url(db_url).get_backend_name() == "postgresql" and isinstance(provider, PostgresProvider):
+        pool_options = {
+            "pool_size": provider.POSTGRES_POOL_SIZE,
+            "max_overflow": provider.POSTGRES_MAX_OVERFLOW,
+            "pool_timeout": provider.POSTGRES_POOL_TIMEOUT,
+        }
+
+    engine = sa.create_engine(
+        db_url, echo=False, connect_args=connect_args, pool_pre_ping=True, future=True, **pool_options
+    )
 
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 
