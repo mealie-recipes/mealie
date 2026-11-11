@@ -105,6 +105,7 @@ class IngredientFoodSummary(MealieOutModel):
     id: UUID4
     name: str
     plural_name: str | None = None
+    parent_id: UUID4 | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -197,9 +198,14 @@ class RecipeIngredientSubstitution(RecipeIngredientSubstitutionCreate):
 
 class IngredientFoodCreate(UnitFoodBase):
     label_id: UUID4 | None = None
+    parent_id: UUID4 | None = None
     aliases: list[IngredientFoodAliasCreate] = []
     substitutions: list[IngredientFoodSubstitutionCreate] = []
     households_with_ingredient_food: list[str] = []
+
+    @field_validator("parent_id", mode="before")
+    def convert_empty_parent_id_to_none(cls, v):
+        return v or None
 
     @field_validator("substitutions", mode="before")
     def remove_empty_substitutions(cls, v):
@@ -212,6 +218,13 @@ class IngredientFoodCreate(UnitFoodBase):
 
         return self
 
+    @model_validator(mode="after")
+    def validate_no_self_parent(self):
+        if self.id and self.parent_id and self.id == self.parent_id:
+            raise ValueError("a food cannot be its own parent")
+
+        return self
+
 
 class IngredientFoodSave(IngredientFoodCreate):
     group_id: UUID4
@@ -219,6 +232,7 @@ class IngredientFoodSave(IngredientFoodCreate):
 
 class IngredientFoodOut(IngredientFoodCreate, MealieOutModel):
     id: UUID4
+    parent: IngredientFoodSummary | None = None
     label: MultiPurposeLabelSummary | None = None
     aliases: list[IngredientFoodAlias] = []  # type: ignore[assignment]  # narrows the create type's items; list is invariant
     recipe_count: int = 0
@@ -241,6 +255,7 @@ class IngredientFoodOut(IngredientFoodCreate, MealieOutModel):
             selectinload(IngredientFoodModel.aliases),
             joinedload(IngredientFoodModel.extras),
             joinedload(IngredientFoodModel.label),
+            joinedload(IngredientFoodModel.parent),
             selectinload(IngredientFoodModel.substitutions).joinedload(IngredientFoodSubstitutionModel.substitute_food),
         ]
 
