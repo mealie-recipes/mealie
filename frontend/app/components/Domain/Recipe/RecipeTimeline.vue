@@ -224,10 +224,11 @@ async function deleteTimelineEvent(index: number) {
 }
 
 async function getRecipes(recipeIds: string[]): Promise<RecipeSummary[]> {
-  let qf = "";
-  if (recipeIds.length) {
-    qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+  if (!recipeIds.length) {
+    return [];
   }
+
+  const qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
   const { data } = await api.recipes.getAll(1, -1, { queryFilter: qf });
   return data?.items || [];
 }
