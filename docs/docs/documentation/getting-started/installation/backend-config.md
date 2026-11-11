@@ -19,6 +19,7 @@
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                                                        |
 | ALLOW_PASSWORD_LOGIN          |         true          | Whether or not to display the username+password input fields. Keep set to true unless you use OIDC authentication                                       |
+| MAX_UPLOAD_SIZE_MB            |         1024          | Largest upload, in MiB, the API accepts. Your reverse proxy may need a matching limit. See below.                                                       |
 | LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                                                                                      |
 | LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug)                                                                                              |
 | DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run daily server tasks, in HH:MM format. Use the server's local time, *not* UTC                                                      |
@@ -32,6 +33,10 @@
 Set `API_HOST` to choose an exact address: `0.0.0.0` (IPv4 on every interface), `127.0.0.1` (IPv4 loopback only), `::` (IPv6 wildcard), or `::1` (IPv6 loopback only). Explicit values stay on the address you set.
 
 `HOST_IP` lists reverse proxies trusted to send forwarded headers. The listening address is `API_HOST`.
+
+#### Upload size
+
+`MAX_UPLOAD_SIZE_MB` caps uploads at Mealie itself. A reverse proxy or web server in front of Mealie usually has its own limit, and uploads over it fail before they reach Mealie. nginx, for example, rejects request bodies over 1 MB by default. Raise that limit to match, such as `client_max_body_size 1024m;` in nginx.
 
 Docker delivers IPv6 to a container when the Docker network has IPv6 enabled and the published port is reachable over IPv6. A dual-stack listener on an IPv4-only Docker network is reachable over IPv4 alone.
 

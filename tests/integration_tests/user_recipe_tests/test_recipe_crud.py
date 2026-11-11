@@ -18,6 +18,7 @@ from recipe_scrapers._schemaorg import SchemaOrg
 from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
+import mealie.services.recipe.recipe_service as recipe_service_module
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.db.models.recipe import RecipeModel
 from mealie.pkgs.safehttp.fetch import FetchResult
@@ -422,6 +423,21 @@ def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, t
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
     assert fetched_recipe
+
+
+def test_create_recipe_from_zip_rejects_archive_over_size_limit(
+    api_client: TestClient, unique_user: TestUser, tempdir: str, monkeypatch: MonkeyPatch
+):
+    monkeypatch.setattr(recipe_service_module, "MAX_RECIPE_ZIP_SIZE", 1024)
+    recipe_name = random_string()
+    recipe_data = {"name": recipe_name, "slug": recipe_name, "description": "0" * 2048}
+
+    r = api_client.post(
+        api_routes.recipes_create_zip, files=zip_recipe_data(tempdir, recipe_data), headers=unique_user.token
+    )
+    assert r.status_code == 413
+
+    assert unique_user.repos.recipes.get_by_slug(unique_user.group_id, recipe_name) is None
 
 
 def test_create_recipe_from_zip_reimport_into_same_instance(api_client: TestClient, unique_user: TestUser):

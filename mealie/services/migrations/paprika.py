@@ -3,12 +3,11 @@ import io
 import json
 import re
 import tempfile
-from gzip import GzipFile
 from pathlib import Path
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import extract_zip
+from .utils.migration_helpers import extract_zip, migration_budget
 
 
 def split_paprika_ingredients(value: str) -> list[str]:
@@ -18,13 +17,11 @@ def split_paprika_ingredients(value: str) -> list[str]:
 def paprika_recipes(file: Path):
     """Yields all recipes inside the export file as JSON"""
     with tempfile.TemporaryDirectory() as tmpdir:
-        extract_zip(file, tmpdir)
+        budget = migration_budget()
+        extract_zip(file, tmpdir, budget)
 
         for name in Path(tmpdir).glob("**/[!.]*.paprikarecipe"):
-            with open(name, "rb") as fd:
-                with GzipFile("r", fileobj=fd) as recipe_json:
-                    recipe = json.load(recipe_json)
-                    yield recipe
+            yield json.loads(budget.read_gzip(name))
 
 
 class PaprikaMigrator(BaseMigrator):

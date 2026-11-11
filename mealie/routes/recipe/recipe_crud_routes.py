@@ -32,6 +32,7 @@ from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
 from mealie.pkgs import cache, img, safehttp
+from mealie.pkgs.archive import ArchiveTooLargeError
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.permissions import forbidden, not_found
@@ -530,7 +531,13 @@ class RecipeController(BaseRecipeController):
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
         with get_temporary_zip_path() as temp_path:
-            recipe = self.service.create_from_zip(archive, temp_path)
+            try:
+                recipe = self.service.create_from_zip(archive, temp_path)
+            except ArchiveTooLargeError as e:
+                raise HTTPException(
+                    status_code=status.HTTP_413_CONTENT_TOO_LARGE,
+                    detail=ErrorResponse.respond(message="Archive is too large to import"),
+                ) from e
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),

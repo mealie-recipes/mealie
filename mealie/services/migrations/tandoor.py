@@ -9,7 +9,7 @@ from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import MAX_EXTRACTED_ARCHIVE_SIZE, extract_zip
+from .utils.migration_helpers import extract_zip, migration_budget
 
 
 def _build_ingredient_from_ingredient_data(ingredient_data: dict[str, Any], title: str | None = None) -> dict[str, Any]:
@@ -84,7 +84,8 @@ class TandoorMigrator(BaseMigrator):
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
-            budget = MAX_EXTRACTED_ARCHIVE_SIZE - extract_zip(self.archive, tmpdir)
+            budget = migration_budget()
+            extract_zip(self.archive, tmpdir, budget)
 
             source_dir = self.get_zip_base_path(Path(tmpdir))
 
@@ -94,7 +95,7 @@ class TandoorMigrator(BaseMigrator):
                     recipe_dir = str(source_dir.joinpath(f"recipe_{i + 1}"))
                     os.makedirs(recipe_dir)
 
-                    budget -= extract_zip(recipe_zip_file, recipe_dir, max_size=budget)
+                    extract_zip(recipe_zip_file, recipe_dir, budget)
 
                     recipe_source_dir = Path(recipe_dir)
                     try:
