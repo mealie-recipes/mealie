@@ -1,4 +1,3 @@
-import html
 import json
 import pathlib
 from dataclasses import dataclass
@@ -27,10 +26,7 @@ from mealie.schema.user.user import PrivateUser
 class MetaTag:
     hid: str
     property_name: str
-    content: str
-
-    def __post_init__(self):
-        self.content = escape(self.content)  # escape HTML to prevent XSS attacks
+    content: str  # raw text; BeautifulSoup escapes attribute values when it serializes
 
 
 class SPAStaticFiles(StaticFiles):
@@ -73,15 +69,17 @@ __app_settings = get_app_settings()
 __contents = ""
 
 
-def escape(content: Any) -> Any:
-    if isinstance(content, str):
-        return html.escape(content)
-    elif isinstance(content, list | tuple | set):
-        return [escape(item) for item in content]
-    elif isinstance(content, dict):
-        return {escape(k): escape(v) for k, v in content.items()}
-    else:
-        return content
+_SCRIPT_JSON_ESCAPES = {ord("<"): "\\u003c", ord(">"): "\\u003e", ord("&"): "\\u0026"}
+
+
+def script_safe_json(data: Any) -> str:
+    """
+    Serializes `data` as JSON that is safe to place inside a <script> element.
+
+    Escaping `<`, `>` and `&` as JSON unicode escapes means no value can close the element with
+    `</script>` or open a comment, and JSON parsers still read back the original text.
+    """
+    return json.dumps(jsonable_encoder(data)).translate(_SCRIPT_JSON_ESCAPES)
 
 
 def inject_meta(contents: str, tags: list[MetaTag]) -> str:
@@ -138,7 +136,7 @@ def iso_duration(seconds: int | None) -> str | None:
 
 
 def inject_recipe_json(contents: str, schema: dict) -> str:
-    schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
+    schema_as_html_tag = f"""<script type="application/ld+json">{script_safe_json(schema)}</script>"""
     return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
 
 
@@ -146,7 +144,9 @@ def content_with_meta(group_slug: str, recipe: RecipeOut) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
     if recipe.image:
-        image_url = f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={escape(recipe.image)}"
+        image_url = (
+            f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
+        )
     else:
         image_url = "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png"
 
@@ -165,30 +165,25 @@ def content_with_meta(group_slug: str, recipe: RecipeOut) -> str:
         if ing.note:
             s = f"{s}, {ing.note}" if s else ing.note
 
-        ingredients.append(escape(s))
+        ingredients.append(s)
 
     nutrition: dict[str, str | None] = recipe.nutrition.model_dump(by_alias=True) if recipe.nutrition else {}
-    for k, v in nutrition.items():
-        if v:
-            nutrition[k] = escape(v)
 
     as_schema_org: dict[str, Any] = {
         "@context": "https://schema.org",
         "@type": "Recipe",
-        "name": escape(recipe.name),
-        "description": escape(recipe.description),
+        "name": recipe.name,
+        "description": recipe.description,
         "image": [image_url],
         "datePublished": recipe.created_at,
         "prepTime": iso_duration(recipe.prep_time_seconds),
         "cookTime": iso_duration(recipe.perform_time_seconds),
         "totalTime": iso_duration(recipe.total_time_seconds),
-        "recipeYield": escape(recipe.recipe_yield_display),
+        "recipeYield": recipe.recipe_yield_display,
         "recipeIngredient": ingredients,
-        "recipeInstructions": [escape(i.text) for i in recipe.recipe_instructions]
-        if recipe.recipe_instructions
-        else [],
-        "recipeCategory": [escape(c.name) for c in recipe.recipe_category] if recipe.recipe_category else [],
-        "keywords": [escape(t.name) for t in recipe.tags] if recipe.tags else [],
+        "recipeInstructions": [i.text for i in recipe.recipe_instructions] if recipe.recipe_instructions else [],
+        "recipeCategory": [c.name for c in recipe.recipe_category] if recipe.recipe_category else [],
+        "keywords": [t.name for t in recipe.tags] if recipe.tags else [],
         "nutrition": nutrition,
     }
 

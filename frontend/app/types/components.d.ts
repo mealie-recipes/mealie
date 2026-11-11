@@ -33,6 +33,7 @@ import type LanguageDialog from "@/components/global/LanguageDialog.vue";
 import type MarkdownEditor from "@/components/global/MarkdownEditor.vue";
 import type RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
 import type ReportTable from "@/components/global/ReportTable.vue";
+import type SafeInlineHtml from "@/components/global/SafeInlineHtml.vue";
 import type SafeMarkdown from "@/components/global/SafeMarkdown.vue";
 import type StatsCards from "@/components/global/StatsCards.vue";
 import type ToggleState from "@/components/global/ToggleState.vue";
@@ -76,6 +77,7 @@ declare module "vue" {
     MarkdownEditor: typeof MarkdownEditor;
     RecipeJsonEditor: typeof RecipeJsonEditor;
     ReportTable: typeof ReportTable;
+    SafeInlineHtml: typeof SafeInlineHtml;
     SafeMarkdown: typeof SafeMarkdown;
     StatsCards: typeof StatsCards;
     ToggleState: typeof ToggleState;
