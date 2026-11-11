@@ -420,6 +420,22 @@ describe("useParseIngredientsDialog", () => {
       expect(state.loadingCount).toBe(0);
       expect(mockParseIngredients).toHaveBeenCalledOnce();
     });
+    test("keeps each ingredient's reference id and section title", async () => {
+      mockParseIngredients.mockResolvedValueOnce({
+        data: [
+          { input: "1 cup flour", confidence: {}, ingredient: { referenceId: "parser-id-1" } },
+          { input: "2 eggs", confidence: {}, ingredient: { referenceId: "parser-id-2" } },
+        ],
+      });
+      const wrapped = wrapper([
+        { note: "1 cup flour", title: "Dough", referenceId: "original-id-1" },
+        { note: "2 eggs", referenceId: "original-id-2" },
+      ] as NoUndefinedField<RecipeIngredient>[]);
+      await wrapped.vm.parseIngredients();
+      const parsed = wrapped.vm.parsedIngs.map(ing => ing.ingredient);
+      expect(parsed.map(ing => ing.referenceId)).toEqual(["original-id-1", "original-id-2"]);
+      expect(parsed.map(ing => ing.title)).toEqual(["Dough", ""]);
+    });
     test("doesn't parse from an empty list", async () => {
       const wrapped = wrapper([]);
       const { state, parseIngredients } = wrapped.vm;
