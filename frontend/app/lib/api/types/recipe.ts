@@ -430,64 +430,6 @@ export interface RecipeCreate {
 export interface RecipeDuplicate {
   name?: string | null;
 }
-<<<<<<< HEAD
-=======
-export interface RecipeIn {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  cookTime?: string | null;
-  performTime?: string | null;
-  totalTimeSeconds?: number | null;
-  prepTimeSeconds?: number | null;
-  performTimeSeconds?: number | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategoryIn[] | null;
-  tags?: RecipeTagIn[] | null;
-  tools?: RecipeToolIn[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  lastMade?: string | null;
-  recipeIngredient?: RecipeIngredient[];
-  recipeInstructions?: RecipeStep[] | null;
-  nutrition?: Nutrition | null;
-  settings?: RecipeSettings | null;
-  assets?: RecipeAsset[] | null;
-  notes?: RecipeNote[] | null;
-  extras?: {
-    [k: string]: unknown;
-  } | null;
-  comments?: RecipeCommentOut[] | null;
-}
-export interface RecipeTagIn {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug?: string | null;
-  recipeCount?: number;
-}
-export interface RecipeToolIn {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug?: string | null;
-  recipeCount?: number;
-  householdsWithTool?: string[];
-}
->>>>>>> d14831032 (fix(mealplanner): persist drag-and-drop meal ordering)
 export interface RecipeIngredientBase {
   quantity?: number | null;
   unit?: IngredientUnitOut | IngredientUnitCreate | null;
@@ -631,69 +573,10 @@ export interface RecipeTimelineEventUpdate {
 export interface RecipeUrlBulkCreate {
   imports: RecipeUrlCreate[];
 }
-<<<<<<< HEAD
 export interface RecipeUrlCreate {
   url: string;
   categories?: CategoryDraft[] | null;
   tags?: TagDraft[] | null;
-=======
-export interface RecipeToolMerge {
-  fromId: string;
-  toId: string;
-}
-export interface RecipeToolOut {
-  name: string;
-  householdsWithTool?: string[];
-  id: string;
-  groupId: string;
-  slug: string;
-  recipeCount?: number;
-}
-export interface RecipeToolResponse {
-  name: string;
-  householdsWithTool?: string[];
-  id: string;
-  groupId: string;
-  slug: string;
-  recipeCount?: number;
-  recipes?: RecipeSummary[];
-}
-export interface RecipeToolSave {
-  name: string;
-  householdsWithTool?: string[];
-  groupId: string;
-}
-export interface SaveIngredientFood {
-  id?: string | null;
-  name: string;
-  pluralName?: string | null;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  } | null;
-  labelId?: string | null;
-  aliases?: CreateIngredientFoodAlias[];
-  substitutions?: CreateIngredientFoodSubstitution[];
-  householdsWithIngredientFood?: string[];
-  groupId: string;
-}
-export interface SaveIngredientUnit {
-  id?: string | null;
-  name: string;
-  pluralName?: string | null;
-  description?: string;
-  extras?: {
-    [k: string]: unknown;
-  } | null;
-  fraction?: boolean;
-  abbreviation?: string;
-  pluralAbbreviation?: string | null;
-  useAbbreviation?: boolean;
-  aliases?: CreateIngredientUnitAlias[];
-  standardQuantity?: number | null;
-  standardUnit?: string | null;
-  groupId: string;
->>>>>>> d14831032 (fix(mealplanner): persist drag-and-drop meal ordering)
 }
 export interface ScrapeRecipe {
   includeTags?: boolean;

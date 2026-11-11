@@ -5,7 +5,7 @@ from uuid import UUID
 from dateutil.tz import tzlocal
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.core.exceptions import MealPlanEntriesChanged, mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
@@ -14,13 +14,15 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import not_found
 from mealie.schema import mapper
 from mealie.schema.meal_plan import PlanEntryCreate, PlanEntryOut, PlanEntrySave, PlanEntryUpdate
-from mealie.schema.meal_plan.new_meal import PlanEntryPagination, PlanEntryType, RandomPlanEntryCreate
+from mealie.schema.meal_plan.new_meal import (
+    PlanEntryPagination,
+    PlanEntryType,
+    RandomPlanEntryCreate,
+    ReorderPlanEntriesByDay,
+)
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import RecipeOut
-from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
-from mealie.schema.response.responses import ErrorResponse
 from mealie.services.event_bus_service.event_types import (
     EventMealplanData,
     EventOperation,
@@ -219,9 +221,25 @@ class GroupMealplanController(BaseCrudController):
 
     @router.put("/reorder", status_code=204)
     def reorder(self, days: list[ReorderPlanEntriesByDay]):
-        self.repo.reorder(days)
+        if not days:
+            raise HTTPException(status_code=422, detail="At least one day is required.")
 
-    @router.get("/{item_id}", response_model=ReadPlanEntry)
+        dates = [day.date for day in days]
+        if len(set(dates)) != len(dates):
+            raise HTTPException(status_code=422, detail="Each date may only be included once.")
+
+        requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
+        if len(set(requested_ids)) != len(requested_ids):
+            raise HTTPException(status_code=422, detail="A meal plan entry may only be included once.")
+
+        try:
+            self.repo.reorder(days)
+        except MealPlanEntriesChanged:
+            raise HTTPException(
+                status_code=409,
+                detail="Meal plan entries changed. Refresh and try again.",
+            ) from None
+
     @router.get("/{item_id}", response_model=PlanEntryOut)
     def get_one(self, item_id: int):
         return self.mixins.get_one(item_id)

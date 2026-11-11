@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { PlanEntryCreate, RandomPlanEntryCreate, MealPlanICalTokenOut, PlanEntryOut, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
+import type { PlanEntryCreate, RandomPlanEntryCreate, MealPlanICalTokenOut, PlanEntryOut, PlanEntryUpdate, ReorderPlanEntriesByDay } from "~/lib/api/types/meal-plan";
 
 const prefix = "/api";
 
@@ -12,9 +12,6 @@ const routes = {
 };
 
 export class MealPlanAPI extends BaseCRUDAPI<PlanEntryCreate, PlanEntryOut, PlanEntryUpdate> {
-  baseRoute = routes.mealplan;
-  itemRoute = routes.mealplanId;
-export class MealPlanAPI extends BaseCRUDAPI<CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry> {
   override baseRoute = routes.mealplan;
   override itemRoute = routes.mealplanId;
 
@@ -31,12 +28,9 @@ export class MealPlanAPI extends BaseCRUDAPI<CreatePlanEntry, ReadPlanEntry, Upd
   }
 
   async deleteICalToken() {
-        return await this.requests.delete<MealPlanICalTokenOut>(routes.ical);
+    return await this.requests.delete<MealPlanICalTokenOut>(routes.ical);
   }
 
-  async reorder(payload: ReorderPlanEntriesByDay[]) {
-    return await this.requests.put<undefined, ReorderPlanEntriesByDay[]>(routes.reorder, payload);
-  }
 
   async reorder(payload: ReorderPlanEntriesByDay[]) {
     return await this.requests.put<undefined, ReorderPlanEntriesByDay[]>(routes.reorder, payload);

@@ -4,8 +4,9 @@ from typing import Any
 from pydantic import UUID4, BaseModel
 from sqlalchemy import select
 
+from mealie.core.exceptions import MealPlanEntriesChanged
 from mealie.db.models.household import GroupMealPlan
-from mealie.schema.meal_plan.new_meal import PlanEntryType, PlanEntryOut, ReorderPlanEntriesByDay
+from mealie.schema.meal_plan.new_meal import PlanEntryOut, PlanEntryType, ReorderPlanEntriesByDay
 
 from .repository_generic import HouseholdRepositoryGeneric
 
@@ -53,12 +54,12 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
         for position, entry in enumerate(entries):
             entry.position = position
 
-    def create(self, data: ReadPlanEntry | BaseModel | dict[str, Any]) -> ReadPlanEntry:
+    def create(self, data: PlanEntryOut | BaseModel | dict[str, Any]) -> PlanEntryOut:
         data = data if isinstance(data, dict) else data.model_dump()
         data["position"] = self._insert_position(data["date"], data.get("entry_type", PlanEntryType.breakfast))
         return super().create(data)
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> ReadPlanEntry:
+    def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> PlanEntryOut:
         data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value)
         date_value = data.get("date")
@@ -76,16 +77,9 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
     def reorder(self, days: list[ReorderPlanEntriesByDay]) -> None:
         if not self.household_id:
             raise Exception("household_id not set")
-        if not days:
-            raise HTTPException(status_code=422, detail="At least one day is required.")
 
         dates = [day.date for day in days]
-        if len(set(dates)) != len(dates):
-            raise HTTPException(status_code=422, detail="Each date may only be included once.")
-
         requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
-        if len(set(requested_ids)) != len(requested_ids):
-            raise HTTPException(status_code=422, detail="A meal plan entry may only be included once.")
 
         entries = (
             self.session.execute(
@@ -99,7 +93,7 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
         )
         entries_by_id = {entry.id: entry for entry in entries}
         if set(requested_ids) != set(entries_by_id):
-            raise HTTPException(status_code=409, detail="Meal plan entries changed. Refresh and try again.")
+            raise MealPlanEntriesChanged
 
         try:
             for day in days:
@@ -120,9 +114,11 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
         today = datetime.now(tz=tz).date()
         stmt = (
             select(GroupMealPlan)
-            .filter(GroupMealPlan.date == today,
-            GroupMealPlan.end_date.is_(None),  # week entries aren't planned for a specific day
-            GroupMealPlan.household_id == self.household_id,)
+            .filter(
+                GroupMealPlan.date == today,
+                GroupMealPlan.end_date.is_(None),  # week entries aren't planned for a specific day
+                GroupMealPlan.household_id == self.household_id,
+            )
             .order_by(GroupMealPlan.position)
         )
         plans = self.session.execute(stmt).scalars().all()
@@ -137,7 +133,7 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
             .filter(
                 GroupMealPlan.date >= start_date.date(),
                 GroupMealPlan.date <= end_date.date(),
-            GroupMealPlan.end_date.is_(None),  # week entries aren't planned for a specific day
+                GroupMealPlan.end_date.is_(None),  # week entries aren't planned for a specific day
                 GroupMealPlan.household_id == self.household_id,
             )
             .order_by(GroupMealPlan.date, GroupMealPlan.position)

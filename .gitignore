@@ -34,6 +34,7 @@ node_modules
 .env.local
 .env.*.local
 *.local.*
+/.task/
 
 
 # Log files
