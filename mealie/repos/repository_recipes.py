@@ -13,7 +13,11 @@ from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import RecipeIngredientModel, RecipeIngredientSubstitutionModel
+from mealie.db.models.recipe.ingredient import (
+    IngredientFoodModel,
+    RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
+)
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
@@ -451,8 +455,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
     @staticmethod
     def _recipes_using_foods(foods: Sequence[UUID4 | str]) -> sa.ColumnElement:
         """
-        Recipes with an ingredient that uses any of `foods`: it calls for the food, or offers it as
-        a substitute.
+        Recipes with an ingredient that uses any of `foods` (or their children):
+        it calls for the food, or offers it as a substitute.
 
         The two are the same thing as far as the recipe is concerned: both are lost if the food
         goes away, which is what makes this the right question for the food delete warning.
@@ -461,15 +465,22 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         OR can't use the food_id indexes, so it checked every ingredient of every recipe.
         """
 
+        food_ids_expr = sa.select(IngredientFoodModel.id).where(
+            sa.or_(
+                IngredientFoodModel.id.in_(foods),
+                IngredientFoodModel.parent_id.in_(foods),
+            )
+        )
+
         return RecipeModel.id.in_(
             sa.union(
-                sa.select(RecipeIngredientModel.recipe_id).where(RecipeIngredientModel.food_id.in_(foods)),
+                sa.select(RecipeIngredientModel.recipe_id).where(RecipeIngredientModel.food_id.in_(food_ids_expr)),
                 sa.select(RecipeIngredientModel.recipe_id)
                 .join(
                     RecipeIngredientSubstitutionModel,
                     RecipeIngredientSubstitutionModel.ingredient_id == RecipeIngredientModel.id,
                 )
-                .where(RecipeIngredientSubstitutionModel.substitute_food_id.in_(foods)),
+                .where(RecipeIngredientSubstitutionModel.substitute_food_id.in_(food_ids_expr)),
             )
         )
 
