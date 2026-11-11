@@ -51,7 +51,7 @@ def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, rec
 def test_recipe_asset_upload_temp_storage_failure(
     api_client: TestClient,
     unique_user: TestUser,
-    recipe_ingredient_only: Recipe,
+    recipe_ingredient_only: RecipeOut,
     monkeypatch: pytest.MonkeyPatch,
     caplog: pytest.LogCaptureFixture,
 ):
