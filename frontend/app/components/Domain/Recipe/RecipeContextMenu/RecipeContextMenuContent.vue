@@ -150,7 +150,7 @@ const props = withDefaults(defineProps<Props>(), {
   recipeScale: 1,
 });
 
-const emit = defineEmits<{
+defineEmits<{
   [key: string]: any;
   deleted: [slug: string];
   print: [];
@@ -346,8 +346,12 @@ const router = useRouter();
 const groupRecipeActionsStore = useGroupRecipeActions();
 
 async function executeRecipeAction(action: GroupRecipeActionOut) {
-  if (!props.recipe) return;
-  const response = await groupRecipeActionsStore.execute(action, props.recipe, props.recipeScale);
+  if (!recipeRef.value) {
+    await refreshRecipe();
+  }
+  if (!recipeRef.value) return;
+
+  const response = await groupRecipeActionsStore.execute(action, recipeRef.value, props.recipeScale);
 
   if (action.actionType === "post") {
     if (!response?.error) {
