@@ -5,6 +5,7 @@ import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe"
 import { uuid4 } from "../../use-utils";
 import { ParseStep, useParseIngredientsDialog } from "../use-parse-ingredients-dialog";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
+import { makeRecipe } from "~/tests/factories";
 import { i18n } from "~/tests/setup";
 
 (global as any).uuid4 = uuid4;
@@ -182,7 +183,7 @@ describe("useParseIngredientsDialog", () => {
         confidence: { average: 0.99 },
       }, {
         ingredient: {
-          referencedRecipe: {},
+          referencedRecipe: makeRecipe(),
         },
         confidence: { average: 0.5 },
       }, {
@@ -382,7 +383,7 @@ describe("useParseIngredientsDialog", () => {
       confidence: { average: 0.99 },
     }, {
       ingredient: {
-        referencedRecipe: {},
+        referencedRecipe: makeRecipe(),
       },
       confidence: { average: 0.5 },
     }, {
@@ -593,6 +594,18 @@ describe("useParseIngredientsDialog", () => {
       await addMissingUnitAsAlias();
       expect(updateUnit).not.toHaveBeenCalled();
     });
+    test("addMissingUnitAsAlias ignores case when checking for the alias", async () => {
+      const wrapped = wrapper();
+      const { addMissingUnitAsAlias, setCurrentUnit, setCurrentIng } = wrapped.vm;
+      setCurrentIng({
+        ingredient: {
+          unit: { name: "2uwunit", id: "unit_id_2", aliases: [{ name: "uwunit" }] },
+        },
+      });
+      setCurrentUnit("UwUnit");
+      await addMissingUnitAsAlias();
+      expect(updateUnit).not.toHaveBeenCalled();
+    });
     test("addMissingUnitAsAlias fails gracefully", async () => {
       updateUnit.mockResolvedValue(undefined);
       const wrapped = wrapper();
@@ -640,6 +653,18 @@ describe("useParseIngredientsDialog", () => {
         },
       });
       setCurrentFood("fuwud");
+      await addMissingFoodAsAlias();
+      expect(updateFood).not.toHaveBeenCalled();
+    });
+    test("addMissingFoodAsAlias ignores case when checking for the alias", async () => {
+      const wrapped = wrapper();
+      const { addMissingFoodAsAlias, setCurrentFood, setCurrentIng } = wrapped.vm;
+      setCurrentIng({
+        ingredient: {
+          food: { name: "f2uwud", id: "food_id_2", aliases: [{ name: "fuwud" }] },
+        },
+      });
+      setCurrentFood("FuWud");
       await addMissingFoodAsAlias();
       expect(updateFood).not.toHaveBeenCalled();
     });

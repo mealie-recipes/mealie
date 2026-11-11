@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} hat das zum Nachtisch gemacht",
         "recipe-image-deleted": "Bild gelöscht",
         "recipe-defaults": {
-            "ingredient-note": "250 g Mehl",
-            "name": "Neues Rezept",
-            "step-text": "Zubereitungs-Schritte und andere Felder der Rezeptseite unterstützen Markdown Syntax.\n\n**Füge einen Link hinzu**\n\n[Mein Link](https://demo.mealie.io)\n"
+            "name": "Neues Rezept"
         },
         "servings-text": {
             "makes": "Ergibt",
@@ -27,6 +25,16 @@
             "yields": "Ergibt"
         },
         "and-amount": "und {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "KI-Dienste sind nicht aktiviert",
             "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuche es erneut",

@@ -8,11 +8,11 @@ from fastapi.testclient import TestClient
 
 from mealie.schema.household.household import HouseholdSummary
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave, MultiPurposeLabelSummary
-from mealie.schema.meal_plan.new_meal import CreatePlanEntry
+from mealie.schema.meal_plan.new_meal import PlanEntryCreate
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay, PlanRulesOut, PlanRulesSave, PlanRulesType
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagOut, TagSave
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, RecipeIngredient, SaveIngredientFood
+from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut, IngredientFoodSave, RecipeIngredient
+from mealie.schema.recipe.recipe_organizers import CategoryOut, CategorySave, TagOut, TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -28,10 +28,10 @@ def create_recipe(
     unique_user: TestUser,
     tags: list[TagOut] | None = None,
     categories: list[CategoryOut] | None = None,
-    foods: list[IngredientFood] | None = None,
+    foods: list[IngredientFoodOut] | None = None,
 ):
     return unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),
             name=random_string(),
@@ -42,9 +42,9 @@ def create_recipe(
     )
 
 
-def create_food_with_label(unique_user: TestUser, label: MultiPurposeLabelSummary) -> IngredientFood:
+def create_food_with_label(unique_user: TestUser, label: MultiPurposeLabelSummary) -> IngredientFoodOut:
     return unique_user.repos.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(), group_id=UUID(unique_user.group_id), label_id=label.id)
+        IngredientFoodSave(name=random_string(), group_id=UUID(unique_user.group_id), label_id=label.id)
     )
 
 
@@ -93,7 +93,7 @@ def create_rule(
 def test_create_mealplan_no_recipe(api_client: TestClient, unique_user: TestUser):
     title = random_string(length=25)
     text = random_string(length=25)
-    new_plan = CreatePlanEntry(
+    new_plan = PlanEntryCreate(
         date=datetime.now(UTC).date(), entry_type="breakfast", title=title, text=text
     ).model_dump()
     new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
@@ -116,7 +116,7 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
     recipe = response.json()
     recipe_id = recipe["id"]
 
-    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
+    new_plan = PlanEntryCreate(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
         by_alias=True
     )
     new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
@@ -211,7 +211,7 @@ def test_mealplan_recipe_scale_must_be_positive(api_client: TestClient, unique_u
 
 
 def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
-    new_plan = CreatePlanEntry(
+    new_plan = PlanEntryCreate(
         date=datetime.now(UTC).date(),
         entry_type="breakfast",
         title=random_string(),
@@ -249,7 +249,7 @@ def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):
 
 def test_get_all_mealplans(api_client: TestClient, unique_user: TestUser):
     for _ in range(3):
-        new_plan = CreatePlanEntry(
+        new_plan = PlanEntryCreate(
             date=datetime.now(UTC).date(),
             entry_type="breakfast",
             title=random_string(),
@@ -274,7 +274,7 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
 
     # Make a list of 10 meal plans
     meal_plans = [
-        CreatePlanEntry(date=date, entry_type="breakfast", title=random_string(), text=random_string()).model_dump()
+        PlanEntryCreate(date=date, entry_type="breakfast", title=random_string(), text=random_string()).model_dump()
         for date in dates
     ]
 
@@ -303,7 +303,7 @@ def test_get_slice_mealplans(api_client: TestClient, unique_user: TestUser):
 def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     # Create Meal Plans for today
     test_meal_plans = [
-        CreatePlanEntry(
+        PlanEntryCreate(
             date=datetime.now(tzlocal()).date(), entry_type="breakfast", title=random_string(), text=random_string()
         ).model_dump()
         for _ in range(3)
@@ -327,7 +327,7 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
 
 
 def create_entry(api_client: TestClient, unique_user: TestUser, **kwargs) -> dict:
-    data = CreatePlanEntry(entry_type="dinner", title=random_string(), **kwargs).model_dump(by_alias=True, mode="json")
+    data = PlanEntryCreate(entry_type="dinner", title=random_string(), **kwargs).model_dump(by_alias=True, mode="json")
     response = api_client.post(api_routes.households_mealplans, json=data, headers=unique_user.token)
     assert response.status_code == 201
     return response.json()
@@ -612,3 +612,51 @@ def test_get_mealplan_with_rules_households_filter_includes_any_households(
         assert response.json()["recipe"]["slug"] == recipe.slug
     finally:
         unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
+def _plan_payload(recipe_id) -> dict:
+    return {
+        "date": datetime.now(UTC).date().strftime("%Y-%m-%d"),
+        "entryType": "dinner",
+        "recipeId": str(recipe_id),
+    }
+
+
+def test_create_mealplan_rejects_recipe_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    recipe = create_recipe(unique_user)
+
+    response = api_client.post(api_routes.households_mealplans, json=_plan_payload(recipe.id), headers=g2_user.token)
+    assert response.status_code == 404
+    assert recipe.name not in response.text
+
+
+def test_update_mealplan_rejects_recipe_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    foreign_recipe = create_recipe(unique_user)
+    own_recipe = create_recipe(g2_user)
+    plan = api_client.post(
+        api_routes.households_mealplans, json=_plan_payload(own_recipe.id), headers=g2_user.token
+    ).json()
+
+    plan["recipeId"] = str(foreign_recipe.id)
+    response = api_client.put(api_routes.households_mealplans_item_id(plan["id"]), json=plan, headers=g2_user.token)
+    assert response.status_code == 404
+    assert foreign_recipe.name not in response.text
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=g2_user.token)
+    assert response.json()["recipeId"] == str(own_recipe.id)
+
+
+def test_mealplan_accepts_recipe_from_other_household_in_group(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    recipe = create_recipe(h2_user)
+
+    response = api_client.post(
+        api_routes.households_mealplans, json=_plan_payload(recipe.id), headers=unique_user.token
+    )
+    assert response.status_code == 201
+    assert response.json()["recipe"]["id"] == str(recipe.id)

@@ -177,7 +177,9 @@
     "date-updated": "Datum bijgewerkt",
     "key": "Sleutel",
     "value": "Waarde",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Groep aanmaken",
@@ -238,6 +240,8 @@
       "api-key": "API-sleutel",
       "api-key-description-create": "Je aanbieder's API-sleutel voor authenticatie. Als je service (bijv. Ollama) geen API-sleutel gebruikt moet je hier alsnog iets invoeren.",
       "api-key-description-edit": "Laat dit leeg tenzij je het wilt wijzigen.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Basis-URL",
       "base-url-description": "Laat dit leeg als je OpenAI gebruikt. Dit moet een OpenAI-compatibel eindpunt zijn (bijv. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -330,6 +334,13 @@
     "any-category": "Elke categorie",
     "any-tag": "Elk label",
     "any-household": "Elk huishouden",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Er is een fout opgetreden"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +522,7 @@
     "nutrition": "Voedingswaarde",
     "linked-ingredients": "Linked Ingredients",
     "original-url": "Oorspronkelijke URL",
+    "per-serving": "Per serving",
     "perform-time": "Kooktijd",
     "prep-time": "Voorbereidingstijd",
     "protein-content": "Eiwitten",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Verwijder uit favorieten",
     "saturated-fat-content": "Verzadigd vet",
     "save-recipe-before-use": "Recept opslaan vóór gebruik",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Sectietitel",
     "servings": "Porties",
     "serves-amount": "{amount} Porties",
@@ -865,6 +881,7 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "Uitgevinkt {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
     "forgot-password": "Wachtwoord vergeten",
     "forgot-password-text": "Voer je e-mailadres in, dan sturen we je een link om het wachtwoord te herstellen.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar.",
     "default-activity": "Standaard activiteit",
     "default-activity-hint": "Kies de pagina waar u naar toe wilt, na inloggen op dit apparaat"

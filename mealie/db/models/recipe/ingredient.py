@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
-from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, literal, orm
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column, query_expression
@@ -11,7 +10,7 @@ from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchem
 from mealie.db.models.recipe.api_extras import IngredientFoodExtras, api_extras
 from mealie.db.models.recipe.labels import MultiPurposeLabel
 
-from .._model_utils.auto_init import auto_init
+from .._model_utils.auto_init import AutoInitOptions, auto_init
 from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
@@ -264,7 +263,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
     plural_name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "households_with_ingredient_food",
             # substitutions are resolved explicitly, since auto_init creates rows it can't find
@@ -385,7 +384,9 @@ class IngredientUnitAliasModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units_aliases"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    unit_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_units.id"), primary_key=True)
+    unit_id: FilterableColumn[GUID] = mapped_column(
+        GUID, ForeignKey("ingredient_units.id"), primary_key=True, index=True
+    )
     unit: Mapped[IngredientUnitModel] = orm.relationship("IngredientUnitModel", back_populates="aliases")
 
     name: FilterableColumn[str] = mapped_column(String)
@@ -426,7 +427,9 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_foods_aliases"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    food_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), primary_key=True)
+    food_id: FilterableColumn[GUID] = mapped_column(
+        GUID, ForeignKey("ingredient_foods.id"), primary_key=True, index=True
+    )
     food: Mapped[IngredientFoodModel] = orm.relationship("IngredientFoodModel", back_populates="aliases")
 
     name: FilterableColumn[str] = mapped_column(String)
@@ -506,7 +509,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id: FilterableColumn[int] = mapped_column(Integer, primary_key=True)
     position: FilterableColumn[int | None] = mapped_column(Integer, index=True)
-    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
+    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
 
     title: FilterableColumn[str | None] = mapped_column(String)  # Section Header - Shows if Present
     note: FilterableColumn[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
@@ -541,7 +544,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     note_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
     original_text_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
 
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "id",
             # substitutions are resolved explicitly, since auto_init creates rows it can't find

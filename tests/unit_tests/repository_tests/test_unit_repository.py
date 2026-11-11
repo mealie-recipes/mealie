@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import AllRepositories, get_repositories
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnitAlias, RecipeIngredient, SaveIngredientUnit
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
+from mealie.schema.recipe.recipe_ingredient import IngredientUnitAliasCreate, IngredientUnitSave, RecipeIngredient
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import GroupBase
 from tests.utils.factories import random_int, random_string
@@ -26,25 +26,25 @@ def unique_db(session: Session, unique_local_group_id: str) -> AllRepositories:
 
 def test_unit_merger(unique_user: TestUser):
     database = unique_user.repos
-    recipe: Recipe | None = None
+    recipe: RecipeOut | None = None
     slug1 = random_string(10)
 
     unit_1 = database.ingredient_units.create(
-        SaveIngredientUnit(
+        IngredientUnitSave(
             name=random_string(10),
             group_id=unique_user.group_id,
         )
     )
 
     unit_2 = database.ingredient_units.create(
-        SaveIngredientUnit(
+        IngredientUnitSave(
             name=random_string(10),
             group_id=unique_user.group_id,
         )
     )
 
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=slug1,
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),
@@ -74,7 +74,7 @@ def test_unit_merger(unique_user: TestUser):
 @pytest.mark.parametrize("standard_field", ["name", "plural_name", "abbreviation", "plural_abbreviation"])
 @pytest.mark.parametrize("use_bulk", [True, False])
 def test_auto_inject_standardization(unique_db: AllRepositories, standard_field: str, use_bulk: bool):
-    unit_in = SaveIngredientUnit(name=random_string(), group_id=unique_db.group_id).model_dump()
+    unit_in = IngredientUnitSave(name=random_string(), group_id=unique_db.group_id).model_dump()
     unit_in[standard_field] = "gallon"
 
     if use_bulk:
@@ -89,7 +89,7 @@ def test_auto_inject_standardization(unique_db: AllRepositories, standard_field:
 
 
 def test_dont_auto_inject_random(unique_db: AllRepositories):
-    unit_in = SaveIngredientUnit(name=random_string(), group_id=unique_db.group_id)
+    unit_in = IngredientUnitSave(name=random_string(), group_id=unique_db.group_id)
     unit_out = unique_db.ingredient_units.create(unit_in)
 
     assert unit_out.standard_quantity is None
@@ -97,7 +97,7 @@ def test_dont_auto_inject_random(unique_db: AllRepositories):
 
 
 def test_centiliter_standardization(unique_db: AllRepositories):
-    unit_in = SaveIngredientUnit(name="cl", group_id=unique_db.group_id)
+    unit_in = IngredientUnitSave(name="cl", group_id=unique_db.group_id)
     unit_out = unique_db.ingredient_units.create(unit_in)
 
     assert unit_out.standard_unit == "milliliter"
@@ -110,7 +110,7 @@ def test_auto_inject_other_language(unique_db: AllRepositories):
     unique_db.ingredient_units._standardized_unit_map = {GALLON: "gallon"}
 
     # Create unit with translated value
-    unit_in = SaveIngredientUnit(name=GALLON, group_id=unique_db.group_id)
+    unit_in = IngredientUnitSave(name=GALLON, group_id=unique_db.group_id)
     unit_out = unique_db.ingredient_units.create(unit_in)
 
     assert unit_out.standard_unit == "cup"
@@ -119,7 +119,7 @@ def test_auto_inject_other_language(unique_db: AllRepositories):
 
 @pytest.mark.parametrize("name", ["custom-mealie-unit", "gallon"])
 def test_user_standardization(unique_db: AllRepositories, name: str):
-    unit_in = SaveIngredientUnit(
+    unit_in = IngredientUnitSave(
         name=name,
         group_id=unique_db.group_id,
         standard_quantity=random_int(1, 10),
@@ -132,7 +132,7 @@ def test_user_standardization(unique_db: AllRepositories, name: str):
 
 
 def test_ignore_incomplete_standardization(unique_db: AllRepositories):
-    unit_in = SaveIngredientUnit(
+    unit_in = IngredientUnitSave(
         name=random_string(),
         group_id=unique_db.group_id,
         standard_quantity=random_int(1, 10),
@@ -143,7 +143,7 @@ def test_ignore_incomplete_standardization(unique_db: AllRepositories):
     assert unit_out.standard_quantity is None
     assert unit_out.standard_unit is None
 
-    unit_in = SaveIngredientUnit(
+    unit_in = IngredientUnitSave(
         name=random_string(),
         group_id=unique_db.group_id,
         standard_quantity=None,
@@ -159,8 +159,8 @@ def test_unit_merger_with_shopping_list_reference(unique_user: TestUser):
     """Merging a unit that a shopping list item points at should move the reference, not fail."""
     database = unique_user.repos
 
-    unit_1 = database.ingredient_units.create(SaveIngredientUnit(name=random_string(10), group_id=unique_user.group_id))
-    unit_2 = database.ingredient_units.create(SaveIngredientUnit(name=random_string(10), group_id=unique_user.group_id))
+    unit_1 = database.ingredient_units.create(IngredientUnitSave(name=random_string(10), group_id=unique_user.group_id))
+    unit_2 = database.ingredient_units.create(IngredientUnitSave(name=random_string(10), group_id=unique_user.group_id))
 
     shopping_list = database.group_shopping_lists.create(
         ShoppingListSave(
@@ -197,10 +197,10 @@ def test_unit_listing_query_count_does_not_grow_with_units(unique_user: TestUser
         for _ in range(n):
             created.add(
                 repo.create(
-                    SaveIngredientUnit(
+                    IngredientUnitSave(
                         name=random_string(10),
                         group_id=unique_user.group_id,
-                        aliases=[CreateIngredientUnitAlias(name=random_string(10))],
+                        aliases=[IngredientUnitAliasCreate(name=random_string(10))],
                     )
                 ).id
             )

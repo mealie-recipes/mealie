@@ -136,7 +136,7 @@
 <script setup lang="ts">
 import { useClipboard, useShare, whenever } from "@vueuse/core";
 import { renderSVG } from "uqr";
-import type { RecipeShareToken } from "~/lib/api/types/recipe";
+import type { RecipeShareTokenOut } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
@@ -151,7 +151,7 @@ const dialog = defineModel<boolean>({ default: false });
 
 const datePickerMenu = ref(false);
 const expirationDate = ref(new Date(Date.now() - new Date().getTimezoneOffset() * 60000));
-const tokens = ref<RecipeShareToken[]>([]);
+const tokens = ref<RecipeShareTokenOut[]>([]);
 const qrCodeToken = ref<string | null>(null);
 
 whenever(

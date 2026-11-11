@@ -16,27 +16,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install Task
-        uses: arduino/setup-task@v2
-        with:
-          version: 3.x
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ inputs.ref || github.sha }}
 
-      - uses: pnpm/action-setup@v6
+      - name: Set up tools
+        uses: ./.github/actions/setup-tools
         with:
-          version: 11
-
-      - name: Setup node env 🏗
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: "pnpm"
-          cache-dependency-path: "**/pnpm-lock.yaml"
+          tools: python node pnpm uv
+          cache-pnpm-store: true
 
       - name: Install dependencies 👨🏻‍💻
         run: pnpm install --prefer-offline
@@ -45,14 +34,6 @@ jobs:
       - name: Run Build 🚚
         run: pnpm generate
         working-directory: "frontend"
-
-      - name: Set up python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.14"
-
-      - name: Install uv
-        run: pip install uv
 
       - name: Copy the frontend into the package
         run: |
@@ -67,10 +48,10 @@ jobs:
         env:
           SKIP_PACKAGE_DEPS: true
         run: |
-          task py:package
+          mise run py:package
 
       - name: Archive built package
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: backend-dist
           path: dist

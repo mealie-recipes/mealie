@@ -1,7 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
 import { useLocales } from "../use-locales";
-import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientFoodSummary, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientFoodCreate, IngredientUnitCreate, IngredientFoodOut, IngredientFoodSummary, IngredientUnitOut, RecipeDraft, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
 
@@ -15,7 +15,7 @@ export function sanitizeIngredientHTML(rawHtml: string) {
   });
 }
 
-export function useFoodName(food: CreateIngredientFood | IngredientFood | IngredientFoodSummary | undefined, usePlural: boolean) {
+export function useFoodName(food: IngredientFoodCreate | IngredientFoodOut | IngredientFoodSummary | undefined, usePlural: boolean) {
   if (!food) {
     return "";
   }
@@ -23,7 +23,7 @@ export function useFoodName(food: CreateIngredientFood | IngredientFood | Ingred
   return (usePlural ? food.pluralName || food.name : food.name) || "";
 }
 
-function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, usePlural: boolean) {
+function useUnitName(unit: IngredientUnitCreate | IngredientUnitOut | undefined, usePlural: boolean) {
   if (!unit) {
     return "";
   }
@@ -40,7 +40,7 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
-function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined): string | undefined {
+function useRecipeLink(recipe: RecipeDraft | undefined, groupSlug: string | undefined): string | undefined {
   if (!(recipe && recipe.slug && recipe.name && groupSlug)) {
     return undefined;
   }

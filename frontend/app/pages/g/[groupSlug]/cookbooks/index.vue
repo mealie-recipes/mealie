@@ -12,6 +12,7 @@
       :submit-text="$t('general.save')"
       :submit-disabled="!createTarget.queryFilterString"
       can-submit
+      disable-submit-on-enter
       @submit="actions.updateOne(createTarget)"
       @cancel="deleteCreateTarget()"
     >
@@ -141,7 +142,7 @@ import { VueDraggable } from "vue-draggable-plus";
 import { useCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useHouseholdSelf } from "@/composables/use-households";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
-import type { CreateCookBook, ReadCookBook } from "~/lib/api/types/cookbook";
+import type { CookBookCreate, CookBookOut } from "~/lib/api/types/cookbook";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
 definePageMeta({
@@ -164,7 +165,7 @@ const auth = useMealieAuth();
 const { store: allCookbooks, actions, updateAll } = useCookbookStore();
 
 // Make a local reactive copy of myCookbooks
-const myCookbooks = ref<ReadCookBook[]>([]);
+const myCookbooks = ref<CookBookOut[]>([]);
 watch(
   allCookbooks,
   (cookbooks) => {
@@ -181,29 +182,29 @@ const cookbookPreferences = useCookbookPreferences();
 
 // create
 const createTargetKey = ref(0);
-const createTarget = ref<ReadCookBook | null>(null);
+const createTarget = ref<CookBookOut | null>(null);
 async function createCookbook() {
   const name = i18n.t("cookbook.household-cookbook-name", [
     household.value?.name || "",
     String((myCookbooks.value?.length ?? 0) + 1),
   ]) as string;
 
-  const data = { name } as CreateCookBook;
+  const data = { name } as CookBookCreate;
   await actions.createOne(data).then((cookbook) => {
     if (!cookbook) {
       return;
     }
 
     myCookbooks.value.push(cookbook);
-    createTarget.value = cookbook as ReadCookBook;
+    createTarget.value = cookbook as CookBookOut;
     createTargetKey.value++;
   });
   dialogStates.create = true;
 }
 
 // delete
-const deleteTarget = ref<ReadCookBook | null>(null);
-function deleteEventHandler(item: ReadCookBook) {
+const deleteTarget = ref<CookBookOut | null>(null);
+function deleteEventHandler(item: CookBookOut) {
   deleteTarget.value = item;
   dialogStates.delete = true;
 }

@@ -10,15 +10,15 @@ from pydantic import UUID4
 from mealie.db.db_setup import session_context
 from mealie.lang.providers import get_locale_provider
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodCreate,
+    IngredientFoodOut,
+    IngredientFoodSave,
+    IngredientUnitCreate,
+    IngredientUnitOut,
     ParsedIngredient,
     RecipeIngredient,
-    SaveIngredientFood,
 )
 from mealie.services.openai import OpenAIService
 from mealie.services.parser_services import RegisteredParser, get_parser
@@ -28,7 +28,9 @@ from tests.utils.fixture_schemas import TestUser
 
 def test_openai_parser(
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
     monkeypatch: pytest.MonkeyPatch,
 ):
     ingredient_count = random_int(10, 20)
@@ -70,7 +72,9 @@ def test_openai_parser(
 
 def test_openai_parser_rejects_extra(
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
     monkeypatch: pytest.MonkeyPatch,
 ):
     async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAIIngredients:
@@ -108,7 +112,9 @@ def test_openai_parser_rejects_extra(
 def test_openai_parser_sanitize_output(
     unique_local_group_id: UUID4,
     unique_user: TestUser,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Create data with null character in JSON to test preprocessing
@@ -174,13 +180,13 @@ def test_openai_parser_sanitize_output(
         assert parsed_ing.ingredient.food.name == "there is a null character here: "
 
         # Make sure we can create a recipe with this ingredient
-        assert isinstance(parsed_ing.ingredient.food, CreateIngredientFood)
+        assert isinstance(parsed_ing.ingredient.food, IngredientFoodCreate)
         food = unique_user.repos.ingredient_foods.create(
-            parsed_ing.ingredient.food.cast(SaveIngredientFood, group_id=unique_user.group_id)
+            parsed_ing.ingredient.food.cast(IngredientFoodSave, group_id=unique_user.group_id)
         )
         parsed_ing.ingredient.food = food
         unique_user.repos.recipes.create(
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -191,7 +197,9 @@ def test_openai_parser_sanitize_output(
 
 def test_openai_parser_substitutes(
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
 ):
     """
     An extracted alternative that resolves to an existing food becomes a food substitution, and
@@ -209,7 +217,7 @@ def test_openai_parser_substitutes(
 
         substitutions = parser._convert_substitutes(
             ["onion", "thisismyalias", "   ", unknown, "potatoes"],
-            CreateIngredientFood(name="potatoes"),
+            IngredientFoodCreate(name="potatoes"),
         )
 
         onion = parser.data_matcher.find_food_match("onion")
@@ -360,7 +368,9 @@ def test_openai_parser_confidence(
     food_range: tuple[float, float],
     note_range: tuple[float, float],
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
 ):
     """Test the _calculate_confidence method of OpenAIParser with various input scenarios."""
 
@@ -375,8 +385,8 @@ def test_openai_parser_confidence(
         ingredient = RecipeIngredient(
             original_text=original_text,
             quantity=quantity,
-            unit=CreateIngredientUnit(name=unit) if unit else None,
-            food=CreateIngredientFood(name=food) if food else None,
+            unit=IngredientUnitCreate(name=unit) if unit else None,
+            food=IngredientFoodCreate(name=food) if food else None,
             note=note if note else None,
         )
 

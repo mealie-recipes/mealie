@@ -4,7 +4,7 @@ import pytest
 from pydantic import ValidationError
 
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
+    IngredientFoodCreate,
     IngredientFoodSummary,
     RecipeIngredient,
     SubstitutionBase,
@@ -16,7 +16,7 @@ def test_substitution_accepts_all_three_forms():
     """A substitution may be a food, a note, or a food with a note attached."""
 
     food_id = uuid4()
-    food = CreateIngredientFood(
+    food = IngredientFoodCreate(
         name=random_string(),
         substitutions=[
             {"substituteFoodId": str(food_id)},
@@ -46,13 +46,13 @@ def test_empty_substitutions_are_pruned_not_rejected(note):
     whitespace-only note counts as absent.
     """
 
-    food = CreateIngredientFood(name=random_string(), substitutions=[{"note": note}])
+    food = IngredientFoodCreate(name=random_string(), substitutions=[{"note": note}])
     assert food.substitutions == []
 
 
 def test_blank_note_is_normalized_to_none_alongside_a_food():
     food_id = uuid4()
-    food = CreateIngredientFood(name=random_string(), substitutions=[{"substituteFoodId": str(food_id), "note": "   "}])
+    food = IngredientFoodCreate(name=random_string(), substitutions=[{"substituteFoodId": str(food_id), "note": "   "}])
 
     assert len(food.substitutions) == 1
     assert food.substitutions[0].substitute_food_id == food_id
@@ -60,14 +60,14 @@ def test_blank_note_is_normalized_to_none_alongside_a_food():
 
 
 def test_note_is_stripped():
-    food = CreateIngredientFood(name=random_string(), substitutions=[{"note": "  half butter half applesauce  "}])
+    food = IngredientFoodCreate(name=random_string(), substitutions=[{"note": "  half butter half applesauce  "}])
     assert food.substitutions[0].note == "half butter half applesauce"
 
 
 def test_duplicate_substitute_foods_are_collapsed_keeping_the_first():
     food_id = uuid4()
     other_id = uuid4()
-    food = CreateIngredientFood(
+    food = IngredientFoodCreate(
         name=random_string(),
         substitutions=[
             {"substituteFoodId": str(food_id), "note": "first"},
@@ -86,7 +86,7 @@ def test_note_only_substitutions_are_never_collapsed():
     nulls silently loses all but one of them.
     """
 
-    food = CreateIngredientFood(
+    food = IngredientFoodCreate(
         name=random_string(),
         substitutions=[
             {"note": "water and a bouillon cube"},
@@ -99,7 +99,7 @@ def test_note_only_substitutions_are_never_collapsed():
 
 
 def test_identical_note_only_substitutions_are_kept():
-    food = CreateIngredientFood(
+    food = IngredientFoodCreate(
         name=random_string(),
         substitutions=[{"note": "a splash of vinegar"}, {"note": "a splash of vinegar"}],
     )
@@ -110,12 +110,12 @@ def test_identical_note_only_substitutions_are_kept():
 def test_self_substitution_is_rejected():
     food_id = uuid4()
     with pytest.raises(ValidationError):
-        CreateIngredientFood(id=food_id, name=random_string(), substitutions=[{"substituteFoodId": str(food_id)}])
+        IngredientFoodCreate(id=food_id, name=random_string(), substitutions=[{"substituteFoodId": str(food_id)}])
 
 
 def test_self_substitution_check_ignores_other_foods():
     food_id = uuid4()
-    food = CreateIngredientFood(id=food_id, name=random_string(), substitutions=[{"substituteFoodId": str(uuid4())}])
+    food = IngredientFoodCreate(id=food_id, name=random_string(), substitutions=[{"substituteFoodId": str(uuid4())}])
 
     assert len(food.substitutions) == 1
 

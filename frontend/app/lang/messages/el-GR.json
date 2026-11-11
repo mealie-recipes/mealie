@@ -177,7 +177,9 @@
     "date-updated": "Ημερομηνία ενημέρωσης",
     "key": "Κλειδί",
     "value": "Τιμή",
-    "cant-create-permission": "Δεν είναι δυνατή η δημιουργία. Παρακαλώ επικοινωνήστε με το διαχειριστή σας για να λάβετε άδεια."
+    "cant-create-permission": "Δεν είναι δυνατή η δημιουργία. Παρακαλώ επικοινωνήστε με το διαχειριστή σας για να λάβετε άδεια.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Δημιουργία ομάδας",
@@ -238,6 +240,8 @@
       "api-key": "Κλειδί API",
       "api-key-description-create": "Το κλειδί API του παρόχου σας για έλεγχο ταυτότητας. Αν η υπηρεσία σας (π.χ. Ollama) δεν χρησιμοποιεί ένα κλειδί API, πρέπει να βάλετε κάτι εδώ.",
       "api-key-description-edit": "Αφήστε το κενό εκτός αν θέλετε να το αλλάξετε.",
+      "api-key-description-base-url-changed": "Η βασική διεύθυνση URL άλλαξε, οπότε εισάγετε το κλειδί API για τη νέα διεύθυνση URL.",
+      "reenter-hidden-values": "Η βασική διεύθυνση URL άλλαξε, οπότε πληκτρολογήστε ξανά κάθε κρυφό (********) header και τιμή παραμέτρου για τη νέα διεύθυνση URL.",
       "base-url": "Βασική διεύθυνση URL",
       "base-url-description": "Αν χρησιμοποιείτε το OpenAI αφήστε αυτό το κενό. Πρέπει να είναι ένα OpenAI συμβατό endpoint (π.χ. \"http://localhost:11434/v1\").",
       "model": "Μοντέλο",
@@ -330,6 +334,13 @@
     "any-category": "Ολες οι κατηγορίες",
     "any-tag": "Οποιαδήποτε ετικέτα συνταγής",
     "any-household": "Οποιοδήποτε νοικοκυριό",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Αριθμός εβδομάδων στο παρελθόν κατά την φόρτωση της σελίδας",
     "numberOfWeeksPast-label": "Προεπιλεγμένες εβδομάδες στο παρελθόν",
     "numberOfWeeks-hint": "Αριθμός εβδομάδων στη φόρτωση της σελίδας, συμπεριλαμβανομένης της τρέχουσας εβδομάδας",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Παρουσιάστηκε ένα σφάλμα"
   },
   "recipe": {
+    "download-pdf": "Λήψη αρχείου PDF",
+    "preparing-pdf": "Προετοιμασία αρχείου PDF...",
     "step-duration-minutes": "Διάρκεια (λεπτά)",
     "step-duration-saved": "Αποθηκευμένη διάρκεια: {duration}. Η επεξεργασία αυτού του πεδίου το αντικαθιστά με ολόκληρα λεπτά.",
     "step-duration-placeholder": "Λεπτά",
@@ -509,6 +522,7 @@
     "nutrition": "Διατροφή",
     "linked-ingredients": "Συνδεδεμένα συστατικά",
     "original-url": "Αρχική διεύθυνση URL",
+    "per-serving": "Per serving",
     "perform-time": "Χρόνος Μαγειρέματος",
     "prep-time": "Χρόνος Προετοιμασίας",
     "protein-content": "Πρωτεΐνες",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Διαγραφή από τα Αγαπημένα",
     "saturated-fat-content": "Κορεσμένα λιπαρά",
     "save-recipe-before-use": "Αποθήκευση συνταγής πριν τη χρήση",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Τίτλος τμήματος",
     "servings": "Μερίδες",
     "serves-amount": "Μερίδες {amount}",
@@ -865,6 +881,7 @@
     "new-list-name": "Ονομα λίστας",
     "failed-to-create-shopping-list": "Αποτυχία δημιουργίας λίστας για ψώνια",
     "item-checked-off": "Το {item} επισημάνθηκε ως ολοκληρωμένο",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "Περισσότερες επιλογές",
     "fewer-options": "Λιγότερες επιλογές",
     "save-as-new-food": "Αποθήκευση \"{text}\" ως νέο τρόφιμο"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Δεν θέλετε να το δείτε αυτό ξανά; Φροντίστε να αλλάξετε το email σας στις ρυθμίσεις χρήστη!",
     "forgot-password": "Ξέχασα τον κωδικό πρόσβασης",
     "forgot-password-text": "Παρακαλώ εισάγετε τη διεύθυνση email σας και θα σας στείλουμε έναν σύνδεσμο για να επαναφέρετε τον κωδικό πρόσβασής σας.",
+    "reset-link-invalid": "Αυτός ο σύνδεσμος επαναφοράς έληξε ή δεν είναι έγκυρος. Ζητήστε έναν νέο σύνδεσμο.",
     "changes-reflected-immediately": "Οι αλλαγές σε αυτόν τον χρήστη θα αντικατοπτρίζονται αμέσως.",
     "default-activity": "Προεπιλεγμένη Δραστηριότητα",
     "default-activity-hint": "Επιλέξτε σε ποια σελίδα θα θέλατε να μεταβείτε κατά τη σύνδεση από αυτήν τη συσκευή"

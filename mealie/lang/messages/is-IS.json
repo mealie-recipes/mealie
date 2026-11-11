@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Mynd af uppskrift eytt",
         "recipe-defaults": {
-            "ingredient-note": "1 bolli hveiti",
-            "name": "New Recipe",
-            "step-text": "Hægt er að nota markdown málskipan (syntax) í uppskriftinni og öðrum reitum.\n\n**Bæta við tengli**\n\n[Minn tengill](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Framkvæmir",
@@ -27,6 +25,16 @@
             "yields": "Skilar"
         },
         "and-amount": "og {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

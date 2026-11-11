@@ -1,0 +1,243 @@
+[tools]
+python = "3.14.10"
+node = "26"
+pnpm = "12.18.0"
+uv = "0.13.7"
+"npm:json-schema-to-typescript" = "16.0.0"
+# semgrep still imports pkg_resources and does not support every Python version uv picks.
+"pipx:semgrep" = { version = "1.184.0", uvx_args = "--python 3.12 --with setuptools" }
+
+[env]
+DEFAULT_GROUP = "Home"
+DEFAULT_HOUSEHOLD = "Family"
+PRODUCTION = "false"
+# Install from the committed lockfile; never re-resolve. Required because the
+# rolling `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise
+# make every `uv run`/`uv sync` re-resolve and fail on in-window pins.
+UV_FROZEN = "1"
+API_PORT = "9000"
+API_DOCS = "True"
+TOKEN_TIME = "256"
+SMTP_HOST = "localhost"
+SMTP_PORT = "1025"
+SMTP_FROM_NAME = "MealieDev"
+SMTP_FROM_EMAIL = "mealie@example.com"
+SMTP_AUTH_STRATEGY = "NONE"
+BASE_URL = "http://localhost:3000"
+# Local overrides; listed after the defaults so they take precedence
+_.file = [".dev.env", ".env"]
+
+[settings]
+# A mise.lock from a newer mise can't be read by the older mise in the dev container and CI
+lockfile = false
+
+[tasks.setup]
+description = "Install Python and frontend dependencies"
+depends = ["setup:py", "setup:ui"]
+
+[tasks."setup:py"]
+description = "Install Python dependencies and pre-commit hooks"
+sources = ["uv.lock", "pyproject.toml", ".pre-commit-config.yaml"]
+outputs = { auto = true }
+run = ["uv sync --extra pgsql --group dev", "uv run pre-commit install"]
+
+[tasks."setup:ui"]
+description = "Install frontend dependencies"
+dir = "frontend"
+sources = ["frontend/package.json", "frontend/pnpm-lock.yaml"]
+outputs = { auto = true }
+run = "pnpm install"
+
+[tasks."setup:e2e"]
+description = "Install e2e test dependencies and Playwright browsers"
+dir = "tests/e2e"
+sources = ["tests/e2e/package.json", "tests/e2e/playwright.config.ts", "tests/e2e/pnpm-lock.yaml"]
+outputs = { auto = true }
+run = ["pnpm install", "pnpm run playwright install --with-deps"]
+
+[tasks."dev:generate"]
+description = "Run code generators (TypeScript types, schema exports, test helpers)"
+run = "uv run python dev/code-generation/main.py"
+depends_post = ["py:format"]
+
+[tasks."dev:services"]
+description = "Start Postgres and Mailpit containers"
+dir = "docker"
+run = "docker compose -f docker-compose.dev.yml up"
+
+[tasks."dev:clean"]
+description = "Delete all local dev data (dev/data)"
+run = [
+  "rm -r ./dev/data/recipes/",
+  "rm -r ./dev/data/users/",
+  "rm -rf ./dev/data/postgres/",
+  "rm -f ./dev/data/mealie*.db",
+  "rm -f ./dev/data/mealie*.db-shm",
+  "rm -f ./dev/data/mealie*.db-wal",
+  "rm -f ./dev/data/mealie.log",
+  "rm -f ./dev/data/.secret",
+]
+
+[tasks.docs]
+description = "Run the documentation server"
+dir = "docs"
+run = "uv run zensical serve"
+
+[tasks.py]
+description = "Run the backend server"
+run = "uv run python mealie/app.py"
+
+[tasks."py:postgres"]
+description = "Run the backend server against the dev:services Postgres"
+run = "uv run python mealie/app.py"
+
+[tasks."py:postgres".env]
+DB_ENGINE = "postgres"
+POSTGRES_USER = "mealie"
+POSTGRES_PASSWORD = "mealie"
+POSTGRES_SERVER = "localhost"
+POSTGRES_PORT = "5432"
+POSTGRES_DB = "mealie"
+
+[tasks."py:test"]
+description = "Run Python tests in parallel (pass pytest args after --)"
+# --dist loadfile: each test file runs in order on a single worker
+run = "uv run pytest -n auto --dist loadfile"
+
+[tasks."py:format"]
+description = "Format Python code"
+run = "uv run ruff format ."
+
+[tasks."py:lint"]
+description = "Lint Python code"
+run = "uv run ruff check ."
+
+[tasks."py:mypy"]
+description = "Type check Python code"
+run = "uv run mypy mealie"
+
+[tasks."py:semgrep"]
+description = "Run the authz semgrep rules in .semgrep and their tests"
+run = [
+  "semgrep scan --test --metrics off --config .semgrep/authz.yml .semgrep/authz.py",
+  "semgrep scan --error --metrics off --config .semgrep mealie",
+]
+
+[tasks."py:check"]
+description = "Run all Python formatters, linters, type checks, and tests"
+depends = ["py:format", "py:lint", "py:semgrep", "py:mypy", "py:test"]
+
+[tasks."py:coverage"]
+description = "Run Python tests with coverage and open the HTML report"
+run = [
+  "uv run pytest",
+  "uv run coverage report -m",
+  "uv run coveragepy-lcov",
+  "uv run coverage html",
+  "open htmlcov/index.html",
+]
+
+[tasks."py:migrate"]
+description = 'Generate a database migration, e.g. mise run py:migrate -- "add new column"'
+run = "uv run alembic --config mealie/alembic/alembic.ini revision --autogenerate -m"
+depends_post = ["py:format"]
+
+[tasks."py:package"]
+description = "Build the Python sdist and wheel plus pinned requirements files in dist/"
+depends = ["py:package:build"]
+run = '''
+version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+uv export --no-dev --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt
+cp dist/dependencies.txt dist/requirements.txt
+# Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed
+echo "mealie[pgsql]==$version \\" >> dist/requirements.txt
+pip hash "dist/mealie-$version-py3-none-any.whl" | tail -n1 | tr -d '\n' >> dist/requirements.txt
+echo " \\" >> dist/requirements.txt
+pip hash "dist/mealie-$version.tar.gz" | tail -n1 >> dist/requirements.txt
+'''
+
+[tasks."py:package:build"]
+hide = true
+# CI builds the frontend in an earlier step and sets SKIP_PACKAGE_DEPS=true
+run = '''
+if [ "${SKIP_PACKAGE_DEPS:-false}" != "true" ]; then
+  mise run setup:py ::: py:package:copy-frontend
+fi
+uv build --out-dir dist
+'''
+
+[tasks."py:package:copy-frontend"]
+hide = true
+depends = ["ui:generate"]
+run = ["rm -rf mealie/frontend", "cp -a frontend/dist mealie/frontend"]
+
+[tasks.ui]
+description = "Run the frontend dev server"
+dir = "frontend"
+run = "pnpm run dev --no-fork"
+
+[tasks."ui:build"]
+description = "Build the frontend in frontend/dist"
+dir = "frontend"
+run = "pnpm build"
+
+[tasks."ui:generate"]
+description = "Generate a static frontend in frontend/dist"
+depends = ["setup:ui"]
+dir = "frontend"
+run = "pnpm generate"
+
+[tasks."ui:lint"]
+description = "Lint the frontend"
+dir = "frontend"
+run = "pnpm lint --max-warnings=0"
+
+[tasks."ui:test"]
+description = "Run the frontend tests"
+dir = "frontend"
+run = "pnpm test"
+
+[tasks."ui:check"]
+description = "Run all frontend checks"
+depends = ["ui:lint", "ui:test"]
+
+[tasks."docker:build-from-package"]
+description = "Build the Docker image from the Python package in dist/"
+depends = ["py:package"]
+run = 'docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT="$(git rev-parse HEAD)" --build-context packages=dist .'
+
+[tasks."docker:prod"]
+description = "Build and run the production Docker image locally"
+dir = "docker"
+run = "docker compose -f docker-compose.yml -p mealie up -d --build"
+
+[tasks.e2e]
+description = "Run the full e2e suite: build and start the server, test, and stop the server"
+env = { PLAYWRIGHT_HTML_OPEN = "never" }
+run = '''
+mise run e2e:start-server
+trap 'mise run e2e:stop-server' EXIT
+mise run e2e:test
+'''
+
+[tasks."e2e:build-image"]
+description = "Build the e2e Docker image"
+depends = ["py:package"]
+run = "docker build --tag mealie:e2e --file docker/Dockerfile --build-context packages=dist ."
+
+[tasks."e2e:start-server"]
+description = "Build the image and start the e2e containers"
+depends = ["e2e:build-image"]
+dir = "tests/e2e/docker"
+run = "docker compose up -d --wait"
+
+[tasks."e2e:stop-server"]
+description = "Stop the e2e containers"
+dir = "tests/e2e/docker"
+run = "docker compose down --volumes"
+
+[tasks."e2e:test"]
+description = "Run the e2e tests"
+depends = ["setup:e2e"]
+dir = "tests/e2e"
+run = "pnpm playwright test"

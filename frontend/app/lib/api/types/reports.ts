@@ -1,5 +1,5 @@
 /* tslint:disable */
-
+/* eslint-disable */
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -24,26 +24,27 @@ export interface ReportEntryCreate {
 }
 export interface ReportEntryOut {
   reportId: string;
-  timestamp?: string;
-  success?: boolean;
+  timestamp: string;
+  success: boolean;
   message: string;
-  exception?: string;
+  exception: string;
   id: string;
 }
 export interface ReportOut {
-  timestamp?: string;
+  timestamp: string;
   category: ReportCategory;
   groupId: string;
   name: string;
-  status?: ReportSummaryStatus;
+  status: ReportSummaryStatus;
   id: string;
-  entries?: ReportEntryOut[];
+  entries: ReportEntryOut[];
 }
 export interface ReportSummary {
-  timestamp?: string;
+  timestamp: string;
   category: ReportCategory;
   groupId: string;
   name: string;
-  status?: ReportSummaryStatus;
+  status: ReportSummaryStatus;
   id: string;
 }
+export interface MealieOutModel {}

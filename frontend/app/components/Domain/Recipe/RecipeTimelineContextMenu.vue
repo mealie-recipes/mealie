@@ -13,6 +13,41 @@
         <v-form ref="domEditEventForm" @submit.prevent>
           <v-text-field v-model="localEvent.subject" :label="$t('general.subject')" />
           <v-textarea v-model="localEvent.eventMessage" :label="$t('general.message')" rows="4" />
+          <v-row>
+            <v-spacer />
+            <v-col cols="auto">
+              <AppButtonUpload
+                v-if="!newImage && !hasExistingImage"
+                url="none"
+                file-name="image"
+                accept="image/*"
+                :text="$t('recipe.upload-image')"
+                :text-btn="false"
+                :post="false"
+                @uploaded="uploadImage"
+              />
+              <v-btn v-else color="error" @click="clearImage">
+                <v-icon start>
+                  {{ $globals.icons.close }}
+                </v-icon>
+                {{ $t("recipe.remove-image") }}
+              </v-btn>
+            </v-col>
+          </v-row>
+          <v-img
+            v-if="hasExistingImage"
+            :src="imageUrl"
+            max-height="300"
+            contain
+            class="mt-4"
+          />
+          <ImageCropper
+            v-if="newImage && newImagePreviewUrl"
+            :img="newImagePreviewUrl"
+            cropper-width="100%"
+            class="mt-4"
+            @save="updateUploadedImage"
+          />
         </v-form>
       </v-card-text>
     </BaseDialog>
@@ -75,11 +110,16 @@
 
 <script setup lang="ts">
 import { useI18n, useNuxtApp } from "#imports";
-import type { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
+import type { RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe";
 
 export interface TimelineContextMenuIncludes {
   edit: boolean;
   delete: boolean;
+}
+
+export interface TimelineEventEdit {
+  event: RecipeTimelineEventUpdate;
+  image?: { file: Blob | File; fileName: string };
 }
 
 export interface ContextMenuItem {
@@ -98,6 +138,7 @@ const props = defineProps<{
   elevation?: number | null;
   color?: string;
   event: RecipeTimelineEventOut;
+  imageUrl?: string;
   menuIcon?: string | null;
 }>();
 
@@ -149,8 +190,36 @@ watch(() => props.event, (val) => {
   localEvent.value = { ...val };
 });
 
+const newImage = ref<Blob | File>();
+const newImageName = ref("");
+const newImagePreviewUrl = ref<string>();
+const removeExistingImage = ref(false);
+const hasExistingImage = computed(() => !!props.imageUrl && !removeExistingImage.value && !newImage.value);
+
+function uploadImage(fileObject: File) {
+  newImage.value = fileObject;
+  newImageName.value = fileObject.name;
+  newImagePreviewUrl.value = URL.createObjectURL(fileObject);
+}
+
+function updateUploadedImage(fileObject: Blob) {
+  newImage.value = fileObject;
+  newImagePreviewUrl.value = URL.createObjectURL(fileObject);
+}
+
+function clearImage() {
+  newImage.value = undefined;
+  newImageName.value = "";
+  newImagePreviewUrl.value = undefined;
+  removeExistingImage.value = true;
+}
+
 function openEditDialog() {
   localEvent.value = { ...props.event };
+  newImage.value = undefined;
+  newImageName.value = "";
+  newImagePreviewUrl.value = undefined;
+  removeExistingImage.value = false;
   recipeEventEditDialog.value = true;
 }
 function openDeleteDialog() {
@@ -171,7 +240,14 @@ function contextMenuEventHandler(eventKey: string) {
   loading.value = false;
 }
 function submitEdit() {
-  emit("update", { ...localEvent.value });
+  const edit: TimelineEventEdit = {
+    event: {
+      ...localEvent.value,
+      image: removeExistingImage.value ? "does not have image" : localEvent.value.image,
+    },
+    image: newImage.value ? { file: newImage.value, fileName: newImageName.value } : undefined,
+  };
+  emit("update", edit);
   recipeEventEditDialog.value = false;
 }
 </script>

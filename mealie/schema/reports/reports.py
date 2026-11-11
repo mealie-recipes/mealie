@@ -9,6 +9,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.db.models._model_utils.datetime import get_utc_now
 from mealie.db.models.group import ReportModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 
 
 class ReportCategory(enum.StrEnum):
@@ -33,7 +34,7 @@ class ReportEntryCreate(MealieModel):
     exception: str = ""
 
 
-class ReportEntryOut(ReportEntryCreate):
+class ReportEntryOut(ReportEntryCreate, MealieOutModel):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)
 
@@ -46,7 +47,7 @@ class ReportCreate(MealieModel):
     status: ReportSummaryStatus = ReportSummaryStatus.in_progress
 
 
-class ReportSummary(ReportCreate):
+class ReportSummary(ReportCreate, MealieOutModel):
     id: UUID4
 
 

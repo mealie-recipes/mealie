@@ -7,6 +7,7 @@ from pathlib import PurePath
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from fastapi.routing import APIRoute
+from pydantic import BaseModel
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from mealie.core.dependencies import get_admin_user, get_current_user
@@ -67,13 +68,24 @@ class UserAPIRouter(APIRouter):
 class MealieCrudRoute(APIRoute):
     """Route class to include the last-modified header when returning a MealieModel, when available"""
 
+    def _cannot_return_updated_at(self) -> bool:
+        model = self.response_model
+        return isinstance(model, type) and issubclass(model, BaseModel) and "updated_at" not in model.model_fields
+
     def get_route_handler(self) -> Callable:
         original_route_handler = super().get_route_handler()
+
+        # Parsing the body back costs as much as serializing it, and paginated lists run to megabytes,
+        # so skip it for routes whose declared model has no top-level updatedAt. Those routes still
+        # go through the handler below so upload temp-storage failures get a useful error.
+        add_last_modified = not self._cannot_return_updated_at()
 
         async def custom_route_handler(request: Request) -> Response:
             try:
                 with contextlib.suppress(JSONDecodeError):
                     response = await original_route_handler(request)
+                    if not add_last_modified:
+                        return response
 
                     # StreamingResponse from starlette doesn't have a body attribute, even though it
                     # inherits from Response, so we may get an attribute error here even though our

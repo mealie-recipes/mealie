@@ -8,7 +8,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
-from mealie.schema.user.user import UserRatingCreate, UserRatingOut, UserRatings, UserRatingUpdate
+from mealie.schema.user.user import UserRatingOut, UserRatings, UserRatingSave, UserRatingUpdate
 
 router = UserAPIRouter()
 
@@ -38,13 +38,13 @@ class UserRatingsController(BaseUserController):
         return recipe
 
     @router.get("/{id}/ratings", response_model=UserRatings[UserRatingOut])
-    async def get_ratings(self, id: UUID4):
+    def get_ratings(self, id: UUID4):
         """Get user's rated recipes"""
         assert_user_change_allowed(id, self.user, self.user)
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(id))
 
     @router.get("/{id}/favorites", response_model=UserRatings[UserRatingOut])
-    async def get_favorites(self, id: UUID4):
+    def get_favorites(self, id: UUID4):
         """Get user's favorited recipes"""
         assert_user_change_allowed(id, self.user, self.user)
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(id, favorites_only=True))
@@ -58,7 +58,7 @@ class UserRatingsController(BaseUserController):
         user_rating = self.repos.user_ratings.get_by_user_and_recipe(id, recipe.id)
         if not user_rating:
             self.repos.user_ratings.create(
-                UserRatingCreate(
+                UserRatingSave(
                     user_id=id,
                     recipe_id=recipe.id,
                     rating=data.rating,

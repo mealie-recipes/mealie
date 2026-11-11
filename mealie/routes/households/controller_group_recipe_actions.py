@@ -12,12 +12,12 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import Perm, not_found, require
 from mealie.schema.household.group_recipe_action import (
-    CreateGroupRecipeAction,
+    GroupRecipeActionCreate,
     GroupRecipeActionOut,
     GroupRecipeActionPagination,
     GroupRecipeActionPayload,
+    GroupRecipeActionSave,
     GroupRecipeActionType,
-    SaveGroupRecipeAction,
 )
 from mealie.schema.response import ErrorResponse
 from mealie.schema.response.pagination import PaginationQuery
@@ -34,7 +34,7 @@ class GroupRecipeActionController(BaseUserController):
 
     @property
     def mixins(self):
-        return HttpRepo[CreateGroupRecipeAction, GroupRecipeActionOut, SaveGroupRecipeAction](self.repo, self.logger)
+        return HttpRepo[GroupRecipeActionCreate, GroupRecipeActionOut, GroupRecipeActionSave](self.repo, self.logger)
 
     # ==================================================================================================================
     # CRUD
@@ -50,8 +50,8 @@ class GroupRecipeActionController(BaseUserController):
         return response
 
     @router.post("", response_model=GroupRecipeActionOut, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def create_one(self, data: CreateGroupRecipeAction):
-        save = data.cast(SaveGroupRecipeAction, group_id=self.group_id, household_id=self.household_id)
+    def create_one(self, data: GroupRecipeActionCreate):
+        save = data.cast(GroupRecipeActionSave, group_id=self.group_id, household_id=self.household_id)
         return self.mixins.create_one(save)
 
     @router.get("/{item_id}", response_model=GroupRecipeActionOut)
@@ -59,7 +59,7 @@ class GroupRecipeActionController(BaseUserController):
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=GroupRecipeActionOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def update_one(self, item_id: UUID4, data: SaveGroupRecipeAction):
+    def update_one(self, item_id: UUID4, data: GroupRecipeActionSave):
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=GroupRecipeActionOut, dependencies=[require(Perm.GROUP_ORGANIZE)])

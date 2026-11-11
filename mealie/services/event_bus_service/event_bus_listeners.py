@@ -3,6 +3,7 @@ import json
 from abc import ABC, abstractmethod
 from collections.abc import Generator
 from datetime import UTC, datetime
+from typing import cast
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from fastapi.encoders import jsonable_encoder
@@ -15,7 +16,7 @@ from mealie.db.db_setup import session_context
 from mealie.db.models.household.webhooks import GroupWebhooksModel
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_events import GroupEventNotifierPrivate
-from mealie.schema.household.webhook import ReadWebhook
+from mealie.schema.household.webhook import WebhookOut
 
 from .event_types import Event, EventDocumentType, EventTypes, EventWebhookData
 from .publisher import ApprisePublisher, PublisherLike, WebhookPublisher
@@ -76,8 +77,9 @@ class AppriseEventListener(EventListenerBase):
 
     def get_subscribers(self, event: Event) -> list[str]:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
-            notifiers: list[GroupEventNotifierPrivate] = repos.group_event_notifier.multi_query(
-                {"enabled": True}, override_schema=GroupEventNotifierPrivate
+            notifiers = cast(
+                list[GroupEventNotifierPrivate],
+                repos.group_event_notifier.multi_query({"enabled": True}, override_schema=GroupEventNotifierPrivate),
             )
 
             urls = [notifier.apprise_url for notifier in notifiers if getattr(notifier.options, event.event_type.name)]
@@ -136,7 +138,7 @@ class WebhookEventListener(EventListenerBase):
     def __init__(self, group_id: UUID4, household_id: UUID4) -> None:
         super().__init__(group_id, household_id, WebhookPublisher())
 
-    def get_subscribers(self, event: Event) -> list[ReadWebhook]:
+    def get_subscribers(self, event: Event) -> list[WebhookOut]:
         # we only care about events that contain webhook information
         if not (event.event_type == EventTypes.webhook_task and isinstance(event.document_data, EventWebhookData)):
             return []
@@ -146,7 +148,7 @@ class WebhookEventListener(EventListenerBase):
         )
         return scheduled_webhooks
 
-    def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
+    def publish_to_subscribers(self, event: Event, subscribers: list[WebhookOut]) -> None:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
             if not isinstance(event.document_data, EventWebhookData):
                 return
@@ -167,7 +169,7 @@ class WebhookEventListener(EventListenerBase):
             if event.document_data.webhook_body is not None:
                 self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
-    def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
+    def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[WebhookOut]:
         """Fetches all scheduled webhooks from the database"""
         start_time = start_dt.astimezone(UTC).time()
         end_time = end_dt.astimezone(UTC).time()

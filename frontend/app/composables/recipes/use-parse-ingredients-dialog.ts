@@ -1,6 +1,6 @@
 import { alert } from "~/composables/use-toast";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { IngredientFood, IngredientUnit, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, IngredientUnitOut, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
 import { useUserApi } from "../api";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "../store";
@@ -15,7 +15,7 @@ export const enum ParseStep {
 }
 
 export function useParseIngredientsDialog(
-  ingredients: NoUndefinedField<RecipeIngredient[]>,
+  ingredients: RecipeIngredient[],
   onSave: (ingredients: NoUndefinedField<RecipeIngredient>[]) => void,
 ) {
   const { ingredientToParserString } = useIngredientTextParser();
@@ -263,9 +263,9 @@ export function useParseIngredientsDialog(
   }
 
   /** Cache of lowercased created units to avoid duplicate creations */
-  const createdUnits = new Map<string, IngredientUnit>();
+  const createdUnits = new Map<string, IngredientUnitOut>();
   /** Cache of lowercased created foods to avoid duplicate creations */
-  const createdFoods = new Map<string, IngredientFood>();
+  const createdFoods = new Map<string, IngredientFoodOut>();
 
   async function createMissingUnit() {
     if (!currentMissingUnit.value) {
@@ -277,7 +277,7 @@ export function useParseIngredientsDialog(
 
     state.loading.unit = true;
     try {
-      let newUnit: IngredientUnit | null;
+      let newUnit: IngredientUnitOut | null;
       if (createdUnits.has(unitData.data.name)) {
         newUnit = createdUnits.get(unitData.data.name)!;
       }
@@ -309,7 +309,7 @@ export function useParseIngredientsDialog(
 
     state.loading.food = true;
     try {
-      let newFood: IngredientFood | null;
+      let newFood: IngredientFoodOut | null;
       if (createdFoods.has(foodData.data.name)) {
         newFood = createdFoods.get(foodData.data.name)!;
       }
@@ -332,13 +332,14 @@ export function useParseIngredientsDialog(
   }
 
   async function addMissingUnitAsAlias() {
-    const unit = currentIng.value?.ingredient.unit as IngredientUnit | undefined;
+    const unit = currentIng.value?.ingredient.unit as IngredientUnitOut | undefined;
     if (!currentMissingUnit.value || !unit?.id) {
       return;
     }
 
     unit.aliases = unit.aliases || [];
-    if (unit.aliases.map(a => a.name).includes(currentMissingUnit.value)) {
+    const missingUnit = currentMissingUnit.value.toLowerCase();
+    if (unit.aliases.some(a => a.name.toLowerCase() === missingUnit)) {
       return;
     }
 
@@ -361,13 +362,14 @@ export function useParseIngredientsDialog(
   }
 
   async function addMissingFoodAsAlias() {
-    const food = currentIng.value?.ingredient.food as IngredientFood | undefined;
+    const food = currentIng.value?.ingredient.food as IngredientFoodOut | undefined;
     if (!currentMissingFood.value || !food?.id) {
       return;
     }
 
     food.aliases = food.aliases || [];
-    if (food.aliases.map(a => a.name).includes(currentMissingFood.value)) {
+    const missingFood = currentMissingFood.value.toLowerCase();
+    if (food.aliases.some(a => a.name.toLowerCase() === missingFood)) {
       return;
     }
 

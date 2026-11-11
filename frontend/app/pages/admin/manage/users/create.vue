@@ -71,7 +71,7 @@ import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
-import type { GroupInDB, UserIn } from "~/lib/api/types/user";
+import type { GroupOut, UserIn } from "~/lib/api/types/user";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
@@ -84,7 +84,7 @@ const router = useRouter();
 const refNewUserForm = ref<VForm | null>(null);
 const adminApi = useAdminApi();
 
-const selectedGroup = ref<GroupInDB | undefined>(undefined);
+const selectedGroup = ref<GroupOut | undefined>(undefined);
 const households = computed(() => selectedGroup.value?.households || []);
 
 const newUserData = ref({

@@ -1,6 +1,6 @@
 {
   "name": "mealie",
-  "version": "3.29.0",
+  "version": "3.30.0",
   "private": true,
   "scripts": {
     "dev": "nuxt dev",
@@ -69,11 +69,11 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "11.23.0",
+      "version": "12.18.0",
       "onFail": "warn"
     }
   },
-  "packageManager": "pnpm@11.23.0",
+  "packageManager": "pnpm@12.18.0",
   "resolutions": {
     "js-yaml": ">=4.1.1",
     "node-forge": ">=1.3.2"

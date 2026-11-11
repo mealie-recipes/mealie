@@ -1,12 +1,11 @@
 from typing import TYPE_CHECKING
 
-from pydantic import ConfigDict
 from slugify import slugify
 from sqlalchemy import Boolean, Column, ForeignKey, String, Table, UniqueConstraint, literal, orm
 from sqlalchemy.orm import Mapped, mapped_column, query_expression
 
 from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
-from mealie.db.models._model_utils.auto_init import auto_init
+from mealie.db.models._model_utils.auto_init import AutoInitOptions, auto_init
 from mealie.db.models._model_utils.guid import GUID
 
 if TYPE_CHECKING:
@@ -59,7 +58,7 @@ class Tool(SqlAlchemyBase, BaseMixins):
         "RecipeModel", secondary=recipes_to_tools, back_populates="tools"
     )
 
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "households_with_tool",
         }

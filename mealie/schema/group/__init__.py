@@ -4,13 +4,10 @@ from .ai_providers import (
     AIPromptOut,
     AIPromptOverrideCreate,
     AIPromptOverrideOut,
-    AIPromptOverrideSave,
     AIPromptOverrideUpdate,
     AIPromptsOut,
     AIProviderCreate,
     AIProviderOut,
-    AIProviderSave,
-    AIProviderSettingsCreate,
     AIProviderSettingsOut,
     AIProviderSettingsUpdate,
     AIProviderSummary,
@@ -20,14 +17,14 @@ from .ai_providers import (
 from .group import GroupAdminUpdate
 from .group_exports import GroupDataExport
 from .group_migration import DataMigrationCreate, SupportedMigrations
-from .group_preferences import CreateGroupPreferences, ReadGroupPreferences, UpdateGroupPreferences
+from .group_preferences import GroupPreferencesCreate, GroupPreferencesOut, GroupPreferencesUpdate
 from .group_seeder import SeederConfig
 from .group_statistics import GroupStorage
 
 __all__ = [
-    "CreateGroupPreferences",
-    "ReadGroupPreferences",
-    "UpdateGroupPreferences",
+    "GroupPreferencesCreate",
+    "GroupPreferencesOut",
+    "GroupPreferencesUpdate",
     "GroupDataExport",
     "DataMigrationCreate",
     "SupportedMigrations",
@@ -37,13 +34,10 @@ __all__ = [
     "AIPromptOut",
     "AIPromptOverrideCreate",
     "AIPromptOverrideOut",
-    "AIPromptOverrideSave",
     "AIPromptOverrideUpdate",
     "AIPromptsOut",
     "AIProviderCreate",
     "AIProviderOut",
-    "AIProviderSave",
-    "AIProviderSettingsCreate",
     "AIProviderSettingsOut",
     "AIProviderSettingsUpdate",
     "AIProviderSummary",

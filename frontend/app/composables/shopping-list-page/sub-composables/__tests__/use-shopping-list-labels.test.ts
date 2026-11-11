@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import type { ShoppingListOut } from "~/lib/api/types/household";
+import type { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/household";
 import { makeWrapper } from "~/tests/utils";
 import { useShoppingListLabels } from "../use-shopping-list-labels";
 import { MOCK_ITEM, MOCK_LABEL, MOCK_LABEL2, MOCK_LABEL3, MOCK_SHOPPING_LIST } from "./mocks";
@@ -39,7 +39,7 @@ describe("use-shopping-list-labels", () => {
     test("handles undefined items", () => {
       const { getLabelColor } = wrapper({
         ...MOCK_SHOPPING_LIST,
-        listItems: undefined,
+        listItems: undefined as unknown as ShoppingListItemOut[],
       });
       const color1 = getLabelColor(MOCK_LABEL.label.name);
       expect(color1).toBe(undefined);

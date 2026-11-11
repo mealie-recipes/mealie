@@ -9,7 +9,7 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
-from mealie.schema.household.webhook import CreateWebhook, ReadWebhook, SaveWebhook, WebhookPagination
+from mealie.schema.household.webhook import WebhookCreate, WebhookOut, WebhookPagination, WebhookSave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.scheduler.tasks.post_webhooks import post_group_webhooks, post_test_webhook
 
@@ -24,21 +24,21 @@ class ReadWebhookController(BaseUserController):
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo[CreateWebhook, SaveWebhook, CreateWebhook](self.repo, self.logger)
+        return HttpRepo[WebhookCreate, WebhookSave, WebhookCreate](self.repo, self.logger)
 
     @router.get("", response_model=WebhookPagination, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         response = self.repo.page_all(
             pagination=q,
-            override=ReadWebhook,
+            override=WebhookOut,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=ReadWebhook, status_code=201, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
-    def create_one(self, data: CreateWebhook):
-        save = mapper.cast(data, SaveWebhook, group_id=self.group_id, household_id=self.household_id)
+    @router.post("", response_model=WebhookOut, status_code=201, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    def create_one(self, data: WebhookCreate):
+        save = mapper.cast(data, WebhookSave, group_id=self.group_id, household_id=self.household_id)
         return self.mixins.create_one(save)
 
     @router.post("/rerun", dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
@@ -49,7 +49,7 @@ class ReadWebhookController(BaseUserController):
         start_dt = datetime.combine(datetime.now(UTC).date(), start_time)
         post_group_webhooks(start_dt=start_dt, group_id=self.group.id, household_id=self.household.id)
 
-    @router.get("/{item_id}", response_model=ReadWebhook, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    @router.get("/{item_id}", response_model=WebhookOut, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
@@ -58,10 +58,10 @@ class ReadWebhookController(BaseUserController):
         webhook = self.mixins.get_one(item_id)
         bg_tasks.add_task(post_test_webhook, webhook, "Test Webhook")
 
-    @router.put("/{item_id}", response_model=ReadWebhook, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
-    def update_one(self, item_id: UUID4, data: CreateWebhook):
+    @router.put("/{item_id}", response_model=WebhookOut, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    def update_one(self, item_id: UUID4, data: WebhookCreate):
         return self.mixins.update_one(data, item_id)
 
-    @router.delete("/{item_id}", response_model=ReadWebhook, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    @router.delete("/{item_id}", response_model=WebhookOut, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
     def delete_one(self, item_id: UUID4):
         return self.mixins.delete_one(item_id)  # type: ignore

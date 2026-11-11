@@ -523,31 +523,24 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
+import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, RecipeOut } from "~/lib/api/types/recipe";
 import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
+import { mergeSteps, undoStepMerge, type StepMerge } from "~/lib/recipe/instruction-merge";
 import CookTime from "./CookTime.vue";
-
-interface MergerHistory {
-  target: number;
-  source: number;
-  targetText: string;
-  sourceText: string;
-}
 
 const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
 const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: () => [] });
 
 const props = defineProps({
   recipe: {
-    type: Object as () => NoUndefinedField<Recipe>,
+    type: Object as () => RecipeOut,
     required: true,
   },
   scale: {
@@ -891,43 +884,23 @@ const groupedUsedIngredients = computed((): Record<string, RecipeIngredient[]> =
 
 // ===============================================================
 // Instruction Merger
-const mergeHistory = ref<MergerHistory[]>([]);
+const mergeHistory = ref<StepMerge[]>([]);
 
 function mergeAbove(target: number, source: number) {
-  if (target < 0) {
-    return;
+  const merge = mergeSteps(instructionList.value, target, source);
+  if (merge) {
+    mergeHistory.value.push(merge);
   }
-
-  mergeHistory.value.push({
-    target,
-    source,
-    targetText: instructionList.value[target].text,
-    sourceText: instructionList.value[source].text,
-  });
-
-  instructionList.value[target].text += " " + instructionList.value[source].text;
-  instructionList.value.splice(source, 1);
 }
 
 function undoMerge(event: KeyboardEvent) {
-  if (event.ctrlKey && event.code === "KeyZ") {
-    if (!(mergeHistory.value?.length > 0)) {
-      return;
-    }
+  if (!(event.ctrlKey && event.code === "KeyZ")) {
+    return;
+  }
 
-    const lastMerge = mergeHistory.value.pop();
-    if (!lastMerge) {
-      return;
-    }
-
-    instructionList.value[lastMerge.target].text = lastMerge.targetText;
-    instructionList.value.splice(lastMerge.source, 0, {
-      id: uuid4(),
-      title: "",
-      text: lastMerge.sourceText,
-      ingredientReferences: [],
-      noteReferences: [],
-    });
+  const lastMerge = mergeHistory.value.pop();
+  if (lastMerge) {
+    undoStepMerge(instructionList.value, lastMerge);
   }
 }
 

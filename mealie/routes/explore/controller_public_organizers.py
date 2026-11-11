@@ -4,9 +4,7 @@ from pydantic import UUID4
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicGroupExploreController
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe.recipe import RecipeCategory, RecipeTag, RecipeTool
-from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
-from mealie.schema.recipe.recipe_tool import RecipeToolOut
+from mealie.schema.recipe.recipe_organizers import CategoryOut, TagOut, ToolOut
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 
 base_prefix = "/organizers"
@@ -21,15 +19,15 @@ class PublicCategoriesController(BasePublicGroupExploreController):
     def categories(self):
         return self.repos.categories
 
-    @categories_router.get("", response_model=PaginationBase[RecipeCategory])
+    @categories_router.get("", response_model=PaginationBase[CategoryOut])
     def get_all(
         self,
         q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
         search: str | None = None,
-    ) -> PaginationBase[RecipeCategory]:
+    ) -> PaginationBase[CategoryOut]:
         response = self.categories.page_all(
             pagination=q,
-            override=RecipeCategory,
+            override=CategoryOut,
             search=search,
         )
 
@@ -51,15 +49,15 @@ class PublicTagsController(BasePublicGroupExploreController):
     def tags(self):
         return self.repos.tags
 
-    @tags_router.get("", response_model=PaginationBase[RecipeTag])
+    @tags_router.get("", response_model=PaginationBase[TagOut])
     def get_all(
         self,
         q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
         search: str | None = None,
-    ) -> PaginationBase[RecipeTag]:
+    ) -> PaginationBase[TagOut]:
         response = self.tags.page_all(
             pagination=q,
-            override=RecipeTag,
+            override=TagOut,
             search=search,
         )
 
@@ -81,23 +79,23 @@ class PublicToolsController(BasePublicGroupExploreController):
     def tools(self):
         return self.repos.tools
 
-    @tools_router.get("", response_model=PaginationBase[RecipeTool])
+    @tools_router.get("", response_model=PaginationBase[ToolOut])
     def get_all(
         self,
         q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
         search: str | None = None,
-    ) -> PaginationBase[RecipeTool]:
+    ) -> PaginationBase[ToolOut]:
         response = self.tools.page_all(
             pagination=q,
-            override=RecipeTool,
+            override=ToolOut,
             search=search,
         )
 
         response.set_pagination_guides(self.get_explore_url_path(tools_router.url_path_for("get_all")), q.model_dump())
         return response
 
-    @tools_router.get("/{item_id}", response_model=RecipeToolOut)
-    def get_one(self, item_id: UUID4) -> RecipeToolOut:
+    @tools_router.get("/{item_id}", response_model=ToolOut)
+    def get_one(self, item_id: UUID4) -> ToolOut:
         item = self.tools.get_one(item_id)
         if not item:
             raise HTTPException(404, "tool not found")

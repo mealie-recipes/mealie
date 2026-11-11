@@ -1,11 +1,11 @@
 import { useUserApi } from "~/composables/api";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 
 export const useRecipe = function (slug: string, eager = true) {
   const api = useUserApi();
   const loading = ref(false);
 
-  const recipe = ref<Recipe | null>(null);
+  const recipe = ref<RecipeOut | null>(null);
 
   async function fetchRecipe() {
     loading.value = true;
@@ -23,7 +23,7 @@ export const useRecipe = function (slug: string, eager = true) {
     return data;
   }
 
-  async function updateRecipe(recipe: Recipe) {
+  async function updateRecipe(recipe: RecipeOut) {
     loading.value = true;
     const { data } = await api.recipes.updateOne(slug, recipe);
     loading.value = false;

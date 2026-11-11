@@ -177,7 +177,9 @@
     "date-updated": "Atjaunināšanas datums",
     "key": "Atslēga",
     "value": "Vērtība",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Izveidot grupu",
@@ -238,6 +240,8 @@
       "api-key": "API Key",
       "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
       "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Base URL",
       "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -330,6 +334,13 @@
     "any-category": "Jebkura kategorija",
     "any-tag": "Jebkura zīme",
     "any-household": "Jebkura mājsaimniecība",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Radās kļūda"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +522,7 @@
     "nutrition": "Uzturs",
     "linked-ingredients": "Linked Ingredients",
     "original-url": "Sākotnējais URL",
+    "per-serving": "Per serving",
     "perform-time": "Gatavošanas laiks",
     "prep-time": "Sagatavošanas laiks",
     "protein-content": "Olbaltumvielu",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Noņemt no izlasēm",
     "saturated-fat-content": "piesātinātie tauki",
     "save-recipe-before-use": "Saglabājiet recepti pirms lietošanas",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Sadaļas nosaukums",
     "servings": "Porcijas",
     "serves-amount": "Serves {amount}",
@@ -865,6 +881,7 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "Checked off {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vai nevēlaties to vairs redzēt? Noteikti mainiet savu e-pastu lietotāja iestatījumos!",
     "forgot-password": "Aizmirsāt paroli",
     "forgot-password-text": "Lūdzu, ievadiet savu e-pasta adresi, un mēs jums nosūtīsim saiti, lai atiestatītu jūsu paroli.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Izmaiņas šim lietotājam tiks atspoguļotas nekavējoties.",
     "default-activity": "Default Activity",
     "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
