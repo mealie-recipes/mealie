@@ -21,6 +21,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings import branding
 from mealie.core.settings.static import APP_VERSION
+from mealie.mcp.server import mcp, register_mcp_routes
 from mealie.middleware.body_size_limit import BodySizeLimitMiddleware
 from mealie.middleware.locale_context import LocaleContextMiddleware
 from mealie.routes import router, spa, utility_routes
@@ -98,7 +99,8 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None]:
             f"({', '.join(sorted(branding.ALLOWED_IMAGE_SUFFIXES))}); falling back to the default logo"
         )
 
-    yield
+    async with mcp.session_manager.run():
+        yield
 
     logger.info("-----SYSTEM SHUTDOWN----- \n")
 
@@ -158,6 +160,7 @@ def api_routers():
     app.include_router(router)
     app.include_router(media_router)
     app.include_router(utility_routes.router)
+    register_mcp_routes(app)
 
     if settings.PRODUCTION and not settings.TESTING:
         spa.mount_spa(app)
