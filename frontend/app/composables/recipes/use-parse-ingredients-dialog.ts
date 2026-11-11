@@ -234,9 +234,14 @@ export function useParseIngredientsDialog(
         throw new Error("Failed to parse ingredients");
       }
 
-      // Restore section titles from original ingredients — the parser doesn't return them
+      // The parser only sees the text, so restore what it can't return: section titles, and the
+      // reference ids that instruction steps link to
       data.forEach((parsed, index) => {
-        parsed.ingredient.title = filteredIngredients[index]?.title || "";
+        const original = filteredIngredients[index];
+        parsed.ingredient.title = original?.title || "";
+        if (original?.referenceId) {
+          parsed.ingredient.referenceId = original.referenceId;
+        }
       });
 
       const recipeRefs = ingredients.filter(ing => ing.referencedRecipe).map(ing => ({
