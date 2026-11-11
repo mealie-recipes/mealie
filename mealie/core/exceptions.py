@@ -55,6 +55,12 @@ class NoEntryFound(Exception):
     pass
 
 
+class MealPlanEntriesChanged(Exception):
+    """
+    This exception is raised when meal plan entries change during a reorder operation.
+    """
+
+
 class OpenAIServiceError(Exception):
     """
     This exception is raised when there is an error communicating with OpenAI services.

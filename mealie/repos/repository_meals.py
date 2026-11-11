@@ -1,10 +1,10 @@
 from datetime import UTC, date, datetime
 from typing import Any
 
-from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import select
 
+from mealie.core.exceptions import MealPlanEntriesChanged
 from mealie.db.models.household import GroupMealPlan
 from mealie.schema.meal_plan.new_meal import PlanEntryType, ReadPlanEntry, ReorderPlanEntriesByDay
 
@@ -71,16 +71,9 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
     def reorder(self, days: list[ReorderPlanEntriesByDay]) -> None:
         if not self.household_id:
             raise Exception("household_id not set")
-        if not days:
-            raise HTTPException(status_code=422, detail="At least one day is required.")
 
         dates = [day.date for day in days]
-        if len(set(dates)) != len(dates):
-            raise HTTPException(status_code=422, detail="Each date may only be included once.")
-
         requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
-        if len(set(requested_ids)) != len(requested_ids):
-            raise HTTPException(status_code=422, detail="A meal plan entry may only be included once.")
 
         entries = (
             self.session.execute(
@@ -94,7 +87,7 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
         )
         entries_by_id = {entry.id: entry for entry in entries}
         if set(requested_ids) != set(entries_by_id):
-            raise HTTPException(status_code=409, detail="Meal plan entries changed. Refresh and try again.")
+            raise MealPlanEntriesChanged
 
         try:
             for day in days:

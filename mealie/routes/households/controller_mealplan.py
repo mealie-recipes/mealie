@@ -4,7 +4,7 @@ from functools import cached_property
 from dateutil.tz import tzlocal
 from fastapi import APIRouter, Depends, HTTPException, Request
 
-from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.core.exceptions import MealPlanEntriesChanged, mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
@@ -192,7 +192,24 @@ class GroupMealplanController(BaseCrudController):
 
     @router.put("/reorder", status_code=204)
     def reorder(self, days: list[ReorderPlanEntriesByDay]):
-        self.repo.reorder(days)
+        if not days:
+            raise HTTPException(status_code=422, detail="At least one day is required.")
+
+        dates = [day.date for day in days]
+        if len(set(dates)) != len(dates):
+            raise HTTPException(status_code=422, detail="Each date may only be included once.")
+
+        requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
+        if len(set(requested_ids)) != len(requested_ids):
+            raise HTTPException(status_code=422, detail="A meal plan entry may only be included once.")
+
+        try:
+            self.repo.reorder(days)
+        except MealPlanEntriesChanged:
+            raise HTTPException(
+                status_code=409,
+                detail="Meal plan entries changed. Refresh and try again.",
+            ) from None
 
     @router.get("/{item_id}", response_model=ReadPlanEntry)
     def get_one(self, item_id: int):
