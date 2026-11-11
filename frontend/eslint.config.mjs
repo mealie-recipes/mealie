@@ -2,11 +2,15 @@
 import stylistic from "@stylistic/eslint-plugin";
 import withNuxt from "./.nuxt/eslint.config.mjs";
 
-const USE_SAFE_COMPONENTS = "Render HTML with <SafeMarkdown> (user text) or <SafeInlineHtml> (app-built markup).";
+const USE_SAFE_COMPONENTS = "Render HTML with <SafeMarkdown> (markdown) or <SafeInlineHtml> (inline text).";
 
 // Properties and calls that parse a string as HTML.
 const HTML_PROPS = "/^(innerHTML|outerHTML|srcdoc)$/";
 const HTML_CALLS = "/^(insertAdjacentHTML|createContextualFragment|setHTMLUnsafe|parseHTMLUnsafe)$/";
+
+const SANITIZER_PACKAGES = ["dompurify", "isomorphic-dompurify", "marked"];
+// A sanitizer package or any of its subpaths, but not packages like marked-highlight.
+const SANITIZER_SPECIFIER = `/^(${SANITIZER_PACKAGES.join("|")})($|[^\\w-])/`;
 
 // Raw-HTML sinks, checked in scripts and (via vue/no-restricted-syntax) in template expressions.
 // Rendering goes through the two Safe components, which sanitize with ~/lib/sanitize.
@@ -34,16 +38,31 @@ const RAW_HTML_SYNTAX = [
     message: `Don't use document.write. ${USE_SAFE_COMPONENTS}`,
   },
   {
+    selector: "NewExpression[callee.name='DOMParser']",
+    message: `Don't parse HTML strings with DOMParser. ${USE_SAFE_COMPONENTS}`,
+  },
+  {
+    // no-restricted-imports only sees static imports.
+    selector: `ImportExpression[source.value=${SANITIZER_SPECIFIER}]`,
+    message: `Import from ~/lib/sanitize instead. ${USE_SAFE_COMPONENTS}`,
+  },
+  {
     // DOMPurify replaces ALLOWED_TAGS with the full profile when USE_PROFILES is set.
     selector: "Property:matches([key.name='USE_PROFILES'], [key.value='USE_PROFILES'])",
     message: "Don't use DOMPurify USE_PROFILES: it overrides ALLOWED_TAGS. Use ~/lib/sanitize.",
   },
 ];
 
-const SANITIZER_IMPORTS = ["dompurify", "isomorphic-dompurify", "marked"].map(name => ({
-  name,
-  message: `Import from ~/lib/sanitize instead. ${USE_SAFE_COMPONENTS}`,
-}));
+const SANITIZER_IMPORTS = {
+  paths: SANITIZER_PACKAGES.map(name => ({
+    name,
+    message: `Import from ~/lib/sanitize instead. ${USE_SAFE_COMPONENTS}`,
+  })),
+  patterns: [{
+    group: SANITIZER_PACKAGES.map(name => `${name}/*`),
+    message: `Import from ~/lib/sanitize instead. ${USE_SAFE_COMPONENTS}`,
+  }],
+};
 
 export default withNuxt(
   {
@@ -74,7 +93,7 @@ export default withNuxt(
       "vue/component-api-style": ["error", ["script-setup"]],
       "no-restricted-syntax": ["error", ...RAW_HTML_SYNTAX],
       "vue/no-restricted-syntax": ["error", ...RAW_HTML_SYNTAX],
-      "no-restricted-imports": ["error", { paths: SANITIZER_IMPORTS }],
+      "no-restricted-imports": ["error", SANITIZER_IMPORTS],
     },
   },
   {

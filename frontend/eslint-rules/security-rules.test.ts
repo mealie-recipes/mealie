@@ -49,6 +49,9 @@ describe("raw HTML lint rules", () => {
     ["export const config = { USE_PROFILES: { html: true } };"],
     ["export const f = (x: string) => h(\"div\", { innerHTML: x });"],
     ["export const f = (x: string) => ({ \"innerHTML\": `<b>${x}</b>` });"],
+    ["export const f = (x: string) => new DOMParser().parseFromString(x, \"text/html\");"],
+    ["export const load = () => import(\"dompurify\");"],
+    ["export const load = () => import(\"marked/lib/marked.esm.js\");"],
   ])("flags raw HTML sink: %s", async (code) => {
     expect(await securityErrors(`${code}\n`, SCRIPT)).toEqual(["no-restricted-syntax"]);
   });
@@ -64,6 +67,17 @@ describe("raw HTML lint rules", () => {
     const code = `import x from "${pkg}";\n\nexport default x;\n`;
     expect(await securityErrors(code, SCRIPT)).toEqual(["no-restricted-imports"]);
     expect(await securityErrors(code, "app/lib/sanitize/foo.ts")).toEqual([]);
+  });
+
+  test.each(["dompurify/dist/purify.es.mjs", "marked/lib/marked.esm.js"])("restricts importing subpath %s to lib/sanitize", async (specifier) => {
+    const code = `import x from "${specifier}";\n\nexport default x;\n`;
+    expect(await securityErrors(code, SCRIPT)).toEqual(["no-restricted-imports"]);
+    expect(await securityErrors(code, "app/lib/sanitize/foo.ts")).toEqual([]);
+  });
+
+  test("allows a package that only shares a sanitizer's name prefix", async () => {
+    const code = "export const load = () => import(\"marked-highlight\");\n";
+    expect(await securityErrors(code, SCRIPT)).toEqual([]);
   });
 });
 
