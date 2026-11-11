@@ -10,8 +10,7 @@
         v-if="qrCodeToken"
         class="d-flex flex-column align-center"
       >
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="qr-code" v-html="qrCodeSvg" />
+        <img class="qr-code" :src="qrCodeDataUrl" :alt="$t('recipe-share.scan-qr-code')">
         <p class="text-center text-medium-emphasis mt-3">
           {{ $t("recipe-share.scan-qr-code") }}
         </p>
@@ -243,12 +242,14 @@ async function shareRecipe(token: string) {
 // ============================================================
 // QR Code
 
-const qrCodeSvg = computed(() => qrCodeToken.value ? renderSVG(getTokenLink(qrCodeToken.value)) : "");
+const qrCodeDataUrl = computed(() => qrCodeToken.value
+  ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(renderSVG(getTokenLink(qrCodeToken.value)))}`
+  : "");
 
 async function downloadQrCode() {
   // Rasterize the SVG so the download opens in any photo viewer
   const image = new Image();
-  image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qrCodeSvg.value)}`;
+  image.src = qrCodeDataUrl.value;
   await image.decode();
 
   const size = 1024;
@@ -271,13 +272,9 @@ async function downloadQrCode() {
 
 <style scoped>
 .qr-code {
-  width: 100%;
-  max-width: 320px;
-}
-
-.qr-code :deep(svg) {
   display: block;
   width: 100%;
+  max-width: 320px;
   height: auto;
 }
 </style>

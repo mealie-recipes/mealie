@@ -117,9 +117,10 @@ description = "Type check Python code"
 run = "uv run mypy mealie"
 
 [tasks."py:semgrep"]
-description = "Run the authz semgrep rules in .semgrep and their tests"
+description = "Run the authz and XSS semgrep rules in .semgrep and their tests"
 run = [
   "semgrep scan --test --metrics off --config .semgrep/authz.yml .semgrep/authz.py",
+  "semgrep scan --test --metrics off --config .semgrep/xss.yml .semgrep/xss.py",
   "semgrep scan --error --metrics off --config .semgrep mealie",
 ]
 
