@@ -3,7 +3,6 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { useIngredientTextParser } from "../use-recipe-ingredients";
 import { useLocales } from "~/composables/use-locales";
 import { makeRecipe } from "~/tests/factories";
-import { sanitizeInlineHtml } from "~/lib/sanitize";
 
 vi.mock("~/composables/use-locales");
 
@@ -60,13 +59,12 @@ describe("parseIngredientText", () => {
     expect(result).contain("1 1/2");
   });
 
-  // The text is sanitized where it is rendered (<SafeInlineHtml>), not here.
-  test("is safe once rendered through the inline sanitizer", () => {
-    const ingredient = createRecipeIngredient({ note: "<script>alert('foo')</script><img src=x onerror=alert(1)>" });
+  // Callers render this through <SafeInlineHtml> or <SafeMarkdown>, which sanitize. Escaping here
+  // would put "&lt;" into clipboard copies and parser input.
+  test("returns user text unescaped", () => {
+    const ingredient = createRecipeIngredient({ note: "<b>x</b> & y" });
 
-    const html = sanitizeInlineHtml(parseIngredientText(ingredient));
-    expect(html).not.toContain("<script");
-    expect(html).not.toContain("<img");
+    expect(parseIngredientText(ingredient)).toContain("<b>x</b> & y");
   });
 
   test("referenced recipe links navigate in the current page", () => {
