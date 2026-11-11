@@ -105,7 +105,6 @@ class IngredientFoodSummary(MealieOutModel):
     id: UUID4
     name: str
     plural_name: str | None = None
-    parent_id: UUID4 | None = None
 
     model_config = ConfigDict(from_attributes=True)
 

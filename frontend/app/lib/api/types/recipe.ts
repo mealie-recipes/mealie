@@ -185,7 +185,6 @@ export interface IngredientFoodSummary {
   id: string;
   name: string;
   pluralName: string | null;
-  parentId: string | null;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
