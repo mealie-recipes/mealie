@@ -1,7 +1,6 @@
 from collections.abc import Sequence
 from uuid import UUID
 
-from fastapi import HTTPException, status
 from pydantic import UUID4, BaseModel
 from sqlalchemy import func, select, update
 from sqlalchemy.orm import joinedload, with_expression
@@ -23,7 +22,7 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
             return
 
         if food_id and parent_id == food_id:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="A food cannot be its own parent")
+            raise ValueError("A food cannot be its own parent")
 
         parent = (
             self.session.execute(
@@ -36,13 +35,10 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
             .one_or_none()
         )
         if not parent:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Parent food does not exist in the same group")
+            raise ValueError("Parent food does not exist in the same group")
 
         if parent.parent_id is not None:
-            raise HTTPException(
-                status.HTTP_400_BAD_REQUEST,
-                detail="A food that has a parent cannot be a parent (maximum 2 levels allowed)",
-            )
+            raise ValueError("A food that has a parent cannot be a parent (maximum 2 levels allowed)")
 
         if food_id:
             has_children = (
@@ -52,10 +48,7 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
                 is not None
             )
             if has_children:
-                raise HTTPException(
-                    status.HTTP_400_BAD_REQUEST,
-                    detail="A food that has children cannot have a parent (maximum 2 levels allowed)",
-                )
+                raise ValueError("A food that has children cannot have a parent (maximum 2 levels allowed)")
 
     def create(self, data: IngredientFoodCreate | BaseModel | dict) -> IngredientFoodOut:
         data_dict = data if isinstance(data, dict) else data.model_dump()
@@ -91,9 +84,10 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
         return self.session.execute(stmt).scalars().one()
 
     def get_empty(self) -> Sequence[IngredientFoodModel]:
-        # a food is only "unused" if it's absent from both recipe ingredients and
-        # shopping list items; IngredientFoodModel has no ORM relationship to
-        # ShoppingListItem, so we check the latter via an EXISTS subquery
+        # a food is only "unused" if it's absent from recipe ingredients,
+        # shopping list items, and has no child foods (it is not a food family parent);
+        # IngredientFoodModel has no ORM relationship to ShoppingListItem, so we
+        # check the latter via an EXISTS subquery
         used_in_shopping_lists = (
             select(ShoppingListItem.id)
             .where(ShoppingListItem.food_id == IngredientFoodModel.id)
@@ -102,7 +96,11 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
         )
         stmt = (
             select(IngredientFoodModel)
-            .filter(~IngredientFoodModel.ingredients.any(), ~used_in_shopping_lists)
+            .filter(
+                ~IngredientFoodModel.ingredients.any(),
+                ~IngredientFoodModel.children.any(),
+                ~used_in_shopping_lists,
+            )
             .filter_by(**self._filter_builder())
         )
         return self.session.execute(stmt).scalars().all()

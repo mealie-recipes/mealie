@@ -13,7 +13,7 @@ import mealie.db.migration_types
 
 # revision identifiers, used by Alembic.
 revision = "a05030850bb9"
-down_revision: str | None = "5c1e7d2a9b3f"
+down_revision: str | None = "f3a1ae61d772"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
