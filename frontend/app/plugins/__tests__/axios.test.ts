@@ -1,5 +1,6 @@
 import type { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
+import { i18n } from "~/tests/setup";
 
 const TOKEN_NAME = "mealie.access_token";
 const toastMocks = vi.hoisted(() => ({
@@ -24,6 +25,24 @@ function ok(config: InternalAxiosRequestConfig) {
   return Promise.resolve({ data: { ok: true }, status: 200, statusText: "OK", headers: {}, config });
 }
 
+/** A response that never came from Mealie, such as a reverse proxy's HTML error page. */
+function rejectedByProxy(config: InternalAxiosRequestConfig, status: number) {
+  const error = new Error(`Request failed with status code ${status}`) as Error & Record<string, unknown>;
+  error.config = config;
+  error.response = { status, data: "<html><body><h1>Rejected</h1></body></html>", config, headers: {}, statusText: "" };
+  error.isAxiosError = true;
+  return Promise.reject(error);
+}
+
+/** No response at all: a dropped connection, or a redirect to another origin the browser refused to follow. */
+function networkError(config: InternalAxiosRequestConfig) {
+  const error = new Error("Network Error") as Error & Record<string, unknown>;
+  error.config = config;
+  error.code = "ERR_NETWORK";
+  error.isAxiosError = true;
+  return Promise.reject(error);
+}
+
 function unprocessable(config: InternalAxiosRequestConfig, detail: unknown) {
   const error = new Error("Unprocessable Entity") as Error & Record<string, unknown>;
   error.config = config;
@@ -39,9 +58,10 @@ async function buildClient(adapter: (config: InternalAxiosRequestConfig) => Prom
   vi.resetModules();
   const plugin = (await import("../axios")).default as unknown as (nuxtApp: {
     runWithContext: <T>(fn: () => T) => T;
+    $i18n: typeof i18n.global;
   }) => { provide: { axios: AxiosInstance } };
 
-  const { provide } = plugin({ runWithContext: fn => fn() });
+  const { provide } = plugin({ runWithContext: fn => fn(), $i18n: i18n.global });
   provide.axios.defaults.adapter = adapter as never;
   return provide.axios;
 }
@@ -231,5 +251,89 @@ describe("error alerts", () => {
     await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
 
     expect(toastMocks.error).toHaveBeenCalledWith("Recipe could not be saved");
+  });
+});
+
+describe("failures without a Mealie error message", () => {
+  test.each([
+    ["put", 403],
+    ["patch", 403],
+    ["post", 502],
+    ["delete", 500],
+  ] as const)("reports a %s rejected with %s by something in front of Mealie", async (method, status) => {
+    const client = await buildClient(config => rejectedByProxy(config, status));
+
+    await expect(client[method]("/api/recipes/test-recipe")).rejects.toBeDefined();
+
+    expect(toastMocks.error).toHaveBeenCalledOnce();
+    expect(toastMocks.error).toHaveBeenCalledWith(
+      `The request failed with status ${status}. Your changes may not have been saved.`,
+    );
+  });
+
+  test("reports a write that got no response at all", async () => {
+    const client = await buildClient(config => networkError(config));
+
+    await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
+
+    expect(toastMocks.error).toHaveBeenCalledOnce();
+    expect(toastMocks.error).toHaveBeenCalledWith("The server could not be reached. Your changes may not have been saved.");
+  });
+
+  test("reports a write that failed after a successful refresh and replay", async () => {
+    const calls: string[] = [];
+    const client = await buildClient(async (config) => {
+      calls.push(config.url!);
+      return calls.length === 1 ? unauthorized(config) : rejectedByProxy(config, 502);
+    });
+
+    await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
+
+    // The replay passes through the interceptor itself, so the outer call must not report it again
+    expect(toastMocks.error).toHaveBeenCalledOnce();
+    expect(toastMocks.error).toHaveBeenCalledWith("The request failed with status 502. Your changes may not have been saved.");
+  });
+
+  test("shows only Mealie's message when there is one", async () => {
+    const client = await buildClient(config => unprocessable(config, { message: "Recipe could not be saved" }));
+
+    await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
+
+    expect(toastMocks.error).toHaveBeenCalledOnce();
+  });
+
+  test("stays quiet for reads", async () => {
+    const client = await buildClient(config => rejectedByProxy(config, 403));
+
+    await expect(client.get("/api/recipes/test-recipe")).rejects.toBeDefined();
+
+    expect(toastMocks.error).not.toHaveBeenCalled();
+  });
+
+  test("stays quiet when the caller suppresses alerts", async () => {
+    const client = await buildClient(config => networkError(config));
+
+    await expect(client.post("/api/auth/refresh", null, { suppressAlert: true })).rejects.toBeDefined();
+
+    expect(toastMocks.error).not.toHaveBeenCalled();
+  });
+
+  test("leaves a 401 to the session handling", async () => {
+    const client = await buildClient(config => unauthorized(config));
+
+    await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
+
+    expect(toastMocks.error).not.toHaveBeenCalled();
+    expect(window.location.href).toBe("/login?redirect=%2Fg%2Fhome%2Fr%2Fsoup");
+  });
+
+  test("stays quiet for a cancelled request", async () => {
+    const controller = new AbortController();
+    controller.abort();
+    const client = await buildClient(config => ok(config));
+
+    await expect(client.put("/api/recipes/test-recipe", {}, { signal: controller.signal })).rejects.toBeDefined();
+
+    expect(toastMocks.error).not.toHaveBeenCalled();
   });
 });

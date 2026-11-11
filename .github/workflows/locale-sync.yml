@@ -21,13 +21,13 @@ jobs:
     steps:
       - name: Generate GitHub App Token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
         with:
           app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
           private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           token: ${{ steps.app-token.outputs.token }}
 
@@ -38,7 +38,7 @@ jobs:
 
       - name: Load cached venv
         id: cached-python-dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           # The venv links to the mise Python, so a Python change in mise.toml must miss the cache
           path: .venv

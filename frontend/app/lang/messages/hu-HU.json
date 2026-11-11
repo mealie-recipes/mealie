@@ -177,7 +177,9 @@
     "date-updated": "Frissítés dátuma",
     "key": "Kulcs",
     "value": "Érték",
-    "cant-create-permission": "Nem lehet létrehozni. Kérjük, forduljon a rendszergazdához a jogosultság megszerzéséhez."
+    "cant-create-permission": "Nem lehet létrehozni. Kérjük, forduljon a rendszergazdához a jogosultság megszerzéséhez.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Csoport létrehozása",
@@ -238,6 +240,8 @@
       "api-key": "API Kulcs",
       "api-key-description-create": "A szolgáltató hitelesítési API-kulcsa. Ha a szolgáltatása (pl. Ollama) nem használ API-kulcsot, akkor is be kell írnia ide valamit.",
       "api-key-description-edit": "Ha nem szeretné módosítani, hagyja üresen.",
+      "api-key-description-base-url-changed": "Az alap-URL megváltozott, ezért kérjük, adja meg az új URL-hez tartozó API-kulcsot.",
+      "reenter-hidden-values": "Az alap-URL megváltozott, ezért az új URL-hez minden rejtett (********) fejlécet és paraméterértéket újra be kell írni.",
       "base-url": "Alap URL",
       "base-url-description": "Ha az OpenAI-t használja, hagyja üresen ezt a mezőt. Az endpointnak OpenAI-kompatibilisnek kell lennie (pl. „http://localhost:11434/v1”).",
       "model": "Modell",
@@ -330,6 +334,13 @@
     "any-category": "Bármely kategória",
     "any-tag": "Bármelyik címke",
     "any-household": "Bármely háztartás",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Hiba történt"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Időtartam",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +522,7 @@
     "nutrition": "Tápanyag",
     "linked-ingredients": "Kapcsolódó összetevők",
     "original-url": "Eredeti URL",
+    "per-serving": "Per serving",
     "perform-time": "Főzési idő",
     "prep-time": "Előkészítési idő",
     "protein-content": "Fehérje",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Eltávolítás kedvencekből",
     "saturated-fat-content": "Telített zsírsav",
     "save-recipe-before-use": "Recept mentése használat előtt",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Szakasz címe",
     "servings": "Adag",
     "serves-amount": "Adag {amount}",
@@ -865,6 +881,7 @@
     "new-list-name": "Lista neve",
     "failed-to-create-shopping-list": "Nem sikerült létrehozni a bevásárlólistát",
     "item-checked-off": "{item} leellenőrzve",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "További opciók",
     "fewer-options": "Kevesebb lehetőség",
     "save-as-new-food": "„{text}” elmentése új ételként"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!",
     "forgot-password": "Elfelejtett jelszó",
     "forgot-password-text": "Írja be e-mail címét és mi küldünk egy linket a jelszó visszaállításához.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek.",
     "default-activity": "Alapértelmezett tevékenység",
     "default-activity-hint": "Válassza ki, melyik oldalra szeretne navigálni, amikor bejelentkezik erről az eszközről"

@@ -172,6 +172,26 @@ class QueryFilterBuilder:
     r_list_sep: str = "]"
     list_item_sep: str = ","
 
+    @staticmethod
+    def _split_list_values(list_value_string: str) -> list[str]:
+        """Split list items on commas outside of quoted strings."""
+        values: list[str] = []
+        current_value: list[str] = []
+        in_quotes = False
+
+        for character in list_value_string:
+            if character == '"':
+                in_quotes = not in_quotes
+
+            if character == QueryFilterBuilder.list_item_sep and not in_quotes:
+                values.append("".join(current_value).strip())
+                current_value = []
+            else:
+                current_value.append(character)
+
+        values.append("".join(current_value).strip())
+        return values
+
     def __init__(self, filter_string: str) -> None:
         # parse filter string
         components = QueryFilterBuilder._break_filter_string_into_components(filter_string)
@@ -567,9 +587,7 @@ class QueryFilterBuilder:
                     if j % 2:
                         continue
 
-                    list_value_components.append(
-                        [val.strip() for val in list_value_string.split(QueryFilterBuilder.list_item_sep)]
-                    )
+                    list_value_components.append(QueryFilterBuilder._split_list_values(list_value_string))
 
             quote_offset = 0
             subcomponents = component.split('"')

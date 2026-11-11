@@ -12,6 +12,7 @@
       :submit-text="$t('general.save')"
       :submit-disabled="!editTarget.queryFilterString"
       can-submit
+      disable-submit-on-enter
       @submit="editCookbook"
     >
       <v-card-text>
@@ -37,16 +38,15 @@
             </v-icon>
             {{ book.name }}
           </v-toolbar-title>
-          <BaseButton
-            v-if="canEdit"
-            class="mx-1"
-            :edit="true"
-            @click="handleEditCookbook"
+          <BaseButtonGroup
+            v-if="headerButtons.length"
+            class="d-flex flex-shrink-0"
+            :buttons="headerButtons"
+            @edit="handleEditCookbook"
+            @download-pdf="downloadPdf"
           />
         </div>
-        <div v-if="book.description" class="subtitle-1 text-grey-lighten-1 mb-2">
-          {{ book.description }}
-        </div>
+        <SafeMarkdown v-if="book.description" :source="book.description" class="subtitle-1 text-grey-lighten-1 mb-2" />
       </v-sheet>
 
       <v-container class="pa-0">
@@ -72,6 +72,10 @@ import { useCookbook } from "~/composables/use-group-cookbooks";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { CookBookOut } from "~/lib/api/types/cookbook";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
+import type { ButtonOption } from "~/components/global/BaseMenu.vue";
+import { useDownloader } from "~/composables/api/use-downloader";
+import { loader } from "~/composables/use-toast";
+import { useUserApi } from "~/composables/api";
 
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
@@ -95,6 +99,41 @@ const isOwnHousehold = computed(() => {
   return auth.user.value.householdId === book.value.householdId;
 });
 const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
+
+const api = useUserApi();
+const download = useDownloader();
+const i18n = useI18n();
+const { $globals } = useNuxtApp();
+
+const downloadingPdf = ref(false);
+
+const headerButtons = computed<ButtonOption[]>(() => [
+  ...(isOwnGroup.value
+    ? [{
+        icon: $globals.icons.download,
+        text: downloadingPdf.value ? i18n.t("recipe.preparing-pdf") : i18n.t("recipe.download-pdf"),
+        event: "download-pdf",
+        loading: downloadingPdf.value,
+      }]
+    : []),
+  ...(canEdit.value ? [{ icon: $globals.icons.edit, text: i18n.t("general.edit"), event: "edit" }] : []),
+]);
+
+async function downloadPdf() {
+  if (!book.value || downloadingPdf.value) {
+    return;
+  }
+  downloadingPdf.value = true;
+  // A big cookbook takes a while to render, and the browser shows nothing until the file arrives.
+  loader.info(i18n.t("recipe.preparing-pdf"));
+  try {
+    await download(api.cookbooks.getPdfUrl(book.value.id), `${book.value.slug}.pdf`);
+  }
+  finally {
+    downloadingPdf.value = false;
+    loader.close();
+  }
+}
 
 const dialogStates = reactive({
   edit: false,

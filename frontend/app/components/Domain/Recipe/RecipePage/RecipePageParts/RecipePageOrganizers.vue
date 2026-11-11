@@ -80,12 +80,15 @@
       :edit="isEditForm"
       :slug="recipe.slug"
       :recipe-id="recipe.id"
+      :hero-image-url="heroImageUrl"
+      :hero-image-alt="recipe.name"
     />
   </div>
 </template>
 
 <script setup lang="ts">
 import { usePageState } from "~/composables/recipe-page/shared-state";
+import { useStaticRoutes } from "~/composables/api";
 import type { RecipeOut } from "~/lib/api/types/recipe";
 import RecipeOrganizerSelector from "@/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
@@ -93,5 +96,8 @@ import RecipeChips from "@/components/Domain/Recipe/RecipeChips.vue";
 import RecipeAssets from "@/components/Domain/Recipe/RecipeAssets.vue";
 
 const recipe = defineModel<RecipeOut>({ required: true });
-const { isEditForm } = usePageState(recipe.value.slug);
+const { isEditForm, imageKey } = usePageState(recipe.value.slug);
+const { recipeImage } = useStaticRoutes();
+
+const heroImageUrl = computed(() => recipe.value.image ? recipeImage(recipe.value.id, recipe.value.image, imageKey.value) : undefined);
 </script>

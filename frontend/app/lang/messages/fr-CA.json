@@ -177,7 +177,9 @@
     "date-updated": "Date de mise à jour",
     "key": "Clé",
     "value": "Valeur",
-    "cant-create-permission": "Impossible de créer. Veuillez contacter votre administrateur pour obtenir la permission."
+    "cant-create-permission": "Impossible de créer. Veuillez contacter votre administrateur pour obtenir la permission.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Créer un groupe",
@@ -238,6 +240,8 @@
       "api-key": "Clé API",
       "api-key-description-create": "La clé API de votre fournisseur pour l'authentification. Si votre service (par exemple Ollama) n'utilise pas une clé API, vous devez malgré tout toujours mettre quelque chose ici.",
       "api-key-description-edit": "Laissez ce champ vide à moins que vous vouliez le modifier.",
+      "api-key-description-base-url-changed": "L’URL de base a changé ; saisissez la clé API correspondant à la nouvelle URL.",
+      "reenter-hidden-values": "L’URL de base a été modifiée ; saisissez à nouveau chaque valeur d’en-tête et de paramètre masquée (********) pour la nouvelle URL.",
       "base-url": "URL de base",
       "base-url-description": "Si vous utilisez OpenAI laissez ce champ vide. Doit être un point de terminaison compatible OpenAI (ex: \"http://localhost:11434/v1\").",
       "model": "Modèle",
@@ -330,6 +334,13 @@
     "any-category": "Toute catégorie",
     "any-tag": "Toute étiquette",
     "any-household": "Tout foyer",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Nombre de semaines passées au chargement de la page",
     "numberOfWeeksPast-label": "Nombre de semaines passées par défaut",
     "numberOfWeeks-hint": "Nombre de semaines au chargement de la page, semaine en cours incluse",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Une erreur est survenue"
   },
   "recipe": {
+    "download-pdf": "Télécharger en PDF",
+    "preparing-pdf": "Préparation du PDF...",
     "step-duration-minutes": "Durée (minutes)",
     "step-duration-saved": "Durée sauvegardée : {duration}. Modifier ce champ le remplace par des minutes entières.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +522,7 @@
     "nutrition": "Valeurs nutritionnelles",
     "linked-ingredients": "Ingrédients liés",
     "original-url": "Recette originale",
+    "per-serving": "Per serving",
     "perform-time": "Temps de cuisson",
     "prep-time": "Temps de préparation",
     "protein-content": "Protéines",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Supprimer des favoris",
     "saturated-fat-content": "Gras saturés",
     "save-recipe-before-use": "Enregistrez la recette avant utilisation",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Titre de la section",
     "servings": "Portions",
     "serves-amount": "{amount} portions",
@@ -865,6 +881,7 @@
     "new-list-name": "Nom de la liste",
     "failed-to-create-shopping-list": "Impossible de créer la liste de courses",
     "item-checked-off": "{item} coché",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "Plus d'options",
     "fewer-options": "Moins d'options",
     "save-as-new-food": "Enregistrer \"{text}\" en tant que nouvel aliment"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela? Assurez-vous de changer votre adresse courriel dans vos paramètres d'utilisateur!",
     "forgot-password": "Mot de passe oublié",
     "forgot-password-text": "Veuillez entrer votre adresse e-mail. Un e-mail vous sera envoyé afin de réinitialiser votre mot de passe.",
+    "reset-link-invalid": "Ce lien de réinitialisation a expiré ou n'est pas valide. Demandez un nouveau lien.",
     "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte.",
     "default-activity": "Activité principale",
     "default-activity-hint": "Sélectionnez la page que vous souhaitez ouvrir lors de la connexion sur cet appareil"

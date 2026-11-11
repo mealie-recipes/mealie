@@ -177,7 +177,9 @@
     "date-updated": "Opdateret",
     "key": "Nøgle",
     "value": "Værdi",
-    "cant-create-permission": "Kan ikke oprettet. Kontakt venligst din administrator for at få tilladelse."
+    "cant-create-permission": "Kan ikke oprette. Kontakt venligst din administrator for at få tilladelse.",
+    "request-failed-with-status": "Forespørgslen fjlede med status {status}. Dine ændringer blev muligvis ikke gemt.",
+    "request-failed-no-response": "Serveren kunne ikke nås. Dine ændringer blev muligvis ikke gemt."
   },
   "group": {
     "create-group": "Opret gruppe",
@@ -238,6 +240,8 @@
       "api-key": "API-nøgle",
       "api-key-description-create": "Din udbyders API-nøgle til godkendelse. Hvis din udbyder ikke benytter en API-nøgle (eks. Ollama), skal du stadig skrive ét eller andet.",
       "api-key-description-edit": "Undlad at udfylde dette, medmindre du vil ændre det.",
+      "api-key-description-base-url-changed": "Basis-URL'en er blevet ændret, så indsæt API-nøglen for den nye URL.",
+      "reenter-hidden-values": "Basis-URL'en er blevet ændret, så omskriv hver skjult (********) header- og parameterværdi til den nye URL.",
       "base-url": "Basis-URL",
       "base-url-description": "Undlad at udfylde, hvis du benytter OpenAI. Skal være et OpenAI-kompatibelt endpoint (eks. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -330,6 +334,13 @@
     "any-category": "Alle kategorier",
     "any-tag": "Alle mærkater",
     "any-household": "Alle husstande",
+    "numberOfDaysPast-hint": "Antal foregående dage ved sideindlæsning",
+    "numberOfDaysPast-label": "Standard-anatal foregående dage",
+    "numberOfDays-hint": "Antal dage ved sideindlæsning",
+    "numberOfDays-label": "Standard-antal dage",
+    "weeks": "Uger",
+    "days": "Dage",
+    "week-meals-hidden": "Ingen måltider planlagt for ugen | Et måltid planlagt for ugen, skift til Uger for at se det | {count} måltider planlagt for ugen, skift til Uger for at se dem",
     "numberOfWeeksPast-hint": "Antal foregående uger, der indlæses på siden",
     "numberOfWeeksPast-label": "Standardantal foregående uger",
     "numberOfWeeks-hint": "Antal uger, der indlæses på siden, inklusive indeværende uge",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Der opstod en fejl"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Forbereder PDF...",
     "step-duration-minutes": "Varighed (minutter)",
     "step-duration-saved": "Gemt varighed: {duration}. Redigering af dette felt afrundes til hele minutter",
     "step-duration-placeholder": "Minutter",
@@ -509,6 +522,7 @@
     "nutrition": "Ernæring",
     "linked-ingredients": "Sammenkædede ingredienser",
     "original-url": "Oprindelig opskrift",
+    "per-serving": "Per portion",
     "perform-time": "Tilberedningstid",
     "prep-time": "Forberedelsestid",
     "protein-content": "Protein",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Fjern fra favoritter",
     "saturated-fat-content": "Mættet fedt",
     "save-recipe-before-use": "Gem opskrift før brug",
+    "next-image": "Næste billede",
+    "previous-image": "Foregående billede",
     "section-title": "Sektionstitel",
     "servings": "Portioner",
     "serves-amount": "{amount} portioner",
@@ -865,6 +881,7 @@
     "new-list-name": "Listenavn",
     "failed-to-create-shopping-list": "Kunne ikke oprette indkøbsliste",
     "item-checked-off": "Krydsede {item} af",
+    "changes-not-saved": "Nogle ændringer kunne ikke gemmes. De gemmes på denne enhed, og vil blive forsøgt sendt igen.",
     "more-options": "Flere valgmuligheder",
     "fewer-options": "Færre valgmuligheder",
     "save-as-new-food": "Gem \"{text}\" som en ny ingrediens"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
     "forgot-password": "Glemt adgangskode",
     "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
+    "reset-link-invalid": "Dette nulstillingslink er enten udløbet eller ugyldigt. Anmod om et nyt link.",
     "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme.",
     "default-activity": "Standardaktivitet",
     "default-activity-hint": "Vælg den side, du vil navigere til, når du logger ind fra denne enhed"

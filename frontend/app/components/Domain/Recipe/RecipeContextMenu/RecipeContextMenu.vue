@@ -77,6 +77,7 @@ const props = withDefaults(defineProps<Props>(), {
     delete: true,
     edit: true,
     download: true,
+    downloadPdf: true,
     duplicate: false,
     mealplanner: true,
     shoppingList: true,

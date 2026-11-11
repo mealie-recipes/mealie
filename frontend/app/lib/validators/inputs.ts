@@ -1,3 +1,4 @@
+import { isHttpUrl } from "./url";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 const EMAIL_REGEX
@@ -20,17 +21,7 @@ export function whitespace(v: string | null | undefined) {
 
 export function url(v: string | undefined | null) {
   const i18n = useGlobalI18n();
-  if (!v) {
-    return i18n.t("validators.invalid-url");
-  }
-
-  try {
-    const parsed = new URL(v);
-    return (parsed.protocol === "http:" || parsed.protocol === "https:") || i18n.t("validators.invalid-url");
-  }
-  catch {
-    return i18n.t("validators.invalid-url");
-  }
+  return isHttpUrl(v) || i18n.t("validators.invalid-url");
 }
 
 export function urlOptional(v: string | undefined | null) {

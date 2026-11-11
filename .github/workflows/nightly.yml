@@ -30,6 +30,35 @@ jobs:
     with:
       tag: nightly
 
+  e2e-image-cache:
+    name: "Build E2E Image Cache"
+    needs: build-package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4
+
+      - name: Retrieve Python package
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: backend-dist
+          path: dist
+
+      # Keep the build arguments in step with e2e.yml, or PR builds miss this cache.
+      - name: Build image into the cache
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
+        with:
+          file: ./docker/Dockerfile
+          context: .
+          build-contexts: |
+            packages=dist
+          outputs: type=cacheonly
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
   publish:
     permissions:
       contents: read
@@ -62,6 +91,6 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_NIGHTLY_WEBHOOK }}
-        uses: Ilshidur/action-discord@0.3.2
+        uses: Ilshidur/action-discord@d2594079a10f1d6739ee50a2471f0ca57418b554 # 0.4.0
         with:
           args: "🚀  New builds of ghcr.io/mealie-recipes/mealie:nightly"

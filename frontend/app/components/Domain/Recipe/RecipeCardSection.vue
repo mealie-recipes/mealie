@@ -132,6 +132,7 @@
               :image="recipe.image!"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
+              @item-selected="(item, urlPrefix) => emit('itemSelected', item, urlPrefix)"
             />
           </v-col>
         </v-row>
@@ -156,6 +157,7 @@
               :image="recipe.image!"
               :tags="recipe.tags"
               :recipe-id="recipe.id"
+              @item-selected="(item, urlPrefix) => emit('itemSelected', item, urlPrefix)"
             />
           </v-col>
         </v-row>
@@ -177,9 +179,10 @@
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import type { UrlPrefixParam } from "./RecipeChips.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useLazyRecipes } from "~/composables/recipes";
-import type { RecipeSummary } from "~/lib/api/types/recipe";
+import type { RecipeSummary, TagOut } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
@@ -208,6 +211,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   replaceRecipes: [recipes: RecipeSummary[]];
   appendRecipes: [recipes: RecipeSummary[]];
+  itemSelected: [item: TagOut, urlPrefix: UrlPrefixParam];
 }>();
 
 const display = useDisplay();

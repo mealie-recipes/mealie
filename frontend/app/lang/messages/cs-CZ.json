@@ -177,7 +177,9 @@
     "date-updated": "Datum aktualizace",
     "key": "Klíč",
     "value": "Hodnota",
-    "cant-create-permission": "Nelze vytvořit. Kontaktujte prosím svého administrátora, aby vám udělil oprávnění."
+    "cant-create-permission": "Nelze vytvořit. Kontaktujte prosím svého administrátora, aby vám udělil oprávnění.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Vytvořit skupinu",
@@ -238,6 +240,8 @@
       "api-key": "Klíč API",
       "api-key-description-create": "API klíč vašeho providera pro ověření. Pokud vaše služba (např. Ollama) nepoužívá API klíč, stále je potřeba sem něco vložit.",
       "api-key-description-edit": "Vyplňte pouze pokud chcete změnit.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Výchozí URL",
       "base-url-description": "Pokud používáte OpenAI, nechte toto prázdné. Musí být koncový bod kompatibilní s OpenAI (např. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -330,6 +334,13 @@
     "any-category": "Jakákoliv kategorie",
     "any-tag": "Jakýkoliv štítek",
     "any-household": "Jakákoliv domácnost",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Došlo k chybě"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +522,7 @@
     "nutrition": "Výživové hodnoty",
     "linked-ingredients": "Provázané ingredience",
     "original-url": "Původní URL",
+    "per-serving": "Per serving",
     "perform-time": "Doba vaření",
     "prep-time": "Doba přípravy",
     "protein-content": "Bílkoviny",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Odebrat z oblíbených",
     "saturated-fat-content": "Nasycené tuky",
     "save-recipe-before-use": "Před použitím uložit recept",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Název sekce",
     "servings": "Porce",
     "serves-amount": "Porce {amount}",
@@ -865,6 +881,7 @@
     "new-list-name": "Název seznamu",
     "failed-to-create-shopping-list": "Vytvoření nákupního seznamu se nezdařilo",
     "item-checked-off": "Odškrtnuta položka {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "Více možností",
     "fewer-options": "Méně možností",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Už toto nechcete vidět? Nezapomeňte si změnit svůj e-mail v uživatelském nastavení!",
     "forgot-password": "Zapomenuté heslo",
     "forgot-password-text": "Zadejte prosím svou e-mailovou adresu a my vám zašleme odkaz pro obnovení hesla.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Změny tohoto uživatele budou okamžitě zohledněny.",
     "default-activity": "Výchozí aktivita",
     "default-activity-hint": "Vyberte stránku, na kterou chcete přejít po přihlášení z tohoto zařízení"

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imaginea rețetei a fost ștearsă",
         "recipe-defaults": {
-            "ingredient-note": "1 Cană de Făină",
-            "name": "New Recipe",
-            "step-text": "Pașii rețetei precum și alte domenii din sintaxa markdown de pe pagina de rețetă.\n\n**Adăugați un link**\n\n[Link-ul meu](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Produce",
@@ -27,6 +25,16 @@
             "yields": "Cantități"
         },
         "and-amount": "și {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

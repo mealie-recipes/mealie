@@ -177,7 +177,9 @@
     "date-updated": "Data d’actualització",
     "key": "Clau",
     "value": "Valor",
-    "cant-create-permission": "No es pot crear. Contacta amb l'administrador per obtenir permís."
+    "cant-create-permission": "No es pot crear. Contacta amb l'administrador per obtenir permís.",
+    "request-failed-with-status": "La sol·licitud ha fallat amb l'estat {status}. És possible que els canvis no s'hagin desat.",
+    "request-failed-no-response": "No s'ha pogut connectar amb el servidor. És possible que els canvis no s'hagin desat."
   },
   "group": {
     "create-group": "Crea un grup",
@@ -238,6 +240,8 @@
       "api-key": "Clau d'API",
       "api-key-description-create": "La clau d'API del teu proveïdor per a l'autenticació. Si el teu servei (p. ex. Ollama) no fa servir cap clau d'API, igualment has d'escriure-hi alguna cosa.",
       "api-key-description-edit": "Deixa-ho en blanc tret que la vulguis canviar.",
+      "api-key-description-base-url-changed": "L'URL base ha canviat, així que introdueix la clau d'API per al nou URL.",
+      "reenter-hidden-values": "L'URL base ha canviat, així que torna a introduir per al nou URL cada valor ocult (********) de les capçaleres i els paràmetres.",
       "base-url": "URL base",
       "base-url-description": "Si fas servir OpenAI, deixa-ho en blanc. Ha de ser un punt final compatible amb OpenAI (p. ex. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -330,6 +334,13 @@
     "any-category": "Qualsevol categoria",
     "any-tag": "Qualsevol etiqueta",
     "any-household": "Qualsevol llar",
+    "numberOfDaysPast-hint": "Nombre de dies passats que es mostren en carregar la pàgina",
+    "numberOfDaysPast-label": "Dies passats per defecte",
+    "numberOfDays-hint": "Nombre de dies en carregar la pàgina",
+    "numberOfDays-label": "Dies per defecte",
+    "weeks": "Setmanes",
+    "days": "Dies",
+    "week-meals-hidden": "No hi ha cap àpat planificat per a la setmana | Hi ha un àpat planificat per a la setmana; canvia a Setmanes per veure'l | Hi ha {count} àpats planificats per a la setmana; canvia a Setmanes per veure'ls",
     "numberOfWeeksPast-hint": "Nombre de setmanes passades que es mostren en carregar la pàgina",
     "numberOfWeeksPast-label": "Setmanes passades per defecte",
     "numberOfWeeks-hint": "Nombre de setmanes que es mostren en carregar la pàgina, inclosa la setmana actual",
@@ -473,6 +484,8 @@
     "an-error-occurred": "S'ha produït un error"
   },
   "recipe": {
+    "download-pdf": "Descarrega el PDF",
+    "preparing-pdf": "S'està preparant el PDF...",
     "step-duration-minutes": "Durada (minuts)",
     "step-duration-saved": "Durada desada: {duration}. Si edites aquest camp, se substituirà per minuts sencers.",
     "step-duration-placeholder": "Minuts",
@@ -509,6 +522,7 @@
     "nutrition": "Valors nutricionals",
     "linked-ingredients": "Ingredients enllaçats",
     "original-url": "Adreça URL original",
+    "per-serving": "Per porció",
     "perform-time": "Temps de cocció",
     "prep-time": "Temps de preparació",
     "protein-content": "Proteïnes",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "S'ha eliminat de les receptes preferides",
     "saturated-fat-content": "Greixos saturats",
     "save-recipe-before-use": "Desa la recepta abans d'utilitzar-la",
+    "next-image": "Imatge següent",
+    "previous-image": "Imatge anterior",
     "section-title": "Secció",
     "servings": "Porcions",
     "serves-amount": "Serveis {amount}",
@@ -865,6 +881,7 @@
     "new-list-name": "Nom de la llista",
     "failed-to-create-shopping-list": "No s'ha pogut crear la llista de la compra",
     "item-checked-off": "S'ha marcat {item}",
+    "changes-not-saved": "Alguns canvis no s'han pogut desar. Es mantenen en aquest dispositiu i es tornaran a enviar.",
     "more-options": "Més opcions",
     "fewer-options": "Menys opcions",
     "save-as-new-food": "Desa \"{text}\" com a aliment nou"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
     "forgot-password": "Contrasenya oblidada",
     "forgot-password-text": "Introdueix siusplau la teva adreça de correu electrònic i t'enviarem un enllaç per restablir la teva contrassenya.",
+    "reset-link-invalid": "Aquest enllaç de restabliment ha caducat o no és vàlid. Demana un enllaç nou.",
     "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament.",
     "default-activity": "Activitat per defecte",
     "default-activity-hint": "Seleccioneu a quina pàgina voleu navegar en iniciar sessió des d'aquest dispositiu"

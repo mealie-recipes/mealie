@@ -32,6 +32,7 @@ describe("useShoppingListItemActions", () => {
     deleteItem,
     updateItem,
     process,
+    hasFailedWrites,
     __testing__: { queue, clearQueueItems },
   } = useShoppingListItemActions("list_id");
 
@@ -124,6 +125,140 @@ describe("useShoppingListItemActions", () => {
       expect(queue.update).include(updatedItem);
       expect(queue.create).include(createdItem);
       expect(queue.delete).include(deletedItem);
+    });
+    describe("when a write fails", () => {
+      // same shape as request.safe in api-client.ts: failed writes resolve rather than reject
+      function failedResponse(status?: number) {
+        const error = Object.assign(new Error("request failed"), status ? { response: { status } } : {});
+        return { response: null, error, data: null };
+      }
+
+      test.each([
+        ["a network error", undefined],
+        ["a 400", 400],
+        ["a 401", 401],
+        ["a 404", 404],
+        ["a 422", 422],
+        ["a 500", 500],
+        ["a 503", 503],
+      ])("keeps all three queues after %s", async (_, status) => {
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+        deleteMany.mockResolvedValueOnce(failedResponse(status));
+        updateMany.mockResolvedValueOnce(failedResponse(status));
+        createMany.mockResolvedValueOnce(failedResponse(status));
+
+        const updatedItem = { ...MOCK_ITEM, id: "update" };
+        const createdItem = { ...MOCK_ITEM, id: "create" };
+        const deletedItem = { ...MOCK_ITEM, id: "delete" };
+
+        updateItem(updatedItem);
+        createItem(createdItem);
+        deleteItem(deletedItem);
+
+        await process();
+        expect(queue.update.map(item => item.id)).toEqual(["update"]);
+        expect(queue.create.map(item => item.id)).toEqual(["create"]);
+        expect(queue.delete.map(item => item.id)).toEqual(["delete"]);
+      });
+
+      test("only keeps the queue whose write failed", async () => {
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+        updateMany.mockResolvedValueOnce(failedResponse(500));
+        createMany.mockResolvedValueOnce({ response: { status: 201 }, error: null, data: {} });
+
+        updateItem({ ...MOCK_ITEM, id: "update" });
+        createItem({ ...MOCK_ITEM, id: "create" });
+
+        await process();
+        expect(queue.update.map(item => item.id)).toEqual(["update"]);
+        expect(queue.create).toEqual([]);
+      });
+
+      test("sends the kept items again on the next run, then clears them", async () => {
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+        updateMany.mockResolvedValueOnce(failedResponse(503));
+        updateMany.mockResolvedValueOnce({ response: { status: 200 }, error: null, data: {} });
+
+        updateItem({ ...MOCK_ITEM, id: "update" });
+
+        await process();
+        expect(queue.update.map(item => item.id)).toEqual(["update"]);
+
+        await process();
+        expect(updateMany).toHaveBeenCalledTimes(2);
+        expect(updateMany.mock.calls[1]?.[0].map((item: { id: string }) => item.id)).toEqual(["update"]);
+        expect(queue.update).toEqual([]);
+      });
+
+      test("treats the queue like an offline one, so its age keeps counting", async () => {
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+        updateMany.mockResolvedValueOnce(failedResponse(500));
+
+        updateItem({ ...MOCK_ITEM, id: "update" });
+        queue.lastUpdate = 1000;
+
+        await process();
+        expect(queue.lastUpdate).toBe(1000);
+      });
+
+      test("sends the items one by one after a rejection, so one bad item can't hold back the others", async () => {
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+        const ok = { response: { status: 200 }, error: null, data: {} };
+        updateMany.mockResolvedValueOnce(failedResponse(422));
+        updateMany.mockResolvedValueOnce(ok);
+        updateMany.mockResolvedValueOnce(failedResponse(422));
+
+        updateItem({ ...MOCK_ITEM, id: "good" });
+        updateItem({ ...MOCK_ITEM, id: "bad" });
+
+        await process();
+        expect(updateMany).toHaveBeenCalledTimes(3);
+        expect(queue.update.map(item => item.id)).toEqual(["bad"]);
+      });
+
+      test.each([500, 503, 401, 429, undefined])("doesn't split the request after a temporary failure (%s)", async (status) => {
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+        updateMany.mockResolvedValueOnce(failedResponse(status));
+
+        updateItem({ ...MOCK_ITEM, id: "a" });
+        updateItem({ ...MOCK_ITEM, id: "b" });
+
+        await process();
+        expect(updateMany).toHaveBeenCalledTimes(1);
+        expect(queue.update).toHaveLength(2);
+      });
+
+      test("reports failed writes until a run saves everything", async () => {
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+        updateMany.mockResolvedValueOnce(failedResponse(500));
+        updateMany.mockResolvedValueOnce(failedResponse(500));
+
+        updateItem({ ...MOCK_ITEM, id: "update" });
+        await process();
+        expect(hasFailedWrites.value).toBe(true);
+
+        await process();
+        expect(hasFailedWrites.value).toBe(true);
+
+        await process();
+        expect(hasFailedWrites.value).toBe(false);
+      });
+
+      test("keeps the local change visible in getList", async () => {
+        const checkedItem = { ...MOCK_ITEM, id: "server-item", checked: true, updatedAt: "200" };
+        getOne.mockImplementation(async () => ({
+          data: { ...MOCK_SHOPPING_LIST, listItems: [{ ...MOCK_ITEM, id: "server-item", checked: false, updatedAt: "100" }] },
+        }));
+        updateMany.mockResolvedValueOnce(failedResponse(500));
+
+        updateItem(checkedItem);
+        await process();
+
+        const list = await getList();
+        expect(list?.listItems?.find(item => item.id === "server-item")?.checked).toBe(true);
+        getOne.mockReset();
+        getOne.mockResolvedValue({ data: MOCK_SHOPPING_LIST });
+      });
     });
     test("doesn't do anything if the queue is empty", async () => {
       await process();

@@ -467,6 +467,50 @@ def test_migration_rejects_archive_over_size_limit(
     assert [entry["message"] for entry in report["entries"]] == ["Archive is too large to import"]
 
 
+def test_migration_rejects_file_over_size_limit(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(migration_helpers, "MAX_EXTRACTED_FILE_SIZE", 1024)
+    archive = _zip_bytes({"_recipes/big.md": "0" * 2048})
+
+    report = _run_migration(api_client, unique_user, SupportedMigrations.chowdown, archive)
+
+    assert report["status"] == "failure"
+    assert [entry["message"] for entry in report["entries"]] == ["Archive is too large to import"]
+
+
+def test_migration_rejects_archive_over_entry_limit(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(migration_helpers, "MAX_ARCHIVE_ENTRIES", 2)
+    archive = _zip_bytes({f"_recipes/{i}.md": "" for i in range(3)})
+
+    report = _run_migration(api_client, unique_user, SupportedMigrations.chowdown, archive)
+
+    assert report["status"] == "failure"
+    assert [entry["message"] for entry in report["entries"]] == ["Archive is too large to import"]
+
+
+def test_paprika_migration_rejects_recipe_over_size_limit(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Paprika recipes are gzipped inside the zip, so the zip's own size check cannot see their real size."""
+    monkeypatch.setattr(migration_helpers, "MAX_EXTRACTED_FILE_SIZE", 1024)
+    recipe_json = json.dumps({"name": random_string(), "notes": "0" * 2048}).encode()
+
+    archive = BytesIO()
+    with ZipFile(archive, "w") as zip_file:
+        gzipped = BytesIO()
+        with GzipFile(fileobj=gzipped, mode="wb") as gz:
+            gz.write(recipe_json)
+        zip_file.writestr("big.paprikarecipe", gzipped.getvalue())
+
+    report = _run_migration(api_client, unique_user, SupportedMigrations.paprika, archive.getvalue())
+
+    assert report["status"] == "failure"
+    assert [entry["message"] for entry in report["entries"]] == ["Archive is too large to import"]
+
+
 def test_cookn_reimport_attaches_image_to_renamed_duplicate(
     api_client: TestClient, unique_user_fn_scoped: TestUser
 ) -> None:

@@ -30,28 +30,28 @@ lsof -a -p <PID> -d cwd -Fn | tail -1
 Run each one with the Bash tool's `run_in_background: true` so it keeps running and its output stays readable. Backend first:
 
 ```bash
-task py
+mise run py
 ```
 
 ```bash
-task ui
+mise run ui
 ```
 
 The frontend proxies `/api`, `/docs`, and `/openapi.json` to `API_URL` (default `http://localhost:9000`), so the browser only ever talks to the frontend port.
 
-**Alternate ports** (when the defaults are taken by another checkout). Shell env wins over the Taskfile `env:` block, so prefix the commands:
+**Alternate ports** (when the defaults are taken by another checkout). Shell env wins over the `[env]` block in `mise.toml`, so prefix the commands:
 
 ```bash
-API_PORT=9100 BASE_URL=http://localhost:3100 task py
+API_PORT=9100 BASE_URL=http://localhost:3100 mise run py
 ```
 
 ```bash
-API_URL=http://localhost:9100 PORT=3100 task ui
+API_URL=http://localhost:9100 PORT=3100 mise run ui
 ```
 
 Then use `http://localhost:3100` everywhere below.
 
-If `task ui` exits with `pnpm: could not resolve pnpm to a regular file within 40 symlink hops`, the shell is using a pnpm other than the one `packageManager` in `frontend/package.json` pins. Install that version, or run the same command from `frontend/` directly: `pnpm run dev --no-fork`, with the same env prefix.
+If `mise run ui` exits with `pnpm: could not resolve pnpm to a regular file within 40 symlink hops`, the shell is using a pnpm other than the one `packageManager` in `frontend/package.json` pins. Install that version, or run the same command from `frontend/` directly: `pnpm run dev --no-fork`, with the same env prefix.
 
 **Wait for readiness** without `sleep`:
 
@@ -60,9 +60,9 @@ curl -sf --retry 30 --retry-delay 2 --retry-all-errors -o /dev/null http://local
 curl -sf --retry 60 --retry-delay 2 --retry-all-errors -o /dev/null http://localhost:3000 && echo frontend up
 ```
 
-The first frontend load compiles on demand and can take 30s or more. If a check fails, read the background task's output before retrying -- a missing `uv sync` / `pnpm install` (`task setup`) or a migration error shows up there.
+The first frontend load compiles on demand and can take 30s or more. If a check fails, read the background task's output before retrying -- a missing `uv sync` / `pnpm install` (`mise run setup`) or a migration error shows up there.
 
-Dev data lives in `dev/data/` (SQLite). It persists across runs. Don't run `task dev:clean` without asking -- it deletes the user's local data.
+Dev data lives in `dev/data/` (SQLite). It persists across runs. Don't run `mise run dev:clean` without asking -- it deletes the user's local data.
 
 ## 3. Log in
 
@@ -125,7 +125,7 @@ Mealie uses Vuetify, so many inputs are composites: the snapshot shows the label
 
 - **Frontend** (`frontend/app/**`): Nuxt HMR applies most changes without a reload. After changes to plugins, middleware, `nuxt.config.ts`, or layouts, `browser_navigate` to the same URL to reload. The MCP blocks service workers, so the PWA cache won't serve stale bundles.
 - **Backend** (`mealie/**`): uvicorn reloads on save with a 2s delay. Check the backend task output for import errors before blaming the UI.
-- **Pydantic schema changes**: run `task dev:generate` so the TypeScript types in `frontend/app/lib/api/types/` match, then reload the page.
+- **Pydantic schema changes**: run `mise run dev:generate` so the TypeScript types in `frontend/app/lib/api/types/` match, then reload the page.
 - **New UI strings**: add them only to `frontend/app/lang/messages/en-US.json`.
 
 Verify the actual behavior -- what the user would see -- not just that the page rendered. Check the console and network panel once more before calling it done.
@@ -138,10 +138,10 @@ Run a spec against the dev servers:
 
 ```bash
 cd tests/e2e
-pnpm install && pnpm exec playwright install chromium   # once; `task setup:e2e` installs every browser plus OS deps && E2E_BASE_URL=http://localhost:3000 PLAYWRIGHT_HTML_OPEN=never pnpm playwright test recipe-card.spec.ts --project chromium
+pnpm install && pnpm exec playwright install chromium   # once; `mise run setup:e2e` installs every browser plus OS deps && E2E_BASE_URL=http://localhost:3000 PLAYWRIGHT_HTML_OPEN=never pnpm playwright test recipe-card.spec.ts --project chromium
 ```
 
-`login.spec.ts` and `oidc-native.spec.ts` need the LDAP and OIDC mock servers, so they only pass against the full stack. CI runs that with `task e2e`, which builds the production Docker image and serves the app on port 9000 -- it takes several minutes, and it fails if a dev backend already holds port 9000. Run it only when asked or when the change touches auth.
+`login.spec.ts` and `oidc-native.spec.ts` need the LDAP and OIDC mock servers, so they only pass against the full stack. CI runs that with `mise run e2e`, which builds the production Docker image and serves the app on port 9000 -- it takes several minutes, and it fails if a dev backend already holds port 9000. Run it only when asked or when the change touches auth.
 
 ## 8. Clean up
 

@@ -8,6 +8,7 @@ import sqlalchemy as sa
 from fastapi import HTTPException
 from humps import decamelize
 from pydantic import UUID4
+from slugify import slugify
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
@@ -33,10 +34,13 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[RecipeOut, RecipeModel]):
     user_id: UUID4 | None = None
+    _last_made_household_id: UUID4 | None = None
 
     @property
     def column_aliases(self) -> dict[str, sa.ColumnElement]:
         if not self.user_id:
+            if self._last_made_household_id:
+                return {"last_made": self._get_last_made_col_alias()}
             return {}
 
         return {
@@ -51,16 +55,20 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
     def _get_last_made_col_alias(self) -> sa.ColumnElement:
         """
-        Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household,
-        otherwise an arbitrarily low date
+        Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household (without a user,
+        for the household of the public cookbook being read), otherwise an arbitrarily low date
         """
 
-        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+        household_id = (
+            sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+            if self.user_id
+            else self._last_made_household_id
+        )
         last_made_subquery = (
             sa.select(HouseholdToRecipe.last_made)
             .where(
                 HouseholdToRecipe.recipe_id == self.model.id,
-                HouseholdToRecipe.household_id == user_household_subquery,
+                HouseholdToRecipe.household_id == household_id,
             )
             .correlate(self.model)
             .scalar_subquery()
@@ -245,19 +253,38 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
     def _resolve_organizer(self, model: type[Tag] | type[Category] | type[Tool], name: str) -> dict:
         """Look up an organizer (tag/category/tool) by name in this group, creating it if absent.
 
+        Matching is by name first, then by slug. Names are not unique per group, but the slug is
+        (`tags_slug_group_id_key` and friends), so a name that only differs by characters the slug
+        drops -- "Veggie!" against an existing "Veggie" -- must resolve to the existing row. Without
+        the slug lookup the insert violates that constraint and the request fails with a misleading
+        "Recipe already exists".
+
+        A name that slugifies to nothing is left to the insert, so it still fails the constraint
+        rather than matching some other organizer. Emoji and punctuation-only names all share the
+        empty slug, so matching on it would let "🔥" silently resolve to an existing "🍕".
+
+        The two lookups are separate queries rather than one `or_` because a name and a slug can
+        point at different rows: on a database whose `lower()` only folds ASCII, "Ξηροί καρποί" and
+        "ξηροί καρποί" are distinct names with distinct slugs, yet the first name-matches the
+        second and slug-matches itself. Combining them matches both rows and
+        `scalar_one_or_none()` raises `MultipleResultsFound`. Name wins when both match, as above.
+
         Race-safe under concurrent updates: if two requests create the same organizer name
         at once, the loser's IntegrityError is caught and it re-selects the winner's row
         instead of erroring or creating a duplicate.
         """
         normalized_name = name.strip()
         max_attempts = 10
+        slug = slugify(normalized_name)
+        in_group = model.group_id == self.group_id
+        name_matches = sa.func.lower(model.name) == normalized_name.lower()
 
         for attempt in range(1, max_attempts + 1):
-            existing = self.session.execute(
-                sa.select(model).where(
-                    model.group_id == self.group_id, sa.func.lower(model.name) == normalized_name.lower()
-                )
-            ).scalar_one_or_none()
+            existing = self.session.execute(sa.select(model).where(in_group, name_matches)).scalar_one_or_none()
+            if existing is None and slug:
+                existing = self.session.execute(
+                    sa.select(model).where(in_group, model.slug == slug)
+                ).scalar_one_or_none()
             if existing:
                 return {
                     "id": str(existing.id),
@@ -369,6 +396,9 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         if extra_filter is not None:
             q = q.filter(extra_filter)
 
+        # Checked before the cookbook's own filter is added: only that one may use last_made without a user
+        self._validate_last_made_query(pagination_result)
+
         if cookbook:
             pagination_result.query_filter = QueryFilterBuilder.combine_filters(
                 pagination_result.query_filter, cookbook.query_filter_string
@@ -393,13 +423,17 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         if search:
             q = self.add_search_to_query(q, self.schema, search)
 
-        self._validate_last_made_query(pagination_result)
-
         if not pagination_result.order_by and not search:
             # default ordering if not searching
             pagination_result.order_by = "created_at"
 
-        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        # Without a user, a public cookbook's filter resolves last_made against the cookbook's household
+        if cookbook and not self.user_id:
+            self._last_made_household_id = cookbook.household_id
+        try:
+            q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        finally:
+            self._last_made_household_id = None
 
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())

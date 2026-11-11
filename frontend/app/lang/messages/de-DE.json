@@ -177,7 +177,9 @@
     "date-updated": "Aktualisiert am",
     "key": "Schlüssel",
     "value": "Wert",
-    "cant-create-permission": "Kann nicht erstellt werden. Bitte den Administrator kontaktieren, um die Berechtigung zu erhalten."
+    "cant-create-permission": "Kann nicht erstellt werden. Bitte den Administrator kontaktieren, um die Berechtigung zu erhalten.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Gruppe anlegen",
@@ -238,6 +240,8 @@
       "api-key": "API-Key",
       "api-key-description-create": "Der API-Schlüssel deines Anbieters zur Authentifizierung. Wenn der Dienst (z.B. Ollama) keinen API-Schlüssel verwendet, musst du hier trotzdem etwas eintragen.",
       "api-key-description-edit": "Lassen Sie dieses Feld leer, wenn Sie es nicht ändern möchten.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Basis-URL",
       "base-url-description": "Wenn du OpenAI verwendest, lasse dies leer. Muss ein OpenAI-kompatibler Endpunkt sein (z.B. \"http://localhost:11434/v1\").",
       "model": "Modell",
@@ -330,6 +334,13 @@
     "any-category": "Beliebige Kategorie",
     "any-tag": "Beliebiges Schlagwort",
     "any-household": "Beliebiger Haushalt",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Anzahl der vergangenen Wochen beim Laden",
     "numberOfWeeksPast-label": "Standard vergangene Wochen",
     "numberOfWeeks-hint": "Anzahl der vergangenen Wochen incl. aktuelle Woche beim Laden",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Es ist ein Fehler aufgetreten"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Dauer (Minuten)",
     "step-duration-saved": "Gespeicherte Dauer: {duration}. Das Bearbeiten dieses Feldes ersetzt es durch ganze Minuten.",
     "step-duration-placeholder": "Minuten",
@@ -509,6 +522,7 @@
     "nutrition": "Nährwerte",
     "linked-ingredients": "Verknüpfte Zutaten",
     "original-url": "Ursprüngliche URL",
+    "per-serving": "Per serving",
     "perform-time": "Kochzeit",
     "prep-time": "Vorbereitung",
     "protein-content": "Eiweiß",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Von Favoriten entfernen",
     "saturated-fat-content": "Gesättigte Fettsäuren",
     "save-recipe-before-use": "Rezept vor Verwendung speichern",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Titel des Abschnitts",
     "servings": "Portionen",
     "serves-amount": "{amount} Portionen",
@@ -865,6 +881,7 @@
     "new-list-name": "Listenname",
     "failed-to-create-shopping-list": "Erstellen der Einkaufsliste fehlgeschlagen",
     "item-checked-off": "{item} erledigt",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "Mehr Optionen",
     "fewer-options": "Weniger Optionen",
     "save-as-new-food": "„{text}“ als neues Lebensmittel speichern"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!",
     "forgot-password": "Passwort vergessen",
     "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam.",
     "default-activity": "Standardaktivität",
     "default-activity-hint": "Wähle die Seite, auf die du navigieren möchtest, wenn du dich von diesem Gerät aus anmeldest"

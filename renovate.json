@@ -9,10 +9,12 @@
     "dockerfile",
     "npm",
     "mise",
-    "custom.regex"
+    "custom.regex",
+    "github-actions"
   ],
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
   ],
   "minimumReleaseAge": "5 days",
   "internalChecksFilter": "strict",
@@ -33,6 +35,29 @@
     }
   ],
   "packageRules": [
+    {
+      "description": "One PR for all GitHub Actions updates",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions"
+    },
+    {
+      "description": "Auto-merge non-major GitHub Actions updates and digest pins",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "pin",
+        "pinDigest",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
     {
       "matchManagers": [
         "npm"

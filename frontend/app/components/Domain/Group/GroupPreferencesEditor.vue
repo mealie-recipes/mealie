@@ -15,7 +15,7 @@
         </p>
         <DocLink
           class="mt-2"
-          link="/documentation/getting-started/faq/#how-do-private-groups-and-recipes-work"
+          link="/documentation/getting-started/faq/#how-do-private-groups-households-and-recipes-work"
         />
       </div>
     </div>

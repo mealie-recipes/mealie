@@ -40,8 +40,11 @@ if TYPE_CHECKING:
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
-    __table_args__: tuple[sa.UniqueConstraint, ...] = (
+    __table_args__: tuple[sa.UniqueConstraint | sa.Index, ...] = (
         sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
+        # The recipe list's default sort. Without it the database reads and sorts the whole group to
+        # return one page, and recipes arriving in created_at order is the worst case for that sort.
+        sa.Index("ix_recipes_group_id_created_at", "group_id", "created_at"),
     )
 
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)

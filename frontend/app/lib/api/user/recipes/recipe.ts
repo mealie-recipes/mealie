@@ -53,6 +53,7 @@ const routes = {
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
   recipesRecipeSlugAssetsUrl: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets/url`,
+  recipesRecipeSlugExportsPdf: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/exports/pdf`,
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
@@ -105,6 +106,10 @@ export class RecipeAPI extends BaseCRUDAPI<RecipeCreate, RecipeOut, RecipeDraft,
 
     this.comments = new CommentsApi(requests);
     this.share = new RecipeShareApi(requests);
+  }
+
+  getPdfUrl(recipeSlug: string) {
+    return routes.recipesRecipeSlugExportsPdf(recipeSlug);
   }
 
   async search(rsq: RecipeSearchQuery) {

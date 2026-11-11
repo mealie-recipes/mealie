@@ -177,7 +177,9 @@
     "date-updated": "Дата Оновлення",
     "key": "Ключ",
     "value": "Значення",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Створити групу",
@@ -238,6 +240,8 @@
       "api-key": "Ключ API",
       "api-key-description-create": "API-ключ вашого постачальника для автентифікації. Якщо ваш сервіс (наприклад, Ollama) не використовує API-ключ, вам все одно потрібно щось сюди вписати.",
       "api-key-description-edit": "Залиште це поле порожнім, якщо не хочете його змінювати.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Основний URL",
       "base-url-description": "Якщо ви використовуєте OpenAI, залиште це поле порожнім. Це має бути OpenAI-сумісний кінцевий пункт (наприклад, \"http://localhost:11434/v1\").",
       "model": "Модель",
@@ -330,6 +334,13 @@
     "any-category": "Будь-яка категорія",
     "any-tag": "Будь-який тег",
     "any-household": "Будь-яка сім'я",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Сталася помилка"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +522,7 @@
     "nutrition": "Харчова цінність",
     "linked-ingredients": "Linked Ingredients",
     "original-url": "Оригінальна URL-адреса",
+    "per-serving": "Per serving",
     "perform-time": "Час приготування",
     "prep-time": "Час підготовки",
     "protein-content": "Білки",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Видалити з улюбленого",
     "saturated-fat-content": "Насичені жири",
     "save-recipe-before-use": "Зберегти рецепт перед використанням",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Назва розділу",
     "servings": "Порції",
     "serves-amount": "Порцій: {amount}",
@@ -865,6 +881,7 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "Позначено {item} як куплене",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!",
     "forgot-password": "Нагадати пароль",
     "forgot-password-text": "Будь ласка, введіть адресу вашої електронної пошти й вам надійде повідомлення, щоб відновити пароль.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені.",
     "default-activity": "Дія за замовчуванням",
     "default-activity-hint": "Виберіть, на яку сторінку ви хочете перейти після входу з цього пристрою"

@@ -17,6 +17,7 @@
       clearable
       hide-details
       hide-no-data
+      autocapitalize="none"
       @update:model-value="onSelect"
       @keyup.enter="submit()"
     >

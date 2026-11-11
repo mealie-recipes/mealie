@@ -4,6 +4,7 @@ import os
 import random
 import tempfile
 from collections.abc import Generator
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from uuid import uuid4
 from zipfile import ZipFile
@@ -17,6 +18,7 @@ from recipe_scrapers._schemaorg import SchemaOrg
 from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
+import mealie.services.recipe.recipe_service as recipe_service_module
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.db.models.recipe import RecipeModel
 from mealie.pkgs.safehttp.fetch import FetchResult
@@ -421,6 +423,21 @@ def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, t
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
     assert fetched_recipe
+
+
+def test_create_recipe_from_zip_rejects_archive_over_size_limit(
+    api_client: TestClient, unique_user: TestUser, tempdir: str, monkeypatch: MonkeyPatch
+):
+    monkeypatch.setattr(recipe_service_module, "MAX_RECIPE_ZIP_SIZE", 1024)
+    recipe_name = random_string()
+    recipe_data = {"name": recipe_name, "slug": recipe_name, "description": "0" * 2048}
+
+    r = api_client.post(
+        api_routes.recipes_create_zip, files=zip_recipe_data(tempdir, recipe_data), headers=unique_user.token
+    )
+    assert r.status_code == 413
+
+    assert unique_user.repos.recipes.get_by_slug(unique_user.group_id, recipe_name) is None
 
 
 def test_create_recipe_from_zip_reimport_into_same_instance(api_client: TestClient, unique_user: TestUser):
@@ -2072,6 +2089,182 @@ def test_patch_recipe_instructions_without_ingredient_references(api_client: Tes
     assert all(step["ingredientReferences"] == [] for step in recipe["recipeInstructions"])
 
 
+@pytest.mark.parametrize(
+    ("organizer_field", "organizer_route"),
+    [
+        ("tags", "organizers_tags"),
+        ("recipeCategory", "organizers_categories"),
+        ("tools", "organizers_tools"),
+    ],
+)
+def test_patch_reuses_organizer_with_colliding_slug(
+    api_client: TestClient, unique_user: TestUser, organizer_field: str, organizer_route: str
+):
+    """An organizer name that slugifies onto an existing one must resolve, not fail.
+
+    Organizers are unique per group by slug, not by name, so "Veggie!" and "Veggie" name the same
+    row. Resolving by name alone missed the existing row and the insert then violated the slug
+    constraint, which surfaced as a misleading "Recipe already exists".
+    """
+    first = random_string()
+    second = random_string()
+    first_slug = api_client.post(api_routes.recipes, json={"name": first}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": second}, headers=unique_user.token).json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(first_slug), json={organizer_field: ["Quick Serve"]}, headers=unique_user.token
+    )
+    assert response.status_code == 200
+    assert [item["name"] for item in response.json()[organizer_field]] == ["Quick Serve"]
+
+    response = api_client.patch(
+        api_routes.recipes_slug(second_slug), json={organizer_field: ["Quick Serve!"]}, headers=unique_user.token
+    )
+    assert response.status_code == 200
+    # resolves to the existing organizer, keeping its canonical name
+    assert [item["name"] for item in response.json()[organizer_field]] == ["Quick Serve"]
+
+    organizers = api_client.get(getattr(api_routes, organizer_route), headers=unique_user.token).json()["items"]
+    matching = [item for item in organizers if item["slug"] == "quick-serve"]
+    assert len(matching) == 1, matching
+
+
+def test_patch_organizer_new_name_still_created(api_client: TestClient, unique_user: TestUser):
+    """The slug lookup must not stop genuinely new organizers from being created."""
+    name = random_string()
+    slug = api_client.post(api_routes.recipes, json={"name": name}, headers=unique_user.token).json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(slug), json={"tags": ["Weeknight Batch Cooking"]}, headers=unique_user.token
+    )
+
+    assert response.status_code == 200
+    assert [tag["name"] for tag in response.json()["tags"]] == ["Weeknight Batch Cooking"]
+
+
+@pytest.mark.skipif(
+    os.environ.get("DB_ENGINE") == "postgres", reason="Postgres lower() folds Greek, so both names resolve to one row"
+)
+@pytest.mark.parametrize(
+    ("organizer_field", "organizer_route"),
+    [
+        ("tags", "organizers_tags"),
+        ("recipeCategory", "organizers_categories"),
+        ("tools", "organizers_tools"),
+    ],
+)
+def test_patch_organizer_name_and_slug_match_different_rows(
+    api_client: TestClient, unique_user: TestUser, organizer_field: str, organizer_route: str
+):
+    """A name match and a slug match on different rows must not raise.
+
+    On SQLite `lower()` folds ASCII only, so it leaves "Ξηροί καρποί" alone while Python's
+    `str.lower()` yields "ξηροί καρποί". Patching "Ξηροί καρποί" therefore name-matches the
+    "ξηροί καρποί" row and slug-matches its own "kseroi-karpoi" row, so a single combined
+    predicate matches two rows and `scalar_one_or_none()` raises `MultipleResultsFound`, turning
+    the request into a 500. Name wins, which is what the docstring promises.
+
+    Postgres' `lower()` folds Greek as well, so there the second PATCH already resolves to the
+    first row and the two rows this test needs never exist; the collision is SQLite-only.
+    """
+    first = random_string()
+    second = random_string()
+    first_slug = api_client.post(api_routes.recipes, json={"name": first}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": second}, headers=unique_user.token).json()
+
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(first_slug), json={organizer_field: ["Ξηροί καρποί"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(second_slug), json={organizer_field: ["ξηροί καρποί"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+
+    response = api_client.patch(
+        api_routes.recipes_slug(first_slug), json={organizer_field: ["Ξηροί καρποί"]}, headers=unique_user.token
+    )
+
+    # the name match wins over the slug match, as it does for the pre-existing nightly behaviour
+    assert response.status_code == 200
+    assert [item["name"] for item in response.json()[organizer_field]] == ["ξηροί καρποί"]
+
+    organizers = api_client.get(getattr(api_routes, organizer_route), headers=unique_user.token).json()["items"]
+    matching = [item for item in organizers if "καρποί" in item["name"]]
+    assert len(matching) == 2, matching
+
+
+@pytest.mark.parametrize(
+    ("organizer_field", "organizer_route"),
+    [
+        ("tags", "organizers_tags"),
+        ("recipeCategory", "organizers_categories"),
+        ("tools", "organizers_tools"),
+    ],
+)
+def test_patch_does_not_resolve_organizer_on_empty_slug(
+    api_client: TestClient, unique_user: TestUser, organizer_field: str, organizer_route: str
+):
+    """An organizer name that slugifies to nothing must not match another empty-slug organizer.
+
+    Every emoji- or punctuation-only name produces the empty slug, so matching on it would let any
+    such name resolve to any other -- tagging a recipe with "🔥" would reuse an existing "🍕". The
+    insert is left to fail the constraint instead, which is the 400 this returned before.
+    """
+    first = random_string()
+    second = random_string()
+    first_slug = api_client.post(api_routes.recipes, json={"name": first}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": second}, headers=unique_user.token).json()
+
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(first_slug), json={organizer_field: ["🍕"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+
+    # "🔥" also slugifies to "", so it must not silently resolve to the "🍕" above
+    response = api_client.patch(
+        api_routes.recipes_slug(second_slug), json={organizer_field: ["🔥"]}, headers=unique_user.token
+    )
+    assert response.status_code == 400
+
+    organizers = api_client.get(getattr(api_routes, organizer_route), headers=unique_user.token).json()["items"]
+    assert [item["name"] for item in organizers if item["slug"] == ""] == ["🍕"]
+
+
+def test_patch_organizer_slug_match_is_scoped_to_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    """A same-slug organizer in another group must not be reused."""
+    first_slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=g2_user.token).json()
+
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(first_slug), json={"tags": ["Group Scoped"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(second_slug), json={"tags": ["Group Scoped"]}, headers=g2_user.token
+        ).status_code
+        == 200
+    )
+
+    first_group = api_client.get(api_routes.organizers_tags, headers=unique_user.token).json()["items"]
+    second_group = api_client.get(api_routes.organizers_tags, headers=g2_user.token).json()["items"]
+
+    first_tag = next(item for item in first_group if item["name"] == "Group Scoped")
+    second_tag = next(item for item in second_group if item["name"] == "Group Scoped")
+    assert first_tag["id"] != second_tag["id"]
+
+
 def test_put_recipe_name_change_updates_slug(api_client: TestClient, unique_user: TestUser):
     original_name = "Original Recipe Name"
     renamed_name = "Renamed Recipe Name"
@@ -2409,6 +2602,59 @@ def test_get_cookbook_recipes_by_food_label(api_client: TestClient, unique_user:
         assert recipe.id in fetched_recipe_ids
     for recipe in other_recipes:
         assert recipe.id not in fetched_recipe_ids
+
+
+def test_get_cookbook_recipes_not_made_recently(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    """
+    A "not made recently" cookbook filters on last_made with a relative date.
+
+    last_made is the date of the user's own household, so a recipe another household
+    cooked recently still counts as not made recently here. A recipe that was never
+    made counts as made long ago.
+    """
+
+    def create_recipe() -> RecipeOut:
+        response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+        assert response.status_code == 201
+        recipe = unique_user.repos.recipes.get_one(response.json())
+        assert recipe
+        return recipe
+
+    def mark_made(recipe: RecipeOut, when: datetime, token: dict) -> None:
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(recipe.slug),
+            json={"timestamp": when.isoformat()},
+            headers=token,
+        )
+        assert response.status_code == 200
+
+    now = datetime.now(tz=UTC)
+    made_recently = create_recipe()
+    made_long_ago = create_recipe()
+    never_made = create_recipe()
+    made_recently_by_other_household = create_recipe()
+
+    mark_made(made_recently, now - timedelta(days=3), unique_user.token)
+    mark_made(made_long_ago, now - timedelta(days=90), unique_user.token)
+    mark_made(made_recently_by_other_household, now - timedelta(days=3), h2_user.token)
+
+    cookbook = unique_user.repos.cookbooks.create(
+        CookBookSave(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            query_filter_string='last_made <= "$NOW-30d"',
+        )
+    )
+
+    response = api_client.get(api_routes.recipes, params={"cookbook": cookbook.slug}, headers=unique_user.token)
+    assert response.status_code == 200
+    fetched_recipe_ids = {item["id"] for item in response.json()["items"]}
+
+    assert str(made_long_ago.id) in fetched_recipe_ids
+    assert str(never_made.id) in fetched_recipe_ids
+    assert str(made_recently_by_other_household.id) in fetched_recipe_ids
+    assert str(made_recently.id) not in fetched_recipe_ids
 
 
 def test_create_recipe_with_extremely_long_slug(api_client: TestClient, unique_user: TestUser):

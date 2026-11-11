@@ -177,7 +177,9 @@
     "date-updated": "Güncellenme tarihi",
     "key": "Anahtar",
     "value": "Değer",
-    "cant-create-permission": "Oluşturulamıyor. İzin almak için lütfen yöneticinizle iletişime geçin."
+    "cant-create-permission": "Oluşturulamıyor. İzin almak için lütfen yöneticinizle iletişime geçin.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Grup Oluştur",
@@ -238,6 +240,8 @@
       "api-key": "API Anahtarı",
       "api-key-description-create": "Kimlik doğrulama için sağlayıcınızın API anahtarı. Hizmetiniz (ör. Ollama) API anahtarı kullanmıyorsa bile buraya bir şey yazmanız gerekir.",
       "api-key-description-edit": "Değiştirmek istemiyorsanız bunu boş bırakın.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Temel URL",
       "base-url-description": "OpenAI kullanıyorsanız bunu boş bırakın. OpenAI uyumlu bir uç nokta olmalıdır (ör. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -330,6 +334,13 @@
     "any-category": "Herhangi Bir Kategori",
     "any-tag": "Herhangi Bir Etiket",
     "any-household": "Kullanıcı Hane Halkı",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Bir hata oluştu"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +522,7 @@
     "nutrition": "Besin Değeri",
     "linked-ingredients": "Bağlantılı Malzemeler",
     "original-url": "Orijinal URL",
+    "per-serving": "Per serving",
     "perform-time": "Pişirme Süresi",
     "prep-time": "Hazırlık Süresi",
     "protein-content": "Protein",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Favorilerden Kaldır",
     "saturated-fat-content": "Doymuş yağ",
     "save-recipe-before-use": "Kullanmadan önce tarifi kaydedin",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Bölüm başlığı",
     "servings": "Porsiyon",
     "serves-amount": "{amount} kişilik",
@@ -865,6 +881,7 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "{item} işaretlendi",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Artık bunu görmek istemiyor musunuz? Kullanıcı ayarlarınızda e-postanızı değiştirmeyi unutmayın!",
     "forgot-password": "Şifreni mi Unuttun?",
     "forgot-password-text": "Lütfen e-posta adresinizi girin, size şifrenizi sıfırlamanız için bir bağlantı göndereceğiz.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Bu kullanıcıda yapılan değişiklikler hemen yansıtılacaktır.",
     "default-activity": "Varsayılan Aktivite",
     "default-activity-hint": "Bu cihazdan giriş yaptığınızda hangi sayfaya gitmek istediğinizi seçin"

@@ -8,7 +8,7 @@ from typing import Any
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy import ColumnElement, Select, case, delete, func, inspect, nulls_first, nulls_last, select
 from sqlalchemy.orm.session import Session
 
 from mealie.core.root_logger import get_logger
@@ -394,7 +394,14 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                 self.logger.error(e)
                 raise HTTPException(status_code=400, detail=str(e)) from e
 
-        count_query = select(func.count()).select_from(query.order_by(None).distinct().subquery())
+        # Only a join can repeat a row, so a query on the model's table alone needs no DISTINCT. With a
+        # join, distinct on the primary key counts the same rows as distinct on the whole row, without
+        # comparing every column (long text fields included) of every matching row.
+        primary_key = inspect(self.model).primary_key
+        rows = query.order_by(None).with_only_columns(*primary_key)
+        if rows.get_final_froms() != [self.model.__table__]:
+            rows = rows.distinct()
+        count_query = select(func.count()).select_from(rows.subquery())
         count = self.session.scalar(count_query)
         if not count:
             count = 0
@@ -418,12 +425,45 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         if pagination.page < 1:
             pagination.page = 1
 
+        offset = (pagination.page - 1) * pagination.per_page
+        # A query that is already ordered (e.g. by search relevance) keeps random as a tiebreaker only,
+        # so it has to go through the full ORDER BY.
+        if pagination.order_by == "random" and not query._order_by_clauses:
+            return self._select_random_page(query, pagination.pagination_seed, offset, limit), count, total_pages
+
         query = self.add_order_by_to_query(query, pagination)
 
         if limit is not None:
             query = query.limit(limit)
 
-        return query.offset((pagination.page - 1) * pagination.per_page), count, total_pages
+        return query.offset(offset), count, total_pages
+
+    def _shuffled_ids(self, query: Select, seed: str | None) -> list:
+        """
+        All ids the query matches, in a random order that is stable for a given seed.
+
+        Shuffled outside of the database, since not all databases can seed their random function.
+        """
+        ids = self.session.execute(query.with_only_columns(self.model.id)).scalars().all()
+        positions = list(range(len(ids)))
+        random.Random(seed).shuffle(positions)
+
+        shuffled = list(ids)
+        for id_, position in zip(ids, positions, strict=True):
+            shuffled[position] = id_
+        return shuffled
+
+    def _select_random_page(self, query: Select, seed: str | None, offset: int, limit: int | None) -> Select:
+        """
+        Selects one page of a random order by picking the page's ids up front, rather than making the
+        database sort every matching row by a CASE with one branch per row.
+        """
+        page_ids = self._shuffled_ids(query, seed)[offset : None if limit is None else offset + limit]
+        query = query.filter(self.model.id.in_(page_ids))
+        if not page_ids:
+            return query
+
+        return query.order_by(case({id_: i for i, id_ in enumerate(page_ids)}, value=self.model.id))
 
     def add_order_attr_to_query(
         self,
@@ -451,16 +491,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         elif request_query.order_by == "random":
             # randomize outside of database, since not all db's can set random seeds
             # this solution is db-independent & stable to paging
-            temp_query = query.with_only_columns(self.model.id)
-            allids = self.session.execute(temp_query).scalars().all()  # fast because id is indexed
-            if not allids:
+            shuffled_ids = self._shuffled_ids(query, request_query.pagination_seed)
+            if not shuffled_ids:
                 return query
 
-            order = list(range(len(allids)))
-            random.seed(request_query.pagination_seed)
-            random.shuffle(order)
-            random_dict = dict(zip(allids, order, strict=True))
-            case_stmt = case(random_dict, value=self.model.id)
+            case_stmt = case({id_: i for i, id_ in enumerate(shuffled_ids)}, value=self.model.id)
             return query.order_by(case_stmt)
 
         else:

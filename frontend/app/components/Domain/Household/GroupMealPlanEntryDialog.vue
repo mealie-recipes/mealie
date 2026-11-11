@@ -49,6 +49,7 @@
 
           <!-- the dates are part of the label, so they stay with the switch instead of floating above the next field -->
           <v-switch
+            v-if="showWeekOption"
             v-model="isWeekEntry"
             color="primary"
             hide-details
@@ -157,6 +158,7 @@ import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditBut
 import RecipeSelector from "~/components/Domain/Recipe/RecipeSelector.vue";
 import { useMealPlanEntryDates, usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { buildRuleQueryFilter, useMealplanRules } from "~/composables/use-mealplan-rules";
+import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 import { validators } from "~/composables/use-validators";
 import type { PlanEntryCreate, PlanEntryType, PlanEntryOut, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
 import type { RecipeSummary } from "~/lib/api/types/recipe";
@@ -196,6 +198,9 @@ const text = ref("");
 const ignoreRules = ref(false);
 
 const isRecipe = computed(() => entryMode.value === "recipe");
+
+const mealPlanPreferences = useUserMealPlanPreferences();
+const showWeekOption = computed(() => mealPlanPreferences.value.mode === "weeks" || isWeekEntry.value);
 
 const applicableRuleFilter = computed(() => buildRuleQueryFilter(
   rules.value,

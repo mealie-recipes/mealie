@@ -173,7 +173,6 @@ lcov.info
 dev/code-generation/openapi.json
 
 .run/
-.task/*
 .dev.env
 frontend/eslint.config.deprecated.js
 

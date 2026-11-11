@@ -13,7 +13,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout 🛎
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Set up tools
         uses: ./.github/actions/setup-tools
@@ -25,7 +25,7 @@ jobs:
         run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Cache
-        uses: actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: |
             ~/.cache/pre-commit
@@ -42,14 +42,14 @@ jobs:
 
       - name: Generate GitHub App Token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
         with:
           app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
           private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
 
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           token: ${{ steps.app-token.outputs.token }}
           commit-message: "Update pre-commit hooks"

@@ -177,7 +177,9 @@
     "date-updated": "Fecha de actualización",
     "key": "Clave",
     "value": "Valor",
-    "cant-create-permission": "No se puede crear. Ponte en contacto con tu administrador para obtener permiso."
+    "cant-create-permission": "No se puede crear. Ponte en contacto con tu administrador para obtener permiso.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Crear Grupo",
@@ -238,6 +240,8 @@
       "api-key": "Clave API",
       "api-key-description-create": "La clave API de tu proveedor para la autenticación. Si tu servicio (por ejemplo, Ollama) no usa una clave API, todavía tienes que poner algo aquí.",
       "api-key-description-edit": "Deja esto en blanco a menos que quieras cambiarlo.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "URL base",
       "base-url-description": "Si estás usando OpenAI deja esto en blanco. Debe ser un endpoint compatible con OpenAI (por ejemplo, \"http://localhost:11434/v1\").",
       "model": "Modelo",
@@ -330,6 +334,13 @@
     "any-category": "Cualquier categoría",
     "any-tag": "Cualquier etiqueta",
     "any-household": "Cualquier casa",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Número de semanas anteriores al cargar la página",
     "numberOfWeeksPast-label": "Semanas anteriores predeterminadas",
     "numberOfWeeks-hint": "Número de semanas al cargar la página, incluida la semana actual",
@@ -473,6 +484,8 @@
     "an-error-occurred": "Se ha producido un error"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duración (minutos)",
     "step-duration-saved": "Duración guardada: {duration}. Si editas este campo, se sustituirá por minutos enteros.",
     "step-duration-placeholder": "Minutos",
@@ -509,6 +522,7 @@
     "nutrition": "Valores nutricionales",
     "linked-ingredients": "Ingredientes vinculados",
     "original-url": "URL original",
+    "per-serving": "Per serving",
     "perform-time": "Tiempo de cocción",
     "prep-time": "Tiempo de preparación",
     "protein-content": "Proteína",
@@ -524,6 +538,8 @@
     "remove-from-favorites": "Eliminar de favoritos",
     "saturated-fat-content": "Grasas saturadas",
     "save-recipe-before-use": "Guardar la receta antes de usar",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Título de la sección",
     "servings": "Porciones",
     "serves-amount": "Personas {amount}",
@@ -865,6 +881,7 @@
     "new-list-name": "Nombre de la lista",
     "failed-to-create-shopping-list": "No se pudo crear la lista de la compra",
     "item-checked-off": "Comprobado {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "Más opciones",
     "fewer-options": "Menos opciones",
     "save-as-new-food": "Guardar \"{text}\" como alimento nuevo"
@@ -970,6 +987,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "¿No quieres ver esto más? ¡Asegúrate de cambiar tu correo electrónico en tu configuración de usuario!",
     "forgot-password": "Olvidé mi contraseña",
     "forgot-password-text": "Por favor, introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Los cambios en este grupo se reflejarán inmediatamente.",
     "default-activity": "Actividad predeterminada",
     "default-activity-hint": "Selecciona la pagina a la que navegar al iniciar la sesion en este dispositivo"

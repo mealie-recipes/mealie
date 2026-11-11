@@ -27,7 +27,7 @@ class TagController(BaseCrudController):
         return HttpRepo(self.repo, self.logger)
 
     @router.get("", response_model=TagPagination)
-    async def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         """Returns a list of available tags in the database"""
         response = self.repo.page_all(
             pagination=q,
@@ -125,5 +125,5 @@ class TagController(BaseCrudController):
             )
 
     @router.get("/slug/{tag_slug}", response_model=TagWithRecipes)
-    async def get_one_by_slug(self, tag_slug: str):
+    def get_one_by_slug(self, tag_slug: str):
         return self.repo.get_one(tag_slug, "slug", override_schema=TagWithRecipes)

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} a fait ceci pour le dessert",
         "recipe-image-deleted": "L’image de la recette a été supprimée",
         "recipe-defaults": {
-            "ingredient-note": "100 g de farine",
-            "name": "New Recipe",
-            "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Fait",
@@ -27,6 +25,16 @@
             "yields": "Produit"
         },
         "and-amount": "et {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Les services IA ne sont pas activés",
             "ai-request-failed": "Le fournisseur d'IA n'a pas pu répondre à la demande. Veuillez réessayer",

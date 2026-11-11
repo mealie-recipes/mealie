@@ -16,6 +16,7 @@ from fastapi import UploadFile
 from mealie.core import exceptions
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
+from mealie.pkgs.archive import ArchiveBudget
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
@@ -42,6 +43,11 @@ from mealie.services.recipe.mealie_export import InvalidMealieExportError
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
+
+MAX_RECIPE_ZIP_SIZE = 100 * 1024**2
+"""Upper bound, in bytes, on what a single-recipe zip may unpack to; one recipe and its image"""
+
+MAX_RECIPE_ZIP_ENTRIES = 100
 
 RECIPE_CREATED_EVENT_SUBJECT = "recipe.recipe-created"
 
@@ -509,6 +515,9 @@ class RecipeService(RecipeServiceBase):
         """
         `create_from_zip` creates a recipe in the database from a zip file exported from Mealie. This is NOT
         a generic import from a zip file.
+
+        Raises `ArchiveTooLargeError` when the archive is over `MAX_RECIPE_ZIP_SIZE` bytes or
+        `MAX_RECIPE_ZIP_ENTRIES` files.
         """
         with temp_path.open("wb") as buffer:
             shutil.copyfileobj(archive.file, buffer)
@@ -517,6 +526,9 @@ class RecipeService(RecipeServiceBase):
         recipe_image: bytes | None = None
 
         with ZipFile(temp_path) as myzip:
+            ArchiveBudget(
+                bytes_left=MAX_RECIPE_ZIP_SIZE, entries_left=MAX_RECIPE_ZIP_ENTRIES, max_file_size=MAX_RECIPE_ZIP_SIZE
+            ).spend(myzip)
             for file in myzip.namelist():
                 if file.endswith(".json"):
                     with myzip.open(file) as myfile:

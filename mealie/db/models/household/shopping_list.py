@@ -30,7 +30,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
         "ShoppingListItem", back_populates="recipe_references"
     )
     shopping_list_item_id: FilterableColumn[GUID] = mapped_column(
-        GUID, ForeignKey("shopping_list_items.id"), primary_key=True
+        GUID, ForeignKey("shopping_list_items.id"), primary_key=True, index=True
     )
 
     recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
@@ -102,7 +102,9 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     shopping_list: Mapped[ShoppingList] = orm.relationship("ShoppingList", back_populates="recipe_references")
-    shopping_list_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
+    shopping_list_id: FilterableColumn[GUID] = mapped_column(
+        GUID, ForeignKey("shopping_lists.id"), primary_key=True, index=True
+    )
     group_id: AssociationProxy[GUID] = association_proxy("shopping_list", "group_id")
     household_id: AssociationProxy[GUID] = association_proxy("shopping_list", "household_id")
 
