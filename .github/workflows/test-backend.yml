@@ -105,7 +105,7 @@ jobs:
         run: |
           mise run py:mypy
 
-      - name: Semgrep (authz rules)
+      - name: Semgrep (authz and XSS rules)
         if: matrix.Database == 'sqlite'
         run: |
           mise run py:semgrep

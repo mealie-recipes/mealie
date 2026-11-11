@@ -17,15 +17,13 @@
       </v-icon>
       <p class="my-0 opacity-80">
         <span class="font-weight-bold">{{ $t("recipe.yield") }}</span><br>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="yieldDisplay" />
+        <SafeInlineHtml :html="yieldDisplay" />
       </p>
     </v-row>
   </div>
 </template>
 
 <script setup lang="ts">
-import { sanitizeInlineHtml } from "~/lib/sanitize/inline";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 interface Props {
@@ -54,6 +52,6 @@ const yieldDisplay = computed<string>(() => {
     components.push(text);
   }
 
-  return sanitizeInlineHtml(components.join(" "));
+  return components.join(" ");
 });
 </script>

@@ -33,8 +33,7 @@
                   >
                     {{ $globals.icons.edit }}
                   </v-icon>
-                  <!-- eslint-disable-next-line vue/no-v-html -->
-                  <span v-html="yieldDisplay" />
+                  <SafeInlineHtml :html="yieldDisplay" />
                 </v-card>
               </template>
               <span> {{ $t("recipe.edit-scale") }} </span>
@@ -55,8 +54,7 @@
               >
                 {{ $globals.icons.edit }}
               </v-icon>
-              <!-- eslint-disable-next-line vue/no-v-html -->
-              <span v-html="yieldDisplay" />
+              <SafeInlineHtml :html="yieldDisplay" />
             </v-card>
           </template>
           <v-card min-width="300px">

@@ -1,6 +1,8 @@
-import DOMPurify from "isomorphic-dompurify";
+import createDOMPurify from "dompurify";
 
 const INLINE_ALLOWED_TAGS = ["b", "i", "q", "em", "strong", "sup", "sub", "span"];
+
+const purifier = createDOMPurify(window);
 
 /**
  * Sanitizes a short run of inline HTML, such as an ingredient line or a recipe yield, where the
@@ -14,7 +16,7 @@ export function sanitizeInlineHtml(rawHtml: string | null | undefined): string {
   }
 
   // Don't add USE_PROFILES here: DOMPurify replaces ALLOWED_TAGS with the whole profile when it's set.
-  return DOMPurify.sanitize(rawHtml, {
+  return purifier.sanitize(rawHtml, {
     ALLOWED_TAGS: INLINE_ALLOWED_TAGS,
     ALLOWED_ATTR: [],
   });

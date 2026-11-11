@@ -1,6 +1,5 @@
 import { useFraction } from "./use-fraction";
 import { useLocales } from "../use-locales";
-import { sanitizeInlineHtml } from "~/lib/sanitize/inline";
 import type { IngredientFoodCreate, IngredientUnitCreate, IngredientFoodOut, IngredientFoodSummary, IngredientUnitOut, RecipeDraft, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
@@ -38,7 +37,7 @@ function useRecipeLink(recipe: RecipeDraft | undefined, groupSlug: string | unde
     return undefined;
   }
 
-  return `<a href="/g/${encodeURIComponent(groupSlug)}/r/${encodeURIComponent(recipe.slug)}">${sanitizeInlineHtml(recipe.name)}</a>`;
+  return `<a href="/g/${encodeURIComponent(groupSlug)}/r/${encodeURIComponent(recipe.slug)}">${recipe.name}</a>`;
 }
 
 type ParsedIngredientText = {
@@ -133,10 +132,10 @@ export function useIngredientTextParser() {
     const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
 
     return {
-      quantity: returnQty ? sanitizeInlineHtml(returnQty) : undefined,
-      unit: unitName && quantity ? sanitizeInlineHtml(unitName) : undefined,
-      name: ingName ? sanitizeInlineHtml(ingName) : undefined,
-      note: note ? sanitizeInlineHtml(note) : undefined,
+      quantity: returnQty || undefined,
+      unit: unitName && quantity ? unitName : undefined,
+      name: ingName || undefined,
+      note: note || undefined,
       recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
     };
   };
@@ -144,8 +143,7 @@ export function useIngredientTextParser() {
   function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
     const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
 
-    const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
-    return sanitizeInlineHtml(text);
+    return `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
   };
 
   function ingredientToParserString(ingredient: RecipeIngredient): string {

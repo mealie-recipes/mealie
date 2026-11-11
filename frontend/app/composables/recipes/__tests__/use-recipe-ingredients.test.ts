@@ -3,6 +3,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { useIngredientTextParser } from "../use-recipe-ingredients";
 import { useLocales } from "~/composables/use-locales";
 import { makeRecipe } from "~/tests/factories";
+import { sanitizeInlineHtml } from "~/lib/sanitize";
 
 vi.mock("~/composables/use-locales");
 
@@ -59,10 +60,13 @@ describe("parseIngredientText", () => {
     expect(result).contain("1 1/2");
   });
 
-  test("sanitizes html", () => {
-    const ingredient = createRecipeIngredient({ note: "<script>alert('foo')</script>" });
+  // The text is sanitized where it is rendered (<SafeInlineHtml>), not here.
+  test("is safe once rendered through the inline sanitizer", () => {
+    const ingredient = createRecipeIngredient({ note: "<script>alert('foo')</script><img src=x onerror=alert(1)>" });
 
-    expect(parseIngredientText(ingredient)).not.toContain("<script>");
+    const html = sanitizeInlineHtml(parseIngredientText(ingredient));
+    expect(html).not.toContain("<script");
+    expect(html).not.toContain("<img");
   });
 
   test("referenced recipe links navigate in the current page", () => {
@@ -231,7 +235,7 @@ describe("parseIngredientText", () => {
       food: { id: "1", name: "salt" },
     });
 
-    expect(parseIngredientText(ingredient)).toEqual("&lt; 0.001 cup salt");
+    expect(parseIngredientText(ingredient)).toEqual("< 0.001 cup salt");
   });
 
   test("fraction below minimum denominator shows < 1/10", () => {
@@ -241,7 +245,7 @@ describe("parseIngredientText", () => {
       food: { id: "1", name: "salt" },
     });
 
-    expect(parseIngredientText(ingredient)).toEqual("&lt; <sup>1</sup><span>⁄</span><sub>10</sub> cup salt");
+    expect(parseIngredientText(ingredient)).toEqual("< <sup>1</sup><span>&frasl;</span><sub>10</sub> cup salt");
   });
 
   test("fraction below minimum denominator without formatting shows < 1/10", () => {
@@ -251,7 +255,7 @@ describe("parseIngredientText", () => {
       food: { id: "1", name: "salt" },
     });
 
-    expect(parseIngredientText(ingredient, 1, false)).toEqual("&lt; 1/10 cup salt");
+    expect(parseIngredientText(ingredient, 1, false)).toEqual("< 1/10 cup salt");
   });
 });
 

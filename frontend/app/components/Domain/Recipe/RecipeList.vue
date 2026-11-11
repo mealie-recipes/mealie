@@ -20,8 +20,7 @@
             {{ recipe.description }}
           </div>
           <template v-if="listItem && listItemDescriptions[index]">
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <div v-html="listItemDescriptions[index]" />
+            <SafeInlineHtml :html="listItemDescriptions[index]" />
           </template>
         </template>
         <template #append>
@@ -36,7 +35,6 @@
 </template>
 
 <script setup lang="ts">
-import { sanitizeInlineHtml } from "~/lib/sanitize/inline";
 import RecipeCardLineItem from "./RecipeCardLineItem.vue";
 import { useFraction } from "~/composables/recipes/use-fraction";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
@@ -133,7 +131,7 @@ const listItemDescriptions = computed<string[]>(() => {
       listItemDescription += `, ${itemRef.recipeNote}`;
     }
 
-    listItemDescriptions.push(sanitizeInlineHtml(listItemDescription));
+    listItemDescriptions.push(listItemDescription);
   }
 
   return listItemDescriptions;
