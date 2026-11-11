@@ -382,6 +382,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         require_all_tags=True,
         require_all_tools=True,
         require_all_foods=True,
+        expand_foods=True,
         search: str | None = None,
         extra_filter: sa.ColumnElement[bool] | None = None,
     ) -> RecipePagination:
@@ -416,6 +417,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 require_all_tags=require_all_tags,
                 require_all_tools=require_all_tools,
                 require_all_foods=require_all_foods,
+                expand_foods=expand_foods,
             )
             q = q.filter(*filters)
         if search:
@@ -453,9 +455,9 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         )
 
     @staticmethod
-    def _recipes_using_foods(foods: Sequence[UUID4 | str]) -> sa.ColumnElement:
+    def _recipes_using_foods(foods: Sequence[UUID4 | str], expand_foods: bool = True) -> sa.ColumnElement:
         """
-        Recipes with an ingredient that uses any of `foods` (or their children):
+        Recipes with an ingredient that uses any of `foods` (or their children if expand_foods is True):
         it calls for the food, or offers it as a substitute.
 
         The two are the same thing as far as the recipe is concerned: both are lost if the food
@@ -465,12 +467,15 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         OR can't use the food_id indexes, so it checked every ingredient of every recipe.
         """
 
-        food_ids_expr = sa.select(IngredientFoodModel.id).where(
-            sa.or_(
-                IngredientFoodModel.id.in_(foods),
-                IngredientFoodModel.parent_id.in_(foods),
+        if expand_foods:
+            food_ids_expr: sa.Select | Sequence[UUID4 | str] = sa.select(IngredientFoodModel.id).where(
+                sa.or_(
+                    IngredientFoodModel.id.in_(foods),
+                    IngredientFoodModel.parent_id.in_(foods),
+                )
             )
-        )
+        else:
+            food_ids_expr = foods
 
         return RecipeModel.id.in_(
             sa.union(
@@ -495,6 +500,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         require_all_tags: bool = True,
         require_all_tools: bool = True,
         require_all_foods: bool = True,
+        expand_foods: bool = True,
     ) -> list:
         fltr: list[sa.ColumnElement] = []
         if self.group_id:
@@ -521,9 +527,9 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tools)))
         if foods:
             if require_all_foods:
-                fltr.extend(self._recipes_using_foods([food]) for food in foods)
+                fltr.extend(self._recipes_using_foods([food], expand_foods=expand_foods) for food in foods)
             else:
-                fltr.append(self._recipes_using_foods(foods))
+                fltr.append(self._recipes_using_foods(foods, expand_foods=expand_foods))
         if households:
             fltr.append(RecipeModel.household_id.in_(households))
         return fltr
