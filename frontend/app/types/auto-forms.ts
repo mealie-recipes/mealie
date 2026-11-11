@@ -40,6 +40,7 @@ export interface FormField {
   numberInputConfig?: FormFieldNumberInputConfig;
   options?: FormSelectOption[];
   selectReturnValue?: "text" | "value";
+  clearable?: boolean;
 }
 
 export type AutoFormItems = FormField[];

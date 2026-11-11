@@ -1012,6 +1012,7 @@
       "target-food": "Target Food",
       "create-food": "Create Food",
       "food-label": "Food Label",
+      "parent-food": "Parent Food",
       "edit-food": "Edit Food",
       "food-data": "Food Data",
       "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
