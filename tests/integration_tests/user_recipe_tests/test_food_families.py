@@ -152,11 +152,12 @@ def test_recipe_filtering_expands_to_child_foods(api_client: TestClient, unique_
     ).json()
 
     # Create recipes
+    recipe_mushroom = _create_recipe(unique_user, mushroom["id"], name=f"Mushroom Soup {random_string(4)}")
     recipe_porcini = _create_recipe(unique_user, porcini["id"], name=f"Risotto {random_string(4)}")
     recipe_champignon = _create_recipe(unique_user, champignon["id"], name=f"Pizza {random_string(4)}")
     recipe_tomato = _create_recipe(unique_user, tomato["id"], name=f"Pasta {random_string(4)}")
 
-    # Query recipes filtering by Mushroom (parent): MUST return Porcini and Champignon recipes, but not Tomato
+    # Query recipes filtering by Mushroom (parent): MUST return Mushroom, Porcini and Champignon recipes, but not Tomato
     resp = api_client.get(
         api_routes.recipes,
         params={"foods": [mushroom["id"]]},
@@ -164,9 +165,23 @@ def test_recipe_filtering_expands_to_child_foods(api_client: TestClient, unique_
     )
     assert resp.status_code == 200
     returned_ids = [r["id"] for r in resp.json()["items"]]
+    assert str(recipe_mushroom.id) in returned_ids
     assert str(recipe_porcini.id) in returned_ids
     assert str(recipe_champignon.id) in returned_ids
     assert str(recipe_tomato.id) not in returned_ids
+
+    # Query recipes filtering by Mushroom with expandFoods=False (used by delete warning):
+    # MUST return only recipes using Mushroom directly, NOT children
+    resp_exact = api_client.get(
+        api_routes.recipes,
+        params={"foods": [mushroom["id"]], "expandFoods": False},
+        headers=unique_user.token,
+    )
+    assert resp_exact.status_code == 200
+    exact_ids = [r["id"] for r in resp_exact.json()["items"]]
+    assert str(recipe_mushroom.id) in exact_ids
+    assert str(recipe_porcini.id) not in exact_ids
+    assert str(recipe_champignon.id) not in exact_ids
 
     # Query recipes filtering by Porcini (child): MUST return only Porcini recipe
     resp_porcini = api_client.get(

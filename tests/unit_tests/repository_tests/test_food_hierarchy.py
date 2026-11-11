@@ -1,7 +1,6 @@
 from uuid import uuid4
 
 import pytest
-from fastapi import HTTPException
 
 from mealie.schema.recipe.recipe_ingredient import IngredientFoodCreate, IngredientFoodSave
 from tests.utils.factories import random_string
@@ -17,9 +16,8 @@ def test_food_self_parenting_rejected(unique_user: TestUser):
     # Repository validation also rejects self-parenting on update
     repo = unique_user.repos.ingredient_foods
     food = repo.create(IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id))
-    with pytest.raises(HTTPException) as exc_info:
+    with pytest.raises(ValueError, match="A food cannot be its own parent"):
         repo.update(food.id, {"parent_id": food.id})
-    assert exc_info.value.status_code == 400
 
 
 def test_food_cross_group_parent_rejected(unique_user: TestUser, g2_user: TestUser):
@@ -29,7 +27,7 @@ def test_food_cross_group_parent_rejected(unique_user: TestUser, g2_user: TestUs
     food_group2 = repo2.create(IngredientFoodSave(name=random_string(10), group_id=g2_user.group_id))
 
     # User 1 cannot use food from group 2 as parent
-    with pytest.raises(HTTPException) as exc_info:
+    with pytest.raises(ValueError, match="Parent food does not exist in the same group"):
         repo1.create(
             IngredientFoodSave(
                 name=random_string(10),
@@ -37,8 +35,6 @@ def test_food_cross_group_parent_rejected(unique_user: TestUser, g2_user: TestUs
                 parent_id=food_group2.id,
             )
         )
-    assert exc_info.value.status_code == 400
-    assert "Parent food does not exist in the same group" in exc_info.value.detail
 
 
 def test_food_two_level_depth_limit(unique_user: TestUser):
@@ -48,14 +44,12 @@ def test_food_two_level_depth_limit(unique_user: TestUser):
     child = repo.create(IngredientFoodSave(name="Porcini", group_id=unique_user.group_id, parent_id=parent.id))
 
     # 1. A child cannot be selected as a parent (Food -> Child -> Grandchild forbidden)
-    with pytest.raises(HTTPException) as exc_info:
+    with pytest.raises(ValueError, match="maximum 2 levels allowed"):
         repo.create(IngredientFoodSave(name="Baby Porcini", group_id=unique_user.group_id, parent_id=child.id))
-    assert exc_info.value.status_code == 400
-    assert "maximum 2 levels allowed" in exc_info.value.detail
 
     # 2. A food that already has children cannot be given a parent
     grandparent = repo.create(IngredientFoodSave(name="Fungus", group_id=unique_user.group_id))
-    with pytest.raises(HTTPException) as exc_info:
+    with pytest.raises(ValueError, match="maximum 2 levels allowed"):
         repo.update(
             parent.id,
             IngredientFoodSave(
@@ -65,8 +59,26 @@ def test_food_two_level_depth_limit(unique_user: TestUser):
                 parent_id=grandparent.id,
             ),
         )
-    assert exc_info.value.status_code == 400
-    assert "maximum 2 levels allowed" in exc_info.value.detail
+
+
+def test_food_get_empty_excludes_parents(unique_user: TestUser):
+    repo = unique_user.repos.ingredient_foods
+
+    parent = repo.create(IngredientFoodSave(name="MushroomParent", group_id=unique_user.group_id))
+    child = repo.create(IngredientFoodSave(name="PorciniChild", group_id=unique_user.group_id, parent_id=parent.id))
+    unused_food = repo.create(IngredientFoodSave(name="UnusedFood", group_id=unique_user.group_id))
+
+    empty_foods = repo.get_empty()
+    empty_ids = [f.id for f in empty_foods]
+
+    # The parent food MUST NOT be in empty_foods because it has a child
+    assert parent.id not in empty_ids
+
+    # Unused food without children should be included
+    assert unused_food.id in empty_ids
+
+    # An unused child food without children of its own is included
+    assert child.id in empty_ids
 
 
 def test_food_delete_leaves_children_parentless(unique_user: TestUser):
