@@ -658,14 +658,14 @@ const affectedRecipesMoreLink = ref("");
 
 async function onDeleteDialogOpen(items: IngredientFoodWithOnHand[]) {
   const ids = items.map(item => item.id);
-  const { data } = await userApi.recipes.search({ foods: ids, perPage: 5 });
+  const { data } = await userApi.recipes.search({ foods: ids, perPage: 5, expandFoods: false });
   affectedRecipes.value = (data?.items ?? []).map(r => ({
     name: r.name,
     slug: r.slug,
     url: `/g/${userGroup.value}/r/${r.slug}`,
   }));
   affectedRecipesTotal.value = data?.total ?? 0;
-  affectedRecipesMoreLink.value = `/g/${userGroup.value}?${ids.map(id => `foods=${id}`).join("&")}`;
+  affectedRecipesMoreLink.value = `/g/${userGroup.value}?${ids.map(id => `foods=${id}`).join("&")}&expand_foods=false`;
 }
 
 // ============================================================
