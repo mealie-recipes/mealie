@@ -38,6 +38,8 @@ export const useGroupRecipeActions = function (
   orderDirection: string | null = "asc",
 ) {
   const api = useUserApi();
+  const auth = useMealieAuth();
+  const route = useRoute();
 
   async function refreshGroupRecipeActions() {
     loading.value = true;
@@ -53,9 +55,11 @@ export const useGroupRecipeActions = function (
   function parseRecipeActionUrl(url: string, recipe: Recipe, recipeScale: number): string {
     const recipeServings = (recipe.recipeServings || 1) * recipeScale;
     const recipeYieldQuantity = (recipe.recipeYieldQuantity || 1) * recipeScale;
+    const groupSlug = route.params.groupSlug as string || auth.user.value?.groupSlug || "";
+    const recipeUrl = new URL(`/g/${groupSlug}/r/${recipe.slug || ""}`, window.location.origin).toString();
 
     return url
-      .replace("${url}", window.location.href)
+      .replace("${url}", recipeUrl)
       .replace("${id}", recipe.id || "")
       .replace("${slug}", recipe.slug || "")
       .replace("${servings}", recipeServings.toString())
