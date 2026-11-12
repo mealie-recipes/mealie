@@ -286,6 +286,7 @@
       "prompt-save-failed": "Не удалось сохранить промпт",
       "prompt-titles": {
         "recipes-build-recipe": "Создание рецепта",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Разбор ингредиентов",
         "recipes-parse-recipe-video": "Рецепт из видео",
         "recipes-resolve-organizers": "Подбор тегов, категорий и инструментов",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Превращает исходный материал, считанный с веб-страницы, фото или текста, в структурированный рецепт.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Используется при разборе ингредиентов с помощью ИИ, чтобы выделить в каждом ингредиенте количество, единицу измерения, продукт и примечание.",
         "recipes-parse-recipe-video": "Превращает расшифровку и описание видео в рецепт.",
         "recipes-resolve-organizers": "Подбирает теги, категории и инструменты для импортируемого рецепта.",
