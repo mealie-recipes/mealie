@@ -286,6 +286,7 @@
       "prompt-save-failed": "Det gick inte att spara instruktionen",
       "prompt-titles": {
         "recipes-build-recipe": "Skapa recept",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Tolka ingredienser",
         "recipes-parse-recipe-video": "Recept från video",
         "recipes-resolve-organizers": "Välj taggar, kategorier och redskap",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Skapar ett strukturerat recept av material från en webbsida, ett foto eller en text.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Används när AI tolkar ingredienser och delar upp varje ingrediens i mängd, enhet, livsmedel och anteckning.",
         "recipes-parse-recipe-video": "Skapar ett recept utifrån videons transkription och tillhörande text.",
         "recipes-resolve-organizers": "Väljer taggar, kategorier och redskap för ett importerat recept.",
