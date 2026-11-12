@@ -26,13 +26,13 @@
         },
         "and-amount": "et {amount}",
         "pdf": {
-            "cookbook": "Cookbook",
-            "contents": "Contents",
-            "ingredients": "Ingredients",
+            "cookbook": "Livre de recettes",
+            "contents": "Contenu",
+            "ingredients": "Ingrédients",
             "instructions": "Instructions",
             "notes": "Notes",
-            "prep-time": "Prep",
-            "cook-time": "Cook",
+            "prep-time": "Préparation",
+            "cook-time": "Cuisson",
             "total-time": "Total"
         },
         "import-errors": {
@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Création de la recette à partir des données d'une page web...",
             "downloading-image": "Téléchargement de l'image...",
             "downloading-video": "Téléchargement de la vidéo...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extraction des données de la recette...",
             "fetching-webpage": "Récupération de la page web...",
             "organizing-recipe": "Organisation de la recette...",
