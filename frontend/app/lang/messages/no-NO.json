@@ -286,6 +286,7 @@
       "prompt-save-failed": "Kunne ikke lagre instruksjonen",
       "prompt-titles": {
         "recipes-build-recipe": "Opprett oppskrift",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Analyser ingredienser",
         "recipes-parse-recipe-video": "Oppskrift fra video",
         "recipes-resolve-organizers": "Tildel emneord, kategorier og kjøkkenredskaper",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Gjør kildemateriale fra en nettside, et bilde eller en tekst om til en strukturert oppskrift.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Brukes av KI til å tolke ingredienser og dele dem opp i mengde, måleenhet, ingrediens og merknad.",
         "recipes-parse-recipe-video": "Gjør transkripsjonen og beskrivelsen av en video om til en oppskrift.",
         "recipes-resolve-organizers": "Velger emneord, kategorier og kjøkkenredskaper for en importert oppskrift.",
