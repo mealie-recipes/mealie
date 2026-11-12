@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Downloading image...",
             "downloading-video": "Downloading video...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
             "organizing-recipe": "Organizing recipe...",
