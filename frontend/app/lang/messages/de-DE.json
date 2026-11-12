@@ -37,7 +37,7 @@
     "category": "Kategorie"
   },
   "events": {
-    "apprise-url": "Abreise URL",
+    "apprise-url": "Apprise-URL",
     "delete-event": "Ereignis löschen",
     "event-delete-confirmation": "Bist du dir sicher, dass du dieses Ereignis löschen möchtest?",
     "event-deleted": "Ereignis gelöscht",
@@ -72,7 +72,7 @@
     "confirm-delete-generic": "Bist du dir sicher, dass du dies löschen möchtest?",
     "copied_message": "Kopiert!",
     "create": "Erstellen",
-    "created": "Neu",
+    "created": "Erstellt",
     "delete": "Löschen",
     "disabled": "Deaktiviert",
     "done": "Erledigt",
@@ -286,6 +286,7 @@
       "prompt-save-failed": "Prompt konnte nicht gespeichert werden",
       "prompt-titles": {
         "recipes-build-recipe": "Rezept bauen",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Zutaten analysieren",
         "recipes-parse-recipe-video": "Rezept aus Video",
         "recipes-resolve-organizers": "Organistator:innen zuweisen",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Verwandelt eine Website, ein Foto oder Text in ein strukturiertes Rezept.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Wird von der KI bei der Zutatenanalyse verwendet, um die einzelnen Bestandteile in Menge, Einheit, Nahrung und Anmerkung aufzuteilen.",
         "recipes-parse-recipe-video": "Verwandelt Transkript und Untertitel eines Videos in ein Rezept.",
         "recipes-resolve-organizers": "Wählt die Schlagwörter, Kategorien und Werkzeuge für ein importiertes Rezept aus.",
@@ -1005,7 +1007,7 @@
       "delete-affects-recipes-more": "Zeige alle {count} Rezepte",
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",
-      "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf deiner Landessprache. Hierdurch werden mehr als 200 gängige Lebensmittel eingetragen, die verwendet werden können, um die Datenbank zu organisieren. Die Lebensmittel werden von der Community übersetzt.",
+      "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf deiner Landessprache. Hierdurch werden mehr als 500 gängige Lebensmittel sowie die zu ihrer Gruppierung verwendeten Bezeichnungen erstellt, die verwendet werden können, um die Datenbank zu organisieren. Die Lebensmittel werden von der Community übersetzt.",
       "seed-dialog-warning": "Du hast bereits einige Einträge in der Datenbank. Diese Aktion wird Doppelungen nicht berücksichtigen. Du musst diese selbst beheben.",
       "combine-food": "Lebensmittel zusammenführen",
       "source-food": "Quell-Lebensmittel",
