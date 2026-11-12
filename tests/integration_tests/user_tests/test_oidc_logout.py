@@ -84,7 +84,7 @@ def test_logout_ends_the_idp_session(api_client: TestClient, unique_user: TestUs
         "id_token_hint": ["id-token"],
         "client_id": [OAuthClientMock.client_id],
         # the same page Mealie's own logout lands on
-        "post_logout_redirect_uri": ["http://testserver/login?direct=1"],
+        "post_logout_redirect_uri": ["http://testserver/login"],
     }
 
     # the ID token has done its job, so it goes with the session
@@ -92,9 +92,9 @@ def test_logout_ends_the_idp_session(api_client: TestClient, unique_user: TestUs
     assert any(c.startswith(f"{ID_TOKEN_COOKIE}=") and "Max-Age=0" in c for c in cookies)
 
 
-def test_logout_returns_to_the_configured_url(api_client: TestClient, unique_user: TestUser, monkeypatch: MonkeyPatch):
+def test_logout_returns_to_the_base_url(api_client: TestClient, unique_user: TestUser, monkeypatch: MonkeyPatch):
     setup_oidc(monkeypatch)
-    monkeypatch.setattr(auth_routes.settings, "OIDC_SIGNOUT_REDIRECT_URL", "https://mealie.example/login")
+    monkeypatch.setattr(auth_routes.settings, "BASE_URL", "https://mealie.example")
 
     response = log_out(api_client, unique_user)
 

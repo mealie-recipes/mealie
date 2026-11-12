@@ -49,11 +49,8 @@ Before you can start using OIDC Authentication, you must first configure a new c
     The redirect URI(s) that are needed:
 
     1. `http(s)://DOMAIN:PORT/login`
-    2. `http(s)://DOMAIN:PORT/login?direct=1`
-        1. This URI is only required if you [log out of your IdP along with Mealie](#logging-out),
-           and haven't set `OIDC_SIGNOUT_REDIRECT_URL` to somewhere else.
+        1. If you [log out of your IdP along with Mealie](#logging-out), your IdP must also allow this URI after logout.
            Some IdPs, such as Keycloak, list it separately as a post logout redirect URI.
-           You may also be able to combine this into the previous URI by using a wildcard: `http(s)://DOMAIN:PORT/login*`
 
     The redirect URI(s) should include any URL that Mealie is accessible from. Some examples include
 
@@ -107,15 +104,11 @@ Your IdP's session stays open, so the next OIDC login skips the IdP's login page
 Set `OIDC_SIGNOUT_ENABLED` to `true` to end both.
 When a user who signed in through OIDC logs out,
 Mealie sends them to your IdP's `end_session_endpoint` ([RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)),
-which ends the IdP's session and sends them back to `/login?direct=1`,
-the same page Mealie's own logout lands on.
-Your IdP must advertise an `end_session_endpoint` and allow that redirect URI (see [Provider Setup](#provider-setup)).
+which ends the IdP's session and sends them back to Mealie's `/login`.
+With `OIDC_AUTO_REDIRECT`, that goes on to your IdP's login page, which now asks for their credentials;
+otherwise they see Mealie's login page.
+Your IdP must advertise an `end_session_endpoint` and allow `/login` as a post logout redirect URI (see [Provider Setup](#provider-setup)).
 Users who were already signed in when you turned it on aren't sent to the IdP until they next log in through OIDC.
-
-To send them somewhere else, set `OIDC_SIGNOUT_REDIRECT_URL` to an absolute URL your IdP allows.
-For example, with `OIDC_AUTO_REDIRECT`,
-`http(s)://DOMAIN:PORT/login` sends them straight to your IdP's login page,
-which is what they normally see when signed out.
 
 ## Native and mobile clients
 

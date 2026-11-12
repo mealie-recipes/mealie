@@ -230,11 +230,9 @@ async def oidc_end_session_url(request: Request) -> str | None:
         # The IdP doesn't support RP-Initiated Logout
         return None
 
-    # By default, the page Mealie's own logout lands on, which doesn't send the browser straight back to the IdP
-    # under OIDC_AUTO_REDIRECT
-    post_logout_redirect_uri = settings.OIDC_SIGNOUT_REDIRECT_URL or str(
-        frontend_url(request, "/login").include_query_params(direct=1)
-    )
+    # The login page: with OIDC_AUTO_REDIRECT it goes on to the IdP's login page, which now asks for credentials
+    # because the IdP's session has ended; otherwise it shows Mealie's login form with the OIDC button
+    post_logout_redirect_uri = str(frontend_url(request, "/login"))
     # Authlib also adds a `state`, which the IdP passes back to the login page, where it's ignored
     logout = await client.create_logout_url(
         post_logout_redirect_uri=post_logout_redirect_uri,
