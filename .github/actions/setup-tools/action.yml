@@ -21,7 +21,7 @@ runs:
       run: echo "UV_PYTHON_INSTALL_DIR=${XDG_DATA_HOME:-$HOME/.local/share}/mise/uv-python" >> "$GITHUB_ENV"
 
     - name: Install tools with mise
-      uses: jdx/mise-action@v5
+      uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5
       with:
         # v1 caches can hold pipx venvs that link to an uncached uv Python (see the step above)
         cache_key_prefix: mise-v2
