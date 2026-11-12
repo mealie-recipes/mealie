@@ -767,6 +767,14 @@
     "type-to-search": "Type to search..."
   },
   "settings": {
+    "mcp": {
+      "title": "MCP access",
+      "enabled": "Allow AI clients to connect to Mealie",
+      "url": "MCP URL",
+      "disable-warning": "Turning MCP off revokes every connected app. Reconnecting requires approval again.",
+      "load-error": "Could not load MCP settings.",
+      "save-error": "Could not change MCP access."
+    },
     "admin-settings": "Admin Settings",
     "backup": {
       "backup-created": "Backup created successfully",
@@ -1254,6 +1262,25 @@
     "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
+    "connected-apps": "Connected apps",
+    "connected-apps-description": "Review, change and revoke AI clients connected through MCP.",
+    "connected-apps-intro": "These apps have been approved to access Mealie through MCP.",
+    "connected-apps-permissions": "Permissions",
+    "connected-apps-revoked": "Revoked",
+    "connected-apps-revoke": "Revoke access",
+    "connected-apps-empty": "No connected apps yet.",
+    "connected-apps-load-error": "Could not load connected apps.",
+    "connected-apps-revoke-error": "Could not revoke this app.",
+    "connected-apps-update-error": "Could not change this app's permissions.",
+    "connected-apps-scopes": {
+      "profile-read": "Identify your Mealie account and household",
+      "recipes-read": "Read recipes",
+      "recipes-write": "Create and edit recipes",
+      "mealplans-read": "Read your household meal plan",
+      "mealplans-write": "Change your household meal plan",
+      "shopping-read": "Read your household shopping lists",
+      "shopping-write": "Create and change your household shopping lists"
+    },
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Manage your profile, recipes, and group settings.",
     "invite-link": "Invite Link",

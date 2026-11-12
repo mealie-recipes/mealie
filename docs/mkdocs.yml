@@ -75,6 +75,7 @@ nav:
       - Version 1 Migration: "documentation/getting-started/migrating-to-mealie-v1.md"
       - FAQ: "documentation/getting-started/faq.md"
       - API: "documentation/getting-started/api-usage.md"
+      - MCP and OAuth: "documentation/getting-started/mcp.md"
       - Road Map: "documentation/getting-started/roadmap.md"
 
       - Installation:

@@ -27,6 +27,8 @@ admin_maintenance_clean_temp = "/api/admin/maintenance/clean/temp"
 """`/api/admin/maintenance/clean/temp`"""
 admin_maintenance_storage = "/api/admin/maintenance/storage"
 """`/api/admin/maintenance/storage`"""
+admin_mcp = "/api/admin/mcp"
+"""`/api/admin/mcp`"""
 admin_users = "/api/admin/users"
 """`/api/admin/users`"""
 admin_users_password_reset_token = "/api/admin/users/password-reset-token"
@@ -59,6 +61,8 @@ auth_token = "/api/auth/token"
 """`/api/auth/token`"""
 comments = "/api/comments"
 """`/api/comments`"""
+consent = "/oauth/consent"
+"""`/oauth/consent`"""
 foods = "/api/foods"
 """`/api/foods`"""
 foods_empty = "/api/foods/empty"
@@ -209,6 +213,8 @@ users_api_tokens = "/api/users/api-tokens"
 """`/api/users/api-tokens`"""
 users_forgot_password = "/api/users/forgot-password"
 """`/api/users/forgot-password`"""
+users_mcp_connections = "/api/users/mcp/connections"
+"""`/api/users/mcp/connections`"""
 users_password = "/api/users/password"
 """`/api/users/password`"""
 users_register = "/api/users/register"
@@ -648,6 +654,11 @@ def users_id_ratings_slug(id, slug):
 def users_item_id(item_id):
     """`/api/users/{item_id}`"""
     return f"{prefix}/users/{item_id}"
+
+
+def users_mcp_connections_grant_id(grant_id):
+    """`/api/users/mcp/connections/{grant_id}`"""
+    return f"{prefix}/users/mcp/connections/{grant_id}"
 
 
 def users_self_ratings_recipe_id(recipe_id):
