@@ -1,10 +1,11 @@
 import { flushPromises, mount, type VueWrapper } from "@vue/test-utils";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { reactive, ref } from "vue";
+import { nextTick, reactive, ref } from "vue";
 import RecipeCardSection from "./RecipeCardSection.vue";
 
 const mocks = vi.hoisted(() => ({
   preferences: { value: { useMobileCards: false, orderBy: "name", orderDirection: "asc" } },
+  fetchMore: vi.fn(),
 }));
 
 vi.mock("~/composables/use-logged-in-state", () => ({
@@ -13,8 +14,9 @@ vi.mock("~/composables/use-logged-in-state", () => ({
 
 vi.mock("~/composables/recipes", () => ({
   useLazyRecipes: () => ({
-    fetchMore: vi.fn().mockResolvedValue([]),
+    fetchMore: mocks.fetchMore,
     getRandom: vi.fn(),
+    searchError: ref(""),
   }),
 }));
 
@@ -67,6 +69,7 @@ async function mountSection() {
 
 describe("RecipeCardSection", () => {
   beforeEach(() => {
+    mocks.fetchMore.mockReset().mockResolvedValue([]);
     vi.stubGlobal("useDisplay", () => ({ smAndDown: ref(false) }));
     vi.stubGlobal("useMealieAuth", () => ({ user: ref({ groupSlug: "family" }) }));
     vi.stubGlobal("useNuxtApp", () => ({ $globals: { icons: {} } }));
@@ -97,5 +100,22 @@ describe("RecipeCardSection", () => {
     await chip.trigger("click");
 
     expect(wrapper.emitted("itemSelected")).toEqual([[tag, "tags"]]);
+  });
+
+  test("discards stale search results and resets pagination", async () => {
+    const wrapper = await mountSection();
+    let completeOld!: (recipes: unknown[]) => void;
+    mocks.fetchMore.mockImplementationOnce(() => new Promise(resolve => completeOld = resolve));
+    await wrapper.setProps({ query: { search: "pork", searchMode: "all" } });
+    await nextTick();
+    mocks.fetchMore.mockResolvedValueOnce([{ id: "new", name: "Lettuce" }]);
+    await wrapper.setProps({ query: { search: "lettuce", searchMode: "any" } });
+    await flushPromises();
+    const events = wrapper.emitted("replaceRecipes")!;
+    expect(events.at(-1)).toEqual([[{ id: "new", name: "Lettuce" }]]);
+    completeOld([{ id: "old", name: "Pork" }]);
+    await flushPromises();
+    expect(wrapper.emitted("replaceRecipes")!.at(-1)).toEqual(events.at(-1));
+    expect(mocks.fetchMore.mock.calls.at(-1)?.[0]).toBe(1);
   });
 });

@@ -74,6 +74,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
             require_all_tools=search_query.require_all_tools,
             require_all_foods=search_query.require_all_foods,
             search=search_query.search,
+            search_mode=search_query.search_mode,
             extra_filter=public_recipes_clause(),
         )
 

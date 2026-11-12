@@ -7,6 +7,7 @@ from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie import MealieModel
+from mealie.search.query import SearchMode, parse
 
 
 class OrderDirection(enum.StrEnum):
@@ -26,7 +27,15 @@ class RecipeSearchQuery(MealieModel):
     require_all_tools: bool = False
     require_all_foods: bool = False
     search: str | None = None
+    search_mode: SearchMode = "all"
     _search_seed: str | None = None
+
+    @field_validator("search")
+    @classmethod
+    def validate_search(cls, value: str | None) -> str | None:
+        if value:
+            parse(value)
+        return value
 
 
 class RequestQuery(MealieModel):

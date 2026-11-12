@@ -754,6 +754,14 @@
     "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
+    "broaden-search": "Broaden Search",
+    "show-strong-matches": "Show Strong Matches",
+    "partial-matches": "Partial matches included. Required terms and exclusions still apply.",
+    "syntax-help": "Search Tips",
+    "syntax-description": "Use quotes for an exact phrase, +pork to require an exact word, and -cilantro or -\"chili peppers\" to exclude matches.",
+    "exclusion-description": "Exclusions check recipe text. They do not guarantee that an ingredient is absent.",
+    "invalid-query": "Check your search syntax: close double quotes and add a word or phrase after each + or -. Use up to 512 characters and 32 terms.",
+    "request-failed": "Could not load recipes. Please try again.",
     "has-any": "Has Any",
     "has-all": "Has All",
     "clear-selection": "Clear Selection",

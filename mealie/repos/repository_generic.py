@@ -375,7 +375,9 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
             items=[eff_schema.model_validate(s) for s in data],
         )
 
-    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:
+    def add_pagination_to_query(
+        self, query: Select, pagination: PaginationQuery, count_query: Select | None = None
+    ) -> tuple[Select, int, int]:
         """
         Adds pagination data to an existing query.
 
@@ -397,11 +399,12 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         # Only a join can repeat a row, so a query on the model's table alone needs no DISTINCT. With a
         # join, distinct on the primary key counts the same rows as distinct on the whole row, without
         # comparing every column (long text fields included) of every matching row.
-        primary_key = inspect(self.model).primary_key
-        rows = query.order_by(None).with_only_columns(*primary_key)
-        if rows.get_final_froms() != [self.model.__table__]:
-            rows = rows.distinct()
-        count_query = select(func.count()).select_from(rows.subquery())
+        if count_query is None:
+            primary_key = inspect(self.model).primary_key
+            rows = query.order_by(None).with_only_columns(*primary_key)
+            if rows.get_final_froms() != [self.model.__table__]:
+                rows = rows.distinct()
+            count_query = select(func.count()).select_from(rows.subquery())
         count = self.session.scalar(count_query)
         if not count:
             count = 0

@@ -24,6 +24,7 @@ interface RecipeExplorerSearchState {
     auto: boolean;
     ready: boolean;
     search: string;
+    searchMode: "all" | "any";
     orderBy: string;
     orderDirection: "asc" | "desc";
     requireAllCategories: boolean;
@@ -63,6 +64,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     auto: true,
     ready: false,
     search: "",
+    searchMode: "all" as "all" | "any",
     orderBy: "created_at",
     orderDirection: "desc" as "asc" | "desc",
     requireAllCategories: false,
@@ -118,6 +120,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
 
     return {
       search: state.value.search ? state.value.search : "",
+      searchMode: state.value.searchMode,
       categories: toIDArray(selectedCategories.value),
       foods: toIDArray(selectedFoods.value),
       households: toIDArray(selectedHouseholds.value),
@@ -180,6 +183,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   // Main functions
   function reset() {
     state.value.search = queryDefaults.search;
+    state.value.searchMode = "all";
     state.value.orderBy = queryDefaults.orderBy;
     state.value.orderDirection = queryDefaults.orderDirection;
     sortPreferences.value.orderBy = queryDefaults.orderBy;
@@ -227,6 +231,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       ...{
         auto: state.value.auto ? undefined : "false",
         search: passedQuery.value.search === queryDefaults.search ? undefined : passedQuery.value.search,
+        searchMode: passedQuery.value.searchMode === "any" ? "any" : undefined,
         households: !passedQuery.value.households?.length || passedQuery.value.households?.length === households.store.value.length ? undefined : passedQuery.value.households,
         requireAllCategories: passedQuery.value.requireAllCategories ? "true" : undefined,
         requireAllTags: passedQuery.value.requireAllTags ? "true" : undefined,
@@ -265,6 +270,8 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     else {
       state.value.search = queryDefaults.search;
     }
+
+    state.value.searchMode = query.searchMode === "any" ? "any" : "all";
 
     state.value.orderBy = sortPreferences.value.orderBy;
     state.value.orderDirection = sortPreferences.value.orderDirection as "asc" | "desc";
@@ -410,17 +417,29 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   // Watch for route query changes
   watch(
     () => route.query,
-    () => {
+    async () => {
       if (!Object.keys(route.query).length) {
         reset();
+      }
+      else if (state.value.ready && (
+        route.query.search !== (state.value.search || undefined)
+        || (route.query.searchMode === "any" ? "any" : "all") !== state.value.searchMode
+      )) {
+        await hydrateSearch();
+        passedQuery.value = calcPassedQuery();
       }
     },
   );
 
   // Auto-search when parameters change
+  watch(() => state.value.search, () => {
+    if (state.value.ready) state.value.searchMode = "all";
+  }, { flush: "sync" });
+
   watchDebounced(
     [
       () => state.value.search,
+      () => state.value.searchMode,
       () => state.value.requireAllCategories,
       () => state.value.requireAllTags,
       () => state.value.requireAllTools,

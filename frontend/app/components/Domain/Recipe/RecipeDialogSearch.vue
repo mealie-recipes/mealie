@@ -9,7 +9,7 @@
     >
       <v-card
         :rounded="!$vuetify.display.xs"
-        :loading="loading"
+        :loading="search.loading.value"
       >
         <v-toolbar
           dark
@@ -30,7 +30,11 @@
             single-line
             :placeholder="$t('search.search')"
             :prepend-inner-icon="$globals.icons.search"
-          />
+          >
+            <template #append-inner>
+              <RecipeSearchTips />
+            </template>
+          </v-text-field>
 
           <v-btn
             v-if="$vuetify.display.xs"
@@ -43,6 +47,11 @@
             </v-icon>
           </v-btn>
         </v-toolbar>
+
+        <RecipeSearchControls v-model:mode="search.mode.value" :query="search.query.value" class="mx-2" />
+        <v-alert v-if="search.error.value" type="error" role="alert" class="mx-2">
+          {{ $t(search.error.value) }}
+        </v-alert>
 
         <v-card-actions>
           <div class="mr-auto">
@@ -72,6 +81,8 @@
 
 <script setup lang="ts">
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import RecipeSearchControls from "./RecipeSearchControls.vue";
+import RecipeSearchTips from "./RecipeSearchTips.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
@@ -86,7 +97,6 @@ const emit = defineEmits<{
 }>();
 
 const auth = useMealieAuth();
-const loading = ref(false);
 const selectedIndex = ref(-1);
 const router = useRouter();
 const attrs = useAttrs();

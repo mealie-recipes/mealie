@@ -6,6 +6,7 @@ from alembic import context
 import mealie.db.models._all_models  # noqa: F401
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_base import SqlAlchemyBase
+from mealie.search.index import include_name
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -110,6 +111,7 @@ def run_migrations_online():
             user_module_prefix="mealie.db.migration_types.",
             render_as_batch=True,
             include_object=include_object,
+            include_name=include_name,
         )
 
         with context.begin_transaction():

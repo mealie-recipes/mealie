@@ -1,0 +1,20 @@
+{
+  "check": "vue-tsc --noEmit -p frontend/tsconfig.json",
+  "vue_tsc": "3.3.14",
+  "typescript": "5.9.3",
+  "node": "26.8.2",
+  "baseline_revision": "1a1ea23df58bf65b0b147b4a27f39bd5a2f01110",
+  "implementation": "Uncommitted feat/recipe-search-improvements worktree",
+  "setup": "nuxt prepare in each worktree; temporary checker and transitive vue-router resolution via NODE_PATH; no manifest changes",
+  "command": "NODE_PATH=/private/tmp/mealie-search-typecheck/node_modules /private/tmp/mealie-search-typecheck/node_modules/.bin/vue-tsc --noEmit -p tsconfig.json",
+  "baseline_exit_code": 2,
+  "implementation_exit_code": 2,
+  "baseline_diagnostics": 303,
+  "implementation_diagnostics": 303,
+  "comparison": "Multiset of file and complete diagnostic text; strip line/column positions, source-root paths, and whitespace differences",
+  "introduced": [],
+  "resolved": [],
+  "result": "Typecheck fails with existing baseline errors; no introduced diagnostics",
+  "implementation_log": "/private/tmp/mealie-search-ui-typecheck.log",
+  "baseline_log": "/private/tmp/mealie-search-baseline-ui-typecheck.log"
+}
