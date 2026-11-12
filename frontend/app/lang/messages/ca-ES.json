@@ -286,6 +286,7 @@
       "prompt-save-failed": "No s'ha pogut desar la indicació",
       "prompt-titles": {
         "recipes-build-recipe": "Crea la recepta",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Analitza els ingredients",
         "recipes-parse-recipe-video": "Recepta a partir d'un vídeo",
         "recipes-resolve-organizers": "Assigna els organitzadors",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Converteix el material d'origen llegit d'una pàgina web, una foto o un text en una recepta estructurada.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "L'utilitza el processador d'ingredients amb IA per dividir cada ingredient en quantitat, unitat, aliment i nota.",
         "recipes-parse-recipe-video": "Converteix la transcripció i la descripció d'un vídeo en una recepta.",
         "recipes-resolve-organizers": "Tria les etiquetes, les categories i les eines d'una recepta importada.",
