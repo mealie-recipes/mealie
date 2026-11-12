@@ -1,7 +1,7 @@
 """Add transactional recipe search indexes.
 
 Revision ID: 46f6ac67e93a
-Revises: b7e6c9a2d401
+Revises: f3a1ae61d772
 """
 
 from alembic import op
@@ -9,7 +9,7 @@ from alembic import op
 from mealie.search.index_v1 import install, uninstall
 
 revision = "46f6ac67e93a"
-down_revision = "b7e6c9a2d401"
+down_revision = "f3a1ae61d772"
 branch_labels = None
 depends_on = None
 

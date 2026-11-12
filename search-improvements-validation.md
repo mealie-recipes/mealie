@@ -1,5 +1,23 @@
 # Recipe search validation
 
+## Upstream PR validation
+
+The upstream PR branch starts at `5edf45b0a` on `mealie-recipes/mealie:mealie-next`.
+The search migration follows upstream revision `f3a1ae61d772`.
+This branch contains no fork OAuth changes.
+
+The SQLite suite passes 3,931 tests and skips 16 tests.
+Six socket tests require a separate run outside the local sandbox.
+That separate run passes all 51 tests in the HTTP transport and server modules.
+The isolated PostgreSQL search, recipe repository, and backup suite passes 112 tests.
+The frontend suite passes 783 tests in 71 files.
+The production frontend build, code generators, ESLint, and frontend security checks pass.
+Ruff passes for 787 files. Mypy passes for 494 source files.
+Semgrep passes both authorization tests, all three XSS tests, and the source scan.
+
+The benchmark results below retain the original fork baseline and reference host.
+They do not measure this upstream revision.
+
 ## Environment and method
 
 The worktree uses branch `feat/recipe-search-improvements` from commit `1a1ea23df58bf65b0b147b4a27f39bd5a2f01110`.
