@@ -286,6 +286,7 @@
       "prompt-save-failed": "שמירת ההנחיה נכשלה",
       "prompt-titles": {
         "recipes-build-recipe": "יצירת מתכון",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "פענוח מרכיבים",
         "recipes-parse-recipe-video": "מתכון מסרטון",
         "recipes-resolve-organizers": "שיוך מארגנים",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "הופך חומר מקור מדף אינטרנט, מתמונה או מטקסט למתכון מובנה.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "משמש לפענוח מרכיבים באמצעות בינה מלאכותית, ומפריד כל מרכיב לכמות, יחידה, אוכל והערה.",
         "recipes-parse-recipe-video": "הופך את התמליל והכתוביות של סרטון למתכון.",
         "recipes-resolve-organizers": "בוחר תגיות, קטגוריות וכלים למתכון שיובא.",
