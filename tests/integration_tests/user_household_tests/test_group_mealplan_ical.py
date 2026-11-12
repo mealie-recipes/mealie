@@ -72,7 +72,8 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
 
     feed = response.text
     assert feed.startswith("BEGIN:VCALENDAR\r\n")
-    assert feed.endswith("END:VCALENDAR\r\n")
+    assert feed.endswith("END:VCALENDAR")
+    assert not feed.endswith("\r\n")
     assert all(len(line.encode()) <= 75 for line in feed.split("\r\n"))
 
     feed = unfold(feed)
