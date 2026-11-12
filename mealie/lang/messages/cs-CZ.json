@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Vytváření receptu z webových stránek...",
             "downloading-image": "Stahování obrázku...",
             "downloading-video": "Stahování videa...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extrahování dat receptu...",
             "fetching-webpage": "Načítání webové stránky...",
             "organizing-recipe": "Organizování receptu...",

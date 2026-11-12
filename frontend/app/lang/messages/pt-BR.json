@@ -286,6 +286,7 @@
       "prompt-save-failed": "Failed to save prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Build Recipe",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Parse Ingredients",
         "recipes-parse-recipe-video": "Receita de Vídeo",
         "recipes-resolve-organizers": "Atribuir Organizadores",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
         "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
         "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",

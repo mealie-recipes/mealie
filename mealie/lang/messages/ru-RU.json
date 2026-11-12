@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Создание рецепта из данных веб-страницы...",
             "downloading-image": "Загрузка изображения...",
             "downloading-video": "Загрузка видео...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Извлечение данных рецепта...",
             "fetching-webpage": "Загрузка веб-страницы...",
             "organizing-recipe": "Организация рецепта...",
