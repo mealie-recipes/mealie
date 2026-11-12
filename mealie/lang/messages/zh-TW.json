@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "正在使用網頁資料建立食譜……",
             "downloading-image": "圖片下載中……",
             "downloading-video": "影片下載中……",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "提取食譜資料中……",
             "fetching-webpage": "抓取網頁中……",
             "organizing-recipe": "正在整理食譜……",
