@@ -6,9 +6,9 @@ from fastapi.testclient import TestClient
 from sqlalchemy import select
 
 from mealie.db.models.recipe.recipe import RecipeModel
-from mealie.schema.cookbook.cookbook import SaveCookBook
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.cookbook.cookbook import CookBookSave
+from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_organizers import TagSave
 from tests import data
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -361,7 +361,7 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
     tag = unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
     recipes = unique_user.repos.recipes.create_many(
         [
-            Recipe(
+            RecipeDraft(
                 user_id=unique_user.user_id,
                 group_id=unique_user.group_id,
                 name=random_string(),
@@ -372,7 +372,7 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
     )
     other_recipes = h2_user.repos.recipes.create_many(
         [
-            Recipe(
+            RecipeDraft(
                 user_id=h2_user.user_id,
                 group_id=h2_user.group_id,
                 name=random_string(),
@@ -382,7 +382,7 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
     )
 
     cookbook = unique_user.repos.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
@@ -392,7 +392,7 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
 
     response = api_client.get(api_routes.recipes, params={"cookbook": cookbook.slug}, headers=unique_user.token)
     assert response.status_code == 200
-    recipes = [Recipe.model_validate(data) for data in response.json()["items"]]
+    recipes = [RecipeDraft.model_validate(data) for data in response.json()["items"]]
 
     fetched_recipe_ids = {recipe.id for recipe in recipes}
     for recipe in recipes:
@@ -403,7 +403,7 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
 
 def test_cookbooks_from_other_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     h2_cookbook = h2_user.repos.cookbooks.create(
-        SaveCookBook(
+        CookBookSave(
             name=random_string(),
             group_id=h2_user.group_id,
             household_id=h2_user.household_id,

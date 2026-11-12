@@ -34,6 +34,30 @@ describe("sanitizeMarkdownHtml", () => {
     expect(html).not.toContain("<button");
   });
 
+  test("strips class attributes so utility classes can't build an overlay", () => {
+    const html = sanitizeMarkdownHtml("<div class=\"position-fixed top-0 left-0 w-100 h-screen bg-white\">x</div>");
+    expect(html).not.toContain("class");
+    expect(html).not.toContain("position-fixed");
+  });
+
+  test("strips positioning styles and keeps allowed ones", () => {
+    const html = sanitizeMarkdownHtml("<div style=\"position:fixed;top:0;z-index:999999;color:red\">x</div>");
+    expect(html).not.toContain("position");
+    expect(html).not.toContain("z-index");
+    expect(html).toContain("color:red");
+  });
+
+  test("prefixes name attributes to prevent DOM clobbering", () => {
+    const html = sanitizeMarkdownHtml("<a name=\"recipe\"></a><img name=\"config\" src=\"/x.png\">");
+    expect(html).toContain("name=\"user-content-recipe\"");
+    expect(html).toContain("name=\"user-content-config\"");
+  });
+
+  test("strips javascript: links", () => {
+    const html = sanitizeMarkdownHtml("<a href=\"javascript:alert(1)\">x</a>");
+    expect(html).not.toContain("javascript");
+  });
+
   test("strips iframes when no allowed hosts are configured", () => {
     const html = sanitizeMarkdownHtml("<iframe src=\"https://evil.example/x\"></iframe>", []);
     expect(html).not.toContain("<iframe");

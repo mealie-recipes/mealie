@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
-import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, IngredientUnitOut } from "~/lib/api/types/recipe";
 import ShoppingListQuickAdd from "./ShoppingListQuickAdd.vue";
 import { onClickOutside } from "@vueuse/core";
 
@@ -37,11 +37,11 @@ defineProps({
     required: true,
   },
   units: {
-    type: Array as () => IngredientUnit[],
+    type: Array as () => IngredientUnitOut[],
     required: true,
   },
   foods: {
-    type: Array as () => IngredientFood[],
+    type: Array as () => IngredientFoodOut[],
     required: true,
   },
 });

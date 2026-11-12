@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import type { ShoppingListOut } from "~/lib/api/types/household";
+import type { ShoppingListOut, ShoppingListRecipeRefOut } from "~/lib/api/types/household";
 import { makeWrapper } from "~/tests/utils";
 import { useShoppingListState } from "../use-shopping-list-state";
 import { MOCK_ITEM, MOCK_RECIPE, MOCK_RECIPE2, MOCK_SHOPPING_LIST } from "./mocks";
@@ -26,7 +26,7 @@ describe("use-shopping-list-state", () => {
     test("by position if timestamps match", () => {
       const sorted = sortCheckedItems(MOCK_ITEM, { ...MOCK_ITEM, position: 2 });
       const sorted2 = sortCheckedItems(MOCK_ITEM, { ...MOCK_ITEM, position: 0 });
-      const sorted3 = sortCheckedItems({ ...MOCK_ITEM, position: undefined }, { ...MOCK_ITEM, position: undefined });
+      const sorted3 = sortCheckedItems({ ...MOCK_ITEM, position: undefined as unknown as number }, { ...MOCK_ITEM, position: undefined as unknown as number });
       expect(sorted).toBe(1);
       expect(sorted2).toBe(-1);
       expect(sorted3).toBe(1);
@@ -38,11 +38,11 @@ describe("use-shopping-list-state", () => {
       const { recipeMap } = wrapper();
       expect(recipeMap).toEqual(new Map([
         [MOCK_RECIPE.id, MOCK_RECIPE],
-        ["", MOCK_RECIPE2],
+        [MOCK_RECIPE2.id, MOCK_RECIPE2],
       ]));
     });
     test("handles nulls", () => {
-      const { recipeMap } = wrapper({ ...MOCK_SHOPPING_LIST, recipeReferences: undefined });
+      const { recipeMap } = wrapper({ ...MOCK_SHOPPING_LIST, recipeReferences: undefined as unknown as ShoppingListRecipeRefOut[] });
       expect(recipeMap).toEqual(new Map([]));
     });
   });

@@ -5,18 +5,16 @@
     "recipe": {
         "unique-name-error": "Название рецепта должно быть уникальным",
         "recipe-created": "Рецепт создан",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
-        "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-as-side": "{name} приготовил это на гарнир",
+        "made-this-for-breakfast": "{name} приготовил это на завтрак",
+        "made-this-for-lunch": "{name} приготовил это на обед",
+        "made-this-for-dinner": "{name} приготовил это на ужин",
+        "made-this-for-snack": "{name} приготовил это на закуску",
+        "made-this-for-drink": "{name} приготовил это как напиток",
+        "made-this-for-dessert": "{name} приготовил это на десерт",
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
-            "ingredient-note": "1 чашка муки",
-            "name": "Новый рецепт",
-            "step-text": "Шаги рецепта и прочие поля на странице рецепта поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя ссылка](https://demo.mealie.io)\n"
+            "name": "Новый рецепт"
         },
         "servings-text": {
             "makes": "Получается",
@@ -27,11 +25,21 @@
             "yields": "Количество порций"
         },
         "and-amount": "и {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "ИИ сервисы выключены",
             "ai-request-failed": "Провайдер ИИ не смог выполнить запрос. Пожалуйста, попробуйте еще раз",
             "image-provider-not-enabled": "ИИ службы изображений выключены",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "invalid-mealie-export": "Похоже, это рецепт, экспортированный из Mealie, но его не удалось импортировать",
             "no-recipe-found": "Рецепт не найден в указанном источнике",
             "no-source": "Нет содержимого, изображений или URL-адреса",
             "provider-returned-nothing": "Провайдер ИИ не вернул рецепт",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Создание рецепта из данных веб-страницы...",
             "downloading-image": "Загрузка изображения...",
             "downloading-video": "Загрузка видео...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Извлечение данных рецепта...",
             "fetching-webpage": "Загрузка веб-страницы...",
             "organizing-recipe": "Организация рецепта...",
@@ -125,9 +134,9 @@
         "mealplan-entry-created": "Запись плана питания создана на {date} для {entry_type}",
         "mealplan-entry-updated": "Запись плана питания на {date} для {entry_type} обновлена",
         "mealplan-entry-deleted": "Запись плана питания удалена на {date} для {entry_type}",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "Запись плана питания создана на период с {date} по {end_date} для {entry_type}",
+        "mealplan-range-entry-updated": "Запись плана питания обновлена на период с {date} по {end_date} для {entry_type}",
+        "mealplan-range-entry-deleted": "Запись плана питания удалена на период с {date} по {end_date} для {entry_type}"
     },
     "datetime": {
         "year": "Год|лет",

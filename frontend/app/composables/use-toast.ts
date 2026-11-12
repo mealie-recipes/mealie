@@ -51,6 +51,8 @@ export const loader = {
   },
 };
 
+const ERROR_TIMEOUT = 10000;
+
 export const alert = {
   info(text: string, title: string | null = null, options?: Partial<Toast>) {
     setToast(toastAlert, text, title, "info", options);
@@ -59,7 +61,8 @@ export const alert = {
     setToast(toastAlert, text, title, "success", options);
   },
   error(text: string, title: string | null = null, options?: Partial<Toast>) {
-    setToast(toastAlert, text, title, "error", options);
+    // Errors stay longer than other alerts, so there is time to read them
+    setToast(toastAlert, text, title, "error", { timeout: ERROR_TIMEOUT, ...options });
   },
   warning(text: string, title: string | null = null, options?: Partial<Toast>) {
     setToast(toastAlert, text, title, "warning", options);
@@ -68,18 +71,3 @@ export const alert = {
     toastAlert.open = false;
   },
 };
-
-/**
- * Reports a failed request that the axios interceptor left silent.
- *
- * The interceptor raises a toast only for errors that carry a Mealie error body. Anything else -
- * a rejection from the web server sitting in front of Mealie, a dropped connection, a timeout -
- * arrives without one, and would otherwise leave the user with no feedback at all.
- */
-export function alertUnreportedError(error: { response?: { data?: { detail?: { message?: string } } } } | null, fallbackText: string) {
-  if (error?.response?.data?.detail?.message) {
-    return;
-  }
-
-  alert.error(fallbackText);
-}

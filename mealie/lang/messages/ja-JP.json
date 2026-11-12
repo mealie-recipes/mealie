@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "レシピ画像を削除しました",
         "recipe-defaults": {
-            "ingredient-note": "小麦粉1カップ",
-            "name": "New Recipe",
-            "step-text": "レシピの手順など、レシピページはmarkdown構文に対応しています\n\n例）\n[ミーリー](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "作成",
@@ -27,6 +25,16 @@
             "yields": "人分"
         },
         "and-amount": "and {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Downloading image...",
             "downloading-video": "Downloading video...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
             "organizing-recipe": "Organizing recipe...",

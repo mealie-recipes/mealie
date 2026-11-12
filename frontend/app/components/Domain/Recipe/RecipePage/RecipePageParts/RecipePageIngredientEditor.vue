@@ -5,7 +5,7 @@
         {{ $t("recipe.ingredients") }}
       </h2>
       <v-alert
-        v-if="!hasFoodOrUnit"
+        v-if="recipe.recipeIngredient.length > 0 && !hasFoodOrUnit"
         border="start"
         color="info"
         :icon="$globals.icons.information"
@@ -48,6 +48,7 @@
         :key="ingredient.referenceId"
         v-model="recipe.recipeIngredient[index]"
         :is-recipe="ingredientIsRecipe(ingredient)"
+        :autofocus="ingredient.referenceId === autofocusIngredientId"
         enable-drag-handle
         enable-context-menu
         @delete="recipe.recipeIngredient.splice(index, 1)"
@@ -122,17 +123,18 @@
 
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { RecipeOut, RecipeIngredient } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { uuid4 } from "~/composables/use-utils";
 
-const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const recipe = defineModel<RecipeOut>({ required: true });
 const ingredientsWithRecipe = new Map<string, boolean>();
 
 const drag = ref(false);
+// a row added one at a time takes focus so the user can type straight into it
+const autofocusIngredientId = ref<string | null>(null);
 const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
 const { toggleIsParsing } = usePageState(recipe.value.slug);
 
@@ -180,18 +182,17 @@ function addIngredient(ingredients: Array<string> | null = null) {
     });
 
     if (newIngredients) {
-      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       recipe.value.recipeIngredient.push(...newIngredients);
     }
   }
   else {
+    const referenceId = uuid4();
+    autofocusIngredientId.value = referenceId;
     recipe.value.recipeIngredient.push({
-      referenceId: uuid4(),
+      referenceId,
       title: "",
       note: "",
-      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       unit: undefined,
-      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       food: undefined,
       quantity: 0,
     });
@@ -215,18 +216,16 @@ function addRecipe(recipes: Array<string> | null = null) {
     });
 
     if (newRecipes) {
-      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       recipe.value.recipeIngredient.push(...newRecipes);
     }
   }
   else {
+    autofocusIngredientId.value = refId;
     recipe.value.recipeIngredient.push({
       referenceId: refId,
       title: "",
       note: "",
-      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       unit: undefined,
-      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       referencedRecipe: undefined,
       quantity: 1,
     });
@@ -234,13 +233,13 @@ function addRecipe(recipes: Array<string> | null = null) {
 }
 
 function insertNewIngredient(dest: number) {
+  const referenceId = uuid4();
+  autofocusIngredientId.value = referenceId;
   recipe.value.recipeIngredient.splice(dest, 0, {
-    referenceId: uuid4(),
+    referenceId,
     title: "",
     note: "",
-    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
     unit: undefined,
-    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
     food: undefined,
     quantity: 0,
   });

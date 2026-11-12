@@ -52,6 +52,10 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.details
+  # Lets docs pages include files from the repo root (e.g. CONTRIBUTING.md). Paths resolve from docs/, where the docs build runs.
+  - pymdownx.snippets:
+      base_path: [".."]
+      check_paths: true
 extra:
   demo_url: https://demo.mealie.io
 extra_css:

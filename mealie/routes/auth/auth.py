@@ -195,20 +195,6 @@ def set_oidc_id_token_cookie(
     )
 
 
-def frontend_url(request: Request, path: str) -> URL:
-    """The absolute URL of a frontend page, for the IdP to send the browser back to."""
-    if not settings.PRODUCTION:
-        # in development, we want to redirect to the frontend
-        return URL(f"http://localhost:3000{path}")
-
-    # Prioritise User Configuration over Request Headers.
-    if not settings.is_default_base_url:
-        base = settings.BASE_URL or request.base_url
-    else:
-        base = request.base_url
-    return URLPath(path).make_absolute_url(base)
-
-
 async def oidc_end_session_url(request: Request) -> str | None:
     """Where to send the browser so the IdP ends its session too (OpenID Connect RP-Initiated Logout).
 
@@ -232,7 +218,7 @@ async def oidc_end_session_url(request: Request) -> str | None:
 
     # The login page: with OIDC_AUTO_REDIRECT it goes on to the IdP's login page, which now asks for credentials
     # because the IdP's session has ended; otherwise it shows Mealie's login form with the OIDC button
-    post_logout_redirect_uri = str(frontend_url(request, "/login"))
+    post_logout_redirect_uri = oidc_login_redirect_url(request)
     # Authlib also adds a `state`, which the IdP passes back to the login page, where it's ignored
     logout = await client.create_logout_url(
         post_logout_redirect_uri=post_logout_redirect_uri,
@@ -290,6 +276,21 @@ def get_token(
     return MealieAuthToken.respond(access_token, duration)
 
 
+def oidc_login_redirect_url(request: Request) -> str:
+    if not settings.PRODUCTION:
+        # in development, we want to redirect to the frontend
+        return "http://localhost:3000/login"
+
+    # Prioritize User Configuration over Request Headers.
+    base: str | URL = request.base_url
+    if not settings.is_default_base_url and settings.BASE_URL:
+        base = settings.BASE_URL
+        if "://" not in base:
+            # Without a scheme the IdP gets a relative redirect URI and rejects it (#6417).
+            base = f"{request.url.scheme}://{base}"
+    return str(URLPath("/login").make_absolute_url(base))
+
+
 @public_router.get("/oauth")
 async def oauth_login(request: Request):
     if not oauth:
@@ -298,9 +299,7 @@ async def oauth_login(request: Request):
             detail="Could not initialize OAuth client",
         )
     client = oauth.create_client("oidc")
-    redirect_url = frontend_url(request, "/login")
-
-    response: RedirectResponse = await client.authorize_redirect(request, redirect_url)
+    response: RedirectResponse = await client.authorize_redirect(request, oidc_login_redirect_url(request))
     return response
 
 

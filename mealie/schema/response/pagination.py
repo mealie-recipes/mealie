@@ -3,7 +3,7 @@ from typing import Annotated, Any
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from humps import camelize
-from pydantic import UUID4, BaseModel, Field, field_validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie import MealieModel
@@ -49,6 +49,9 @@ class PaginationQuery(RequestQuery):
 
 
 class PaginationBase[DataT: BaseModel](BaseModel):
+    # always a response, so the generated types mark defaulted fields as required (see MealieOutModel)
+    model_config = ConfigDict(json_schema_serialization_defaults_required=True)
+
     page: int = 1
     per_page: int = 10
     total: int = 0

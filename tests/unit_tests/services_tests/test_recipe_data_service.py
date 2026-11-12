@@ -6,7 +6,7 @@ import pytest
 from PIL import UnidentifiedImageError
 
 from mealie.pkgs import safehttp
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.services.recipe import recipe_data_service
 from mealie.services.recipe.recipe_data_service import (
     InvalidDomainError,
@@ -20,7 +20,7 @@ from tests import data
 def data_service(tmp_path: Path, monkeypatch) -> RecipeDataService:
     """A service rooted in a temp dir, so nothing touches the real recipe data directory."""
     recipe_id = uuid.uuid4()
-    monkeypatch.setattr(Recipe, "directory_from_id", classmethod(lambda cls, rid: tmp_path.joinpath(str(rid))))
+    monkeypatch.setattr(RecipeOut, "directory_from_id", classmethod(lambda cls, rid: tmp_path.joinpath(str(rid))))
     return RecipeDataService(recipe_id)
 
 

@@ -1,19 +1,19 @@
 from requests import Response
 
-from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientUnitOut, IngredientUnitSave
 from tests import utils
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
 from tests.utils import api_routes
 
 
 class UnitsTestCase(ABCMultiTenantTestCase):
-    items: list[IngredientUnit]
+    items: list[IngredientUnitOut]
 
     def seed_action(self, group_id: str) -> set[str]:
         unit_ids: set[str] = set()
         for _ in range(10):
             unit = self.database.ingredient_units.create(
-                SaveIngredientUnit(
+                IngredientUnitSave(
                     group_id=group_id,
                     name=utils.random_string(10),
                 )
@@ -32,7 +32,7 @@ class UnitsTestCase(ABCMultiTenantTestCase):
             name = utils.random_string(10)
             for group_id, item_ids in [(group1_id, g1_item_ids), (group2_id, g2_item_ids)]:
                 food = self.database.ingredient_units.create(
-                    SaveIngredientUnit(
+                    IngredientUnitSave(
                         group_id=group_id,
                         name=name,
                     )

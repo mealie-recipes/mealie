@@ -256,7 +256,7 @@
       },
       "mango": {
         "name": "mango",
-        "plural_name": "mangoes"
+        "plural_name": "mangos"
       },
       "peach": {
         "name": "durazno",
@@ -415,23 +415,23 @@
         "plural_name": ""
       },
       "mushroom": {
-        "name": "mushroom",
-        "plural_name": "mushrooms"
+        "name": "champiñón",
+        "plural_name": "champiñones"
       },
       "corn": {
-        "name": "corn",
+        "name": "maíz",
         "plural_name": ""
       },
       "green onion": {
-        "name": "green onion",
-        "plural_name": "green onions"
+        "name": "cebolleta",
+        "plural_name": "cebolletas"
       },
       "lemon juice": {
-        "name": "lemon juice",
+        "name": "jugo de limón",
         "plural_name": ""
       },
       "lime juice": {
-        "name": "lime juice",
+        "name": "jugo de lima",
         "plural_name": ""
       }
     }
@@ -701,7 +701,7 @@
         "plural_name": "solomillos de res"
       },
       "brisket": {
-        "name": "brisket",
+        "name": "pecho de res",
         "plural_name": ""
       },
       "leg of lamb": {
@@ -781,27 +781,27 @@
         "plural_name": "gallinitas gurnesa"
       },
       "veal": {
-        "name": "veal",
+        "name": "ternera",
         "plural_name": ""
       },
       "chicken": {
-        "name": "chicken",
+        "name": "pollo",
         "plural_name": ""
       },
       "beef": {
-        "name": "beef",
+        "name": "carne de res",
         "plural_name": ""
       },
       "pork": {
-        "name": "pork",
+        "name": "cerdo",
         "plural_name": ""
       },
       "lamb": {
-        "name": "lamb",
+        "name": "cordero",
         "plural_name": ""
       },
       "turkey": {
-        "name": "turkey",
+        "name": "pavo",
         "plural_name": ""
       }
     }
@@ -854,7 +854,7 @@
         "plural_name": ""
       },
       "corned beef": {
-        "name": "corned beef",
+        "name": "carne en conserva (corned beef)",
         "plural_name": ""
       }
     }
@@ -943,11 +943,11 @@
         "plural_name": "pulpos"
       },
       "fish": {
-        "name": "fish",
+        "name": "pescado",
         "plural_name": ""
       },
       "tuna": {
-        "name": "tuna",
+        "name": "atún",
         "plural_name": ""
       }
     }
@@ -1092,7 +1092,7 @@
         "plural_name": ""
       },
       "kefir": {
-        "name": "kefir",
+        "name": "kéfir",
         "plural_name": ""
       },
       "provolone cheese": {
@@ -1100,12 +1100,12 @@
         "plural_name": ""
       },
       "egg white": {
-        "name": "egg white",
-        "plural_name": "egg whites"
+        "name": "clara de huevo",
+        "plural_name": "claras de huevo"
       },
       "egg yolk": {
-        "name": "egg yolk",
-        "plural_name": "egg yolks"
+        "name": "yema de huevo",
+        "plural_name": "yemas de huevo"
       }
     }
   },
@@ -1390,19 +1390,19 @@
         "plural_name": ""
       },
       "olive": {
-        "name": "olive",
-        "plural_name": "olives"
+        "name": "aceituna",
+        "plural_name": "aceitunas"
       },
       "bean": {
-        "name": "bean",
-        "plural_name": "beans"
+        "name": "frijol",
+        "plural_name": "frijoles"
       },
       "stock": {
-        "name": "stock",
+        "name": "fondo",
         "plural_name": ""
       },
       "broth": {
-        "name": "broth",
+        "name": "caldo",
         "plural_name": ""
       }
     }
@@ -1627,7 +1627,7 @@
         "plural_name": ""
       },
       "honey": {
-        "name": "honey",
+        "name": "miel",
         "plural_name": ""
       }
     }
@@ -1844,19 +1844,19 @@
         "plural_name": ""
       },
       "salt": {
-        "name": "salt",
+        "name": "sal",
         "plural_name": ""
       },
       "kosher salt": {
-        "name": "kosher salt",
+        "name": "sal kosher",
         "plural_name": ""
       },
       "sea salt": {
-        "name": "sea salt",
+        "name": "sal marina",
         "plural_name": ""
       },
       "flaky salt": {
-        "name": "flaky salt",
+        "name": "sal en escamas",
         "plural_name": ""
       },
       "black pepper": {
@@ -1866,7 +1866,7 @@
     }
   },
   "oils": {
-    "name": "Oils",
+    "name": "Aceites",
     "foods": {
       "shortening": {
         "name": "manteca vegetal",
@@ -1921,13 +1921,13 @@
         "plural_name": ""
       },
       "oil": {
-        "name": "oil",
+        "name": "aceite",
         "plural_name": ""
       }
     }
   },
   "baking": {
-    "name": "Baking",
+    "name": "Repostería",
     "foods": {
       "cocoa": {
         "name": "cacao en polvo",
@@ -1966,7 +1966,7 @@
         "plural_name": ""
       },
       "jaggery": {
-        "name": "jaggery",
+        "name": "jaggery (panela)",
         "plural_name": ""
       },
       "flour": {
@@ -2148,8 +2148,8 @@
         "plural_name": "nueces"
       },
       "pecan": {
-        "name": "pecan",
-        "plural_name": "pecans"
+        "name": "nuez pecana",
+        "plural_name": "nueces pecanas"
       },
       "almond": {
         "name": "almendra",
@@ -2216,8 +2216,8 @@
         "plural_name": "chips de papa"
       },
       "nut": {
-        "name": "nut",
-        "plural_name": "nuts"
+        "name": "fruto seco",
+        "plural_name": "frutos secos"
       }
     }
   },
@@ -2265,7 +2265,7 @@
         "plural_name": ""
       },
       "water": {
-        "name": "water",
+        "name": "agua",
         "plural_name": ""
       }
     }
@@ -2346,7 +2346,7 @@
         "plural_name": ""
       },
       "wine": {
-        "name": "wine",
+        "name": "vino",
         "plural_name": ""
       }
     }
@@ -2412,7 +2412,7 @@
     "name": "Otros",
     "foods": {
       "ice": {
-        "name": "ice",
+        "name": "hielo",
         "plural_name": ""
       }
     }

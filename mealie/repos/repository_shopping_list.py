@@ -7,5 +7,5 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 
 class RepositoryShoppingList(HouseholdRepositoryGeneric[ShoppingListOut, ShoppingList]):
-    def update(self, item_id: UUID4, data: ShoppingListUpdate) -> ShoppingListOut:  # type: ignore
+    def update(self, item_id: UUID4, data: ShoppingListUpdate | dict) -> ShoppingListOut:  # type: ignore[override]
         return super().update(item_id, data)

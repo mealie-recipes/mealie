@@ -1,3 +1,5 @@
+from collections.abc import Iterator
+from contextlib import contextmanager
 from functools import cached_property
 from pathlib import Path
 
@@ -5,10 +7,10 @@ from fastapi import APIRouter, HTTPException
 from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_zip_path
-from mealie.core.exceptions import PermissionDenied
+from mealie.core.exceptions import NoEntryFound, PermissionDenied
 from mealie.core.security import create_file_token
 from mealie.routes._base import BaseUserController, controller
-from mealie.routes._base.permissions import forbidden
+from mealie.routes._base.permissions import forbidden, not_found
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe.recipe_bulk_actions import (
     AssignCategories,
@@ -24,6 +26,14 @@ from mealie.services.recipe.recipe_service import RecipeService
 router = APIRouter(prefix="/bulk-actions")
 
 
+@contextmanager
+def _missing_recipes_as_404() -> Iterator[None]:
+    try:
+        yield
+    except NoEntryFound as e:
+        raise not_found(str(e)) from e
+
+
 @controller(router)
 class RecipeBulkActionsController(BaseUserController):
     @cached_property
@@ -34,18 +44,28 @@ class RecipeBulkActionsController(BaseUserController):
     def recipe_service(self) -> RecipeService:
         return RecipeService(self.repos, self.user, self.household, self.translator)
 
+    def _require_can_update(self, slugs: list[str]) -> None:
+        if slugs and not self.recipe_service.can_update(slugs):
+            raise forbidden("You do not have permission to edit all of these recipes.")
+
     # TODO Should these actions return some success response?
     @router.post("/tag")
     def bulk_tag_recipes(self, tag_data: AssignTags):
-        self.service.assign_tags(tag_data.recipes, tag_data.tags)
+        self._require_can_update(tag_data.recipes)
+        with _missing_recipes_as_404():
+            self.service.assign_tags(tag_data.recipes, tag_data.tags)
 
     @router.post("/settings")
     def bulk_settings_recipes(self, settings_data: AssignSettings):
-        self.service.set_settings(settings_data.recipes, settings_data.settings)
+        self._require_can_update(settings_data.recipes)
+        with _missing_recipes_as_404():
+            self.service.set_settings(settings_data.recipes, settings_data.settings)
 
     @router.post("/categorize")
     def bulk_categorize_recipes(self, assign_cats: AssignCategories):
-        self.service.assign_categories(assign_cats.recipes, assign_cats.categories)
+        self._require_can_update(assign_cats.recipes)
+        with _missing_recipes_as_404():
+            self.service.assign_categories(assign_cats.recipes, assign_cats.categories)
 
     @router.post("/delete")
     def bulk_delete_recipes(self, delete_recipes: DeleteRecipes):

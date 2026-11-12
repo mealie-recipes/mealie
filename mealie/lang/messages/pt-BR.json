@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imagem da receita deletada",
         "recipe-defaults": {
-            "ingredient-note": "1 Xícara de Farinha",
-            "name": "New Recipe",
-            "step-text": "Passos das receitas, assim como outros campos na página da receita, suportam sintaxe \"markdown\".\n\n**Adicione um link**\n\n[Meu Link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Produz",
@@ -27,6 +25,16 @@
             "yields": "Rendimento"
         },
         "and-amount": "e {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Criando receita de dados de páginas web...",
             "downloading-image": "Baixando imagem...",
             "downloading-video": "Baixando vídeo...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extraindo dados da receita...",
             "fetching-webpage": "Buscando página web...",
             "organizing-recipe": "Organizing recipe...",

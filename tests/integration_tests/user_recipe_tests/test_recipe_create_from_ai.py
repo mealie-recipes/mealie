@@ -22,7 +22,7 @@ from mealie.schema.openai.recipe import (
     OpenAIRecipeNotes,
     OpenAIRecipeNutrition,
 )
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.recipe.recipe_organizers import TagSave
 from mealie.services.openai import OpenAINotEnabledException, OpenAIService
 from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from mealie.services.recipe.recipe_data_service import RecipeDataService

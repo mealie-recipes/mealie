@@ -225,3 +225,43 @@ def test_prefer_structured_instructions_ignores_a_stringified_step_dict():
     flat = [{"text": "{'@type': 'HowToStep', 'text': 'Dice the onion.'}"}]
 
     assert prefer_structured_instructions(structured, flat) is True
+
+
+def test_structured_data_keeps_line_breaks_the_scraper_drops(monkeypatch):
+    """recipe_scrapers collapses the whitespace inside a step, so paragraphs run together.
+
+    HelloFresh writes each step as several `<p>` paragraphs. The structured data still has
+    them, and when it holds the same text as the flat parse, it is the better source.
+    """
+    html = RecipeScraperPackage.ld_json_to_html(json.dumps(FLAT_RECIPE))
+    scraped_data = scrape_html(html, org_url="https://example.com", supported_only=False)
+    scraped_data.schema.data["recipeInstructions"] = [
+        {"@type": "HowToStep", "text": "<p>Boil a full kettle. </p>\n<p>Make the stock.</p>"},
+        {"@type": "HowToStep", "text": "<p>Chop the shallot.</p>"},
+    ]
+    monkeypatch.setattr(scraped_data, "instructions", lambda: "Boil a full kettle. Make the stock.\nChop the shallot.")
+
+    strategy = RecipeScraperPackage(
+        "https://example.com",
+        get_locale_provider(),
+        repos=None,  # type: ignore[arg-type]
+    )
+    recipe, _ = strategy.clean_scraper(scraped_data, "https://example.com")
+    steps = recipe.recipe_instructions
+    assert steps is not None
+
+    assert [step.text for step in steps] == ["Boil a full kettle.\n\nMake the stock.", "Chop the shallot."]
+
+
+def test_prefer_structured_instructions_for_line_breaks_only_when_the_text_matches():
+    structured = [{"text": "Boil a full kettle.\nMake the stock."}]
+
+    assert prefer_structured_instructions(structured, [{"text": "Boil a full kettle. Make the stock."}]) is True
+    # a different split or different words means the scraper read something else
+    assert (
+        prefer_structured_instructions(structured, [{"text": "Boil a full kettle."}, {"text": "Make the stock."}])
+        is False
+    )
+    assert prefer_structured_instructions(structured, [{"text": "Boil a kettle. Make the stock."}]) is False
+    # with no line breaks there is nothing to gain
+    assert prefer_structured_instructions([{"text": "Boil a full kettle."}], [{"text": "Boil a full kettle."}]) is False

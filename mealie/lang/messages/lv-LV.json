@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Receptes attēls dzēsts",
         "recipe-defaults": {
-            "ingredient-note": "1 gl. miltu",
-            "name": "New Recipe",
-            "step-text": "Receptes darbības, kā arī citi lauki receptes lapā atbalsta atzīmes sintaksi.\n\n**Pievienot saiti**\n\n[Mana saite](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Makes",
@@ -27,6 +25,16 @@
             "yields": "Rezultāts"
         },
         "and-amount": "un {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI pakalpojumi nav ieslēgti",
             "ai-request-failed": "Mākslīgā intelekta pakalpojuma sniedzējs nevarēja izpildīt pieprasījumu. Lūdzu, mēģiniet vēlreiz",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Lejupielādē attēlu...",
             "downloading-video": "Lejupielādē video...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
             "organizing-recipe": "Organizing recipe...",

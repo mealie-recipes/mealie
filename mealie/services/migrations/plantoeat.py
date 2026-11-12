@@ -166,7 +166,7 @@ class PlanToEatMigrator(BaseMigrator):
         results = self.import_recipes_to_database(recipes)
 
         for slug, recipe_id, status in results:
-            if not status:
+            if not status or not recipe_id:
                 continue
 
             try:

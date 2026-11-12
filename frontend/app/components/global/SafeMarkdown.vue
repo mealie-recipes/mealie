@@ -1,25 +1,21 @@
 <template>
-  <!-- eslint-disable-next-line vue/no-v-html is safe here because all HTML is sanitized with DOMPurify in setup() -->
   <div v-html="value" />
 </template>
 
 <script setup lang="ts">
-import { marked } from "marked";
-import { sanitizeMarkdownHtml } from "~/lib/sanitize/markdown";
+import type { PropType } from "vue";
+import { renderMarkdown } from "~/lib/sanitize";
 
 const props = defineProps({
   source: {
-    type: String,
+    type: String as PropType<string | null>,
     default: "",
   },
 });
 
 const { $appInfo } = useNuxtApp();
 
-const value = computed(() => {
-  const rawHtml = marked.parse(props.source || "", { async: false, breaks: true });
-  return sanitizeMarkdownHtml(rawHtml, $appInfo?.allowedIframeHosts ?? []);
-});
+const value = computed(() => renderMarkdown(props.source, $appInfo?.allowedIframeHosts ?? []));
 </script>
 
 <style scoped>

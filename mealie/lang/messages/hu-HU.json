@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} ezt készítette desszertnek",
         "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
-            "ingredient-note": "1 csésze liszt",
-            "name": "Új recept",
-            "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
+            "name": "Új recept"
         },
         "servings-text": {
             "makes": "Elkészítések",
@@ -27,6 +25,16 @@
             "yields": "Késleltetve"
         },
         "and-amount": "és {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Recept készítése a weboldal adataiból...",
             "downloading-image": "Kép letöltése...",
             "downloading-video": "Videó letöltése...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Recept adatok kibontása...",
             "fetching-webpage": "A weboldal betöltése folyamatban...",
             "organizing-recipe": "Recept összeállítása...",

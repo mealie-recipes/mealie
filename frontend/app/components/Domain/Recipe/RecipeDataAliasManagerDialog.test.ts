@@ -2,11 +2,11 @@ import { mount, type VueWrapper } from "@vue/test-utils";
 import { afterEach, describe, expect, test } from "vitest";
 import { nextTick } from "vue";
 import RecipeDataAliasManagerDialog from "./RecipeDataAliasManagerDialog.vue";
-import type { IngredientFood } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut } from "~/lib/api/types/recipe";
 
 const wrappers: VueWrapper[] = [];
 
-function mountDialog(data: IngredientFood) {
+function mountDialog(data: IngredientFoodOut) {
   const wrapper = mount(RecipeDataAliasManagerDialog, {
     props: {
       data,
@@ -76,7 +76,7 @@ describe("RecipeDataAliasManagerDialog", () => {
       id: "1",
       name: "abalone",
       aliases: [{ name: "alias-original" }],
-    } as IngredientFood;
+    } as IngredientFoodOut;
     const wrapper = mountDialog(data);
 
     await wrapper.find("input").setValue("alias-cancelled");
@@ -93,7 +93,7 @@ describe("RecipeDataAliasManagerDialog", () => {
       id: "1",
       name: "abalone",
       aliases: [{ name: "alias-original" }],
-    } as IngredientFood;
+    } as IngredientFoodOut;
     const wrapper = mountDialog(data);
 
     await wrapper.find("input").setValue("alias-renamed");

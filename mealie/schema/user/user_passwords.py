@@ -26,12 +26,12 @@ class ResetPassword(ValidateResetToken):
     passwordConfirm: str
 
 
-class SavePasswordResetToken(MealieModel):
+class PasswordResetTokenSave(MealieModel):
     user_id: UUID4
     token: str
 
 
-class PrivatePasswordResetToken(SavePasswordResetToken):
+class PrivatePasswordResetToken(PasswordResetTokenSave):
     user: PrivateUser
     model_config = ConfigDict(from_attributes=True)
 

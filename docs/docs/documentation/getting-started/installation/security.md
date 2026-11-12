@@ -34,12 +34,32 @@ If you'd like to mitigate this risk, we suggest that you rate limit the API in g
 
 ## Server Side Request Forgery
 
-- `/api/recipes/create/url`
-- `/api/recipes/create/ai`
-- `/api/recipes/{id}/image`
+Several features make your Mealie server send requests to URLs that users provide. A **Server Side Request Forgery** (SSRF) attack abuses this to make the server reach resources on your internal network that the user can't reach directly.
 
-Given the nature of these APIs it's possible to perform a **Server Side Request Forgery** attack. This is where a malicious user can issue a request to an internal network resource, and potentially exfiltrate data. We _do_ perform some checks to mitigate access to resources within your network but at the end of the day, users of Mealie are allowed to trigger HTTP requests on **your server**.
+### Recipe imports, images, webhooks, and recipe actions
+
+These requests can only reach public addresses by default:
+
+- Recipe imports from a URL (`/api/recipes/create/url`, `/api/recipes/create/ai`)
+- Recipe image and asset downloads (`/api/recipes/{id}/image`)
+- Webhooks
+- Recipe actions
+- OIDC profile images
+
+Mealie refuses a target that resolves to a private, loopback, link-local, or carrier-grade NAT (`100.64.0.0/10`, used by Tailscale) address, and checks every redirect. To let these features reach a trusted internal host, add it to `HTTP_ALLOW_LIST`. To block a target, including a public one, add it to `HTTP_DISALLOW_LIST`. See [Backend Configuration](./backend-config.md#application-security).
+
+### Notifiers and webhooks
+
+Notifiers send through the [Apprise](https://github.com/caronc/apprise/wiki) library and **can reach internal hosts by design**. Many self-hosted instances send notifications to services on the same network, such as ntfy, Gotify, Home Assistant, or a local mail server. `HTTP_ALLOW_LIST` and `HTTP_DISALLOW_LIST` do not apply to notifiers.
+
+Only users with the **Manage household** permission can view, create, change, or test notifiers and webhooks. Give this permission only to users you trust to make your server send requests. See [Permissions and Public Access](../usage/permissions-and-public-access.md).
+
+To limit which notification services can be used, set `APPRISE_ALLOWED_SCHEMAS` to the Apprise schemas you want to allow, for example `APPRISE_ALLOWED_SCHEMAS=ntfys,discord`. Mealie refuses to save a notifier with any other schema, and skips existing notifiers that no longer match. Leaving out the generic `json`, `form`, and `xml` schemas (and their secure variants) removes the most direct way to send arbitrary HTTP requests, but services you allow that take a custom host, such as `ntfy` or `mailto`, can still reach internal addresses.
 
 ### Mitigation
 
-If you'd like to mitigate this risk, we suggest that you isolate the container that Mealie is running in to ensure that it's access to internal resources is limited only to what is required. _Note that Mealie does require access to the internet for recipe imports._ You might consider isolating Mealie from your home network entirely and only allowing access to the external internet.
+If you'd like to limit this risk further, isolate the container that Mealie runs in so that it can reach only the internal resources it needs. _Note that Mealie does require access to the internet for recipe imports._ You might consider isolating Mealie from your home network entirely and only allowing access to the external internet.
+
+## Reporting a Vulnerability
+
+Please report security issues privately through [GitHub's private vulnerability reporting](https://github.com/mealie-recipes/mealie/security/advisories/new), not as public issues. See the [security policy](https://github.com/mealie-recipes/mealie/security/policy) for details.

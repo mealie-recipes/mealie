@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Obrazek przepisu został usunięty",
         "recipe-defaults": {
-            "ingredient-note": "1 szklanka mąki",
-            "name": "New Recipe",
-            "step-text": "Kroki przepisu, jak również inne pola na stronie przepisu obsługują składnię markdown.\n\n**Dodaj link**\n\n[Mój link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Daje",
@@ -27,6 +25,16 @@
             "yields": "Porcje"
         },
         "and-amount": "i {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Usługi AI nie są włączone",
             "ai-request-failed": "Dostawca AI nie był w stanie wykonać żądania. Spróbuj ponownie później",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Tworzenie przepisu na podstawie danych ze strony...",
             "downloading-image": "Pobieranie zdjęcia...",
             "downloading-video": "Pobieranie wideo...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Wyodrębnianie danych przepisu...",
             "fetching-webpage": "Pobieranie strony...",
             "organizing-recipe": "Organizowanie przepisu...",

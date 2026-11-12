@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} ha fet això de postres",
         "recipe-image-deleted": "S'ha suprimit la imatge de la recepta",
         "recipe-defaults": {
-            "ingredient-note": "1 tassa de farina",
-            "name": "Recepta nova",
-            "step-text": "Passos de recepta i altres camps són compatibles amb sintaxi markdown.\n\n**Afegir un enllaç**\n\n[El meu enllaç](https://demo.mealie.io)\n"
+            "name": "Recepta nova"
         },
         "servings-text": {
             "makes": "Crea",
@@ -27,6 +25,16 @@
             "yields": "Racions"
         },
         "and-amount": "i {amount}",
+        "pdf": {
+            "cookbook": "Receptari",
+            "contents": "Índex",
+            "ingredients": "Ingredients",
+            "instructions": "Instruccions",
+            "notes": "Notes",
+            "prep-time": "Preparació",
+            "cook-time": "Cocció",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Els serveis d'IA no estan habilitats",
             "ai-request-failed": "El proveïdor d'IA no ha pogut completar la sol·licitud. Torna-ho a provar",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "S'està creant la recepta a partir de les dades del lloc web...",
             "downloading-image": "S'est baixant l'imatge...",
             "downloading-video": "S'est baixant el vídeo...",
+            "enriching-instructions": "S'estan afegint els detalls dels passos...",
             "extracting-recipe-data": "S'estan extraient les dades de la recepta...",
             "fetching-webpage": "S'està recuperant la pàgina web...",
             "organizing-recipe": "S'està organitzant la recepta...",
@@ -125,9 +134,9 @@
         "mealplan-entry-created": "S'ha creat una entrada del menú per al {date} ({entry_type})",
         "mealplan-entry-updated": "S'ha actualitzat una entrada del menú del {date} ({entry_type})",
         "mealplan-entry-deleted": "S'ha suprimit una entrada del menú del {date} ({entry_type})",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "S'ha creat una entrada del menú del {date} al {end_date} ({entry_type})",
+        "mealplan-range-entry-updated": "S'ha actualitzat una entrada del menú del {date} al {end_date} ({entry_type})",
+        "mealplan-range-entry-deleted": "S'ha suprimit una entrada del menú del {date} al {end_date} ({entry_type})"
     },
     "datetime": {
         "year": "any|anys",

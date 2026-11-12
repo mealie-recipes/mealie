@@ -1,7 +1,7 @@
 import { useAdminApi, useUserApi } from "~/composables/api";
-import type { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
+import type { HouseholdCreate, HouseholdOut } from "~/lib/api/types/household";
 
-const householdSelfRef = ref<HouseholdInDB | null>(null);
+const householdSelfRef = ref<HouseholdOut | null>(null);
 const loading = ref(false);
 
 export function resetHouseholdSelf() {
@@ -61,7 +61,7 @@ export const useHouseholdSelf = function () {
 export const useAdminHouseholds = function () {
   const api = useAdminApi();
   const loading = ref(false);
-  const households = ref<HouseholdInDB[] | null>(null);
+  const households = ref<HouseholdOut[] | null>(null);
 
   async function getAllHouseholds() {
     loading.value = true;

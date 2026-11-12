@@ -6,9 +6,9 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.permissions import Perm, require
 from mealie.routes._base.routers import UserAPIRouter
-from mealie.schema.household import HouseholdInDB, HouseholdRecipeSummary
+from mealie.schema.household import HouseholdOut, HouseholdRecipeSummary
 from mealie.schema.household.household_permissions import SetPermissions
-from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
+from mealie.schema.household.household_preferences import HouseholdPreferencesOut, HouseholdPreferencesUpdate
 from mealie.schema.household.household_statistics import HouseholdStatistics
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.schema.user.user import UserOut
@@ -24,7 +24,7 @@ class HouseholdSelfServiceController(BaseUserController):
     def service(self) -> HouseholdService:
         return HouseholdService(self.group_id, self.household_id, self.repos)
 
-    @router.get("/self", response_model=HouseholdInDB)
+    @router.get("/self", response_model=HouseholdOut)
     def get_logged_in_user_household(self):
         """Returns the Household Data for the Current User"""
         return self.household
@@ -48,12 +48,12 @@ class HouseholdSelfServiceController(BaseUserController):
         response.set_pagination_guides(router.url_path_for("get_household_members"), q.model_dump())
         return response
 
-    @router.get("/preferences", response_model=ReadHouseholdPreferences)
+    @router.get("/preferences", response_model=HouseholdPreferencesOut)
     def get_household_preferences(self):
         return self.household.preferences
 
-    @router.put("/preferences", response_model=ReadHouseholdPreferences, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
-    def update_household_preferences(self, new_pref: UpdateHouseholdPreferences):
+    @router.put("/preferences", response_model=HouseholdPreferencesOut, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
+    def update_household_preferences(self, new_pref: HouseholdPreferencesUpdate):
         return self.repos.household_preferences.update(self.household_id, new_pref)
 
     @router.put("/permissions", response_model=UserOut, dependencies=[require(Perm.GROUP_MANAGE)])
