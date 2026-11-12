@@ -2,7 +2,7 @@
   <v-container max-width="880" class="end-page-content">
     <div class="d-flex flex-column ga-6">
       <div>
-        <v-card-title class="text-h4 justify-center">
+        <v-card-title class="text-headline-large justify-center">
           {{ $t('admin.setup.setup-complete') }}
         </v-card-title>
         <v-card-subtitle class="justify-center">
@@ -14,7 +14,7 @@
         :key="idx"
         class="d-flex flex-column ga-3"
       >
-        <v-card-title class="text-h6 pl-0">
+        <v-card-title class="text-title-large pl-0">
           {{ section.title }}
         </v-card-title>
         <div class="sections d-flex flex-column ga-2">

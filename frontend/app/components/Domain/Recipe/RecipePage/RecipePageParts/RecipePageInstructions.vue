@@ -76,7 +76,7 @@
             <h4 class="ml-1 mb-2">
               {{ $t("recipe.notes") }}
             </h4>
-            <p v-if="linkableNotes.length === 0" class="text-body-2 text-medium-emphasis">
+            <p v-if="linkableNotes.length === 0" class="text-body-medium text-medium-emphasis">
               {{ $t('recipe.no-notes-to-link') }}
             </p>
             <v-checkbox-btn
@@ -135,7 +135,7 @@
     <div class="d-flex justify-space-between justify-start">
       <h2
         v-if="!isCookMode"
-        class="mt-1 text-h5 font-weight-medium opacity-80"
+        class="mt-1 text-headline-small font-weight-medium opacity-80"
       >
         {{ $t("recipe.instructions") }}
       </h2>
@@ -432,7 +432,7 @@
                     <div
                       v-for="(noteRef, i) in step.noteReferences"
                       :key="noteRef.referenceId ?? i"
-                      class="mb-1 d-flex align-center text-body-2"
+                      class="mb-1 d-flex align-center text-body-medium"
                     >
                       <v-icon size="14" class="mr-1" style="cursor: default;">
                         {{ $globals.icons.noteTextOutline }}

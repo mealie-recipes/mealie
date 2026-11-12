@@ -179,7 +179,7 @@
 
         <p
           v-if="selected.length > 0"
-          class="text-caption my-auto ml-5"
+          class="text-body-small my-auto ml-5"
         >
           {{ $t('general.selected-count', selected.length)
           }}

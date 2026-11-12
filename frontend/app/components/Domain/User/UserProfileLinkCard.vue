@@ -18,7 +18,7 @@
     </div>
     <div class="d-flex justify-space-between">
       <div>
-        <v-card-title class="text-subtitle-1 pb-0">
+        <v-card-title class="text-body-large pb-0">
           <slot name="title" />
         </v-card-title>
         <div class="d-flex justify-center align-center">

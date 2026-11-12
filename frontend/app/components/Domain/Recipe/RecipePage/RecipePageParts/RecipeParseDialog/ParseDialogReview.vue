@@ -39,7 +39,7 @@
                 @insert-below="insertNewIngredient(index + 1)"
               >
                 <template #before-divider>
-                  <p v-if="ingredient.input" class="py-0 my-0 text-caption">
+                  <p v-if="ingredient.input" class="py-0 my-0 text-body-small">
                     {{ $t("recipe.original-text-with-value", { originalText: ingredient.input }) }}
                   </p>
                 </template>

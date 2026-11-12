@@ -40,7 +40,7 @@
         class="d-flex flex-column align-center justify-start"
         @click="toastLoading.open = false"
       >
-        <div class="mb-2 mt-0 text-subtitle-1 text-center">
+        <div class="mb-2 mt-0 text-body-large text-center">
           {{ toastLoading.text }}
         </div>
         <v-progress-linear

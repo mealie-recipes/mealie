@@ -11,7 +11,7 @@
       @cancel="$emit('cancel')"
     >
       <v-card-text>
-        <p class="text-body-2 pb-3">
+        <p class="text-body-medium pb-3">
           {{ $t("data-pages.foods.substitution-dialog-text", { food: data.name }) }}
         </p>
         <RecipeIngredientSubstitutionEditor

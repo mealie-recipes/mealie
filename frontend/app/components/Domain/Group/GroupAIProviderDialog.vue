@@ -70,11 +70,11 @@
         </v-alert>
         <v-expansion-panels v-model="advancedPanel" variant="accordion">
           <v-expansion-panel>
-            <v-expansion-panel-title class="text-subtitle-2" expand-icon="$expand" collapse-icon="$expand">
+            <v-expansion-panel-title class="text-title-small" expand-icon="$expand" collapse-icon="$expand">
               {{ $t('search.advanced') }}
             </v-expansion-panel-title>
             <v-expansion-panel-text class="px-0">
-              <div class="mb-2 text-subtitle-2">
+              <div class="mb-2 text-title-small">
                 {{ $t('group.ai-provider-settings.request-headers') }}
               </div>
               <BaseKeyValueEditor
@@ -82,7 +82,7 @@
                 class="mb-4"
               />
               <v-divider class="mb-4" />
-              <div class="mb-2 text-subtitle-2">
+              <div class="mb-2 text-title-small">
                 {{ $t('group.ai-provider-settings.request-params') }}
               </div>
               <BaseKeyValueEditor

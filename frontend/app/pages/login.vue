@@ -55,12 +55,12 @@
           class="d-flex justify-center mb-4"
           dark
         >
-          <v-toolbar-title class="text-h4 text-center">
+          <v-toolbar-title class="text-headline-large text-center">
             Mealie
           </v-toolbar-title>
         </v-toolbar>
         <AppLogo :size="100" />
-        <v-card-title class="text-h5 justify-center pb-3">
+        <v-card-title class="text-headline-small justify-center pb-3">
           {{ $t('user.sign-in') }}
         </v-card-title>
         <v-card-text class="w-100">

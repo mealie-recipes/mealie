@@ -57,7 +57,7 @@
                   transition="slide-x-reverse-transition"
                   density="compact"
                   location="end"
-                  content-class="text-caption"
+                  content-class="text-body-small"
                 >
                   <template #activator="{ props: tooltipProps }">
                     <v-btn
@@ -131,7 +131,7 @@
         class="mb-2"
       >
         <v-col cols="auto">
-          <div class="text-caption font-weight-light font-italic">
+          <div class="text-body-small font-weight-light font-italic">
             {{ $t("shopping-list.completed-on", {
               date: listItem.updatedAt ? $d(new Date(listItem.updatedAt)) : '',
             }) }}

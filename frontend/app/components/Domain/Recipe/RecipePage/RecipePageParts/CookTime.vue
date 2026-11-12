@@ -17,7 +17,7 @@
     @keypress="e => e.key === '-' && e.preventDefault()"
     @click.stop
   />
-  <span v-else-if="modelValue" class="text-body-2">
+  <span v-else-if="modelValue" class="text-body-medium">
     {{ formattedDuration }}
   </span>
 </template>

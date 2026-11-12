@@ -70,7 +70,7 @@
             v-model="accountDetails.advancedOptions.value"
             :label="$t('user.enable-advanced-content')"
           />
-          <p class="text-caption mt-n4">
+          <p class="text-body-small mt-n4">
             {{ $t("user.enable-advanced-content-description") }}
           </p>
         </div>
