@@ -58,10 +58,11 @@ def clean(recipe_data: RecipeDraft | dict, translator: Translator, url=None) -> 
     """
     if not isinstance(recipe_data, dict):
         # format the recipe like a scraped dictionary. Ingredients are flattened to their display
-        # text, but keep their section titles, which are otherwise lost on the way through
+        # text, but keep their section titles and the reference ids instruction steps link to,
+        # which are otherwise lost on the way through
         recipe_data_dict = recipe_data.model_dump(by_alias=True)
         recipe_data_dict["recipeIngredient"] = [
-            {"title": ing.title, "note": ing.display} if ing.title else {"note": ing.display}
+            {"note": ing.display, "referenceId": ing.reference_id} | ({"title": ing.title} if ing.title else {})
             for ing in recipe_data.recipe_ingredient
         ]
 
@@ -206,7 +207,8 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
 
     Returns:
         list[dict]: An ordered list of dictionaries with the key `text`, plus `title` on the
-        first step of a named HowToSection, which is where Mealie stores a section heading
+        first step of a named HowToSection, which is where Mealie stores a section heading.
+        Steps from a recipe being cleaned again also keep their links and duration
     """
     if not steps_object:
         return default or []
@@ -262,6 +264,9 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
                 {"text": _sanitize_instruction_text(instruction["text"])}
                 | ({"title": instruction["title"]} if instruction.get("title") else {})
                 | ({"summary": heading} if (heading := _step_heading(instruction)) else {})
+                | ({"ingredientReferences": refs} if (refs := instruction.get("ingredientReferences")) else {})
+                | ({"noteReferences": refs} if (refs := instruction.get("noteReferences")) else {})
+                | ({"durationSeconds": seconds} if (seconds := instruction.get("durationSeconds")) else {})
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]

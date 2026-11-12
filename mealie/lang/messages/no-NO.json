@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Oppretter oppskrift fra nettsidedata...",
             "downloading-image": "Laster ned bilde...",
             "downloading-video": "Laster ned video...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Henter ut oppskriftsdata...",
             "fetching-webpage": "Henter nettside...",
             "organizing-recipe": "Organiserer oppskrift...",

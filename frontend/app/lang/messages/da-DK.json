@@ -286,6 +286,7 @@
       "prompt-save-failed": "Kunne ikke gemme forespørgsel",
       "prompt-titles": {
         "recipes-build-recipe": "Sammensæt opskrift",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Håndtér ingredienser",
         "recipes-parse-recipe-video": "Opskrift fra video",
         "recipes-resolve-organizers": "Tildel til organisatorer",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Omdanner kildemateriale, der læses fra en weside, foto eller tekst til en struktureret opskrift.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Bruges af AIs håndtering af ingredienser til at dele hver ingrediens op i mængde, enhed, ingrediens og note.",
         "recipes-parse-recipe-video": "Omdanner en videos transskription og undertekst til en opskrift.",
         "recipes-resolve-organizers": "Vælger mærkater, kategorier og redskaber for en importeret opskrift.",

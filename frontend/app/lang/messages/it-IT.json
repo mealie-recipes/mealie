@@ -286,6 +286,7 @@
       "prompt-save-failed": "Impossibile salvare il prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Genera Ricetta",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Analizza ingredienti",
         "recipes-parse-recipe-video": "Ricetta da video",
         "recipes-resolve-organizers": "Assegna Organizzatori",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Trasforma il materiale letto da una pagina web, una foto o un testo in una ricetta strutturata.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Usato dall'analizzatore AI per separare ogni ingrediente in quantità, unità, alimento e nota.",
         "recipes-parse-recipe-video": "Trasforma la trascrizione e la didascalia di un video in una ricetta.",
         "recipes-resolve-organizers": "Sceglie tag, categorie e strumenti per una ricetta importata.",

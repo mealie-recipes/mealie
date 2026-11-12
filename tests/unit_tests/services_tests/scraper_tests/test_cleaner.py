@@ -6,6 +6,10 @@ import pytest
 from recipe_scrapers import scrape_html
 
 from mealie.lang.providers import get_locale_provider
+from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_notes import RecipeNote
+from mealie.schema.recipe.recipe_step import IngredientReferences, NoteReference, RecipeStep
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph, RecipeScraperPackage
 from tests import data as test_data
@@ -116,6 +120,39 @@ def test_cleaner_clean_keeps_existing_seconds():
 
     assert recipe.total_time_seconds == 60
     assert recipe.total_time == "2 hours"
+
+
+def test_cleaner_clean_keeps_instruction_links_and_durations():
+    ingredient = RecipeIngredient(title="Dough", note="1 cup flour")
+    note = RecipeNote(title="", text="Sift the flour first.")
+    recipe = RecipeDraft(
+        name="Test Recipe",
+        recipe_ingredient=[ingredient],
+        notes=[note],
+        recipe_instructions=[
+            RecipeStep(
+                text="Mix the flour, then rest the dough.",
+                ingredient_references=[IngredientReferences(reference_id=ingredient.reference_id)],
+                note_references=[NoteReference(reference_id=note.reference_id)],
+                duration_seconds=600,
+            ),
+            RecipeStep(text="Bake."),
+        ],
+    )
+
+    cleaned = cleaner.clean(recipe, get_locale_provider())
+
+    assert [ing.reference_id for ing in cleaned.recipe_ingredient] == [ingredient.reference_id]
+    assert cleaned.recipe_ingredient[0].title == "Dough"
+    assert cleaned.notes and [n.reference_id for n in cleaned.notes] == [note.reference_id]
+
+    linked, plain = cleaned.recipe_instructions or []
+    assert [ref.reference_id for ref in linked.ingredient_references] == [ingredient.reference_id]
+    assert [ref.reference_id for ref in linked.note_references] == [note.reference_id]
+    assert linked.duration_seconds == 600
+    assert plain.ingredient_references == []
+    assert plain.note_references == []
+    assert plain.duration_seconds is None
 
 
 def test_clean_scraper_structures_times():

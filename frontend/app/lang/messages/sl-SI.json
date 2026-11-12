@@ -286,6 +286,7 @@
       "prompt-save-failed": "Shranjevanje poziva ni uspelo",
       "prompt-titles": {
         "recipes-build-recipe": "Zgradi recept",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Razčleni sestavine",
         "recipes-parse-recipe-video": "Recept iz videoposnetka",
         "recipes-resolve-organizers": "Določi organizatorje",
@@ -295,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Pretvori izvorno gradivo, pridobljeno s spletne strani, fotografije ali besedila, v strukturiran recept.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Uporablja ga razčlenjevalnik sestavin z umetno inteligenco za razdelitev posamezne sestavine na količino, enoto, živilo in opombo.",
         "recipes-parse-recipe-video": "Pretvori prepis in podnapise videoposnetka v recept.",
         "recipes-resolve-organizers": "Izbere oznake, kategorije in orodja za uvožen recept.",

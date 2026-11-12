@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Retsepti loomine veebilehe andmetest...",
             "downloading-image": "Pildi allalaadimine...",
             "downloading-video": "Video allalaadimine...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Retsepti andmete eraldamine...",
             "fetching-webpage": "Veebilehe pärimine...",
             "organizing-recipe": "Organizing recipe...",
