@@ -46,6 +46,7 @@ dependencies = [
     "ingredient-parser-nlp==2.9.2",
     "pint==0.26.2",
     "httpx-curl-cffi==0.1.5",
+    "curl-cffi==0.17.0",
     "fpdf2==2.9.0",
 ]
 
