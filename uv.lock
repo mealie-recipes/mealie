@@ -1184,7 +1184,7 @@ wheels = [
 
 [[package]]
 name = "mealie"
-version = "3.30.0"
+version = "3.31.0"
 source = { editable = "." }
 dependencies = [
     { name = "alembic" },
