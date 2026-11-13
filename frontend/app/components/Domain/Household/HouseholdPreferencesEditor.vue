@@ -4,7 +4,7 @@
     <div class="mb-6">
       <v-checkbox v-model="local.privateHousehold" hide-details density="compact" :label="$t('household.private-household')" color="primary" />
       <div class="ml-8">
-        <p class="text-subtitle-2 my-0 py-0">
+        <p class="text-title-small my-0 py-0">
           {{ $t("household.private-household-description") }}
         </p>
         <DocLink class="mt-2" link="/documentation/getting-started/faq/#how-do-private-groups-households-and-recipes-work" />
@@ -13,7 +13,7 @@
     <div class="mb-6">
       <v-checkbox v-model="local.lockRecipeEditsFromOtherHouseholds" hide-details density="compact" :label="$t('household.lock-recipe-edits-from-other-households')" color="primary" />
       <div class="ml-8">
-        <p class="text-subtitle-2 my-0 py-0 d-flex align-center">
+        <p class="text-title-small my-0 py-0 d-flex align-center">
           {{ $t("household.lock-recipe-edits-from-other-households-description") }}
           <v-tooltip location="bottom">
             <template #activator="{ props: tooltipProps }">
@@ -35,7 +35,7 @@
         :label="$t('announcements.show-announcements-from-mealie')"
       />
       <div class="ml-8">
-        <p class="text-subtitle-2 my-0 py-0">
+        <p class="text-title-small my-0 py-0">
           {{ $t("announcements.show-announcements-setting-description") }}
         </p>
       </div>
@@ -57,7 +57,7 @@
     <div class="preference-container">
       <div v-for="p in recipePreferences" :key="p.key">
         <v-checkbox v-model="local[p.key]" hide-details density="compact" :label="p.label" color="primary" />
-        <p class="ml-8 text-subtitle-2 my-0 py-0">
+        <p class="ml-8 text-title-small my-0 py-0">
           {{ p.description }}
         </p>
       </div>

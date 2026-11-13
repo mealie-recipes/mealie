@@ -55,7 +55,7 @@
             {{ name }}
           </li>
         </ul>
-        <div v-if="unusedFoodNamesRemaining > 0" class="text-body-2 pl-2">
+        <div v-if="unusedFoodNamesRemaining > 0" class="text-body-medium pl-2">
           {{ $t('data-pages.delete-unused-more', { count: unusedFoodNamesRemaining }) }}
         </div>
       </v-card-text>
@@ -94,7 +94,7 @@
           </template>
         </v-autocomplete>
 
-        <v-alert v-if="foods && foods.length > 0" type="error" class="mb-0 text-body-2">
+        <v-alert v-if="foods && foods.length > 0" type="error" class="mb-0 text-body-medium">
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>

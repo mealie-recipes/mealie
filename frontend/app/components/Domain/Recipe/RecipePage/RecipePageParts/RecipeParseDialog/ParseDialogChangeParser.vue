@@ -19,7 +19,7 @@
     type="info"
     variant="tonal"
     density="compact"
-    class="mt-3 text-body-2"
+    class="mt-3 text-body-medium"
   >
     {{ $t("recipe.parser.natural-language-processor-english-only") }}
   </v-alert>

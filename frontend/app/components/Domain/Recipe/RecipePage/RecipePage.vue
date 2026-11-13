@@ -169,7 +169,7 @@
           cols="12"
           sm="7"
         >
-          <h2 class="text-h5 px-4 font-weight-medium opacity-80">
+          <h2 class="text-headline-small px-4 font-weight-medium opacity-80">
             {{ $t('recipe.instructions') }}
           </h2>
           <RecipePageInstructions

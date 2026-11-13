@@ -11,7 +11,7 @@
       class="text-center px-8 py-4 mb-6 rounded-pill"
       :class="$vuetify.theme.current.dark ? 'bg-background-lighten-1' : 'bg-background-darken-1'"
     >
-      <p class="text-h5 font-italic">
+      <p class="text-headline-small font-italic">
         {{ currentIng.input }}
       </p>
     </div>

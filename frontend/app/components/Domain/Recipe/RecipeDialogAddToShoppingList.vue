@@ -118,7 +118,7 @@
           />
           <v-card-title
             v-if="recipeIngredientSections.length > 1"
-            class="justify-center text-h5"
+            class="justify-center text-headline-small"
             width="100%"
           >
             <v-container style="width: 100%;">
@@ -170,7 +170,7 @@
             >
               <v-card-title
                 v-if="ingredientSection.sectionName"
-                class="ingredient-title mt-2 pb-0 text-h6"
+                class="ingredient-title mt-2 pb-0 text-title-large"
               >
                 {{ ingredientSection.sectionName }}
               </v-card-title>

@@ -7,7 +7,7 @@
         :user-id="user.id"
       />
 
-      <h2 class="text-h4 text-center">
+      <h2 class="text-headline-large text-center">
         {{ $t('profile.welcome-user', [user.fullName]) }}
       </h2>
       <p class="subtitle-1 mb-0 text-center">
@@ -34,7 +34,7 @@
     </section>
     <section class="my-3">
       <div>
-        <h3 class="text-h5">
+        <h3 class="text-headline-small">
           {{ $t('profile.account-summary') }}
         </h3>
         <p>{{ $t('profile.account-summary-description') }}</p>
@@ -46,7 +46,7 @@
           md="12"
         >
           <v-card variant="outlined" style="border-color: lightgray;" class="mt-4 pa-2">
-            <v-card-title class="text-h6 pb-0">
+            <v-card-title class="text-title-large pb-0">
               {{ $t('profile.household-statistics') }}
             </v-card-title>
             <v-card-text class="py-0">
@@ -78,7 +78,7 @@
     <v-divider class="my-7" />
     <section>
       <div>
-        <h3 class="text-h6">
+        <h3 class="text-title-large">
           {{ $t('profile.personal') }}
         </h3>
         <p>{{ $t('profile.personal-description') }}</p>
@@ -121,7 +121,7 @@
     <v-divider class="my-7" />
     <section>
       <div>
-        <h3 class="text-h6">
+        <h3 class="text-title-large">
           {{ $t('household.household') }}
         </h3>
         <p>{{ $t('profile.household-description') }}</p>
@@ -215,7 +215,7 @@
     <v-divider class="my-7" />
     <section v-if="user.canManage || user.canOrganize || user.advanced">
       <div>
-        <h3 class="text-h6">
+        <h3 class="text-title-large">
           {{ $t('group.group') }}
         </h3>
         <p>{{ $t('profile.group-description') }}</p>

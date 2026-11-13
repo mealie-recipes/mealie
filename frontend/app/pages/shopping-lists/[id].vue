@@ -80,7 +80,7 @@
               :icon="$globals.icons.backArrow"
             />
             <v-spacer />
-            <h2 v-if="smAndUp" class="text-h5">
+            <h2 v-if="smAndUp" class="text-headline-small">
               {{ shoppingList.name }}
             </h2>
             <v-spacer />

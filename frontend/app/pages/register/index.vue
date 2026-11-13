@@ -19,7 +19,7 @@
           style="margin-bottom: 4rem"
           dark
         >
-          <v-toolbar-title class="text-h4 text-center">
+          <v-toolbar-title class="text-headline-large text-center">
             Mealie
           </v-toolbar-title>
         </v-toolbar>
@@ -30,7 +30,7 @@
       <div class="d-flex justify-center grow items-center my-4">
         <template v-if="state.ctx.state === States.Initial">
           <v-container>
-            <v-card-title class="text-h5 my-4 mb-5 pb-0 text-center">
+            <v-card-title class="text-headline-small my-4 mb-5 pb-0 text-center">
               {{ $t("user-registration.user-registration") }}
             </v-card-title>
 
@@ -164,7 +164,7 @@
                     hide-details
                     :label="$t('group.settings.keep-my-recipes-private')"
                   />
-                  <p class="text-caption mt-1">
+                  <p class="text-body-small mt-1">
                     {{ $t("group.settings.keep-my-recipes-private-description") }}
                   </p>
                   <v-checkbox
@@ -172,7 +172,7 @@
                     hide-details
                     :label="$t('data-pages.seed-data')"
                   />
-                  <p class="text-caption mt-1">
+                  <p class="text-body-small mt-1">
                     {{ $t("user-registration.use-seed-data-description") }}
                   </p>
                 </div>

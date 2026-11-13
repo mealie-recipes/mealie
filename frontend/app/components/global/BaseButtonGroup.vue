@@ -16,7 +16,7 @@
         transition="slide-y-reverse-transition"
         density="compact"
         location="bottom"
-        content-class="text-caption"
+        content-class="text-body-small"
       >
         <template #activator="{ props: tooltipProps }">
           <v-btn
