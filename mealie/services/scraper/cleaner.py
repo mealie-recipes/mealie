@@ -12,7 +12,7 @@ from slugify import slugify
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator, get_all_translations
-from mealie.schema.recipe.recipe import MAX_DURATION_SECONDS, Recipe
+from mealie.schema.recipe.recipe import MAX_DURATION_SECONDS, RecipeDraft
 from mealie.services.parser_services.parser_utils import extract_quantity_from_string
 
 logger = get_logger("recipe-scraper")
@@ -33,6 +33,12 @@ MATCH_GRAMS = re.compile(r"\d\s*(?:g|gm|gr|grams?)\b", re.IGNORECASE)
 MATCH_HTML_TAGS = re.compile(r"<[^<]+?>")
 """ Matches HTML tags `<p>Text</p>` -> `Text` """
 
+MATCH_LINE_BREAK_TAGS = re.compile(r"</p\s*>|<br\s*/?>", re.IGNORECASE)
+""" Matches tags that end a line `</p>`, `<br>`, `<br/>` """
+
+MATCH_SPACES_AROUND_NEWLINE = re.compile(r" *\n *")
+""" Matches spaces next to a new line `Text \n Text` -> `Text\nText` """
+
 MATCH_MULTI_SPACE = re.compile(r" +")
 """ Matches multiple spaces `Hello    World` -> `Hello World` """
 
@@ -40,7 +46,7 @@ MATCH_ERRONEOUS_WHITE_SPACE = re.compile(r"\n\s*\n")
 """ Matches multiple new lines and removes erroneous white space """
 
 
-def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recipe:
+def clean(recipe_data: RecipeDraft | dict, translator: Translator, url=None) -> RecipeDraft:
     """Main entrypoint to clean a recipe extracted from the web
     and format the data into an accectable format for the database
 
@@ -52,10 +58,11 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
     """
     if not isinstance(recipe_data, dict):
         # format the recipe like a scraped dictionary. Ingredients are flattened to their display
-        # text, but keep their section titles, which are otherwise lost on the way through
+        # text, but keep their section titles and the reference ids instruction steps link to,
+        # which are otherwise lost on the way through
         recipe_data_dict = recipe_data.model_dump(by_alias=True)
         recipe_data_dict["recipeIngredient"] = [
-            {"title": ing.title, "note": ing.display} if ing.title else {"note": ing.display}
+            {"note": ing.display, "referenceId": ing.reference_id} | ({"title": ing.title} if ing.title else {})
             for ing in recipe_data.recipe_ingredient
         ]
 
@@ -85,7 +92,7 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
     recipe_data["notes"] = clean_notes(recipe_data.get("notes"))
     recipe_data["rating"] = clean_int(recipe_data.get("rating"))
 
-    return Recipe(**recipe_data)
+    return RecipeDraft(**recipe_data)
 
 
 def clean_string(text: str | list | int | float) -> str:
@@ -107,12 +114,14 @@ def clean_string(text: str | list | int | float) -> str:
     text = typing.cast(str, text)  # at this point we know text is a string
 
     cleaned_text = html.unescape(text)
+    cleaned_text = MATCH_LINE_BREAK_TAGS.sub("\n", cleaned_text)
     cleaned_text = MATCH_HTML_TAGS.sub("", cleaned_text)
+    cleaned_text = cleaned_text.replace("\xa0", " ").replace("\t", " ")
     cleaned_text = MATCH_MULTI_SPACE.sub(" ", cleaned_text)
+    cleaned_text = MATCH_SPACES_AROUND_NEWLINE.sub("\n", cleaned_text)
     cleaned_text = MATCH_ERRONEOUS_WHITE_SPACE.sub("\n\n", cleaned_text)
 
-    cleaned_text = cleaned_text.replace("</p>", "\n").replace("\xa0", " ").replace("\t", " ").strip()
-    return cleaned_text
+    return cleaned_text.strip()
 
 
 def clean_image(image: str | list | dict | None = None, default: str = NO_IMAGE) -> list[str]:
@@ -198,7 +207,8 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
 
     Returns:
         list[dict]: An ordered list of dictionaries with the key `text`, plus `title` on the
-        first step of a named HowToSection, which is where Mealie stores a section heading
+        first step of a named HowToSection, which is where Mealie stores a section heading.
+        Steps from a recipe being cleaned again also keep their links and duration
     """
     if not steps_object:
         return default or []
@@ -254,6 +264,9 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
                 {"text": _sanitize_instruction_text(instruction["text"])}
                 | ({"title": instruction["title"]} if instruction.get("title") else {})
                 | ({"summary": heading} if (heading := _step_heading(instruction)) else {})
+                | ({"ingredientReferences": refs} if (refs := instruction.get("ingredientReferences")) else {})
+                | ({"noteReferences": refs} if (refs := instruction.get("noteReferences")) else {})
+                | ({"durationSeconds": seconds} if (seconds := instruction.get("durationSeconds")) else {})
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]

@@ -5,11 +5,11 @@ import pytest
 from bs4 import BeautifulSoup
 
 from mealie.routes import spa
-from mealie.schema.recipe.recipe import Recipe, RecipeSettings
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut, RecipeSettings
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from tests import data as test_data
-from tests.utils.factories import random_string
+from tests.utils.factories import build_recipe, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -34,15 +34,15 @@ def set_household_is_private(unique_user: TestUser, *, is_private: bool):
     unique_user.repos.household_preferences.update(household.id, household.preferences)
 
 
-def set_recipe_is_public(unique_user: TestUser, recipe: Recipe, *, is_public: bool):
+def set_recipe_is_public(unique_user: TestUser, recipe: RecipeOut, *, is_public: bool):
     assert recipe.settings
     recipe.settings.public = is_public
     unique_user.repos.recipes.update(recipe.slug, recipe)
 
 
-def create_recipe(user: TestUser) -> Recipe:
+def create_recipe(user: TestUser) -> RecipeOut:
     recipe = user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=random_string(),
@@ -111,13 +111,13 @@ def test_spa_recipe_json_injection():
     fp = test_data.html_mealie_recipe
     with open(fp) as f:
         soup = BeautifulSoup(f, "lxml")
-        assert "https://schema.org" not in str(soup)
+        assert soup.find("script", type="application/ld+json") is None
 
         html = spa.inject_recipe_json(str(soup), schema)
 
-    assert "@context" in html
-    assert "https://schema.org" in html
-    assert recipe_name in html
+    script = BeautifulSoup(html, "lxml").find("script", type="application/ld+json")
+    assert script is not None
+    assert json.loads(script.text) == schema
 
 
 @pytest.mark.parametrize(
@@ -137,7 +137,7 @@ def test_spa_iso_duration(seconds: int | None, expected: str | None):
 
 
 def test_spa_recipe_json_times(unique_user: TestUser):
-    recipe = Recipe(
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=random_string(),
@@ -145,7 +145,6 @@ def test_spa_recipe_json_times(unique_user: TestUser):
         perform_time_seconds=3600,
         # Free text isn't a valid schema.org duration, so it's left out
         prep_time="a while",
-        cook_time="PT10M",
     )
 
     response = spa.content_with_meta(unique_user.group_id, recipe)
@@ -295,16 +294,19 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
 
 
 @pytest.mark.parametrize(
-    "malicious_content, malicious_strings",
+    "malicious_content",
     [
-        ("<script>alert('XSS');</script>", ["<script>", "alert('XSS')"]),
-        ("<img src=x onerror=alert('XSS')>", ["<img", "onerror=alert('XSS')"]),
-        ("<div onmouseover=alert('XSS')>Hover me</div>", ["<div", "onmouseover=alert('XSS')"]),
-        ("<a href='javascript:alert(\"XSS\")'>Click me</a>", ["<a", 'javascript:alert("XSS")']),
+        "<script>alert('XSS');</script>",
+        "</script><script>alert('XSS')</script>",
+        "<img src=x onerror=alert('XSS')>",
+        "<div onmouseover=alert('XSS')>Hover me</div>",
+        "<a href='javascript:alert(\"XSS\")'>Click me</a>",
+        "\" onload=\"alert('XSS')",
+        "<!-- Mac & Cheese -->",
     ],
 )
-def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
-    recipe = Recipe(
+def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str):
+    recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
         name=malicious_content,
@@ -314,6 +316,19 @@ def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_cont
         settings=RecipeSettings(),
     )
 
-    response = spa.content_with_meta(unique_user.group_id, recipe)
-    for string in malicious_strings:
-        assert string not in response
+    soup = BeautifulSoup(spa.content_with_meta(unique_user.group_id, recipe), "html.parser")
+
+    # The payload must stay text: no new elements, no event-handler attributes, one script (the JSON-LD).
+    assert {tag.name for tag in soup.find_all(True)} <= {"html", "head", "body", "meta", "script"}
+    assert not [attr for tag in soup.find_all(True) for attr in tag.attrs if attr.lower().startswith("on")]
+    scripts = soup.find_all("script")
+    assert len(scripts) == 1
+    assert scripts[0].get("type") == "application/ld+json"
+
+    # ...and it must round-trip unchanged, not double-escaped.
+    schema = json.loads(scripts[0].text)
+    assert schema["name"] == malicious_content
+    assert schema["description"] == malicious_content
+    og_title = soup.find("meta", attrs={"property": "og:title"})
+    assert og_title is not None
+    assert og_title["content"] == malicious_content

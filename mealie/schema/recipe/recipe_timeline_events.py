@@ -12,8 +12,8 @@ from mealie.db.models._model_utils.datetime import get_utc_now
 from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
-from mealie.schema._mealie.mealie_model import UpdatedAtField
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema._mealie.mealie_model import MealieOutModel, UpdatedAtField
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.schema.response.pagination import PaginationBase
 
 app_dirs = get_app_dirs()
@@ -56,7 +56,7 @@ class RecipeTimelineEventUpdate(MealieModel):
     model_config = ConfigDict(use_enum_values=True)
 
 
-class RecipeTimelineEventOut(RecipeTimelineEventCreate):
+class RecipeTimelineEventOut(RecipeTimelineEventCreate, MealieOutModel):
     id: UUID4
     group_id: UUID4
     household_id: UUID4
@@ -74,7 +74,7 @@ class RecipeTimelineEventOut(RecipeTimelineEventCreate):
 
     @classmethod
     def image_dir_from_id(cls, recipe_id: UUID4 | str, timeline_event_id: UUID4 | str) -> Path:
-        return Recipe.timeline_image_dir_from_id(recipe_id, timeline_event_id)
+        return RecipeOut.timeline_image_dir_from_id(recipe_id, timeline_event_id)
 
     @property
     def image_dir(self) -> Path:

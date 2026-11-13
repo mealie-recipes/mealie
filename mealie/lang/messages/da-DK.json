@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} lavede dette som dessert",
         "recipe-image-deleted": "Opskriftsbillede slettet",
         "recipe-defaults": {
-            "ingredient-note": "1 kop mel",
-            "name": "Ny opskrift",
-            "step-text": "Du kan bruge markdown-kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
+            "name": "Ny opskrift"
         },
         "servings-text": {
             "makes": "Udgør",
@@ -27,6 +25,16 @@
             "yields": "Mængde"
         },
         "and-amount": "og {amount}",
+        "pdf": {
+            "cookbook": "Kogebog",
+            "contents": "Indhold",
+            "ingredients": "Ingredienser",
+            "instructions": "Instruktioner",
+            "notes": "Noter",
+            "prep-time": "Forberedelse",
+            "cook-time": "Tilberedning",
+            "total-time": "I alt"
+        },
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke slået til",
             "ai-request-failed": "AI-udbyderen var ikke i stand til at færdiggøre forespørgslen. Prøv igen",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Opretter opskrift fra data på hjemmeside...",
             "downloading-image": "Downloader billede...",
             "downloading-video": "Downloader video...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Udtrækker opskriftsdata...",
             "fetching-webpage": "Henter hjemmeside...",
             "organizing-recipe": "Organiserer opskrift...",

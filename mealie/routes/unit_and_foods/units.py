@@ -10,11 +10,11 @@ from mealie.routes._base.permissions import Perm, require
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientUnit,
-    IngredientUnit,
+    IngredientUnitCreate,
+    IngredientUnitMerge,
+    IngredientUnitOut,
     IngredientUnitPagination,
-    MergeUnit,
-    SaveIngredientUnit,
+    IngredientUnitSave,
 )
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
@@ -30,7 +30,7 @@ class IngredientUnitsController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[CreateIngredientUnit, IngredientUnit, CreateIngredientUnit](
+        return HttpRepo[IngredientUnitCreate, IngredientUnitOut, IngredientUnitCreate](
             self.repo,
             self.logger,
             self.registered_exceptions,
@@ -40,20 +40,20 @@ class IngredientUnitsController(BaseUserController):
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         response = self.repo.page_all(
             pagination=q,
-            override=IngredientUnit,
+            override=IngredientUnitOut,
             search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=IngredientUnit, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def create_one(self, data: CreateIngredientUnit):
-        save_data = mapper.cast(data, SaveIngredientUnit, group_id=self.group_id)
+    @router.post("", response_model=IngredientUnitOut, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def create_one(self, data: IngredientUnitCreate):
+        save_data = mapper.cast(data, IngredientUnitSave, group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
     @router.put("/merge", response_model=SuccessResponse, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def merge_one(self, data: MergeUnit):
+    def merge_one(self, data: IngredientUnitMerge):
         try:
             self.repo.merge(data.from_unit, data.to_unit)
             return SuccessResponse.respond("Successfully merged units")
@@ -61,14 +61,14 @@ class IngredientUnitsController(BaseUserController):
             self.logger.error(e)
             raise HTTPException(500, "Failed to merge units") from e
 
-    @router.get("/{item_id}", response_model=IngredientUnit)
+    @router.get("/{item_id}", response_model=IngredientUnitOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=IngredientUnit, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def update_one(self, item_id: UUID4, data: CreateIngredientUnit):
+    @router.put("/{item_id}", response_model=IngredientUnitOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def update_one(self, item_id: UUID4, data: IngredientUnitCreate):
         return self.mixins.update_one(data, item_id)
 
-    @router.delete("/{item_id}", response_model=IngredientUnit, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    @router.delete("/{item_id}", response_model=IngredientUnitOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_one(self, item_id: UUID4):
         return self.mixins.delete_one(item_id)  # type: ignore

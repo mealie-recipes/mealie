@@ -177,7 +177,9 @@
     "date-updated": "Date de mise à jour",
     "key": "Clé",
     "value": "Valeur",
-    "cant-create-permission": "Impossible de créer. Veuillez contacter votre administrateur pour obtenir la permission."
+    "cant-create-permission": "Impossible de créer. Veuillez contacter votre administrateur pour obtenir la permission.",
+    "request-failed-with-status": "La requête a échoué avec le statut {status}. Vos modifications peuvent ne pas avoir été enregistrées.",
+    "request-failed-no-response": "Le serveur n'a pas pu être atteint. Vos modifications peuvent ne pas avoir été enregistrées."
   },
   "group": {
     "create-group": "Créer un groupe",
@@ -238,6 +240,8 @@
       "api-key": "Clé API",
       "api-key-description-create": "La clé API de votre fournisseur pour l'authentification. Si votre service (par exemple Ollama) n'utilise pas une clé API, vous devez malgré tout toujours mettre quelque chose ici.",
       "api-key-description-edit": "Laissez ce champ vide à moins que vous vouliez le modifier.",
+      "api-key-description-base-url-changed": "L’URL de base a changé ; saisissez la clé API correspondant à la nouvelle URL.",
+      "reenter-hidden-values": "L’URL de base a été modifiée ; saisissez à nouveau chaque valeur d’en-tête et de paramètre masquée (********) pour la nouvelle URL.",
       "base-url": "URL de base",
       "base-url-description": "Si vous utilisez OpenAI laissez ce champ vide. Doit être un point de terminaison compatible OpenAI (ex: \"http://localhost:11434/v1\").",
       "model": "Modèle",
@@ -282,6 +286,7 @@
       "prompt-save-failed": "Échec de l'enregistrement des instructions",
       "prompt-titles": {
         "recipes-build-recipe": "Générer la recette",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Analyser les ingrédients",
         "recipes-parse-recipe-video": "Recette issue d'une vidéo",
         "recipes-resolve-organizers": "Assigner des organisateurs",
@@ -291,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Transforme le contenu source issu d’une page web, d’une photo ou d’un texte en une recette structurée.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Utilisé par l'analyseur d'ingrédients AI pour diviser chaque ingrédient en quantité, unité, nourriture et note.",
         "recipes-parse-recipe-video": "Transforme la transcription et les sous-titres d'une vidéo en une recette.",
         "recipes-resolve-organizers": "Sélectionne les étiquettes, catégories et outils pour une recette importée.",
@@ -330,6 +336,13 @@
     "any-category": "Toute catégorie",
     "any-tag": "Toute étiquette",
     "any-household": "Tout foyer",
+    "numberOfDaysPast-hint": "Nombre de jours passés au chargement de la page",
+    "numberOfDaysPast-label": "Nombre de jours passés par défaut",
+    "numberOfDays-hint": "Nombre de jours au chargement de la page",
+    "numberOfDays-label": "Jours par défaut",
+    "weeks": "Semaines",
+    "days": "Jours",
+    "week-meals-hidden": "Aucun repas prévu pour la semaine | Un repas prévu pour la semaine ; passez à la vue « Semaines » pour le voir | {count} repas prévus pour la semaine ; passez à la vue « Semaines » pour les voir",
     "numberOfWeeksPast-hint": "Nombre de semaines passées au chargement de la page",
     "numberOfWeeksPast-label": "Nombre de semaines passées par défaut",
     "numberOfWeeks-hint": "Nombre de semaines au chargement de la page, semaine en cours incluse",
@@ -473,6 +486,8 @@
     "an-error-occurred": "Une erreur est survenue"
   },
   "recipe": {
+    "download-pdf": "Télécharger en PDF",
+    "preparing-pdf": "Préparation du PDF...",
     "step-duration-minutes": "Durée (minutes)",
     "step-duration-saved": "Durée sauvegardée : {duration}. Modifier ce champ le remplace par des minutes entières.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +524,7 @@
     "nutrition": "Valeurs nutritionnelles",
     "linked-ingredients": "Ingrédients liés",
     "original-url": "Recette originale",
+    "per-serving": "Par portion",
     "perform-time": "Temps de cuisson",
     "prep-time": "Temps de préparation",
     "protein-content": "Protéines",
@@ -524,6 +540,8 @@
     "remove-from-favorites": "Supprimer des favoris",
     "saturated-fat-content": "Gras saturés",
     "save-recipe-before-use": "Enregistrez la recette avant utilisation",
+    "next-image": "Image suivante",
+    "previous-image": "Image précédente",
     "section-title": "Titre de la section",
     "servings": "Portions",
     "serves-amount": "{amount} portions",
@@ -865,6 +883,7 @@
     "new-list-name": "Nom de la liste",
     "failed-to-create-shopping-list": "Impossible de créer la liste de courses",
     "item-checked-off": "{item} coché",
+    "changes-not-saved": "Certaines modifications n’ont pas pu être enregistrées. Elles restent sur cet appareil et seront envoyées à nouveau.",
     "more-options": "Plus d'options",
     "fewer-options": "Moins d'options",
     "save-as-new-food": "Enregistrer \"{text}\" en tant que nouvel aliment"
@@ -970,6 +989,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela? Assurez-vous de changer votre adresse courriel dans vos paramètres d'utilisateur!",
     "forgot-password": "Mot de passe oublié",
     "forgot-password-text": "Veuillez entrer votre adresse e-mail. Un e-mail vous sera envoyé afin de réinitialiser votre mot de passe.",
+    "reset-link-invalid": "Ce lien de réinitialisation a expiré ou n'est pas valide. Demandez un nouveau lien.",
     "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte.",
     "default-activity": "Activité principale",
     "default-activity-hint": "Sélectionnez la page que vous souhaitez ouvrir lors de la connexion sur cet appareil"

@@ -108,7 +108,7 @@ import { useTimelinePreferences } from "~/composables/use-users/preferences";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import type { Recipe, RecipeTimelineEventOut, TimelineEventType } from "~/lib/api/types/recipe";
+import type { RecipeSummary, RecipeTimelineEventOut, TimelineEventType } from "~/lib/api/types/recipe";
 
 interface Props {
   modelValue?: boolean;
@@ -135,7 +135,7 @@ const perPage = 32;
 const hasMore = ref(true);
 
 const timelineEvents = ref([] as RecipeTimelineEventOut[]);
-const recipes = new Map<string, Recipe>();
+const recipes = new Map<string, RecipeSummary>();
 const filterBadgeCount = computed(() => eventTypeOptions.value.length - preferences.value.types.length);
 const eventTypeFilterState = computed(() => {
   return eventTypeOptions.value.map((option) => {
@@ -223,11 +223,12 @@ async function deleteTimelineEvent(index: number) {
   alert.success(i18n.t("events.event-deleted") as string);
 }
 
-async function getRecipes(recipeIds: string[]): Promise<Recipe[]> {
-  let qf = "";
-  if (recipeIds.length) {
-    qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+async function getRecipes(recipeIds: string[]): Promise<RecipeSummary[]> {
+  if (!recipeIds.length) {
+    return [];
   }
+
+  const qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
   const { data } = await api.recipes.getAll(1, -1, { queryFilter: qf });
   return data?.items || [];
 }

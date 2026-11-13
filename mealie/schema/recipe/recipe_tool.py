@@ -1,51 +1,13 @@
-from pydantic import UUID4, ConfigDict, field_validator
+from pydantic import ConfigDict
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.recipe import RecipeModel, Tool
-from mealie.schema._mealie import MealieModel
+from mealie.db.models.recipe import Tool
+
+from .recipe_organizers import ToolOut
 
 
-class RecipeToolCreate(MealieModel):
-    name: str
-    households_with_tool: list[str] = []
-
-
-class RecipeToolSave(RecipeToolCreate):
-    group_id: UUID4
-
-
-class RecipeToolOut(RecipeToolCreate):
-    id: UUID4
-    group_id: UUID4
-    slug: str
-    recipe_count: int = 0
-
-    model_config = ConfigDict(from_attributes=True)
-
-    @field_validator("households_with_tool", mode="before")
-    def convert_households_to_slugs(cls, v):
-        if not v:
-            return []
-
-        try:
-            return [household.slug for household in v]
-        except AttributeError:
-            return v
-
-    @classmethod
-    def loader_options(cls) -> list[LoaderOption]:
-        return [
-            selectinload(Tool.households_with_tool),
-        ]
-
-
-class RecipeToolMerge(MealieModel):
-    from_id: UUID4
-    to_id: UUID4
-
-
-class RecipeToolResponse(RecipeToolOut):
+class ToolWithRecipes(ToolOut):
     recipes: list[RecipeSummary] = []
     model_config = ConfigDict(from_attributes=True)
 
@@ -53,12 +15,10 @@ class RecipeToolResponse(RecipeToolOut):
     def loader_options(cls) -> list[LoaderOption]:
         return [
             selectinload(Tool.households_with_tool),
-            selectinload(Tool.recipes).joinedload(RecipeModel.recipe_category),
-            selectinload(Tool.recipes).joinedload(RecipeModel.tags),
-            selectinload(Tool.recipes).joinedload(RecipeModel.tools),
+            selectinload(Tool.recipes).options(*RecipeSummary.loader_options()),
         ]
 
 
 from .recipe import RecipeSummary  # noqa: E402
 
-RecipeToolResponse.model_rebuild()
+ToolWithRecipes.model_rebuild()

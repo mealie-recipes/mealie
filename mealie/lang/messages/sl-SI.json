@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} je to pripravil za sladico",
         "recipe-image-deleted": "Slika recepta je bila izbrisana",
         "recipe-defaults": {
-            "ingredient-note": "1 skodelica moke",
-            "name": "New Recipe",
-            "step-text": "Postopek priprave recepta, kot tudi druga polja v receptu podpirajo markdown sintakso.\n\n**Dodaj povezavo**\n\n[Moja povezava](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Naredi",
@@ -27,6 +25,16 @@
             "yields": "donosi"
         },
         "and-amount": "in {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Storitve umetne inteligence niso omogočene",
             "ai-request-failed": "Ponudnik umetne inteligence ni mogel dokončati zahteve. Poskusite znova",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Ustvarjanje recepta iz podatkov spletne strani...",
             "downloading-image": "Prenašanje slike...",
             "downloading-video": "Prenašanje videoposnetka...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Pridobivanje podatkov o receptih...",
             "fetching-webpage": "Pridobivanje spletne strani...",
             "organizing-recipe": "Organizacija recepta...",

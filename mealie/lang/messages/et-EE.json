@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Retsepti pilt kustutatud",
         "recipe-defaults": {
-            "ingredient-note": "1 tass jahu",
-            "name": "New Recipe",
-            "step-text": "Retsepti sammud nagu ka teised väljad retsepti lehed toetavad Markdown-i süntaksit\n\n** Lisa link **\n[Minu link](https://demo.mealie.io)"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Teeb",
@@ -27,6 +25,16 @@
             "yields": "Annab saagiks"
         },
         "and-amount": "ja {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Retsepti loomine veebilehe andmetest...",
             "downloading-image": "Pildi allalaadimine...",
             "downloading-video": "Video allalaadimine...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Retsepti andmete eraldamine...",
             "fetching-webpage": "Veebilehe pärimine...",
             "organizing-recipe": "Organizing recipe...",

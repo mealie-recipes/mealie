@@ -177,7 +177,9 @@
     "date-updated": "修改日期",
     "key": "键",
     "value": "值",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "创建群组",
@@ -238,6 +240,8 @@
       "api-key": "API 密钥",
       "api-key-description-create": "您提供商用于身份验证的 API 密钥。如果您的服务（例如 Ollama）不使用 API 密钥，您仍然需要在此处填写一些内容。",
       "api-key-description-edit": "除非你想要更改它，否则将留空。",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "基本网址",
       "base-url-description": "如果您使用 OpenAI 请留空。必须是 OpenAI兼容的端点(例如，\"http://localhost:11434/v1\")。",
       "model": "模型",
@@ -282,6 +286,7 @@
       "prompt-save-failed": "Failed to save prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Build Recipe",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Parse Ingredients",
         "recipes-parse-recipe-video": "Recipe from Video",
         "recipes-resolve-organizers": "Assign Organizers",
@@ -291,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
         "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
         "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
@@ -330,6 +336,13 @@
     "any-category": "所有分类",
     "any-tag": "所有标签",
     "any-household": "所有家庭",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +486,8 @@
     "an-error-occurred": "发生错误"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +524,7 @@
     "nutrition": "营养",
     "linked-ingredients": "已关联的食材",
     "original-url": "原食谱链接",
+    "per-serving": "Per serving",
     "perform-time": "烹饪时间",
     "prep-time": "准备时间",
     "protein-content": "蛋白质",
@@ -524,6 +540,8 @@
     "remove-from-favorites": "从收藏夹中删除",
     "saturated-fat-content": "饱和脂肪",
     "save-recipe-before-use": "使用前保存食谱",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "章节标题",
     "servings": "几人份",
     "serves-amount": "{amount}人份",
@@ -865,6 +883,7 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "已勾除 {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +989,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "不想再看到这条消息了吗？请务必在用户设置中更改你的邮箱！",
     "forgot-password": "忘记密码",
     "forgot-password-text": "请输入你的邮箱地址，我们会发给你重置密码的链接。",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "对用户的更改将立即生效。",
     "default-activity": "默认页面",
     "default-activity-hint": "选择在此设备登录后的默认页面"

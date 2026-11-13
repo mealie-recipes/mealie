@@ -1,5 +1,5 @@
 /* tslint:disable */
-
+/* eslint-disable */
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -9,11 +9,7 @@ export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
-export interface CookbookHousehold {
-  id: string;
-  name: string;
-}
-export interface CreateCookBook {
+export interface CookBookCreate {
   name: string;
   description?: string;
   slug?: string | null;
@@ -21,18 +17,18 @@ export interface CreateCookBook {
   public?: boolean;
   queryFilterString?: string;
 }
-export interface ReadCookBook {
+export interface CookBookOut {
   name: string;
-  description?: string;
-  slug?: string | null;
-  position?: number;
-  public?: boolean;
-  queryFilterString?: string;
+  description: string;
+  slug: string | null;
+  position: number;
+  public: boolean;
+  queryFilterString: string;
   groupId: string;
   householdId: string;
   id: string;
-  queryFilter?: QueryFilterJSON;
-  household?: CookbookHousehold | null;
+  queryFilter: QueryFilterJSON;
+  household: CookbookHousehold | null;
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
@@ -46,7 +42,11 @@ export interface QueryFilterJSONPart {
   value?: string | string[] | null;
   [k: string]: unknown;
 }
-export interface SaveCookBook {
+export interface CookbookHousehold {
+  id: string;
+  name: string;
+}
+export interface CookBookSave {
   name: string;
   description?: string;
   slug?: string | null;
@@ -56,7 +56,7 @@ export interface SaveCookBook {
   groupId: string;
   householdId: string;
 }
-export interface UpdateCookBook {
+export interface CookBookUpdate {
   name: string;
   description?: string;
   slug?: string | null;
@@ -67,3 +67,4 @@ export interface UpdateCookBook {
   householdId: string;
   id: string;
 }
+export interface MealieOutModel {}

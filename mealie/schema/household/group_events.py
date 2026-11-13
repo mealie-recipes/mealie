@@ -4,6 +4,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.household import GroupEventNotifierModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 from mealie.schema.response.pagination import PaginationBase
 
 # =============================================================================
@@ -54,11 +55,7 @@ class GroupEventNotifierOptions(MealieModel):
     label_deleted: bool = False
 
 
-class GroupEventNotifierOptionsSave(GroupEventNotifierOptions):
-    notifier_id: UUID4
-
-
-class GroupEventNotifierOptionsOut(GroupEventNotifierOptions):
+class GroupEventNotifierOptionsOut(GroupEventNotifierOptions, MealieOutModel):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)
 
@@ -84,7 +81,7 @@ class GroupEventNotifierUpdate(GroupEventNotifierSave):
     apprise_url: str | None = None
 
 
-class GroupEventNotifierOut(MealieModel):
+class GroupEventNotifierOut(MealieOutModel):
     id: UUID4
     name: str
     enabled: bool

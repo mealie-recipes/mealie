@@ -5,7 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.lang.providers import get_all_translations
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventOut,
     RecipeTimelineEventPagination,
@@ -34,7 +34,7 @@ def recipes(api_client: TestClient, unique_user: TestUser):
         response = api_client.get(f"{api_routes.recipes}/{slug}", headers=unique_user.token)
         assert response.status_code == 200
 
-        recipe = Recipe.model_validate(response.json())
+        recipe = RecipeDraft.model_validate(response.json())
         recipes.append(recipe)
 
     yield recipes
@@ -45,7 +45,7 @@ def recipes(api_client: TestClient, unique_user: TestUser):
 def test_create_timeline_event(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     h2_user: TestUser,
     use_other_household_user: bool,
 ):
@@ -74,7 +74,7 @@ def test_create_timeline_event(
 def test_create_timeline_event_defaults_timestamp_to_request_time(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
 ):
     recipe = recipes[0]
     new_event = {
@@ -104,7 +104,7 @@ def test_create_timeline_event_defaults_timestamp_to_request_time(
 def test_get_all_timeline_events(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     h2_user: TestUser,
     use_other_household_user: bool,
 ):
@@ -152,7 +152,7 @@ def test_get_all_timeline_events(
 def test_get_timeline_event(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     h2_user: TestUser,
     use_other_household_user: bool,
 ):
@@ -186,7 +186,7 @@ def test_get_timeline_event(
 def test_update_timeline_event(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     h2_user: TestUser,
     use_other_household_user: bool,
 ):
@@ -227,7 +227,7 @@ def test_update_timeline_event(
 def test_delete_timeline_event(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     h2_user: TestUser,
     use_other_household_user: bool,
 ):
@@ -261,7 +261,7 @@ def test_delete_timeline_event(
 def test_timeline_event_message_alias(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     h2_user: TestUser,
     use_other_household_user: bool,
 ):
@@ -314,7 +314,7 @@ def test_timeline_event_message_alias(
 def test_timeline_event_update_image(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     test_image_jpg: str,
     h2_user: TestUser,
     use_other_household_user: bool,
@@ -362,7 +362,7 @@ def test_timeline_event_update_image(
 def test_timeline_event_remove_image(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     test_image_jpg: str,
 ):
     new_event_data = {
@@ -402,7 +402,7 @@ def test_timeline_event_remove_image(
 def test_create_recipe_with_timeline_event(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     h2_user: TestUser,
     use_other_household_user: bool,
 ):
@@ -426,7 +426,7 @@ def test_persisted_translation_keys_have_translations(translation_key: str):
 def test_recipe_created_system_event_is_translated(
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
 ):
     recipe = recipes[0]
     params = {"queryFilter": f"recipe_id={recipe.id}"}
@@ -480,7 +480,7 @@ def test_invalid_recipe_id(
     assert event_response.status_code == 404
 
 
-def _create_owned_event(api_client: TestClient, owner: TestUser, recipe: Recipe) -> RecipeTimelineEventOut:
+def _create_owned_event(api_client: TestClient, owner: TestUser, recipe: RecipeOut) -> RecipeTimelineEventOut:
     response = api_client.post(
         api_routes.recipes_timeline_events,
         json={"recipe_id": str(recipe.id), "subject": random_string(), "event_type": "info"},
@@ -491,7 +491,7 @@ def _create_owned_event(api_client: TestClient, owner: TestUser, recipe: Recipe)
 
 
 def test_create_timeline_event_ignores_forged_user_id(
-    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, recipes: list[Recipe]
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, recipes: list[RecipeOut]
 ):
     response = api_client.post(
         api_routes.recipes_timeline_events,
@@ -512,7 +512,7 @@ def test_non_author_cannot_modify_timeline_event(
     request: pytest.FixtureRequest,
     api_client: TestClient,
     unique_user: TestUser,
-    recipes: list[Recipe],
+    recipes: list[RecipeOut],
     test_image_jpg: str,
     other_user_fixture: str,
 ):
@@ -544,7 +544,7 @@ def test_non_author_cannot_modify_timeline_event(
 
 
 def test_other_group_user_cannot_see_timeline_event(
-    api_client: TestClient, unique_user: TestUser, g2_user: TestUser, recipes: list[Recipe]
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser, recipes: list[RecipeOut]
 ):
     event = _create_owned_event(api_client, unique_user, recipes[0])
     item_url = api_routes.recipes_timeline_events_item_id(event.id)
@@ -554,7 +554,7 @@ def test_other_group_user_cannot_see_timeline_event(
 
 
 def test_admin_can_modify_and_delete_other_users_timeline_event(
-    api_client: TestClient, unique_user: TestUser, unique_admin: TestUser, recipes: list[Recipe]
+    api_client: TestClient, unique_user: TestUser, unique_admin: TestUser, recipes: list[RecipeOut]
 ):
     event = _create_owned_event(api_client, unique_user, recipes[0])
     item_url = api_routes.recipes_timeline_events_item_id(event.id)

@@ -12,9 +12,9 @@ from mealie.repos.public_visibility import (
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
 from mealie.routes.recipe.recipe_crud_routes import JSONBytes
-from mealie.schema.cookbook.cookbook import ReadCookBook
+from mealie.schema.cookbook.cookbook import CookBookOut
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery, RecipeSearchQuery
@@ -44,7 +44,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
         foods: list[UUID4 | str] | None = Query(None),
         households: list[UUID4 | str] | None = Query(None),
     ) -> PaginationBase[RecipeSummary]:
-        cookbook_data: ReadCookBook | None = None
+        cookbook_data: CookBookOut | None = None
         if search_query.cookbook:
             COOKBOOK_NOT_FOUND_EXCEPTION = HTTPException(404, "cookbook not found")
             if isinstance(search_query.cookbook, UUID):
@@ -57,7 +57,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
                     cb_match_attr = "slug"
             cookbook_data = self.cross_household_cookbooks.get_one(search_query.cookbook, cb_match_attr)
 
-            household = cookbook_data and self.repos.households.get_one(cookbook_data.household_id)
+            household = self.repos.households.get_one(cookbook_data.household_id) if cookbook_data else None
             if not is_cookbook_publicly_visible(cookbook_data, household):
                 raise COOKBOOK_NOT_FOUND_EXCEPTION
 
@@ -105,8 +105,8 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)
 
-    @router.get("/{recipe_slug}", response_model=Recipe)
-    def get_recipe(self, recipe_slug: str) -> Recipe:
+    @router.get("/{recipe_slug}", response_model=RecipeOut)
+    def get_recipe(self, recipe_slug: str) -> RecipeOut:
         RECIPE_NOT_FOUND_EXCEPTION = HTTPException(404, "recipe not found")
         recipe = self.cross_household_recipes.get_one(recipe_slug)
 

@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../../base/base-clients";
-import type { RecipeShareToken, RecipeShareTokenCreate } from "~/lib/api/types/recipe";
+import type { RecipeShareTokenOut, RecipeShareTokenCreate } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 
@@ -9,7 +9,7 @@ const routes = {
   shareTokenIdZip: (id: string) => `${prefix}/recipes/shared/${id}/zip`,
 };
 
-export class RecipeShareApi extends BaseCRUDAPI<RecipeShareTokenCreate, RecipeShareToken> {
+export class RecipeShareApi extends BaseCRUDAPI<RecipeShareTokenCreate, RecipeShareTokenOut> {
   baseRoute: string = routes.shareToken;
   itemRoute = routes.shareTokenId;
 

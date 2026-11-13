@@ -8,6 +8,7 @@ from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator
 from mealie.core.root_logger import get_logger
 from mealie.db.models.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 from mealie.schema.response.pagination import PaginationBase
 from mealie.services.query_filter.builder import QueryFilterBuilder, QueryFilterJSON
 
@@ -76,14 +77,14 @@ class PlanRulesSave(PlanRulesCreate):
     household_id: UUID4
 
 
-class PlanRulesOut(PlanRulesSave):
+class PlanRulesOut(PlanRulesSave, MealieOutModel):
     id: UUID4
     query_filter: Annotated[QueryFilterJSON, Field(validate_default=True)] = None  # type: ignore
 
     model_config = ConfigDict(from_attributes=True)
 
     @field_validator("query_filter_string")
-    def validate_query_filter_string(value: str) -> str:
+    def validate_query_filter_string(cls, value: str) -> str:
         # Skip validation since we are not updating the query filter string
         return value
 

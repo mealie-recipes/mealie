@@ -1,8 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.cookbook.cookbook import SaveCookBook
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.cookbook.cookbook import CookBookSave
+from mealie.schema.recipe.recipe import RecipeDraft
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -48,7 +48,7 @@ def visibility(unique_user: TestUser, h2_user: TestUser) -> _Fixture:
         (data.hidden_household_ids if is_private else data.visible_household_ids).add(str(household.id))
 
         public_recipe, unlisted_recipe = user.repos.recipes.create_many(
-            [Recipe(user_id=user.user_id, group_id=user.group_id, name=random_string()) for _ in range(2)]
+            [RecipeDraft(user_id=user.user_id, group_id=user.group_id, name=random_string()) for _ in range(2)]
         )
         assert public_recipe.settings and unlisted_recipe.settings
         public_recipe.settings.public = True
@@ -59,7 +59,7 @@ def visibility(unique_user: TestUser, h2_user: TestUser) -> _Fixture:
 
         for public in (True, False):
             cookbook = user.repos.cookbooks.create(
-                SaveCookBook(
+                CookBookSave(
                     name=random_string(),
                     group_id=user.group_id,
                     household_id=user.household_id,

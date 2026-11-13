@@ -1,11 +1,11 @@
 import { computed } from "vue";
 import { useFoodName } from "./use-recipe-ingredients";
-import type { IngredientFood, IngredientFoodSubstitution, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, IngredientFoodSubstitution, RecipeIngredient } from "~/lib/api/types/recipe";
 
 // the food is typed as a read-or-create union because either shape is accepted on input;
 // an ingredient that came back from the API always carries the read shape
 function foodSubstitutionsOf(ingredient: RecipeIngredient): IngredientFoodSubstitution[] {
-  const food = ingredient.food as IngredientFood | null | undefined;
+  const food = ingredient.food as IngredientFoodOut | null | undefined;
   return food?.substitutions || [];
 }
 

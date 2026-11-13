@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} a fait ceci pour le dessert",
         "recipe-image-deleted": "L'image de la recette a été supprimée",
         "recipe-defaults": {
-            "ingredient-note": "1 tasse de Farine",
-            "name": "Nouvelle recette",
-            "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
+            "name": "Nouvelle recette"
         },
         "servings-text": {
             "makes": "Fait",
@@ -27,6 +25,16 @@
             "yields": "Rendements"
         },
         "and-amount": "et {amount}",
+        "pdf": {
+            "cookbook": "Livre de recettes",
+            "contents": "Contenu",
+            "ingredients": "Ingrédients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Préparation",
+            "cook-time": "Cuisson",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Les services IA ne sont pas activés",
             "ai-request-failed": "Le fournisseur d'IA n'a pas pu répondre à la demande. Veuillez réessayer",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Création de la recette à partir des données d'une page web...",
             "downloading-image": "Téléchargement de l'image...",
             "downloading-video": "Téléchargement de la vidéo...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extraction des données de la recette...",
             "fetching-webpage": "Récupération de la page web...",
             "organizing-recipe": "Organisation de la recette...",

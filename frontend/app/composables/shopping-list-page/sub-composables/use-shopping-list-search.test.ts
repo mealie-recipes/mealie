@@ -2,15 +2,16 @@ import { ref } from "vue";
 import { describe, expect, test } from "vitest";
 import { SEARCH_MIN_LIST_SIZE, useShoppingListSearch } from "./use-shopping-list-search";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
+import { makeIngredientFood, makeLabel, makeShoppingListItem } from "~/tests/factories";
 
 function listItem(id: string, overrides: Partial<ShoppingListItemOut> = {}): ShoppingListItemOut {
-  return {
+  return makeShoppingListItem({
     id,
     shoppingListId: "list",
     groupId: "group",
     householdId: "household",
     ...overrides,
-  } as ShoppingListItemOut;
+  });
 }
 
 /**
@@ -44,8 +45,8 @@ describe("useShoppingListSearch matching", () => {
 
   test("matches a food-backed item by food name", () => {
     const items = [
-      listItem("a", { food: { id: "f1", name: "Avocado" } }),
-      listItem("b", { food: { id: "f2", name: "Bread" } }),
+      listItem("a", { food: makeIngredientFood({ id: "f1", name: "Avocado" }) }),
+      listItem("b", { food: makeIngredientFood({ id: "f2", name: "Bread" }) }),
     ];
     const { matchesSearch } = searchFor(items, "avocado");
 
@@ -54,8 +55,8 @@ describe("useShoppingListSearch matching", () => {
 
   test("matches a food-backed item by its note as well as its food", () => {
     const items = [
-      listItem("a", { food: { id: "f1", name: "Avocado" }, note: "ripe ones" }),
-      listItem("b", { food: { id: "f2", name: "Bread" } }),
+      listItem("a", { food: makeIngredientFood({ id: "f1", name: "Avocado" }), note: "ripe ones" }),
+      listItem("b", { food: makeIngredientFood({ id: "f2", name: "Bread" }) }),
     ];
     const { matchesSearch } = searchFor(items, "ripe");
 
@@ -64,8 +65,8 @@ describe("useShoppingListSearch matching", () => {
 
   test("matches a food alias", () => {
     const items = [
-      listItem("a", { food: { id: "f1", name: "Aubergine", aliases: [{ name: "Eggplant" }] } }),
-      listItem("b", { food: { id: "f2", name: "Bread" } }),
+      listItem("a", { food: makeIngredientFood({ id: "f1", name: "Aubergine", aliases: [{ name: "Eggplant" }] }) }),
+      listItem("b", { food: makeIngredientFood({ id: "f2", name: "Bread" }) }),
     ];
     const { matchesSearch } = searchFor(items, "eggplant");
 
@@ -74,9 +75,9 @@ describe("useShoppingListSearch matching", () => {
 
   test("matches on label name, so searching an aisle narrows the list to it", () => {
     const items = [
-      listItem("a", { note: "Persil Non Bio", label: { name: "Laundry" } }),
-      listItem("b", { note: "Comfort Fresh", label: { name: "Laundry" } }),
-      listItem("c", { note: "Bread", label: { name: "Bakery" } }),
+      listItem("a", { note: "Persil Non Bio", label: makeLabel({ name: "Laundry" }) }),
+      listItem("b", { note: "Comfort Fresh", label: makeLabel({ name: "Laundry" }) }),
+      listItem("c", { note: "Bread", label: makeLabel({ name: "Bakery" }) }),
     ];
     const { matchesSearch, countMatches } = searchFor(items, "laundry");
 

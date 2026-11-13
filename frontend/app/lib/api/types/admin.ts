@@ -1,5 +1,5 @@
 /* tslint:disable */
-
+/* eslint-disable */
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -85,14 +85,6 @@ export interface AppTheme {
   darkWarning?: string;
   darkError?: string;
 }
-export interface BackupOptions {
-  recipes?: boolean;
-  settings?: boolean;
-  themes?: boolean;
-  groups?: boolean;
-  users?: boolean;
-  notifications?: boolean;
-}
 export interface CheckAppConfig {
   emailReady: boolean;
   ldapReady: boolean;
@@ -103,19 +95,6 @@ export interface CheckAppConfig {
   reverseProxyAuthDisabled: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
-}
-export interface ChowdownURL {
-  url: string;
-}
-export interface CommentImport {
-  name: string;
-  status: boolean;
-  exception?: string | null;
-}
-export interface CreateBackup {
-  tag?: string | null;
-  options: BackupOptions;
-  templates?: string[] | null;
 }
 export interface DebugResponse {
   success: boolean;
@@ -130,30 +109,6 @@ export interface EmailSuccess {
 }
 export interface EmailTest {
   email: string;
-}
-export interface GroupImport {
-  name: string;
-  status: boolean;
-  exception?: string | null;
-}
-export interface ImportBase {
-  name: string;
-  status: boolean;
-  exception?: string | null;
-}
-export interface ImportJob {
-  recipes?: boolean;
-  settings?: boolean;
-  themes?: boolean;
-  groups?: boolean;
-  users?: boolean;
-  notifications?: boolean;
-  name: string;
-  force?: boolean;
-  rebase?: boolean;
-}
-export interface MaintenanceLogs {
-  logs: string[];
 }
 export interface MaintenanceStorageDetails {
   tempDirSize: string;
@@ -171,29 +126,8 @@ export interface MigrationFile {
   name: string;
   date: string;
 }
-export interface MigrationImport {
-  name: string;
-  status: boolean;
-  exception?: string | null;
-  slug?: string | null;
-}
 export interface Migrations {
   type: string;
   files?: MigrationFile[];
 }
-export interface RecipeImport {
-  name: string;
-  status: boolean;
-  exception?: string | null;
-  slug?: string | null;
-}
-export interface SettingsImport {
-  name: string;
-  status: boolean;
-  exception?: string | null;
-}
-export interface UserImport {
-  name: string;
-  status: boolean;
-  exception?: string | null;
-}
+export interface MealieOutModel {}

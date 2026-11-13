@@ -44,24 +44,15 @@ jobs:
 
     # Steps
     steps:
-      - name: Install Task
-        uses: arduino/setup-task@v2
-        with:
-          version: 3.x
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ inputs.ref || github.sha }}
 
-      - name: Set up python
-        uses: actions/setup-python@v6
+      - name: Set up tools
+        uses: ./.github/actions/setup-tools
         with:
-          python-version: "3.14"
-
-      - name: Install uv
-        run: pip install uv
+          tools: python uv pipx:semgrep
 
       # Catches a lockfile resolved by an out-of-date uv, which silently ignores
       # the `exclude-newer` cooling window instead of erroring. UV_FROZEN must be
@@ -71,10 +62,11 @@ jobs:
 
       - name: Load cached venv
         id: cached-python-dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
+          # The venv links to the mise Python, so a Python change in mise.toml must miss the cache
           path: .venv
-          key: venv-${{ runner.os }}-${{ matrix.Database }}-${{ hashFiles('**/uv.lock') }}
+          key: venv-${{ runner.os }}-${{ matrix.Database }}-${{ hashFiles('**/uv.lock', 'mise.toml') }}
 
       - name: Check venv cache
         id: cache-validate
@@ -98,7 +90,7 @@ jobs:
       # Database-independent, so only run once
       - name: Load cached pre-commit hooks
         if: matrix.Database == 'sqlite'
-        uses: actions/cache@v5
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
@@ -109,12 +101,14 @@ jobs:
           uv run pre-commit run --all-files --show-diff-on-failure --color=always
 
       - name: Mypy Typecheck
+        if: matrix.Database == 'sqlite'
         run: |
-          task py:mypy
+          mise run py:mypy
 
-      - name: Semgrep (authz rules)
+      - name: Semgrep (authz and XSS rules)
+        if: matrix.Database == 'sqlite'
         run: |
-          task py:semgrep
+          mise run py:semgrep
 
       - name: Pytest
         env:
@@ -133,4 +127,4 @@ jobs:
           LDAP_NAME_ATTRIBUTE: cn
           LDAP_MAIL_ATTRIBUTE: mail
         run: |
-          task py:test
+          mise run py:test

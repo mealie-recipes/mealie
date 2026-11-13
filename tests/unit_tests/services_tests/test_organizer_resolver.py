@@ -1,8 +1,7 @@
 import pytest
 from slugify import slugify
 
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave, ToolSave
 from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -57,7 +56,7 @@ def test_unmatched_names_are_created_when_requested(unique_user: TestUser, resol
 
 def test_existing_tools_are_reused_rather_than_recreated(unique_user: TestUser, resolver: OrganizerResolver):
     name = random_string()
-    existing = unique_user.repos.tools.create(RecipeToolSave(name=name, group_id=unique_user.repos.group_id))
+    existing = unique_user.repos.tools.create(ToolSave(name=name, group_id=unique_user.repos.group_id))
 
     resolved = resolver.resolve_tools([name], create_missing=True)
     assert [tool.id for tool in resolved] == [existing.id]
@@ -77,7 +76,7 @@ def test_existing_names_are_reported_for_prompt_injection(unique_user: TestUser,
 
     unique_user.repos.tags.create(TagSave(name=tag, group_id=unique_user.repos.group_id))
     unique_user.repos.categories.create(CategorySave(name=category, group_id=unique_user.repos.group_id))
-    unique_user.repos.tools.create(RecipeToolSave(name=tool, group_id=unique_user.repos.group_id))
+    unique_user.repos.tools.create(ToolSave(name=tool, group_id=unique_user.repos.group_id))
 
     existing = resolver.existing_names()
     assert tag in existing["tags"]

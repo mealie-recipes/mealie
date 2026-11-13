@@ -7,7 +7,7 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.validators import validate_locale
 
 
-class CreateUserRegistration(MealieModel):
+class UserRegistrationCreate(MealieModel):
     group: str | None = None
     household: str | None = None
     group_token: Annotated[str | None, Field(validate_default=True)] = None
