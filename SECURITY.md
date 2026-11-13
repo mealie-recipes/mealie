@@ -36,6 +36,10 @@ Requests to non-public addresses are blocked, but the API is not rate limited. U
 
 Mealie does not return the response from a notification service to the user, so a notifier that reaches an internal host cannot read data from it. A report about notifiers must show impact beyond the server sending the request.
 
+### Recipe media is served to anyone with its URL
+
+Recipe images, timeline images, and assets under `/api/media/recipes/` do not require a login, so they load on public and shared recipe pages. These URLs contain the recipe's random UUID, which cannot be guessed or enumerated. Anyone who has seen a recipe, for example through a share link or while it was public, can keep using its media URLs after the share is revoked or the recipe becomes private.
+
 ## In Scope
 
 Reports that show a way around these controls, for example reaching a blocked address without an admin allowing it, or managing notifiers without the required permission, are in scope.
