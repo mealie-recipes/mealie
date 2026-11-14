@@ -49,8 +49,8 @@ Before you can start using OIDC Authentication, you must first configure a new c
     The redirect URI(s) that are needed:
 
     1. `http(s)://DOMAIN:PORT/login`
-    2. `http(s)://DOMAIN:PORT/login?direct=1`
-        1. This URI is only required if your IdP supports [RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html) such as Keycloak. You may also be able to combine this into the previous URI by using a wildcard: `http(s)://DOMAIN:PORT/login*`
+        1. If you [log out of your IdP along with Mealie](#logging-out), your IdP must also allow this URI after logout.
+           Some IdPs, such as Keycloak, list it separately as a post logout redirect URI.
 
     The redirect URI(s) should include any URL that Mealie is accessible from. Some examples include
 
@@ -95,6 +95,20 @@ The claim's value is treated as untrusted input, because many IdPs let users edi
 - **On any other host**: the URL must use HTTPS and must resolve to a public address.
 
 Redirects are followed, but every hop is checked against the same rules before it is requested — so a URL that passes cannot hand Mealie off to a host that would not. Either way the download is size-capped. An image that fails any check is skipped silently — it never blocks the login.
+
+### Logging out
+
+By default, logging out of Mealie ends only the Mealie session.
+Your IdP's session stays open, so the next OIDC login skips the IdP's login page and signs the same person straight back in.
+
+Set `OIDC_SIGNOUT_ENABLED` to `true` to end both.
+When a user who signed in through OIDC logs out,
+Mealie sends them to your IdP's `end_session_endpoint` ([RP-Initiated Logout](https://openid.net/specs/openid-connect-rpinitiated-1_0.html)),
+which ends the IdP's session and sends them back to Mealie's `/login`.
+With `OIDC_AUTO_REDIRECT`, that goes on to your IdP's login page, which now asks for their credentials;
+otherwise they see Mealie's login page.
+Your IdP must advertise an `end_session_endpoint` and allow `/login` as a post logout redirect URI (see [Provider Setup](#provider-setup)).
+Users who were already signed in when you turned it on aren't sent to the IdP until they next log in through OIDC.
 
 ## Native and mobile clients
 
