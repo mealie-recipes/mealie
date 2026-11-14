@@ -26,7 +26,7 @@ runs:
         # v1 caches can hold pipx venvs that link to an uncached uv Python (see the step above)
         cache_key_prefix: mise-v2
         # renovate: datasource=github-releases depName=jdx/mise extractVersion=^v(?<version>.+)$
-        version: 2026.11.4
+        version: 2026.11.5
         install_args: ${{ inputs.tools }}
         # [env] in mise.toml is for mise tasks; don't export it to every later step
         env: false
