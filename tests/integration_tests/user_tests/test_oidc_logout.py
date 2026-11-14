@@ -59,6 +59,7 @@ class OpenIDProviderMock:
 def setup_oidc(monkeypatch: MonkeyPatch, client: OAuthClientMock | None = None, signout_enabled: bool = True):
     monkeypatch.setattr(auth_routes, "oauth", OAuthMock(client or OAuthClientMock()))
     monkeypatch.setattr(auth_routes.settings, "OIDC_SIGNOUT_ENABLED", signout_enabled)
+    monkeypatch.setattr(auth_routes.settings, "PRODUCTION", True)
 
 
 def log_out(api_client: TestClient, user: TestUser, id_token: str | None = "id-token"):
