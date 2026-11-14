@@ -48,10 +48,12 @@ export const useMealieAuth = function () {
     }
   }
 
-  async function reverseProxySignIn() {
+  /** Returns whether the session was established; getSession swallows its own errors, so this can be false */
+  async function reverseProxySignIn(): Promise<boolean> {
     const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/reverse-proxy");
     auth.setToken(token.access_token);
     await auth.getSession();
+    return auth.status.value === "authenticated";
   }
 
   return {

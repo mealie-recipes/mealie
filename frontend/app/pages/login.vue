@@ -331,14 +331,55 @@ onBeforeMount(async () => {
 
   if ($appInfo.enableReverseProxyAuth && !isDirectLogin() && !loggedIn.value) {
     try {
-      await auth.reverseProxySignIn();
+      const signedIn = await auth.reverseProxySignIn();
+      setReverseProxyReloadAttempted(false);
+      if (signedIn) {
+        // Keep the spinner up; the loggedIn watcher redirects once the session state propagates
+        return;
+      }
     }
-    catch {
-      // Header missing/invalid - fall back to the regular login form
+    catch (error: any) {
+      // No HTTP response means the proxy answered with a redirect to its login portal, which the browser
+      // blocks for an XHR. Reloading /login as a full page load lets the proxy gate it and run its flow.
+      // Only once per attempt, so a misbehaving proxy can't put us in a reload loop.
+      if (!error?.response && !getReverseProxyReloadAttempted() && setReverseProxyReloadAttempted(true)) {
+        window.location.reload();
+        return;
+      }
+      // Header missing/invalid (or the reload didn't help) - fall back to the regular login form
+      setReverseProxyReloadAttempted(false);
     }
   }
   reverseProxyLoggingIn.value = false;
 });
+
+// Read and written synchronously (not via useSessionStorage) so the flag is stored before the reload
+const REVERSE_PROXY_RELOAD_KEY = "reverse_proxy_reload_attempted";
+
+function getReverseProxyReloadAttempted() {
+  try {
+    return sessionStorage.getItem(REVERSE_PROXY_RELOAD_KEY) === "1";
+  }
+  catch {
+    return false;
+  }
+}
+
+/** Returns false if storage is unavailable, in which case the reload must not happen (no loop guard) */
+function setReverseProxyReloadAttempted(value: boolean) {
+  try {
+    if (value) {
+      sessionStorage.setItem(REVERSE_PROXY_RELOAD_KEY, "1");
+    }
+    else {
+      sessionStorage.removeItem(REVERSE_PROXY_RELOAD_KEY);
+    }
+    return true;
+  }
+  catch {
+    return false;
+  }
+}
 
 function isCallback() {
   const params = new URLSearchParams(window.location.search);
