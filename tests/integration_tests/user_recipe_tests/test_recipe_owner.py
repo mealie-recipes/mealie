@@ -527,3 +527,111 @@ def test_forbidden_asset_from_url_downloads_nothing(
     assert response.status_code == 403
     assert not downloads
     assert not any(f.is_file() for f in recipe.asset_dir.rglob("*"))
+
+
+def test_owner_change_via_patch(api_client: TestClient, user_tuple: list[TestUser]):
+    usr_1, usr_2 = user_tuple
+    recipe = _create_recipe(usr_1, locked=False)
+
+    response = api_client.patch(
+        api_routes.recipes + f"/{recipe.slug}", json={"userId": str(usr_2.user_id)}, headers=usr_1.token
+    )
+    assert response.status_code == 200
+    assert response.json()["userId"] == str(usr_2.user_id)
+
+    updated = usr_1.repos.recipes.get_one(recipe.slug)
+    assert updated is not None
+    assert str(updated.user_id) == str(usr_2.user_id)
+    assert str(updated.household_id) == str(usr_2.household_id)
+
+
+def test_owner_change_via_put(api_client: TestClient, user_tuple: list[TestUser]):
+    usr_1, usr_2 = user_tuple
+    recipe = _create_recipe(usr_1, locked=False)
+
+    # simulate the editor save: a full recipe round trip with the owner changed
+    response = api_client.get(api_routes.recipes + f"/{recipe.slug}", headers=usr_1.token)
+    assert response.status_code == 200
+    recipe_json = response.json()
+    recipe_json["userId"] = str(usr_2.user_id)
+
+    response = api_client.put(api_routes.recipes + f"/{recipe.slug}", json=recipe_json, headers=usr_1.token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes + f"/{recipe.slug}", headers=usr_2.token)
+    assert response.status_code == 200
+    assert response.json()["userId"] == str(usr_2.user_id)
+    assert response.json()["householdId"] == str(usr_2.household_id)
+
+
+def test_owner_change_moves_recipe_to_new_owner_household(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    recipe = _create_recipe(unique_user, locked=False)
+    assert str(recipe.household_id) != str(h2_user.household_id)
+
+    response = api_client.patch(
+        api_routes.recipes + f"/{recipe.slug}", json={"userId": str(h2_user.user_id)}, headers=unique_user.token
+    )
+    assert response.status_code == 200
+
+    # the recipe moved with the new owner, so the new owner can see it
+    response = api_client.get(api_routes.recipes + f"/{recipe.slug}", headers=h2_user.token)
+    assert response.status_code == 200
+    assert response.json()["userId"] == str(h2_user.user_id)
+    assert response.json()["householdId"] == str(h2_user.household_id)
+
+
+def test_non_owner_cannot_change_owner(api_client: TestClient, user_tuple: list[TestUser]):
+    usr_1, usr_2 = user_tuple
+    recipe = _create_recipe(usr_1, locked=False)
+
+    response = api_client.patch(
+        api_routes.recipes + f"/{recipe.slug}", json={"userId": str(usr_2.user_id)}, headers=usr_2.token
+    )
+    assert response.status_code == 403
+
+    unchanged = usr_1.repos.recipes.get_one(recipe.slug)
+    assert unchanged is not None
+    assert str(unchanged.user_id) == str(usr_1.user_id)
+    assert str(unchanged.household_id) == str(usr_1.household_id)
+
+
+def test_owner_change_rejects_user_of_other_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
+    recipe = _create_recipe(unique_user, locked=False)
+
+    response = api_client.patch(
+        api_routes.recipes + f"/{recipe.slug}", json={"userId": str(g2_user.user_id)}, headers=unique_user.token
+    )
+    assert response.status_code == 404
+
+    unchanged = unique_user.repos.recipes.get_one(recipe.slug)
+    assert unchanged is not None
+    assert str(unchanged.user_id) == str(unique_user.user_id)
+
+
+def test_admin_can_change_owner(
+    api_client: TestClient, unique_user: TestUser, unique_admin: TestUser, h2_user: TestUser
+):
+    recipe = _create_recipe(unique_user, locked=False)
+
+    response = api_client.patch(
+        api_routes.recipes + f"/{recipe.slug}", json={"userId": str(h2_user.user_id)}, headers=unique_admin.token
+    )
+    assert response.status_code == 200
+
+    updated = h2_user.repos.recipes.get_one(recipe.slug)
+    assert updated is not None
+    assert str(updated.user_id) == str(h2_user.user_id)
+
+
+def test_patch_with_null_user_id_keeps_owner(api_client: TestClient, user_tuple: list[TestUser]):
+    usr_1, usr_2 = user_tuple
+    recipe = _create_recipe(usr_1, locked=False)
+
+    response = api_client.patch(api_routes.recipes + f"/{recipe.slug}", json={"userId": None}, headers=usr_2.token)
+    assert response.status_code == 200
+
+    unchanged = usr_1.repos.recipes.get_one(recipe.slug)
+    assert unchanged is not None
+    assert str(unchanged.user_id) == str(usr_1.user_id)
