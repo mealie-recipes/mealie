@@ -32,8 +32,8 @@
         />
       </template>
       <template #form>
-        <div class="flex-grow-1">
-          <div class="d-flex ga-2 py-2" :class="$vuetify.display.mdAndDown ? 'flex-column' : ''">
+        <div class="flex-grow-1" style="min-width: 0;">
+          <div class="d-flex ga-2 py-2" :class="$vuetify.display.mdAndDown ? 'flex-column' : ''" style="min-width: 0;">
             <v-number-input
               v-model="model.quantity"
               variant="filled"
@@ -42,7 +42,7 @@
               hide-details
               inset
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 3 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 3 1 50px; min-width: 0;'"
               :placeholder="$t('recipe.quantity')"
               :autofocus="autofocusQuantity"
               @keypress="quantityFilter"
@@ -55,7 +55,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 1 50px; min-width: 0;'"
               variant="filled"
               return-object
               :items="filteredUnits"
@@ -63,9 +63,14 @@
               item-title="name"
               :placeholder="$t('recipe.choose-unit')"
               clearable
-              :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+              :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px', maxWidth: '400px' }"
               @keyup.enter="handleUnitEnter"
             >
+              <template #selection="{ item }">
+                <span v-if="item" class="text-truncate">
+                  {{ item?.raw?.name ?? item?.raw?.title ?? item?.title ?? item?.name ?? (typeof item === 'string' ? item : (typeof item?.raw === 'string' ? item.raw : '')) }}
+                </span>
+              </template>
               <template v-if="unitError" #prepend-inner>
                 <v-tooltip location="bottom">
                   <template #activator="{ props: unitTooltipProps }">
@@ -107,7 +112,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 1 50px; min-width: 0;'"
               variant="filled"
               return-object
               :items="filteredFoods"
@@ -115,9 +120,14 @@
               item-title="name"
               :placeholder="$t('recipe.choose-food')"
               clearable
-              :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+              :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px', maxWidth: '400px' }"
               @keyup.enter="handleFoodEnter"
             >
+              <template #selection="{ item }">
+                <span v-if="item" class="text-truncate">
+                  {{ item?.raw?.name ?? item?.raw?.title ?? item?.title ?? item?.name ?? (typeof item === 'string' ? item : (typeof item?.raw === 'string' ? item.raw : '')) }}
+                </span>
+              </template>
               <template v-if="foodError" #prepend-inner>
                 <v-tooltip location="bottom">
                   <template #activator="{ props: foodTooltipProps }">
@@ -158,7 +168,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 1 50px; min-width: 0;'"
               variant="filled"
               return-object
               :items="search.data.value || []"
@@ -168,12 +178,18 @@
               :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
               @click="search.trigger()"
               @focus="search.trigger()"
-            />
+            >
+              <template #selection="{ item }">
+                <span v-if="item" class="text-truncate">
+                  {{ item?.raw?.name ?? item?.raw?.title ?? item?.title ?? item?.name ?? (typeof item === 'string' ? item : (typeof item?.raw === 'string' ? item.raw : '')) }}
+                </span>
+              </template>
+            </v-autocomplete>
             <v-text-field
               v-model="model.note"
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 1 50px; min-width: 0;'"
               variant="filled"
               :placeholder="$t('recipe.notes')"
               class=""
@@ -350,7 +366,7 @@ const allFoods = computed(() => foodStore.store.value);
 
 const showCreateFood = computed(() =>
   !!foodSearch.value
-  && !filteredFoods.value.some((f: any) => (f.name ?? "").toLowerCase() === foodSearch.value.toLowerCase()),
+  && !filteredFoods.value.some((f: any) => (f?.name ?? "").toLowerCase() === foodSearch.value.toLowerCase()),
 );
 
 async function createAssignFood() {
@@ -387,7 +403,7 @@ const { search: unitSearch, filtered: filteredUnits } = useSearch(unitStore.stor
 
 const showCreateUnit = computed(() =>
   !!unitSearch.value
-  && !filteredUnits.value.some((u: any) => (u.name ?? "").toLowerCase() === unitSearch.value.toLowerCase()),
+  && !filteredUnits.value.some((u: any) => (u?.name ?? "").toLowerCase() === unitSearch.value.toLowerCase()),
 );
 
 async function createAssignUnit() {
@@ -441,8 +457,7 @@ function toggleIsRecipe() {
 
 function handleUnitEnter() {
   if (
-    model.value.unit === undefined
-    || model.value.unit === null
+    !model.value.unit?.name
     || !model.value.unit.name.includes(unitSearch.value)
   ) {
     createAssignUnit();
@@ -451,8 +466,7 @@ function handleUnitEnter() {
 
 function handleFoodEnter() {
   if (
-    model.value.food === undefined
-    || model.value.food === null
+    !model.value.food?.name
     || !model.value.food.name.includes(foodSearch.value)
   ) {
     createAssignFood();
@@ -482,3 +496,24 @@ function quantityFilter(e: KeyboardEvent) {
   }
 }
 </script>
+
+<style scoped>
+:deep(.v-autocomplete .v-field__input) {
+  flex-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+:deep(.v-autocomplete .v-field__input input) {
+  min-width: 0;
+}
+:deep(.v-autocomplete .v-autocomplete__selection) {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+:deep(.v-list-item-title) {
+  white-space: normal !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+</style>
