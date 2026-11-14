@@ -1,6 +1,7 @@
 import re as re
 from collections.abc import Iterable, Sequence
 from datetime import UTC, datetime
+from math import ceil
 from typing import Self
 from uuid import UUID
 
@@ -25,6 +26,8 @@ from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe import RecipeDraft, RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.search.adapter import prepare_search
+from mealie.search.query import SearchMode
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
 from ..db.models._model_base import SqlAlchemyBase
@@ -379,6 +382,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         require_all_tools=True,
         require_all_foods=True,
         search: str | None = None,
+        search_mode: SearchMode = "all",
         extra_filter: sa.ColumnElement[bool] | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
@@ -414,9 +418,6 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 require_all_foods=require_all_foods,
             )
             q = q.filter(*filters)
-        if search:
-            q = self.add_search_to_query(q, self.schema, search)
-
         if not pagination_result.order_by and not search:
             # default ordering if not searching
             pagination_result.order_by = "created_at"
@@ -424,8 +425,48 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         # Without a user, a public cookbook's filter resolves last_made against the cookbook's household
         if cookbook and not self.user_id:
             self._last_made_household_id = cookbook.household_id
+        search_count = None
+        window_count = (
+            bool(search)
+            and pagination_result.page >= 1
+            and pagination_result.per_page > 0
+            and pagination_result.order_by != "random"
+        )
         try:
-            q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+            if search:
+                try:
+                    if pagination_result.query_filter:
+                        q = QueryFilterBuilder(pagination_result.query_filter).filter_query(
+                            q, model=self.model, column_aliases=self.column_aliases
+                        )
+                        pagination_result.query_filter = None
+                    q, search_count = prepare_search(self.session, q, search, search_mode)
+                    if not pagination_result.order_by and not q._order_by_clauses:
+                        pagination_result.order_by = "created_at"
+                except ValueError as error:
+                    raise HTTPException(status_code=400, detail=str(error)) from error
+            if window_count:
+                if search_count is None:
+                    rows = q.order_by(None).with_only_columns(self.model.id).distinct()
+                    search_count = sa.select(sa.func.count()).select_from(rows.subquery())
+                if "search_total" not in q.selected_columns:
+                    q = q.add_columns(sa.func.count().over().label("search_total"))
+            q, count, total_pages = self.add_pagination_to_query(
+                q, pagination_result, sa.select(sa.literal(0)) if window_count else search_count
+            )
+            if search:
+                q = q.order_by(self.model.id)
+            if window_count:
+                page = q.with_only_columns(
+                    self.model.id.label("recipe_id"),
+                    q.selected_columns["search_total"],
+                    sa.func.row_number().over(order_by=q._order_by_clauses).label("position"),
+                ).subquery("search_page")
+                q = (
+                    sa.select(self.model, page.c.search_total)
+                    .join(page, self.model.id == page.c.recipe_id)
+                    .order_by(page.c.position)
+                )
         finally:
             self._last_made_household_id = None
 
@@ -433,7 +474,15 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         q = q.options(*RecipeSummary.loader_options())
         try:
             self.logger.debug(f"Recipe Pagination Query: {pagination_result}")
-            data = self.session.execute(q).scalars().unique().all()
+            if window_count:
+                result = self.session.execute(q).unique().all()
+                data = [row[0] for row in result]
+                count = int(result[0][1]) if result else 0
+                if not result and pagination_result.page > 1:
+                    count = self.session.scalar(search_count) or 0
+                total_pages = ceil(count / pagination_result.per_page)
+            else:
+                data = self.session.execute(q).scalars().unique().all()
         except Exception as e:
             self._log_exception(e)
             self.session.rollback()

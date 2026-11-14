@@ -617,8 +617,8 @@ def test_fuzzy_recipe_search(
     "search, expected_name",
     [
         ("Steinbuck", "Steinbock Sloop"),
-        ("delicous", "Steinbock Sloop"),
-        ("mosss", "Fiddlehead Fern Stir Fry"),
+        ("delicous", None),
+        ("mosss", None),
         ("alpine animl", "Steinbock Sloop"),
     ],
     ids=["fuzzy_title", "fuzzy_description", "fuzzy_ingredient_note", "fuzzy_ingredient_phrase"],
@@ -626,19 +626,19 @@ def test_fuzzy_recipe_search(
 def test_fuzzy_recipe_search_sources(
     unique_db: AllRepositories,
     search: str,
-    expected_name: str,
+    expected_name: str | None,
     search_recipes: list[RecipeOut],  # required so database is populated
 ):
-    # fuzzy search is postgres-only
-    if unique_db.session.get_bind().name != "postgresql":
-        return
-
     repo = unique_db.recipes
     pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
     results = repo.page_all(pagination, search=search).items
     names = [recipe.name for recipe in results]
 
-    assert expected_name in names
+    if expected_name is None:
+        # Typo correction uses visible title words, not description or ingredient vocabulary.
+        assert names == []
+    else:
+        assert expected_name in names
     assert len(names) == len(set(names)), "a recipe matching in several places must be returned once"
 
 

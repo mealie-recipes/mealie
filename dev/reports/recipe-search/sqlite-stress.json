@@ -1,0 +1,156 @@
+{
+  "database": "sqlite",
+  "database_version": "(3, 50, 4)",
+  "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+  "processor": "arm",
+  "python": "3.14.4",
+  "recipes": 100000,
+  "ingredients_per_recipe": 8,
+  "clients": 5,
+  "requests": 100,
+  "cache": "one warmup per query; OS/database caches remain enabled",
+  "transport": "in-process FastAPI TestClient; includes full HTTP handler, auth, serialization; excludes network/TLS",
+  "seed_seconds": 109.32669470796827,
+  "rebuild_seconds": 25.613050124957226,
+  "search_storage_bytes": 451555328,
+  "source_update_commit_median_ms": 1.2280624359846115,
+  "source_update_commit_p95_ms": 44.34129095170647,
+  "median_ms": 1202.049,
+  "p95_ms": 1671.934,
+  "target_p95_ms": 200,
+  "passes_target": false,
+  "first_requests": [
+    {
+      "query": "pork lettuce wrap",
+      "mode": "all",
+      "ms": 566.717,
+      "total": 10001,
+      "first": "Sesame-Lime Lettuce Cups with Pork, Red Chili Peppers & Cilantro"
+    },
+    {
+      "query": "\"lettuce cups\" pork",
+      "mode": "all",
+      "ms": 485.526,
+      "total": 10001,
+      "first": "Sesame-Lime Lettuce Cups with Pork, Red Chili Peppers & Cilantro"
+    },
+    {
+      "query": "+pork lettuce wrap",
+      "mode": "all",
+      "ms": 417.879,
+      "total": 10001,
+      "first": "Sesame-Lime Lettuce Cups with Pork, Red Chili Peppers & Cilantro"
+    },
+    {
+      "query": "pork -cilantro",
+      "mode": "all",
+      "ms": 156.731,
+      "total": 0,
+      "first": null
+    },
+    {
+      "query": "pork -\"chili peppers\"",
+      "mode": "all",
+      "ms": 172.854,
+      "total": 0,
+      "first": null
+    },
+    {
+      "query": "salt",
+      "mode": "all",
+      "ms": 588.556,
+      "total": 100000,
+      "first": "Salmon with Herbs 57896"
+    },
+    {
+      "query": "chi",
+      "mode": "all",
+      "ms": 569.259,
+      "total": 100000,
+      "first": "Chickpea Spinach Curry 75749"
+    },
+    {
+      "query": "lettce",
+      "mode": "all",
+      "ms": 618.387,
+      "total": 30001,
+      "first": "Sesame Pork Lettuce Cups 71658"
+    },
+    {
+      "query": "pork lettuce wrap",
+      "mode": "any",
+      "ms": 568.167,
+      "total": 40001,
+      "first": "Sesame-Lime Lettuce Cups with Pork, Red Chili Peppers & Cilantro"
+    },
+    {
+      "query": "-cilantro",
+      "mode": "all",
+      "ms": 177.875,
+      "total": 0,
+      "first": null
+    }
+  ],
+  "queries": [
+    {
+      "query": "pork lettuce wrap",
+      "mode": "all",
+      "median_ms": 1274.9265,
+      "p95_ms": 1360.864
+    },
+    {
+      "query": "\"lettuce cups\" pork",
+      "mode": "all",
+      "median_ms": 1189.1425,
+      "p95_ms": 1242.709
+    },
+    {
+      "query": "+pork lettuce wrap",
+      "mode": "all",
+      "median_ms": 1273.2325,
+      "p95_ms": 1422.588
+    },
+    {
+      "query": "pork -cilantro",
+      "mode": "all",
+      "median_ms": 265.12149999999997,
+      "p95_ms": 314.537
+    },
+    {
+      "query": "pork -\"chili peppers\"",
+      "mode": "all",
+      "median_ms": 278.10400000000004,
+      "p95_ms": 320.533
+    },
+    {
+      "query": "salt",
+      "mode": "all",
+      "median_ms": 1576.862,
+      "p95_ms": 1671.934
+    },
+    {
+      "query": "chi",
+      "mode": "all",
+      "median_ms": 1513.357,
+      "p95_ms": 1678.336
+    },
+    {
+      "query": "lettce",
+      "mode": "all",
+      "median_ms": 1178.699,
+      "p95_ms": 1320.028
+    },
+    {
+      "query": "pork lettuce wrap",
+      "mode": "any",
+      "median_ms": 1654.4795,
+      "p95_ms": 1714.933
+    },
+    {
+      "query": "-cilantro",
+      "mode": "all",
+      "median_ms": 292.04499999999996,
+      "p95_ms": 313.652
+    }
+  ]
+}

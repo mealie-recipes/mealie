@@ -5,66 +5,72 @@ import type { RecipeSummary } from "~/lib/api/types/recipe";
 
 export interface UseRecipeSearchReturn {
   query: Ref<string>;
+  mode: Ref<"all" | "any">;
   error: Ref<string>;
   loading: Ref<boolean>;
   data: Ref<RecipeSummary[]>;
   trigger(): Promise<void>;
 }
 
-/**
- * `useRecipeSearch` constructs a basic reactive search query
- * that when `query` is changed, will search for recipes based
- * on the query. Useful for searchable list views. For advanced
- * search, use the `useRecipeQuery` composable.
- */
+/** Search recipes with debounce and discard responses for superseded queries. */
 export function useRecipeSearch(api: UserApi | ExploreApi): UseRecipeSearchReturn {
   const query = ref("");
+  const mode = ref<"all" | "any">("all");
   const error = ref("");
   const loading = ref(false);
   const recipes = ref<RecipeSummary[]>([]);
+  let requestId = 0;
 
-  async function searchRecipes(term: string) {
+  async function searchRecipes() {
+    const currentRequest = ++requestId;
+    const term = query.value;
+    const searchMode = mode.value;
     loading.value = true;
-    const { data, error } = await api.recipes.search({
-      search: term,
-      page: 1,
-      orderBy: "name",
-      orderDirection: "asc",
-      perPage: 20,
-      _searchSeed: Date.now().toString(),
-    });
-
-    if (error) {
-      console.error(error);
-      loading.value = false;
-      recipes.value = [];
-      return;
+    error.value = "";
+    try {
+      const result = await api.recipes.search({
+        search: term,
+        searchMode,
+        page: 1,
+        orderBy: "name",
+        orderDirection: "asc",
+        perPage: 20,
+        _searchSeed: Date.now().toString(),
+      });
+      if (currentRequest !== requestId || term !== query.value || searchMode !== mode.value) return;
+      if (result.error) {
+        error.value = [400, 422].includes(result.error.response?.status ?? 0)
+          ? "search.invalid-query"
+          : "search.request-failed";
+        recipes.value = [];
+      }
+      else {
+        recipes.value = result.data?.items ?? [];
+      }
     }
-
-    if (data) {
-      recipes.value = data.items;
+    catch {
+      if (currentRequest === requestId) {
+        error.value = "search.request-failed";
+        recipes.value = [];
+      }
     }
+    finally {
+      if (currentRequest === requestId) loading.value = false;
+    }
+  }
 
+  watch(query, () => {
+    mode.value = "all";
+  }, { flush: "sync" });
+
+  watch([query, mode], () => {
+    requestId++;
+    error.value = "";
+    recipes.value = [];
     loading.value = false;
-  }
+  }, { flush: "sync" });
 
-  watchDebounced(
-    () => query.value,
-    async (term: string) => {
-      await searchRecipes(term);
-    },
-    { debounce: 500 },
-  );
+  watchDebounced([query, mode], searchRecipes, { debounce: 500 });
 
-  async function trigger() {
-    await searchRecipes(query.value);
-  }
-
-  return {
-    query,
-    error,
-    loading,
-    data: recipes,
-    trigger,
-  };
+  return { query, mode, error, loading, data: recipes, trigger: searchRecipes };
 }

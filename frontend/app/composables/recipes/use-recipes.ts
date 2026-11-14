@@ -28,6 +28,7 @@ function getParams(
     paginationSeed: query?._searchSeed, // propagate searchSeed to stabilize random order pagination
     searchSeed: query?._searchSeed, // unused, but pass it along for completeness of data
     search: query?.search,
+    searchMode: query?.searchMode ?? "all",
     cookbook: query?.cookbook,
     households: query?.households,
     categories: query?.categories,
@@ -50,6 +51,8 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
   const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
   const recipes = ref<RecipeSummary[]>([]);
+  const searchError = ref("");
+  let requestId = 0;
 
   async function fetchMore(
     page: number,
@@ -60,11 +63,19 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     query: RecipeSearchQuery | null = null,
     queryFilter: string | null = null,
   ) {
+    const currentRequest = ++requestId;
+    searchError.value = "";
     const { data, error } = await api.recipes.getAll(
       page,
       perPage,
       getParams(orderBy, orderDirection, orderByNullPosition, query, queryFilter),
     );
+
+    if (currentRequest === requestId && error) {
+      searchError.value = [400, 422].includes(error.response?.status ?? 0)
+        ? "search.invalid-query"
+        : "search.request-failed";
+    }
 
     if (error?.response?.status === 404) {
       const redirect = typeof route.query.redirect === "string" ? route.query.redirect : undefined;
@@ -108,6 +119,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
 
   return {
     recipes,
+    searchError,
     fetchMore,
     appendRecipes,
     assignSorted,
