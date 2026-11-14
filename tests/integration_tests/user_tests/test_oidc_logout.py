@@ -60,6 +60,7 @@ def setup_oidc(monkeypatch: MonkeyPatch, client: OAuthClientMock | None = None, 
     monkeypatch.setattr(auth_routes, "oauth", OAuthMock(client or OAuthClientMock()))
     monkeypatch.setattr(auth_routes.settings, "OIDC_SIGNOUT_ENABLED", signout_enabled)
     monkeypatch.setattr(auth_routes.settings, "PRODUCTION", True)
+    monkeypatch.setattr(auth_routes.settings, "BASE_URL", "http://localhost:8080")
 
 
 def log_out(api_client: TestClient, user: TestUser, id_token: str | None = "id-token"):
