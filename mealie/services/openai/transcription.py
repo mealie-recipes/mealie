@@ -63,7 +63,7 @@ def download_video(url: str, temp_path: Path) -> TranscribedAudio:
     output_template = temp_path / "mealie"  # No extension here
 
     ydl_opts = {
-        "format": "bestaudio/best",
+        "format": "bestaudio[format_id!=audio]/worst[vcodec!=none][acodec!=none]/bestaudio/best",
         "outtmpl": str(output_template) + ".%(ext)s",
         "quiet": True,
         "writesubtitles": True,
