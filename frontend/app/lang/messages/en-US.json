@@ -764,7 +764,25 @@
     "advanced": "Advanced",
     "auto-search": "Auto Search",
     "no-results": "No results found",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Type to search...",
+    "favorites-only": "Favorites Only",
+    "clear-filters": "Clear Filters",
+    "sort-by": "Sort by: {sort}",
+    "sort-options": {
+      "name-ascending": "Name A–Z",
+      "name-descending": "Name Z–A",
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "rating-descending": "Highest Rated",
+      "rating-ascending": "Lowest Rated",
+      "time-ascending": "Shortest Time",
+      "time-descending": "Longest Time",
+      "made-descending": "Recently Made",
+      "made-ascending": "Least Recently Made",
+      "updated-descending": "Recently Updated",
+      "updated-ascending": "Least Recently Updated",
+      "random": "Random"
+    }
   },
   "settings": {
     "admin-settings": "Admin Settings",
