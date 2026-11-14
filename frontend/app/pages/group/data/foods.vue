@@ -203,6 +203,10 @@
         </MultiPurposeLabel>
       </template>
 
+      <template #[`item.parent`]="{ item }">
+        <span>{{ item.parent ? item.parent.name : "" }}</span>
+      </template>
+
       <template #[`item.onHand`]="{ item }">
         <v-icon :color="item.onHand ? 'success' : undefined">
           {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
@@ -266,6 +270,7 @@ import { useUserApi } from "~/composables/api";
 import type {
   IngredientFoodCreate,
   IngredientFoodOut,
+  IngredientFoodSummary,
   IngredientFoodAlias,
   IngredientFoodSubstitution,
 } from "~/lib/api/types/recipe";
@@ -336,6 +341,17 @@ const tableHeaders: TableHeaders[] = [
     },
   },
   {
+    text: i18n.t("data-pages.foods.parent-food"),
+    value: "parent",
+    show: true,
+    sortable: true,
+    sort: (p1: IngredientFoodSummary | null, p2: IngredientFoodSummary | null) => {
+      const p1Name = p1?.name || "";
+      const p2Name = p2?.name || "";
+      return p1Name.localeCompare(p2Name);
+    },
+  },
+  {
     text: i18n.t("tool.on-hand"),
     value: "onHand",
     show: true,
@@ -379,8 +395,30 @@ const { store: allLabels } = labelStore;
 const labelOptions = computed(() => allLabels.value.map(label => ({ text: label.name, value: label.id })) || []);
 
 // ============================================================
-// Form items (shared)
-const formItems = computed<AutoFormItems>(() => [
+// Parent Food Options
+const parentOptionsForCreate = computed(() =>
+  foods.value
+    .filter(f => !f.parentId)
+    .map(f => ({ text: f.name, value: f.id })),
+);
+
+const parentOptionsForEdit = computed(() => {
+  const currentId = editForm.data?.id;
+  if (!currentId) {
+    return [];
+  }
+  const hasChildren = foods.value.some(f => f.parentId === currentId);
+  if (hasChildren) {
+    return [];
+  }
+  return foods.value
+    .filter(f => f.id !== currentId && !f.parentId)
+    .map(f => ({ text: f.name, value: f.id }));
+});
+
+// ============================================================
+// Form items
+const createFormItems = computed<AutoFormItems>(() => [
   {
     label: i18n.t("general.name"),
     varName: "name",
@@ -403,6 +441,56 @@ const formItems = computed<AutoFormItems>(() => [
     type: fieldTypes.SELECT,
     options: labelOptions.value,
     selectReturnValue: "value",
+    clearable: true,
+  },
+  {
+    label: i18n.t("data-pages.foods.parent-food"),
+    varName: "parentId",
+    type: fieldTypes.SELECT,
+    options: parentOptionsForCreate.value,
+    selectReturnValue: "value",
+    clearable: true,
+  },
+  {
+    label: i18n.t("tool.on-hand"),
+    varName: "onHand",
+    type: fieldTypes.BOOLEAN,
+    hint: i18n.t("data-pages.foods.on-hand-checkbox-label"),
+  },
+]);
+
+const editFormItems = computed<AutoFormItems>(() => [
+  {
+    label: i18n.t("general.name"),
+    varName: "name",
+    type: fieldTypes.TEXT,
+    rules: [validators.required],
+  },
+  {
+    label: i18n.t("general.plural-name"),
+    varName: "pluralName",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("recipe.description"),
+    varName: "description",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.foods.food-label"),
+    varName: "labelId",
+    type: fieldTypes.SELECT,
+    options: labelOptions.value,
+    selectReturnValue: "value",
+    clearable: true,
+  },
+  {
+    label: i18n.t("data-pages.foods.parent-food"),
+    varName: "parentId",
+    type: fieldTypes.SELECT,
+    options: parentOptionsForEdit.value,
+    selectReturnValue: "value",
+    clearable: true,
   },
   {
     label: i18n.t("tool.on-hand"),
@@ -417,9 +505,9 @@ const formItems = computed<AutoFormItems>(() => [
 
 const createForm = reactive({
   get items() {
-    return formItems.value;
+    return createFormItems.value;
   },
-  data: { name: "", onHand: false, householdsWithIngredientFood: [] } as CreateIngredientFoodWithOnHand,
+  data: { name: "", onHand: false, parentId: null, householdsWithIngredientFood: [] } as CreateIngredientFoodWithOnHand,
 });
 
 async function handleCreate() {
@@ -436,6 +524,7 @@ async function handleCreate() {
   createForm.data = {
     name: "",
     onHand: false,
+    parentId: null,
     householdsWithIngredientFood: [],
   };
 }
@@ -445,7 +534,7 @@ async function handleCreate() {
 
 const editForm = reactive({
   get items() {
-    return formItems.value;
+    return editFormItems.value;
   },
   data: {} as IngredientFoodWithOnHand,
 });
@@ -569,14 +658,14 @@ const affectedRecipesMoreLink = ref("");
 
 async function onDeleteDialogOpen(items: IngredientFoodWithOnHand[]) {
   const ids = items.map(item => item.id);
-  const { data } = await userApi.recipes.search({ foods: ids, perPage: 5 });
+  const { data } = await userApi.recipes.search({ foods: ids, perPage: 5, expandFoods: false });
   affectedRecipes.value = (data?.items ?? []).map(r => ({
     name: r.name,
     slug: r.slug,
     url: `/g/${userGroup.value}/r/${r.slug}`,
   }));
   affectedRecipesTotal.value = data?.total ?? 0;
-  affectedRecipesMoreLink.value = `/g/${userGroup.value}?${ids.map(id => `foods=${id}`).join("&")}`;
+  affectedRecipesMoreLink.value = `/g/${userGroup.value}?${ids.map(id => `foods=${id}`).join("&")}&expand_foods=false`;
 }
 
 // ============================================================

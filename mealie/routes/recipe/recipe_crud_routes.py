@@ -613,6 +613,7 @@ class RecipeController(BaseRecipeController):
             require_all_tags=search_query.require_all_tags,
             require_all_tools=search_query.require_all_tools,
             require_all_foods=search_query.require_all_foods,
+            expand_foods=search_query.expand_foods,
             search=search_query.search,
         )
 

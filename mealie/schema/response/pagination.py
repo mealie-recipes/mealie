@@ -25,6 +25,7 @@ class RecipeSearchQuery(MealieModel):
     require_all_tags: bool = False
     require_all_tools: bool = False
     require_all_foods: bool = False
+    expand_foods: bool = True
     search: str | None = None
     _search_seed: str | None = None
 

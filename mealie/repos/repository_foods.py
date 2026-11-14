@@ -1,6 +1,7 @@
 from collections.abc import Sequence
+from uuid import UUID
 
-from pydantic import UUID4
+from pydantic import UUID4, BaseModel
 from sqlalchemy import func, select, update
 from sqlalchemy.orm import joinedload, with_expression
 
@@ -10,12 +11,64 @@ from mealie.db.models.recipe.ingredient import (
     RecipeIngredientModel,
     RecipeIngredientSubstitutionModel,
 )
-from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodCreate, IngredientFoodOut
 
 from .repository_generic import GroupRepositoryGeneric
 
 
 class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodModel]):
+    def _validate_parent(self, food_id: UUID4 | None, parent_id: UUID4 | None) -> None:
+        if not parent_id:
+            return
+
+        if food_id and parent_id == food_id:
+            raise ValueError("A food cannot be its own parent")
+
+        parent = (
+            self.session.execute(
+                select(IngredientFoodModel).where(
+                    IngredientFoodModel.id == parent_id,
+                    IngredientFoodModel.group_id == self.group_id,
+                )
+            )
+            .scalars()
+            .one_or_none()
+        )
+        if not parent:
+            raise ValueError("Parent food does not exist in the same group")
+
+        if parent.parent_id is not None:
+            raise ValueError("A food that has a parent cannot be a parent (maximum 2 levels allowed)")
+
+        if food_id:
+            has_children = (
+                self.session.execute(
+                    select(IngredientFoodModel.id).where(IngredientFoodModel.parent_id == food_id).limit(1)
+                ).scalar_one_or_none()
+                is not None
+            )
+            if has_children:
+                raise ValueError("A food that has children cannot have a parent (maximum 2 levels allowed)")
+
+    def create(self, data: IngredientFoodCreate | BaseModel | dict) -> IngredientFoodOut:
+        data_dict = data if isinstance(data, dict) else data.model_dump()
+        self._validate_parent(data_dict.get("id"), data_dict.get("parent_id"))
+        return super().create(data)
+
+    def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> IngredientFoodOut:
+        data_dict = new_data if isinstance(new_data, dict) else new_data.model_dump()
+        food_id = match_value if isinstance(match_value, UUID) else UUID(str(match_value))
+        self._validate_parent(food_id, data_dict.get("parent_id"))
+        return super().update(match_value, new_data)
+
+    def delete(self, value, match_key: str | None = None) -> IngredientFoodOut:
+        match_key = match_key or self.primary_key
+        result = self._query_one(value, match_key)
+        self.session.execute(
+            update(IngredientFoodModel).where(IngredientFoodModel.parent_id == result.id).values(parent_id=None)
+        )
+        return super().delete(value, match_key)
+
     def _query(self, override_schema=None, with_options=True):
         q = super()._query(override_schema=override_schema, with_options=with_options)
         count_sq = (
@@ -31,9 +84,10 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
         return self.session.execute(stmt).scalars().one()
 
     def get_empty(self) -> Sequence[IngredientFoodModel]:
-        # a food is only "unused" if it's absent from both recipe ingredients and
-        # shopping list items; IngredientFoodModel has no ORM relationship to
-        # ShoppingListItem, so we check the latter via an EXISTS subquery
+        # a food is only "unused" if it's absent from recipe ingredients,
+        # shopping list items, and has no child foods (it is not a food family parent);
+        # IngredientFoodModel has no ORM relationship to ShoppingListItem, so we
+        # check the latter via an EXISTS subquery
         used_in_shopping_lists = (
             select(ShoppingListItem.id)
             .where(ShoppingListItem.food_id == IngredientFoodModel.id)
@@ -42,7 +96,11 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
         )
         stmt = (
             select(IngredientFoodModel)
-            .filter(~IngredientFoodModel.ingredients.any(), ~used_in_shopping_lists)
+            .filter(
+                ~IngredientFoodModel.ingredients.any(),
+                ~IngredientFoodModel.children.any(),
+                ~used_in_shopping_lists,
+            )
             .filter_by(**self._filter_builder())
         )
         return self.session.execute(stmt).scalars().all()
@@ -136,6 +194,41 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodMod
         to_model.ingredients += from_model.ingredients
         self._merge_substitutions(from_model, to_model)
         self._merge_recipe_substitutions(from_food, to_food)
+
+        # Repoint parent/child relationships
+        if to_model.parent_id == from_food:
+            to_model.parent_id = None
+            target_parent_for_children = to_model.id
+        elif to_model.parent_id is not None:
+            target_parent_for_children = to_model.parent_id
+        else:
+            target_parent_for_children = to_model.id
+
+        self.session.execute(
+            update(IngredientFoodModel)
+            .where(IngredientFoodModel.parent_id == from_food, IngredientFoodModel.id != to_food)
+            .values(parent_id=target_parent_for_children)
+        )
+
+        if to_model.parent_id is None and from_model.parent_id is not None and from_model.parent_id != to_food:
+            to_has_children = (
+                self.session.execute(
+                    select(IngredientFoodModel.id)
+                    .where(IngredientFoodModel.parent_id == to_food, IngredientFoodModel.id != from_food)
+                    .limit(1)
+                ).scalar_one_or_none()
+                is not None
+            )
+            from_had_children = (
+                self.session.execute(
+                    select(IngredientFoodModel.id)
+                    .where(IngredientFoodModel.parent_id == from_food, IngredientFoodModel.id != to_food)
+                    .limit(1)
+                ).scalar_one_or_none()
+                is not None
+            )
+            if not to_has_children and not from_had_children:
+                to_model.parent_id = from_model.parent_id
 
         # Shopping list items reference the food directly rather than through the ingredients
         # relationship, so they have to be repointed explicitly. Without this the delete below
