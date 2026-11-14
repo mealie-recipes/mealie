@@ -13,7 +13,7 @@ RUN apt-get update \
     gnupg gnupg2 gnupg1
 
 # Python stays with the base image so the interpreter path in devcontainer.json doesn't move.
-COPY --from=jdxcode/mise:2026.11.3 /usr/local/bin/mise /usr/local/bin/mise
+COPY --from=jdxcode/mise:2026.11.5 /usr/local/bin/mise /usr/local/bin/mise
 ENV MISE_DISABLE_TOOLS=python \
     MISE_TRUSTED_CONFIG_PATHS=/workspaces \
     PATH="/home/vscode/.local/share/mise/shims:${PATH}" \

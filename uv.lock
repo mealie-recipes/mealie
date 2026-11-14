@@ -53,7 +53,7 @@ wheels = [
 
 [[package]]
 name = "apprise"
-version = "2.1.0"
+version = "2.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
@@ -65,9 +65,9 @@ dependencies = [
     { name = "tzdata", marker = "sys_platform == 'win32'" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/56/ab/5dbbbdd190fc0a3b36e7b2a1aa2bca22b662b6cf2287c329b0e2acfbd026/apprise-2.1.0.tar.gz", hash = "sha256:7eb453b31f37e6b24499b48320bf9d325038bbb1216e24ea7baaf73b062341c5", size = 3482735, upload-time = "2026-10-24T19:33:19.99Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a4/92/461f16f50118a99953aed66d5c1c5dc462261bd6cca15862f2eae7b5fcf5/apprise-2.2.0.tar.gz", hash = "sha256:711382b7c366e575276863da72f5473e34db1735a9980f6df464b337a8003ebc", size = 3623620, upload-time = "2026-11-08T03:41:16.767Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1f/8a/61c171d579df71583a76ac86d38814bce0aa615099d09a72888f36ff0c92/apprise-2.1.0-py3-none-any.whl", hash = "sha256:f743f4bc81dc5a68bddab53d420071b45541630dfea8c907a5e8b2b38555c681", size = 2563954, upload-time = "2026-10-24T19:33:17.827Z" },
+    { url = "https://files.pythonhosted.org/packages/c0/7e/e6cbdd70d475bf9da24b6ca7b738a6772c83a91e8c1fe63ae1b4efb1879f/apprise-2.2.0-py3-none-any.whl", hash = "sha256:deac7647c02463f5398f3f5dbba965031a1507adf1b4348ccf5e53e8f0528f51", size = 2680368, upload-time = "2026-11-08T03:41:14.589Z" },
 ]
 
 [[package]]
@@ -577,7 +577,7 @@ wheels = [
 
 [[package]]
 name = "fastapi"
-version = "0.162.1"
+version = "0.162.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-doc" },
@@ -587,9 +587,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/eb/fb/3e954cd19540d69f9547e2577afe73b2eadad2ee47b691376a5b9345c50a/fastapi-0.162.1.tar.gz", hash = "sha256:b18411785f55d05baa296fcfa2901f26728483190e7d8eb8f8e6aa47ed94b030", size = 529173, upload-time = "2026-11-07T11:56:03.769Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c9/53/f6fed628a0c3d6a284125a93f9145b02ecc2c394735a878b5ad9938c8e17/fastapi-0.162.2.tar.gz", hash = "sha256:9ebd2a69b579141315b2447d8e3f518e6fd909abd6c01cac5cc6b06d5c8841f4", size = 530366, upload-time = "2026-11-07T15:41:39.838Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5c/06/83c13e92ae48a2cb0e8adfa939a93f5c7165e64f5bff916a3fbf5c59f7fb/fastapi-0.162.1-py3-none-any.whl", hash = "sha256:8107bbfbde522cbd3edcfb32e4923f1786fc52d901ff60a9f724f142df24a648", size = 150728, upload-time = "2026-11-07T11:56:02.09Z" },
+    { url = "https://files.pythonhosted.org/packages/d6/fb/0dc0f819163bc6b7f9e6802d7d0b1ac180fbbe4e75dbd10655c6a4d77796/fastapi-0.162.2-py3-none-any.whl", hash = "sha256:d0584f9662317e01140df94c64f4bed1d8b059fe35496e30c9c92f70e6e5ff15", size = 151671, upload-time = "2026-11-07T15:41:38.509Z" },
 ]
 
 [[package]]
@@ -855,16 +855,16 @@ wheels = [
 
 [[package]]
 name = "ingredient-parser-nlp"
-version = "2.9.1"
+version = "2.9.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "nltk" },
     { name = "numpy" },
     { name = "pint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/00/89/43c41b945477c4b5c726a573f54f1887e3183274330f954ff049c6a3b04d/ingredient_parser_nlp-2.9.1.tar.gz", hash = "sha256:9b93d57c3362603b4fe314e84e5913fbe52bf7ef4e871dacd392fd76687a5fba", size = 4256117, upload-time = "2026-10-13T15:30:06.421Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/01/c3/faf02212045f0725446f081dfe010b8be0a30ef385c2a6447660df641cea/ingredient_parser_nlp-2.9.2.tar.gz", hash = "sha256:96f4c9bfe119ffdb3ee6ae1d500088ad56c407c0bfbf3d47c869e4e58c0aabc7", size = 4255928, upload-time = "2026-11-06T15:18:05.836Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d4/01/a8486945fd1e7fcc9db0542e1068a9a433ab72f3845d3e33809fd1bfa4cd/ingredient_parser_nlp-2.9.1-py3-none-any.whl", hash = "sha256:8e65c9073b641be1075c6844589dbb0c79269f9eb421387d81dc47beef9b655e", size = 4262493, upload-time = "2026-10-13T15:30:02.507Z" },
+    { url = "https://files.pythonhosted.org/packages/50/1e/02d1d2db860fc880a44f4c029cd5000533620fba1c15e958aa0cbc923098/ingredient_parser_nlp-2.9.2-py3-none-any.whl", hash = "sha256:0ada9331ef1bc6966930d0924048a9b739924b2ab32411dcb8fdca7aa00c6415", size = 4262601, upload-time = "2026-11-06T15:18:02.956Z" },
 ]
 
 [[package]]
@@ -1184,7 +1184,7 @@ wheels = [
 
 [[package]]
 name = "mealie"
-version = "3.30.0"
+version = "3.31.0"
 source = { editable = "." }
 dependencies = [
     { name = "alembic" },
@@ -1192,6 +1192,7 @@ dependencies = [
     { name = "authlib" },
     { name = "bcrypt" },
     { name = "beautifulsoup4" },
+    { name = "curl-cffi" },
     { name = "extruct" },
     { name = "fastapi" },
     { name = "fpdf2" },
@@ -1264,17 +1265,18 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "alembic", specifier = "==1.20.1" },
-    { name = "apprise", specifier = "==2.1.0" },
+    { name = "apprise", specifier = "==2.2.0" },
     { name = "authlib", specifier = "==1.9.5" },
     { name = "bcrypt", specifier = "==5.0.0" },
     { name = "beautifulsoup4", specifier = "==4.15.0" },
+    { name = "curl-cffi", specifier = "==0.17.0" },
     { name = "extruct", specifier = "==0.18.0" },
-    { name = "fastapi", specifier = "==0.162.1" },
+    { name = "fastapi", specifier = "==0.162.2" },
     { name = "fpdf2", specifier = "==2.9.0" },
     { name = "html2text", specifier = "==2025.4.15" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "httpx-curl-cffi", specifier = "==0.1.5" },
-    { name = "ingredient-parser-nlp", specifier = "==2.9.1" },
+    { name = "ingredient-parser-nlp", specifier = "==2.9.2" },
     { name = "isodate", specifier = "==0.7.2" },
     { name = "itsdangerous", specifier = "==2.2.0" },
     { name = "jinja2", specifier = "==3.1.6" },
