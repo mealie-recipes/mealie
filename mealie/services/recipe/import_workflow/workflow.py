@@ -18,6 +18,16 @@ DEFAULT_WORKFLOW_STEPS: list[WorkflowStep] = [
     ResolveOrganizersStep(),
 ]
 
+ENRICHMENT_WORKFLOW_STEPS: list[WorkflowStep] = [
+    TranslateRecipeStep(),
+    EnrichInstructionsStep(),
+    ResolveOrganizersStep(),
+]
+"""
+The steps that refine an existing draft recipe, for recipes that were built without the workflow.
+The caller seeds `ctx.draft_recipe` instead of supplying source material to compile.
+"""
+
 
 class RecipeImportWorkflow:
     """
