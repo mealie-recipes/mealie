@@ -99,7 +99,7 @@ class RecipeKeeperMigrator(BaseMigrator):
             recipes = [self.clean_recipe_dictionary(x) for x in recipes_as_dicts]
             results = self.import_recipes_to_database(recipes)
             for (slug, recipe_id, status), recipe in zip(results, recipes, strict=False):
-                if status:
+                if status and recipe_id:
                     try:
                         if not recipe or not recipe.image:
                             continue

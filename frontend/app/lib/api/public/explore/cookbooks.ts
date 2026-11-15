@@ -1,5 +1,5 @@
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
-import { ReadCookBook } from "~/lib/api/types/cookbook";
+import { CookBookOut } from "~/lib/api/types/cookbook";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 const prefix = "/api";
@@ -10,7 +10,7 @@ const routes = {
     cookbooksGroupSlugCookbookId: (groupSlug: string | number, cookbookId: string | number) => `${exploreGroupSlug(groupSlug)}/cookbooks/${cookbookId}`,
 };
 
-export class PublicCookbooksApi extends BaseCRUDAPIReadOnly<ReadCookBook> {
+export class PublicCookbooksApi extends BaseCRUDAPIReadOnly<CookBookOut> {
     constructor(requests: ApiRequestInstance, groupSlug: string) {
         super(
             requests,

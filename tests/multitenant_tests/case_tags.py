@@ -1,14 +1,13 @@
 from requests import Response
 
-from mealie.schema.recipe.recipe import RecipeTag
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.recipe.recipe_organizers import TagOut, TagSave
 from tests import utils
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
 from tests.utils import api_routes
 
 
 class TagsTestCase(ABCMultiTenantTestCase):
-    items: list[RecipeTag]
+    items: list[TagOut]
 
     def seed_action(self, group_id: str) -> set[str]:
         tag_ids: set[str] = set()

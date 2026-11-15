@@ -177,7 +177,9 @@
     "date-updated": "Dátum aktualizácie",
     "key": "Kľúč",
     "value": "Hodnota",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Vytvoriť skupinu",
@@ -238,6 +240,8 @@
       "api-key": "API kľúč",
       "api-key-description-create": "API kľúč vášho poskytovateľa AI na overenie. Ak vaša služba (napr. Ollama) nepoužíva API kľúč, aj tak sem musíte niečo zadať.",
       "api-key-description-edit": "Nechajte prázdne, pokiaľ ho nechcete zmeniť.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Základná URL adresa",
       "base-url-description": "Ak používate OpenAI, nechajte toto pole prázdne. Musí ísť o koncový bod kompatibilný s OpenAI (napr. \"http://localhost:11434/v1\").",
       "model": "Model AI",
@@ -282,6 +286,7 @@
       "prompt-save-failed": "Failed to save prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Build Recipe",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Parse Ingredients",
         "recipes-parse-recipe-video": "Recipe from Video",
         "recipes-resolve-organizers": "Assign Organizers",
@@ -291,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
         "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
         "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
@@ -330,6 +336,13 @@
     "any-category": "Ľubovoľná kategória",
     "any-tag": "Ľubovoľný štítok",
     "any-household": "Ľubovoľná domácnosť",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +486,8 @@
     "an-error-occurred": "Vyskytla sa chyba"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +524,7 @@
     "nutrition": "Nutričné hodnoty",
     "linked-ingredients": "Linked Ingredients",
     "original-url": "URL zdroja",
+    "per-serving": "Per serving",
     "perform-time": "Tepelná úprava",
     "prep-time": "Príprava",
     "protein-content": "Bielkoviny",
@@ -524,6 +540,8 @@
     "remove-from-favorites": "Ostrániť z obľúbených",
     "saturated-fat-content": "Nasýtené tuky",
     "save-recipe-before-use": "Uložiť recept pred použitím",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Názov sekcie",
     "servings": "Porcie",
     "serves-amount": "{amount} porcie",
@@ -865,6 +883,7 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "Označené ako vybavené: {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +989,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Želáte si, aby sa vám toto už viackrát nezobrazovalo? Zmeňte si prosím váš e-mail v nastaveniach používateľa!",
     "forgot-password": "Zabudnuté heslo",
     "forgot-password-text": "Prosím zadajte svoju e-mailovú adresu a my vám zašleme odkaz, ktorý vám umožní heslo obnoviť.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Zmeny týkajúce sa tohto používateľa budú vykonané okamžite.",
     "default-activity": "Predvolená aktivita",
     "default-activity-hint": "Vyberte na ktorú štránku chcete byť nasmerovaný po prihlásení z tohto zariadenia"

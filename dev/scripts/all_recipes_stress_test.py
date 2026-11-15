@@ -30,7 +30,6 @@ def recipe_data(name: str, slug: str, id: str, userId: str, groupId: str) -> dic
         "recipeYield": "9 servings",
         "totalTime": "33 Minutes",
         "prepTime": "20 Minutes",
-        "cookTime": None,
         "performTime": "13 Minutes",
         "description": "These Levain Bakery-Style Peanut Butter Cookies are the ULTIMATE for serious PB lovers! Supremely thick and chewy with gooey centers and a soft texture, they're packed with peanut butter flavor and Reese's Pieces for the most amazing cookie ever!",
         "recipeCategory": [],

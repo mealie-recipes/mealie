@@ -1,19 +1,22 @@
 import random
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
+import sqlalchemy as sa
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe import Recipe
+from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFoodSubstitution,
-    IngredientFood,
+    IngredientFoodOut,
+    IngredientFoodSave,
+    IngredientFoodSubstitutionCreate,
     RecipeIngredient,
     RecipeIngredientSubstitution,
-    SaveIngredientFood,
 )
+from mealie.schema.recipe.recipe_organizers import CategoryOut, ToolOut, ToolSave
 from mealie.schema.recipe.recipe_settings import RecipeSettings
-from mealie.schema.recipe.recipe_tool import RecipeToolOut, RecipeToolSave
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -28,7 +31,7 @@ def create_food(user: TestUser, on_hand: bool = False):
         households = []
 
     return user.repos.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             id=uuid4(), name=random_string(), group_id=user.group_id, households_with_ingredient_food=households
         )
     )
@@ -43,7 +46,7 @@ def create_tool(user: TestUser, on_hand: bool = False):
         households = []
 
     return user.repos.tools.create(
-        RecipeToolSave(
+        ToolSave(
             id=uuid4(), name=random_string(), group_id=user.group_id, on_hand=on_hand, households_with_tool=households
         )
     )
@@ -52,8 +55,8 @@ def create_tool(user: TestUser, on_hand: bool = False):
 def create_recipe(
     user: TestUser,
     *,
-    foods: list[IngredientFood] | None = None,
-    tools: list[RecipeToolOut] | None = None,
+    foods: list[IngredientFoodOut] | None = None,
+    tools: list[ToolOut] | None = None,
     **kwargs,
 ):
     if foods:
@@ -62,7 +65,7 @@ def create_recipe(
         ingredients = []
 
     recipe = user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=kwargs.pop("name", random_string()),
@@ -421,7 +424,7 @@ def test_recipe_order(api_client: TestClient, unique_user: TestUser):
 
     # create recipes in a random order
     random.shuffle(recipe_lambdas)
-    recipe_tuples: list[tuple[int, Recipe]] = []
+    recipe_tuples: list[tuple[int, RecipeOut]] = []
     for i, recipe_lambda in recipe_lambdas:
         recipe_tuples.append((i, recipe_lambda()))
 
@@ -530,6 +533,91 @@ def test_query_filter(api_client: TestClient, unique_user: TestUser):
             unique_user.repos.recipes.delete(recipe.slug)
 
 
+def test_query_filter_last_made(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, recipe_categories: list[CategoryOut]
+):
+    known_food = create_food(unique_user)
+    category, other_category, _ = recipe_categories
+    recent_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    older_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    unmade_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[category.model_dump()])
+    other_recipe = create_recipe(unique_user, foods=[known_food], recipe_category=[other_category.model_dump()])
+
+    now = datetime.now(UTC)
+    recent_time = (now - timedelta(days=3)).isoformat()
+    older_time = (now - timedelta(days=45)).isoformat()
+
+    try:
+        # Simulate legacy values that contradict the household's timestamps.
+        unique_user.repos.session.execute(
+            sa.update(RecipeModel).where(RecipeModel.id == recent_recipe.id).values(last_made=now - timedelta(days=62))
+        )
+        unique_user.repos.session.execute(
+            sa.update(RecipeModel).where(RecipeModel.id == older_recipe.id).values(last_made=now - timedelta(days=3))
+        )
+        unique_user.repos.session.commit()
+
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(recent_recipe.slug),
+            json={"timestamp": recent_time},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(older_recipe.slug),
+            json={"timestamp": older_time},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        # The older and never-made recipes must also match the requested category.
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": f'recipe_category.id IN ["{category.id}"] AND last_made <= $NOW-30d',
+            },
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        assert {item["recipe"]["id"] for item in response.json()["items"]} == {
+            str(older_recipe.id),
+            str(unmade_recipe.id),
+        }
+
+        # Filter for recipes made within the last 10 days: should only include recent_recipe for unique_user
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": "last_made >= $NOW-10d",
+            },
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        assert {item["recipe"]["id"] for item in response.json()["items"]} == {str(recent_recipe.id)}
+
+        # Neither the first household's recent timestamp nor the recent legacy value applies here.
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={
+                "maxMissingFoods": 0,
+                "foods": [str(known_food.id)],
+                "queryFilter": "last_made >= $NOW-10d",
+            },
+            headers=h2_user.token,
+        )
+        response.raise_for_status()
+        assert response.json()["items"] == []
+
+    finally:
+        for recipe in [recent_recipe, older_recipe, unmade_recipe, other_recipe]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
 def test_include_cross_household_recipes(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     known_food = create_food(unique_user)
     recipe = create_recipe(unique_user, foods=[known_food])
@@ -609,10 +697,10 @@ def test_respect_cross_household_on_hand_tool(api_client: TestClient, unique_use
         unique_user.repos.recipes.delete(recipe.slug)
 
 
-def set_food_substitutions(user: TestUser, food: IngredientFood, substitutions: list) -> IngredientFood:
+def set_food_substitutions(user: TestUser, food: IngredientFoodOut, substitutions: list) -> IngredientFoodOut:
     return user.repos.ingredient_foods.update(
         food.id,
-        SaveIngredientFood(
+        IngredientFoodSave(
             id=food.id,
             name=food.name,
             group_id=user.group_id,
@@ -621,9 +709,9 @@ def set_food_substitutions(user: TestUser, food: IngredientFood, substitutions: 
     )
 
 
-def create_recipe_with_ingredient_substitutions(user: TestUser, food: IngredientFood, substitutions: list):
+def create_recipe_with_ingredient_substitutions(user: TestUser, food: IngredientFoodOut, substitutions: list):
     return user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user.user_id,
             group_id=user.group_id,
             name=random_string(),
@@ -655,7 +743,7 @@ def test_food_substitution_satisfies_a_recipe(
 
     stock = create_food(unique_user)
     broth = create_food(unique_user)
-    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(substitute_food_id=broth.id)])
+    set_food_substitutions(unique_user, stock, [IngredientFoodSubstitutionCreate(substitute_food_id=broth.id)])
 
     recipe = create_recipe(unique_user, foods=[stock])
     try:
@@ -685,7 +773,7 @@ def test_food_substitution_direction_is_not_reversed(api_client: TestClient, uni
 
     stock = create_food(unique_user)
     broth = create_food(unique_user)
-    set_food_substitutions(unique_user, broth, [CreateIngredientFoodSubstitution(substitute_food_id=stock.id)])
+    set_food_substitutions(unique_user, broth, [IngredientFoodSubstitutionCreate(substitute_food_id=stock.id)])
 
     recipe = create_recipe(unique_user, foods=[stock])
     try:
@@ -726,8 +814,8 @@ def test_note_only_substitution_does_not_suppress_a_food_bearing_one(api_client:
         unique_user,
         stock,
         [
-            CreateIngredientFoodSubstitution(note="water and a bouillon cube"),
-            CreateIngredientFoodSubstitution(substitute_food_id=broth.id),
+            IngredientFoodSubstitutionCreate(note="water and a bouillon cube"),
+            IngredientFoodSubstitutionCreate(substitute_food_id=broth.id),
         ],
     )
 
@@ -745,7 +833,7 @@ def test_note_only_substitution_does_not_suppress_a_food_bearing_one(api_client:
 def test_note_only_substitution_alone_never_satisfies(api_client: TestClient, unique_user: TestUser):
     stock = create_food(unique_user)
     other = create_food(unique_user)
-    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(note="water and a bouillon cube")])
+    set_food_substitutions(unique_user, stock, [IngredientFoodSubstitutionCreate(note="water and a bouillon cube")])
 
     recipe = create_recipe(unique_user, foods=[stock])
     try:
@@ -760,7 +848,7 @@ def test_exact_matches_outrank_substitute_matches(api_client: TestClient, unique
 
     broth = create_food(unique_user)
     stock = create_food(unique_user)
-    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(substitute_food_id=broth.id)])
+    set_food_substitutions(unique_user, stock, [IngredientFoodSubstitutionCreate(substitute_food_id=broth.id)])
 
     exact_recipe = create_recipe(unique_user, foods=[broth])
     substituted_recipe = create_recipe(unique_user, foods=[stock])

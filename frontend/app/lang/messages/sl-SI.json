@@ -177,7 +177,9 @@
     "date-updated": "Datum posodobitve",
     "key": "Ključ",
     "value": "Vrednost",
-    "cant-create-permission": "Ustvarjanje ni mogoče. Za pridobitev dovoljenja se obrnite na skrbnika."
+    "cant-create-permission": "Ustvarjanje ni mogoče. Za pridobitev dovoljenja se obrnite na skrbnika.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Ustvari skupino",
@@ -238,6 +240,8 @@
       "api-key": "API Ključ",
       "api-key-description-create": "Ključ API vašega ponudnika za preverjanje pristnosti. Če vaša storitev (npr. Ollama) ne uporablja ključa API, morate vseeno nekaj vnesti tukaj.",
       "api-key-description-edit": "Pustite to prazno, razen če želite to spremeniti.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Osnovni URL",
       "base-url-description": "Če uporabljate OpenAI, pustite to polje prazno. Mora biti končna točka, združljiva z OpenAI (npr. \"http://localhost:11434/v1\").",
       "model": "Model",
@@ -282,6 +286,7 @@
       "prompt-save-failed": "Shranjevanje poziva ni uspelo",
       "prompt-titles": {
         "recipes-build-recipe": "Zgradi recept",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Razčleni sestavine",
         "recipes-parse-recipe-video": "Recept iz videoposnetka",
         "recipes-resolve-organizers": "Določi organizatorje",
@@ -291,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Pretvori izvorno gradivo, pridobljeno s spletne strani, fotografije ali besedila, v strukturiran recept.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Uporablja ga razčlenjevalnik sestavin z umetno inteligenco za razdelitev posamezne sestavine na količino, enoto, živilo in opombo.",
         "recipes-parse-recipe-video": "Pretvori prepis in podnapise videoposnetka v recept.",
         "recipes-resolve-organizers": "Izbere oznake, kategorije in orodja za uvožen recept.",
@@ -330,6 +336,13 @@
     "any-category": "Vse kategorije",
     "any-tag": "Vse oznake",
     "any-household": "Vsa gospodinjstva",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Število preteklih tednov ob nalaganju strani",
     "numberOfWeeksPast-label": "Privzeto število tednov v preteklosti",
     "numberOfWeeks-hint": "Število tednov ob nalaganju strani, vključno s trenutnim tednom",
@@ -473,6 +486,8 @@
     "an-error-occurred": "Prišlo je do napake"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Čas (minute)",
     "step-duration-saved": "Shranjen čas: {duration}. Urejanje tega polja ga nadomesti s celimi minutami.",
     "step-duration-placeholder": "Minute",
@@ -509,6 +524,7 @@
     "nutrition": "Prehrana",
     "linked-ingredients": "Povezane sestavine",
     "original-url": "Izvorni URL",
+    "per-serving": "Per serving",
     "perform-time": "Čas kuhanja",
     "prep-time": "Čas priprav",
     "protein-content": "Beljakovine",
@@ -524,6 +540,8 @@
     "remove-from-favorites": "Odstrani iz priljubljenih",
     "saturated-fat-content": "Nasičena maščoba",
     "save-recipe-before-use": "Shrani recept pred uporabo",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Naslov odseka",
     "servings": "Porcija",
     "serves-amount": "Obroki {amount}",
@@ -865,6 +883,7 @@
     "new-list-name": "Ime seznama",
     "failed-to-create-shopping-list": "Ustvarjanje nakupovalnega seznama ni uspelo",
     "item-checked-off": "Odkljukano {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "Več možnosti",
     "fewer-options": "Manj možnosti",
     "save-as-new-food": "Shrani \"{text}\" kot novo živilo"
@@ -970,6 +989,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ne želiš več videti tega sporočila? Spremeni svoj email v uporabiških nastavitvah!",
     "forgot-password": "Ste pozabili geslo",
     "forgot-password-text": "Vnesi svoj email naslov, poslali ti bomo povezavo za ponastavitev gesla.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Spremembe na tem uporabniku se poznajo takoj.",
     "default-activity": "Privzeta dejavnost",
     "default-activity-hint": "Izberite, na katero stran želite priti ob prijavi iz te naprave"

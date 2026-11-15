@@ -8,14 +8,8 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
-from mealie.schema.recipe.recipe import RecipeTool, RecipeToolPagination
-from mealie.schema.recipe.recipe_tool import (
-    RecipeToolCreate,
-    RecipeToolMerge,
-    RecipeToolOut,
-    RecipeToolResponse,
-    RecipeToolSave,
-)
+from mealie.schema.recipe.recipe_organizers import OrganizerMerge, ToolCreate, ToolOut, ToolPagination, ToolSave
+from mealie.schema.recipe.recipe_tool import ToolWithRecipes
 from mealie.schema.response.pagination import PaginationQuery
 
 router = APIRouter(prefix="/tools", tags=["Organizer: Tools"])
@@ -29,31 +23,31 @@ class RecipeToolController(BaseUserController):
 
     @property
     def mixins(self) -> HttpRepo:
-        return HttpRepo[RecipeToolCreate, RecipeTool, RecipeToolCreate](self.repo, self.logger)
+        return HttpRepo[ToolCreate, ToolOut, ToolCreate](self.repo, self.logger)
 
-    @router.get("", response_model=RecipeToolPagination)
+    @router.get("", response_model=ToolPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         response = self.repo.page_all(
             pagination=q,
-            override=RecipeTool,
+            override=ToolOut,
             search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=RecipeTool, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def create_one(self, data: RecipeToolCreate):
-        save_data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
+    @router.post("", response_model=ToolOut, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def create_one(self, data: ToolCreate):
+        save_data = mapper.cast(data, ToolSave, group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
-    @router.get("/empty", response_model=list[RecipeToolOut])
+    @router.get("/empty", response_model=list[ToolOut])
     def get_all_empty(self):
         """Returns a list of tools that are not used by any recipe"""
         return self.repo.get_empty()
 
-    @router.post("/merge", response_model=RecipeToolOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def merge_tools(self, body: RecipeToolMerge):
+    @router.post("/merge", response_model=ToolOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def merge_tools(self, body: OrganizerMerge):
         """Merges the from_id tool into the to_id tool, then deletes from_id."""
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
@@ -65,19 +59,19 @@ class RecipeToolController(BaseUserController):
 
         return self.repo.merge(body.from_id, body.to_id)
 
-    @router.get("/{item_id}", response_model=RecipeTool)
+    @router.get("/{item_id}", response_model=ToolOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=RecipeTool, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def update_one(self, item_id: UUID4, data: RecipeToolCreate):
-        data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
+    @router.put("/{item_id}", response_model=ToolOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def update_one(self, item_id: UUID4, data: ToolCreate):
+        data = mapper.cast(data, ToolSave, group_id=self.group_id)
         return self.mixins.update_one(data, item_id)
 
-    @router.delete("/{item_id}", response_model=RecipeTool, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    @router.delete("/{item_id}", response_model=ToolOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_one(self, item_id: UUID4):
         return self.mixins.delete_one(item_id)  # type: ignore
 
-    @router.get("/slug/{tool_slug}", response_model=RecipeToolResponse)
-    async def get_one_by_slug(self, tool_slug: str):
-        return self.repo.get_one(tool_slug, "slug", override_schema=RecipeToolResponse)
+    @router.get("/slug/{tool_slug}", response_model=ToolWithRecipes)
+    def get_one_by_slug(self, tool_slug: str):
+        return self.repo.get_one(tool_slug, "slug", override_schema=ToolWithRecipes)

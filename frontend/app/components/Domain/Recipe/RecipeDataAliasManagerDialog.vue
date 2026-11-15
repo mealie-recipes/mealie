@@ -46,14 +46,14 @@
 <script setup lang="ts">
 import { whenever } from "@vueuse/core";
 import { validators } from "~/composables/use-validators";
-import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientFoodOut, IngredientUnitOut } from "~/lib/api/types/recipe";
 
 export interface GenericAlias {
   name: string;
 }
 
 interface Props {
-  data: IngredientFood | IngredientUnit;
+  data: IngredientFoodOut | IngredientUnitOut;
 }
 
 const props = defineProps<Props>();

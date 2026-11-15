@@ -79,8 +79,8 @@ import AppButtonCopy from "~/components/global/AppButtonCopy.vue";
 import BaseButton from "~/components/global/BaseButton.vue";
 import { validators } from "~/composables/use-validators";
 import { alert } from "~/composables/use-toast";
-import type { GroupInDB } from "~/lib/api/types/user";
-import type { HouseholdInDB } from "~/lib/api/types/household";
+import type { GroupOut } from "~/lib/api/types/user";
+import type { HouseholdOut } from "~/lib/api/types/household";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 
@@ -93,8 +93,8 @@ const isAdmin = computed(() => auth.user.value?.admin);
 const token = ref("");
 const selectedGroup = ref<string | null>(null);
 const selectedHousehold = ref<string | null>(null);
-const groups = ref<GroupInDB[]>([]);
-const households = ref<HouseholdInDB[]>([]);
+const groups = ref<GroupOut[]>([]);
+const households = ref<HouseholdOut[]>([]);
 const api = useUserApi();
 
 const fetchGroupsAndHouseholds = () => {

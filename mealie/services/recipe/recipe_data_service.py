@@ -7,7 +7,7 @@ from pathlib import Path
 from pydantic import UUID4
 
 from mealie.pkgs import img, safehttp
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 from mealie.services._base_service import BaseService
 
@@ -69,7 +69,7 @@ class RecipeDataService(BaseService):
         self.logger = logger or self.logger
         self.minifier = img.PillowMinifier(purge=True, logger=self.logger)
 
-        self.dir_data = Recipe.directory_from_id(self.recipe_id)
+        self.dir_data = RecipeOut.directory_from_id(self.recipe_id)
         self.dir_image = self.dir_data.joinpath("images")
         self.dir_image_timeline = self.dir_image.joinpath("timeline")
         self.dir_assets = self.dir_data.joinpath("assets")

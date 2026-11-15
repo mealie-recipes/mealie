@@ -7,14 +7,14 @@ Integration tests for:
 
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, SaveIngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodCreate, IngredientFoodSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
 def _create_food(api_client: TestClient, user: TestUser) -> dict:
-    data = CreateIngredientFood(name=random_string(10)).model_dump(by_alias=True)
+    data = IngredientFoodCreate(name=random_string(10)).model_dump(by_alias=True)
     response = api_client.post(api_routes.foods, json=data, headers=user.token)
     assert response.status_code == 201
     return response.json()
@@ -139,7 +139,7 @@ def test_foods_empty_excludes_unused_food_from_other_group(
     # created through the repo rather than the API: g2_user is created by an admin without the
     # organize permission, and this test is only about what /empty returns
     other_group_food = g2_user.repos.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(10), group_id=g2_user.group_id)
+        IngredientFoodSave(name=random_string(10), group_id=g2_user.group_id)
     )
 
     response = api_client.get(api_routes.foods_empty, headers=unique_user.token)

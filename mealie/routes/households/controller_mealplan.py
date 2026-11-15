@@ -1,5 +1,6 @@
 from datetime import date
 from functools import cached_property
+from uuid import UUID
 
 from dateutil.tz import tzlocal
 from fastapi import APIRouter, Depends
@@ -12,10 +13,10 @@ from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import not_found
 from mealie.schema import mapper
-from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
-from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination, PlanEntryType
+from mealie.schema.meal_plan import PlanEntryCreate, PlanEntryOut, PlanEntrySave, PlanEntryUpdate
+from mealie.schema.meal_plan.new_meal import PlanEntryPagination, PlanEntryType, RandomPlanEntryCreate
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeOut
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_types import (
     EventMealplanData,
@@ -40,11 +41,20 @@ class GroupMealplanController(BaseCrudController):
     def repo(self) -> RepositoryMeals:
         return self.repos.meals
 
+    @cached_property
+    def group_recipes(self):
+        # Entries may reference recipes from any household in the group, so the household-scoped repo is too narrow.
+        return get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+
+    def _require_group_recipe(self, recipe_id: UUID | None) -> None:
+        if recipe_id is not None and self.group_recipes.get_one(recipe_id, "id") is None:
+            raise not_found()
+
     def _translated_entry_type(self, entry_type) -> str:
         value = getattr(entry_type, "value", entry_type)
         return self.t(f"mealplan.entry-type.{value}", default=str(value))
 
-    def _notification_message(self, operation: EventOperation, entry: ReadPlanEntry) -> str:
+    def _notification_message(self, operation: EventOperation, entry: PlanEntryOut) -> str:
         day_key, range_key = MEALPLAN_NOTIFICATION_KEYS[operation]
         return self.t(
             range_key if entry.end_date else day_key,
@@ -61,7 +71,7 @@ class GroupMealplanController(BaseCrudController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry](
+        return HttpRepo[PlanEntryCreate, PlanEntryOut, PlanEntryUpdate](
             self.repo,
             self.logger,
             self.registered_exceptions,
@@ -69,7 +79,7 @@ class GroupMealplanController(BaseCrudController):
 
     def _get_random_recipes_from_mealplan(
         self, plan_date: date, entry_type: PlanEntryType, limit: int = 1, end_date: date | None = None
-    ) -> list[Recipe]:
+    ) -> list[RecipeOut]:
         """
         Gets rules for a mealplan and returns a list of random recipes based on the rules.
         May return zero recipes if no recipes match the filter criteria.
@@ -120,9 +130,10 @@ class GroupMealplanController(BaseCrudController):
 
         return self.repo.page_all(pagination=q)
 
-    @router.post("", response_model=ReadPlanEntry, status_code=201)
-    def create_one(self, data: CreatePlanEntry):
-        data = mapper.cast(data, SavePlanEntry, group_id=self.group_id, user_id=self.user.id)
+    @router.post("", response_model=PlanEntryOut, status_code=201)
+    def create_one(self, data: PlanEntryCreate):
+        self._require_group_recipe(data.recipe_id)
+        data = mapper.cast(data, PlanEntrySave, group_id=self.group_id, user_id=self.user.id)
         result = self.mixins.create_one(data)
 
         self.publish_event(
@@ -148,8 +159,8 @@ class GroupMealplanController(BaseCrudController):
         local_tz = tzlocal()
         return self.repo.get_today(tz=local_tz)
 
-    @router.post("/random", response_model=ReadPlanEntry)
-    def create_random_meal(self, data: CreateRandomEntry):
+    @router.post("/random", response_model=PlanEntryOut)
+    def create_random_meal(self, data: RandomPlanEntryCreate):
         """
         `create_random_meal` is a route that provides the randomized functionality for meal planners.
         It operates by following the rules set out in the household's meal plan settings. If no settings
@@ -164,7 +175,7 @@ class GroupMealplanController(BaseCrudController):
 
         recipe = random_recipes[0]
         result = self.mixins.create_one(
-            SavePlanEntry(
+            PlanEntrySave(
                 date=data.date,
                 end_date=data.end_date,
                 entry_type=data.entry_type,
@@ -192,12 +203,13 @@ class GroupMealplanController(BaseCrudController):
 
         return result
 
-    @router.get("/{item_id}", response_model=ReadPlanEntry)
+    @router.get("/{item_id}", response_model=PlanEntryOut)
     def get_one(self, item_id: int):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=ReadPlanEntry)
-    def update_one(self, item_id: int, data: UpdatePlanEntry):
+    @router.put("/{item_id}", response_model=PlanEntryOut)
+    def update_one(self, item_id: int, data: PlanEntryUpdate):
+        self._require_group_recipe(data.recipe_id)
         result = self.mixins.update_one(data, item_id)
 
         self.publish_event(
@@ -218,7 +230,7 @@ class GroupMealplanController(BaseCrudController):
 
         return result
 
-    @router.delete("/{item_id}", response_model=ReadPlanEntry)
+    @router.delete("/{item_id}", response_model=PlanEntryOut)
     def delete_one(self, item_id: int):
         result = self.mixins.delete_one(item_id)
 

@@ -1,4 +1,4 @@
-# Test cases for authz.yml. Run with `task py:semgrep`.
+# Test cases for authz.yml. Run with `mise run py:semgrep`.
 from fastapi import HTTPException, status
 
 from mealie.routes._base.permissions import forbidden, not_found

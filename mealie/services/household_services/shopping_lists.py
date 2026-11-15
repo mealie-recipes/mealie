@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from typing import cast
 
 from pydantic import UUID4
@@ -7,6 +8,7 @@ from mealie.core.exceptions import UnexpectedNone
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.routes._base.permissions import not_found
 from mealie.schema.household.group_shopping_list import (
     ShoppingListAddRecipeParamsBulk,
     ShoppingListCreate,
@@ -22,10 +24,10 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListSave,
 )
-from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodOut,
+    IngredientUnitCreate,
+    IngredientUnitOut,
     RecipeIngredient,
 )
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
@@ -44,6 +46,12 @@ class ShoppingListService:
         self.list_refs = repos.group_shopping_list_recipe_refs
         self.data_matcher = DataMatcher(self.repos, food_fuzzy_match_threshold=self.DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD)
 
+    def _unit_of(self, item: ShoppingListItemBase) -> IngredientUnitOut | IngredientUnitCreate | None:
+        """The item's unit, looked up by id when only the id is set."""
+        if item.unit:
+            return item.unit
+        return self.data_matcher.units_by_id.get(item.unit_id) if item.unit_id else None
+
     def can_merge(self, item1: ShoppingListItemBase, item2: ShoppingListItemBase) -> bool:
         """Check to see if this item can be merged with another item"""
 
@@ -58,8 +66,8 @@ class ShoppingListService:
 
         # check if units match or if they're compatable
         if item1.unit_id != item2.unit_id:
-            item1_unit = item1.unit or self.data_matcher.units_by_id.get(item1.unit_id)
-            item2_unit = item2.unit or self.data_matcher.units_by_id.get(item2.unit_id)
+            item1_unit = self._unit_of(item1)
+            item2_unit = self._unit_of(item2)
             if not (item1_unit and item1_unit.standard_unit):
                 return False
             if not (item2_unit and item2_unit.standard_unit):
@@ -83,8 +91,8 @@ class ShoppingListService:
         Attributes of the `to_item` take priority over the `from_item`, except extras with overlapping keys
         """
 
-        to_item_unit = to_item.unit or self.data_matcher.units_by_id.get(to_item.unit_id)
-        from_item_unit = from_item.unit or self.data_matcher.units_by_id.get(from_item.unit_id)
+        to_item_unit = self._unit_of(to_item)
+        from_item_unit = self._unit_of(from_item)
         if to_item_unit and to_item_unit.standard_unit and from_item_unit and from_item_unit.standard_unit:
             merged_qty, merged_unit = merge_quantity_and_unit(
                 from_item.quantity or 0, from_item_unit, to_item.quantity or 0, to_item_unit
@@ -235,6 +243,13 @@ class ShoppingListService:
         food_search = self.data_matcher.find_food_match(item.display)
         return food_search.label_id if food_search else None
 
+    def _require_lists_in_scope(self, list_ids: Iterable[UUID4]) -> None:
+        """Raise 404 unless every list is visible to the caller's household."""
+
+        for list_id in set(list_ids):
+            if self.shopping_lists.get_one(list_id) is None:
+                raise not_found()
+
     def bulk_create_items(
         self, create_items: list[ShoppingListItemCreate], auto_find_labels=True
     ) -> ShoppingListItemsCollectionOut:
@@ -242,6 +257,8 @@ class ShoppingListService:
         Create a list of items, merging into existing ones where possible.
         Optionally try to find a label for each item if one isn't provided using the item's food data or display name.
         """
+
+        self._require_lists_in_scope(item.shopping_list_id for item in create_items)
 
         # consolidate items to be created
         consolidated_create_items: list[ShoppingListItemCreate] = []
@@ -304,6 +321,9 @@ class ShoppingListService:
         )
 
     def bulk_update_items(self, update_items: list[ShoppingListItemUpdateBulk]) -> ShoppingListItemsCollectionOut:
+        # Items are household-scoped, but the target list in the body is not, so it is checked separately.
+        self._require_lists_in_scope(item.shopping_list_id for item in update_items)
+
         recipe_ids_to_restore = self.get_recipe_ids_to_restore(update_items)
 
         # consolidate items to be created
@@ -427,9 +447,9 @@ class ShoppingListService:
 
         list_items: list[ShoppingListItemCreate] = []
         for ingredient in recipe_ingredients:
-            if isinstance(ingredient.referenced_recipe, Recipe):
+            sub_recipe = ingredient.referenced_recipe
+            if sub_recipe is not None and sub_recipe.id is not None:
                 # Recursively process sub-recipe ingredients
-                sub_recipe = ingredient.referenced_recipe
                 sub_scale = (ingredient.quantity or 1) * scale
                 sub_items = self.get_shopping_list_items_from_recipe(
                     list_id,
@@ -441,7 +461,7 @@ class ShoppingListService:
                 list_items.extend(sub_items)
                 continue
 
-            if isinstance(ingredient.food, IngredientFood):
+            if isinstance(ingredient.food, IngredientFoodOut):
                 if skip_on_hand and self._is_on_hand(list_id, ingredient.food):
                     continue
                 food_id = ingredient.food.id
@@ -450,7 +470,7 @@ class ShoppingListService:
                 food_id = None
                 label_id = None
 
-            if isinstance(ingredient.unit, IngredientUnit):
+            if isinstance(ingredient.unit, IngredientUnitOut):
                 unit_id = ingredient.unit.id
 
             else:
@@ -499,7 +519,7 @@ class ShoppingListService:
 
         return list_items
 
-    def _is_on_hand(self, list_id: UUID4, food: IngredientFood) -> bool:
+    def _is_on_hand(self, list_id: UUID4, food: IngredientFoodOut) -> bool:
         shopping_list = self.shopping_lists.get_one(list_id)
         if shopping_list is None:
             return False
@@ -521,6 +541,16 @@ class ShoppingListService:
         - Impacted Shopping List Items
         """
 
+        self._require_lists_in_scope([list_id])
+
+        # Recipes are household-scoped, but any recipe in the group is a valid source.
+        group_recipes_repo = get_repositories(
+            self.repos.session, group_id=self.repos.group_id, household_id=None
+        ).recipes
+        for recipe_id in {recipe.recipe_id for recipe in recipe_items}:
+            if group_recipes_repo.get_one(recipe_id, "id") is None:
+                raise not_found()
+
         items_to_create = [
             item
             for recipe in recipe_items
@@ -532,24 +562,16 @@ class ShoppingListService:
         updated_list = cast(ShoppingListOut, self.shopping_lists.get_one(list_id))
 
         # update list-level recipe references
+        list_data = updated_list.model_dump()
+        list_refs: list[dict] = list_data["recipe_references"]
         for recipe in recipe_items:
-            ref_merged = False
-            for ref in updated_list.recipe_references:
-                if ref.recipe_id != recipe.recipe_id:
-                    continue
+            existing_ref = next((ref for ref in list_refs if ref["recipe_id"] == recipe.recipe_id), None)
+            if existing_ref:
+                existing_ref["recipe_quantity"] += recipe.recipe_increment_quantity
+            else:
+                list_refs.append({"recipe_id": recipe.recipe_id, "recipe_quantity": recipe.recipe_increment_quantity})
 
-                ref.recipe_quantity += recipe.recipe_increment_quantity
-                ref_merged = True
-                break
-
-            if not ref_merged:
-                updated_list.recipe_references.append(
-                    ShoppingListItemRecipeRefCreate(
-                        recipe_id=recipe.recipe_id, recipe_quantity=recipe.recipe_increment_quantity
-                    )
-                )
-
-        updated_list = self.shopping_lists.update(updated_list.id, updated_list)
+        updated_list = self.shopping_lists.update(updated_list.id, list_data)
         return updated_list, item_changes
 
     def remove_recipe_ingredients_from_list(

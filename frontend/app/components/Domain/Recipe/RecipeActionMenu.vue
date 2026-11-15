@@ -21,14 +21,14 @@
 
     <v-spacer />
     <div v-if="!open" class="custom-btn-group ma-1">
-      <RecipeFavoriteBadge v-if="loggedIn" color="info" button-style :recipe-id="recipe.id!" show-always />
+      <RecipeFavoriteBadge v-if="loggedIn" color="info" button-style :recipe-id="recipe.id" show-always />
       <RecipeTimelineBadge
         v-if="loggedIn"
         class="ml-1"
         color="info"
         button-style
         :slug="recipe.slug"
-        :recipe-name="recipe.name!"
+        :recipe-name="recipe.name"
       />
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" location="bottom" color="info">
@@ -55,18 +55,19 @@
       <RecipeContextMenu
         show-print
         :menu-top="false"
-        :name="recipe.name!"
-        :slug="recipe.slug!"
+        :name="recipe.name"
+        :slug="recipe.slug"
         :menu-icon="$globals.icons.dotsVertical"
         fab
         color="info"
         :card-menu="false"
         :recipe="recipe"
-        :recipe-id="recipe.id!"
+        :recipe-id="recipe.id"
         :recipe-scale="recipeScale"
         :use-items="{
           edit: false,
           download: loggedIn,
+          downloadPdf: loggedIn,
           duplicate: loggedIn,
           mealplanner: loggedIn,
           shoppingList: loggedIn,
@@ -104,7 +105,7 @@
 import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
@@ -112,7 +113,7 @@ const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
 interface Props {
-  recipe: Recipe;
+  recipe: RecipeOut;
   slug: string;
   recipeScale?: number;
   open: boolean;

@@ -19,13 +19,13 @@ from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_tools
 from mealie.db.models.users.users import User
 from mealie.schema.recipe.recipe import RecipeSummary
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientFoodSummary
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut, IngredientFoodSummary
+from mealie.schema.recipe.recipe_organizers import ToolOut
 from mealie.schema.recipe.recipe_suggestion import (
     RecipeSuggestionQuery,
     RecipeSuggestionResponseItem,
     RecipeSuggestionSubstitutedFood,
 )
-from mealie.schema.recipe.recipe_tool import RecipeToolOut
 from mealie.schema.response.pagination import RequestQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
@@ -52,6 +52,9 @@ class RecipeSuggestionMixin:
         user_id: UUID4 | None
         group_id: UUID4 | None
         household_id: UUID4 | None
+
+        @property
+        def column_aliases(self) -> dict[str, sa.ColumnElement]: ...
 
         def _filter_builder(self, **kwargs) -> dict[str, Any]: ...
 
@@ -266,14 +269,14 @@ class RecipeSuggestionMixin:
 
     def _missing_and_substituted_foods(
         self, recipe: RecipeModel, params: RecipeSuggestionQuery, on_hand_food_ids: set[UUID4]
-    ) -> tuple[list[IngredientFood], list[RecipeSuggestionSubstitutedFood]]:
+    ) -> tuple[list[IngredientFoodOut], list[RecipeSuggestionSubstitutedFood]]:
         """
         Splits the recipe's foods the user lacks into the ones a substitute covers and the
         ones nothing covers, using the same satisfaction rule the query ranked on. Judged any
         other way, a food the query counted as covered gets reported back as missing.
         """
 
-        missing_foods: list[IngredientFood] = []
+        missing_foods: list[IngredientFoodOut] = []
         substituted_foods: list[RecipeSuggestionSubstitutedFood] = []
 
         seen_food_ids: set[UUID4] = set(on_hand_food_ids)
@@ -293,18 +296,18 @@ class RecipeSuggestionMixin:
             if substitute:
                 substituted_foods.append(
                     RecipeSuggestionSubstitutedFood(
-                        food=IngredientFood.model_validate(ingredient.food),
+                        food=IngredientFoodOut.model_validate(ingredient.food),
                         substitute_food=IngredientFoodSummary.model_validate(substitute),
                     )
                 )
             else:
-                missing_foods.append(IngredientFood.model_validate(ingredient.food))
+                missing_foods.append(IngredientFoodOut.model_validate(ingredient.food))
 
         return missing_foods, substituted_foods
 
     @staticmethod
-    def _missing_tools(recipe: RecipeModel, on_hand_tool_ids: set[UUID4]) -> list[RecipeToolOut]:
-        missing_tools: list[RecipeToolOut] = []
+    def _missing_tools(recipe: RecipeModel, on_hand_tool_ids: set[UUID4]) -> list[ToolOut]:
+        missing_tools: list[ToolOut] = []
 
         seen_tool_ids: set[UUID4] = set(on_hand_tool_ids)
         for tool in recipe.tools:
@@ -312,7 +315,7 @@ class RecipeSuggestionMixin:
                 continue
 
             seen_tool_ids.add(tool.id)
-            missing_tools.append(RecipeToolOut.model_validate(tool))
+            missing_tools.append(ToolOut.model_validate(tool))
 
         return missing_tools
 
@@ -321,6 +324,7 @@ class RecipeSuggestionMixin:
         params: RecipeSuggestionQuery,
         food_ids: list[UUID4] | None = None,
         tool_ids: list[UUID4] | None = None,
+        extra_filter: sa.ColumnElement[bool] | None = None,
     ) -> list[RecipeSuggestionResponseItem]:
         """
         Queries all recipes and returns the ones that are missing the least amount of foods and tools.
@@ -361,10 +365,12 @@ class RecipeSuggestionMixin:
             q = q.filter(self.model.group_id == self.group_id)
         if self.household_id:
             q = q.filter(self.model.household_id == self.household_id)
+        if extra_filter is not None:
+            q = q.filter(extra_filter)
         if params.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(params.query_filter)
-                q = query_filter_builder.filter_query(q, model=self.model)
+                q = query_filter_builder.filter_query(q, model=self.model, column_aliases=self.column_aliases)
 
             except ValueError as e:
                 self.logger.error(e)

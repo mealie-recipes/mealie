@@ -9,6 +9,7 @@ import os
 import shutil
 import wave
 from abc import ABC, abstractmethod
+from collections.abc import Sequence
 from functools import cached_property
 from pathlib import Path
 from textwrap import dedent
@@ -143,7 +144,8 @@ class OpenAIService(BaseService):
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
-        self.provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
+        group_id = repos.scoped_group_id
+        self.provider_settings = repos.group_ai_provider_settings.get_one(group_id) if group_id else None
 
         # Load providers
         self.default_provider = (
@@ -285,7 +287,7 @@ class OpenAIService(BaseService):
             wav.writeframes(b"\x00\x00" * int(sample_rate * seconds))
         return buffer.getvalue()
 
-    def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
+    def _get_provider(self, attachments: Sequence[OpenAIAttachment] | None = None) -> AIProviderOut:
         """Select the appropriate provider based on attachment types, falling back to the default."""
         has_image = any(isinstance(a, OpenAIImageBase) for a in (attachments or []))
         has_audio = any(isinstance(a, OpenAILocalAudio) for a in (attachments or []))
@@ -475,27 +477,28 @@ class OpenAIService(BaseService):
         return "\n".join(content_parts)
 
     async def _get_raw_response(
-        self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
+        self,
+        prompt: str,
+        content: list[dict],
+        response_schema: type[T],
+        provider: AIProviderOut,
+        *,
+        use_system_message: bool = True,
     ) -> T | None:
         import openai
         from openai.types.chat import ChatCompletion
 
         client = self.get_client(provider)
+        messages: list[dict] = []
+        if use_system_message:
+            messages.append({"role": "system", "content": prompt})
+        messages.append({"role": "user", "content": content})
         # parse() builds the same response_format payload create() would send, but its
         # client-side validation runs as a post_parser that the raw-response path never
         # triggers, so we read the body ourselves and let parse_openai_response() below
         # do the parsing (e.g. of markdown-fenced JSON the SDK would otherwise discard).
         async with client.chat.completions.with_streaming_response.parse(
-            messages=[
-                {
-                    "role": "system",
-                    "content": prompt,
-                },
-                {
-                    "role": "user",
-                    "content": content,
-                },
-            ],
+            messages=messages,
             model=provider.model,
             response_format=response_schema,
         ) as response:
@@ -524,19 +527,24 @@ class OpenAIService(BaseService):
         message: str,
         *,
         response_schema: type[T],
-        attachments: list[OpenAIAttachment] | None = None,
+        attachments: Sequence[OpenAIAttachment] | None = None,
         provider: AIProviderOut | None = None,
+        use_system_message: bool = True,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""
         import openai
 
         try:
             provider = provider or self._get_provider(attachments)
+            if not use_system_message:
+                message = f"{prompt}\n\n{message}"
             user_messages: list[dict] = [{"type": "text", "text": message}]
             for attachment in attachments or []:
                 user_messages.append(attachment.build_message())
 
-            return await self._get_raw_response(prompt, user_messages, response_schema, provider)
+            return await self._get_raw_response(
+                prompt, user_messages, response_schema, provider, use_system_message=use_system_message
+            )
         except openai.RateLimitError as e:
             raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:
@@ -577,6 +585,7 @@ class OpenAIService(BaseService):
             "Attached is the audio data.",
             response_schema=OpenAIText,
             attachments=[audio_attachment],
+            use_system_message=False,
         )
 
         return response.text if response else None

@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from mealie.core.config import get_app_settings
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
-from mealie.schema.user.user import GroupInDB
+from mealie.schema.user.user import GroupOut
 from tests.fixtures.fixture_users import build_unique_user
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
@@ -36,7 +36,7 @@ def test_admin_create_group(api_client: TestClient, admin_user: TestUser):
     assert response.status_code == 201
 
     # verify preferences are set and the default household is created
-    group = GroupInDB.model_validate(response.json())
+    group = GroupOut.model_validate(response.json())
     assert group.preferences and len(group.households) == 1
     created_household = group.households[0]
     assert created_household.name == get_app_settings().DEFAULT_HOUSEHOLD

@@ -24,7 +24,7 @@
       },
       "zucchini": {
         "name": "zucchini",
-        "plural_name": "zucchinis"
+        "plural_name": "zucchinifrukter"
       },
       "potato": {
         "name": "potatis",
@@ -39,7 +39,7 @@
         "plural_name": "gula lökar"
       },
       "celery": {
-        "name": "selleri",
+        "name": "stjälkselleri",
         "plural_name": ""
       },
       "jalapeño": {
@@ -67,12 +67,12 @@
         "plural_name": ""
       },
       "sweet corn": {
-        "name": "majs",
+        "name": "sockermajs",
         "plural_name": ""
       },
       "chile pepper": {
-        "name": "chilipeppar",
-        "plural_name": "chile peppers"
+        "name": "chilifrukt",
+        "plural_name": "chilifrukter"
       },
       "sweet potato": {
         "name": "sötpotatis",
@@ -96,7 +96,7 @@
       },
       "cabbage": {
         "name": "vitkål",
-        "plural_name": "kål"
+        "plural_name": "vitkålshuvuden"
       },
       "asparagus": {
         "name": "sparris",
@@ -107,7 +107,7 @@
         "plural_name": ""
       },
       "arugula": {
-        "name": "ruccola",
+        "name": "rucola",
         "plural_name": ""
       },
       "leek": {
@@ -119,12 +119,12 @@
         "plural_name": "auberginer"
       },
       "lettuce": {
-        "name": "sallad",
+        "name": "sallat",
         "plural_name": ""
       },
       "butternut squash": {
-        "name": "butternut squash",
-        "plural_name": "butternut squashes"
+        "name": "butternutpumpa",
+        "plural_name": "butternutpumpor"
       },
       "romaine lettuce": {
         "name": "romansallad",
@@ -152,23 +152,23 @@
       },
       "red cabbage": {
         "name": "rödkål",
-        "plural_name": "rödkål"
+        "plural_name": "rödkålshuvuden"
       },
       "artichoke": {
-        "name": "jordärtskocka",
-        "plural_name": "jordärtskockor"
+        "name": "kronärtskocka",
+        "plural_name": "kronärtskockor"
       },
       "parsnip": {
         "name": "palsternacka",
         "plural_name": "palsternackor"
       },
       "poblano pepper": {
-        "name": "poblano-peppar",
-        "plural_name": "poblano peppers"
+        "name": "poblanochili",
+        "plural_name": "poblanochilifrukter"
       },
       "green tomato": {
         "name": "grön tomat",
-        "plural_name": "gröna tomter"
+        "plural_name": "gröna tomater"
       },
       "horseradish": {
         "name": "pepparrot",
@@ -179,12 +179,12 @@
         "plural_name": ""
       },
       "spaghetti squash": {
-        "name": "spaghettipumpa",
-        "plural_name": "spaghettipumpor"
+        "name": "spagettipumpa",
+        "plural_name": "spagettipumpor"
       },
       "napa cabbage": {
         "name": "kinakål",
-        "plural_name": "napa cabbages"
+        "plural_name": "kinakålshuvuden"
       },
       "celeriac": {
         "name": "rotselleri",
@@ -211,7 +211,7 @@
         "plural_name": "matbananer"
       },
       "collard greens": {
-        "name": "grönkål",
+        "name": "bladkål",
         "plural_name": ""
       },
       "baby corn": {
@@ -219,7 +219,7 @@
         "plural_name": ""
       },
       "broccoli rabe": {
-        "name": "broccoliblast",
+        "name": "rapini",
         "plural_name": ""
       },
       "tomato": {
@@ -232,7 +232,7 @@
       },
       "lime": {
         "name": "lime",
-        "plural_name": "limes"
+        "plural_name": "limefrukter"
       },
       "apple": {
         "name": "äpple",
@@ -256,7 +256,7 @@
       },
       "mango": {
         "name": "mango",
-        "plural_name": "mangor"
+        "plural_name": "mangofrukter"
       },
       "peach": {
         "name": "persika",
@@ -292,7 +292,7 @@
       },
       "kiwi": {
         "name": "kiwi",
-        "plural_name": "kiwis"
+        "plural_name": "kiwifrukter"
       },
       "grapefruit": {
         "name": "grapefrukt",
@@ -315,12 +315,12 @@
         "plural_name": "mandariner"
       },
       "cantaloupe": {
-        "name": "nätmelon",
-        "plural_name": "nätmeloner"
+        "name": "cantaloupemelon",
+        "plural_name": "cantaloupemeloner"
       },
       "tamarind": {
         "name": "tamarind",
-        "plural_name": "tamarinds"
+        "plural_name": "tamarinder"
       },
       "button mushroom": {
         "name": "champinjon",
@@ -339,16 +339,16 @@
         "plural_name": "ärtor"
       },
       "green bean": {
-        "name": "gröna bönor",
+        "name": "grön böna",
         "plural_name": "gröna bönor"
       },
       "snow pea": {
-        "name": "snow pea",
-        "plural_name": "snow peas"
+        "name": "sockerärt",
+        "plural_name": "sockerärter"
       },
       "snap pea": {
-        "name": "snap pea",
-        "plural_name": "snap peas"
+        "name": "brytsockerärt",
+        "plural_name": "brytsockerärter"
       },
       "bean sprout": {
         "name": "böngrodd",
@@ -395,7 +395,7 @@
         "plural_name": ""
       },
       "ginger root": {
-        "name": "ingefärarot",
+        "name": "ingefära",
         "plural_name": ""
       },
       "chive": {
@@ -423,8 +423,8 @@
         "plural_name": ""
       },
       "green onion": {
-        "name": "green onion",
-        "plural_name": "green onions"
+        "name": "salladslök",
+        "plural_name": "salladslökar"
       },
       "lemon juice": {
         "name": "citronjuice",
@@ -456,7 +456,7 @@
         "plural_name": ""
       },
       "brown rice": {
-        "name": "brunt ris",
+        "name": "fullkornsris",
         "plural_name": ""
       },
       "risotto rice": {
@@ -468,11 +468,11 @@
         "plural_name": ""
       },
       "wild rice": {
-        "name": "Vild ris",
+        "name": "vildris",
         "plural_name": ""
       },
       "semolina": {
-        "name": "semolina",
+        "name": "mannagryn",
         "plural_name": ""
       },
       "jasmine rice": {
@@ -492,15 +492,15 @@
         "plural_name": ""
       },
       "barley": {
-        "name": "barley",
+        "name": "korn",
         "plural_name": ""
       },
       "steel cut oat": {
-        "name": "steel cut oat",
-        "plural_name": "steel cut oats"
+        "name": "havrekross",
+        "plural_name": "havrekross"
       },
       "millet": {
-        "name": "millet",
+        "name": "hirs",
         "plural_name": ""
       },
       "sushi rice": {
@@ -508,7 +508,7 @@
         "plural_name": ""
       },
       "hominy": {
-        "name": "hominy",
+        "name": "nixtamaliserade majskorn",
         "plural_name": ""
       },
       "chickpea": {
@@ -532,35 +532,35 @@
         "plural_name": "linser"
       },
       "pinto bean": {
-        "name": "Pinto bönor",
-        "plural_name": "pinto beans"
+        "name": "pintoböna",
+        "plural_name": "pintobönor"
       },
       "red lentil": {
         "name": "röd lins",
         "plural_name": "röda linser"
       },
       "cannellini bean": {
-        "name": "cannellini bean",
-        "plural_name": "cannellini beans"
+        "name": "cannelliniböna",
+        "plural_name": "cannellinibönor"
       },
       "black-eyed pea": {
-        "name": "black-eyed pea",
-        "plural_name": "black-eyed peas"
+        "name": "svartögd böna",
+        "plural_name": "svartögda bönor"
       },
       "split pea": {
-        "name": "split pea",
-        "plural_name": "split peas"
+        "name": "kluven ärta",
+        "plural_name": "kluvna ärter"
       },
       "mung bean": {
-        "name": "mungbönor",
-        "plural_name": "mung beans"
+        "name": "mungböna",
+        "plural_name": "mungbönor"
       },
       "spaghetti": {
         "name": "spagetti",
         "plural_name": ""
       },
       "macaroni": {
-        "name": "makaron",
+        "name": "makaroner",
         "plural_name": ""
       },
       "egg noodle": {
@@ -580,7 +580,7 @@
         "plural_name": ""
       },
       "fettuccine": {
-        "name": "Fettuccine",
+        "name": "fettuccine",
         "plural_name": ""
       },
       "orzo": {
@@ -608,24 +608,24 @@
         "plural_name": ""
       },
       "gnocchi": {
-        "name": "Gnocchi",
+        "name": "gnocchi",
         "plural_name": ""
       },
       "ramen noodle": {
-        "name": "ramennudlar",
-        "plural_name": "ramen noodles"
+        "name": "ramennudel",
+        "plural_name": "ramennudlar"
       },
       "soba noodle": {
-        "name": "soba noodle",
-        "plural_name": "soba noodles"
+        "name": "sobanudel",
+        "plural_name": "sobanudlar"
       },
       "ravioli": {
         "name": "ravioli",
         "plural_name": ""
       },
       "udon noodle": {
-        "name": "Udonnudlar",
-        "plural_name": "udon noodles"
+        "name": "udonnudel",
+        "plural_name": "udonnudlar"
       },
       "manicotti": {
         "name": "manicotti",
@@ -669,15 +669,15 @@
         "plural_name": "kotlettrader"
       },
       "beef roast": {
-        "name": "rostbiff",
-        "plural_name": "beef roasts"
+        "name": "nötstek",
+        "plural_name": "nötstekar"
       },
       "ground pork": {
         "name": "fläskfärs",
         "plural_name": ""
       },
       "beef stew meat": {
-        "name": "grytbitar",
+        "name": "grytbitar av nötkött",
         "plural_name": ""
       },
       "pork fillet": {
@@ -701,7 +701,7 @@
         "plural_name": "ryggbiffar"
       },
       "brisket": {
-        "name": "bringa",
+        "name": "oxbringa",
         "plural_name": ""
       },
       "leg of lamb": {
@@ -709,8 +709,8 @@
         "plural_name": "lammstekar"
       },
       "beef short rib": {
-        "name": "nötrevbensstek",
-        "plural_name": "beef short ribs"
+        "name": "revbensstek av nöt",
+        "plural_name": "revbensstekar av nöt"
       },
       "pork belly": {
         "name": "fläsksida",
@@ -726,7 +726,7 @@
       },
       "oxtail": {
         "name": "oxsvans",
-        "plural_name": "oxtails"
+        "plural_name": "oxsvansar"
       },
       "chicken breast": {
         "name": "kycklingbröst",
@@ -746,7 +746,7 @@
       },
       "whole turkey": {
         "name": "hel kalkon",
-        "plural_name": "whole turkeys"
+        "plural_name": "hela kalkoner"
       },
       "chicken leg": {
         "name": "kycklingben",
@@ -757,8 +757,8 @@
         "plural_name": "kycklingvingar"
       },
       "turkey breast": {
-        "name": "kalkonbröstfilé",
-        "plural_name": "kalkonbröstfiléer"
+        "name": "kalkonbröst",
+        "plural_name": "kalkonbröst"
       },
       "ground chicken": {
         "name": "kycklingfärs",
@@ -774,14 +774,14 @@
       },
       "chicken liver": {
         "name": "kycklinglever",
-        "plural_name": "chicken livers"
+        "plural_name": "kycklinglevrar"
       },
       "cornish hen": {
-        "name": "cornish hen",
-        "plural_name": "cornish hens"
+        "name": "vårkyckling",
+        "plural_name": "vårkycklingar"
       },
       "veal": {
-        "name": "veal",
+        "name": "kalvkött",
         "plural_name": ""
       },
       "chicken": {
@@ -789,15 +789,15 @@
         "plural_name": ""
       },
       "beef": {
-        "name": "nöt",
+        "name": "nötkött",
         "plural_name": ""
       },
       "pork": {
-        "name": "fläsk",
+        "name": "fläskkött",
         "plural_name": ""
       },
       "lamb": {
-        "name": "lamm",
+        "name": "lammkött",
         "plural_name": ""
       },
       "turkey": {
@@ -827,7 +827,7 @@
       },
       "pepperoni": {
         "name": "pepperoni",
-        "plural_name": "pepperonis"
+        "plural_name": "pepperonikorvar"
       },
       "chorizo": {
         "name": "chorizo",
@@ -860,11 +860,11 @@
     }
   },
   "seafood": {
-    "name": "Fisk- och skaldjur",
+    "name": "Fisk och skaldjur",
     "foods": {
       "bonito flake": {
-        "name": "bonito flake",
-        "plural_name": "bonito flakes"
+        "name": "bonitoflinga",
+        "plural_name": "bonitoflingor"
       },
       "salmon": {
         "name": "lax",
@@ -891,7 +891,7 @@
         "plural_name": ""
       },
       "catfish": {
-        "name": "havskatt",
+        "name": "mal",
         "plural_name": ""
       },
       "sardine": {
@@ -899,7 +899,7 @@
         "plural_name": "sardiner"
       },
       "haddock": {
-        "name": "haddock",
+        "name": "kolja",
         "plural_name": ""
       },
       "shrimp": {
@@ -912,7 +912,7 @@
       },
       "scallop": {
         "name": "kammussla",
-        "plural_name": "scallops"
+        "plural_name": "kammusslor"
       },
       "mussel": {
         "name": "blåmussla",
@@ -923,7 +923,7 @@
         "plural_name": "musslor"
       },
       "squid": {
-        "name": "bläckfisk",
+        "name": "tioarmad bläckfisk",
         "plural_name": ""
       },
       "nori": {
@@ -939,8 +939,8 @@
         "plural_name": "ostron"
       },
       "octopus": {
-        "name": "bläckfisk",
-        "plural_name": "bläckfiskar"
+        "name": "åttaarmad bläckfisk",
+        "plural_name": "åttaarmade bläckfiskar"
       },
       "fish": {
         "name": "fisk",
@@ -984,7 +984,7 @@
         "plural_name": ""
       },
       "monterey jack cheese": {
-        "name": "monterey jack",
+        "name": "Monterey Jack",
         "plural_name": ""
       },
       "blue cheese": {
@@ -996,7 +996,7 @@
         "plural_name": ""
       },
       "swiss cheese": {
-        "name": "schweizisk ost",
+        "name": "schweizerost",
         "plural_name": ""
       },
       "gruyere cheese": {
@@ -1012,7 +1012,7 @@
         "plural_name": ""
       },
       "american cheese": {
-        "name": "amerikansk ost",
+        "name": "amerikansk smältost",
         "plural_name": ""
       },
       "brie cheese": {
@@ -1028,7 +1028,7 @@
         "plural_name": ""
       },
       "queso fresco cheese": {
-        "name": "mexikansk färskost",
+        "name": "queso fresco",
         "plural_name": ""
       },
       "halloumi cheese": {
@@ -1110,27 +1110,27 @@
     }
   },
   "baked-goods": {
-    "name": "Bakverk",
+    "name": "Bröd och bakverk",
     "foods": {
       "pie crust": {
-        "name": "pajskorpa",
-        "plural_name": "pajskorpor"
+        "name": "pajskal",
+        "plural_name": "pajskal"
       },
       "puff pastry": {
-        "name": "puff pastry",
-        "plural_name": "puff pastries"
+        "name": "smördeg",
+        "plural_name": "smördegsplattor"
       },
       "pizza dough": {
         "name": "pizzadeg",
         "plural_name": ""
       },
       "phyllo": {
-        "name": "phyllo",
+        "name": "filodeg",
         "plural_name": ""
       },
       "dumpling wrapper": {
-        "name": "dumplingpapper",
-        "plural_name": "dumpling wrappers"
+        "name": "degplatta till dumplings",
+        "plural_name": "degplattor till dumplings"
       },
       "rice paper": {
         "name": "rispapper",
@@ -1150,15 +1150,15 @@
       },
       "flour tortilla": {
         "name": "vetetortilla",
-        "plural_name": "vetetortillas"
+        "plural_name": "vetetortillor"
       },
       "corn tortilla": {
         "name": "majstortilla",
-        "plural_name": "majstortillas"
+        "plural_name": "majstortillor"
       },
       "baguette": {
         "name": "baguette",
-        "plural_name": "baguettes"
+        "plural_name": "baguetter"
       },
       "pita": {
         "name": "pitabröd",
@@ -1173,8 +1173,8 @@
         "plural_name": "krutonger"
       },
       "english muffin": {
-        "name": "english muffin",
-        "plural_name": "english muffins"
+        "name": "engelsk muffin",
+        "plural_name": "engelska muffins"
       },
       "brioche": {
         "name": "brioche",
@@ -1185,7 +1185,7 @@
         "plural_name": ""
       },
       "naan": {
-        "name": "Naanbröd",
+        "name": "naanbröd",
         "plural_name": "naanbröd"
       },
       "taco shell": {
@@ -1198,19 +1198,19 @@
       },
       "croissant": {
         "name": "croissant",
-        "plural_name": "croissants"
+        "plural_name": "croissanter"
       },
       "hawaiian roll": {
-        "name": "hawaiian roll",
-        "plural_name": "hawaiian rolls"
+        "name": "söt hawaiiansk fralla",
+        "plural_name": "söta hawaiianska frallor"
       },
       "challah": {
         "name": "challah",
         "plural_name": ""
       },
       "bao bun": {
-        "name": "bao bun",
-        "plural_name": "bao buns"
+        "name": "baobröd",
+        "plural_name": "baobröd"
       }
     }
   },
@@ -1218,8 +1218,8 @@
     "name": "Konserver",
     "foods": {
       "canned tomato": {
-        "name": "Konserverade hela tomater",
-        "plural_name": "canned tomatoes"
+        "name": "konserverad tomat",
+        "plural_name": "konserverade tomater"
       },
       "caper": {
         "name": "kapris",
@@ -1238,11 +1238,11 @@
         "plural_name": "svarta oliver"
       },
       "canned black bean": {
-        "name": "Konserverade svarta bönor",
-        "plural_name": "canned black beans"
+        "name": "konserverad svart böna",
+        "plural_name": "konserverade svarta bönor"
       },
       "canned pumpkin": {
-        "name": "canned pumpkin",
+        "name": "pumpa på burk",
         "plural_name": ""
       },
       "kalamata olive": {
@@ -1255,42 +1255,42 @@
       },
       "pickle": {
         "name": "inlagd gurka",
-        "plural_name": "Inlagd gurka"
+        "plural_name": "inlagda gurkor"
       },
       "chipotle in adobo": {
-        "name": "Chipotlechili i adobosås",
-        "plural_name": "chipotles in adobo"
+        "name": "chipotlechili i adobosås",
+        "plural_name": "chipotlefrukter i adobosås"
       },
       "canned anchovy": {
-        "name": "Konserverad ansjovis",
-        "plural_name": "konserverade anjovis"
+        "name": "sardell på burk",
+        "plural_name": "sardeller på burk"
       },
       "roasted red pepper": {
-        "name": "roasted red pepper",
-        "plural_name": "roasted red peppers"
+        "name": "rostad röd paprika",
+        "plural_name": "rostade röda paprikor"
       },
       "canned artichoke": {
-        "name": "Konserverad kronärtskocka",
+        "name": "konserverad kronärtskocka",
         "plural_name": "konserverade kronärtskockor"
       },
       "canned corn": {
-        "name": "Konserverad majs",
+        "name": "konserverad majs",
         "plural_name": ""
       },
       "canned kidney bean": {
-        "name": "Konserverade kidneybönor",
-        "plural_name": "canned kidney beans"
+        "name": "konserverad kidneyböna",
+        "plural_name": "konserverade kidneybönor"
       },
       "refried bean": {
-        "name": "refried bean",
-        "plural_name": "refried beans"
+        "name": "mosad och stekt böna",
+        "plural_name": "mosade och stekta bönor"
       },
       "canned whole tomato": {
         "name": "konserverad hel tomat",
         "plural_name": "konserverade hela tomater"
       },
       "sweet pickle relish": {
-        "name": "sweet pickle relish",
+        "name": "söt gurkrelish",
         "plural_name": ""
       },
       "sauerkraut": {
@@ -1298,16 +1298,16 @@
         "plural_name": ""
       },
       "creamed corn": {
-        "name": "creamed corn",
+        "name": "stuvad majs",
         "plural_name": ""
       },
       "pickled jalapeño": {
-        "name": "pickled jalapeño",
-        "plural_name": "pickled jalapeños"
+        "name": "inlagd jalapeño",
+        "plural_name": "inlagda jalapeñofrukter"
       },
       "diced green chile": {
-        "name": "Tärnad grön chili",
-        "plural_name": "diced green chiles"
+        "name": "tärnad grön chili",
+        "plural_name": "tärnade gröna chilifrukter"
       },
       "sun-dried tomato in oil": {
         "name": "soltorkad tomat i olja",
@@ -1318,71 +1318,71 @@
         "plural_name": ""
       },
       "baked bean": {
-        "name": "baked bean",
-        "plural_name": "baked beans"
+        "name": "bakad böna i sås",
+        "plural_name": "bakade bönor i sås"
       },
       "canned salmon": {
-        "name": "canned salmon",
+        "name": "lax på burk",
         "plural_name": ""
       },
       "canned clam": {
-        "name": "canned clam",
-        "plural_name": "canned clams"
+        "name": "mussla på burk",
+        "plural_name": "musslor på burk"
       },
       "canned baby corn": {
         "name": "konserverad minimajs",
         "plural_name": ""
       },
       "canned sardine": {
-        "name": "canned sardine",
-        "plural_name": "canned sardines"
+        "name": "sardin på burk",
+        "plural_name": "sardiner på burk"
       },
       "aquafaba": {
-        "name": "Aquafaba",
+        "name": "aquafaba",
         "plural_name": ""
       },
       "chicken broth": {
-        "name": "chicken broth",
+        "name": "kycklingbuljong",
         "plural_name": ""
       },
       "vegetable broth": {
-        "name": "vegetable broth",
+        "name": "grönsaksbuljong",
         "plural_name": ""
       },
       "chicken stock": {
-        "name": "chicken stock",
+        "name": "kycklingfond",
         "plural_name": ""
       },
       "beef broth": {
-        "name": "beef broth",
+        "name": "oxbuljong",
         "plural_name": ""
       },
       "beef stock": {
-        "name": "beef stock",
+        "name": "oxfond",
         "plural_name": ""
       },
       "cream of mushroom": {
-        "name": "cream of mushroom",
+        "name": "krämig svampsoppa",
         "plural_name": ""
       },
       "bouillon cube": {
-        "name": "bouillon cube",
-        "plural_name": "bouillon cubes"
+        "name": "buljongtärning",
+        "plural_name": "buljongtärningar"
       },
       "cream of chicken": {
-        "name": "cream of chicken",
+        "name": "krämig kycklingsoppa",
         "plural_name": ""
       },
       "tomato soup": {
-        "name": "tomato soup",
+        "name": "tomatsoppa",
         "plural_name": ""
       },
       "cream of celery": {
-        "name": "cream of celery",
+        "name": "krämig sellerisoppa",
         "plural_name": ""
       },
       "clam juice": {
-        "name": "clam juice",
+        "name": "musselspad",
         "plural_name": ""
       },
       "dashi": {
@@ -1390,19 +1390,19 @@
         "plural_name": ""
       },
       "olive": {
-        "name": "olive",
-        "plural_name": "olives"
+        "name": "oliv",
+        "plural_name": "oliver"
       },
       "bean": {
-        "name": "bean",
-        "plural_name": "beans"
+        "name": "böna",
+        "plural_name": "bönor"
       },
       "stock": {
-        "name": "stock",
+        "name": "fond",
         "plural_name": ""
       },
       "broth": {
-        "name": "broth",
+        "name": "buljong",
         "plural_name": ""
       }
     }
@@ -1412,7 +1412,7 @@
     "foods": {}
   },
   "condiments": {
-    "name": "Smaktillsatser",
+    "name": "Smaksättare",
     "foods": {
       "soy sauce": {
         "name": "soja",
@@ -1423,11 +1423,11 @@
         "plural_name": ""
       },
       "hot sauce": {
-        "name": "Stark sås",
+        "name": "stark chilisås",
         "plural_name": ""
       },
       "worcestershire sauce": {
-        "name": "worcestershire sauce",
+        "name": "worcestershiresås",
         "plural_name": ""
       },
       "ketchup": {
@@ -1443,15 +1443,15 @@
         "plural_name": ""
       },
       "bbq sauce": {
-        "name": "Barbequesås",
+        "name": "barbecuesås",
         "plural_name": ""
       },
       "sriracha": {
-        "name": "Sriracha",
+        "name": "sriracha",
         "plural_name": ""
       },
       "wholegrain mustard": {
-        "name": "grov senap",
+        "name": "grovkornig senap",
         "plural_name": ""
       },
       "oyster sauce": {
@@ -1459,23 +1459,23 @@
         "plural_name": ""
       },
       "teriyaki sauce": {
-        "name": "Teriyakisås",
+        "name": "teriyakisås",
         "plural_name": ""
       },
       "prepared horseradish": {
-        "name": "prepared horseradish",
+        "name": "riven pepparrot i vinäger",
         "plural_name": ""
       },
       "cranberry sauce": {
-        "name": "Tranbärssås",
+        "name": "tranbärssås",
         "plural_name": ""
       },
       "harissa": {
-        "name": "Harissapasta",
+        "name": "harissapasta",
         "plural_name": ""
       },
       "tamarind paste": {
-        "name": "tamarind paste",
+        "name": "tamarindpasta",
         "plural_name": ""
       },
       "gochujang": {
@@ -1491,11 +1491,11 @@
         "plural_name": ""
       },
       "preserved lemon": {
-        "name": "preserved lemon",
-        "plural_name": "preserved lemons"
+        "name": "saltinlagd citron",
+        "plural_name": "saltinlagda citroner"
       },
       "thai sweet chili sauce": {
-        "name": "thai sweet chili sauce",
+        "name": "thailändsk söt chilisås",
         "plural_name": ""
       },
       "tartar sauce": {
@@ -1511,16 +1511,16 @@
         "plural_name": ""
       },
       "tomato paste": {
-        "name": "tomato paste",
+        "name": "tomatpuré",
         "plural_name": ""
       },
       "tomato sauce": {
-        "name": "tomato sauce",
+        "name": "tomatsås",
         "plural_name": ""
       },
       "salsa": {
         "name": "salsa",
-        "plural_name": "salsas"
+        "plural_name": "salsor"
       },
       "tahini": {
         "name": "tahini",
@@ -1531,15 +1531,15 @@
         "plural_name": ""
       },
       "marinara sauce": {
-        "name": "marinara sauce",
+        "name": "marinarasås",
         "plural_name": ""
       },
       "pasta sauce": {
-        "name": "pasta sauce",
+        "name": "pastasås",
         "plural_name": ""
       },
       "hoisin sauce": {
-        "name": "hoisin sauce",
+        "name": "hoisinsås",
         "plural_name": ""
       },
       "hummus": {
@@ -1547,7 +1547,7 @@
         "plural_name": ""
       },
       "enchilada sauce": {
-        "name": "enchilada sauce",
+        "name": "enchiladasås",
         "plural_name": ""
       },
       "salsa verde": {
@@ -1555,19 +1555,19 @@
         "plural_name": ""
       },
       "alfredo sauce": {
-        "name": "alfredo sauce",
+        "name": "alfredosås",
         "plural_name": ""
       },
       "balsamic glaze": {
-        "name": "balsamic glaze",
+        "name": "balsamicokräm",
         "plural_name": ""
       },
       "thai peanut sauce": {
-        "name": "thai peanut sauce",
+        "name": "thailändsk jordnötssås",
         "plural_name": ""
       },
       "mole sauce": {
-        "name": "mole sauce",
+        "name": "molesås",
         "plural_name": ""
       },
       "white miso": {
@@ -1607,27 +1607,27 @@
         "plural_name": ""
       },
       "ranch dressing": {
-        "name": "Ranchdressing",
+        "name": "ranchdressing",
         "plural_name": ""
       },
       "distilled white vinegar": {
-        "name": "Destillerad vit vinäger",
+        "name": "destillerad vit vinäger",
         "plural_name": ""
       },
       "sweet chili sauce": {
-        "name": "Sweet chilisås",
+        "name": "söt chilisås",
         "plural_name": ""
       },
       "caesar dressing": {
-        "name": "Caesadressing",
+        "name": "caesardressing",
         "plural_name": ""
       },
       "agave nectar": {
-        "name": "agave nectar",
+        "name": "agavesirap",
         "plural_name": ""
       },
       "honey": {
-        "name": "honey",
+        "name": "honung",
         "plural_name": ""
       }
     }
@@ -1640,11 +1640,11 @@
         "plural_name": ""
       },
       "cinnamon": {
-        "name": "Kanel",
+        "name": "kanel",
         "plural_name": ""
       },
       "cumin": {
-        "name": "Spiskummin",
+        "name": "spiskummin",
         "plural_name": ""
       },
       "thyme": {
@@ -1656,7 +1656,7 @@
         "plural_name": ""
       },
       "oregano": {
-        "name": "Oregano",
+        "name": "oregano",
         "plural_name": ""
       },
       "nutmeg": {
@@ -1664,8 +1664,8 @@
         "plural_name": ""
       },
       "chili flake": {
-        "name": "Chiliflakes",
-        "plural_name": "chili flakes"
+        "name": "chiliflinga",
+        "plural_name": "chiliflingor"
       },
       "chili powder": {
         "name": "chilipulver",
@@ -1681,34 +1681,34 @@
       },
       "bay leaf": {
         "name": "lagerblad",
-        "plural_name": "Lagerblad"
+        "plural_name": "lagerblad"
       },
       "turmeric": {
         "name": "gurkmeja",
         "plural_name": ""
       },
       "clove": {
-        "name": "clove",
-        "plural_name": "cloves"
+        "name": "kryddnejlika",
+        "plural_name": "kryddnejlikor"
       },
       "onion powder": {
         "name": "lökpulver",
         "plural_name": ""
       },
       "ginger powder": {
-        "name": "torkad ingefära",
+        "name": "malen ingefära",
         "plural_name": ""
       },
       "dill": {
-        "name": "Dill",
+        "name": "dill",
         "plural_name": ""
       },
       "green cardamom": {
-        "name": "Grön kardemumma",
+        "name": "grön kardemumma",
         "plural_name": ""
       },
       "smoked paprika": {
-        "name": "rökt paprika",
+        "name": "rökt paprikapulver",
         "plural_name": ""
       },
       "sage": {
@@ -1716,28 +1716,28 @@
         "plural_name": ""
       },
       "coriander": {
-        "name": "koriander",
+        "name": "korianderfrö",
         "plural_name": ""
       },
       "allspice": {
-        "name": "Allkrydda",
+        "name": "kryddpeppar",
         "plural_name": ""
       },
       "peppercorn": {
-        "name": "Pepparkorn",
-        "plural_name": "peppercorns"
+        "name": "pepparkorn",
+        "plural_name": "pepparkorn"
       },
       "mustard seed": {
-        "name": "Senapsfrön",
-        "plural_name": "mustard seeds"
+        "name": "senapsfrö",
+        "plural_name": "senapsfrön"
       },
       "white pepper": {
-        "name": "Vitpeppar",
+        "name": "vitpeppar",
         "plural_name": ""
       },
       "curry leaf": {
-        "name": "Curryblad",
-        "plural_name": "curry leaves"
+        "name": "curryblad",
+        "plural_name": "curryblad"
       },
       "fennel seed": {
         "name": "fänkålsfrö",
@@ -1752,7 +1752,7 @@
         "plural_name": ""
       },
       "asafoetida": {
-        "name": "asafoetida",
+        "name": "dyvelsträck",
         "plural_name": ""
       },
       "star anise": {
@@ -1760,39 +1760,39 @@
         "plural_name": ""
       },
       "fenugreek": {
-        "name": "Bockhornsklöver",
+        "name": "bockhornsklöver",
         "plural_name": ""
       },
       "kaffir lime leaf": {
-        "name": "kaffir lime leaf",
-        "plural_name": "kaffir lime leaves"
+        "name": "makrutlimeblad",
+        "plural_name": "makrutlimeblad"
       },
       "guajillo pepper": {
-        "name": "guajillo pepper",
-        "plural_name": "guajillo peppers"
+        "name": "guajillochili",
+        "plural_name": "guajillochilifrukter"
       },
       "galangal": {
         "name": "galangal",
         "plural_name": ""
       },
       "aleppo pepper": {
-        "name": "aleppo pepper",
+        "name": "aleppopeppar",
         "plural_name": ""
       },
       "italian seasoning": {
-        "name": "Italienska kryddor",
+        "name": "italiensk kryddblandning",
         "plural_name": ""
       },
       "curry": {
-        "name": "Curry",
+        "name": "curry",
         "plural_name": ""
       },
       "garam masala": {
-        "name": "Garam masala",
+        "name": "garam masala",
         "plural_name": ""
       },
       "pumpkin pie spice": {
-        "name": "pumpkin pie spice",
+        "name": "pumpapajskrydda",
         "plural_name": ""
       },
       "mustard powder": {
@@ -1808,7 +1808,7 @@
         "plural_name": ""
       },
       "chinese five spice": {
-        "name": "chinese five spice",
+        "name": "kinesisk femkrydda",
         "plural_name": ""
       },
       "chaat masala": {
@@ -1816,7 +1816,7 @@
         "plural_name": ""
       },
       "thai red curry paste": {
-        "name": "Röd currypasta",
+        "name": "thailändsk röd currypasta",
         "plural_name": ""
       },
       "za'atar": {
@@ -1832,15 +1832,15 @@
         "plural_name": ""
       },
       "tom yum paste": {
-        "name": "tom yum paste",
+        "name": "tom yum-pasta",
         "plural_name": ""
       },
       "old bay seasoning": {
-        "name": "old bay seasoning",
+        "name": "kryddblandningen Old Bay",
         "plural_name": ""
       },
       "liquid smoke": {
-        "name": "Liquid smoke",
+        "name": "rökarom",
         "plural_name": ""
       },
       "salt": {
@@ -1848,28 +1848,28 @@
         "plural_name": ""
       },
       "kosher salt": {
-        "name": "kosher salt",
+        "name": "koshersalt",
         "plural_name": ""
       },
       "sea salt": {
-        "name": "sea salt",
+        "name": "havssalt",
         "plural_name": ""
       },
       "flaky salt": {
-        "name": "flaky salt",
+        "name": "flingsalt",
         "plural_name": ""
       },
       "black pepper": {
-        "name": "black pepper",
+        "name": "svartpeppar",
         "plural_name": ""
       }
     }
   },
   "oils": {
-    "name": "Oils",
+    "name": "Oljor",
     "foods": {
       "shortening": {
-        "name": "matfett",
+        "name": "fast matfett",
         "plural_name": ""
       },
       "olive oil": {
@@ -1881,15 +1881,15 @@
         "plural_name": ""
       },
       "canola oil": {
-        "name": "canola oil",
+        "name": "rapsolja",
         "plural_name": ""
       },
       "coconut oil": {
-        "name": "kokosnötsolja",
+        "name": "kokosolja",
         "plural_name": ""
       },
       "cooking spray": {
-        "name": "cooking spray",
+        "name": "matfett på sprej",
         "plural_name": ""
       },
       "sesame oil": {
@@ -1897,7 +1897,7 @@
         "plural_name": ""
       },
       "avocado oil": {
-        "name": "Avokadoolja",
+        "name": "avokadoolja",
         "plural_name": ""
       },
       "peanut oil": {
@@ -1905,7 +1905,7 @@
         "plural_name": ""
       },
       "lard": {
-        "name": "lard",
+        "name": "ister",
         "plural_name": ""
       },
       "chili oil": {
@@ -1921,20 +1921,20 @@
         "plural_name": ""
       },
       "oil": {
-        "name": "oil",
+        "name": "olja",
         "plural_name": ""
       }
     }
   },
   "baking": {
-    "name": "Baking",
+    "name": "Bakning",
     "foods": {
       "cocoa": {
         "name": "kakao",
         "plural_name": ""
       },
       "baking chocolate": {
-        "name": "Bakchoklad",
+        "name": "bakchoklad",
         "plural_name": ""
       },
       "sugar": {
@@ -1942,11 +1942,11 @@
         "plural_name": ""
       },
       "brown sugar": {
-        "name": "Brunt socker",
+        "name": "farinsocker",
         "plural_name": ""
       },
       "confectioners sugar": {
-        "name": "confectioners sugar",
+        "name": "florsocker",
         "plural_name": ""
       },
       "maple syrup": {
@@ -1958,11 +1958,11 @@
         "plural_name": ""
       },
       "molasses": {
-        "name": "molasses",
+        "name": "melass",
         "plural_name": ""
       },
       "stevia": {
-        "name": "Stevia",
+        "name": "stevia",
         "plural_name": ""
       },
       "jaggery": {
@@ -1974,7 +1974,7 @@
         "plural_name": ""
       },
       "vanilla extract": {
-        "name": "Vaniljextrakt",
+        "name": "vaniljextrakt",
         "plural_name": ""
       },
       "baking powder": {
@@ -1982,7 +1982,7 @@
         "plural_name": ""
       },
       "baking soda": {
-        "name": "Bikarbonat",
+        "name": "bikarbonat",
         "plural_name": ""
       },
       "cornstarch": {
@@ -1994,11 +1994,11 @@
         "plural_name": ""
       },
       "chocolate chip": {
-        "name": "Chokladbitar",
-        "plural_name": "chocolate chips"
+        "name": "chokladknapp",
+        "plural_name": "chokladknappar"
       },
       "whole-wheat flour": {
-        "name": "fullkornsmjöl",
+        "name": "fullkornsvetemjöl",
         "plural_name": ""
       },
       "almond flour": {
@@ -2006,7 +2006,7 @@
         "plural_name": ""
       },
       "self-raising flour": {
-        "name": "self-raising flour",
+        "name": "självjäsande mjöl",
         "plural_name": ""
       },
       "shredded coconut": {
@@ -2014,31 +2014,31 @@
         "plural_name": ""
       },
       "cornmeal": {
-        "name": "Majsmjöl",
+        "name": "majsmjöl",
         "plural_name": ""
       },
       "gelatin": {
-        "name": "Gelatin",
+        "name": "gelatin",
         "plural_name": ""
       },
       "cake flour": {
-        "name": "cake flour",
+        "name": "kakmjöl",
         "plural_name": ""
       },
       "cream of tartar": {
-        "name": "cream of tartar",
+        "name": "vinsten",
         "plural_name": ""
       },
       "bread flour": {
-        "name": "bread flour",
+        "name": "proteinrikt vetemjöl",
         "plural_name": ""
       },
       "potato starch": {
-        "name": "Potatisstärkelse",
+        "name": "potatisstärkelse",
         "plural_name": ""
       },
       "buckwheat flour": {
-        "name": "Bovetemjöl",
+        "name": "bovetemjöl",
         "plural_name": ""
       },
       "masa harina": {
@@ -2046,7 +2046,7 @@
         "plural_name": ""
       },
       "matzo meal": {
-        "name": "matzo meal",
+        "name": "matzemjöl",
         "plural_name": ""
       },
       "almond extract": {
@@ -2054,19 +2054,19 @@
         "plural_name": ""
       },
       "food coloring": {
-        "name": "food coloring",
+        "name": "livsmedelsfärg",
         "plural_name": ""
       },
       "peppermint extract": {
-        "name": "peppermint extract",
+        "name": "pepparmyntsextrakt",
         "plural_name": ""
       },
       "orange extract": {
-        "name": "orange extract",
+        "name": "apelsinextrakt",
         "plural_name": ""
       },
       "sprinkles": {
-        "name": "sprinkles",
+        "name": "strössel",
         "plural_name": ""
       }
     }
@@ -2075,35 +2075,35 @@
     "name": "Sötsaker",
     "foods": {
       "dark chocolate": {
-        "name": "Mörk choklad",
+        "name": "mörk choklad",
         "plural_name": ""
       },
       "chocolate": {
-        "name": "Choklad",
+        "name": "choklad",
         "plural_name": ""
       },
       "marshmallow": {
-        "name": "Marshmallow",
-        "plural_name": "marshmallow"
+        "name": "marshmallow",
+        "plural_name": "marshmallows"
       },
       "applesauce": {
         "name": "äppelmos",
         "plural_name": ""
       },
       "white chocolate": {
-        "name": "Vit choklad",
+        "name": "vit choklad",
         "plural_name": ""
       },
       "chocolate hazelnut spread": {
-        "name": "chocolate hazelnut spread",
+        "name": "choklad- och hasselnötskräm",
         "plural_name": ""
       },
       "caramel sauce": {
-        "name": "Karamellsås",
+        "name": "karamellsås",
         "plural_name": ""
       },
       "marshmallow creme": {
-        "name": "marshmallow creme",
+        "name": "marshmallowkräm",
         "plural_name": ""
       },
       "jam": {
@@ -2111,7 +2111,7 @@
         "plural_name": ""
       },
       "orange marmalade": {
-        "name": "Apelsinmarmelad",
+        "name": "apelsinmarmelad",
         "plural_name": ""
       },
       "cookie": {
@@ -2119,11 +2119,11 @@
         "plural_name": "kakor"
       },
       "lady finger": {
-        "name": "lady finger",
-        "plural_name": "lady fingers"
+        "name": "savoiardikex",
+        "plural_name": "savoiardikex"
       },
       "apple butter": {
-        "name": "Äppelmos",
+        "name": "äppelsmör",
         "plural_name": ""
       },
       "ice cream": {
@@ -2188,24 +2188,24 @@
         "plural_name": "hasselnötter"
       },
       "sunflower seed": {
-        "name": "solros-frö",
+        "name": "solrosfrö",
         "plural_name": "solrosfrön"
       },
       "graham cracker": {
-        "name": "graham cracker",
-        "plural_name": "graham crackers"
+        "name": "grahamskex",
+        "plural_name": "grahamskex"
       },
       "cracker": {
-        "name": "Kex",
-        "plural_name": "crackers"
+        "name": "kex",
+        "plural_name": "kex"
       },
       "tortilla chip": {
-        "name": "tortillachip",
+        "name": "tortillachips",
         "plural_name": "tortillachips"
       },
       "pretzel": {
-        "name": "Kringla",
-        "plural_name": "Kringlor"
+        "name": "saltkringla",
+        "plural_name": "saltkringlor"
       },
       "popcorn": {
         "name": "popcorn",
@@ -2213,11 +2213,11 @@
       },
       "potato chip": {
         "name": "potatischips",
-        "plural_name": "potato chips"
+        "plural_name": "potatischips"
       },
       "nut": {
-        "name": "nut",
-        "plural_name": "nuts"
+        "name": "nöt",
+        "plural_name": "nötter"
       }
     }
   },
@@ -2233,11 +2233,11 @@
         "plural_name": ""
       },
       "club soda": {
-        "name": "club soda",
+        "name": "sodavatten",
         "plural_name": ""
       },
       "espresso": {
-        "name": "Espresso",
+        "name": "espresso",
         "plural_name": ""
       },
       "pineapple juice": {
@@ -2261,11 +2261,11 @@
         "plural_name": ""
       },
       "ginger beer": {
-        "name": "ginger beer",
+        "name": "ingefärsöl",
         "plural_name": ""
       },
       "water": {
-        "name": "water",
+        "name": "vatten",
         "plural_name": ""
       }
     }
@@ -2282,7 +2282,7 @@
         "plural_name": ""
       },
       "whisky": {
-        "name": "Whisky",
+        "name": "whisky",
         "plural_name": ""
       },
       "rum": {
@@ -2290,7 +2290,7 @@
         "plural_name": ""
       },
       "vodka": {
-        "name": "Vodka",
+        "name": "vodka",
         "plural_name": ""
       },
       "beer": {
@@ -2298,23 +2298,23 @@
         "plural_name": ""
       },
       "orange liqueur": {
-        "name": "Apelsinlikör",
+        "name": "apelsinlikör",
         "plural_name": ""
       },
       "tequila": {
-        "name": "Tequila",
+        "name": "tequila",
         "plural_name": ""
       },
       "sherry": {
-        "name": "Sherry",
+        "name": "sherry",
         "plural_name": ""
       },
       "gin": {
-        "name": "Gin",
+        "name": "gin",
         "plural_name": ""
       },
       "brandy": {
-        "name": "Brandy",
+        "name": "brandy",
         "plural_name": ""
       },
       "mirin": {
@@ -2322,11 +2322,11 @@
         "plural_name": ""
       },
       "coffee liqueur": {
-        "name": "Kaffelikör",
+        "name": "kaffelikör",
         "plural_name": ""
       },
       "champagne": {
-        "name": "Champagne",
+        "name": "champagne",
         "plural_name": ""
       },
       "vermouth": {
@@ -2334,25 +2334,25 @@
         "plural_name": ""
       },
       "marsala wine": {
-        "name": "marsala wine",
+        "name": "marsalavin",
         "plural_name": ""
       },
       "sake": {
-        "name": "Sake",
+        "name": "sake",
         "plural_name": ""
       },
       "shaoxing wine": {
-        "name": "Shaoxingvin",
+        "name": "shaoxingvin",
         "plural_name": ""
       },
       "wine": {
-        "name": "wine",
+        "name": "vin",
         "plural_name": ""
       }
     }
   },
   "health-foods": {
-    "name": "Hälsolivsmedel",
+    "name": "Hälsokost",
     "foods": {
       "coconut milk": {
         "name": "kokosmjölk",
@@ -2395,7 +2395,7 @@
         "plural_name": ""
       },
       "nutritional yeast": {
-        "name": "nutritional yeast",
+        "name": "näringsjäst",
         "plural_name": ""
       },
       "vegan cheese": {
@@ -2412,7 +2412,7 @@
     "name": "Övrigt",
     "foods": {
       "ice": {
-        "name": "ice",
+        "name": "is",
         "plural_name": ""
       }
     }
