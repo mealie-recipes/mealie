@@ -49,6 +49,7 @@
 
           <!-- the dates are part of the label, so they stay with the switch instead of floating above the next field -->
           <v-switch
+            v-if="showWeekOption"
             v-model="isWeekEntry"
             color="primary"
             hide-details
@@ -157,12 +158,13 @@ import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditBut
 import RecipeSelector from "~/components/Domain/Recipe/RecipeSelector.vue";
 import { useMealPlanEntryDates, usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { buildRuleQueryFilter, useMealplanRules } from "~/composables/use-mealplan-rules";
+import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 import { validators } from "~/composables/use-validators";
-import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryCreate, PlanEntryType, PlanEntryOut, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
 import type { RecipeSummary } from "~/lib/api/types/recipe";
 
 interface Props {
-  entry?: ReadPlanEntry | null;
+  entry?: PlanEntryOut | null;
   date?: Date | null;
   /** Set when creating an entry for a week rather than a specific day */
   endDate?: Date | null;
@@ -174,8 +176,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-  create: [payload: CreatePlanEntry];
-  update: [payload: UpdatePlanEntry];
+  create: [payload: PlanEntryCreate];
+  update: [payload: PlanEntryUpdate];
 }>();
 
 const dialog = defineModel<boolean>({ required: true });
@@ -196,6 +198,9 @@ const text = ref("");
 const ignoreRules = ref(false);
 
 const isRecipe = computed(() => entryMode.value === "recipe");
+
+const mealPlanPreferences = useUserMealPlanPreferences();
+const showWeekOption = computed(() => mealPlanPreferences.value.mode === "weeks" || isWeekEntry.value);
 
 const applicableRuleFilter = computed(() => buildRuleQueryFilter(
   rules.value,

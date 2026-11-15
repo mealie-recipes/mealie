@@ -16,7 +16,7 @@ from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.recipe import OpenAIRecipe
-from mealie.schema.recipe.recipe import Recipe, RecipeStep
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.openai import OpenAIService, transcription
@@ -56,16 +56,36 @@ def _is_stringified_mapping(text: str) -> bool:
     return text.strip().startswith(("{'", '{"'))
 
 
+def _only_adds_line_breaks(structured: list[dict], flat: list[dict]) -> bool:
+    """True when the structured parse is the flat parse, step for step, plus line breaks.
+
+    recipe_scrapers collapses all whitespace inside a step, so a step that a site writes as
+    several paragraphs arrives as one run-on line. The structured data still has the breaks.
+    """
+    structured_texts = [step.get("text", "") for step in structured]
+    flat_texts = [step["text"] for step in flat if step.get("text")]
+
+    return (
+        any("\n" in text for text in structured_texts)
+        and len(structured_texts) == len(flat_texts)
+        and all(_comparable(a) == _comparable(b) for a, b in zip(structured_texts, flat_texts, strict=True))
+    )
+
+
 def prefer_structured_instructions(structured: list[dict], flat: list[dict]) -> bool:
     """Decide whether the structured parse should replace the scraper's flattened text.
 
-    Two things have to hold. The structured parse must gain a heading, otherwise there is
+    It does when it holds the same steps and only adds line breaks. Otherwise two things
+    have to hold. The structured parse must gain a heading, otherwise there is
     nothing the flat text could not already express. And it must account for every piece of
     text the flat parse produced, as either a step or a heading: a site specific scraper
     reads the instructions off the page rather than out of the structured data, and its text
     can differ from, or beat, what the page publishes as JSON-LD. That keeps the structured
     data a refinement of the same content, never a replacement of better content.
     """
+    if _only_adds_line_breaks(structured, flat):
+        return True
+
     headings = [step["title"] for step in structured if step.get("title")]
     headings += [step["summary"] for step in structured if step.get("summary")]
     if not headings:
@@ -88,6 +108,9 @@ class ABCScraperStrategy(ABC):
 
     url: str
     resolved_url: str | None
+
+    is_fallback: bool = False
+    """Fallback strategies accept any page, so they run only after a FlareSolverr retry has been tried."""
 
     def __init__(
         self,
@@ -125,14 +148,14 @@ class ABCScraperStrategy(ABC):
     @abstractmethod
     async def parse(
         self, on_progress: Callable[[str], Awaitable[None]] | None = None
-    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    ) -> tuple[RecipeDraft, ScrapedExtras] | tuple[None, None]:
         """Parse a recipe from a web URL.
 
         Args:
             recipe_url (str): Full URL of the recipe to scrape.
 
         Returns:
-            Recipe: Recipe object.
+            RecipeDraft: RecipeDraft object.
         """
         ...
 
@@ -152,7 +175,9 @@ class RecipeScraperPackage(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
         return self.raw_html or await safe_scrape_html(url)
 
-    def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
+    def clean_scraper(
+        self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str
+    ) -> tuple[RecipeDraft, ScrapedExtras]:
         def try_get_default(
             func_call: Callable | None,
             get_attr: str,
@@ -273,7 +298,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         extras.set_tags(try_get_default(scraped_data.keywords, "keywords", "", cleaner.clean_tags))
         extras.set_categories(try_get_default(scraped_data.category, "recipeCategory", "", cleaner.clean_categories))
 
-        recipe = Recipe(
+        recipe = RecipeDraft(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
             slug="",
             image=try_get_default(scraped_data.image, "image", None, cleaner.clean_image),
@@ -353,8 +378,11 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
     page's contents rather than trying to scrape it directly.
     """
 
+    is_fallback = True
+
     def can_scrape(self) -> bool:
-        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        group_id = self.repos.scoped_group_id
+        settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
         return bool(settings and settings.ai_enabled and (self.url or self.raw_html))
 
     async def get_html(self, url: str) -> str:
@@ -397,7 +425,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not self.url:
             return False
 
-        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        group_id = self.repos.scoped_group_id
+
+        settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
         if not (settings and settings.audio_provider_enabled):
             return False
 
@@ -410,7 +440,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     async def parse(
         self,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
-    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    ) -> tuple[RecipeDraft, ScrapedExtras] | tuple[None, None]:
         openai_service = OpenAIService(self.repos)
 
         with get_temporary_path() as temp_path:
@@ -453,7 +483,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not response:
             raise exceptions.OpenAIServiceError("OpenAI returned an empty response when extracting recipe")
 
-        recipe = Recipe(
+        recipe = RecipeDraft(
             name=response.name,
             slug="",
             description=response.description,
@@ -481,6 +511,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):
+    is_fallback = True
+
     def can_scrape(self) -> bool:
         return bool(self.url or self.raw_html)
 
@@ -543,4 +575,4 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         if og_data is None:
             return None
 
-        return Recipe(**og_data), ScrapedExtras()
+        return RecipeDraft(**og_data), ScrapedExtras()

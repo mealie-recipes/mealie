@@ -177,7 +177,9 @@
     "date-updated": "תאריך עדכון",
     "key": "מפתח",
     "value": "ערך",
-    "cant-create-permission": "לא ניתן ליצור. יש לפנות למנהל המערכת כדי לקבל הרשאה."
+    "cant-create-permission": "לא ניתן ליצור. יש לפנות למנהל המערכת כדי לקבל הרשאה.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "צור קבוצה",
@@ -238,6 +240,8 @@
       "api-key": "מפתח API",
       "api-key-description-create": "מפתח ה־API של הספק שלך לצורך אימות. אם השירות שלך (למשל Ollama) לא משתמש במפתח API, עדיין צריך להזין כאן משהו.",
       "api-key-description-edit": "יש להשאיר את השדה ריק, אלא אם רוצים לשנות את הערך.",
+      "api-key-description-base-url-changed": "כתובת הבסיס השתנתה, ולכן יש להזין את מפתח ה־API עבור הכתובת החדשה.",
+      "reenter-hidden-values": "כתובת הבסיס השתנתה, ולכן יש להזין מחדש כל ערך מוסתר (********) של כותרת ושל פרמטר עבור הכתובת החדשה.",
       "base-url": "כתובת בסיס",
       "base-url-description": "אם משתמשים ב־OpenAI, יש להשאיר את השדה ריק. נקודת הקצה חייבת להיות תואמת ל־OpenAI (למשל \"http://localhost:11434/v1\").",
       "model": "מודל",
@@ -282,6 +286,7 @@
       "prompt-save-failed": "שמירת ההנחיה נכשלה",
       "prompt-titles": {
         "recipes-build-recipe": "יצירת מתכון",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "פענוח מרכיבים",
         "recipes-parse-recipe-video": "מתכון מסרטון",
         "recipes-resolve-organizers": "שיוך מארגנים",
@@ -291,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "הופך חומר מקור מדף אינטרנט, מתמונה או מטקסט למתכון מובנה.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "משמש לפענוח מרכיבים באמצעות בינה מלאכותית, ומפריד כל מרכיב לכמות, יחידה, אוכל והערה.",
         "recipes-parse-recipe-video": "הופך את התמליל והכתוביות של סרטון למתכון.",
         "recipes-resolve-organizers": "בוחר תגיות, קטגוריות וכלים למתכון שיובא.",
@@ -330,6 +336,13 @@
     "any-category": "כל קטגוריה",
     "any-tag": "כל תגית",
     "any-household": "כל משק בית",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "מספר השבועות שיוצגו בעבר עם טעינת הדף",
     "numberOfWeeksPast-label": "מספר השבועות שכברירת מחדל יוצגו בעבר",
     "numberOfWeeks-hint": "מספר השבועות שיוצגו עם טעינת הדף, כולל השבוע הנוכחי",
@@ -473,6 +486,8 @@
     "an-error-occurred": "אירעה שגיאה"
   },
   "recipe": {
+    "download-pdf": "הורדת PDF",
+    "preparing-pdf": "הכנת PDF…",
     "step-duration-minutes": "משך (בדקות)",
     "step-duration-saved": "משך שמור: {duration}. עריכת השדה הזה תחליף אותו למספר שלם של דקות.",
     "step-duration-placeholder": "דקות",
@@ -509,6 +524,7 @@
     "nutrition": "תזונה",
     "linked-ingredients": "מרכיבים מקושרים",
     "original-url": "כתובת מקורית",
+    "per-serving": "Per serving",
     "perform-time": "זמן בישול",
     "prep-time": "זמן הכנה",
     "protein-content": "חלבון",
@@ -524,6 +540,8 @@
     "remove-from-favorites": "הסר מהמועדפים",
     "saturated-fat-content": "שומן רווי",
     "save-recipe-before-use": "שמירת מתכון לפני שימוש",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "כותרת המקטע",
     "servings": "מנות",
     "serves-amount": "מנות {amount}",
@@ -865,6 +883,7 @@
     "new-list-name": "שם הרשימה",
     "failed-to-create-shopping-list": "יצירת רשימת הקניות נכשלה",
     "item-checked-off": "הפריט {item} סומן כנקנה",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "אפשרויות נוספות",
     "fewer-options": "פחות אפשרויות",
     "save-as-new-food": "שמירת \"{text}\" כאוכל חדש"
@@ -970,6 +989,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? ניתן לשנות את המייל שלך בהגדרות המשתמש!",
     "forgot-password": "שכחתי סיסמא",
     "forgot-password-text": "נא לספק כתובת דוא\"ל. אנו נשלח לך הודעת דוא\"ל לצורך איפוס הסיסמה שלך.",
+    "reset-link-invalid": "פג התוקף של קישור איפוס הסיסמה או שהוא אינו תקף. יש לבקש קישור חדש.",
     "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית.",
     "default-activity": "פעילות ברירת מחדל",
     "default-activity-hint": "בחר את עמוד ברירת המחדל בשביל המכשיר הזה"

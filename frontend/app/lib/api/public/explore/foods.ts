@@ -1,5 +1,5 @@
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
-import { IngredientFood } from "~/lib/api/types/recipe";
+import { IngredientFoodOut } from "~/lib/api/types/recipe";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 const prefix = "/api";
@@ -10,7 +10,7 @@ const routes = {
     foodsGroupSlugFoodId: (groupSlug: string | number, foodId: string | number) => `${exploreGroupSlug(groupSlug)}/foods/${foodId}`,
 };
 
-export class PublicFoodsApi extends BaseCRUDAPIReadOnly<IngredientFood> {
+export class PublicFoodsApi extends BaseCRUDAPIReadOnly<IngredientFoodOut> {
     constructor(requests: ApiRequestInstance, groupSlug: string) {
         super(
             requests,

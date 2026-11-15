@@ -10,6 +10,7 @@ from mealie.core.root_logger import get_logger
 from mealie.db.models.household.cookbook import CookBook
 from mealie.db.models.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 from mealie.schema.response.pagination import PaginationBase
 from mealie.services.query_filter.builder import QueryFilterBuilder, QueryFilterJSON
 
@@ -22,7 +23,7 @@ class CookbookHousehold(MealieModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-class CreateCookBook(MealieModel):
+class CookBookCreate(MealieModel):
     name: str
     description: str = ""
     slug: Annotated[str | None, Field(validate_default=True)] = None
@@ -31,11 +32,11 @@ class CreateCookBook(MealieModel):
     query_filter_string: str = ""
 
     @field_validator("public", mode="before")
-    def validate_public(public: bool | None) -> bool:
+    def validate_public(cls, public: bool | None) -> bool:
         return False if public is None else public
 
     @field_validator("name")
-    def validate_name(name: str) -> str:
+    def validate_name(cls, name: str) -> str:
         name = name.strip()
 
         # we calculate the slug later leveraging the database,
@@ -47,7 +48,7 @@ class CreateCookBook(MealieModel):
         return name
 
     @field_validator("query_filter_string")
-    def validate_query_filter_string(value: str) -> str:
+    def validate_query_filter_string(cls, value: str) -> str:
         # The query filter builder does additional validations while building the
         # database query, so we make sure constructing the query is successful
         builder = QueryFilterBuilder(value)
@@ -60,23 +61,23 @@ class CreateCookBook(MealieModel):
         return value
 
 
-class SaveCookBook(CreateCookBook):
+class CookBookSave(CookBookCreate):
     group_id: UUID4
     household_id: UUID4
 
 
-class UpdateCookBook(SaveCookBook):
+class CookBookUpdate(CookBookSave):
     id: UUID4
 
 
-class ReadCookBook(UpdateCookBook):
+class CookBookOut(CookBookUpdate, MealieOutModel):
     query_filter: Annotated[QueryFilterJSON, Field(validate_default=True)] = None  # type: ignore
     household: CookbookHousehold | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
     @field_validator("query_filter_string")
-    def validate_query_filter_string(value: str) -> str:
+    def validate_query_filter_string(cls, value: str) -> str:
         # Skip validation since we are not updating the query filter string
         return value
 
@@ -96,4 +97,4 @@ class ReadCookBook(UpdateCookBook):
 
 
 class CookBookPagination(PaginationBase):
-    items: list[ReadCookBook]
+    items: list[CookBookOut]

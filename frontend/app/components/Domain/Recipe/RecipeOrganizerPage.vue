@@ -123,7 +123,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends { id: string; name: string; slug: string; onHand?: boolean }">
 import Fuse from "fuse.js";
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
@@ -131,21 +131,14 @@ import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import { useRouteQuery } from "~/composables/use-router";
 import { deepCopy } from "~/composables/use-utils";
 
-interface GenericItem {
-  id: string;
-  name: string;
-  slug: string;
-  onHand: boolean;
-}
-
 const props = defineProps<{
-  items: GenericItem[];
+  items: T[];
   icon: string;
   itemType: RecipeOrganizer;
 }>();
 
 const emit = defineEmits<{
-  update: [item: GenericItem];
+  update: [item: T];
   delete: [id: string];
 }>();
 
@@ -190,10 +183,10 @@ const translationKey = computed<string>(() => {
   return typeMap[props.itemType] || "";
 });
 
-const deleteTarget = ref<GenericItem | null>(null);
-const updateTarget = ref<GenericItem | null>(null);
+const deleteTarget = shallowRef<T | null>(null);
+const updateTarget = ref<T | null>(null) as Ref<T | null>;
 
-function confirmDelete(item: GenericItem) {
+function confirmDelete(item: T) {
   deleteTarget.value = item;
   dialogs.value.delete = true;
 }
@@ -206,7 +199,7 @@ function deleteOne() {
   emit("delete", deleteTarget.value.id);
 }
 
-function openUpdateDialog(item: GenericItem) {
+function openUpdateDialog(item: T) {
   updateTarget.value = deepCopy(item);
   dialogs.value.update = true;
 }
@@ -228,7 +221,7 @@ const fuse = computed(() => {
   return new Fuse(props.items, state.options);
 });
 
-const fuzzyItems = computed<GenericItem[]>(() => {
+const fuzzyItems = computed<T[]>(() => {
   if (searchString.value.trim() === "") {
     return props.items;
   }
@@ -240,7 +233,7 @@ const fuzzyItems = computed<GenericItem[]>(() => {
 // Sorted Items
 
 const itemsSorted = computed(() => {
-  const byLetter: { [key: string]: Array<GenericItem> } = {};
+  const byLetter: { [key: string]: Array<T> } = {};
 
   if (!fuzzyItems.value) {
     return byLetter;

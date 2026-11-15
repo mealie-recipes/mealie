@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import type { CreateUserRegistration } from "~/lib/api/types/user";
+import type { UserRegistrationCreate } from "~/lib/api/types/user";
 
 const prefix = "/api";
 
@@ -8,7 +8,7 @@ const routes = {
 };
 
 export class RegisterAPI extends BaseAPI {
-  async register(payload: CreateUserRegistration) {
+  async register(payload: UserRegistrationCreate) {
     return await this.requests.post<any>(routes.register, payload);
   }
 }

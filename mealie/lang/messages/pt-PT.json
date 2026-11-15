@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Imagem da receita eliminada",
         "recipe-defaults": {
-            "ingredient-note": "1 Chávena de Farinha",
-            "name": "New Recipe",
-            "step-text": "Os passos da receita, bem como outros campos na página da receita, suportam a sintaxe markdown.\n\n**Adicionar um link**\n\n[Meu link](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "Faz",
@@ -27,6 +25,16 @@
             "yields": "Rendimentos"
         },
         "and-amount": "e {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "Serviços IA não estão ativados",
             "ai-request-failed": "O fornecedor de IA não conseguiu concluir o pedido. Tente novamente",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "A criar receita a partir de dados da página web...",
             "downloading-image": "A transferir imagem...",
             "downloading-video": "A transferir vídeo...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "A extrair dados da receita...",
             "fetching-webpage": "A pesquisar página web...",
             "organizing-recipe": "A organizar receita...",

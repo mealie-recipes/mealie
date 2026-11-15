@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
 import { useRecipeOnHandFoods } from "../use-recipe-on-hand-foods";
-import type { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { RecipeIngredient, RecipeOut } from "~/lib/api/types/recipe";
 
 const mocks = vi.hoisted(() => ({
   removeFoodsOnHand: vi.fn(),
@@ -19,12 +19,12 @@ function ingredient(id: string, name: string, households: string[]): RecipeIngre
   return { food: { id, name, householdsWithIngredientFood: households } };
 }
 
-function recipeWith(recipeIngredient: RecipeIngredient[]): Recipe {
-  return { id: "recipe-id", recipeIngredient };
+function recipeWith(recipeIngredient: RecipeIngredient[]): RecipeOut {
+  return { id: "recipe-id", recipeIngredient } as RecipeOut;
 }
 
 describe("useRecipeOnHandFoods", () => {
-  const recipe = ref<Recipe>(recipeWith([]));
+  const recipe = ref<RecipeOut>(recipeWith([]));
   const householdSlug = ref<string | undefined>(HOUSEHOLD);
 
   beforeEach(() => {

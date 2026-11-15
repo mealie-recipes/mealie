@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from pydantic import UUID4
 
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -20,7 +20,7 @@ def unique_recipe(api_client: TestClient, unique_user: TestUser):
     response_data = response.json()
     recipe_response = api_client.get(api_routes.recipes_slug(response_data), headers=unique_user.token)
 
-    return Recipe(**recipe_response.json())
+    return RecipeDraft(**recipe_response.json())
 
 
 def random_comment(recipe_id: UUID4) -> dict:
@@ -32,7 +32,7 @@ def random_comment(recipe_id: UUID4) -> dict:
     }
 
 
-def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
+def test_create_comment(api_client: TestClient, unique_recipe: RecipeOut, unique_user: TestUser):
     # Create Comment
     create_data = random_comment(unique_recipe.id)
     response = api_client.post(api_routes.comments, json=create_data, headers=unique_user.token)
@@ -57,7 +57,18 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
     assert response_data[0]["userId"] == str(unique_user.user_id)
 
 
-def test_update_comment(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
+def test_create_comment_on_recipe_in_other_group(
+    api_client: TestClient, unique_recipe: RecipeOut, unique_user: TestUser, g2_user: TestUser
+):
+    response = api_client.post(api_routes.comments, json=random_comment(unique_recipe.id), headers=g2_user.token)
+    assert response.status_code == 404
+
+    response = api_client.get(api_routes.recipes_slug_comments(unique_recipe.slug), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json() == []
+
+
+def test_update_comment(api_client: TestClient, unique_recipe: RecipeOut, unique_user: TestUser):
     # Create Comment
     create_data = random_comment(unique_recipe.id)
     response = api_client.post(api_routes.comments, json=create_data, headers=unique_user.token)
@@ -80,7 +91,7 @@ def test_update_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
     assert response_data["userId"] == str(unique_user.user_id)
 
 
-def test_delete_comment(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
+def test_delete_comment(api_client: TestClient, unique_recipe: RecipeOut, unique_user: TestUser):
     # Create Comment
     create_data = random_comment(unique_recipe.id)
     response = api_client.post(api_routes.comments, json=create_data, headers=unique_user.token)
@@ -100,7 +111,7 @@ def test_delete_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
 def test_admin_can_delete(
     unfiltered_database: AllRepositories,
     api_client: TestClient,
-    unique_recipe: Recipe,
+    unique_recipe: RecipeOut,
     unique_user: TestUser,
     admin_user: TestUser,
 ):
@@ -127,7 +138,7 @@ def test_admin_can_delete(
     assert response.status_code == 404
 
 
-def test_user_can_comment_on_other_household(api_client: TestClient, unique_recipe: Recipe, h2_user: TestUser):
+def test_user_can_comment_on_other_household(api_client: TestClient, unique_recipe: RecipeOut, h2_user: TestUser):
     # Create Comment
     create_data = random_comment(unique_recipe.id)
     response = api_client.post(api_routes.comments, json=create_data, headers=h2_user.token)
@@ -146,14 +157,14 @@ def test_user_can_comment_on_other_household(api_client: TestClient, unique_reci
 
 @pytest.mark.parametrize("text", ["", "   ", "\n\t  \n"])
 def test_whitespace_only_comment_rejected(
-    api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser, text: str
+    api_client: TestClient, unique_recipe: RecipeOut, unique_user: TestUser, text: str
 ):
     create_data = {"recipeId": str(unique_recipe.id), "text": text}
     response = api_client.post(api_routes.comments, json=create_data, headers=unique_user.token)
     assert response.status_code == 422
 
 
-def test_comment_text_is_trimmed(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
+def test_comment_text_is_trimmed(api_client: TestClient, unique_recipe: RecipeOut, unique_user: TestUser):
     create_data = {"recipeId": str(unique_recipe.id), "text": "  hello  "}
     response = api_client.post(api_routes.comments, json=create_data, headers=unique_user.token)
     assert response.status_code == 201

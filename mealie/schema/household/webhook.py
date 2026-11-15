@@ -6,6 +6,7 @@ from pydantic import UUID4, ConfigDict, field_validator
 
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.datetime_parse import parse_datetime
+from mealie.schema._mealie.mealie_model import MealieOutModel
 from mealie.schema.response.pagination import PaginationBase
 
 
@@ -13,7 +14,7 @@ class WebhookType(enum.StrEnum):
     mealplan = "mealplan"
 
 
-class CreateWebhook(MealieModel):
+class WebhookCreate(MealieModel):
     enabled: bool = True
     name: str = ""
     url: str = ""
@@ -48,15 +49,15 @@ class CreateWebhook(MealieModel):
         raise ValueError(f"Invalid scheduled time: {v}")
 
 
-class SaveWebhook(CreateWebhook):
+class WebhookSave(WebhookCreate):
     group_id: UUID4
     household_id: UUID4
 
 
-class ReadWebhook(SaveWebhook):
+class WebhookOut(WebhookSave, MealieOutModel):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)
 
 
 class WebhookPagination(PaginationBase):
-    items: list[ReadWebhook]
+    items: list[WebhookOut]

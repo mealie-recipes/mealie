@@ -22,6 +22,7 @@ vi.mock("../sub-composables/use-shopping-list-sorting", () => ({
 }));
 
 const data = {
+  shoppingListItemActions: { hasFailedWrites: ref(false) },
   refresh: vi.fn().mockImplementation(fn => fn()),
   startPolling: vi.fn(),
   stopPolling: vi.fn(),

@@ -7,7 +7,10 @@
     @parse="parseIngredients"
   />
   <v-card-text v-if="currentIng" class="pb-0 mb-0 d-flex flex-column ga-2">
-    <div class="text-center px-8 py-4 mb-6 bg-background-darken-1 rounded-pill">
+    <div
+      class="text-center px-8 py-4 mb-6 rounded-pill"
+      :class="$vuetify.theme.current.dark ? 'bg-background-lighten-1' : 'bg-background-darken-1'"
+    >
       <p class="text-h5 font-italic">
         {{ currentIng.input }}
       </p>

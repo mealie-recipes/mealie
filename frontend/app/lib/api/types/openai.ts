@@ -21,6 +21,17 @@ export interface OpenAIIngredient {
 export interface OpenAIIngredients {
   ingredients?: OpenAIIngredient[];
 }
+export interface OpenAIInstructionEnrichment {
+  step: number;
+  ingredients?: number[];
+  notes?: number[];
+  duration?: string | null;
+  summary?: string | null;
+  text?: string | null;
+}
+export interface OpenAIInstructionEnrichments {
+  instructions?: OpenAIInstructionEnrichment[];
+}
 export interface OpenAIOrganizers {
   tags?: string[];
   categories?: string[];

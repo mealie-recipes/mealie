@@ -1,14 +1,14 @@
 import { BaseCRUDAPI } from "../base/base-clients";
 import type { PaginationData } from "../types/non-generated";
 import type { QueryValue } from "../base/route";
-import type { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
+import type { GroupBase, GroupOut, GroupSummary, UserSummary } from "~/lib/api/types/user";
 import type {
   AIProviderSettingsUpdate,
   AIProviderSettingsOut,
   GroupAdminUpdate,
   GroupStorage,
-  ReadGroupPreferences,
-  UpdateGroupPreferences,
+  GroupPreferencesOut,
+  GroupPreferencesUpdate,
 } from "~/lib/api/types/group";
 
 const prefix = "/api";
@@ -23,7 +23,7 @@ const routes = {
   groupsId: (id: string | number) => `${prefix}/admin/groups/${id}`,
 };
 
-export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate> {
+export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupOut, GroupAdminUpdate> {
   baseRoute = routes.groups;
   itemRoute = routes.groupsId;
   /** Returns the Group Data for the Current User
@@ -32,9 +32,9 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
     return await this.requests.get<GroupSummary>(routes.groupsSelf);
   }
 
-  async setPreferences(payload: UpdateGroupPreferences) {
+  async setPreferences(payload: GroupPreferencesUpdate) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
-    return await this.requests.put<ReadGroupPreferences, UpdateGroupPreferences>(routes.preferences, payload);
+    return await this.requests.put<GroupPreferencesOut, GroupPreferencesUpdate>(routes.preferences, payload);
   }
 
   async setAIProviderSettings(payload: AIProviderSettingsUpdate) {

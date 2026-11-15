@@ -1,5 +1,5 @@
 /* tslint:disable */
-
+/* eslint-disable */
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -17,20 +17,6 @@ export interface CreateToken {
   integrationId?: string;
   userId: string;
   token: string;
-}
-export interface CreateUserRegistration {
-  group?: string | null;
-  household?: string | null;
-  groupToken?: string | null;
-  email: string;
-  username: string;
-  fullName: string;
-  password: string;
-  passwordConfirm: string;
-  advanced?: boolean;
-  private?: boolean;
-  seedData?: boolean;
-  locale?: string;
 }
 export interface CredentialsRequest {
   username: string;
@@ -50,28 +36,29 @@ export interface GroupHouseholdSummary {
   id: string;
   name: string;
 }
-export interface GroupInDB {
+export interface GroupOut {
   name: string;
   id: string;
   slug: string;
-  categories?: CategoryBase[] | null;
-  webhooks?: ReadWebhook[];
-  households?: GroupHouseholdSummary[] | null;
-  users?: UserSummary[] | null;
-  preferences?: ReadGroupPreferences | null;
-  aiProviderSettings?: AIProviderSettingsOut | null;
+  categories: CategoryOut[] | null;
+  webhooks: WebhookOut[];
+  households: GroupHouseholdSummary[] | null;
+  users: UserSummary[] | null;
+  preferences: GroupPreferencesOut | null;
+  aiProviderSettings: AIProviderSettingsOut | null;
 }
-export interface CategoryBase {
-  name: string;
+export interface CategoryOut {
   id: string;
-  groupId?: string | null;
+  groupId: string;
+  name: string;
   slug: string;
+  recipeCount: number;
 }
-export interface ReadWebhook {
-  enabled?: boolean;
-  name?: string;
-  url?: string;
-  webhookType?: WebhookType;
+export interface WebhookOut {
+  enabled: boolean;
+  name: string;
+  url: string;
+  webhookType: WebhookType;
   scheduledTime: string;
   groupId: string;
   householdId: string;
@@ -84,9 +71,9 @@ export interface UserSummary {
   username: string;
   fullName: string;
 }
-export interface ReadGroupPreferences {
-  privateGroup?: boolean;
-  showAnnouncements?: boolean;
+export interface GroupPreferencesOut {
+  privateGroup: boolean;
+  showAnnouncements: boolean;
   groupId: string;
   id: string;
 }
@@ -107,13 +94,27 @@ export interface GroupSummary {
   name: string;
   id: string;
   slug: string;
-  preferences?: ReadGroupPreferences | null;
-  aiProviderSettings?: AIProviderSettingsOut | null;
+  preferences: GroupPreferencesOut | null;
+  aiProviderSettings: AIProviderSettingsOut | null;
+}
+export interface GroupUpdate {
+  name: string;
+  id: string;
+  slug: string;
+  categories?: CategoryOut[] | null;
+  webhooks?: WebhookCreate[];
+}
+export interface WebhookCreate {
+  enabled?: boolean;
+  name?: string;
+  url?: string;
+  webhookType?: WebhookType;
+  scheduledTime: string;
 }
 export interface LongLiveTokenCreateResponse {
   name: string;
   id: number;
-  createdAt?: string | null;
+  createdAt: string | null;
   token: string;
 }
 export interface LongLiveTokenIn {
@@ -130,36 +131,36 @@ export interface LongLiveTokenInDB {
 }
 export interface PrivateUser {
   id: string;
-  username?: string | null;
-  fullName?: string | null;
+  username: string | null;
+  fullName: string | null;
   email: string;
-  authMethod?: AuthMethod;
-  admin?: boolean;
+  authMethod: AuthMethod;
+  admin: boolean;
   group: string;
   household: string;
-  advanced?: boolean;
-  showAnnouncements?: boolean;
-  lastReadAnnouncement?: string | null;
-  canInvite?: boolean;
-  canManage?: boolean;
-  canManageHousehold?: boolean;
-  canOrganize?: boolean;
+  advanced: boolean;
+  showAnnouncements: boolean;
+  lastReadAnnouncement: string | null;
+  canInvite: boolean;
+  canManage: boolean;
+  canManageHousehold: boolean;
+  canOrganize: boolean;
   groupId: string;
   groupSlug: string;
   householdId: string;
   householdSlug: string;
-  tokens?: LongLiveTokenOut[] | null;
+  tokens: LongLiveTokenOut[] | null;
   cacheKey: string;
   password: string;
-  loginAttemps?: number;
-  lockedAt?: string | null;
-  tokensValidAfter?: string | null;
-  externalAvatarHash?: string | null;
+  loginAttemps: number;
+  lockedAt: string | null;
+  tokensValidAfter: string | null;
+  externalAvatarHash: string | null;
 }
 export interface LongLiveTokenOut {
   name: string;
   id: number;
-  createdAt?: string | null;
+  createdAt: string | null;
 }
 export interface NativeOIDCTokenRequest {
   code: string;
@@ -175,6 +176,10 @@ export interface OIDCNativeConfig {
 export interface PasswordResetToken {
   token: string;
 }
+export interface PasswordResetTokenSave {
+  userId: string;
+  token: string;
+}
 export interface PrivatePasswordResetToken {
   userId: string;
   token: string;
@@ -186,10 +191,6 @@ export interface ResetPassword {
   password: string;
   passwordConfirm: string;
 }
-export interface SavePasswordResetToken {
-  userId: string;
-  token: string;
-}
 export interface Token {
   access_token: string;
   token_type: string;
@@ -200,20 +201,6 @@ export interface TokenData {
 }
 export interface UnlockResults {
   unlocked?: number;
-}
-export interface UpdateGroup {
-  name: string;
-  id: string;
-  slug: string;
-  categories?: CategoryBase[] | null;
-  webhooks?: CreateWebhook[];
-}
-export interface CreateWebhook {
-  enabled?: boolean;
-  name?: string;
-  url?: string;
-  webhookType?: WebhookType;
-  scheduledTime: string;
 }
 export interface UserBase {
   id?: string | null;
@@ -252,49 +239,64 @@ export interface UserIn {
 }
 export interface UserOut {
   id: string;
-  username?: string | null;
-  fullName?: string | null;
+  username: string | null;
+  fullName: string | null;
   email: string;
-  authMethod?: AuthMethod;
-  admin?: boolean;
+  authMethod: AuthMethod;
+  admin: boolean;
   group: string;
   household: string;
-  advanced?: boolean;
-  showAnnouncements?: boolean;
-  lastReadAnnouncement?: string | null;
-  canInvite?: boolean;
-  canManage?: boolean;
-  canManageHousehold?: boolean;
-  canOrganize?: boolean;
+  advanced: boolean;
+  showAnnouncements: boolean;
+  lastReadAnnouncement: string | null;
+  canInvite: boolean;
+  canManage: boolean;
+  canManageHousehold: boolean;
+  canOrganize: boolean;
   groupId: string;
   groupSlug: string;
   householdId: string;
   householdSlug: string;
-  tokens?: LongLiveTokenOut[] | null;
+  tokens: LongLiveTokenOut[] | null;
   cacheKey: string;
-}
-export interface UserRatingCreate {
-  recipeId: string;
-  rating?: number | null;
-  isFavorite?: boolean;
-  userId: string;
 }
 export interface UserRatingOut {
   recipeId: string;
-  rating?: number | null;
-  isFavorite?: boolean;
+  rating: number | null;
+  isFavorite: boolean;
   userId: string;
   id: string;
 }
-export interface UserRatingSummary {
+export interface UserRatingSave {
   recipeId: string;
+  userId: string;
   rating?: number | null;
   isFavorite?: boolean;
+}
+export interface UserRatingSummary {
+  recipeId: string;
+  rating: number | null;
+  isFavorite: boolean;
 }
 export interface UserRatingUpdate {
   rating?: number | null;
   isFavorite?: boolean | null;
 }
+export interface UserRegistrationCreate {
+  group?: string | null;
+  household?: string | null;
+  groupToken?: string | null;
+  email: string;
+  username: string;
+  fullName: string;
+  password: string;
+  passwordConfirm: string;
+  advanced?: boolean;
+  private?: boolean;
+  seedData?: boolean;
+  locale?: string;
+}
 export interface ValidateResetToken {
   token: string;
 }
+export interface MealieOutModel {}

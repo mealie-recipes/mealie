@@ -1,14 +1,14 @@
 import { computed, ref, toValue } from "vue";
 import type { MaybeRefOrGetter } from "vue";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientFood, Recipe } from "~/lib/api/types/recipe";
+import type { IngredientFoodCreate, RecipeOut } from "~/lib/api/types/recipe";
 
 /**
  * Lists the foods in a recipe that a household has on hand, so after making the recipe
  * the user can pick the ones they used up and remove them from On Hand
  */
 export function useRecipeOnHandFoods(
-  recipe: MaybeRefOrGetter<Recipe>,
+  recipe: MaybeRefOrGetter<RecipeOut>,
   householdSlug: MaybeRefOrGetter<string | undefined>,
 ) {
   const userApi = useUserApi();
@@ -27,7 +27,7 @@ export function useRecipeOnHandFoods(
     // several ingredients can use the same food, so list each food once
     const foodNames = new Map<string, string>();
     for (const ingredient of toValue(recipe).recipeIngredient ?? []) {
-      const food: CreateIngredientFood | null | undefined = ingredient.food;
+      const food: IngredientFoodCreate | null | undefined = ingredient.food;
       if (
         food?.id
         && food.householdsWithIngredientFood?.includes(slug)

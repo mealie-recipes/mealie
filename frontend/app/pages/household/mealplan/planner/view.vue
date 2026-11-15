@@ -32,14 +32,14 @@
                         class="mb-2"
                       >
                         <RecipeCardMobile
-                          :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
+                          :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
                           :scale="mealplan.recipeScale ?? 1"
                           :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
-                          :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
+                          :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title!"
                           :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
-                          :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
+                          :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title!"
                           :image="mealplan.recipe ? mealplan.recipe.image! : undefined"
-                          :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
+                          :tags="mealplan.recipe ? mealplan.recipe.tags : []"
                           :context-menu-leading-items="[
                             {
                               title: $t('meal-plan.remove-from-plan'),
@@ -97,7 +97,7 @@ import MealPlanNoteMenu from "~/components/Domain/Mealplan/MealPlanNoteMenu.vue"
 import MealPlanScaleControl from "~/components/Domain/Mealplan/MealPlanScaleControl.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 import type { MealsByDate } from "~/composables/use-group-mealplan";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
 
 const props = defineProps<{
   mealplans: MealsByDate[];
@@ -106,11 +106,11 @@ const props = defineProps<{
 
 const dialog = reactive({
   open: false,
-  entry: null as ReadPlanEntry | null,
+  entry: null as PlanEntryOut | null,
   date: null as Date | null,
 });
 
-function editMeal(mealplan: ReadPlanEntry) {
+function editMeal(mealplan: PlanEntryOut) {
   if (!mealplan.entryType) return;
 
   dialog.entry = mealplan;
@@ -119,7 +119,7 @@ function editMeal(mealplan: ReadPlanEntry) {
 }
 
 /** Moves a week entry onto today, so it's treated like any other meal made today */
-function cookToday(mealplan: ReadPlanEntry) {
+function cookToday(mealplan: PlanEntryOut) {
   props.actions.updateOne({ ...mealplan, date: format(new Date(), "yyyy-MM-dd"), endDate: null });
 }
 </script>

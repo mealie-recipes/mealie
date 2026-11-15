@@ -35,7 +35,7 @@ const props = withDefaults(defineProps<Props>(), {
   small: false,
 });
 
-const groupRating = defineModel<number>({ default: 0 });
+const groupRating = defineModel<number | null>({ default: 0 });
 
 const { isOwnGroup } = useLoggedInState();
 const isReadonly = computed(() => props.readonly || !isOwnGroup.value);
@@ -66,7 +66,7 @@ const showGroupAverage = computed(() => {
 });
 
 const displayRating = computed(() => {
-  return showGroupAverage.value ? groupRating.value : (localUserRating.value || 0);
+  return showGroupAverage.value ? (groupRating.value ?? 0) : (localUserRating.value || 0);
 });
 
 async function updateRating(val?: number) {

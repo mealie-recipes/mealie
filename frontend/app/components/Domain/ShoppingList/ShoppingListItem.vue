@@ -164,7 +164,7 @@ import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
-import type { IngredientUnit, IngredientFood, RecipeSummary } from "~/lib/api/types/recipe";
+import type { IngredientUnitOut, IngredientFoodOut, RecipeSummary } from "~/lib/api/types/recipe";
 
 const model = defineModel<ShoppingListItemOut>({ type: Object as () => ShoppingListItemOut, required: true });
 
@@ -174,11 +174,11 @@ const props = defineProps({
     required: true,
   },
   units: {
-    type: Array as () => IngredientUnit[],
+    type: Array as () => IngredientUnitOut[],
     required: true,
   },
   foods: {
-    type: Array as () => IngredientFood[],
+    type: Array as () => IngredientFoodOut[],
     required: true,
   },
   recipes: {

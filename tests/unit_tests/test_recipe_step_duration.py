@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from mealie.db.models import _all_models  # noqa: F401 - register ORM relationships without DB startup
 from mealie.db.models.recipe.instruction import RecipeInstruction
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeDraft
 from mealie.schema.recipe.recipe_step import RecipeStep
 
 
@@ -35,10 +35,10 @@ def test_exact_duration_survives_model_and_recipe_json(seconds):
         mapped = RecipeInstruction(session=session, **step.model_dump())
         mapped.id = uuid4()
         restored = RecipeStep.model_validate(mapped)
-    recipe = Recipe(name="Duration fixture", recipeInstructions=[restored])
+    recipe = RecipeDraft(name="Duration fixture", recipeInstructions=[restored])
     payload = json.loads(recipe.model_dump_json(by_alias=True))
     assert payload["recipeInstructions"][0]["durationSeconds"] == seconds
-    assert Recipe.model_validate(payload).recipe_instructions[0].duration_seconds == seconds
+    assert RecipeDraft.model_validate(payload).recipe_instructions[0].duration_seconds == seconds
 
 
 @pytest.mark.parametrize("number", ["1", "1.0", "1e0", "2147483647.0"])
@@ -114,7 +114,7 @@ def test_additive_migration_sql_without_database(dialect):
 def test_raw_json_export_preserves_exact_duration(tmp_path):
     from mealie.services.recipe.template_service import TemplateService
 
-    recipe = Recipe(name="Timed steps", recipeInstructions=[{"text": "Rest", "durationSeconds": 3661}])
+    recipe = RecipeDraft(name="Timed steps", recipeInstructions=[{"text": "Rest", "durationSeconds": 3661}])
     path = TemplateService(temp=tmp_path).render(recipe, "raw")
     payload = json.loads(path.read_text())
     assert payload["recipeInstructions"][0]["durationSeconds"] == 3661

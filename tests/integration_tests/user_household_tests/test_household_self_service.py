@@ -5,8 +5,8 @@ from dateutil.parser import parse as parse_dt
 from fastapi.testclient import TestClient
 
 from mealie.db.models.household import HouseholdToRecipe
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, SaveIngredientFood
+from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut, IngredientFoodSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -34,7 +34,7 @@ def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser
 
 def test_get_household_recipe_default(api_client: TestClient, unique_user: TestUser):
     recipe = unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),
             name=random_string(),
@@ -49,7 +49,7 @@ def test_get_household_recipe_default(api_client: TestClient, unique_user: TestU
 def test_get_household_recipe(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     dt_now = datetime.now(tz=UTC)
     recipe = unique_user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),
             name=random_string(),
@@ -100,7 +100,7 @@ def test_get_household_statistics(api_client: TestClient, unique_user: TestUser,
     h2_before = get_statistics(h2_user)
 
     unique_user.repos.recipes.create(
-        Recipe(user_id=unique_user.user_id, group_id=UUID(unique_user.group_id), name=random_string())
+        RecipeDraft(user_id=unique_user.user_id, group_id=UUID(unique_user.group_id), name=random_string())
     )
 
     after = get_statistics(unique_user)
@@ -109,8 +109,8 @@ def test_get_household_statistics(api_client: TestClient, unique_user: TestUser,
     assert h2_after["totalRecipes"] == h2_before["totalRecipes"]
 
 
-def _create_food(user: TestUser) -> IngredientFood:
-    return user.repos.ingredient_foods.create(SaveIngredientFood(name=random_string(), group_id=user.group_id))
+def _create_food(user: TestUser) -> IngredientFoodOut:
+    return user.repos.ingredient_foods.create(IngredientFoodSave(name=random_string(), group_id=user.group_id))
 
 
 def _household_slug(api_client: TestClient, user: TestUser) -> str:
@@ -119,7 +119,7 @@ def _household_slug(api_client: TestClient, user: TestUser) -> str:
     return response.json()["slug"]
 
 
-def _households_with_food(api_client: TestClient, user: TestUser, food: IngredientFood) -> list[str]:
+def _households_with_food(api_client: TestClient, user: TestUser, food: IngredientFoodOut) -> list[str]:
     response = api_client.get(api_routes.foods_item_id(food.id), headers=user.token)
     assert response.status_code == 200
     return response.json()["householdsWithIngredientFood"]
@@ -190,7 +190,7 @@ def test_add_foods_on_hand_empty_list(api_client: TestClient, unique_user: TestU
     assert response.status_code == 200
 
 
-def _add_on_hand(api_client: TestClient, user: TestUser, foods: list[IngredientFood]) -> None:
+def _add_on_hand(api_client: TestClient, user: TestUser, foods: list[IngredientFoodOut]) -> None:
     response = api_client.post(
         api_routes.households_self_foods_on_hand, json=[str(food.id) for food in foods], headers=user.token
     )
