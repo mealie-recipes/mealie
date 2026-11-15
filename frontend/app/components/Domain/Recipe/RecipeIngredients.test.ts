@@ -1,6 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { nextTick } from "vue";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 import RecipeIngredients from "./RecipeIngredients.vue";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
@@ -75,5 +78,24 @@ describe("RecipeIngredients", () => {
 
     expect(secondWrapper.findAll(".checkbox")[0].attributes("aria-pressed")).toBe("false");
     expect(secondWrapper.findAll(".checkbox")[1].attributes("aria-pressed")).toBe("true");
+  });
+
+  test("gives each ingredient checkbox the ingredient text as its accessible name", () => {
+    const wrapper = mount(RecipeIngredients, {
+      props: {
+        value: [
+          { quantity: 1, unit: { id: "unit-1", name: "cup", pluralName: "cups" }, food: { id: "food-3", name: "flour" } },
+          { quantity: 0, note: "salt to taste" },
+        ],
+        scale: 2,
+      },
+      global: {
+        plugins: [createVuetify({ components, directives })],
+        stubs: { AppButtonCopy: true, RecipeIngredientListItem: true },
+      },
+    });
+
+    const labels = wrapper.findAll("input[type='checkbox']").map(input => input.attributes("aria-label"));
+    expect(labels).toEqual(["2 cups flour", "salt to taste"]);
   });
 });
