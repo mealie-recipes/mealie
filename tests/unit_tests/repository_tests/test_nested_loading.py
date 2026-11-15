@@ -114,3 +114,17 @@ def test_mealplan_query_count_does_not_grow_with_recipes(unique_user: TestUser):
     few = count_statements(unique_user, load_plans)
     add_plans(6)
     assert count_statements(unique_user, load_plans) == few
+
+
+def test_create_many_query_count_does_not_grow_with_rows(unique_user: TestUser):
+    repos = unique_user.repos
+
+    def create_foods(n: int):
+        foods = repos.ingredient_foods.create_many(
+            [IngredientFoodSave(name=random_string(), group_id=unique_user.group_id) for _ in range(n)]
+        )
+        assert len(foods) == n
+        assert all(food.id and food.created_at for food in foods)
+
+    few = count_statements(unique_user, lambda: create_foods(2))
+    assert count_statements(unique_user, lambda: create_foods(8)) == few
