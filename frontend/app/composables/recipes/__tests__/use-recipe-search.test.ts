@@ -63,7 +63,8 @@ describe("useRecipeSearch", () => {
       // The older response must not replace the newer results.
       expect(searchState.data.value).toEqual([pastaRecipe]);
       expect(searchState.loading.value).toBe(false);
-    } finally {
+    }
+    finally {
       scope.stop();
     }
   });
@@ -110,7 +111,8 @@ describe("useRecipeSearch", () => {
 
       expect(searchState.data.value).toEqual([pastaRecipe]);
       expect(searchState.loading.value).toBe(false);
-    } finally {
+    }
+    finally {
       scope.stop();
     }
   });
