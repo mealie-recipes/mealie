@@ -138,11 +138,15 @@ def test_ai_organizers_replace_the_pages_own(
     assert [tag["name"] for tag in recipe["tags"]] == [tag_name.title()]
 
 
+@pytest.mark.parametrize("organizers", [None, OpenAIOrganizers()], ids=["no-response", "empty-lists"])
 def test_pages_organizers_are_kept_when_ai_returns_none(
-    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    organizers: OpenAIOrganizers | None,
 ):
     set_enrichment(unique_user, enabled=True)
-    mock_ai(monkeypatch, organizers=None)
+    mock_ai(monkeypatch, organizers=organizers)
 
     recipe = import_recipe(api_client, unique_user, schema_recipe(random_string(), keywords="page-tag"), True)
 

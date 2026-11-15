@@ -207,6 +207,10 @@ class RecipeScraper:
             self.logger.exception("Failed to enrich scraped recipe, keeping it as scraped")
             return
 
-        if ctx.organizer_names:
-            extras.set_tags(cleaner.clean_tags(ctx.organizer_names.tags))
-            extras.set_categories(cleaner.clean_categories(ctx.organizer_names.categories))
+        if not ctx.organizer_names:
+            return
+
+        if tags := cleaner.clean_tags(ctx.organizer_names.tags):
+            extras.set_tags(tags)
+        if categories := cleaner.clean_categories(ctx.organizer_names.categories):
+            extras.set_categories(categories)
