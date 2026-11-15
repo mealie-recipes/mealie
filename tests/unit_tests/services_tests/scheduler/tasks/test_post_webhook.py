@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pydantic import UUID4
 
-from mealie.schema.household.webhook import SaveWebhook, WebhookType
+from mealie.schema.household.webhook import WebhookSave, WebhookType
 from mealie.services.event_bus_service.event_bus_listeners import WebhookEventListener
 from mealie.services.event_bus_service.event_types import (
     Event,
@@ -25,8 +25,8 @@ def webhook_factory(
     url: str = "",
     scheduled_time: datetime | None = None,
     webhook_type: str = WebhookType.mealplan,
-) -> SaveWebhook:
-    return SaveWebhook(
+) -> WebhookSave:
+    return WebhookSave(
         enabled=enabled,
         name=name or random_string(),
         url=url or random_string(),
@@ -43,7 +43,7 @@ def test_get_scheduled_webhooks_filter_query(unique_user: TestUser):
     """
 
     database = unique_user.repos
-    expected: list[SaveWebhook] = []
+    expected: list[WebhookSave] = []
 
     start = datetime.now(UTC)
 
@@ -87,7 +87,7 @@ def test_get_scheduled_webhooks_filter_query_spanning_midnight(unique_user_fn_sc
     unique_user = unique_user_fn_scoped
     database = unique_user.repos
 
-    def webhook_at(hour: int, minute: int) -> SaveWebhook:
+    def webhook_at(hour: int, minute: int) -> WebhookSave:
         return webhook_factory(
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,

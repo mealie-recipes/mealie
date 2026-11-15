@@ -177,7 +177,9 @@
     "date-updated": "Дата обновления",
     "key": "Ключ",
     "value": "Значение",
-    "cant-create-permission": "Не удается создать. Пожалуйста, обратитесь к администратору для получения разрешения."
+    "cant-create-permission": "Не удается создать. Пожалуйста, обратитесь к администратору для получения разрешения.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Создать группу",
@@ -238,6 +240,8 @@
       "api-key": "API ключ",
       "api-key-description-create": "API ключ вашего провайдера для аутентификации. Если ваш сервис (например, Ollama) не использует API ключ, вам всё равно нужно что-то написать здесь.",
       "api-key-description-edit": "Оставьте поле пустым, если вы не хотите изменить его.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Базовый URL",
       "base-url-description": "Если вы используете OpenAI, оставьте это поле пустым. Должно быть OpenAI-совместимым (например \"http://localhost:11434/v1\").",
       "model": "Модель",
@@ -282,6 +286,7 @@
       "prompt-save-failed": "Не удалось сохранить промпт",
       "prompt-titles": {
         "recipes-build-recipe": "Создание рецепта",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Разбор ингредиентов",
         "recipes-parse-recipe-video": "Рецепт из видео",
         "recipes-resolve-organizers": "Подбор тегов, категорий и инструментов",
@@ -291,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Превращает исходный материал, считанный с веб-страницы, фото или текста, в структурированный рецепт.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Используется при разборе ингредиентов с помощью ИИ, чтобы выделить в каждом ингредиенте количество, единицу измерения, продукт и примечание.",
         "recipes-parse-recipe-video": "Превращает расшифровку и описание видео в рецепт.",
         "recipes-resolve-organizers": "Подбирает теги, категории и инструменты для импортируемого рецепта.",
@@ -330,6 +336,13 @@
     "any-category": "Любая категория",
     "any-tag": "Любая метка",
     "any-household": "Любое домохозяйство",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Количество прошедших недель, показываемых при загрузке страницы",
     "numberOfWeeksPast-label": "Недель назад по умолчанию",
     "numberOfWeeks-hint": "Количество недель при загрузке страницы, включая текущую",
@@ -473,6 +486,8 @@
     "an-error-occurred": "Произошла ошибка"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Длительность (мин)",
     "step-duration-saved": "Сохранённая длительность: {duration}. При редактировании этого поля она заменится целым числом минут.",
     "step-duration-placeholder": "Минуты",
@@ -509,6 +524,7 @@
     "nutrition": "Пищевая ценность",
     "linked-ingredients": "Связанные ингредиенты",
     "original-url": "Исходный URL",
+    "per-serving": "Per serving",
     "perform-time": "Время приготовления",
     "prep-time": "Время подготовки",
     "protein-content": "Белки",
@@ -524,6 +540,8 @@
     "remove-from-favorites": "Убрать из избранного",
     "saturated-fat-content": "Насыщенные жиры",
     "save-recipe-before-use": "Сохранить рецепт перед использованием",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Название раздела",
     "servings": "Порций",
     "serves-amount": "Порции {amount}",
@@ -865,6 +883,7 @@
     "new-list-name": "Название списка",
     "failed-to-create-shopping-list": "Не удалось создать список покупок",
     "item-checked-off": "Выключено {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "Больше параметров",
     "fewer-options": "Меньше параметров",
     "save-as-new-food": "Сохранить \"{text}\" как новый продукт"
@@ -970,6 +989,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Больше не хотите видеть это сообщение? Не забудьте изменить адрес электронной почты в настройках пользователя!",
     "forgot-password": "Забыли Пароль",
     "forgot-password-text": "Введите адрес вашей почты, и мы отправим на неё ссылку для сброса пароля.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно.",
     "default-activity": "Действие по умолчанию",
     "default-activity-hint": "Выберите, на какую страницу вы хотели бы перейти при входе в систему с этого устройства"

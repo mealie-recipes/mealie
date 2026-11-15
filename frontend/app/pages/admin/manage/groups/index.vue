@@ -99,7 +99,7 @@
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { validators } from "~/composables/use-validators";
-import type { GroupInDB } from "~/lib/api/types/user";
+import type { GroupOut } from "~/lib/api/types/user";
 
 definePageMeta({
   layout: "admin",
@@ -156,7 +156,7 @@ function openDialog() {
   state.createGroupForm.data.name = "";
 }
 
-function handleRowClick(item: GroupInDB) {
+function handleRowClick(item: GroupOut) {
   navigateTo(`/admin/manage/groups/${item.id}`);
 }
 </script>

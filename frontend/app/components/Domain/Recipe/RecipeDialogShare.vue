@@ -10,8 +10,7 @@
         v-if="qrCodeToken"
         class="d-flex flex-column align-center"
       >
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <div class="qr-code" v-html="qrCodeSvg" />
+        <img class="qr-code" :src="qrCodeDataUrl" :alt="$t('recipe-share.scan-qr-code')">
         <p class="text-center text-medium-emphasis mt-3">
           {{ $t("recipe-share.scan-qr-code") }}
         </p>
@@ -136,7 +135,7 @@
 <script setup lang="ts">
 import { useClipboard, useShare, whenever } from "@vueuse/core";
 import { renderSVG } from "uqr";
-import type { RecipeShareToken } from "~/lib/api/types/recipe";
+import type { RecipeShareTokenOut } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
@@ -151,7 +150,7 @@ const dialog = defineModel<boolean>({ default: false });
 
 const datePickerMenu = ref(false);
 const expirationDate = ref(new Date(Date.now() - new Date().getTimezoneOffset() * 60000));
-const tokens = ref<RecipeShareToken[]>([]);
+const tokens = ref<RecipeShareTokenOut[]>([]);
 const qrCodeToken = ref<string | null>(null);
 
 whenever(
@@ -243,12 +242,14 @@ async function shareRecipe(token: string) {
 // ============================================================
 // QR Code
 
-const qrCodeSvg = computed(() => qrCodeToken.value ? renderSVG(getTokenLink(qrCodeToken.value)) : "");
+const qrCodeDataUrl = computed(() => qrCodeToken.value
+  ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(renderSVG(getTokenLink(qrCodeToken.value)))}`
+  : "");
 
 async function downloadQrCode() {
   // Rasterize the SVG so the download opens in any photo viewer
   const image = new Image();
-  image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qrCodeSvg.value)}`;
+  image.src = qrCodeDataUrl.value;
   await image.decode();
 
   const size = 1024;
@@ -271,13 +272,9 @@ async function downloadQrCode() {
 
 <style scoped>
 .qr-code {
-  width: 100%;
-  max-width: 320px;
-}
-
-.qr-code :deep(svg) {
   display: block;
   width: 100%;
+  max-width: 320px;
   height: auto;
 }
 </style>

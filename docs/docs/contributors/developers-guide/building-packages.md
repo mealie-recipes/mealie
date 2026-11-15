@@ -4,7 +4,7 @@ Released packages are [built and published via GitHub actions](maintainers.md#dr
 
 ## Python packages
 
-To build Python packages locally for testing, use [`task`](starting-dev-server.md#without-dev-containers). After installing `task`, run `task py:package` to perform all the steps needed to build the package and a requirements file. To do it manually, run:
+To build Python packages locally for testing, use [mise](starting-dev-server.md#without-dev-containers). Run `mise run py:package` to perform all the steps needed to build the package and a requirements file. To do it manually, run:
 ```sh
 pushd frontend
 yarnpkg install
@@ -37,7 +37,7 @@ One way to build the Docker image is to run the following command in the project
 docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT=$(git rev-parse HEAD) .
 ```
 
-The Docker image can be built from the pre-built Python packages with the task command `task docker:build-from-package`. This is equivalent to:
+The Docker image can be built from the pre-built Python packages with `mise run docker:build-from-package`. This is equivalent to:
 ```sh
 docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT=$(git rev-parse HEAD) --build-context packages=dist .
 ```

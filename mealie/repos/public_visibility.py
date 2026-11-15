@@ -13,9 +13,9 @@ from mealie.db.models.household import CookBook, Household, HouseholdPreferences
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.users.users import User
-from mealie.schema.cookbook.cookbook import ReadCookBook
-from mealie.schema.household.household import HouseholdInDB
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.cookbook.cookbook import CookBookOut
+from mealie.schema.household.household import HouseholdOut
+from mealie.schema.recipe.recipe import RecipeOut
 
 
 def _household_is_public() -> sa.ColumnElement[bool]:
@@ -37,13 +37,13 @@ def public_cookbooks_clause() -> sa.ColumnElement[bool]:
     return sa.and_(CookBook.public.is_(True), CookBook.household.has(_household_is_public()))
 
 
-def is_household_publicly_visible(household: HouseholdInDB | None) -> bool:
+def is_household_publicly_visible(household: HouseholdOut | None) -> bool:
     return bool(household and household.preferences and not household.preferences.private_household)
 
 
-def is_recipe_publicly_visible(recipe: Recipe | None, household: HouseholdInDB | None) -> TypeGuard[Recipe]:
+def is_recipe_publicly_visible(recipe: RecipeOut | None, household: HouseholdOut | None) -> TypeGuard[RecipeOut]:
     return bool(recipe and recipe.settings and recipe.settings.public and is_household_publicly_visible(household))
 
 
-def is_cookbook_publicly_visible(cookbook: ReadCookBook | None, household: HouseholdInDB | None) -> bool:
+def is_cookbook_publicly_visible(cookbook: CookBookOut | None, household: HouseholdOut | None) -> bool:
     return bool(cookbook and cookbook.public and is_household_publicly_visible(household))

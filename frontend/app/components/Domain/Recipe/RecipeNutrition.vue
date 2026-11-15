@@ -4,6 +4,9 @@
       <v-card-title class="pt-2 pb-0">
         {{ $t("recipe.nutrition") }}
       </v-card-title>
+      <v-card-subtitle class="pb-1">
+        {{ $t("recipe.per-serving") }}
+      </v-card-subtitle>
       <v-divider class="mx-2 my-1" />
       <v-card-text v-if="edit">
         <div

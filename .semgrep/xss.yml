@@ -1,0 +1,39 @@
+rules:
+  - id: mealie-jinja-autoescape
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Pass `autoescape=True` to jinja2. Without it every `{{ value }}` is written into the HTML as-is,
+      so any user text that reaches the template becomes markup.
+    patterns:
+      - pattern-either:
+          - pattern: jinja2.Template(...)
+          - pattern: jinja2.Environment(...)
+      - pattern-not: jinja2.Template(..., autoescape=True, ...)
+      - pattern-not: jinja2.Environment(..., autoescape=True, ...)
+
+  - id: mealie-script-tag-json
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Serialize data placed inside a <script> element with `script_safe_json()` from mealie/routes/spa.
+      `json.dumps` leaves `</script>` and `<!--` intact, so a recipe field can close the element and
+      inject markup.
+    paths:
+      include:
+        - /mealie/routes/
+    patterns:
+      - pattern-regex: (?i)<script\b[^>]*>[^<]*\{(?!script_safe_json\()
+
+  - id: mealie-html-response-fstring
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Don't build an HTML response from an f-string. Build the document with BeautifulSoup (which
+      escapes text and attributes), or use a jinja2 template with autoescape.
+    pattern-either:
+      - pattern: fastapi.responses.HTMLResponse(f"...", ...)
+      - pattern: starlette.responses.HTMLResponse(f"...", ...)
+      - pattern: fastapi.Response(f"...", ..., media_type="text/html", ...)
+      - pattern: fastapi.Response(content=f"...", ..., media_type="text/html", ...)
+      - pattern: markupsafe.Markup(f"...")

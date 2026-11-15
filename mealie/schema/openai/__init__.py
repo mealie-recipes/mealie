@@ -3,6 +3,8 @@ from .compiled_source import OpenAICompiledSource
 from .general import OpenAIText
 from .organizers import OpenAIOrganizers
 from .recipe import (
+    OpenAIInstructionEnrichment,
+    OpenAIInstructionEnrichments,
     OpenAIRecipe,
     OpenAIRecipeIngredient,
     OpenAIRecipeInstruction,
@@ -15,6 +17,10 @@ __all__ = [
     "OpenAICompiledSource",
     "OpenAIText",
     "OpenAIOrganizers",
+    "OpenAIIngredient",
+    "OpenAIIngredients",
+    "OpenAIInstructionEnrichment",
+    "OpenAIInstructionEnrichments",
     "OpenAIRecipe",
     "OpenAIRecipeIngredient",
     "OpenAIRecipeInstruction",

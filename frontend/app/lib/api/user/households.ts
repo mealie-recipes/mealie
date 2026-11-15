@@ -3,13 +3,13 @@ import type { PaginationData } from "../types/non-generated";
 import type { QueryValue } from "../base/route";
 import type { UserOut } from "~/lib/api/types/user";
 import type {
-  HouseholdInDB,
+  HouseholdOut,
   HouseholdStatistics,
-  ReadHouseholdPreferences,
+  HouseholdPreferencesOut,
   SetPermissions,
-  UpdateHouseholdPreferences,
-  CreateInviteToken,
-  ReadInviteToken,
+  HouseholdPreferencesUpdate,
+  InviteTokenCreate,
+  InviteTokenOut,
   HouseholdSummary,
   HouseholdRecipeSummary,
 } from "~/lib/api/types/household";
@@ -36,20 +36,20 @@ export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
   /** Returns the Household Data for the Current User
    */
   async getCurrentUserHousehold() {
-    return await this.requests.get<HouseholdInDB>(routes.householdsSelf);
+    return await this.requests.get<HouseholdOut>(routes.householdsSelf);
   }
 
   async getCurrentUserHouseholdRecipe(recipeSlug: string) {
     return await this.requests.get<HouseholdRecipeSummary>(routes.householdsSelfRecipesSlug(recipeSlug));
   }
 
-  async setPreferences(payload: UpdateHouseholdPreferences) {
+  async setPreferences(payload: HouseholdPreferencesUpdate) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
-    return await this.requests.put<ReadHouseholdPreferences, UpdateHouseholdPreferences>(routes.preferences, payload);
+    return await this.requests.put<HouseholdPreferencesOut, HouseholdPreferencesUpdate>(routes.preferences, payload);
   }
 
-  async createInvitation(payload: CreateInviteToken) {
-    return await this.requests.post<ReadInviteToken>(routes.invitation, payload);
+  async createInvitation(payload: InviteTokenCreate) {
+    return await this.requests.post<InviteTokenOut>(routes.invitation, payload);
   }
 
   async fetchMembers(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {

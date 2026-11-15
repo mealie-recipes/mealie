@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} l'ha preparato come dolce",
         "recipe-image-deleted": "Immagine della ricetta eliminata",
         "recipe-defaults": {
-            "ingredient-note": "1 tazza di farina",
-            "name": "Nuova ricetta",
-            "step-text": "I passaggi della ricetta e altri campi nella pagina delle ricette supportano la sintassi markdown.\n\n**Aggiungi un link**\n\n[Il mio Link](https://demo.mealie.io)\nrecipe.recipe-defaults.step-text"
+            "name": "Nuova ricetta"
         },
         "servings-text": {
             "makes": "Rende",
@@ -27,6 +25,16 @@
             "yields": "Porzioni"
         },
         "and-amount": "e {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "I servizi AI non sono attivi",
             "ai-request-failed": "Il provider AI non è riuscito a completare la richiesta. Riprova",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Creazione della ricetta dai dati della pagina web in corso...",
             "downloading-image": "Download dell'immagine in corso...",
             "downloading-video": "Download del video in corso...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Estrazione dei dati della ricetta in corso...",
             "fetching-webpage": "Recupero della pagina web in corso...",
             "organizing-recipe": "Organizzazione della ricetta in corso...",

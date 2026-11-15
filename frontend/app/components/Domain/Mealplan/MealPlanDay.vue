@@ -55,7 +55,7 @@ import { format } from "date-fns";
 import { useUserApi } from "~/composables/api";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import type { ScaledRecipe } from "~/composables/use-group-mealplan";
-import type { PlanEntryType, ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryType, PlanEntryOut } from "~/lib/api/types/meal-plan";
 
 interface Props {
   recipes?: ScaledRecipe[];
@@ -148,7 +148,7 @@ async function randomMeal(date: Date, type: PlanEntryType) {
 
 const dialog = reactive({
   open: false,
-  entry: null as ReadPlanEntry | null,
+  entry: null as PlanEntryOut | null,
   date: null as Date | null,
 });
 

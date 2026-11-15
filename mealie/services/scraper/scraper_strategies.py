@@ -16,7 +16,7 @@ from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.recipe import OpenAIRecipe
-from mealie.schema.recipe.recipe import Recipe, RecipeStep
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.openai import OpenAIService, transcription
@@ -109,6 +109,9 @@ class ABCScraperStrategy(ABC):
     url: str
     resolved_url: str | None
 
+    is_fallback: bool = False
+    """Fallback strategies accept any page, so they run only after a FlareSolverr retry has been tried."""
+
     def __init__(
         self,
         url: str,
@@ -145,14 +148,14 @@ class ABCScraperStrategy(ABC):
     @abstractmethod
     async def parse(
         self, on_progress: Callable[[str], Awaitable[None]] | None = None
-    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    ) -> tuple[RecipeDraft, ScrapedExtras] | tuple[None, None]:
         """Parse a recipe from a web URL.
 
         Args:
             recipe_url (str): Full URL of the recipe to scrape.
 
         Returns:
-            Recipe: Recipe object.
+            RecipeDraft: RecipeDraft object.
         """
         ...
 
@@ -172,7 +175,9 @@ class RecipeScraperPackage(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
         return self.raw_html or await safe_scrape_html(url)
 
-    def clean_scraper(self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str) -> tuple[Recipe, ScrapedExtras]:
+    def clean_scraper(
+        self, scraped_data: SchemaScraperFactory.SchemaScraper, url: str
+    ) -> tuple[RecipeDraft, ScrapedExtras]:
         def try_get_default(
             func_call: Callable | None,
             get_attr: str,
@@ -293,7 +298,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         extras.set_tags(try_get_default(scraped_data.keywords, "keywords", "", cleaner.clean_tags))
         extras.set_categories(try_get_default(scraped_data.category, "recipeCategory", "", cleaner.clean_categories))
 
-        recipe = Recipe(
+        recipe = RecipeDraft(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
             slug="",
             image=try_get_default(scraped_data.image, "image", None, cleaner.clean_image),
@@ -373,8 +378,11 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
     page's contents rather than trying to scrape it directly.
     """
 
+    is_fallback = True
+
     def can_scrape(self) -> bool:
-        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        group_id = self.repos.scoped_group_id
+        settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
         return bool(settings and settings.ai_enabled and (self.url or self.raw_html))
 
     async def get_html(self, url: str) -> str:
@@ -417,7 +425,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not self.url:
             return False
 
-        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        group_id = self.repos.scoped_group_id
+
+        settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
         if not (settings and settings.audio_provider_enabled):
             return False
 
@@ -430,7 +440,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     async def parse(
         self,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
-    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    ) -> tuple[RecipeDraft, ScrapedExtras] | tuple[None, None]:
         openai_service = OpenAIService(self.repos)
 
         with get_temporary_path() as temp_path:
@@ -473,7 +483,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not response:
             raise exceptions.OpenAIServiceError("OpenAI returned an empty response when extracting recipe")
 
-        recipe = Recipe(
+        recipe = RecipeDraft(
             name=response.name,
             slug="",
             description=response.description,
@@ -501,6 +511,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):
+    is_fallback = True
+
     def can_scrape(self) -> bool:
         return bool(self.url or self.raw_html)
 
@@ -563,4 +575,4 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         if og_data is None:
             return None
 
-        return Recipe(**og_data), ScrapedExtras()
+        return RecipeDraft(**og_data), ScrapedExtras()

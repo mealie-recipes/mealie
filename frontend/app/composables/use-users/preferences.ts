@@ -23,7 +23,13 @@ export enum ImagePosition {
   right = "right",
 }
 
+export type MealPlanViewMode = "weeks" | "days";
+
 export interface UserMealPlanPreferences {
+  /** "days" shows an arbitrary range of days and leaves out meals planned for a whole week */
+  mode: MealPlanViewMode;
+  numberOfDaysPast: number;
+  numberOfDays: number;
   numberOfWeeksPast: number;
   /** Includes the current week */
   numberOfWeeks: number;
@@ -88,6 +94,9 @@ export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
   const fromStorage = useLocalStorage(
     "meal-planner-preferences",
     {
+      mode: "weeks" as MealPlanViewMode,
+      numberOfDaysPast: 0,
+      numberOfDays: 7,
       numberOfWeeksPast: 0,
       numberOfWeeks: 1,
     },
