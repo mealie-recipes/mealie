@@ -1,5 +1,7 @@
 import json
+from typing import Any
 
+import pytest
 from recipe_scrapers import scrape_html
 
 from mealie.lang.providers import get_locale_provider
@@ -265,3 +267,29 @@ def test_prefer_structured_instructions_for_line_breaks_only_when_the_text_match
     assert prefer_structured_instructions(structured, [{"text": "Boil a kettle. Make the stock."}]) is False
     # with no line breaks there is nothing to gain
     assert prefer_structured_instructions([{"text": "Boil a full kettle."}], [{"text": "Boil a full kettle."}]) is False
+
+
+@pytest.mark.parametrize(
+    ("tool", "expected"),
+    [
+        (["Equipment 1"], ["Equipment 1"]),
+        ("Mixing bowl", ["Mixing bowl"]),
+        ({"@type": "HowToTool", "name": "Mixing bowl"}, ["Mixing bowl"]),
+        (["Spatula", {"@type": "HowToTool", "name": "Mixing bowl"}], ["Spatula", "Mixing bowl"]),
+        ([None, {}, "  ", {"name": 42}], []),
+        (None, []),
+    ],
+)
+def test_schema_tools_are_kept(tool: Any, expected: list[str]) -> None:
+    recipe_data = dict(FLAT_RECIPE, tool=tool)
+    html = RecipeScraperPackage.ld_json_to_html(json.dumps(recipe_data))
+    scraped_data = scrape_html(html, org_url="https://example.com", supported_only=False)
+    strategy = RecipeScraperPackage(
+        "https://example.com",
+        get_locale_provider(),
+        repos=None,  # type: ignore[arg-type]
+    )
+
+    _, extras = strategy.clean_scraper(scraped_data, "https://example.com")
+
+    assert extras._tools == expected
