@@ -2,7 +2,7 @@
 
 Revision ID: a136609cde0f
 Revises: f3a1ae61d772
-Create Date: 2026-10-17 00:00:00.000000
+Create Date: 2026-11-15 00:00:00.000000
 
 """
 
@@ -25,10 +25,12 @@ def upgrade():
     rows = connection.execute(
         sa.text(
             """
-            SELECT group_meal_plans.id, users.household_id, group_meal_plans.date
+            SELECT group_meal_plans.id, users.household_id, group_meal_plans.date,
+                   group_meal_plans.end_date
             FROM group_meal_plans
             LEFT JOIN users ON users.id = group_meal_plans.user_id
             ORDER BY users.household_id, group_meal_plans.date,
+                     group_meal_plans.end_date,
                      CASE group_meal_plans.entry_type
                          WHEN 'breakfast' THEN 0 WHEN 'lunch' THEN 1 WHEN 'dinner' THEN 2
                          WHEN 'side' THEN 3 WHEN 'snack' THEN 4 WHEN 'drink' THEN 5
@@ -42,10 +44,11 @@ def upgrade():
     positions_by_day = {}
     updates = []
     for row in rows:
-        day_key = (row["household_id"], row["date"])
-        position = positions_by_day.get(day_key, 0)
+        # use end_date to distinguish day and week lists that share the same start date
+        position_bucket = (row["household_id"], row["date"], row["end_date"] is not None)
+        position = positions_by_day.get(position_bucket, 0)
         updates.append({"id": row["id"], "position": position})
-        positions_by_day[day_key] = position + 1
+        positions_by_day[position_bucket] = position + 1
 
     if updates:
         connection.execute(

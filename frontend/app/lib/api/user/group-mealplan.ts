@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { PlanEntryCreate, RandomPlanEntryCreate, MealPlanICalTokenOut, PlanEntryOut, PlanEntryUpdate, ReorderPlanEntriesByDay } from "~/lib/api/types/meal-plan";
+import type { PlanEntryCreate, RandomPlanEntryCreate, MealPlanICalTokenOut, PlanEntryOut, PlanEntryUpdate, PlanEntryReorderUpdate } from "~/lib/api/types/meal-plan";
 
 const prefix = "/api";
 
@@ -31,8 +31,7 @@ export class MealPlanAPI extends BaseCRUDAPI<PlanEntryCreate, PlanEntryOut, Plan
     return await this.requests.delete<MealPlanICalTokenOut>(routes.ical);
   }
 
-
-  async reorder(payload: ReorderPlanEntriesByDay[]) {
-    return await this.requests.put<undefined, ReorderPlanEntriesByDay[]>(routes.reorder, payload);
+  async reorder(payload: PlanEntryReorderUpdate[]) {
+    return await this.requests.put<undefined, PlanEntryReorderUpdate[]>(routes.reorder, payload);
   }
 }

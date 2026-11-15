@@ -16,9 +16,9 @@ from mealie.schema import mapper
 from mealie.schema.meal_plan import PlanEntryCreate, PlanEntryOut, PlanEntrySave, PlanEntryUpdate
 from mealie.schema.meal_plan.new_meal import (
     PlanEntryPagination,
+    PlanEntryReorderUpdate,
     PlanEntryType,
     RandomPlanEntryCreate,
-    ReorderPlanEntriesByDay,
 )
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import RecipeOut
@@ -139,11 +139,6 @@ class GroupMealplanController(BaseCrudController):
             if "orderDirection" not in request.query_params:
                 q.order_direction = OrderDirection.asc
 
-        if not q.order_by:
-            q.order_by = "date,position"
-            if "orderDirection" not in request.query_params:
-                q.order_direction = OrderDirection.asc
-
         return self.repo.page_all(pagination=q)
 
     @router.post("", response_model=PlanEntryOut, status_code=201)
@@ -220,13 +215,13 @@ class GroupMealplanController(BaseCrudController):
         return result
 
     @router.put("/reorder", status_code=204)
-    def reorder(self, days: list[ReorderPlanEntriesByDay]):
+    def reorder(self, days: list[PlanEntryReorderUpdate]):
         if not days:
             raise HTTPException(status_code=422, detail="At least one day is required.")
 
-        dates = [day.date for day in days]
-        if len(set(dates)) != len(dates):
-            raise HTTPException(status_code=422, detail="Each date may only be included once.")
+        buckets = [(day.date, day.end_date is not None) for day in days]
+        if len(set(buckets)) != len(buckets):
+            raise HTTPException(status_code=422, detail="Each day or week may only be included once.")
 
         requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
         if len(set(requested_ids)) != len(requested_ids):

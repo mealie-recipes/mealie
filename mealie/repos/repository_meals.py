@@ -2,29 +2,56 @@ from datetime import UTC, date, datetime
 from typing import Any
 
 from pydantic import UUID4, BaseModel
-from sqlalchemy import select
+from sqlalchemy import or_, select
 
 from mealie.core.exceptions import MealPlanEntriesChanged
 from mealie.db.models.household import GroupMealPlan
-from mealie.schema.meal_plan.new_meal import PlanEntryOut, PlanEntryType, ReorderPlanEntriesByDay
+from mealie.schema.meal_plan.new_meal import PlanEntryOut, PlanEntryReorderUpdate, PlanEntryType
 
 from .repository_generic import HouseholdRepositoryGeneric
 
 
 class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
     def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> PlanEntryOut:
+        new_data = new_data.copy() if isinstance(new_data, dict) else new_data.model_dump()
+        current_entry = self._query_one(match_value=match_value)
         # The plan's household comes from its user, so a client-supplied user_id could move it to another household
-        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
-        new_data["user_id"] = self._query_one(match_value=match_value).user_id
+        new_data["user_id"] = current_entry.user_id
+
+        new_date = new_data.get("date", current_entry.date)
+        new_end_date = new_data.get("end_date", current_entry.end_date)
+        # end_date = None => meal is scheduled on a specific weekday
+        schedule_changed = new_date != current_entry.date or (new_end_date is not None) != (
+            current_entry.end_date is not None
+        )
+
+        if schedule_changed:
+            previous_date = current_entry.date
+            previous_is_week = current_entry.end_date is not None
+            new_data["position"] = self._insert_position(
+                new_date,
+                new_end_date,
+                new_data.get("entry_type", current_entry.entry_type),
+            )
+            current_entry.date = new_date
+            current_entry.end_date = new_end_date
+            self.session.flush()
+            self._renumber_positions_in_source_list(previous_date, previous_is_week)
+
         return super().update(match_value, new_data)
 
-    def _insert_position(self, date_value: date, entry_type: str) -> int:
+    def _insert_position(self, date_value: date, end_date_value: date | None, entry_type: str) -> int:
         if not self.household_id:
             raise Exception("household_id not set")
 
         entries = self.session.scalars(
             select(GroupMealPlan)
-            .where(GroupMealPlan.date == date_value, GroupMealPlan.household_id == self.household_id)
+            # select the destination list: day entries when end_date_value is None, or week entries otherwise
+            .where(
+                GroupMealPlan.date == date_value,
+                GroupMealPlan.end_date.is_not(None) if end_date_value is not None else GroupMealPlan.end_date.is_(None),
+                GroupMealPlan.household_id == self.household_id,
+            )
             .order_by(GroupMealPlan.position, GroupMealPlan.id)
         ).all()
         type_order = {plan_type.value: rank for rank, plan_type in enumerate(PlanEntryType)}
@@ -45,10 +72,14 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
             entry.position = i if i < position else i + 1
         return position
 
-    def _renumber_positions(self, date_value: date) -> None:
+    def _renumber_positions_in_source_list(self, date_value: date, is_week: bool) -> None:
         entries = self.session.scalars(
             select(GroupMealPlan)
-            .where(GroupMealPlan.date == date_value, GroupMealPlan.household_id == self.household_id)
+            .where(
+                GroupMealPlan.date == date_value,
+                GroupMealPlan.end_date.is_not(None) if is_week else GroupMealPlan.end_date.is_(None),
+                GroupMealPlan.household_id == self.household_id,
+            )
             .order_by(GroupMealPlan.position, GroupMealPlan.id)
         ).all()
         for position, entry in enumerate(entries):
@@ -56,35 +87,26 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
 
     def create(self, data: PlanEntryOut | BaseModel | dict[str, Any]) -> PlanEntryOut:
         data = data if isinstance(data, dict) else data.model_dump()
-        data["position"] = self._insert_position(data["date"], data.get("entry_type", PlanEntryType.breakfast))
+        data["position"] = self._insert_position(
+            data["date"], data.get("end_date"), data.get("entry_type", PlanEntryType.breakfast)
+        )
         return super().create(data)
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> PlanEntryOut:
-        data = new_data if isinstance(new_data, dict) else new_data.model_dump()
-        entry = self._query_one(match_value)
-        date_value = data.get("date")
-
-        if date_value is not None and date_value != entry.date:
-            previous_date = entry.date
-            data["position"] = self._insert_position(date_value, data.get("entry_type", entry.entry_type))
-            entry.date = date_value
-            # exclude the moved entry from the old day's query
-            self.session.flush()
-            self._renumber_positions(previous_date)
-
-        return super().update(match_value, data)
-
-    def reorder(self, days: list[ReorderPlanEntriesByDay]) -> None:
+    def reorder(self, days: list[PlanEntryReorderUpdate]) -> None:
         if not self.household_id:
             raise Exception("household_id not set")
 
-        dates = [day.date for day in days]
         requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
+        position_buckets = [
+            (GroupMealPlan.date == day.date)
+            & (GroupMealPlan.end_date.is_not(None) if day.end_date is not None else GroupMealPlan.end_date.is_(None))
+            for day in days
+        ]
 
         entries = (
             self.session.execute(
                 select(GroupMealPlan).where(
-                    GroupMealPlan.date.in_(dates),
+                    or_(*position_buckets),
                     GroupMealPlan.household_id == self.household_id,
                 )
             )
@@ -100,6 +122,7 @@ class RepositoryMeals(HouseholdRepositoryGeneric[PlanEntryOut, GroupMealPlan]):
                 for position, entry_id in enumerate(day.entry_ids):
                     entry = entries_by_id[entry_id]
                     entry.date = day.date
+                    entry.end_date = day.end_date
                     entry.position = position
 
             self.session.commit()

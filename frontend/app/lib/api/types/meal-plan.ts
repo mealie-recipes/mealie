@@ -91,6 +91,11 @@ export interface ToolOut {
   recipeCount: number;
   householdsWithTool: string[];
 }
+export interface PlanEntryReorderUpdate {
+  date: string;
+  endDate?: string | null;
+  entryIds: number[];
+}
 export interface PlanEntrySave {
   date: string;
   endDate?: string | null;
@@ -151,9 +156,5 @@ export interface RandomPlanEntryCreate {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
-}
-export interface ReorderPlanEntriesByDay {
-  date: string;
-  entryIds: number[];
 }
 export interface MealieOutModel {}

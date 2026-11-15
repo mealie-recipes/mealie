@@ -176,22 +176,20 @@ async function onMoveCallback(evt: SortableEvent) {
   if (!fromDay || !toDay) return;
 
   const affectedDays = fromMealsByIndex === toMealsByIndex ? [toDay] : [fromDay, toDay];
-  const orderedDays = affectedDays.map(({ date }) => ({
-    date: format(date, "yyyy-MM-dd"),
-    entryIds: mealplansByDate[date.toString()].map(meal => meal.id),
+  const movedMeal = mealplansByDate[planKey(toDay)][evt.newIndex as number];
+  if (!movedMeal) return;
+
+  // keep the local entry in sync with the destination before saving both lists
+  movedMeal.date = format(toDay.date, "yyyy-MM-dd");
+  movedMeal.endDate = toDay.endDate ? format(toDay.endDate, "yyyy-MM-dd") : null;
+
+  const orderedDays = affectedDays.map(day => ({
+    date: format(day.date, "yyyy-MM-dd"),
+    endDate: day.endDate ? format(day.endDate, "yyyy-MM-dd") : null,
+    entryIds: mealplansByDate[planKey(day)].map(meal => meal.id),
   }));
 
   await props.actions.reorder(orderedDays);
-  if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-    const dest = props.mealplans[toMealsByIndex];
-    const mealData = mealplansByDate[planKey(dest)][evt.newIndex as number];
-
-    // moving between a week and a day schedules or unschedules the meal
-    mealData.date = format(dest.date, "yyyy-MM-dd");
-    mealData.endDate = dest.endDate ? format(dest.endDate, "yyyy-MM-dd") : null;
-
-    props.actions.updateOne(mealData);
-  }
 }
 
 // =====================================================

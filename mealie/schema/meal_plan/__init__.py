@@ -4,11 +4,11 @@ from .new_meal import (
     PlanEntryCreate,
     PlanEntryOut,
     PlanEntryPagination,
+    PlanEntryReorderUpdate,
     PlanEntrySave,
     PlanEntryType,
     PlanEntryUpdate,
     RandomPlanEntryCreate,
-    ReorderPlanEntriesByDay,
 )
 from .plan_rules import PlanRulesCreate, PlanRulesDay, PlanRulesOut, PlanRulesPagination, PlanRulesSave, PlanRulesType
 
@@ -16,11 +16,11 @@ __all__ = [
     "PlanEntryCreate",
     "PlanEntryOut",
     "PlanEntryPagination",
+    "PlanEntryReorderUpdate",
     "PlanEntrySave",
     "PlanEntryType",
     "PlanEntryUpdate",
     "RandomPlanEntryCreate",
-    "ReorderPlanEntriesByDay",
     "PlanRulesCreate",
     "PlanRulesDay",
     "PlanRulesOut",

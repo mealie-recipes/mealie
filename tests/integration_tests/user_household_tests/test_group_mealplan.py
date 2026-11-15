@@ -343,6 +343,154 @@ def test_reorder_mealplans_across_days(api_client: TestClient, unique_user: Test
     assert [item["position"] for item in destination_items] == [0, 1]
 
 
+def test_reorder_mealplans_within_week(api_client: TestClient, unique_user: TestUser):
+    week_start = datetime.now(UTC).date()
+    week_end = week_start + timedelta(days=6)
+    first = create_entry(api_client, unique_user, date=week_start, end_date=week_end, title="First")
+    second = create_entry(api_client, unique_user, date=week_start, end_date=week_end, title="Second")
+    third = create_entry(api_client, unique_user, date=week_start, end_date=week_end, title="Third")
+
+    response = api_client.put(
+        f"{api_routes.households_mealplans}/reorder",
+        headers=unique_user.token,
+        json=[
+            {
+                "date": week_start.isoformat(),
+                "endDate": week_end.isoformat(),
+                "entryIds": [third["id"], first["id"], second["id"]],
+            }
+        ],
+    )
+    assert response.status_code == 204
+
+    response = api_client.get(
+        api_routes.households_mealplans,
+        headers=unique_user.token,
+        params={"page": 1, "perPage": -1, "start_date": week_start, "end_date": week_end, "include_week_entries": True},
+    )
+    assert response.status_code == 200
+    week_entries = [entry for entry in response.json()["items"] if entry["endDate"]]
+    assert [entry["id"] for entry in week_entries] == [third["id"], first["id"], second["id"]]
+    assert [entry["position"] for entry in week_entries] == [0, 1, 2]
+
+
+def test_append_mealplan_to_week(api_client: TestClient, unique_user: TestUser):
+    week_start = datetime.now(UTC).date() + timedelta(days=31)
+    week_end = week_start + timedelta(days=6)
+    first = create_entry(api_client, unique_user, date=week_start, end_date=week_end, title="First")
+    second = create_entry(api_client, unique_user, date=week_start, end_date=week_end, title="Second")
+
+    appended = create_entry(api_client, unique_user, date=week_start, end_date=week_end, title="Appended")
+    assert [first["position"], second["position"], appended["position"]] == [0, 1, 2]
+
+
+@pytest.mark.parametrize("destination_is_week", [False, True])
+# runs twice, once moving a day entry into a week list and vice-versa
+def test_reorder_mealplans_between_day_and_week(
+    api_client: TestClient, unique_user: TestUser, destination_is_week: bool
+):
+    # this module shares a household across tests. Use a distinct date so reruns
+    # don't leave entries in the buckets that would invalidate a full reorder.
+    week_start = datetime.now(UTC).date() + timedelta(days=random.randint(100, 10_000))
+    week_end = week_start + timedelta(days=6)
+    day_entry = create_entry(api_client, unique_user, date=week_start, title="Day entry")
+    week_entry = create_entry(api_client, unique_user, date=week_start, end_date=week_end, title="Week entry")
+
+    if destination_is_week:
+        reorder_buckets = [
+            {"date": week_start.isoformat(), "endDate": None, "entryIds": []},
+            {
+                "date": week_start.isoformat(),
+                "endDate": week_end.isoformat(),
+                "entryIds": [week_entry["id"], day_entry["id"]],
+            },
+        ]
+        expected_day_ids, expected_week_ids = [], [week_entry["id"], day_entry["id"]]
+    else:
+        reorder_buckets = [
+            {"date": week_start.isoformat(), "endDate": week_end.isoformat(), "entryIds": []},
+            {"date": week_start.isoformat(), "endDate": None, "entryIds": [day_entry["id"], week_entry["id"]]},
+        ]
+        expected_day_ids, expected_week_ids = [day_entry["id"], week_entry["id"]], []
+
+    response = api_client.put(
+        f"{api_routes.households_mealplans}/reorder", headers=unique_user.token, json=reorder_buckets
+    )
+    assert response.status_code == 204
+
+    response = api_client.get(
+        api_routes.households_mealplans,
+        headers=unique_user.token,
+        params={"page": 1, "perPage": -1, "start_date": week_start, "end_date": week_end, "include_week_entries": True},
+    )
+    assert response.status_code == 200
+    entries = response.json()["items"]
+    day_entries = [entry for entry in entries if entry["date"] == week_start.isoformat() and entry["endDate"] is None]
+    week_entries = [entry for entry in entries if entry["endDate"] is not None]
+    assert [entry["id"] for entry in day_entries] == expected_day_ids
+    assert [entry["id"] for entry in week_entries] == expected_week_ids
+
+
+@pytest.mark.parametrize("destination_is_week", [False, True])
+def test_update_mealplan_between_day_and_week(api_client: TestClient, unique_user: TestUser, destination_is_week: bool):
+    week_start = datetime.now(UTC).date() + timedelta(days=42)
+    week_end = week_start + timedelta(days=6)
+    meal = create_entry(
+        api_client,
+        unique_user,
+        date=week_start,
+        **({} if destination_is_week else {"end_date": week_end}),
+        title="Moved meal",
+    )
+    payload = {**meal, "endDate": week_end.isoformat()} if destination_is_week else {**meal, "endDate": None}
+
+    response = api_client.put(
+        api_routes.households_mealplans_item_id(meal["id"]),
+        headers=unique_user.token,
+        json=payload,
+    )
+    assert response.status_code == 200
+    assert response.json()["endDate"] == (week_end.isoformat() if destination_is_week else None)
+
+
+def test_update_mealplan_between_weeks(api_client: TestClient, unique_user: TestUser):
+    source_week = datetime.now(UTC).date() + timedelta(days=10)
+    destination_week = source_week + timedelta(days=7)
+    source_week_end = source_week + timedelta(days=6)
+    destination_week_end = destination_week + timedelta(days=6)
+    moved = create_entry(api_client, unique_user, date=source_week, end_date=source_week_end, title="Moved week entry")
+    remaining = create_entry(
+        api_client, unique_user, date=source_week, end_date=source_week_end, title="Remaining week entry"
+    )
+
+    response = api_client.put(
+        api_routes.households_mealplans_item_id(moved["id"]),
+        headers=unique_user.token,
+        json={**moved, "date": destination_week.isoformat(), "endDate": destination_week_end.isoformat()},
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(
+        api_routes.households_mealplans,
+        headers=unique_user.token,
+        params={
+            "page": 1,
+            "perPage": -1,
+            "start_date": source_week,
+            "end_date": destination_week_end,
+            "include_week_entries": True,
+        },
+    )
+    assert response.status_code == 200
+    entries = response.json()["items"]
+    source_entries = [entry for entry in entries if entry["date"] == source_week.isoformat() and entry["endDate"]]
+    destination_entries = [entry for entry in entries if entry["date"] == destination_week.isoformat()]
+    assert [entry["id"] for entry in source_entries] == [remaining["id"]]
+    assert source_entries[0]["position"] == 0
+    assert [entry["id"] for entry in destination_entries] == [moved["id"]]
+    assert destination_entries[0]["position"] == 0
+
+
 def test_update_mealplan_date_inserts_by_type(api_client: TestClient, unique_user: TestUser):
     start_date = datetime.now(UTC).date() + timedelta(days=12)
     destination_date = start_date + timedelta(days=1)
@@ -512,7 +660,8 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
 
 
 def create_entry(api_client: TestClient, unique_user: TestUser, **kwargs) -> dict:
-    data = PlanEntryCreate(entry_type="dinner", title=random_string(), **kwargs).model_dump(by_alias=True, mode="json")
+    kwargs.setdefault("title", random_string())
+    data = PlanEntryCreate(entry_type="dinner", **kwargs).model_dump(by_alias=True, mode="json")
     response = api_client.post(api_routes.households_mealplans, json=data, headers=unique_user.token)
     assert response.status_code == 201
     return response.json()

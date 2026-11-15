@@ -15,7 +15,7 @@ Meal plan entries have a `position` that determines their order within a day, st
 
 You can pass `orderDirection=desc` to reverse this order, or use `orderBy` and the other [advanced ordering](#advanced-ordering) parameters to choose your own sort. These parameters only change the order of the results, they do not change the saved positions.
 
-To reorder your household's entries or move them between days, you can use `PUT /api/households/mealplans/reorder`. The request contains a list of dates, each with its meal plan entry IDs in the desired order. For example:
+To reorder your household's entries or move them between days or weeks, use `PUT /api/households/mealplans/reorder`. Each request item identifies a bucket by its `date` and, for a week entry, its `endDate`. Omit `endDate` or set it to `null` for a day bucket. A week entry's `endDate` is six days after its `date`. The IDs in each item are meal plan entry IDs in the desired order. For example:
 
 ```json
 [
@@ -26,7 +26,18 @@ To reorder your household's entries or move them between days, you can use `PUT 
 
 If October 20 contains entries `101`, `102`, and `103`, and October 21 contains `104`, this moves entry `102` to October 21 and places `103` before `101` on October 20. These are meal plan entry IDs, not recipe IDs. Dates outside the request are left unchanged.
 
-Successful requests return `204 No Content`. An empty request or repeated dates or IDs returns `422`. If the IDs do not match your household's entries on the supplied dates, the API returns `409`. Fetch those days again before retrying.
+To move an entry between a day and a week bucket, include both buckets. For example, to move entry `105` from the day list to the week list starting October 20:
+
+```json
+[
+  {"date": "2026-10-20", "entryIds": []},
+  {"date": "2026-10-20", "endDate": "2026-10-26", "entryIds": [105]}
+]
+```
+
+Include every entry currently in each bucket you submit, including an empty ID list when clearing a bucket. Buckets are identified by date and whether they are day or week entries.
+
+Successful requests return `204 No Content`. An empty request, repeated buckets, or repeated IDs returns `422`. If the IDs do not match the entries currently in the submitted buckets, the API returns `409`. Fetch the affected buckets again before retrying.
 
 New meal entries are placed after the last entry of the same meal type. If there are none, Mealie uses the meal type order: breakfast, lunch, dinner, side, snack, drink, dessert. This also applies when changing an entry's date through the regular update endpoint. Existing entries keep their relative order.
 
