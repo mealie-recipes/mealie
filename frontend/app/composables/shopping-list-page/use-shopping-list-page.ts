@@ -188,6 +188,7 @@ export function useShoppingListPage(listId: string) {
   return {
     itemsByLabel,
     isOffline,
+    hasFailedWrites: shoppingListItemActions.hasFailedWrites,
 
     // Search
     ...searchManager,

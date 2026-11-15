@@ -1,13 +1,13 @@
 import { watchDebounced } from "@vueuse/core";
 import type { UserApi } from "~/lib/api";
 import type { ExploreApi } from "~/lib/api/public/explore";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 
 export interface UseRecipeSearchReturn {
   query: Ref<string>;
   error: Ref<string>;
   loading: Ref<boolean>;
-  data: Ref<Recipe[]>;
+  data: Ref<RecipeSummary[]>;
   trigger(): Promise<void>;
 }
 
@@ -21,7 +21,7 @@ export function useRecipeSearch(api: UserApi | ExploreApi): UseRecipeSearchRetur
   const query = ref("");
   const error = ref("");
   const loading = ref(false);
-  const recipes = ref<Recipe[]>([]);
+  const recipes = ref<RecipeSummary[]>([]);
 
   async function searchRecipes(term: string) {
     loading.value = true;

@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Tarif görseli silindi",
         "recipe-defaults": {
-            "ingredient-note": "1 Bardak Un",
-            "name": "Yeni Tarif",
-            "step-text": "Tarif sayfasındaki tarif adımlarının yanı sıra diğer alanlar da markdown destekler.\n\n**Bağlantı ekle**\n\n[Bağlantım](https://demo.mealie.io)\n"
+            "name": "Yeni Tarif"
         },
         "servings-text": {
             "makes": "Miktar",
@@ -27,6 +25,16 @@
             "yields": "Verim"
         },
         "and-amount": "ve {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "YZ hizmetleri etkin değil",
             "ai-request-failed": "YZ sağlayıcısı isteği tamamlayamadı. Lütfen tekrar deneyin",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Web sayfası verilerinden tarif oluşturuluyor...",
             "downloading-image": "Resim indiriliyor...",
             "downloading-video": "Video indiriliyor...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Tarif verileri çıkarılıyor...",
             "fetching-webpage": "Web sayfası alınıyor...",
             "organizing-recipe": "Tarif düzenleniyor...",

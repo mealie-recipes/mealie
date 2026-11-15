@@ -2,7 +2,7 @@ import enum
 from pathlib import Path
 from zipfile import ZipFile
 
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 from mealie.services._base_service import BaseService
 
@@ -54,7 +54,7 @@ class TemplateService(BaseService):
 
         return TemplateType(t_type)
 
-    def render(self, recipe: Recipe, template: str) -> Path:
+    def render(self, recipe: RecipeOut, template: str) -> Path:
         """
         Renders a TemplateType in a temporary directory and returns the path to the file.
 
@@ -73,7 +73,7 @@ class TemplateService(BaseService):
 
         raise ValueError(f"Template Type '{t_type}' not found.")
 
-    def _render_json(self, recipe: Recipe) -> Path:
+    def _render_json(self, recipe: RecipeOut) -> Path:
         """
         Renders a JSON file in a temporary directory and returns
         the path to the file.
@@ -89,7 +89,7 @@ class TemplateService(BaseService):
 
         return save_path
 
-    def _render_zip(self, recipe: Recipe) -> Path:
+    def _render_zip(self, recipe: RecipeOut) -> Path:
         self.__check_temp(self._render_zip)
 
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)

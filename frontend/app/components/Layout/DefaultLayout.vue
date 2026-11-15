@@ -99,7 +99,7 @@ import type { SideBarLink } from "~/types/application-types";
 import { useGroupSelf } from "~/composables/use-groups";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
-import type { ReadCookBook } from "~/lib/api/types/cookbook";
+import type { CookBookOut } from "~/lib/api/types/cookbook";
 
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
@@ -140,7 +140,7 @@ onMounted(() => {
   sidebar.value = display.lgAndUp.value;
 });
 
-function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
+function cookbookAsLink(cookbook: CookBookOut): SideBarLink {
   return {
     key: cookbook.slug || "",
     icon: $globals.icons.pages,
@@ -164,7 +164,7 @@ const cookbookLinks = computed<SideBarLink[]>(() => {
     const householdName = cookbook.household?.name || "";
     (acc[householdName] ||= []).push(cookbook);
     return acc;
-  }, {} as Record<string, ReadCookBook[]>);
+  }, {} as Record<string, CookBookOut[]>);
 
   Object.entries(cookbooksByHousehold).forEach(([householdName, cookbooks]) => {
     if (!cookbooks.length) {

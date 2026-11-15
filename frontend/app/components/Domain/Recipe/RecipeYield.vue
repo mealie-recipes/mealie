@@ -17,20 +17,18 @@
       </v-icon>
       <p class="my-0 opacity-80">
         <span class="font-weight-bold">{{ $t("recipe.yield") }}</span><br>
-        <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="yieldDisplay" />
+        <SafeInlineHtml :html="yieldDisplay" />
       </p>
     </v-row>
   </div>
 </template>
 
 <script setup lang="ts">
-import DOMPurify from "dompurify";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 interface Props {
   yieldQuantity?: number;
-  yieldText?: string;
+  yieldText?: string | null;
   scale?: number;
   color?: string;
 }
@@ -40,13 +38,6 @@ const props = withDefaults(defineProps<Props>(), {
   scale: 1,
   color: "accent custom-transparent",
 });
-
-function sanitizeHTML(rawHtml: string) {
-  return DOMPurify.sanitize(rawHtml, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["strong", "sup"],
-  });
-}
 
 const yieldDisplay = computed<string>(() => {
   const components: string[] = [];
@@ -61,6 +52,6 @@ const yieldDisplay = computed<string>(() => {
     components.push(text);
   }
 
-  return sanitizeHTML(components.join(" "));
+  return components.join(" ");
 });
 </script>

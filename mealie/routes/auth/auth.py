@@ -3,6 +3,7 @@ import ssl
 from datetime import timedelta
 from typing import Annotated, Any
 
+import httpx
 import jwt
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
@@ -10,7 +11,7 @@ from fastapi.responses import RedirectResponse
 from jwt.exceptions import PyJWTError
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
-from starlette.datastructures import URLPath
+from starlette.datastructures import URL, URLPath
 
 from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
@@ -113,6 +114,7 @@ if settings.OIDC_READY:
 
 
 SESSION_COOKIE_NAME = "mealie.access_token"
+OIDC_ID_TOKEN_COOKIE_NAME = "mealie.oidc_id_token"
 
 
 def request_is_https(request: Request) -> bool:
@@ -172,6 +174,60 @@ def set_session_cookie(response: Response, request: Request, token: str, expires
     )
 
 
+def oidc_id_token_cookie_attrs(request: Request) -> dict:
+    """Only logout and refresh need the ID token, so it isn't sent with every other request."""
+    return {**session_cookie_attrs(request), "path": "/api/auth"}
+
+
+def set_oidc_id_token_cookie(
+    response: Response, request: Request, id_token: str, expires_in: timedelta, remember_me: bool
+):
+    """Keeps the IdP's ID token for logout, where it lets the IdP end its session without asking first.
+
+    It lives as long as the session cookie and is renewed along with it.
+    """
+    response.set_cookie(
+        OIDC_ID_TOKEN_COOKIE_NAME,
+        id_token,
+        max_age=int(expires_in.total_seconds()) if remember_me else None,
+        httponly=True,
+        **oidc_id_token_cookie_attrs(request),
+    )
+
+
+async def oidc_end_session_url(request: Request) -> str | None:
+    """Where to send the browser so the IdP ends its session too (OpenID Connect RP-Initiated Logout).
+
+    Only sessions that signed in through OIDC have the ID token cookie, so it marks which ones to end.
+    """
+    id_token = request.cookies.get(OIDC_ID_TOKEN_COOKIE_NAME)
+    if not (settings.OIDC_SIGNOUT_ENABLED and oauth and id_token):
+        return None
+
+    client = oauth.create_client("oidc")
+    try:
+        metadata = await client.load_server_metadata()
+    except (httpx.HTTPError, ValueError) as e:
+        # Mealie's own logout still has to succeed when the IdP is unreachable or sends invalid metadata
+        logger.warning("[OIDC] Could not load the IdP's metadata to end its session: %s", e)
+        return None
+
+    if not metadata.get("end_session_endpoint"):
+        # The IdP doesn't support RP-Initiated Logout
+        return None
+
+    # The login page: with OIDC_AUTO_REDIRECT it goes on to the IdP's login page, which now asks for credentials
+    # because the IdP's session has ended; otherwise it shows Mealie's login form with the OIDC button
+    post_logout_redirect_uri = oidc_login_redirect_url(request)
+    # Authlib also adds a `state`, which the IdP passes back to the login page, where it's ignored
+    logout = await client.create_logout_url(
+        post_logout_redirect_uri=post_logout_redirect_uri,
+        id_token_hint=id_token,
+        client_id=client.client_id,
+    )
+    return logout["url"]
+
+
 class MealieAuthToken(BaseModel):
     access_token: str
     token_type: str = "bearer"
@@ -220,6 +276,21 @@ def get_token(
     return MealieAuthToken.respond(access_token, duration)
 
 
+def oidc_login_redirect_url(request: Request) -> str:
+    if not settings.PRODUCTION:
+        # in development, we want to redirect to the frontend
+        return "http://localhost:3000/login"
+
+    # Prioritize User Configuration over Request Headers.
+    base: str | URL = request.base_url
+    if not settings.is_default_base_url and settings.BASE_URL:
+        base = settings.BASE_URL
+        if "://" not in base:
+            # Without a scheme the IdP gets a relative redirect URI and rejects it (#6417).
+            base = f"{request.url.scheme}://{base}"
+    return str(URLPath("/login").make_absolute_url(base))
+
+
 @public_router.get("/oauth")
 async def oauth_login(request: Request):
     if not oauth:
@@ -228,19 +299,7 @@ async def oauth_login(request: Request):
             detail="Could not initialize OAuth client",
         )
     client = oauth.create_client("oidc")
-    redirect_url = None
-    if not settings.PRODUCTION:
-        # in development, we want to redirect to the frontend
-        redirect_url = "http://localhost:3000/login"
-    else:
-        # Prioritize User Configuration over Request Headers.
-        if not settings.is_default_base_url:
-            base = settings.BASE_URL or request.base_url
-        else:
-            base = request.base_url
-        redirect_url = URLPath("/login").make_absolute_url(base)
-
-    response: RedirectResponse = await client.authorize_redirect(request, redirect_url)
+    response: RedirectResponse = await client.authorize_redirect(request, oidc_login_redirect_url(request))
     return response
 
 
@@ -276,6 +335,8 @@ async def oauth_callback(request: Request, response: Response, session: Session 
 
     access_token, duration = auth
     set_session_cookie(response, request, access_token, duration, settings.OIDC_REMEMBER_ME)
+    if settings.OIDC_SIGNOUT_ENABLED and "id_token" in token:
+        set_oidc_id_token_cookie(response, request, token["id_token"], duration, settings.OIDC_REMEMBER_ME)
     return MealieAuthToken.respond(access_token, duration)
 
 
@@ -413,6 +474,8 @@ async def refresh_token(
     remember_me = bool(payload.get("rme", False))
     access_token, duration = security.create_access_token({"sub": str(current_user.id), "rme": remember_me})
     set_session_cookie(response, request, access_token, duration, remember_me)
+    if id_token := request.cookies.get(OIDC_ID_TOKEN_COOKIE_NAME):
+        set_oidc_id_token_cookie(response, request, id_token, duration, remember_me)
     return MealieAuthToken.respond(access_token, duration)
 
 
@@ -422,9 +485,13 @@ async def logout(
     response: Response,
     accept_language: Annotated[str | None, Header()] = None,
 ):
+    end_session_url = await oidc_end_session_url(request)
+
     # Clearing a cookie only works when the attributes match the ones it was set with, which the old
     # bare delete_cookie() call didn't manage for embedded (partitioned, SameSite=None) deployments.
     response.set_cookie(SESSION_COOKIE_NAME, "", max_age=0, expires=0, **session_cookie_attrs(request))
+    response.set_cookie(OIDC_ID_TOKEN_COOKIE_NAME, "", max_age=0, expires=0, **oidc_id_token_cookie_attrs(request))
 
     translator = get_locale_provider(accept_language)
-    return {"message": translator.t("notifications.logged-out")}
+    # The frontend sends the browser here when it's set, so the IdP ends its session too
+    return {"message": translator.t("notifications.logged-out"), "redirect_url": end_session_url}

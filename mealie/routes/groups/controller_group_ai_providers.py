@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.root_logger import get_logger
@@ -75,22 +75,15 @@ class GroupAIProviderController(BaseUserController):
         Accepts optional unsaved edits to test against instead of what's in the database - e.g.
         while editing a provider, the caller may have changed the model/base_url but left the API
         key blank (meaning "keep the existing one"), so a plain "unsaved" test can't be used since
-        it has no way to supply that key. An `overrides.apiKey` of "" is treated the same way: keep
-        the saved key rather than testing with an empty one.
+        it has no way to supply that key. The saved key and header/param values are only used while
+        the base URL is unchanged; otherwise the caller must supply new ones.
         """
         provider = self.mixins.get_one(provider_id)
         if overrides:
-            provider = provider.model_copy(
-                update={
-                    "name": overrides.name,
-                    "base_url": overrides.base_url,
-                    "model": overrides.model,
-                    "timeout": overrides.timeout,
-                    "request_headers": overrides.request_headers,
-                    "request_params": overrides.request_params,
-                    **({"api_key": overrides.api_key} if overrides.api_key else {}),
-                }
-            )
+            try:
+                provider = AIProviderOut(id=provider.id, **provider.resolve_update(overrides))
+            except ValueError as e:
+                raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(e)) from e
         return await OpenAIService(self.repos).test_connection(provider)
 
     @providers_router.get("/{provider_id}", response_model=AIProviderOut, dependencies=[require(Perm.GROUP_MANAGE)])

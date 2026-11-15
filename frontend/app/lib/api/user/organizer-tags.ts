@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
 import { config } from "../config";
-import type { RecipeTagResponse, TagIn } from "~/lib/api/types/recipe";
+import type { TagCreate, TagOut, TagWithRecipes } from "~/lib/api/types/recipe";
 
 const prefix = config.PREFIX + "/organizers";
 
@@ -12,19 +12,20 @@ const routes = {
   tagsMerge: `${prefix}/tags/merge`,
 };
 
-export class TagsAPI extends BaseCRUDAPI<TagIn, RecipeTagResponse> {
+/** Reading or updating one tag responds with its recipes too; the list, create and merge routes do not. */
+export class TagsAPI extends BaseCRUDAPI<TagCreate, TagWithRecipes, TagCreate, TagOut, TagOut> {
   baseRoute: string = routes.tags;
   itemRoute = routes.tagsId;
 
   async bySlug(slug: string) {
-    return await this.requests.get<RecipeTagResponse>(routes.tagsSlug(slug));
+    return await this.requests.get<TagWithRecipes>(routes.tagsSlug(slug));
   }
 
   async getEmpty() {
-    return await this.requests.get<RecipeTagResponse[]>(routes.tagsEmpty);
+    return await this.requests.get<TagOut[]>(routes.tagsEmpty);
   }
 
   merge(fromId: string, toId: string) {
-    return this.requests.post<RecipeTagResponse>(routes.tagsMerge, { fromId, toId });
+    return this.requests.post<TagOut>(routes.tagsMerge, { fromId, toId });
   }
 }

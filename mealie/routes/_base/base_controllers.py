@@ -22,8 +22,8 @@ from mealie.lang.locale_config import LocaleConfig
 from mealie.lang.providers import Translator
 from mealie.repos._utils import NOT_SET, NotSet
 from mealie.repos.all_repositories import AllRepositories, get_repositories
-from mealie.schema.household.household import HouseholdInDB
-from mealie.schema.user.user import GroupInDB, PrivateUser
+from mealie.schema.household.household import HouseholdOut
+from mealie.schema.user.user import GroupOut, PrivateUser
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
 
@@ -92,13 +92,13 @@ class BasePublicGroupExploreController(BasePublicController):
     Base class for all controllers that are public and explore group data.
     """
 
-    group: GroupInDB = Depends(get_public_group)
+    group: GroupOut = Depends(get_public_group)
 
     @property
     def group_id(self) -> UUID4 | None | NotSet:
         return self.group.id
 
-    def get_public_household(self, household_slug_or_id: str | UUID4) -> HouseholdInDB:
+    def get_public_household(self, household_slug_or_id: str | UUID4) -> HouseholdOut:
         household = self.repos.households.get_by_slug_or_id(household_slug_or_id)
         if not household or household.preferences.private_household:
             raise HTTPException(404, "household not found")
@@ -154,11 +154,11 @@ class BaseUserController(_BaseController):
         return self.user.household_id
 
     @property
-    def group(self) -> GroupInDB:
+    def group(self) -> GroupOut:
         return self.repos.groups.get_one(self.group_id)
 
     @property
-    def household(self) -> HouseholdInDB:
+    def household(self) -> HouseholdOut:
         return self.repos.households.get_one(self.household_id)
 
 

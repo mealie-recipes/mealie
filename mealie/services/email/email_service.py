@@ -24,7 +24,7 @@ class EmailTemplate(BaseModel):
     button_text: str
 
     def render_html(self, template: Path) -> str:
-        tmpl = Template(template.read_text())
+        tmpl = Template(template.read_text(), autoescape=True)
 
         return tmpl.render(data=self.model_dump())
 

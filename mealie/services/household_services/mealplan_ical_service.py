@@ -10,8 +10,8 @@ from sqlalchemy.orm import Session
 from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema._mealie import MealieModel
-from mealie.schema.meal_plan.mealplan_ical import ReadMealPlanICalToken
-from mealie.schema.meal_plan.new_meal import PlanEntryType, ReadPlanEntry
+from mealie.schema.meal_plan.mealplan_ical import MealPlanICalTokenOut
+from mealie.schema.meal_plan.new_meal import PlanEntryOut, PlanEntryType
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services._base_service import BaseService
 from mealie.services.urls.url_constructors import recipe_url
@@ -128,7 +128,7 @@ class MealPlanICalService(BaseService):
         """Returns the iCal feed for the household that owns `token`, or None if the token is unknown"""
         repos = get_repositories(self.session, group_id=None, household_id=None)
         prefs = repos.household_preferences.get_one(
-            token, key="mealplan_ical_token", override_schema=ReadMealPlanICalToken
+            token, key="mealplan_ical_token", override_schema=MealPlanICalTokenOut
         )
         if not prefs or not prefs.mealplan_ical_token:
             return None
@@ -159,7 +159,7 @@ class MealPlanICalService(BaseService):
         )
 
     @staticmethod
-    def _include(entry: ReadPlanEntry, query: MealPlanICalQuery) -> bool:
+    def _include(entry: PlanEntryOut, query: MealPlanICalQuery) -> bool:
         if query.types and entry.entry_type not in query.types:
             return False
         if not entry.recipe and not query.include_notes:
@@ -168,7 +168,7 @@ class MealPlanICalService(BaseService):
 
     def build_calendar(
         self,
-        entries: Iterable[ReadPlanEntry],
+        entries: Iterable[PlanEntryOut],
         query: MealPlanICalQuery,
         tz: tzinfo,
         calendar_name: str,
@@ -193,7 +193,7 @@ class MealPlanICalService(BaseService):
         lines.append("END:VCALENDAR")
         return "".join(_fold(line) + "\r\n" for line in lines)
 
-    def _merge_fields(self, entry: ReadPlanEntry, url: str | None) -> dict[str, str]:
+    def _merge_fields(self, entry: PlanEntryOut, url: str | None) -> dict[str, str]:
         # when adding or removing fields, also update the "Calendar Feed" list in docs/.../getting-started/features.md
         entry_type = self.translator.t(f"mealplan.entry-type.{entry.entry_type.value}", default=entry.entry_type.value)
         fields = {
@@ -219,7 +219,7 @@ class MealPlanICalService(BaseService):
                 "description": recipe.description or "",
                 "totalTime": recipe.total_time or "",
                 "prepTime": recipe.prep_time or "",
-                "cookTime": recipe.cook_time or "",
+                "cookTime": recipe.perform_time or "",
                 "tags": ", ".join(tag.name for tag in recipe.tags or []),
                 "categories": ", ".join(category.name for category in recipe.recipe_category or []),
                 "tools": ", ".join(tool.name for tool in recipe.tools),
@@ -228,7 +228,7 @@ class MealPlanICalService(BaseService):
         return fields
 
     def _event_lines(
-        self, entry: ReadPlanEntry, query: MealPlanICalQuery, tz: tzinfo, group_slug: str, now: datetime
+        self, entry: PlanEntryOut, query: MealPlanICalQuery, tz: tzinfo, group_slug: str, now: datetime
     ) -> list[str]:
         url = recipe_url(group_slug, entry.recipe.slug, self.settings.BASE_URL) if entry.recipe else None
         fields = self._merge_fields(entry, url)

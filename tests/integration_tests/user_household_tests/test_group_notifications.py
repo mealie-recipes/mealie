@@ -1,5 +1,7 @@
+import pytest
 from fastapi.testclient import TestClient
 
+from mealie.core.config import get_app_settings
 from mealie.schema.household.group_events import GroupEventNotifierCreate, GroupEventNotifierOptions
 from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener
 from mealie.services.event_bus_service.event_bus_service import Event
@@ -10,6 +12,7 @@ from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventTypes,
 )
+from mealie.services.event_bus_service.publisher import ApprisePublisher
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool, random_email, random_int, random_string
@@ -181,3 +184,48 @@ def test_apprise_event_bus_listener_functions():
     # Validate that no URLs are lost when updating them
     assert len(updated_standard_urls) == len(test_standard_urls)
     assert len(updated_custom_urls) == len(updated_custom_urls)
+
+
+def test_create_notification_rejects_disallowed_schema(
+    monkeypatch: pytest.MonkeyPatch, api_client: TestClient, unique_user: TestUser
+):
+    monkeypatch.setattr(get_app_settings(), "APPRISE_ALLOWED_SCHEMAS", "ntfys")
+
+    payload = notifier_generator()
+    payload["appriseUrl"] = "json://10.0.0.1/hook"
+    response = api_client.post(api_routes.households_events_notifications, json=payload, headers=unique_user.token)
+    assert response.status_code == 400
+
+    payload["appriseUrl"] = "ntfys://ntfy.sh/topic"
+    response = api_client.post(api_routes.households_events_notifications, json=payload, headers=unique_user.token)
+    assert response.status_code == 201
+
+
+def test_update_notification_rejects_disallowed_schema(
+    monkeypatch: pytest.MonkeyPatch, api_client: TestClient, unique_user: TestUser
+):
+    response = api_client.post(
+        api_routes.households_events_notifications, json=notifier_generator(), headers=unique_user.token
+    )
+    assert response.status_code == 201
+    update_payload = response.json()
+
+    monkeypatch.setattr(get_app_settings(), "APPRISE_ALLOWED_SCHEMAS", "ntfys")
+    update_payload["appriseUrl"] = "json://10.0.0.1/hook"
+    response = api_client.put(
+        api_routes.households_events_notifications_item_id(update_payload["id"]),
+        json=update_payload,
+        headers=unique_user.token,
+    )
+    assert response.status_code == 400
+
+
+def test_publisher_skips_disallowed_schema(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(get_app_settings(), "APPRISE_ALLOWED_SCHEMAS", "ntfys")
+    publisher = ApprisePublisher()
+    monkeypatch.setattr(publisher.apprise, "notify", lambda **_: True)
+
+    publisher.publish(event_generator(), ["json://10.0.0.1/hook", "ntfys://ntfy.sh/topic"])
+
+    assert len(publisher.apprise) == 1
+    assert publisher.apprise[0].url().startswith("ntfys://")

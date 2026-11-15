@@ -23,14 +23,25 @@ export function useShoppingListCrud(
     return {
       id: uuid4(),
       shoppingListId: shoppingList.value?.id || "",
+      groupId: shoppingList.value?.groupId || "",
+      householdId: shoppingList.value?.householdId || "",
       checked: false,
       position: shoppingList.value?.listItems?.length || 1,
       quantity: 0,
+      unit: null,
+      food: null,
+      label: null,
+      referencedRecipe: null,
       note: "",
-      labelId: undefined,
-      unitId: undefined,
-      foodId: undefined,
-    } as ShoppingListItemOut;
+      display: "",
+      labelId: null,
+      unitId: null,
+      foodId: null,
+      extras: {},
+      recipeReferences: [],
+      createdAt: null,
+      updatedAt: null,
+    };
   }
 
   // Check/Uncheck All operations
