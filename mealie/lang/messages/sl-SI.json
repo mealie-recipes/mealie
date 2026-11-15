@@ -26,14 +26,14 @@
         },
         "and-amount": "in {amount}",
         "pdf": {
-            "cookbook": "Cookbook",
-            "contents": "Contents",
-            "ingredients": "Ingredients",
-            "instructions": "Instructions",
-            "notes": "Notes",
-            "prep-time": "Prep",
-            "cook-time": "Cook",
-            "total-time": "Total"
+            "cookbook": "Kuharska knjiga",
+            "contents": "Vsebina",
+            "ingredients": "Sestavine",
+            "instructions": "Navodila",
+            "notes": "Zapiski",
+            "prep-time": "Priprava",
+            "cook-time": "Kuhaj",
+            "total-time": "Skupaj"
         },
         "import-errors": {
             "ai-not-enabled": "Storitve umetne inteligence niso omogočene",
@@ -53,7 +53,7 @@
             "creating-recipe-from-webpage-data": "Ustvarjanje recepta iz podatkov spletne strani...",
             "downloading-image": "Prenašanje slike...",
             "downloading-video": "Prenašanje videoposnetka...",
-            "enriching-instructions": "Adding step details...",
+            "enriching-instructions": "Dodajanje podrobnosti koraka...",
             "extracting-recipe-data": "Pridobivanje podatkov o receptih...",
             "fetching-webpage": "Pridobivanje spletne strani...",
             "organizing-recipe": "Organizacija recepta...",
