@@ -8,7 +8,7 @@ router = UserAPIRouter()
 @controller(router)
 class RecipeCommentsController(BaseUserController):
     @router.get("/{slug}/comments", response_model=list[RecipeCommentOut])
-    async def get_recipe_comments(self, slug: str):
+    def get_recipe_comments(self, slug: str):
         """Get all comments for a recipe"""
         recipe = self.repos.recipes.get_one(slug)
         return self.repos.comments.multi_query({"recipe_id": recipe.id})

@@ -1,20 +1,19 @@
 from requests import Response
 
-from mealie.schema.recipe.recipe import RecipeTool
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_organizers import ToolOut, ToolSave
 from tests import utils
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase
 from tests.utils import api_routes
 
 
 class ToolsTestCase(ABCMultiTenantTestCase):
-    items: list[RecipeTool]
+    items: list[ToolOut]
 
     def seed_action(self, group_id: str) -> set[str]:
         tool_ids: set[str] = set()
         for _ in range(10):
             tool = self.database.tools.create(
-                RecipeToolSave(
+                ToolSave(
                     group_id=group_id,
                     name=utils.random_string(10),
                 )
@@ -33,7 +32,7 @@ class ToolsTestCase(ABCMultiTenantTestCase):
             name = utils.random_string(10)
             for group_id, item_ids in [(group1_id, g1_item_ids), (group2_id, g2_item_ids)]:
                 tool = self.database.tools.create(
-                    RecipeToolSave(
+                    ToolSave(
                         group_id=group_id,
                         name=name,
                     )

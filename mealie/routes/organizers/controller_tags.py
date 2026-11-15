@@ -7,9 +7,8 @@ from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
-from mealie.schema.recipe import RecipeTagResponse, TagIn
-from mealie.schema.recipe.recipe import RecipeTag, RecipeTagPagination
-from mealie.schema.recipe.recipe_category import TagMerge, TagOut, TagSave
+from mealie.schema.recipe import TagWithRecipes
+from mealie.schema.recipe.recipe_organizers import OrganizerMerge, TagCreate, TagOut, TagPagination, TagSave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventOperation, EventTagData, EventTypes
@@ -27,25 +26,25 @@ class TagController(BaseCrudController):
     def mixins(self):
         return HttpRepo(self.repo, self.logger)
 
-    @router.get("", response_model=RecipeTagPagination)
-    async def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
+    @router.get("", response_model=TagPagination)
+    def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         """Returns a list of available tags in the database"""
         response = self.repo.page_all(
             pagination=q,
-            override=RecipeTag,
+            override=TagOut,
             search=search,
         )
 
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.get("/empty")
+    @router.get("/empty", response_model=list[TagOut])
     def get_empty_tags(self):
         """Returns a list of tags that do not contain any recipes"""
         return self.repo.get_empty()
 
     @router.post("/merge", response_model=TagOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def merge_tags(self, body: TagMerge):
+    def merge_tags(self, body: OrganizerMerge):
         """Merges the from_id tag into the to_id tag, then deletes from_id."""
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
@@ -57,13 +56,13 @@ class TagController(BaseCrudController):
 
         return self.repo.merge(body.from_id, body.to_id)
 
-    @router.get("/{item_id}", response_model=RecipeTagResponse)
+    @router.get("/{item_id}", response_model=TagWithRecipes)
     def get_one(self, item_id: UUID4):
         """Returns a list of recipes associated with the provided tag."""
         return self.mixins.get_one(item_id)
 
-    @router.post("", status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def create_one(self, tag: TagIn):
+    @router.post("", response_model=TagOut, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def create_one(self, tag: TagCreate):
         """Creates a Tag in the database"""
         save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
         new_tag = self.mixins.create_one(save_data)
@@ -83,8 +82,8 @@ class TagController(BaseCrudController):
 
         return new_tag
 
-    @router.put("/{item_id}", response_model=RecipeTagResponse, dependencies=[require(Perm.GROUP_ORGANIZE)])
-    def update_one(self, item_id: UUID4, new_tag: TagIn):
+    @router.put("/{item_id}", response_model=TagWithRecipes, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    def update_one(self, item_id: UUID4, new_tag: TagCreate):
         """Updates an existing Tag in the database"""
         save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
         tag = self.repo.update(item_id, save_data)
@@ -125,6 +124,6 @@ class TagController(BaseCrudController):
                 message=self.t("notifications.generic-deleted", name=tag.name),
             )
 
-    @router.get("/slug/{tag_slug}", response_model=RecipeTagResponse)
-    async def get_one_by_slug(self, tag_slug: str):
-        return self.repo.get_one(tag_slug, "slug", override_schema=RecipeTagResponse)
+    @router.get("/slug/{tag_slug}", response_model=TagWithRecipes)
+    def get_one_by_slug(self, tag_slug: str):
+        return self.repo.get_one(tag_slug, "slug", override_schema=TagWithRecipes)

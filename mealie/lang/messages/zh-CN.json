@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "食谱图片已删除",
         "recipe-defaults": {
-            "ingredient-note": "1杯面粉",
-            "name": "New Recipe",
-            "step-text": "食谱步骤以及食谱页面的其他字段支持markdown语法。\n\n**添加一个链接**\n\n[我的链接](https://demo.mealie.io)\n"
+            "name": "New Recipe"
         },
         "servings-text": {
             "makes": "制作",
@@ -27,6 +25,16 @@
             "yields": "份量"
         },
         "and-amount": "和 {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI 服务未启用",
             "ai-request-failed": "AI 提供商无法完成请求。请重试",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "从网页数据创建食谱……",
             "downloading-image": "正在下载图片……",
             "downloading-video": "正在下载视频……",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "正在提取食谱数据……",
             "fetching-webpage": "正在获取网页……",
             "organizing-recipe": "正在组织食谱……",

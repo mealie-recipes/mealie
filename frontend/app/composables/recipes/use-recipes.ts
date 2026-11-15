@@ -3,11 +3,11 @@ import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
 import { isSafeRedirectTarget } from "~/lib/validators/redirect";
-import type { OrderByNullPosition, Recipe } from "~/lib/api/types/recipe";
+import type { OrderByNullPosition, RecipeSummary } from "~/lib/api/types/recipe";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
-export const allRecipes = ref<Recipe[]>([]);
-export const recentRecipes = ref<Recipe[]>([]);
+export const allRecipes = ref<RecipeSummary[]>([]);
+export const recentRecipes = ref<RecipeSummary[]>([]);
 
 export function resetRecipes() {
   allRecipes.value = [];
@@ -49,7 +49,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
   // passing the group slug switches to using the public API
   const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
-  const recipes = ref<Recipe[]>([]);
+  const recipes = ref<RecipeSummary[]>([]);
 
   async function fetchMore(
     page: number,
@@ -74,13 +74,13 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     return data ? data.items : [];
   }
 
-  function appendRecipes(val: Array<Recipe>) {
+  function appendRecipes(val: Array<RecipeSummary>) {
     val.forEach((recipe) => {
       recipes.value.push(recipe);
     });
   }
 
-  function assignSorted(val: Array<Recipe>) {
+  function assignSorted(val: Array<RecipeSummary>) {
     recipes.value = val;
   }
 
@@ -93,7 +93,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     }
   }
 
-  function replaceRecipes(val: Array<Recipe>) {
+  function replaceRecipes(val: Array<RecipeSummary>) {
     recipes.value = val;
   }
 
@@ -157,7 +157,7 @@ export const useRecipes = (
     });
   }
 
-  function assignSorted(val: Array<Recipe>) {
+  function assignSorted(val: Array<RecipeSummary>) {
     recipes.value = val;
   }
 

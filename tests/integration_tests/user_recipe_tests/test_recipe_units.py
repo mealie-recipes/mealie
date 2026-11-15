@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import IngredientUnitCreate
 from tests.utils import api_routes
 from tests.utils.factories import random_bool, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -9,7 +9,7 @@ from tests.utils.fixture_schemas import TestUser
 
 @pytest.fixture(scope="function")
 def unit(api_client: TestClient, unique_user: TestUser):
-    data = CreateIngredientUnit(
+    data = IngredientUnitCreate(
         name=random_string(10),
         description=random_string(10),
         fraction=random_bool(),
@@ -27,7 +27,7 @@ def unit(api_client: TestClient, unique_user: TestUser):
 
 
 def test_create_unit(api_client: TestClient, unique_user: TestUser):
-    data = CreateIngredientUnit(
+    data = IngredientUnitCreate(
         name=random_string(10),
         description=random_string(10),
     ).model_dump(by_alias=True)

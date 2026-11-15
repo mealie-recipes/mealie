@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} udělal jako dezert",
         "recipe-image-deleted": "Obrázek receptu odstraněn",
         "recipe-defaults": {
-            "ingredient-note": "1 hrnek mouky",
-            "name": "Nový recept",
-            "step-text": "Kroky receptu stejně jako další pole v receptu podporují syntaxi markdown.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"
+            "name": "Nový recept"
         },
         "servings-text": {
             "makes": "Vytvoří",
@@ -27,6 +25,16 @@
             "yields": "Výnosy"
         },
         "and-amount": "a {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI služby nejsou povoleny",
             "ai-request-failed": "Poskytovatel AI nemohl požadavek dokončit. Zkuste to prosím znovu",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Vytváření receptu z webových stránek...",
             "downloading-image": "Stahování obrázku...",
             "downloading-video": "Stahování videa...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extrahování dat receptu...",
             "fetching-webpage": "Načítání webové stránky...",
             "organizing-recipe": "Organizování receptu...",

@@ -1,8 +1,9 @@
 import enum
 
 from mealie.schema._mealie import MealieModel
-from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.recipe.recipe_settings import RecipeSettings
+
+from .recipe_organizers import CategoryDraft, TagDraft
 
 
 class ExportTypes(enum.StrEnum):
@@ -18,11 +19,11 @@ class ExportRecipes(ExportBase):
 
 
 class AssignCategories(ExportBase):
-    categories: list[CategoryBase]
+    categories: list[CategoryDraft]
 
 
 class AssignTags(ExportBase):
-    tags: list[TagBase]
+    tags: list[TagDraft]
 
 
 class AssignSettings(ExportBase):

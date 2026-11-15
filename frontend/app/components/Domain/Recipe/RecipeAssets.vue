@@ -103,8 +103,8 @@
     <RecipeImageLightbox
       v-if="lightbox.open"
       v-model="lightbox.open"
-      :image-url="lightbox.imageUrl"
-      :image-alt="lightbox.imageAlt"
+      v-model:index="lightbox.index"
+      :items="lightboxItems"
     />
     <div class="d-flex ml-auto mt-2">
       <v-spacer />
@@ -160,6 +160,7 @@ import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { RecipeAsset } from "~/lib/api/types/recipe";
 import { useCopy } from "~/composables/use-copy";
+import { isImage, useRecipeLightboxItems, findLightboxStartIndex } from "~/composables/recipe-page/use-recipe-lightbox-items";
 
 const props = defineProps({
   slug: {
@@ -173,6 +174,16 @@ const props = defineProps({
   edit: {
     type: Boolean,
     default: true,
+  },
+  // Optional so the lightbox can open a gallery that includes the recipe's hero image
+  // ahead of the asset list; omit when the caller has no hero to show (or doesn't care).
+  heroImageUrl: {
+    type: String,
+    default: undefined,
+  },
+  heroImageAlt: {
+    type: String,
+    default: undefined,
   },
 });
 
@@ -227,20 +238,20 @@ function getIconDefinition(icon: string) {
   return iconOptions.find(item => item.name === icon) || iconOptions[0];
 }
 
-function isImage(fileName?: string | null) {
-  if (!fileName) return false;
-  return /\.(png|jpe?g|gif|webp|bmp|avif)$/i.test(fileName);
-}
+const { buildItems } = useRecipeLightboxItems();
+const lightboxItems = computed(() => buildItems(props.recipeId, {
+  heroUrl: props.heroImageUrl,
+  heroAlt: props.heroImageAlt,
+  assets: model.value,
+}));
 
 const lightbox = reactive({
   open: false,
-  imageUrl: undefined as string | undefined,
-  imageAlt: undefined as string | undefined,
+  index: 0,
 });
 
 function openLightbox(item: RecipeAsset) {
-  lightbox.imageUrl = assetURL(item.fileName ?? "");
-  lightbox.imageAlt = item.name;
+  lightbox.index = findLightboxStartIndex(lightboxItems.value, assetURL(item.fileName ?? ""));
   lightbox.open = true;
 }
 

@@ -177,7 +177,9 @@
     "date-updated": "Дата на актуализация",
     "key": "Ключ",
     "value": "Стойност",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
     "create-group": "Създаване на група",
@@ -238,6 +240,8 @@
       "api-key": "API ключ",
       "api-key-description-create": "API ключът на вашия доставчик за удостоверяване. Ако вашата услуга (напр. Ollama) не използва API ключ, пак трябва да въведете нещо тук.",
       "api-key-description-edit": "Оставете полето празно, освен ако не искате да го промените.",
+      "api-key-description-base-url-changed": "The base URL changed, so enter the API key for the new URL.",
+      "reenter-hidden-values": "The base URL changed, so re-enter each hidden (********) header and parameter value for the new URL.",
       "base-url": "Основен линк",
       "base-url-description": "Ако използвате OpenAI, оставете това празно. Трябва да е съвместима OpenAI крайна точка (напр. \"http://localhost:11434/v1\").",
       "model": "Модел",
@@ -282,6 +286,7 @@
       "prompt-save-failed": "Failed to save prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Build Recipe",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Parse Ingredients",
         "recipes-parse-recipe-video": "Recipe from Video",
         "recipes-resolve-organizers": "Assign Organizers",
@@ -291,6 +296,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
         "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
         "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
@@ -330,6 +336,13 @@
     "any-category": "Всяка категория",
     "any-tag": "Всеки етикет",
     "any-household": "Всяко домакинство",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDays-hint": "Number of days on page load",
+    "numberOfDays-label": "Default Days",
+    "weeks": "Weeks",
+    "days": "Days",
+    "week-meals-hidden": "No meals planned for the week | One meal planned for the week, switch to Weeks to see it | {count} meals planned for the week, switch to Weeks to see them",
     "numberOfWeeksPast-hint": "Number of weeks in the past on page load",
     "numberOfWeeksPast-label": "Default Weeks in the Past",
     "numberOfWeeks-hint": "Number of weeks on page load, including the current week",
@@ -473,6 +486,8 @@
     "an-error-occurred": "Възникна грешка"
   },
   "recipe": {
+    "download-pdf": "Download PDF",
+    "preparing-pdf": "Preparing PDF...",
     "step-duration-minutes": "Duration (minutes)",
     "step-duration-saved": "Saved duration: {duration}. Editing this field replaces it with whole minutes.",
     "step-duration-placeholder": "Minutes",
@@ -509,6 +524,7 @@
     "nutrition": "Хранителни стойности",
     "linked-ingredients": "Linked Ingredients",
     "original-url": "Оригинален линк",
+    "per-serving": "Per serving",
     "perform-time": "Време за готвене",
     "prep-time": "Време за подготовка",
     "protein-content": "Белтъци",
@@ -524,6 +540,8 @@
     "remove-from-favorites": "Премахни от любими",
     "saturated-fat-content": "Наситени мазнини",
     "save-recipe-before-use": "Запази рецептата преди да я използваш",
+    "next-image": "Next image",
+    "previous-image": "Previous image",
     "section-title": "Заглавие на раздела",
     "servings": "Порции",
     "serves-amount": "Количествата са за {amount} порции",
@@ -865,6 +883,7 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "Неизбран елемент {item}",
+    "changes-not-saved": "Some changes couldn't be saved. They stay on this device and will be sent again.",
     "more-options": "More options",
     "fewer-options": "Fewer options",
     "save-as-new-food": "Save \"{text}\" as a new food"
@@ -970,6 +989,7 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Искате ли да виждате това по-често? Уверете се, че сте конфигурирали настройките си за email известяване правилно!",
     "forgot-password": "Забравена Парола",
     "forgot-password-text": "Въведете Вашият имейл адрес и ние ще ви изпратим линк, с който да промените Вашата парола.",
+    "reset-link-invalid": "This reset link expired or is not valid. Request a new link.",
     "changes-reflected-immediately": "Промените по този потребител ще бъдат отразени моментално.",
     "default-activity": "Действие по подразбиране",
     "default-activity-hint": "Изберете коя страница искате да отворите, след като влезете от това устройство"

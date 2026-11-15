@@ -4,7 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.household.household import HouseholdCreate
-from mealie.schema.household.household_preferences import CreateHouseholdPreferences
+from mealie.schema.household.household_preferences import HouseholdPreferencesCreate
 from mealie.services.household_services.household_service import HouseholdService
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -18,7 +18,7 @@ def test_get_all_households(api_client: TestClient, unique_user: TestUser, is_pr
         HouseholdService.create_household(
             unique_user.repos,
             HouseholdCreate(name=random_string()),
-            CreateHouseholdPreferences(private_household=False),
+            HouseholdPreferencesCreate(private_household=False),
         )
         for _ in range(5)
     ]
@@ -39,12 +39,12 @@ def test_get_all_households_public_only(api_client: TestClient, unique_user: Tes
     public_household = HouseholdService.create_household(
         unique_user.repos,
         HouseholdCreate(name=random_string()),
-        CreateHouseholdPreferences(private_household=False),
+        HouseholdPreferencesCreate(private_household=False),
     )
     private_household = HouseholdService.create_household(
         unique_user.repos,
         HouseholdCreate(name=random_string()),
-        CreateHouseholdPreferences(private_household=True),
+        HouseholdPreferencesCreate(private_household=True),
     )
 
     response = api_client.get(api_routes.explore_groups_group_slug_households(unique_user.group_id))
@@ -66,7 +66,7 @@ def test_get_household(
     household = household = HouseholdService.create_household(
         unique_user.repos,
         HouseholdCreate(name=random_string()),
-        CreateHouseholdPreferences(private_household=is_private_household),
+        HouseholdPreferencesCreate(private_household=is_private_household),
     )
 
     response = api_client.get(

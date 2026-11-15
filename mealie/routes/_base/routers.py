@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 
 from fastapi import APIRouter, Depends, Request, Response
 from fastapi.routing import APIRoute
+from pydantic import BaseModel
 
 from mealie.core.dependencies import get_admin_user, get_current_user
 
@@ -27,8 +28,17 @@ class UserAPIRouter(APIRouter):
 class MealieCrudRoute(APIRoute):
     """Route class to include the last-modified header when returning a MealieModel, when available"""
 
+    def _cannot_return_updated_at(self) -> bool:
+        model = self.response_model
+        return isinstance(model, type) and issubclass(model, BaseModel) and "updated_at" not in model.model_fields
+
     def get_route_handler(self) -> Callable:
         original_route_handler = super().get_route_handler()
+
+        # Parsing the body back costs as much as serializing it, and paginated lists run to megabytes,
+        # so skip it for routes whose declared model has no top-level updatedAt.
+        if self._cannot_return_updated_at():
+            return original_route_handler
 
         async def custom_route_handler(request: Request) -> Response:
             with contextlib.suppress(JSONDecodeError):

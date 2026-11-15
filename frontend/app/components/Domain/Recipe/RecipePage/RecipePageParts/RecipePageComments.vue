@@ -84,13 +84,12 @@
 
 <script setup lang="ts">
 import { useUserApi } from "~/composables/api";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageUser } from "~/composables/recipe-page/shared-state";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
-const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const recipe = defineModel<RecipeOut>({ required: true });
 const api = useUserApi();
 const { user } = usePageUser();
 const comment = ref("");

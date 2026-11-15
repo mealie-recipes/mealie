@@ -46,7 +46,7 @@ export function useShoppingListState() {
 
   const recipeMap = computed(() => new Map(
     (shoppingList.value?.recipeReferences?.map(ref => ref.recipe) ?? [])
-      .map(recipe => [recipe.id || "", recipe])),
+      .map(recipe => [recipe.id, recipe])),
   );
 
   const recipeList = computed(() => Array.from(recipeMap.value.values()));
