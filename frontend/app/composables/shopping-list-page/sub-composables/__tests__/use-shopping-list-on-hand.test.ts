@@ -102,7 +102,7 @@ describe("useShoppingListOnHand", () => {
     expect(mocks.addFoodsOnHand).not.toHaveBeenCalled();
   });
 
-  test("keeps the items on the list when the request fails", async () => {
+  test("keeps the items on the list and shows an error when the request fails", async () => {
     mocks.addFoodsOnHand.mockResolvedValueOnce({ data: null, error: new Error("nope") });
     setItems([item({ id: "a", checked: true, foodId: "food-1" })]);
 
@@ -110,5 +110,6 @@ describe("useShoppingListOnHand", () => {
 
     expect(mocks.deleteListItems).not.toHaveBeenCalled();
     expect(mocks.alert.success).not.toHaveBeenCalled();
+    expect(mocks.alert.error).toHaveBeenCalledExactlyOnceWith("Failed to mark foods as on hand");
   });
 });

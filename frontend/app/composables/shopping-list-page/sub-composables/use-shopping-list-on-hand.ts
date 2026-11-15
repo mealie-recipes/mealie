@@ -31,7 +31,7 @@ export function useShoppingListOnHand(
 
     const { error } = await userApi.households.addFoodsOnHand(foodIds);
     if (error) {
-      // the API client has already shown the error, and the items stay on the list
+      alert.error(i18n.t("shopping-list.failed-to-mark-foods-on-hand"));
       return;
     }
 

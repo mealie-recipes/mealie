@@ -874,6 +874,7 @@
     "marked-foods-on-hand": "No foods marked as on hand|Marked one food as on hand.|Marked {count} foods as on hand.",
     "checked-items-without-food-skipped": "No checked items were skipped.|Skipped one checked item that has no food.|Skipped {count} checked items that have no food.",
     "no-checked-items-have-a-food": "None of the checked items have a food, so nothing was marked as on hand.",
+    "failed-to-mark-foods-on-hand": "Failed to mark foods as on hand",
     "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Uncheck All Items",
     "check-all-items": "Check All Items",
