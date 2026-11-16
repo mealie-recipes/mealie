@@ -236,6 +236,8 @@
       "audio-provider-description": "Videolardan tarif oluşturma gibi ses yazıya dökme özelliklerini etkinleştirir",
       "image-provider": "Resim Sağlayıcısı",
       "image-provider-description": "Görsellerden tarif oluşturma gibi görüntü tanıma özelliklerini etkinleştirir",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Sağlayıcı Adı",
       "api-key": "API Anahtarı",
       "api-key-description-create": "Kimlik doğrulama için sağlayıcınızın API anahtarı. Hizmetiniz (ör. Ollama) API anahtarı kullanmıyorsa bile buraya bir şey yazmanız gerekir.",
