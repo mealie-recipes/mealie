@@ -5,6 +5,14 @@ from mealie.lang.providers import Translator
 from mealie.pkgs.safehttp import fetch_via_flaresolverr, resilient_fetch
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.services.openai import OpenAIService
+from mealie.services.recipe.import_workflow import (
+    ENRICHMENT_WORKFLOW_STEPS,
+    RecipeImportWorkflow,
+    WorkflowContext,
+    WorkflowInput,
+    WorkflowOptions,
+)
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -146,6 +154,63 @@ class RecipeScraper:
                 self.logger.exception(f"Failed to clean recipe data from {scraper.__class__.__name__}")
                 continue
 
+            if not ScraperClass.uses_ai and self._should_enrich():
+                await self._enrich(
+                    recipe,
+                    extras,
+                    url,
+                    resolved_url,
+                    on_progress=on_progress,
+                    resolve_organizers=include_tags or include_categories,
+                )
+
             return recipe, extras
 
         return None, None
+
+    def _should_enrich(self) -> bool:
+        group_id = self.repos.scoped_group_id
+        settings = self.repos.group_ai_provider_settings.get_one(group_id) if group_id else None
+        return bool(settings and settings.enrich_non_ai_imports_enabled)
+
+    async def _enrich(
+        self,
+        recipe: RecipeDraft,
+        extras: ScrapedExtras,
+        url: str,
+        resolved_url: str | None,
+        on_progress: Callable[[str], Awaitable[None]] | None = None,
+        resolve_organizers: bool = False,
+    ) -> None:
+        """
+        Runs the import workflow's enrichment steps over a recipe that was scraped without AI.
+
+        The recipe is refined in place. Organizers are reported back through `extras`, replacing
+        any the page declared, so the caller applies them the same way as with every other strategy.
+        """
+
+        ctx = WorkflowContext(
+            input=WorkflowInput(url=url),
+            resolved_url=resolved_url,
+            options=WorkflowOptions(resolve_organizers=resolve_organizers, attach_organizers=False),
+            repos=self.repos,
+            translator=self.translator,
+            ai=OpenAIService(self.repos),
+            on_progress=on_progress,
+            draft_recipe=recipe,
+        )
+
+        try:
+            await RecipeImportWorkflow(ENRICHMENT_WORKFLOW_STEPS).run(ctx)
+        except Exception:
+            # an unenriched recipe is still a successful import
+            self.logger.exception("Failed to enrich scraped recipe, keeping it as scraped")
+            return
+
+        if not ctx.organizer_names:
+            return
+
+        if tags := cleaner.clean_tags(ctx.organizer_names.tags):
+            extras.set_tags(tags)
+        if categories := cleaner.clean_categories(ctx.organizer_names.categories):
+            extras.set_categories(categories)

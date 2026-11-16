@@ -65,6 +65,19 @@
           {{ $t("group.ai-provider-settings.image-provider-description") }}
         </v-card-subtitle>
       </v-col>
+      <v-col cols="12">
+        <v-checkbox
+          v-model="local.enrichNonAiImports"
+          :disabled="!local.defaultProviderId"
+          :label="$t('group.ai-provider-settings.enrich-non-ai-imports')"
+          hide-details
+          density="compact"
+          color="primary"
+        />
+        <v-card-subtitle class="ml-3">
+          {{ $t("group.ai-provider-settings.enrich-non-ai-imports-description") }}
+        </v-card-subtitle>
+      </v-col>
     </v-row>
 
     <GroupAIProviderDialog
