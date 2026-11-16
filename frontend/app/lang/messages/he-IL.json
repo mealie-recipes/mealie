@@ -236,6 +236,8 @@
       "audio-provider-description": "מאפשר תכונות של תמלול אודיו, כמו יצירת מתכונים מסרטונים",
       "image-provider": "ספק תמונות",
       "image-provider-description": "מאפשר תכונות לזיהוי תמונות, כמו יצירת מתכונים מתמונות",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "שם הספק",
       "api-key": "מפתח API",
       "api-key-description-create": "מפתח ה־API של הספק שלך לצורך אימות. אם השירות שלך (למשל Ollama) לא משתמש במפתח API, עדיין צריך להזין כאן משהו.",
