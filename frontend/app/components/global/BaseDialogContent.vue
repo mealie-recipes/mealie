@@ -1,5 +1,9 @@
 <template>
-  <v-card height="100%" :loading="loading">
+  <v-card
+    :class="bottomSheet ? 'base-dialog-sheet-card' : undefined"
+    :height="bottomSheet ? undefined : '100%'"
+    :loading="loading"
+  >
     <template #loader="{ isActive }">
       <v-progress-linear
         :active="isActive"
@@ -77,6 +81,7 @@
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 interface DialogProps {
+  bottomSheet?: boolean;
   color?: string;
   title?: string;
   icon?: string | null;
@@ -102,6 +107,7 @@ interface DialogEmits {
 
 // Using TypeScript interface with withDefaults for props
 const props = withDefaults(defineProps<DialogProps>(), {
+  bottomSheet: false,
   color: "primary",
   title: "Modal Title",
   icon: null,
@@ -125,6 +131,17 @@ const cancelLabel = computed(() => props.cancelText ?? i18n.t("general.cancel"))
 </script>
 
 <style scoped>
+/* v-card is display:block, so the sheet card is the column. The slot then
+   scrolls inside the viewport cap and the actions stay in the footer. */
+.base-dialog-sheet-card {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
+  max-height: calc(100dvh - env(safe-area-inset-bottom, 0px));
+}
+
 /* On extra-small displays the dialog is a bottom sheet or fullscreen, so the
    actions stretch evenly across the full width. Larger displays keep the
    default v-card-actions flex row, where the spacer pushes the actions right. */
