@@ -419,10 +419,10 @@ def clean_int(val: str | int | None, min: int | None = None, max: int | None = N
 
 def clean_notes(notes: typing.Any) -> list[dict] | None:
     if isinstance(notes, str | dict):
-          # A single note can be a bare string or a single object; wrap it in a list.
+    # A single note can be a bare string or a single object; wrap it in a list.
         notes = [notes]
 
-        if not isinstance(notes, list):
+    if not isinstance(notes, list):
         return None
 
     parsed_notes: list[dict] = []
