@@ -236,6 +236,8 @@
       "audio-provider-description": "啟用音訊轉錄功能，如從影片建立食譜",
       "image-provider": "圖片提供者",
       "image-provider-description": "啟用圖片辨識功能，如從圖片建立食譜",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "提供者名稱",
       "api-key": "API 密鑰",
       "api-key-description-create": "你的提供者用作認證的API密鑰。如果你的服務 (如 Ollama) 不使用API密鑰，你仍需在此欄填寫一些東西。",
