@@ -236,6 +236,8 @@
       "audio-provider-description": "Maakt audiotransscriptie functionaliteiten mogelijk, waarmee recepten op basis van video's gemaakt kunnen worden",
       "image-provider": "Afbeeldingsaanbieder",
       "image-provider-description": "Maakt beeldherkenningsfunctionaliteiten mogelijk, waarmee recepten op basis van afbeeldingen gemaakt kunnen worden",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Naam van de aanbieder",
       "api-key": "API-sleutel",
       "api-key-description-create": "Je aanbieder's API-sleutel voor authenticatie. Als je service (bijv. Ollama) geen API-sleutel gebruikt moet je hier alsnog iets invoeren.",
