@@ -236,6 +236,8 @@
       "audio-provider-description": "Активира функции за аудио транскрипция, като например създаване на рецепти от видеоклипове",
       "image-provider": "Доставчик на изображения",
       "image-provider-description": "Активира функции за разпознаване на изображения, като например създаване на рецепти от изображения",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Име на доставчика",
       "api-key": "API ключ",
       "api-key-description-create": "API ключът на вашия доставчик за удостоверяване. Ако вашата услуга (напр. Ollama) не използва API ключ, пак трябва да въведете нещо тук.",
