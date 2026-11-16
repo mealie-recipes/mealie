@@ -89,7 +89,7 @@ def clean(recipe_data: RecipeDraft | dict, translator: Translator, url=None) -> 
 
     recipe_data["image"] = clean_image(recipe_data.get("image"))[0]
     recipe_data["orgURL"] = url or recipe_data.get("orgURL")
-    recipe_data["notes"] = clean_notes(recipe_data.get("notes"))
+    recipe_data["notes"] = clean_notes(recipe_data.get("notes") or recipe_data.get("note"))
     recipe_data["rating"] = clean_int(recipe_data.get("rating"))
 
     return RecipeDraft(**recipe_data)
@@ -418,7 +418,11 @@ def clean_int(val: str | int | None, min: int | None = None, max: int | None = N
 
 
 def clean_notes(notes: typing.Any) -> list[dict] | None:
-    if not isinstance(notes, list):
+    if isinstance(notes, str | dict):
+          # A single note can be a bare string or a single object; wrap it in a list.
+        notes = [notes]
+
+        if not isinstance(notes, list):
         return None
 
     parsed_notes: list[dict] = []
