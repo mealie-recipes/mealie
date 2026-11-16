@@ -236,6 +236,8 @@
       "audio-provider-description": "Permite funcțiile de transcriere audio, cum ar fi crearea de rețete din videoclipuri",
       "image-provider": "Furnizor de imagine",
       "image-provider-description": "Activează funcțiile de recunoaștere a imaginii, cum ar fi crearea de rețete din imagini",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Numele furnizorului",
       "api-key": "Cheie API",
       "api-key-description-create": "Cheia API a furnizorului dvs. pentru autentificare. Dacă serviciul dvs. (de ex. Ollama) nu utilizează o cheie API, tot trebuie să puneți ceva aici.",
