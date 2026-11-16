@@ -236,6 +236,8 @@
       "audio-provider-description": "Habilita les funcions de transcripció d'àudio, com ara crear receptes a partir de vídeos",
       "image-provider": "Proveïdor d'imatges",
       "image-provider-description": "Habilita les funcions de reconeixement d'imatges, com ara crear receptes a partir d'imatges",
+      "enrich-non-ai-imports": "Enriqueix les importacions sense IA",
+      "enrich-non-ai-imports-description": "Fa servir la IA per millorar les receptes importades sense IA, per exemple vinculant els ingredients amb els passos i suggerint etiquetes",
       "provider-name": "Nom del proveïdor",
       "api-key": "Clau d'API",
       "api-key-description-create": "La clau d'API del teu proveïdor per a l'autenticació. Si el teu servei (p. ex. Ollama) no fa servir cap clau d'API, igualment has d'escriure-hi alguna cosa.",
