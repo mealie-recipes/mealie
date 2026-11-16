@@ -263,26 +263,25 @@ class RecipeScraperPackage(ABCScraperStrategy):
             return cleaner.clean_instructions(instruction_as_text)
 
         def get_notes() -> list[RecipeNote]:
-            """Extract notes from schema.org recipe data and convert to RecipeNote objects"""
-            notes_data = try_get_default(None, "notes", None)
+            """Extract notes from schema.org recipe data and convert to RecipeNote objects.
 
-            if not notes_data or not isinstance(notes_data, list):
-                return []
+            Sites publish chef's notes under `notes` (a list of {title, text} objects)
+            or under the singular `note` (a plain string, a list of strings, or an
+            object). Both keys are kept, `notes` first.
+            """
+            cleaned_notes: list[dict] = []
+            for key in ("notes", "note"):
+                if notes := cleaner.clean_notes(try_get_default(None, key, None)):
+                    cleaned_notes.extend(notes)
 
-            cleaned_notes = []
-            for note in notes_data:
-                if not isinstance(note, dict):
-                    continue
-
-                if text := note.get("text"):
-                    cleaned_notes.append(
-                        RecipeNote(
-                            title=cleaner.clean_string(note.get("title", "")),
-                            text=cleaner.clean_string(text),
-                        )
-                    )
-
-            return cleaned_notes
+            return [
+                RecipeNote(
+                    title=cleaner.clean_string(note.get("title", "")),
+                    text=cleaner.clean_string(note["text"]),
+                )
+                for note in cleaned_notes
+                if note.get("text")
+            ]
 
         def get_time(raw_time: Any) -> tuple[int | None, str | None]:
             """Seconds when the time is structured, otherwise the cleaned text"""
