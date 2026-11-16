@@ -236,6 +236,8 @@
       "audio-provider-description": "Möjliggör funktioner för ljudtranskription, till exempel att skapa recept från videor",
       "image-provider": "Bildleverantör",
       "image-provider-description": "Möjliggör bildigenkänningsfunktioner, till exempel att skapa recept från bilder",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Leverantörsnamn",
       "api-key": "API-nyckel",
       "api-key-description-create": "Ange leverantörens API-nyckel för autentisering. Du behöver fylla i fältet även om tjänsten du använder, till exempel Ollama, inte kräver någon API-nyckel.",
