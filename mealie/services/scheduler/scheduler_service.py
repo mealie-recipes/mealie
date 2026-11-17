@@ -5,7 +5,7 @@ from pathlib import Path
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.services.scheduler.runner import repeat_every
+from mealie.services.scheduler.runner import NoArgsNoReturnAsyncFuncT, repeat_every
 
 from .scheduler_registry import SchedulerRegistry
 
@@ -63,11 +63,11 @@ def _scheduled_task_wrapper(callable):
         logger.error("Error in scheduled task func='%s': exception='%s'", callable.__name__, e)
 
 
-def run_minutely_isolated(func: Callable):
+def run_minutely_isolated(func: Callable) -> NoArgsNoReturnAsyncFuncT:
     """A schedule of its own for one callback, so that however long it takes, only its own next run waits."""
 
     @repeat_every(minutes=MINUTES_5, wait_first=True, logger=logger)
-    def run():
+    def run() -> None:
         logger.debug("Running isolated minutely callback: %s", func.__name__)
         _scheduled_task_wrapper(func)
 

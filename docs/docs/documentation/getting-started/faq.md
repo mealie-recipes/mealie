@@ -103,7 +103,7 @@
     2. An AI provider whose model is an embedding model, such as OpenAI's `text-embedding-3-small` or `nomic-embed-text` on Ollama
     3. That provider selected as the **Embedding Provider** in your group's AI settings. The option only appears once pgvector is available
 
-    Mealie then sends the text of each recipe (name, description, categories, tags, ingredients and instructions) to that provider in the background, about 100 recipes every five minutes, and again whenever a recipe is edited. Once that's done, turn on **Smart Search** in the settings menu next to the search bar. It shows the 50 closest recipes, closest first, and your category, tag and other filters still apply.
+    Mealie then sends the text of each recipe (name, description, categories, tags, ingredients and instructions) to that provider in the background, about 100 recipes every five minutes, and again whenever a recipe is edited. Once that's done, turn on **Smart Search** in the settings menu next to the search bar. It shows the 50 best matches, and your category, tag and other filters still apply. A recipe ranks higher the closer it is in meaning and the better its name matches your words, so searching for a recipe by name still works, also for recipes that aren't embedded yet.
 
 ??? question "How can I attach an image or video to a Recipe?"
 

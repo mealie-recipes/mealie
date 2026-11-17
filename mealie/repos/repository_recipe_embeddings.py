@@ -37,6 +37,8 @@ class RepositoryRecipeEmbeddings:
             .outerjoin(recipe_embeddings, recipe_embeddings.c.recipe_id == RecipeModel.id)
             .where(
                 RecipeModel.group_id == self.group_id,
+                # A recipe whose user is gone is in no list, and isn't a valid RecipeOut
+                RecipeModel.household_id.is_not(None),
                 sa.or_(
                     recipe_embeddings.c.recipe_id.is_(None),
                     recipe_embeddings.c.model != model,

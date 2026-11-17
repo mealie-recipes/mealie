@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from uuid import UUID
 
 import httpx
 import openai
@@ -8,6 +9,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_settings
+from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.recipe_embeddings import EMBEDDINGS_TABLE, embeddings_available, vector_literal
 from mealie.repos import repository_recipes
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
@@ -131,9 +133,10 @@ def test_sync_skips_recipes_the_provider_rejects(embedding_user: TestUser, monke
     assert service.sync() == 1
     assert service.sync() == 0
 
-    query = service.embed_query("coconut")
+    # Its name doesn't match this search, so only an embedding could have put it in the results
+    query = service.embed_query("miso")
     assert query
-    page = repos.recipes.page_all(PaginationQuery(page=1, per_page=-1), semantic=query)
+    page = repos.recipes.page_all(PaginationQuery(page=1, per_page=-1), search="miso", semantic=query)
     assert rejected.id not in [item.id for item in page.items]
 
     # Until it is edited
@@ -173,6 +176,49 @@ def test_sync_sends_small_requests(embedding_user: TestUser, monkeypatch: pytest
     # A search waits behind one request at most, so no request may hold the whole batch
     assert RecipeEmbeddingService(embedding_user.repos).sync() == EMBED_CHUNK_SIZE + 1
     assert request_sizes == [EMBED_CHUNK_SIZE, 1]
+
+
+def test_sync_keeps_what_was_embedded_before_a_failure(embedding_user: TestUser, monkeypatch: pytest.MonkeyPatch):
+    repos = embedding_user.repos
+    RecipeEmbeddingService(repos).sync(limit=10000)
+    for _ in range(EMBED_CHUNK_SIZE + 1):
+        create_recipe(embedding_user, f"miso ramen {random_string()}")
+
+    requests = 0
+
+    def fails_after_the_first_request(self, provider, texts: list[str]) -> list[str]:
+        nonlocal requests
+        requests += 1
+        if requests > 1:
+            raise TimeoutError
+        return fake_embed(self, provider, texts)
+
+    monkeypatch.setattr(RecipeEmbeddingService, "_embed", fails_after_the_first_request)
+    with pytest.raises(TimeoutError):
+        RecipeEmbeddingService(repos).sync()
+
+    # Only the recipe of the failed request is left for the next run
+    monkeypatch.setattr(RecipeEmbeddingService, "_embed", fake_embed)
+    assert RecipeEmbeddingService(repos).sync() == 1
+
+
+def test_sync_skips_recipes_without_an_owner(embedding_user: TestUser):
+    repos = embedding_user.repos
+    RecipeEmbeddingService(repos).sync(limit=10000)
+
+    orphan = create_recipe(embedding_user, f"miso ramen {random_string()}")
+    create_recipe(embedding_user, f"chocolate cake {random_string()}")
+
+    def set_owner(user_id: UUID | None) -> None:
+        repos.session.execute(sa.update(RecipeModel).where(RecipeModel.id == orphan.id).values(user_id=user_id))
+        repos.session.commit()
+
+    # e.g. its user was deleted. No list shows such a recipe, and it can't be read as a RecipeOut
+    set_owner(None)
+    try:
+        assert RecipeEmbeddingService(repos).sync() == 1
+    finally:
+        set_owner(embedding_user.user_id)
 
 
 def test_semantic_search_route_reports_fallback(
@@ -216,31 +262,82 @@ def test_semantic_search_orders_by_meaning(embedding_user: TestUser, monkeypatch
 
     service = RecipeEmbeddingService(repos)
     service.sync(limit=10000)
-    not_embedded_yet = create_recipe(embedding_user, f"coconut macaroons {random_string()}")
 
-    query = service.embed_query("something with coconut")
+    search = "something with coconut"
+    query = service.embed_query(search)
     assert query
 
-    page = repos.recipes.page_all(PaginationQuery(page=1, per_page=-1), semantic=query)
+    page = repos.recipes.page_all(PaginationQuery(page=1, per_page=-1), search=search, semantic=query)
     is_coconut = ["coconut" in item.name for item in page.items]
     assert is_coconut[0]
     assert not is_coconut[-1]
     assert is_coconut == sorted(is_coconut, reverse=True)
-    assert not_embedded_yet.id not in [item.id for item in page.items]
 
     # Only the nearest few count as results
     monkeypatch.setattr(repository_recipes, "SEMANTIC_RESULT_LIMIT", 1)
-    page = repos.recipes.page_all(PaginationQuery(page=1, per_page=10), semantic=query)
+    page = repos.recipes.page_all(PaginationQuery(page=1, per_page=10), search=search, semantic=query)
     assert len(page.items) == 1
     assert "coconut" in page.items[0].name
     assert page.total == 1
     assert page.total_pages == 1
-    assert repos.recipes.page_all(PaginationQuery(page=2, per_page=10), semantic=query).items == []
+    assert repos.recipes.page_all(PaginationQuery(page=2, per_page=10), search=search, semantic=query).items == []
 
     # The last page is the last page of those few, not of every embedded recipe
-    last_page = repos.recipes.page_all(PaginationQuery(page=-1, per_page=1), semantic=query)
+    last_page = repos.recipes.page_all(PaginationQuery(page=-1, per_page=1), search=search, semantic=query)
     assert last_page.page == 1
     assert len(last_page.items) == 1
+
+
+def test_hybrid_search_also_ranks_by_name(embedding_user: TestUser):
+    repos = embedding_user.repos
+    unique_name = random_string(12)
+    create_recipe(embedding_user, f"miso ramen {random_string()}")
+    named = create_recipe(embedding_user, f"miso {unique_name}")
+
+    service = RecipeEmbeddingService(repos)
+    service.sync(limit=10000)
+    not_embedded_yet = create_recipe(embedding_user, f"chocolate {unique_name}")
+
+    def search_ids(search: str) -> list:
+        query = service.embed_query(search)
+        assert query
+        page = repos.recipes.page_all(PaginationQuery(page=1, per_page=-1), search=search, semantic=query)
+        return [item.id for item in page.items]
+
+    # Every miso recipe is equally near in meaning, so the name decides which one is first
+    assert search_ids(f"miso {unique_name}")[0] == named.id
+
+    # A name match finds a recipe that has no embedding yet
+    assert not_embedded_yet.id in search_ids(f"chocolate {unique_name}")
+
+
+def test_hybrid_search_ranks_equal_names_by_meaning(embedding_user: TestUser, monkeypatch: pytest.MonkeyPatch):
+    repos = embedding_user.repos
+    word = random_string(12)
+
+    def embed(self, provider, texts: list[str]) -> list[str]:
+        """The higher the number after `word`, the further a text is from the search, which has no number."""
+        return [
+            vector_literal([1.0, int(text.removeprefix(word) or 0) / 10, 0.0])
+            if text.startswith(word)
+            else fake_embed(self, provider, [text])[0]
+            for text in texts
+        ]
+
+    monkeypatch.setattr(RecipeEmbeddingService, "_embed", embed)
+
+    # Furthest first, so the order they are stored in is not the order they should come back in
+    furthest_first = [create_recipe(embedding_user, f"{word} {number}") for number in (3, 2, 1)]
+    service = RecipeEmbeddingService(repos)
+    service.sync(limit=10000)
+
+    query = service.embed_query(word)
+    assert query
+    page = repos.recipes.page_all(PaginationQuery(page=1, per_page=-1), search=word, semantic=query)
+
+    # Each name has the whole search in it, so they match it equally well and only the meaning tells them apart
+    ids = [recipe.id for recipe in furthest_first]
+    assert [item.id for item in page.items if item.id in ids] == ids[::-1]
 
 
 def test_search_embedding_gets_a_short_timeout(embedding_user: TestUser, monkeypatch: pytest.MonkeyPatch):

@@ -49,7 +49,7 @@ class SchedulerRegistry:
         SchedulerRegistry._minutely.remove(callback)
 
     @staticmethod
-    def register_minutely_isolated(*callbacks: Callable):
+    def register_minutely_isolated(*callbacks: Callable) -> None:
         """
         For callbacks that can take long, e.g. because they wait on an external service. Each runs
         on its own schedule, so it delays neither the other callbacks nor their next run.
