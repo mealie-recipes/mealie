@@ -178,7 +178,7 @@
     "key": "Key",
     "value": "Value",
     "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
-    "request-failed-with-status": "The request failed with status {status}. Your changes may not have been saved.",
+    "request-failed-with-status": "リクエストがステータス {status} で失敗しました。変更内容が保存されていない可能性があります。",
     "request-failed-no-response": "The server could not be reached. Your changes may not have been saved."
   },
   "group": {
@@ -236,8 +236,8 @@
       "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
       "image-provider": "Image Provider",
       "image-provider-description": "Enables image recognition features, such as creating recipes from images",
-      "enrich-non-ai-imports": "Enrich Non-AI Imports",
-      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
+      "enrich-non-ai-imports": "AIを使用せずにインポートしたレシピを補完",
+      "enrich-non-ai-imports-description": "AIを使用せずに取り込んだレシピに、材料と調理手順の関連付けやタグの提案などの機能を追加します。",
       "provider-name": "Provider Name",
       "api-key": "API Key",
       "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
