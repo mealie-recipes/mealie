@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Skapar ett recept utifrån uppgifterna på webbsidan...",
             "downloading-image": "Laddar ned bild...",
             "downloading-video": "Laddar ned video...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Läser ut receptuppgifter...",
             "fetching-webpage": "Hämtar webbsidan...",
             "organizing-recipe": "Organiserar recept...",

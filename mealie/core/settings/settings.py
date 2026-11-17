@@ -450,6 +450,9 @@ class AppSettings(AppLoggingSettings):
     OIDC_VERIFY_X509_STRICT: bool = True
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
 
+    OIDC_SIGNOUT_ENABLED: bool = False
+    """When true, logging out of Mealie also ends the session with the IdP (RP-Initiated Logout)."""
+
     OIDC_NATIVE_CLIENT_ID: str | None = None
     """Client ID used by the native (mobile/desktop) OIDC endpoints. Falls back to OIDC_CLIENT_ID when unset."""
 

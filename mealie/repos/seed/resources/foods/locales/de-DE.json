@@ -387,7 +387,7 @@
         "plural_name": ""
       },
       "cilantro": {
-        "name": "Koriander",
+        "name": "frischer Koriander",
         "plural_name": ""
       },
       "basil": {
@@ -1412,7 +1412,7 @@
     "foods": {}
   },
   "condiments": {
-    "name": "Gewürze",
+    "name": "Würzmittel & Saucen",
     "foods": {
       "soy sauce": {
         "name": "Sojasauce",
@@ -1611,7 +1611,7 @@
         "plural_name": ""
       },
       "distilled white vinegar": {
-        "name": "destilierter Weißweinessig",
+        "name": "destillierter Weißweinessig",
         "plural_name": ""
       },
       "sweet chili sauce": {
@@ -1672,7 +1672,7 @@
         "plural_name": ""
       },
       "paprika": {
-        "name": "Paprika",
+        "name": "Paprikapulver",
         "plural_name": ""
       },
       "rosemary": {
@@ -1716,7 +1716,7 @@
         "plural_name": ""
       },
       "coriander": {
-        "name": "Koriander",
+        "name": "Korianderpulver",
         "plural_name": ""
       },
       "allspice": {

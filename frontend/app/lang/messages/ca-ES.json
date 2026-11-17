@@ -236,6 +236,8 @@
       "audio-provider-description": "Habilita les funcions de transcripció d'àudio, com ara crear receptes a partir de vídeos",
       "image-provider": "Proveïdor d'imatges",
       "image-provider-description": "Habilita les funcions de reconeixement d'imatges, com ara crear receptes a partir d'imatges",
+      "enrich-non-ai-imports": "Enriqueix les importacions sense IA",
+      "enrich-non-ai-imports-description": "Fa servir la IA per millorar les receptes importades sense IA, per exemple vinculant els ingredients amb els passos i suggerint etiquetes",
       "provider-name": "Nom del proveïdor",
       "api-key": "Clau d'API",
       "api-key-description-create": "La clau d'API del teu proveïdor per a l'autenticació. Si el teu servei (p. ex. Ollama) no fa servir cap clau d'API, igualment has d'escriure-hi alguna cosa.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "No s'ha pogut desar la indicació",
       "prompt-titles": {
         "recipes-build-recipe": "Crea la recepta",
+        "recipes-enrich-instructions": "Afegeix els detalls dels passos",
         "recipes-parse-recipe-ingredients": "Analitza els ingredients",
         "recipes-parse-recipe-video": "Recepta a partir d'un vídeo",
         "recipes-resolve-organizers": "Assigna els organitzadors",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Converteix el material d'origen llegit d'una pàgina web, una foto o un text en una recepta estructurada.",
+        "recipes-enrich-instructions": "Vincula cada pas d'una recepta importada amb els ingredients i les notes que fa servir, i n'extreu la durada i el títol.",
         "recipes-parse-recipe-ingredients": "L'utilitza el processador d'ingredients amb IA per dividir cada ingredient en quantitat, unitat, aliment i nota.",
         "recipes-parse-recipe-video": "Converteix la transcripció i la descripció d'un vídeo en una recepta.",
         "recipes-resolve-organizers": "Tria les etiquetes, les categories i les eines d'una recepta importada.",

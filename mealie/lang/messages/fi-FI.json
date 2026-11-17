@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Luodaan reseptiä verkkosivun tiedoista...",
             "downloading-image": "Ladataan kuvaa...",
             "downloading-video": "Ladataan videota...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Puretaan reseptitietoja...",
             "fetching-webpage": "Haetaan verkkosivua...",
             "organizing-recipe": "Organizing recipe...",

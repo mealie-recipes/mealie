@@ -236,6 +236,8 @@
       "audio-provider-description": "Включает функции аудио транскрипции, такие как создание рецептов из видео",
       "image-provider": "Провайдер для изображений",
       "image-provider-description": "Включает функции распознавания изображений, такие как создание рецептов из изображений",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Название провайдера",
       "api-key": "API ключ",
       "api-key-description-create": "API ключ вашего провайдера для аутентификации. Если ваш сервис (например, Ollama) не использует API ключ, вам всё равно нужно что-то написать здесь.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "Не удалось сохранить промпт",
       "prompt-titles": {
         "recipes-build-recipe": "Создание рецепта",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Разбор ингредиентов",
         "recipes-parse-recipe-video": "Рецепт из видео",
         "recipes-resolve-organizers": "Подбор тегов, категорий и инструментов",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Превращает исходный материал, считанный с веб-страницы, фото или текста, в структурированный рецепт.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Используется при разборе ингредиентов с помощью ИИ, чтобы выделить в каждом ингредиенте количество, единицу измерения, продукт и примечание.",
         "recipes-parse-recipe-video": "Превращает расшифровку и описание видео в рецепт.",
         "recipes-resolve-organizers": "Подбирает теги, категории и инструменты для импортируемого рецепта.",
