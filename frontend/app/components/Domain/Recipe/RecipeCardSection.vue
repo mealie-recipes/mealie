@@ -263,7 +263,7 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const page = ref(1);
-const perPage = 32;
+const perPage = 16;
 const hasMore = ref(true);
 const ready = ref(false);
 const loading = ref(false);
@@ -314,7 +314,7 @@ onMounted(async () => {
   loading.value = true;
   const savedPage = getSavedPage(route.path);
 
-  if (savedPage && savedPage > 2) {
+  if (savedPage && savedPage > 1) {
     page.value = 1;
     hasMore.value = true;
     const newRecipes = await fetchRecipes(savedPage);
@@ -357,15 +357,10 @@ async function initRecipes() {
   page.value = 1;
   hasMore.value = true;
 
-  // we double-up the first call to avoid a bug with large screens that render
-  // the entire first page without scrolling, preventing additional loading
-  const newRecipes = await fetchRecipes(page.value + 1);
+  const newRecipes = await fetchRecipes();
   if (newRecipes.length < perPage) {
     hasMore.value = false;
   }
-
-  // since we doubled the first call, we also need to advance the page
-  page.value = page.value + 1;
 
   emit(REPLACE_RECIPES_EVENT, newRecipes);
 }
