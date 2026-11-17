@@ -149,5 +149,29 @@
         "plural_name": "sprigs",
         "description": "",
         "abbreviation": ""
+    },
+    "slice": {
+        "name": "slice",
+        "plural_name": "slices",
+        "description": "",
+        "abbreviation": ""
+    },
+    "stalk": {
+        "name": "stalk",
+        "plural_name": "stalks",
+        "description": "",
+        "abbreviation": ""
+    },
+    "sheet": {
+        "name": "sheet",
+        "plural_name": "sheets",
+        "description": "",
+        "abbreviation": ""
+    },
+    "drop": {
+        "name": "drop",
+        "plural_name": "drops",
+        "description": "",
+        "abbreviation": "dr"
     }
 }
