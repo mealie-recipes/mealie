@@ -52,6 +52,15 @@ class RepositoryRecipeEmbeddings:
         recipes = self.session.execute(q).scalars().unique().all()
         return [StaleRecipe(RecipeOut.model_validate(recipe), recipe.update_at) for recipe in recipes]
 
+    def has_embeddings(self, model: str) -> bool:
+        """Whether `model` has embedded at least one of the group's recipes."""
+        q = sa.select(recipe_embeddings.c.recipe_id).where(
+            recipe_embeddings.c.group_id == self.group_id,
+            recipe_embeddings.c.model == model,
+            recipe_embeddings.c.embedding.is_not(None),
+        )
+        return self.session.execute(q.limit(1)).first() is not None
+
     def save(self, model: str, embeddings: list[tuple[StaleRecipe, str | None]]) -> None:
         """
         Store each recipe's vector. None stores that the recipe can't be embedded, which keeps it

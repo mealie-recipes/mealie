@@ -106,6 +106,9 @@ class RecipeEmbeddingService(BaseService):
 
         # A search waits for this, so it gets less time than the provider allows a chat completion
         provider = self.provider.model_copy(update={"timeout": min(self.provider.timeout, QUERY_TIMEOUT_SECONDS)})
+        # Give the database connection back while the provider answers: with a slow provider, the
+        # searches that wait here would otherwise use up the connection pool
+        self.session.commit()
         try:
             vector = self._embed(provider, [search])[0]
         except Exception:
@@ -132,6 +135,9 @@ class RecipeEmbeddingService(BaseService):
         if not stale:
             return 0
 
+        # Give the database connection back for the time the provider takes, which can be minutes
+        self.session.commit()
+
         texts = [recipe_embedding_text(item.recipe) for item in stale]
         vectors: list[str | None] = []
         rejection: Exception | None = None
@@ -149,10 +155,14 @@ class RecipeEmbeddingService(BaseService):
             # e.g. a timeout. The requests before it were answered, so only the rest waits for the next run
             failure = e
 
-        error = failure or rejection
-        if error and not any(vectors):
-            # Nothing works, so the provider or its model is the problem, not these recipes
-            raise error
+        if not any(vectors):
+            if failure:
+                raise failure
+            # Every recipe was refused. If the model never embedded anything for this group, the
+            # provider or its model is the problem (e.g. a chat model), not these recipes. If it
+            # did, the recipes are, which is the usual case when the batch is one edited recipe.
+            if rejection and not self.repos.recipe_embeddings.has_embeddings(model):
+                raise rejection
 
         embedded = list(zip(stale[: len(vectors)] if failure else stale, vectors, strict=True))
         rejected = [item.recipe.slug for item, vector in embedded if vector is None]

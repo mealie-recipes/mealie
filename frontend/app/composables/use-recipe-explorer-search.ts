@@ -16,6 +16,7 @@ import {
   usePublicToolStore,
 } from "~/composables/store";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
 
 // Type for the composable return value
@@ -39,6 +40,7 @@ interface RecipeExplorerSearchState {
   selectedTags: Ref<TagOut[]>;
   selectedTools: Ref<ToolOut[]>;
   passedQueryWithSeed: ComputedRef<RecipeSearchQuery & { _searchSeed: string }>;
+  canSearchSemantically: ComputedRef<boolean>;
   search: () => Promise<void>;
   reset: () => void;
   toggleOrderDirection: () => void;
@@ -56,6 +58,11 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   const route = useRoute();
 
   const { isOwnGroup } = useLoggedInState();
+  const { $appInfo } = useNuxtApp();
+  const { group } = useGroupSelf();
+  const canSearchSemantically = computed(
+    () => isOwnGroup.value && !!$appInfo.enableSemanticSearch && !!group.value?.aiProviderSettings?.embeddingProviderEnabled,
+  );
   const searchQuerySession = useUserSearchQuerySession();
   const sortPreferences = useUserSortPreferences();
 
@@ -121,7 +128,9 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
 
     return {
       search: state.value.search ? state.value.search : "",
-      semantic: state.value.semantic,
+      // Only asked for when it can work. The switch is hidden otherwise, so a `semantic` left over
+      // in the URL or in the saved search could not be turned off.
+      semantic: state.value.semantic && canSearchSemantically.value,
       categories: toIDArray(selectedCategories.value),
       foods: toIDArray(selectedFoods.value),
       households: toIDArray(selectedHouseholds.value),
@@ -232,7 +241,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       ...{
         auto: state.value.auto ? undefined : "false",
         search: passedQuery.value.search === queryDefaults.search ? undefined : passedQuery.value.search,
-        semantic: passedQuery.value.semantic ? "true" : undefined,
+        semantic: state.value.semantic ? "true" : undefined,
         households: !passedQuery.value.households?.length || passedQuery.value.households?.length === households.store.value.length ? undefined : passedQuery.value.households,
         requireAllCategories: passedQuery.value.requireAllCategories ? "true" : undefined,
         requireAllTags: passedQuery.value.requireAllTags ? "true" : undefined,
@@ -430,6 +439,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     [
       () => state.value.search,
       () => state.value.semantic,
+      canSearchSemantically,
       () => state.value.requireAllCategories,
       () => state.value.requireAllTags,
       () => state.value.requireAllTools,
@@ -463,6 +473,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
 
     // Computed
     passedQueryWithSeed,
+    canSearchSemantically,
 
     // Methods
     search,

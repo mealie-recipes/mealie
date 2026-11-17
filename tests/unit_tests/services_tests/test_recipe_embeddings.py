@@ -147,17 +147,35 @@ def test_sync_skips_recipes_the_provider_rejects(embedding_user: TestUser, monke
 
 def test_sync_fails_when_the_provider_rejects_everything(embedding_user: TestUser, monkeypatch: pytest.MonkeyPatch):
     repos = embedding_user.repos
-    RecipeEmbeddingService(repos).sync(limit=10000)
     create_recipe(embedding_user, f"miso ramen {random_string()}")
-    create_recipe(embedding_user, f"chocolate cake {random_string()}")
 
-    # e.g. a chat model was picked as the embedding provider: no recipe is at fault, so none is skipped
+    # e.g. a chat model was picked as the embedding provider. It never embedded anything, so no
+    # recipe is at fault and none is skipped.
+    provider = RecipeEmbeddingService(repos).provider
+    assert provider
+    repos.group_ai_providers.update(
+        provider.id, AIProviderCreate(name=random_string(), model=random_string(), api_key="test-key")
+    )
     monkeypatch.setattr(RecipeEmbeddingService, "_embed", rejecting_embed(""))
     with pytest.raises(openai.BadRequestError):
         RecipeEmbeddingService(repos).sync()
 
     monkeypatch.setattr(RecipeEmbeddingService, "_embed", fake_embed)
-    assert RecipeEmbeddingService(repos).sync() == 2
+    assert RecipeEmbeddingService(repos).sync(limit=10000) > 0
+
+
+def test_sync_skips_a_lone_rejected_recipe(embedding_user: TestUser, monkeypatch: pytest.MonkeyPatch):
+    repos = embedding_user.repos
+    service = RecipeEmbeddingService(repos)
+    service.sync(limit=10000)
+
+    # The model works for the group's other recipes, so a batch of one refused recipe is that recipe's fault
+    rejected_word = random_string()
+    create_recipe(embedding_user, f"coconut {rejected_word}")
+    monkeypatch.setattr(RecipeEmbeddingService, "_embed", rejecting_embed(rejected_word))
+
+    assert service.sync() == 0
+    assert repos.recipe_embeddings.get_stale(service.provider.model, 10) == []  # type: ignore[union-attr]
 
 
 def test_sync_sends_small_requests(embedding_user: TestUser, monkeypatch: pytest.MonkeyPatch):
@@ -168,6 +186,8 @@ def test_sync_sends_small_requests(embedding_user: TestUser, monkeypatch: pytest
     request_sizes = []
 
     def record_request(self, provider, texts: list[str]) -> list[str]:
+        # The provider can take minutes, so no database connection may be held meanwhile
+        assert not self.session.in_transaction()
         request_sizes.append(len(texts))
         return fake_embed(self, provider, texts)
 
@@ -344,6 +364,8 @@ def test_search_embedding_gets_a_short_timeout(embedding_user: TestUser, monkeyp
     timeouts: list[int] = []
 
     def record_timeout(self, provider, texts: list[str]) -> list[str]:
+        # Searches that wait on a slow provider must not each hold a database connection
+        assert not self.session.in_transaction()
         timeouts.append(provider.timeout)
         return fake_embed(self, provider, texts)
 

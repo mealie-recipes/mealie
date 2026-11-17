@@ -145,7 +145,6 @@
 <script setup lang="ts">
 import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.vue";
 import { useRecipeExplorerSearch, clearRecipeExplorerSearchState } from "~/composables/use-recipe-explorer-search";
-import { useGroupSelf } from "~/composables/use-groups";
 
 const emit = defineEmits<{
   ready: [];
@@ -154,9 +153,8 @@ const emit = defineEmits<{
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
-const { $globals, $appInfo } = useNuxtApp();
+const { $globals } = useNuxtApp();
 const i18n = useI18n();
-const { group } = useGroupSelf();
 const showRandomLoading = ref(false);
 
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
@@ -164,6 +162,7 @@ const groupSlug = computed(() => route.params.groupSlug as string || auth.user.v
 const {
   state,
   passedQueryWithSeed,
+  canSearchSemantically,
   search,
   reset,
   toggleOrderDirection,
@@ -172,10 +171,6 @@ const {
   filterItems,
   initialize,
 } = useRecipeExplorerSearch(groupSlug);
-
-const canSearchSemantically = computed(
-  () => isOwnGroup.value && $appInfo.enableSemanticSearch && group.value?.aiProviderSettings?.embeddingProviderEnabled,
-);
 
 defineExpose({
   passedQueryWithSeed,
