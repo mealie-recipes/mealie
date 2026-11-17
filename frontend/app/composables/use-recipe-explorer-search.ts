@@ -16,7 +16,7 @@ import {
   usePublicToolStore,
 } from "~/composables/store";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
+import { useUserSearchQuery, useUserSortPreferences } from "~/composables/use-users/preferences";
 
 // Type for the composable return value
 interface RecipeExplorerSearchState {
@@ -55,7 +55,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   const route = useRoute();
 
   const { isOwnGroup } = useLoggedInState();
-  const searchQuerySession = useUserSearchQuerySession();
+  const searchQuery = useUserSearchQuery();
   const sortPreferences = useUserSortPreferences();
 
   // State management
@@ -235,7 +235,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       },
     };
     await router.push({ query });
-    searchQuerySession.value.recipe = JSON.stringify(query);
+    searchQuery.value.recipe = JSON.stringify(query);
   }
 
   function filterItems(item: CategoryOut | TagOut | ToolOut, urlPrefix: string) {
@@ -391,13 +391,13 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
 
   async function initialize() {
     // Restore the user's last search query
-    if (searchQuerySession.value.recipe && !(Object.keys(route.query).length > 0)) {
+    if (searchQuery.value.recipe && !(Object.keys(route.query).length > 0)) {
       try {
-        const query = JSON.parse(searchQuerySession.value.recipe);
+        const query = JSON.parse(searchQuery.value.recipe);
         await router.replace({ query });
       }
       catch {
-        searchQuerySession.value.recipe = "";
+        searchQuery.value.recipe = "";
         router.replace({ query: {} });
       }
     }
