@@ -75,6 +75,7 @@ from mealie.services.recipe.recipe_data_service import (
     NotAnImageError,
     RecipeDataService,
 )
+from mealie.services.recipe.recipe_embedding_service import RecipeEmbeddingService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScrapedExtras, ScraperContext
 from mealie.services.scraper.scraper import create_from_html
@@ -598,6 +599,11 @@ class RecipeController(BaseRecipeController):
             if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
+        semantic = None
+        if search_query.semantic and search_query.search:
+            # None when semantic search isn't set up or the provider fails, which leaves the text search
+            semantic = RecipeEmbeddingService(self.repos).embed_query(search_query.search)
+
         # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can
         # include a household_id to filter by household.
         # We use "by_user" so we can sort favorites and other user-specific data correctly.
@@ -614,6 +620,7 @@ class RecipeController(BaseRecipeController):
             require_all_tools=search_query.require_all_tools,
             require_all_foods=search_query.require_all_foods,
             search=search_query.search,
+            semantic=semantic,
         )
 
         # merge default pagination with the request's query params

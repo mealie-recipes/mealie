@@ -236,6 +236,8 @@
       "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
       "image-provider": "Image Provider",
       "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "embedding-provider": "Embedding Provider",
+      "embedding-provider-description": "Enables smart search, which finds recipes by meaning, such as \"something warming with coconut\". The provider's model must be an embedding model. Your recipes' text is sent to this provider.",
       "enrich-non-ai-imports": "Enrich Non-AI Imports",
       "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Provider Name",
@@ -765,6 +767,8 @@
     "search-hint": "Press '/'",
     "advanced": "Advanced",
     "auto-search": "Auto Search",
+    "semantic-search": "Smart Search",
+    "semantic-search-hint": "Find recipes by meaning rather than exact words",
     "no-results": "No results found",
     "type-to-search": "Type to search..."
   },

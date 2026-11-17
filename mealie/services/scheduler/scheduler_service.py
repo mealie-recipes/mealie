@@ -1,4 +1,5 @@
 import asyncio
+from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -22,6 +23,8 @@ class SchedulerService:
     async def start():
         await run_minutely()
         await run_hourly()
+        for func in SchedulerRegistry._minutely_isolated:
+            await run_minutely_isolated(func)()
 
         # Wait to trigger our daily run until our given "daily time", so having asyncio handle it.
         asyncio.create_task(schedule_daily())
@@ -58,6 +61,17 @@ def _scheduled_task_wrapper(callable):
         callable()
     except Exception as e:
         logger.error("Error in scheduled task func='%s': exception='%s'", callable.__name__, e)
+
+
+def run_minutely_isolated(func: Callable):
+    """A schedule of its own for one callback, so that however long it takes, only its own next run waits."""
+
+    @repeat_every(minutes=MINUTES_5, wait_first=True, logger=logger)
+    def run():
+        logger.debug("Running isolated minutely callback: %s", func.__name__)
+        _scheduled_task_wrapper(func)
+
+    return run
 
 
 @repeat_every(minutes=MINUTES_DAY, wait_first=False, logger=logger)

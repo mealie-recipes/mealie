@@ -18,6 +18,7 @@ export interface AdminAboutInfo {
   oidcProviderName: string;
   enableReverseProxyAuth: boolean;
   tokenTime: number;
+  enableSemanticSearch?: boolean;
   allowedIframeHosts?: string[];
   brandingName?: string;
   brandingLogoUrl?: string | null;
@@ -53,6 +54,7 @@ export interface AppInfo {
   oidcProviderName: string;
   enableReverseProxyAuth: boolean;
   tokenTime: number;
+  enableSemanticSearch?: boolean;
   allowedIframeHosts?: string[];
   brandingName?: string;
   brandingLogoUrl?: string | null;

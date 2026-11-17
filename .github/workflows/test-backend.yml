@@ -27,7 +27,7 @@ jobs:
     # Services
     services:
       postgres:
-        image: postgres
+        image: pgvector/pgvector:pg17 # Postgres with the extension semantic recipe search needs
         env:
           POSTGRES_USER: mealie
           POSTGRES_PASSWORD: mealie

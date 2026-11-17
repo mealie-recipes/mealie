@@ -93,6 +93,18 @@
     2. Set up a [Postgres](./installation/postgres.md) instance of Mealie
     3. Upload the backup .zip and click to apply it (as as migration)
 
+??? question "What is smart search and how do I use it?"
+
+    ### What is smart search and how do I use it?
+
+    Smart search finds recipes by meaning instead of by matching words, so you can search for things like "something warming with coconut" or "a quick Japanese-style dinner". It needs three things:
+
+    1. A Postgres database with the [pgvector](https://github.com/pgvector/pgvector) extension. The official `postgres` image doesn't include it. In your [Postgres](./installation/postgres.md) compose file, replace `postgres:17` with `pgvector/pgvector:pg17`, keeping the major version you already run, then restart Mealie
+    2. An AI provider whose model is an embedding model, such as OpenAI's `text-embedding-3-small` or `nomic-embed-text` on Ollama
+    3. That provider selected as the **Embedding Provider** in your group's AI settings. The option only appears once pgvector is available
+
+    Mealie then sends the text of each recipe (name, description, categories, tags, ingredients and instructions) to that provider in the background, about 100 recipes every five minutes, and again whenever a recipe is edited. Once that's done, turn on **Smart Search** in the settings menu next to the search bar. It shows the 50 closest recipes, closest first, and your category, tag and other filters still apply.
+
 ??? question "How can I attach an image or video to a Recipe?"
 
     ### How can I attach an image or video to a Recipe?

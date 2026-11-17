@@ -18,6 +18,7 @@ from mealie.db import init_db
 from mealie.db.fixes.fix_migration_data import fix_migration_data
 from mealie.db.init_db import ALEMBIC_DIR
 from mealie.db.models._model_utils.guid import GUID
+from mealie.db.recipe_embeddings import EMBEDDINGS_TABLE
 from mealie.services._base_service import BaseService
 
 
@@ -157,13 +158,18 @@ class AlchemyExporter(BaseService):
 
         return valid_rows
 
+    @staticmethod
+    def _is_backed_up(table_name: str, _: MetaData) -> bool:
+        # Derived data in a pgvector column, which only some PostgreSQL servers can restore. It is rebuilt instead.
+        return table_name != EMBEDDINGS_TABLE
+
     def dump_schema(self) -> dict:
         """
         Returns the schema of the SQLAlchemy database as a python dictionary. This dictionary is wrapped by
         jsonable_encoder to ensure that the object can be converted to a json string.
         """
         with self.engine.connect() as connection:
-            self.meta.reflect(bind=self.engine)
+            self.meta.reflect(bind=self.engine, only=self._is_backed_up)
 
             all_tables = self.meta.tables.values()
 
@@ -190,7 +196,9 @@ class AlchemyExporter(BaseService):
                 self.logger.error("Error fixing migration data during export; continuing anyway")
 
         with self.engine.connect() as connection:
-            self.meta.reflect(bind=self.engine)  #  http://docs.sqlalchemy.org/en/rel_0_9/core/reflection.html
+            self.meta.reflect(
+                bind=self.engine, only=self._is_backed_up
+            )  #  http://docs.sqlalchemy.org/en/rel_0_9/core/reflection.html
 
             result = {
                 table.name: [dict(row) for row in connection.execute(table.select()).mappings()]
@@ -218,7 +226,7 @@ class AlchemyExporter(BaseService):
             with ForeignKeyDisabler(connection, self.engine.dialect.name, logger=self.logger):
                 data = self.convert_types(db_dump)
 
-                self.meta.reflect(bind=self.engine)
+                self.meta.reflect(bind=self.engine, only=self._is_backed_up)
                 for table_name, rows in data.items():
                     if not rows:
                         continue

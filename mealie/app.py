@@ -145,6 +145,11 @@ async def start_scheduler():
         tasks.post_group_webhooks,
     )
 
+    # Waits on the group's embedding provider, which can be slow or down
+    SchedulerRegistry.register_minutely_isolated(
+        tasks.embed_recipes,
+    )
+
     SchedulerRegistry.register_hourly(
         tasks.locked_user_reset,
     )

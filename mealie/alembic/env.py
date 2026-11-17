@@ -6,6 +6,7 @@ from alembic import context
 import mealie.db.models._all_models  # noqa: F401
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_base import SqlAlchemyBase
+from mealie.db.recipe_embeddings import EMBEDDINGS_TABLE
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -32,6 +33,11 @@ config.set_main_option("sqlalchemy.url", settings.DB_URL.replace("%", "%%"))
 
 
 def include_object(object: Any, name: str, type_: str, reflected: bool, compare_to: Any):
+    # skip dropping the recipe embeddings table; it is created at startup, outside of the models
+    # see: mealie/db/recipe_embeddings.py
+    if type_ == "table" and name == EMBEDDINGS_TABLE and compare_to is None:
+        return False
+
     # skip dropping food/unit unique constraints; they are defined manually so alembic doesn't see them
     # see: revision dded3119c1fe
     if type_ == "unique_constraint" and name == "ingredient_foods_name_group_id_key" and compare_to is None:

@@ -1,6 +1,7 @@
 import re as re
 from collections.abc import Iterable, Sequence
 from datetime import UTC, datetime
+from math import ceil
 from typing import Self
 from uuid import UUID
 
@@ -19,6 +20,7 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
+from mealie.db.recipe_embeddings import QueryEmbedding, Vector, recipe_embeddings
 from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import CookBookOut
 from mealie.schema.recipe import RecipeOut
@@ -30,6 +32,9 @@ from mealie.services.query_filter.builder import QueryFilterBuilder
 from ..db.models._model_base import SqlAlchemyBase
 from ._recipe_suggestions import RecipeSuggestionMixin
 from .repository_generic import HouseholdRepositoryGeneric
+
+SEMANTIC_RESULT_LIMIT = 50
+"""How many recipes a semantic search returns at most, across all of its pages"""
 
 
 class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[RecipeOut, RecipeModel]):
@@ -380,6 +385,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         require_all_foods=True,
         search: str | None = None,
         extra_filter: sa.ColumnElement[bool] | None = None,
+        semantic: QueryEmbedding | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
         pagination_result = pagination.model_copy()
@@ -414,10 +420,17 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 require_all_foods=require_all_foods,
             )
             q = q.filter(*filters)
-        if search:
+        if semantic:
+            # Nearest first, by cosine distance. Replaces the text search rather than narrowing it.
+            q = (
+                q.join(recipe_embeddings, recipe_embeddings.c.recipe_id == self.model.id)
+                .filter(recipe_embeddings.c.model == semantic.model, recipe_embeddings.c.embedding.is_not(None))
+                .order_by(recipe_embeddings.c.embedding.op("<=>")(sa.cast(semantic.vector, Vector())))
+            )
+        elif search:
             q = self.add_search_to_query(q, self.schema, search)
 
-        if not pagination_result.order_by and not search:
+        if not pagination_result.order_by and not search and not semantic:
             # default ordering if not searching
             pagination_result.order_by = "created_at"
 
@@ -428,6 +441,16 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
         finally:
             self._last_made_household_id = None
+
+        if semantic:
+            per_page = pagination_result.per_page
+            count = min(count, SEMANTIC_RESULT_LIMIT)
+            total_pages = ceil(count / per_page) if per_page else 0
+            if pagination.page == -1:
+                # "last page" was resolved against every embedded recipe, not against the nearest few
+                pagination_result.page = max(total_pages, 1)
+            offset = (pagination_result.page - 1) * per_page
+            q = q.limit(max(0, min(per_page, SEMANTIC_RESULT_LIMIT - offset))).offset(offset)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())

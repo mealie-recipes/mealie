@@ -13,6 +13,7 @@ from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
 from mealie.db.fixes.fix_group_with_no_name import fix_group_with_no_name
 from mealie.db.fixes.fix_migration_data import fix_migration_data
+from mealie.db.recipe_embeddings import ensure_embeddings_table
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.seed.init_users import default_user_init
@@ -121,6 +122,7 @@ def main():
 
         if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
             session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
+            ensure_embeddings_table(session)
 
         db = get_repositories(session, group_id=None, household_id=None)
 
