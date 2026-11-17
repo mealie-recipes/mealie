@@ -15,6 +15,18 @@ MAX_TEXT_CHARS = 6000
 
 SYNC_BATCH_SIZE = 100
 
+EMBED_CHUNK_SIZE = 2
+"""
+How many recipes go to the provider in one request.
+
+A local provider such as Ollama answers one request at a time, so a search's embedding waits
+behind whatever request is running. Small requests keep that wait under QUERY_TIMEOUT_SECONDS;
+with a whole batch in one request, every search made during indexing timed out.
+"""
+
+SEMANTIC_FALLBACK_HEADER = "X-Semantic-Search-Fallback"
+"""Set on a recipe search response when a semantic search was asked for but the text search answered"""
+
 QUERY_TIMEOUT_SECONDS = 10
 """How long a search waits for its embedding before it falls back to the text search."""
 
@@ -105,15 +117,20 @@ class RecipeEmbeddingService(BaseService):
             return 0
 
         texts = [recipe_embedding_text(item.recipe) for item in stale]
-        vectors: list[str | None]
-        try:
-            vectors = list(self._embed(self.provider, texts))
-        except openai.BadRequestError, openai.UnprocessableEntityError:
-            # The provider refused the input, and one bad text fails the whole request. Find out which.
-            vectors = [self._embed_or_none(text) for text in texts]
-            if not any(vectors):
-                # Nothing works, so the provider or its model is the problem, not these recipes
-                raise
+        vectors: list[str | None] = []
+        rejection: Exception | None = None
+        for start in range(0, len(texts), EMBED_CHUNK_SIZE):
+            chunk = texts[start : start + EMBED_CHUNK_SIZE]
+            try:
+                vectors += self._embed(self.provider, chunk)
+            except (openai.BadRequestError, openai.UnprocessableEntityError) as e:
+                # The provider refused the input, and one bad text fails the whole request. Find out which.
+                rejection = e
+                vectors += [self._embed_or_none(text) for text in chunk]
+
+        if rejection and not any(vectors):
+            # Nothing works, so the provider or its model is the problem, not these recipes
+            raise rejection
 
         rejected = [item.recipe.slug for item, vector in zip(stale, vectors, strict=True) if vector is None]
         if rejected:

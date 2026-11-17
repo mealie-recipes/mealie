@@ -18,8 +18,10 @@ from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.recipe import recipe_embedding_service
 from mealie.services.recipe.recipe_embedding_service import (
+    EMBED_CHUNK_SIZE,
     MAX_INSTRUCTION_CHARS,
     QUERY_TIMEOUT_SECONDS,
+    SEMANTIC_FALLBACK_HEADER,
     RecipeEmbeddingService,
     recipe_embedding_text,
 )
@@ -153,6 +155,45 @@ def test_sync_fails_when_the_provider_rejects_everything(embedding_user: TestUse
 
     monkeypatch.setattr(RecipeEmbeddingService, "_embed", fake_embed)
     assert RecipeEmbeddingService(repos).sync() == 2
+
+
+def test_sync_sends_small_requests(embedding_user: TestUser, monkeypatch: pytest.MonkeyPatch):
+    RecipeEmbeddingService(embedding_user.repos).sync(limit=10000)
+    for _ in range(EMBED_CHUNK_SIZE + 1):
+        create_recipe(embedding_user, f"miso ramen {random_string()}")
+
+    request_sizes = []
+
+    def record_request(self, provider, texts: list[str]) -> list[str]:
+        request_sizes.append(len(texts))
+        return fake_embed(self, provider, texts)
+
+    monkeypatch.setattr(RecipeEmbeddingService, "_embed", record_request)
+
+    # A search waits behind one request at most, so no request may hold the whole batch
+    assert RecipeEmbeddingService(embedding_user.repos).sync() == EMBED_CHUNK_SIZE + 1
+    assert request_sizes == [EMBED_CHUNK_SIZE, 1]
+
+
+def test_semantic_search_route_reports_fallback(
+    embedding_user: TestUser, api_client: TestClient, monkeypatch: pytest.MonkeyPatch
+):
+    params = {"search": random_string(), "semantic": True}
+    response = api_client.get(api_routes.recipes, params=params, headers=embedding_user.token)
+    assert SEMANTIC_FALLBACK_HEADER not in response.headers
+
+    def provider_is_down(self, provider, texts: list[str]) -> list[str]:
+        raise TimeoutError
+
+    monkeypatch.setattr(RecipeEmbeddingService, "_embed", provider_is_down)
+    params = {"search": random_string(), "semantic": True}
+    response = api_client.get(api_routes.recipes, params=params, headers=embedding_user.token)
+    assert response.status_code == 200
+    assert response.headers[SEMANTIC_FALLBACK_HEADER] == "true"
+
+    # Not asked for, so nothing fell back
+    response = api_client.get(api_routes.recipes, params={"search": random_string()}, headers=embedding_user.token)
+    assert SEMANTIC_FALLBACK_HEADER not in response.headers
 
 
 def test_scheduled_task_embeds_recipes(embedding_user: TestUser, session: Session):

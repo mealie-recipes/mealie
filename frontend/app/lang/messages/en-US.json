@@ -769,6 +769,7 @@
     "auto-search": "Auto Search",
     "semantic-search": "Smart Search",
     "semantic-search-hint": "Find recipes by meaning rather than exact words",
+    "semantic-search-unavailable": "Smart search isn't available right now. Showing regular search results.",
     "no-results": "No results found",
     "type-to-search": "Type to search..."
   },
