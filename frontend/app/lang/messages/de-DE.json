@@ -466,7 +466,7 @@
     "error-title": "Anscheinend konnten wir nichts finden",
     "github-issues": "GitHub Fehlermeldungen",
     "google-ld-json-info": "Infos zu Google ld+json",
-    "html-or-json-error-details": "Mealie konnte in den bereitgestellten Daten kein Rezept finden. Es können nur ld+json oder Mikrodaten mit einem schema.org-Recipe importiert werden. Falls du JSON einfügst, stelle sicher, dass sowohl “@context”: “https://schema.org/” als auch “@type”: “Recipe” enthalten sind.",
+    "html-or-json-error-details": "Mealie konnte in den bereitgestellten Daten kein Rezept finden. Es können nur ld+json oder Mikrodaten mit einem schema.org-Recipe importiert werden. Falls du JSON einfügst, stelle sicher, dass sowohl \"@context\": \"https://schema.org/\" als auch \"@type\": \"Recipe\" enthalten sind.",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Füge deine Rezeptdaten ein. Jede Zeile wird als Eintrag in einer Liste dargestellt",
     "recipe-markup-specification": "Rezept Markup Spezifikation",
     "recipe-url": "Rezept URL",
