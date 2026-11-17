@@ -186,7 +186,7 @@
     <div class="px-2" :class="{ 'ml-10': !$vuetify.display.mdAndDown }">
       <!-- shown whenever the ingredient carries substitutions, so the toggle can't hide saved data -->
       <div v-if="substitutionsVisible" class="py-2">
-        <div class="d-flex align-center text-caption mb-1">
+        <div class="d-flex align-center text-body-small mb-1">
           <v-icon size="small" class="mr-1">
             {{ $globals.icons.swapHorizontal }}
           </v-icon>

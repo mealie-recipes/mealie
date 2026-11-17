@@ -19,7 +19,7 @@
         </v-icon>
       </v-avatar>
       <div>
-        <v-card-title class="text-subtitle-1 pt-2 pb-2">
+        <v-card-title class="text-body-large pt-2 pb-2">
           <slot name="title" />
         </v-card-title>
         <v-card-subtitle class="pb-2">

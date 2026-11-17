@@ -25,7 +25,7 @@
           rounded
           @click="setCurrentAnnouncement(announcement); navOpen = false"
         >
-          <v-list-item-title class="text-body-2">
+          <v-list-item-title class="text-body-medium">
             {{ announcement.meta?.title }}
           </v-list-item-title>
           <v-list-item-subtitle v-if="announcement.date">

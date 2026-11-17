@@ -80,7 +80,7 @@
               :class="attrs.image.class"
               @error="hideImage = true"
             />
-            <div v-if="event.eventMessage" class="break-word" :class="useMobileFormat ? 'text-caption' : ''">
+            <div v-if="event.eventMessage" class="break-word" :class="useMobileFormat ? 'text-body-small' : ''">
               <SafeMarkdown :source="event.eventMessage" />
             </div>
           </v-col>

@@ -9,7 +9,7 @@
       flat
       width="600px"
     >
-      <v-card-title class="text-h5 justify-center">
+      <v-card-title class="text-headline-small justify-center">
         {{ $t("user.reset-password") }}
       </v-card-title>
       <BaseDivider />

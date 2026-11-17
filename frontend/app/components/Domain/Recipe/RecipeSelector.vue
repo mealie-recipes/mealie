@@ -45,7 +45,7 @@
       v-if="modelValue"
       class="d-flex align-center ga-2 mt-3"
     >
-      <span class="text-caption text-medium-emphasis">{{ $t("general.selected") }}</span>
+      <span class="text-body-small text-medium-emphasis">{{ $t("general.selected") }}</span>
       <v-chip
         label
         color="primary"

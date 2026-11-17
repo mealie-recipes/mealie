@@ -20,7 +20,7 @@
               <SpinTransition>
                 <div v-for="section in day.sections" :key="section.title">
                   <div class="py-2 d-flex flex-column">
-                    <p class="text-overline my-0">
+                    <p class="text-label-medium text-uppercase my-0">
                       {{ section.title }}
                     </p>
                   </div>

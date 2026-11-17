@@ -15,7 +15,7 @@
             class="text-center"
           >
             <div
-              class="text-subtitle-2"
+              class="text-title-small"
               style="text-align: center;"
             >
               {{ $t('recipe.recipe-image') }}

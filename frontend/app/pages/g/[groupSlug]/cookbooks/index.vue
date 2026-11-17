@@ -60,7 +60,7 @@
           color="primary"
         />
         <div class="ml-10 mt-n3">
-          <p class="text-subtitle-2 my-0 py-0">
+          <p class="text-title-small my-0 py-0">
             {{ $t("cookbook.hide-cookbooks-from-other-households-description") }}
           </p>
         </div>
@@ -84,7 +84,7 @@
             :key="cookbook.id"
             class="my-2 left-border rounded"
           >
-            <v-expansion-panel-title disable-icon-rotate class="text-h6 opacity-80">
+            <v-expansion-panel-title disable-icon-rotate class="text-title-large opacity-80">
               <div class="d-flex align-center">
                 <v-icon size="large" start>
                   {{ $globals.icons.pages }}
