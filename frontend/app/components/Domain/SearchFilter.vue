@@ -6,6 +6,7 @@
       bottom
       nudge-bottom="3"
       :close-on-content-click="false"
+      scroll-strategy="reposition"
     >
       <template #activator="{ props: menuProps }">
         <v-badge
