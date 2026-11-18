@@ -36,7 +36,7 @@ dependencies = [
     "authlib==1.9.5",
     "html2text==2025.4.15",
     "paho-mqtt==2.2.0",
-    "pydantic-settings==2.16.2",
+    "pydantic-settings==2.16.3",
     "pillow-heif==1.8.1",
     "pyjwt==2.15.1",
     "openai==3.50.0",
