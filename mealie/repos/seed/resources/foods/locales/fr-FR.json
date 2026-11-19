@@ -1,6 +1,6 @@
 {
   "produce": {
-    "name": "Fruits & Légumes",
+    "name": "Fruits et Légumes",
     "foods": {
       "garlic": {
         "name": "ail",
@@ -347,8 +347,8 @@
         "plural_name": "pois gourmands"
       },
       "snap pea": {
-        "name": "snap pea",
-        "plural_name": "snap peas"
+        "name": "mangetout",
+        "plural_name": "mangetouts"
       },
       "bean sprout": {
         "name": "germe de haricot",
@@ -423,8 +423,8 @@
         "plural_name": ""
       },
       "green onion": {
-        "name": "green onion",
-        "plural_name": "green onions"
+        "name": "cébette",
+        "plural_name": "cébettes"
       },
       "lemon juice": {
         "name": "jus de citron",
@@ -496,8 +496,8 @@
         "plural_name": ""
       },
       "steel cut oat": {
-        "name": "steel cut oat",
-        "plural_name": "steel cut oats"
+        "name": "avoine coupée",
+        "plural_name": "avoine coupée"
       },
       "millet": {
         "name": "millet",
@@ -540,12 +540,12 @@
         "plural_name": "lentilles rouges"
       },
       "cannellini bean": {
-        "name": "cannellini bean",
-        "plural_name": "cannellini beans"
+        "name": "haricot blanc cannellini",
+        "plural_name": "haricots blancs cannellini"
       },
       "black-eyed pea": {
-        "name": "black-eyed pea",
-        "plural_name": "black-eyed peas"
+        "name": "haricot cornille",
+        "plural_name": "haricots cornille"
       },
       "split pea": {
         "name": "pois cassé",
