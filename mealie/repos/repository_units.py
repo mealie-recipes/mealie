@@ -87,6 +87,9 @@ class RepositoryUnit(GroupRepositoryGeneric[IngredientUnit, IngredientUnitModel]
                 case "centiliter":
                     data["standard_quantity"] = 10
                     data["standard_unit"] = StandardizedUnitType.MILLILITER
+                case "deciliter":
+                    data["standard_quantity"] = 100
+                    data["standard_unit"] = StandardizedUnitType.MILLILITER
                 case "liter":
                     data["standard_quantity"] = 1
                     data["standard_unit"] = StandardizedUnitType.LITER
