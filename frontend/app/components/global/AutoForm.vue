@@ -121,6 +121,7 @@
               v-model="model[inputField.varName]"
               :readonly="fieldState[inputField.varName]?.readonly"
               :disabled="fieldState[inputField.varName]?.disabled"
+              :clearable="inputField.clearable"
               variant="solo-filled"
               flat
               :label="inputField.label"

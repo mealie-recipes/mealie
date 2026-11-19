@@ -410,6 +410,75 @@ class QueryFilterBuilder:
         return model_attr
 
     @classmethod
+    def _get_food_filter_element(
+        cls,
+        component: QueryFilterBuilderComponent,
+        model_attr: InstrumentedAttribute,
+        value: Any,
+        relationships: RelationshipChain,
+    ) -> sa.ColumnElement | None:
+        from mealie.db.models.recipe.ingredient import IngredientFoodModel
+
+        is_food_id = component.attribute_name == "recipe_ingredient.food.id"
+        is_direct_food_id = component.attribute_name == "recipe_ingredient.food_id"
+
+        if component.relationship is RelationalKeyword.IN:
+            if is_food_id:
+                element = sa.or_(model_attr.in_(value), IngredientFoodModel.parent_id.in_(value))
+                return cls._wrap_in_relationships(element, relationships)
+            if is_direct_food_id:
+                food_sq = sa.select(IngredientFoodModel.id).where(
+                    sa.or_(IngredientFoodModel.id.in_(value), IngredientFoodModel.parent_id.in_(value))
+                )
+                return cls._wrap_in_relationships(model_attr.in_(food_sq), relationships)
+
+        if component.relationship is RelationalKeyword.NOT_IN:
+            if is_food_id:
+                match_any = sa.or_(model_attr.in_(value), IngredientFoodModel.parent_id.in_(value))
+                if relationships:
+                    return sa.not_(cls._wrap_in_relationships(match_any, relationships))
+                return sa.not_(match_any)
+            if is_direct_food_id:
+                food_sq = sa.select(IngredientFoodModel.id).where(
+                    sa.or_(IngredientFoodModel.id.in_(value), IngredientFoodModel.parent_id.in_(value))
+                )
+                if relationships:
+                    return sa.not_(cls._wrap_in_relationships(model_attr.in_(food_sq), relationships))
+                return sa.not_(model_attr.in_(food_sq))
+
+        if component.relationship is RelationalKeyword.CONTAINS_ALL and is_food_id:
+            if len(value) == 1:
+                element = sa.or_(model_attr.in_(value), IngredientFoodModel.parent_id.in_(value))
+                return cls._wrap_in_relationships(element, relationships)
+            return sa.and_(
+                *(
+                    cls._wrap_in_relationships(
+                        sa.or_(model_attr == v, IngredientFoodModel.parent_id == v), relationships
+                    )
+                    for v in value
+                )
+            )
+
+        if component.relationship is RelationalOperator.EQ:
+            if is_food_id:
+                element = sa.or_(model_attr == value, IngredientFoodModel.parent_id == value)
+                return cls._wrap_in_relationships(element, relationships)
+            if is_direct_food_id:
+                food_sq = sa.select(IngredientFoodModel.id).where(
+                    sa.or_(IngredientFoodModel.id == value, IngredientFoodModel.parent_id == value)
+                )
+                return cls._wrap_in_relationships(model_attr.in_(food_sq), relationships)
+
+        if component.relationship is RelationalOperator.NOTEQ and is_food_id:
+            element = sa.and_(
+                model_attr != value,
+                sa.or_(IngredientFoodModel.parent_id != value, IngredientFoodModel.parent_id.is_(None)),
+            )
+            return cls._wrap_in_relationships(element, relationships)
+
+        return None
+
+    @classmethod
     def _get_filter_element[Model: SqlAlchemyBase](
         cls,
         component: QueryFilterBuilderComponent,
@@ -420,6 +489,11 @@ class QueryFilterBuilder:
     ) -> sa.ColumnElement:
         model_attr = cls._transform_model_attr(model_attr, model_attr_type)
         value = component.validate(model_attr_type)
+
+        if component.attribute_name in ("recipe_ingredient.food.id", "recipe_ingredient.food_id"):
+            food_element = cls._get_food_filter_element(component, model_attr, value, relationships)
+            if food_element is not None:
+                return food_element
 
         # Keywords
         if component.relationship is RelationalKeyword.IS:
