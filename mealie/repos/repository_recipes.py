@@ -319,10 +319,16 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         if new_name := new_data.get("name"):
             new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
-        # Always preserve identity/ownership fields from the existing DB entry.
-        # User-provided JSON may omit or null these, which would cause integrity errors.
-        for field in ("id", "user_id", "household_id", "group_id"):
-            new_data[field] = getattr(entry, field)
+        # Never let a payload move the row onto another recipe, or out of this group.
+        new_data["id"] = entry.id
+        new_data["group_id"] = entry.group_id
+
+        # Ownership may be reassigned by the payload (validated by RecipeService);
+        # a missing or null owner/household keeps the stored one, so payloads that
+        # omit them can't cause integrity errors.
+        for field in ("user_id", "household_id"):
+            if new_data.get(field) is None:
+                new_data[field] = getattr(entry, field)
 
         # If slug is still missing after name-based recalculation, fall back to existing slug.
         if not new_data.get("slug"):

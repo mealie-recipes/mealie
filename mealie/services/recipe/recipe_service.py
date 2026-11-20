@@ -659,6 +659,51 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    def _validate_reassignment(self, recipe: RecipeOut, new_data: RecipeDraft) -> RecipeDraft:
+        """Validates an ownership change, keeping every other field as-is.
+
+        Updates normally leave ownership alone: the repository keeps the stored owner
+        whenever the payload doesn't name one. When the payload does name a different
+        owner or household, that request may only come from the recipe owner or an
+        admin, and the new owner and household must belong to this group. Unless the
+        payload explicitly moves the recipe to another household, its household
+        becomes the new owner's household, so the new owner finds the recipe in
+        their own household.
+        """
+        new_user_id = (
+            new_data.user_id if new_data.user_id is not None and str(new_data.user_id) != str(recipe.user_id) else None
+        )
+        new_household_id = (
+            new_data.household_id
+            if new_data.household_id is not None and str(new_data.household_id) != str(recipe.household_id)
+            else None
+        )
+
+        if new_user_id is None and new_household_id is None:
+            return new_data
+
+        if not self.user.admin and str(recipe.user_id) != str(self.user.id):
+            raise exceptions.PermissionDenied(
+                "Only the recipe owner or an admin can change the recipe's owner or household."
+            )
+
+        if new_user_id is not None:
+            new_owner = self.repos.users.get_one(new_user_id)
+            if new_owner is None:
+                raise exceptions.NoEntryFound(f"User with id '{new_user_id}' not found in this group")
+
+            # the UI sends only the new owner, so default that owner's household
+            if new_household_id is None:
+                new_household_id = new_owner.household_id
+                new_data = new_data.model_copy(update={"household_id": new_household_id})
+
+        if new_household_id is not None:
+            household = self.repos.households.get_one(new_household_id)
+            if household is None or str(household.group_id) != str(self.user.group_id):
+                raise exceptions.NoEntryFound(f"Household with id '{new_household_id}' not found in this group")
+
+        return new_data
+
     @staticmethod
     def _preserve_omitted_image(recipe: RecipeOut, update_data: RecipeDraft) -> RecipeDraft:
         """Keeps the stored image when the payload doesn't mention it.
@@ -735,6 +780,7 @@ class RecipeService(RecipeServiceBase):
         update_data = self._remove_non_existent_ingredient_references(update_data)
         update_data = self._remove_non_existent_note_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
+        update_data = self._validate_reassignment(recipe, update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)
@@ -764,6 +810,7 @@ class RecipeService(RecipeServiceBase):
     def patch_one(self, slug_or_id: str | UUID, patch_data: RecipeDraft) -> RecipeOut:
         recipe = self._pre_update_check(slug_or_id, patch_data)
 
+        patch_data = self._validate_reassignment(recipe, patch_data)
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
         self.check_assets(new_data, recipe.slug)
