@@ -3,9 +3,9 @@ from functools import cached_property
 from uuid import UUID
 
 from dateutil.tz import tzlocal
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, Request
 
-from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.core.exceptions import MealPlanEntriesChanged, mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
@@ -14,10 +14,15 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import not_found
 from mealie.schema import mapper
 from mealie.schema.meal_plan import PlanEntryCreate, PlanEntryOut, PlanEntrySave, PlanEntryUpdate
-from mealie.schema.meal_plan.new_meal import PlanEntryPagination, PlanEntryType, RandomPlanEntryCreate
+from mealie.schema.meal_plan.new_meal import (
+    PlanEntryPagination,
+    PlanEntryReorderUpdate,
+    PlanEntryType,
+    RandomPlanEntryCreate,
+)
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import RecipeOut
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services.event_bus_service.event_types import (
     EventMealplanData,
     EventOperation,
@@ -109,6 +114,7 @@ class GroupMealplanController(BaseCrudController):
     @router.get("", response_model=PlanEntryPagination)
     def get_all(
         self,
+        request: Request,
         q: PaginationQuery = Depends(PaginationQuery),
         start_date: date | None = None,
         end_date: date | None = None,
@@ -127,6 +133,11 @@ class GroupMealplanController(BaseCrudController):
             date_filters.append(f"date <= {end_date}")
 
         q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, week_filter, *date_filters)
+
+        if not q.order_by:
+            q.order_by = "date,position"
+            if "orderDirection" not in request.query_params:
+                q.order_direction = OrderDirection.asc
 
         return self.repo.page_all(pagination=q)
 
@@ -202,6 +213,27 @@ class GroupMealplanController(BaseCrudController):
         )
 
         return result
+
+    @router.put("/reorder", status_code=204)
+    def reorder(self, days: list[PlanEntryReorderUpdate]):
+        if not days:
+            raise HTTPException(status_code=422, detail="At least one day is required.")
+
+        buckets = [(day.date, day.end_date is not None) for day in days]
+        if len(set(buckets)) != len(buckets):
+            raise HTTPException(status_code=422, detail="Each day or week may only be included once.")
+
+        requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
+        if len(set(requested_ids)) != len(requested_ids):
+            raise HTTPException(status_code=422, detail="A meal plan entry may only be included once.")
+
+        try:
+            self.repo.reorder(days)
+        except MealPlanEntriesChanged:
+            raise HTTPException(
+                status_code=409,
+                detail="Meal plan entries changed. Refresh and try again.",
+            ) from None
 
     @router.get("/{item_id}", response_model=PlanEntryOut)
     def get_one(self, item_id: int):
