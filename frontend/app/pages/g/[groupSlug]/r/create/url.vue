@@ -43,6 +43,51 @@
             :hint="$t('new-recipe.url-form-hint')"
             persistent-hint
           />
+          <v-expand-transition>
+            <v-alert
+              v-if="duplicateMatches.length > 0"
+              type="warning"
+              variant="tonal"
+              class="mt-4 rounded-lg"
+              border="start"
+            >
+              <div class="d-flex align-center justify-space-between mb-1">
+                <div class="text-subtitle-1 font-weight-bold d-flex align-center">
+                  <v-chip size="small" color="warning" class="mr-2 font-weight-bold">
+                    {{ $t('recipe.duplicate-detected') }}
+                  </v-chip>
+                  {{ $t('recipe.duplicate-warning-title') }}
+                </div>
+              </div>
+              <div class="text-body-2 mb-2">
+                {{ $t('recipe.duplicate-warning-body') }}
+              </div>
+              <v-list density="compact" class="bg-transparent pa-0">
+                <v-list-item
+                  v-for="match in duplicateMatches"
+                  :key="match.id"
+                  class="px-0 py-1"
+                >
+                  <template #title>
+                    <span class="font-weight-medium">{{ match.name }}</span>
+                    <span class="text-caption text-medium-emphasis ml-2">({{ match.matchReason }})</span>
+                  </template>
+                  <template #append>
+                    <v-btn
+                      size="small"
+                      variant="outlined"
+                      color="warning"
+                      :to="`/g/${groupSlug}/r/${match.slug}`"
+                      target="_blank"
+                    >
+                      {{ $t('recipe.duplicate-view-existing') }}
+                      <v-icon end size="small">mdi-open-in-new</v-icon>
+                    </v-btn>
+                  </template>
+                </v-list-item>
+              </v-list>
+            </v-alert>
+          </v-expand-transition>
         </v-card-text>
         <v-checkbox
           v-model="importKeywordsAsTags"
@@ -157,6 +202,7 @@ import { useGroupSelf } from "~/composables/use-groups";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
+import type { RecipeDuplicateMatchOut } from "~/lib/api/types/recipe";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
@@ -231,6 +277,32 @@ const recipeUrl = computed({
     return null;
   },
 });
+
+const duplicateMatches = ref<RecipeDuplicateMatchOut[]>([]);
+let checkTimer: ReturnType<typeof setTimeout> | null = null;
+
+watch(recipeUrl, (val) => {
+  if (checkTimer) {
+    clearTimeout(checkTimer);
+  }
+  const clean = val ? val.trim() : "";
+  if (clean.length < 5) {
+    duplicateMatches.value = [];
+    return;
+  }
+  checkTimer = setTimeout(async () => {
+    try {
+      const { data } = await api.recipes.checkDuplicate({ url: clean });
+      if (data?.isDuplicate && data.matches?.length) {
+        duplicateMatches.value = data.matches;
+      } else {
+        duplicateMatches.value = [];
+      }
+    } catch {
+      duplicateMatches.value = [];
+    }
+  }, 400);
+}, { immediate: true });
 
 onMounted(() => {
   if (recipeUrl.value) {

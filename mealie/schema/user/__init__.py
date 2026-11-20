@@ -53,6 +53,7 @@ __all__ = [
     "Token",
     "TokenData",
     "UnlockResults",
+    "CreateUserRegistration",
     "ChangePassword",
     "CreateToken",
     "DeleteTokenResponse",

@@ -11,4 +11,7 @@ __all__ = [
     "DateTimeError",
     "DurationError",
     "TimeError",
+    "HasUUID",
+    "MealieModel",
+    "SearchType",
 ]

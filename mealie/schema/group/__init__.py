@@ -43,5 +43,13 @@ __all__ = [
     "AIProviderSummary",
     "AIProviderTestResult",
     "AIProviderUpdate",
+    "GroupAdminUpdate",
+    "GroupDataExport",
+    "DataMigrationCreate",
+    "SupportedMigrations",
+    "CreateGroupPreferences",
+    "ReadGroupPreferences",
+    "UpdateGroupPreferences",
+    "SeederConfig",
     "GroupStorage",
 ]
