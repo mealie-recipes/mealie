@@ -32,6 +32,24 @@
         />
       </template>
     </v-select>
+    <BaseDialog
+      v-model="pasteDialog"
+      :title="$t('recipe.paste-image-title')"
+      :icon="$globals.icons.fileImage"
+      can-confirm
+      @confirm="confirmPastedImage"
+      @close="clearPastedImage"
+    >
+      <v-card-text>
+        <p>{{ $t("recipe.paste-image-description") }}</p>
+        <v-img
+          v-if="pastedImageUrl"
+          :src="pastedImageUrl"
+          max-height="300"
+          class="mt-4"
+        />
+      </v-card-text>
+    </BaseDialog>
   </div>
 </template>
 
@@ -45,6 +63,7 @@ import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vu
 import { useUserStore } from "~/composables/store/use-user-store";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { useHouseholdStore } from "~/composables/store";
+import { usePasteImage } from "~/composables/use-paste-image";
 
 const recipe = defineModel<RecipeOut>({ required: true });
 
@@ -82,6 +101,46 @@ async function uploadImage(fileObject: File) {
   }
   imageKey.value++;
 }
+
+// The toolbar only exists while editing, so pasting an image only works in edit mode.
+const pasteDialog = ref(false);
+const pastedImage = ref<File | null>(null);
+const pastedImageUrl = ref("");
+
+function clearPastedImage() {
+  URL.revokeObjectURL(pastedImageUrl.value);
+  pastedImage.value = null;
+  pastedImageUrl.value = "";
+}
+
+// The dialog closes on confirm, so without this a second paste could race the first upload
+const uploadingPastedImage = ref(false);
+
+usePasteImage({
+  onImage: (file) => {
+    clearPastedImage();
+    pastedImage.value = file;
+    pastedImageUrl.value = URL.createObjectURL(file);
+    pasteDialog.value = true;
+  },
+  enabled: () => !uploadingPastedImage.value,
+});
+
+async function confirmPastedImage() {
+  if (!pastedImage.value) {
+    return;
+  }
+
+  uploadingPastedImage.value = true;
+  try {
+    await uploadImage(pastedImage.value);
+  }
+  finally {
+    uploadingPastedImage.value = false;
+  }
+}
+
+onBeforeUnmount(clearPastedImage);
 
 function refreshImage(image: string) {
   if (image) {

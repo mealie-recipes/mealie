@@ -55,7 +55,9 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
+import { usePasteImage } from "~/composables/use-paste-image";
+
+const props = withDefaults(defineProps<{
   disabled?: boolean;
 }>(), {
   disabled: false,
@@ -69,6 +71,12 @@ function uploadImages(files: File[]) {
   images.value = [...images.value, ...files];
   previewUrls.value = [...previewUrls.value, ...files.map(file => URL.createObjectURL(file))];
 }
+
+// Several pastes in a row keep adding to the list, like picking more files does
+usePasteImage({
+  onImage: file => uploadImages([file]),
+  enabled: () => !props.disabled,
+});
 
 function clearImage(index: number) {
   // Revoke _before_ splicing
