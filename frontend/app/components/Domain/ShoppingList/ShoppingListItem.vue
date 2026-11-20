@@ -22,6 +22,7 @@
           <div class="d-flex align-center flex-nowrap">
             <v-checkbox
               :model-value="listItem.checked"
+              :aria-label="parseIngredientText(listItem, 1, false)"
               hide-details
               density="compact"
               class="mt-0 flex-shrink-0"
@@ -165,6 +166,7 @@ import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { IngredientUnitOut, IngredientFoodOut, RecipeSummary } from "~/lib/api/types/recipe";
+import { useIngredientTextParser } from "~/composables/recipes";
 
 const model = defineModel<ShoppingListItemOut>({ type: Object as () => ShoppingListItemOut, required: true });
 
@@ -199,6 +201,7 @@ const emit = defineEmits<{
 const SWIPE_THRESHOLD = 50;
 
 const { isRtl } = useRtl();
+const { parseIngredientText } = useIngredientTextParser();
 const swipeRowRef = ref<InstanceType<typeof import("vuetify/components").VRow> | null>(null);
 
 onMounted(() => {

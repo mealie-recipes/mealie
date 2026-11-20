@@ -20,6 +20,7 @@
           <template #prepend>
             <v-checkbox
               v-model="recipeTools[index].onHand"
+              :aria-label="tool.name"
               hide-details
               class="pt-0 py-auto"
               color="secondary"
