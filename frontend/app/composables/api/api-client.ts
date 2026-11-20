@@ -49,7 +49,13 @@ function getRequests(axiosInstance: AxiosInstance): ApiRequestInstance {
     },
 
     async delete<T>(url: string, config?: AxiosRequestConfig) {
-      return await request.safe<T, undefined>(axiosInstance.delete, url, undefined, config);
+      // axios takes the config as the second argument of delete. The other methods take the body there.
+      return await request.safe<T, undefined>(
+        (requestUrl, _data, requestConfig) => axiosInstance.delete<T>(requestUrl, requestConfig),
+        url,
+        undefined,
+        config,
+      );
     },
   };
 }
