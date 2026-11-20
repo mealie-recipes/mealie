@@ -45,6 +45,17 @@
               :post="false"
               @uploaded="uploadImage"
             />
+            <v-btn
+              class="ml-2"
+              color="primary"
+              :loading="reading"
+              @click="pasteFromClipboard"
+            >
+              <v-icon start>
+                {{ $globals.icons.contentPaste }}
+              </v-icon>
+              {{ $t("general.paste") }}
+            </v-btn>
             <BaseButton
               class="ml-2"
               delete
@@ -82,8 +93,10 @@
 
 <script setup lang="ts">
 import { useUserApi } from "~/composables/api";
+import { useClipboardImage } from "~/composables/use-paste-image";
 
 const UPLOAD_EVENT = "upload";
+const CLIPBOARD_EVENT = "clipboard";
 const DELETE_EVENT = "delete";
 const REFRESH_EVENT = "refresh";
 
@@ -92,11 +105,15 @@ const props = defineProps<{ slug: string }>();
 const emit = defineEmits<{
   refresh: [image: string];
   upload: [fileObject: File];
+  clipboard: [fileObject: File];
   delete: [];
 }>();
 
 const i18n = useI18n();
 const api = useUserApi();
+const { readImage } = useClipboardImage();
+
+const reading = ref(false);
 
 const url = ref("");
 const loading = ref(false);
@@ -106,6 +123,17 @@ const dialogDeleteImage = ref(false);
 function uploadImage(fileObject: File) {
   emit(UPLOAD_EVENT, fileObject);
   menu.value = false;
+}
+
+async function pasteFromClipboard() {
+  reading.value = true;
+  const image = await readImage();
+  reading.value = false;
+
+  if (image) {
+    emit(CLIPBOARD_EVENT, image);
+    menu.value = false;
+  }
 }
 
 async function deleteImage() {

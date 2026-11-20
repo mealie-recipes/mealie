@@ -1,17 +1,29 @@
 <template>
   <div>
-    <AppButtonUpload
-      class="ml-auto"
-      url="none"
-      file-name="images"
-      accept="image/*"
-      :text="images.length ? $t('recipe.upload-more-images') : $t('recipe.upload-images')"
-      :text-btn="false"
-      :post="false"
-      :multiple="true"
-      :disabled="disabled"
-      @uploaded="uploadImages"
-    />
+    <div class="d-flex flex-wrap ga-2">
+      <AppButtonUpload
+        url="none"
+        file-name="images"
+        accept="image/*"
+        :text="images.length ? $t('recipe.upload-more-images') : $t('recipe.upload-images')"
+        :text-btn="false"
+        :post="false"
+        :multiple="true"
+        :disabled="disabled"
+        @uploaded="uploadImages"
+      />
+      <v-btn
+        color="primary"
+        :loading="reading"
+        :disabled="disabled"
+        @click="pasteFromClipboard"
+      >
+        <v-icon start>
+          {{ $globals.icons.contentPaste }}
+        </v-icon>
+        {{ $t("general.paste") }}
+      </v-btn>
+    </div>
     <div v-if="images.length" class="mt-3">
       <p class="my-2">
         {{ $t("recipe.crop-and-rotate-the-image") }}
@@ -55,7 +67,9 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
+import { useClipboardImage, usePasteImage } from "~/composables/use-paste-image";
+
+const props = withDefaults(defineProps<{
   disabled?: boolean;
 }>(), {
   disabled: false,
@@ -68,6 +82,25 @@ const previewUrls = ref<string[]>([]);
 function uploadImages(files: File[]) {
   images.value = [...images.value, ...files];
   previewUrls.value = [...previewUrls.value, ...files.map(file => URL.createObjectURL(file))];
+}
+
+// Several pastes in a row keep adding to the list, like picking more files does
+usePasteImage({
+  onImage: file => uploadImages([file]),
+  enabled: () => !props.disabled,
+});
+
+const { readImage } = useClipboardImage();
+const reading = ref(false);
+
+async function pasteFromClipboard() {
+  reading.value = true;
+  const image = await readImage();
+  reading.value = false;
+
+  if (image) {
+    uploadImages([image]);
+  }
 }
 
 function clearImage(index: number) {

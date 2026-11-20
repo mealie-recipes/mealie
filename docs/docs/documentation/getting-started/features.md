@@ -14,7 +14,7 @@ Mealie offers several ways to create recipes:
 Mealie's [AI integration](./installation/ai-providers.md) adds an **Import with AI** page, which creates a recipe out of just about anything:
 
 - **A URL:** Mealie reads the page, or, for a video URL (e.g., YouTube or Instagram), transcribes the audio.
-- **Images:** Upload photos of a written or typed recipe and Mealie will read them.
+- **Images:** Upload photos of a written or typed recipe and Mealie will read them. You can also paste a screenshot straight from your clipboard.
 - **Text:** Paste a recipe as plain text, HTML, or JSON.
 
 Everything you provide is read and combined into a single recipe, so you can pair a link or photos with a few notes of your own to name the recipe or correct a detail.
