@@ -5,7 +5,7 @@ FROM node:26@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10
     AS frontend-builder
 
 # renovate: datasource=npm depName=pnpm
-RUN npm install --global pnpm@12.20.0
+RUN npm install --global pnpm@12.21.0
 
 WORKDIR /frontend
 
