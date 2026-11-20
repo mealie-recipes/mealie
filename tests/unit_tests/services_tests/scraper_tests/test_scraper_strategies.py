@@ -1,5 +1,6 @@
 import json
 
+import pytest
 from recipe_scrapers import scrape_html
 
 from mealie.lang.providers import get_locale_provider
@@ -265,3 +266,50 @@ def test_prefer_structured_instructions_for_line_breaks_only_when_the_text_match
     assert prefer_structured_instructions(structured, [{"text": "Boil a kettle. Make the stock."}]) is False
     # with no line breaks there is nothing to gain
     assert prefer_structured_instructions([{"text": "Boil a full kettle."}], [{"text": "Boil a full kettle."}]) is False
+
+
+@pytest.mark.parametrize(
+    ("recipe_overrides", "expected"),
+    [
+        ({"note": "Chef's notes and tips here."}, [("", "Chef's notes and tips here.")]),
+        (
+            {"notes": [{"title": "Storage Tip", "text": "Keep refrigerated up to 3 days"}]},
+            [("Storage Tip", "Keep refrigerated up to 3 days")],
+        ),
+        ({"note": ["First tip.", "Second tip."]}, [("", "First tip."), ("", "Second tip.")]),
+        ({"note": {"title": "Tip", "text": "Add chili flakes."}}, [("Tip", "Add chili flakes.")]),
+        (
+            {
+                "notes": [{"title": "Tip", "text": "Keep refrigerated"}],
+                "note": "Chef's notes and tips here.",
+            },
+            [("Tip", "Keep refrigerated"), ("", "Chef's notes and tips here.")],
+        ),
+        ({"note": ""}, []),
+        ({"note": None}, []),
+        ({"note": 42}, []),
+        ({"note": [{"title": "Only title, no text"}]}, []),
+    ],
+)
+def test_schema_notes_are_kept(recipe_overrides: dict, expected: list[tuple[str, str]]) -> None:
+    recipe_data = dict(FLAT_RECIPE, **recipe_overrides)
+    recipe = scrape(recipe_data)
+
+    assert [(note.title, note.text) for note in recipe.notes] == expected
+
+
+def test_json_ld_example_note_is_kept() -> None:
+    """A JSON-LD payload with a `note` field must keep the chef's note."""
+    recipe = scrape(
+        {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": "Recipe Name",
+            "recipeIngredient": ["Ingredient 1"],
+            "recipeInstructions": [{"@type": "HowToStep", "text": "Step 1 text."}],
+            "tool": ["Equipment 1"],
+            "note": "Chef's notes and tips here.",
+        }
+    )
+
+    assert [(note.title, note.text) for note in recipe.notes] == [("", "Chef's notes and tips here.")]
