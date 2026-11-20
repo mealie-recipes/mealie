@@ -1,4 +1,4 @@
-import { useLocalStorage, useSessionStorage } from "@vueuse/core";
+import { useLocalStorage } from "@vueuse/core";
 import { ActivityKey } from "~/lib/api/types/activity";
 import type { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
 import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
@@ -154,8 +154,8 @@ export function useUserActivityPreferences(): Ref<UserActivityPreferences> {
   return fromStorage;
 }
 
-export function useUserSearchQuerySession(): Ref<UserSearchQuery> {
-  const fromStorage = useSessionStorage(
+export function useUserSearchQuery(): Ref<UserSearchQuery> {
+  const fromStorage = useLocalStorage(
     "search-query",
     {
       recipe: "",
