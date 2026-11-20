@@ -28,6 +28,41 @@ function nameImage(file: File) {
 }
 
 /**
+ * Reads an image from the clipboard on demand, for a button instead of a keyboard paste.
+ *
+ * Browsers ask the user for clipboard access first and some cannot read images at all. In
+ * every case that yields no image, the user is told why.
+ */
+export function useClipboardImage() {
+  const i18n = useGlobalI18n();
+
+  async function readImage(): Promise<File | null> {
+    if (!navigator.clipboard?.read) {
+      alert.warning(i18n.t("recipe.clipboard-unavailable"));
+      return null;
+    }
+
+    try {
+      for (const item of await navigator.clipboard.read()) {
+        const type = item.types.find(t => t.startsWith("image/"));
+        if (type) {
+          return nameImage(new File([await item.getType(type)], "", { type }));
+        }
+      }
+    }
+    catch {
+      alert.warning(i18n.t("recipe.clipboard-unavailable"));
+      return null;
+    }
+
+    alert.warning(i18n.t("recipe.paste-no-image-found"));
+    return null;
+  }
+
+  return { readImage };
+}
+
+/**
  * Hands the caller an image pasted from the clipboard (e.g. a screenshot).
  *
  * Pasting anything else is left alone, so text still pastes into fields as usual. If the

@@ -4,6 +4,7 @@
       class="my-2"
       :slug="recipe.slug"
       @upload="uploadImage"
+      @clipboard="previewPastedImage"
       @refresh="refreshImage"
       @delete="deleteImage"
     />
@@ -116,13 +117,19 @@ function clearPastedImage() {
 // The dialog closes on confirm, so without this a second paste could race the first upload
 const uploadingPastedImage = ref(false);
 
+function previewPastedImage(file: File) {
+  if (uploadingPastedImage.value) {
+    return;
+  }
+
+  clearPastedImage();
+  pastedImage.value = file;
+  pastedImageUrl.value = URL.createObjectURL(file);
+  pasteDialog.value = true;
+}
+
 usePasteImage({
-  onImage: (file) => {
-    clearPastedImage();
-    pastedImage.value = file;
-    pastedImageUrl.value = URL.createObjectURL(file);
-    pasteDialog.value = true;
-  },
+  onImage: previewPastedImage,
   enabled: () => !uploadingPastedImage.value,
 });
 

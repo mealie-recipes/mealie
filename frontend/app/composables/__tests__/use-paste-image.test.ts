@@ -1,7 +1,7 @@
 import { mount, type VueWrapper } from "@vue/test-utils";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { defineComponent, h, ref } from "vue";
-import { usePasteImage } from "../use-paste-image";
+import { useClipboardImage, usePasteImage } from "../use-paste-image";
 import { toastAlert } from "../use-toast";
 
 /** jsdom has no ClipboardEvent or DataTransfer, so build a paste that carries just what the composable reads. */
@@ -166,5 +166,69 @@ describe("usePasteImage", () => {
     isEnabled.value = true;
     document.dispatchEvent(pasteEvent([new File(["x"], "shot.png", { type: "image/png" })]));
     expect(onImage).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("useClipboardImage", () => {
+  function readImage() {
+    let read: () => Promise<File | null> = async () => null;
+    mounted.push(mount(defineComponent({
+      setup() {
+        read = useClipboardImage().readImage;
+        return () => h("div");
+      },
+    })));
+    return read();
+  }
+
+  function clipboardWith(read: () => Promise<unknown>) {
+    Object.defineProperty(navigator, "clipboard", { value: { read }, configurable: true });
+  }
+
+  function clipboardItem(types: Record<string, Blob>) {
+    return { types: Object.keys(types), getType: async (type: string) => types[type] };
+  }
+
+  afterEach(() => {
+    Reflect.deleteProperty(navigator, "clipboard");
+    mounted.splice(0).forEach(wrapper => wrapper.unmount());
+    toastAlert.open = false;
+  });
+
+  test("returns the image on the clipboard under a usable file name", async () => {
+    clipboardWith(async () => [clipboardItem({
+      "text/plain": new Blob(["x"], { type: "text/plain" }),
+      "image/png": new Blob(["x"], { type: "image/png" }),
+    })]);
+
+    const file = await readImage();
+
+    expect(file?.name).toBe("pasted-image.png");
+    expect(file?.type).toBe("image/png");
+    expect(toastAlert.open).toBe(false);
+  });
+
+  test("tells the user when the clipboard has no image", async () => {
+    clipboardWith(async () => [clipboardItem({ "text/plain": new Blob(["x"], { type: "text/plain" }) })]);
+
+    expect(await readImage()).toBeNull();
+    expect(toastAlert.open).toBe(true);
+    expect(toastAlert.text).toContain("No image found");
+  });
+
+  test("tells the user when the browser refuses clipboard access", async () => {
+    clipboardWith(async () => {
+      throw new DOMException("denied", "NotAllowedError");
+    });
+
+    expect(await readImage()).toBeNull();
+    expect(toastAlert.open).toBe(true);
+    expect(toastAlert.text).toContain("clipboard access");
+  });
+
+  test("tells the user when the browser cannot read the clipboard at all", async () => {
+    expect(await readImage()).toBeNull();
+    expect(toastAlert.open).toBe(true);
+    expect(toastAlert.text).toContain("clipboard access");
   });
 });

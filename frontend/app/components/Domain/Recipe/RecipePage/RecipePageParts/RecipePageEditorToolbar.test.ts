@@ -19,7 +19,21 @@ vi.mock("~/composables/store/use-user-store", () => ({
 vi.mock("~/composables/store", () => ({
   useHouseholdStore: () => ({ store: ref([]) }),
 }));
-vi.mock("~/components/Domain/Recipe/RecipeImageUploadBtn.vue", () => ({ default: { render: () => null } }));
+// Stands in for the image menu, whose paste button hands the page an image from the clipboard
+vi.mock("~/components/Domain/Recipe/RecipeImageUploadBtn.vue", async () => {
+  const { h } = await import("vue");
+  return {
+    default: {
+      emits: ["clipboard"],
+      render(this: { $emit: (event: string, file: File) => void }) {
+        return h("button", {
+          "data-test": "clipboard-button",
+          "onClick": () => this.$emit("clipboard", new File(["x"], "pasted-image.png", { type: "image/png" })),
+        });
+      },
+    },
+  };
+});
 vi.mock("~/components/Domain/Recipe/RecipeSettingsMenu.vue", () => ({ default: { render: () => null } }));
 vi.mock("~/components/Domain/User/UserAvatar.vue", () => ({ default: { render: () => null } }));
 
@@ -107,6 +121,19 @@ describe("RecipePageEditorToolbar paste", () => {
     expect(mocks.updateImage).not.toHaveBeenCalled();
     expect(wrapper.find("[data-test=paste-dialog]").exists()).toBe(false);
     expect(URL.revokeObjectURL).toHaveBeenCalled();
+  });
+
+  test("previews an image taken from the clipboard button, then uploads it on confirm", async () => {
+    await wrapper.find("[data-test=clipboard-button]").trigger("click");
+    await flushPromises();
+
+    expect(wrapper.find("[data-test=paste-dialog]").exists()).toBe(true);
+    expect(mocks.updateImage).not.toHaveBeenCalled();
+
+    await wrapper.find("[data-test=confirm]").trigger("click");
+    await flushPromises();
+
+    expect(mocks.updateImage).toHaveBeenCalledWith("pancakes", expect.objectContaining({ name: "pasted-image.png" }));
   });
 
   test("ignores a paste made while the previous image is still uploading", async () => {
