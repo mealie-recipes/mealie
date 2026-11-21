@@ -9,7 +9,7 @@ from uuid import uuid4
 from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator, model_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
-from sqlalchemy import Select, desc, func, or_, select, text, union
+from sqlalchemy import Select
 from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -401,67 +401,9 @@ class RecipeOut(RecipeSummary):
     def filter_search_query(
         cls, db_model, query: Select, session: Session, search_type: SearchType, search: str, search_list: list[str]
     ) -> Select:
-        """
-        1. token search looks for any individual exact hit in name, description, and ingredients
-        2. fuzzy search looks for trigram hits in name, description, and ingredients
-        3. Sort order is determined by closeness to the recipe name
-        Should search also look at tags?
-        """
+        from mealie.search.adapter import apply_search
 
-        if search_type is SearchType.fuzzy:
-            # The threshold is a connection setting, so set it explicitly for each match rather than
-            # inheriting whatever an earlier query on this connection left behind.
-            session.execute(
-                text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_ingredient_similarity_threshold};")
-            )
-            ingredient_recipe_ids = (
-                session.execute(
-                    select(RecipeIngredientModel.recipe_id)
-                    .filter(
-                        or_(
-                            RecipeIngredientModel.note_normalized.op("%>")(search),
-                            RecipeIngredientModel.original_text_normalized.op("%>")(search),
-                        )
-                    )
-                    .distinct()
-                )
-                .scalars()
-                .all()
-            )
-
-            session.execute(text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_similarity_threshold};"))
-            # Match each column on its own and UNION the recipe ids: an OR across these columns and
-            # the ingredient matches can't use the GIN trigram indexes, so every search computed word
-            # similarity against every recipe's name and description.
-            matching_ids = union(
-                select(RecipeModel.id).filter(RecipeModel.name_normalized.op("%>")(search)),
-                select(RecipeModel.id).filter(RecipeModel.description_normalized.op("%>")(search)),
-                select(RecipeModel.id).filter(RecipeModel.id.in_(ingredient_recipe_ids)),
-            )
-            return query.filter(RecipeModel.id.in_(matching_ids)).order_by(
-                # trigram ordering could be too slow on million record db, but is fine with thousands.
-                func.least(
-                    RecipeModel.name_normalized.op("<->>")(search),
-                )
-            )
-
-        else:
-            # An uncorrelated subquery, so the database scans the ingredients once. Fetching the matching
-            # ingredient ids first put thousands of bind parameters into a per-recipe EXISTS.
-            ingredient_recipe_ids = select(RecipeIngredientModel.recipe_id).filter(
-                or_(
-                    *[RecipeIngredientModel.note_normalized.like(f"%{ns}%") for ns in search_list],
-                    *[RecipeIngredientModel.original_text_normalized.like(f"%{ns}%") for ns in search_list],
-                )
-            )
-
-            return query.filter(
-                or_(
-                    *[RecipeModel.name_normalized.like(f"%{ns}%") for ns in search_list],
-                    *[RecipeModel.description_normalized.like(f"%{ns}%") for ns in search_list],
-                    RecipeModel.id.in_(ingredient_recipe_ids),
-                )
-            ).order_by(desc(RecipeModel.name_normalized.like(f"%{search}%")))
+        return apply_search(session, query, search)
 
 
 class RecipeLastMade(BaseModel):

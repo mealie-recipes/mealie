@@ -86,6 +86,7 @@ nav:
           - Logs: "documentation/getting-started/installation/logs.md"
           - AI Providers: "documentation/getting-started/installation/ai-providers.md"
       - Usage:
+          - Recipe Search: "documentation/getting-started/usage/recipe-search.md"
           - Backup and Restoring: "documentation/getting-started/usage/backups-and-restoring.md"
           - Permissions and Public Access: "documentation/getting-started/usage/permissions-and-public-access.md"
 

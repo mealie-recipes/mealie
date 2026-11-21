@@ -15,8 +15,13 @@
           :placeholder="$t('search.search-placeholder')"
           :prepend-inner-icon="$globals.icons.search"
           @keyup.enter="hideKeyboard"
-        />
+        >
+          <template #append-inner>
+            <RecipeSearchTips />
+          </template>
+        </v-text-field>
       </div>
+      <RecipeSearchControls :mode="state.searchMode" :query="state.search" @update:mode="setSearchMode" />
       <div class="search-row">
         <RecipeExplorerPageSearchFilters />
         <!-- Sort Options -->
@@ -135,6 +140,8 @@
 
 <script setup lang="ts">
 import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.vue";
+import RecipeSearchControls from "~/components/Domain/Recipe/RecipeSearchControls.vue";
+import RecipeSearchTips from "~/components/Domain/Recipe/RecipeSearchTips.vue";
 import { useRecipeExplorerSearch, clearRecipeExplorerSearchState } from "~/composables/use-recipe-explorer-search";
 
 const emit = defineEmits<{
@@ -227,6 +234,11 @@ const input: Ref<any> = ref(null);
 
 function hideKeyboard() {
   input.value?.blur();
+}
+
+async function setSearchMode(mode: "all" | "any") {
+  state.value.searchMode = mode;
+  await search();
 }
 
 // function to show refresh icon

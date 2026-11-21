@@ -8,6 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
+from mealie.search import index as _search_index  # noqa: F401
 
 settings = get_app_settings()
 

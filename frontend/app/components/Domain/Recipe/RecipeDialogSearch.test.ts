@@ -69,6 +69,7 @@ async function mountDialog(attrs: Record<string, unknown> = {}) {
         },
       },
       stubs: {
+        VAlert: { template: "<div role=\"alert\"><slot /></div>" },
         RecipeCardMobile: {
           props: ["name"],
           template: "<button class=\"recipe-card\" type=\"button\">{{ name }}</button>",
@@ -112,6 +113,9 @@ describe("RecipeDialogSearch", () => {
     routerPush.mockClear();
     mocks.useRecipeSearch.mockReturnValue({
       query: ref(""),
+      mode: ref("all"),
+      error: ref(""),
+      loading: ref(false),
       data: ref(recipes),
     });
 
@@ -130,6 +134,19 @@ describe("RecipeDialogSearch", () => {
     wrappers.forEach(wrapper => wrapper.unmount());
     wrappers.length = 0;
     vi.unstubAllGlobals();
+  });
+
+  test("shows syntax errors and lets users broaden the current query", async () => {
+    const state = mocks.useRecipeSearch.getMockImplementation()!();
+    state.query.value = "+pork lettuce wrap";
+    state.error.value = "search.invalid-query";
+    const wrapper = await mountDialog();
+    expect(wrapper.find("[role=\"alert\"]").text()).toContain("Check your search syntax");
+    const broaden = wrapper.findAll("button").find(button => button.text() === "Broaden Search")!;
+    await broaden.trigger("click");
+    expect(state.mode.value).toBe("any");
+    expect(state.query.value).toBe("+pork lettuce wrap");
+    expect(wrapper.text()).toContain("Partial matches included");
   });
 
   test("ArrowUp and ArrowDown clamp recipe selection", async () => {
@@ -190,6 +207,9 @@ describe("RecipeDialogSearch", () => {
   test("keyboard navigation is a no-op when there are no results", async () => {
     mocks.useRecipeSearch.mockReturnValue({
       query: ref(""),
+      mode: ref("all"),
+      error: ref(""),
+      loading: ref(false),
       data: ref([]),
     });
     const wrapper = await mountDialog();
