@@ -32,6 +32,7 @@
           <template #prepend>
             <v-checkbox
               :model-value="isChecked(index)"
+              :aria-label="parseIngredientText(ingredient, scale, false)"
               hide-details
               class="pt-0 mt-0"
               color="secondary"
