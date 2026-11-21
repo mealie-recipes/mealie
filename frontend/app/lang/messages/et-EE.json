@@ -839,7 +839,7 @@
     "secure-site-success-text": "Lehekülge külastatakse läbi localhost-i või hhtps-i",
     "server-side-base-url": "Serveri poolne baas-URL",
     "server-side-base-url-error-text": "„BASE_URL” on API serveri vaikeväärtus. See põhjustab probleeme e-kirjade jms jaoks serveris loodud teavituslinkidega.",
-    "server-side-base-url-success-text": "Serveri poole URL ei kattu vaikeväärtusega",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",
