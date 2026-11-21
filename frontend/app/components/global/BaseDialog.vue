@@ -9,14 +9,17 @@
       v-model="dialog"
       content-class="rounded-t-xl"
       :content-props="{
-        style: 'overflow: hidden',
+        style: 'overflow: hidden; box-sizing: border-box; max-height: calc(100dvh - env(safe-area-inset-bottom, 0px))',
       }"
       :max-width="maxWidth ?? undefined"
       @keydown.enter="submitOnEnter"
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
-      <BaseDialogContent v-bind="bindings">
+      <BaseDialogContent
+        v-bind="bindings"
+        bottom-sheet
+      >
         <template #default>
           <slot v-bind="{ submitEvent }" />
         </template>
