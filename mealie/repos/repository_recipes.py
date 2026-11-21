@@ -1,6 +1,7 @@
 import re as re
 from collections.abc import Iterable, Sequence
 from datetime import UTC, datetime
+from math import ceil
 from typing import Self
 from uuid import UUID
 
@@ -19,17 +20,25 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
+from mealie.db.recipe_embeddings import QueryEmbedding, Vector, recipe_embeddings
 from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import CookBookOut
 from mealie.schema.recipe import RecipeOut
 from mealie.schema.recipe.recipe import RecipeDraft, RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.query_search import SearchFilter
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
 from ..db.models._model_base import SqlAlchemyBase
 from ._recipe_suggestions import RecipeSuggestionMixin
 from .repository_generic import HouseholdRepositoryGeneric
+
+RRF_K = 60
+"""Reciprocal rank fusion's constant. Larger values flatten the advantage of the top ranks; 60 is the usual choice."""
+
+SEMANTIC_RESULT_LIMIT = 50
+"""How many recipes a semantic search returns at most, across all of its pages"""
 
 
 class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[RecipeOut, RecipeModel]):
@@ -380,9 +389,14 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         require_all_foods=True,
         search: str | None = None,
         extra_filter: sa.ColumnElement[bool] | None = None,
+        semantic: QueryEmbedding | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
         pagination_result = pagination.model_copy()
+        if not search:
+            # The embedding is of the search, and is ranked together with the search's words
+            semantic = None
+
         q = sa.select(self.model).filter(self.model.household_id.is_not(None))
 
         fltr = self._filter_builder()
@@ -414,10 +428,12 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 require_all_foods=require_all_foods,
             )
             q = q.filter(*filters)
-        if search:
+        if semantic and search:
+            q = self._add_hybrid_search_to_query(q, semantic, search)
+        elif search:
             q = self.add_search_to_query(q, self.schema, search)
 
-        if not pagination_result.order_by and not search:
+        if not pagination_result.order_by and not search and not semantic:
             # default ordering if not searching
             pagination_result.order_by = "created_at"
 
@@ -428,6 +444,16 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
         finally:
             self._last_made_household_id = None
+
+        if semantic:
+            per_page = pagination_result.per_page
+            count = min(count, SEMANTIC_RESULT_LIMIT)
+            total_pages = ceil(count / per_page) if per_page else 0
+            if pagination.page == -1:
+                # "last page" was resolved against every ranked recipe, not against the best few
+                pagination_result.page = max(total_pages, 1)
+            offset = (pagination_result.page - 1) * per_page
+            q = q.limit(max(0, min(per_page, SEMANTIC_RESULT_LIMIT - offset))).offset(offset)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())
@@ -447,6 +473,63 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             total_pages=total_pages,
             items=items,
         )
+
+    def _add_hybrid_search_to_query(self, query: sa.Select, semantic: QueryEmbedding, search: str) -> sa.Select:
+        """
+        Order by meaning and by how well the name matches the search together, best first.
+
+        The two rankings are merged with reciprocal rank fusion: a recipe scores 1 / (RRF_K + rank)
+        in each ranking it is in, and the scores add up. That needs no common scale between a
+        vector distance and a trigram similarity, and a recipe that is in only one ranking still
+        gets a place: one that isn't embedded yet, or one whose name has none of the search's words.
+        """
+        # rank(), not row_number(): recipes that are equally good in a ranking share a place in it.
+        # Numbering them gave each a place of its own in whatever order the rows were read, and for a
+        # word that many names contain, that order decided the result as much as the meaning did.
+        distance = recipe_embeddings.c.embedding.op("<=>")(sa.cast(semantic.vector, Vector()))
+        by_meaning = (
+            sa.select(
+                recipe_embeddings.c.recipe_id.label("id"),
+                sa.func.rank().over(order_by=distance).label("rank"),
+            )
+            .where(
+                recipe_embeddings.c.group_id == self.group_id,
+                recipe_embeddings.c.model == semantic.model,
+                recipe_embeddings.c.embedding.is_not(None),
+            )
+            .subquery("by_meaning")
+        )
+
+        # Names only, unlike the text search. A description or an ingredient that shares a word with
+        # the search is weak evidence, and there are hundreds of them: they outranked the recipes
+        # that were only near in meaning, and buried the few recipes whose name really matched.
+        normalized = SearchFilter(self.session, search, normalize_characters=True).search
+        self.session.execute(
+            sa.text(f"set pg_trgm.word_similarity_threshold = {self.schema._fuzzy_similarity_threshold};")
+        )
+        by_name = (
+            sa.select(self.model)
+            .filter_by(**self._filter_builder())
+            .where(self.model.name_normalized.op("%>")(normalized))
+            .with_only_columns(
+                self.model.id.label("id"),
+                sa.func.rank().over(order_by=self.model.name_normalized.op("<->>")(normalized)).label("rank"),
+            )
+            .subquery("by_name")
+        )
+
+        def score(ranking: sa.Subquery) -> sa.ColumnElement:
+            return sa.func.coalesce(1.0 / (RRF_K + ranking.c.rank), 0)
+
+        ranked = (
+            sa.select(
+                sa.func.coalesce(by_meaning.c.id, by_name.c.id).label("id"),
+                (score(by_meaning) + score(by_name)).label("score"),
+            )
+            .select_from(by_meaning.outerjoin(by_name, by_meaning.c.id == by_name.c.id, full=True))
+            .subquery("ranked")
+        )
+        return query.join(ranked, ranked.c.id == self.model.id).order_by(ranked.c.score.desc())
 
     @staticmethod
     def _recipes_using_foods(foods: Sequence[UUID4 | str]) -> sa.ColumnElement:

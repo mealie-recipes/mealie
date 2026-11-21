@@ -13,7 +13,7 @@ from collections.abc import Sequence
 from functools import cached_property
 from pathlib import Path
 from textwrap import dedent
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 if TYPE_CHECKING:
     from openai import AsyncOpenAI
@@ -138,6 +138,17 @@ class OpenAILocalAudio(OpenAIAttachment):
         }
 
 
+def client_options(provider: AIProviderOut) -> dict[str, Any]:
+    """How to reach a provider, as the arguments of an OpenAI client. The sync and async clients take the same ones."""
+    return {
+        "base_url": provider.base_url or None,
+        "api_key": provider.api_key,
+        "timeout": provider.timeout,
+        "default_headers": provider.request_headers or None,
+        "default_query": provider.request_params or None,
+    }
+
+
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
     TESTING_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "testing"
@@ -169,13 +180,7 @@ class OpenAIService(BaseService):
     def get_client(self, provider: AIProviderOut) -> AsyncOpenAI:
         from openai import AsyncOpenAI
 
-        return AsyncOpenAI(
-            base_url=provider.base_url or None,
-            api_key=provider.api_key,
-            timeout=provider.timeout,
-            default_headers=provider.request_headers or None,
-            default_query=provider.request_params or None,
-        )
+        return AsyncOpenAI(**client_options(provider))
 
     async def ping(
         self, provider: AIProviderOut, message: str, images: list[OpenAILocalImage] | None = None
@@ -203,6 +208,10 @@ class OpenAIService(BaseService):
         always report a failure for a provider that works fine.
         """
         if self._is_audio_only(provider) and await self._check_transcription(provider):
+            return AIProviderTestResult(success=True)
+
+        # Likewise an embedding model, which can't answer a chat message either
+        if self._is_embedding_only(provider) and await self._check_embedding(provider):
             return AIProviderTestResult(success=True)
 
         try:
@@ -260,6 +269,26 @@ class OpenAIService(BaseService):
         if not settings or provider.id != settings.audio_provider_id:
             return False
         return provider.id not in (settings.default_provider_id, settings.image_provider_id)
+
+    def _is_embedding_only(self, provider: AIProviderOut) -> bool:
+        """Whether this saved provider is the group's embedding provider and has no other role."""
+        settings = self.provider_settings
+        if not settings or provider.id != settings.embedding_provider_id:
+            return False
+        return provider.id not in (
+            settings.default_provider_id,
+            settings.audio_provider_id,
+            settings.image_provider_id,
+        )
+
+    async def _check_embedding(self, provider: AIProviderOut) -> bool:
+        """Best-effort check that a provider can embed text. Only whether the request succeeds matters."""
+        try:
+            await self.get_client(provider).embeddings.create(model=provider.model, input=["connection test"])
+        except Exception:
+            self.logger.debug("AI provider embedding test failed", exc_info=True)
+            return False
+        return True
 
     async def _check_transcription(self, provider: AIProviderOut) -> bool:
         """

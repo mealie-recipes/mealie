@@ -8,6 +8,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.settings.static import APP_VERSION
 from mealie.db.db_setup import generate_session
 from mealie.db.models.users.users import User
+from mealie.db.recipe_embeddings import embeddings_available
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base.permissions import not_found
 from mealie.schema.admin.about import AppInfo, AppStartupInfo, AppTheme
@@ -48,6 +49,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         enable_reverse_proxy_auth=settings.REVERSE_PROXY_AUTH_READY,
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
         token_time=settings.TOKEN_TIME,
+        enable_semantic_search=embeddings_available(session),
         allowed_iframe_hosts=settings.allowed_iframe_hosts,
         branding_name=settings.branding.name,
         branding_logo_url="/api/app/about/branding-logo" if settings.branding.logo_file else None,

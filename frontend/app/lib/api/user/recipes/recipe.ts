@@ -65,6 +65,8 @@ const routes = {
 
 export type RecipeSearchQuery = {
   search?: string;
+  /** Rank by meaning and by how well the name matches, instead of matching the text. Needs an embedding provider. */
+  semantic?: boolean;
   orderDirection?: "asc" | "desc";
   groupId?: string;
 

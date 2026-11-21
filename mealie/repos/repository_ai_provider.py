@@ -61,6 +61,11 @@ class GroupRepositoryAIProvider(GroupRepositoryGeneric[AIProviderOut, AIProvider
             .where(AIProviderSettings.image_provider_id == value)
             .values(image_provider_id=None)
         )
+        self.session.execute(
+            sa.update(AIProviderSettings)
+            .where(AIProviderSettings.embedding_provider_id == value)
+            .values(embedding_provider_id=None)
+        )
 
         # Delete
         return super().delete(value, match_key)

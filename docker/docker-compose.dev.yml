@@ -11,7 +11,7 @@ services:
       - "1025:1025"
   postgres:
     container_name: mealie_dev_postgres
-    image: postgres:15
+    image: pgvector/pgvector:pg15 # Postgres with the extension semantic recipe search needs
     restart: no
     ports:
       - "5432:5432"

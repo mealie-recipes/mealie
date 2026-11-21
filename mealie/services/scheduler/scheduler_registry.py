@@ -13,6 +13,7 @@ class SchedulerRegistry:
     _daily: list[Callable] = []
     _hourly: list[Callable] = []
     _minutely: list[Callable] = []
+    _minutely_isolated: list[Callable] = []
 
     @staticmethod
     def _register(name: str, callbacks: list[Callable], callback: Iterable[Callable]):
@@ -48,6 +49,14 @@ class SchedulerRegistry:
         SchedulerRegistry._minutely.remove(callback)
 
     @staticmethod
+    def register_minutely_isolated(*callbacks: Callable) -> None:
+        """
+        For callbacks that can take long, e.g. because they wait on an external service. Each runs
+        on its own schedule, so it delays neither the other callbacks nor their next run.
+        """
+        SchedulerRegistry._register("minutely (isolated)", SchedulerRegistry._minutely_isolated, callbacks)
+
+    @staticmethod
     def print_jobs():
         for job in SchedulerRegistry._daily:
             logger.debug(f"Daily job: {job.__name__}")
@@ -57,3 +66,6 @@ class SchedulerRegistry:
 
         for job in SchedulerRegistry._minutely:
             logger.debug(f"Minutely job: {job.__name__}")
+
+        for job in SchedulerRegistry._minutely_isolated:
+            logger.debug(f"Minutely job (isolated): {job.__name__}")
