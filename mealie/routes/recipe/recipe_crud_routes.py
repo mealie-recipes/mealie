@@ -42,7 +42,7 @@ from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe import RecipeOut, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import RecipeCreate, RecipeDraft, RecipeLastMade, RecipeSummary, RecipeUrlBulkCreate
 from mealie.schema.recipe.recipe_asset import RecipeAsset
-from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft
+from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft, ToolDraft
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
@@ -413,6 +413,10 @@ class RecipeController(BaseRecipeController):
         if extras and req.include_categories:
             ctx = ScraperContext(self.repos)
             recipe.recipe_category = [CategoryDraft.model_validate(category) for category in extras.use_categories(ctx)]
+
+        if extras:
+            ctx = ScraperContext(self.repos)
+            recipe.tools = [ToolDraft.model_validate(tool) for tool in extras.use_tools(ctx)]
 
         new_recipe = self.service.create_one(recipe)
         self._publish_recipe_created(new_recipe)
