@@ -839,7 +839,7 @@
     "secure-site-success-text": "網站已透過 localhost 或 HTTPS 存取",
     "server-side-base-url": "伺服器端基礎 URL",
     "server-side-base-url-error-text": "API 伺服器上的 `BASE_URL` 仍為預設值，這將導致伺服器產生的通知連結（如電子郵件等）出現問題。",
-    "server-side-base-url-success-text": "伺服器端 URL 與預設值不符",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} 已就緒",
     "auth-provider-not-ready": "{provider} 尚未就緒",
     "auth-provider-disabled": "{provider} 已停用",
