@@ -39,6 +39,23 @@ const props = withDefaults(defineProps<Props>(), {
   color: "accent custom-transparent",
 });
 
+/**
+ * The text may repeat the structured quantity, e.g. "60 servings" beside quantity 60. Strip only
+ * a leading copy of the quantity; numbers later in the text are left alone.
+ */
+function stripLeadingQuantity(text: string, quantity: number): string {
+  if (!quantity) {
+    return text;
+  }
+
+  const match = /^\s*(\d+(?:\.\d+)?)(?=\s|$)/.exec(text);
+  if (!match || Number(match[1]) !== quantity) {
+    return text;
+  }
+
+  return text.slice(match[0].length).trimStart();
+}
+
 const yieldDisplay = computed<string>(() => {
   const components: string[] = [];
 
@@ -49,7 +66,10 @@ const yieldDisplay = computed<string>(() => {
 
   const text = props.yieldText;
   if (text) {
-    components.push(text);
+    const strippedText = stripLeadingQuantity(text, props.yieldQuantity);
+    if (strippedText) {
+      components.push(strippedText);
+    }
   }
 
   return components.join(" ");
