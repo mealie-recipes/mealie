@@ -10,7 +10,7 @@
       :title="$t('cookbook.create-a-cookbook')"
       :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')"
-      :submit-disabled="!createTarget.queryFilterString"
+      :submit-disabled="!createTarget.name?.trim() || !createTarget.queryFilterString"
       can-submit
       disable-submit-on-enter
       @submit="actions.updateOne(createTarget)"
@@ -18,6 +18,27 @@
     >
       <v-card-text>
         <CookbookEditor :key="createTargetKey" v-model="createTarget" />
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Edit Dialog -->
+    <BaseDialog
+      v-if="editTarget"
+      v-model="dialogStates.edit"
+      width="100%"
+      max-width="1100px"
+      :icon="$globals.icons.pages"
+      :title="$t('general.edit')"
+      :submit-icon="$globals.icons.save"
+      :submit-text="$t('general.save')"
+      :submit-disabled="!editTarget.name?.trim() || !editTarget.queryFilterString"
+      can-submit
+      can-delete
+      @submit="actions.updateOne(editTarget)"
+      @delete="deleteEventHandler(editTarget)"
+    >
+      <v-card-text>
+        <CookbookEditor v-model="editTarget" />
       </v-card-text>
     </BaseDialog>
 
@@ -70,69 +91,42 @@
       <BaseButton create @click="createCookbook" />
 
       <!-- Cookbook List -->
-      <v-expansion-panels class="mt-2">
-        <VueDraggable
-          v-model="myCookbooks"
-          handle=".handle"
-          :delay="250"
-          :delay-on-touch-only="true"
-          style="width: 100%"
-          @end="updateAll(myCookbooks)"
+      <VueDraggable
+        v-model="myCookbooks"
+        handle=".handle"
+        :delay="250"
+        :delay-on-touch-only="true"
+        class="mt-2"
+        @end="updateAll(myCookbooks)"
+      >
+        <v-card
+          v-for="cookbook in myCookbooks"
+          :key="cookbook.id"
+          class="my-2 left-border"
         >
-          <v-expansion-panel
-            v-for="(cookbook, index) in myCookbooks"
-            :key="cookbook.id"
-            class="my-2 left-border rounded"
-          >
-            <v-expansion-panel-title disable-icon-rotate class="text-h6 opacity-80">
-              <div class="d-flex align-center">
-                <v-icon size="large" start>
-                  {{ $globals.icons.pages }}
-                </v-icon>
-                {{ cookbook.name }}
-              </div>
-              <template #actions>
-                <div class="d-flex align-center">
-                  <v-btn icon variant="text" class="ml-2">
-                    <v-icon>
-                      {{ $globals.icons.edit }}
-                    </v-icon>
-                  </v-btn>
-                  <v-icon class="handle" :size="40">
-                    {{ $globals.icons.arrowUpDown }}
-                  </v-icon>
-                </div>
-              </template>
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <CookbookEditor
-                v-model="myCookbooks[index]"
-                :collapsable="false"
-              />
-              <v-card-actions>
-                <v-spacer />
-                <BaseButtonGroup
-                  :buttons="[
-                    {
-                      icon: $globals.icons.delete,
-                      text: $t('general.delete'),
-                      event: 'delete',
-                    },
-                    {
-                      icon: $globals.icons.save,
-                      text: $t('general.save'),
-                      event: 'save',
-                      disabled: !cookbook.queryFilterString,
-                    },
-                  ]"
-                  @delete="deleteEventHandler(myCookbooks[index])"
-                  @save="actions.updateOne(myCookbooks[index])"
-                />
-              </v-card-actions>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </VueDraggable>
-      </v-expansion-panels>
+          <v-card-title class="d-flex align-center text-h6 opacity-80">
+            <v-icon size="large" start>
+              {{ $globals.icons.pages }}
+            </v-icon>
+            {{ cookbook.name }}
+            <v-spacer />
+            <v-btn
+              icon
+              variant="text"
+              class="ml-2"
+              :title="$t('general.edit')"
+              @click="editEventHandler(cookbook)"
+            >
+              <v-icon>
+                {{ $globals.icons.edit }}
+              </v-icon>
+            </v-btn>
+            <v-icon class="handle" :size="40">
+              {{ $globals.icons.arrowUpDown }}
+            </v-icon>
+          </v-card-title>
+        </v-card>
+      </VueDraggable>
     </v-container>
   </div>
 </template>
@@ -151,6 +145,7 @@ definePageMeta({
 
 const dialogStates = reactive({
   create: false,
+  edit: false,
   delete: false,
 });
 
@@ -200,6 +195,14 @@ async function createCookbook() {
     createTargetKey.value++;
   });
   dialogStates.create = true;
+}
+
+// edit
+const editTarget = ref<ReadCookBook | null>(null);
+function editEventHandler(item: ReadCookBook) {
+  // edit a copy, so cancelling the dialog discards the changes
+  editTarget.value = structuredClone(toRaw(item));
+  dialogStates.edit = true;
 }
 
 // delete
