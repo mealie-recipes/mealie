@@ -72,6 +72,7 @@ export type RecipeSearchQuery = {
 
   cookbook?: string;
   households?: string[];
+  users?: string[];
 
   categories?: string[];
   requireAllCategories?: boolean;
