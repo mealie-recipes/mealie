@@ -236,7 +236,7 @@
       "audio-provider-description": "Active les fonctionnalités de transcription audio, comme la création de recettes à partir de vidéos",
       "image-provider": "Fournisseur d'images",
       "image-provider-description": "Active les fonctionnalités de reconnaissance d'image, comme la création de recettes à partir d'images",
-      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports": "Enrichir les importations non créées avec l'IA",
       "enrich-non-ai-imports-description": "Utilise l'IA pour améliorer les recettes importées sans elle, comme lier des ingrédients à des étapes et suggérer des étiquettes",
       "provider-name": "Nom du fournisseur",
       "api-key": "Clé API",
