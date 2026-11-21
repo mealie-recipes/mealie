@@ -843,7 +843,7 @@
     "auth-provider-ready": "{provider} klar",
     "auth-provider-not-ready": "{provider} ikke klar",
     "auth-provider-disabled": "{provider} deaktiveret",
-    "auth-provider-disabled-text": "Sæt {EnvVar} til \"true\" for at slå dette til.",
+    "auth-provider-disabled-text": "Sæt {envVar} til \"True\" for at slå dette til.",
     "auth-provider-error-text": "Ikke alle {provider}-variable er konfigurerede. Det kan ignoreres, hvis du ikke benytter {provider} til login.",
     "auth-provider-success-text": "Alle påkrævede {provider}-variable er sat.",
     "build": "Build",
