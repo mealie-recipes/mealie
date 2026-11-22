@@ -156,6 +156,7 @@ import { useUserApi } from "~/composables/api";
 import { useGroupSelf } from "~/composables/use-groups";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
+import { findHttpUrl } from "~/composables/use-utils";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
 
@@ -212,21 +213,15 @@ const recipeUrl = computed({
   get() {
     // Prefer the 'url' share field (recipe_import_url, populated by Chrome when
     // sharing a page URL). Fall back to the 'text' share field (recipe_import_text)
-    // for apps that share URLs as plain text, but only when the text value is
-    // actually a valid http/https URL — shared text can be arbitrary.
+    // for apps that share URLs as plain text. The text can also hold a title,
+    // so use the first http/https URL in it.
     const urlFromField = route.query.recipe_import_url as string | null;
     if (urlFromField) {
       return urlFromField;
     }
     const textFromField = route.query.recipe_import_text as string | null;
     if (textFromField) {
-      try {
-        const parsed = new URL(textFromField);
-        if (parsed.protocol === "http:" || parsed.protocol === "https:") {
-          return textFromField;
-        }
-      }
-      catch { /* not a URL, ignore */ }
+      return findHttpUrl(textFromField);
     }
     return null;
   },

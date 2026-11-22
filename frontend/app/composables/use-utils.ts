@@ -59,6 +59,23 @@ export const normalizeFilter: FilterFunction = (value: string, query: string) =>
   return normalizedValue.includes(normalizeQuery);
 };
 
+/**
+ * Returns the first http or https URL in a text, or null if there is none.
+ * Shared text often holds a title and a URL, separated by spaces or new lines.
+ */
+export function findHttpUrl(text: string): string | null {
+  for (const word of text.split(/\s+/)) {
+    try {
+      const parsed = new URL(word);
+      if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+        return word;
+      }
+    }
+    catch { /* not a URL */ }
+  }
+  return null;
+}
+
 export function uuid4() {
   return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
     (parseInt(c) ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (parseInt(c) / 4)))).toString(16),
