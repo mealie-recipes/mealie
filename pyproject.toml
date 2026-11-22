@@ -60,7 +60,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.1.1",
+    "zensical==0.1.2",
 ]
 dev = [
     "coverage==7.17.3",
@@ -80,7 +80,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.16.2",
-    "zensical==0.1.1",
+    "zensical==0.1.2",
     "pytest-xdist==3.8.0",
 ]
 
