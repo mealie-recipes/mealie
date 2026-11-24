@@ -2,13 +2,12 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from pydantic import ConfigDict
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.recipe.labels import MultiPurposeLabel
 
 from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
-from .._model_utils.auto_init import auto_init
+from .._model_utils.auto_init import AutoInitOptions, auto_init
 from .._model_utils.guid import GUID
 from ..household.cookbook import CookBook
 from ..household.invite_tokens import GroupInviteToken
@@ -94,7 +93,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     ingredient_foods: Mapped[list[IngredientFoodModel]] = orm.relationship("IngredientFoodModel", **common_args)
     tools: Mapped[list[Tool]] = orm.relationship("Tool", **common_args)
     tags: Mapped[list[Tag]] = orm.relationship("Tag", **common_args)
-    model_config = ConfigDict(
+    model_config = AutoInitOptions(
         exclude={
             "households",
             "users",

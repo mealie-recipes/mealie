@@ -5,9 +5,10 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.db.models.household.household import Household
 from mealie.db.models.household.preferences import HouseholdPreferencesModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 
 
-class UpdateHouseholdPreferences(MealieModel):
+class HouseholdPreferencesUpdate(MealieModel):
     private_household: bool = True
     show_announcements: bool = True
 
@@ -22,14 +23,14 @@ class UpdateHouseholdPreferences(MealieModel):
     recipe_disable_comments: bool = False
 
 
-class CreateHouseholdPreferences(UpdateHouseholdPreferences): ...
+class HouseholdPreferencesCreate(HouseholdPreferencesUpdate): ...
 
 
-class SaveHouseholdPreferences(UpdateHouseholdPreferences):
+class HouseholdPreferencesSave(HouseholdPreferencesUpdate):
     household_id: UUID4
 
 
-class ReadHouseholdPreferences(CreateHouseholdPreferences):
+class HouseholdPreferencesOut(HouseholdPreferencesCreate, MealieOutModel):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)
 

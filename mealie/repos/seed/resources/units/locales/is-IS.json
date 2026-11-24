@@ -48,10 +48,10 @@
         "abbreviation": "ml"
     },
     "centiliter": {
-        "name": "centiliter",
-        "plural_name": "centiliters",
+        "name": "sentilíter",
+        "plural_name": "sentilítrar",
         "description": "",
-        "abbreviation": "cl"
+        "abbreviation": "sl"
     },
     "liter": {
         "name": "líter",

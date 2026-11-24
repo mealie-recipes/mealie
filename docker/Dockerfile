@@ -1,10 +1,11 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:e7add2a490bb17d97b485b8641bd88455fff7839ade0f5eba493c3508124d413 \
+FROM node:26@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10e0ac \
     AS frontend-builder
 
-RUN npm install --global pnpm@11
+# renovate: datasource=npm depName=pnpm
+RUN npm install --global pnpm@12.22.0
 
 WORKDIR /frontend
 
@@ -51,7 +52,8 @@ RUN apt-get update \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install uv
+# renovate: datasource=pypi depName=uv
+RUN pip install uv==0.13.9
 
 # Install from the committed lockfile; never re-resolve. The rolling
 # `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise make
@@ -83,7 +85,7 @@ RUN uv export --no-dev --no-editable --no-emit-project --extra pgsql --format re
 
 ###############################################
 # Package Container
-# Only role is to hold the packages, or be overriden by a --build-context flag.
+# Only role is to hold the packages, or be overridden by a --build-context flag.
 ###############################################
 FROM scratch AS packages
 COPY --from=backend-builder /mealie/dist /

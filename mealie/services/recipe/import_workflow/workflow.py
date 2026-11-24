@@ -2,14 +2,31 @@ from mealie.core.root_logger import get_logger
 
 from .base import WorkflowStep
 from .context import StepOutcome, WorkflowContext, WorkflowResult
-from .steps import BuildRecipeStep, CompileSourceStep, ResolveOrganizersStep, TranslateRecipeStep
+from .steps import (
+    BuildRecipeStep,
+    CompileSourceStep,
+    EnrichInstructionsStep,
+    ResolveOrganizersStep,
+    TranslateRecipeStep,
+)
 
 DEFAULT_WORKFLOW_STEPS: list[WorkflowStep] = [
     CompileSourceStep(),
     BuildRecipeStep(),
     TranslateRecipeStep(),
+    EnrichInstructionsStep(),
     ResolveOrganizersStep(),
 ]
+
+ENRICHMENT_WORKFLOW_STEPS: list[WorkflowStep] = [
+    TranslateRecipeStep(),
+    EnrichInstructionsStep(),
+    ResolveOrganizersStep(),
+]
+"""
+The steps that refine an existing draft recipe, for recipes that were built without the workflow.
+The caller seeds `ctx.draft_recipe` instead of supplying source material to compile.
+"""
 
 
 class RecipeImportWorkflow:
@@ -17,8 +34,8 @@ class RecipeImportWorkflow:
     Turns arbitrary source material into a recipe by running a series of steps in order.
 
     Run by the `/recipes/create/ai` route and by `RecipeScraperOpenAI`, the fallback strategy for
-    `/recipes/create/url`. The other scraper strategies don't use it, so an ordinary URL import of
-    a well-marked-up site never runs the workflow at all.
+    `/recipes/create/url`. Recipes from the other scraper strategies are built without it, but if
+    the group enables it they're refined afterwards by running `ENRICHMENT_WORKFLOW_STEPS` over them.
 
     The workflow never persists the recipe; it returns a draft for the caller to save.
     """

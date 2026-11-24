@@ -5,6 +5,7 @@ import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe"
 import { uuid4 } from "../../use-utils";
 import { ParseStep, useParseIngredientsDialog } from "../use-parse-ingredients-dialog";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
+import { makeRecipe } from "~/tests/factories";
 import { i18n } from "~/tests/setup";
 
 (global as any).uuid4 = uuid4;
@@ -182,7 +183,7 @@ describe("useParseIngredientsDialog", () => {
         confidence: { average: 0.99 },
       }, {
         ingredient: {
-          referencedRecipe: {},
+          referencedRecipe: makeRecipe(),
         },
         confidence: { average: 0.5 },
       }, {
@@ -382,7 +383,7 @@ describe("useParseIngredientsDialog", () => {
       confidence: { average: 0.99 },
     }, {
       ingredient: {
-        referencedRecipe: {},
+        referencedRecipe: makeRecipe(),
       },
       confidence: { average: 0.5 },
     }, {
@@ -418,6 +419,22 @@ describe("useParseIngredientsDialog", () => {
       expect(state.step).toBe(ParseStep.INFO);
       expect(state.loadingCount).toBe(0);
       expect(mockParseIngredients).toHaveBeenCalledOnce();
+    });
+    test("keeps each ingredient's reference id and section title", async () => {
+      mockParseIngredients.mockResolvedValueOnce({
+        data: [
+          { input: "1 cup flour", confidence: {}, ingredient: { referenceId: "parser-id-1" } },
+          { input: "2 eggs", confidence: {}, ingredient: { referenceId: "parser-id-2" } },
+        ],
+      });
+      const wrapped = wrapper([
+        { note: "1 cup flour", title: "Dough", referenceId: "original-id-1" },
+        { note: "2 eggs", referenceId: "original-id-2" },
+      ] as NoUndefinedField<RecipeIngredient>[]);
+      await wrapped.vm.parseIngredients();
+      const parsed = wrapped.vm.parsedIngs.map(ing => ing.ingredient);
+      expect(parsed.map(ing => ing.referenceId)).toEqual(["original-id-1", "original-id-2"]);
+      expect(parsed.map(ing => ing.title)).toEqual(["Dough", ""]);
     });
     test("doesn't parse from an empty list", async () => {
       const wrapped = wrapper([]);
@@ -593,6 +610,18 @@ describe("useParseIngredientsDialog", () => {
       await addMissingUnitAsAlias();
       expect(updateUnit).not.toHaveBeenCalled();
     });
+    test("addMissingUnitAsAlias ignores case when checking for the alias", async () => {
+      const wrapped = wrapper();
+      const { addMissingUnitAsAlias, setCurrentUnit, setCurrentIng } = wrapped.vm;
+      setCurrentIng({
+        ingredient: {
+          unit: { name: "2uwunit", id: "unit_id_2", aliases: [{ name: "uwunit" }] },
+        },
+      });
+      setCurrentUnit("UwUnit");
+      await addMissingUnitAsAlias();
+      expect(updateUnit).not.toHaveBeenCalled();
+    });
     test("addMissingUnitAsAlias fails gracefully", async () => {
       updateUnit.mockResolvedValue(undefined);
       const wrapped = wrapper();
@@ -640,6 +669,18 @@ describe("useParseIngredientsDialog", () => {
         },
       });
       setCurrentFood("fuwud");
+      await addMissingFoodAsAlias();
+      expect(updateFood).not.toHaveBeenCalled();
+    });
+    test("addMissingFoodAsAlias ignores case when checking for the alias", async () => {
+      const wrapped = wrapper();
+      const { addMissingFoodAsAlias, setCurrentFood, setCurrentIng } = wrapped.vm;
+      setCurrentIng({
+        ingredient: {
+          food: { name: "f2uwud", id: "food_id_2", aliases: [{ name: "fuwud" }] },
+        },
+      });
+      setCurrentFood("FuWud");
       await addMissingFoodAsAlias();
       expect(updateFood).not.toHaveBeenCalled();
     });

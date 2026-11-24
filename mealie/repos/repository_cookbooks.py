@@ -8,14 +8,14 @@ from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household.cookbook import CookBook
 from mealie.repos.repository_generic import HouseholdRepositoryGeneric
-from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
+from mealie.schema.cookbook.cookbook import CookBookOut, CookBookSave
 from mealie.schema.response.responses import ErrorResponse
 
 
-class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
-    def create(self, data: SaveCookBook | dict) -> ReadCookBook:
+class RepositoryCookbooks(HouseholdRepositoryGeneric[CookBookOut, CookBook]):
+    def create(self, data: CookBookSave | dict) -> CookBookOut:  # type: ignore[override]
         if isinstance(data, dict):
-            data = SaveCookBook(**data)
+            data = CookBookSave(**data)
         data.slug = slugify(data.name)
 
         max_retries = 10
@@ -28,12 +28,12 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
 
         raise  # raise the last IntegrityError
 
-    def create_many(self, data: Iterable[ReadCookBook | dict]) -> list[ReadCookBook]:
+    def create_many(self, data: Iterable[CookBookSave | dict]) -> list[CookBookOut]:  # type: ignore[override]
         return [self.create(entry) for entry in data]
 
-    def update(self, match_value: str | int | UUID4, data: SaveCookBook | dict) -> ReadCookBook:
+    def update(self, match_value: str | int | UUID4, data: CookBookSave | dict) -> CookBookOut:  # type: ignore[override]
         if isinstance(data, dict):
-            data = SaveCookBook(**data)
+            data = CookBookSave(**data)
 
         new_slug = slugify(data.name)
         if not (data.slug and re.match(rf"^({new_slug})(-\d+)?$", data.slug)):
@@ -49,10 +49,10 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
 
         raise  # raise the last IntegrityError
 
-    def update_many(self, data: Iterable[ReadCookBook | dict]) -> list[ReadCookBook]:
-        return [self.update(entry.id if isinstance(entry, ReadCookBook) else entry["id"], entry) for entry in data]
+    def update_many(self, data: Iterable[CookBookOut | dict]) -> list[CookBookOut]:  # type: ignore[override]
+        return [self.update(entry.id if isinstance(entry, CookBookOut) else entry["id"], entry) for entry in data]
 
-    def patch(self, match_value: str | int | UUID4, data: SaveCookBook | dict) -> ReadCookBook:
+    def patch(self, match_value: str | int | UUID4, data: CookBookSave | dict) -> CookBookOut:  # type: ignore[override]
         cookbook = self.get_one(match_value)
         if not cookbook:
             raise HTTPException(

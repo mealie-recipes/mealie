@@ -15,7 +15,7 @@ import uuid
 from fastapi.testclient import TestClient
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodCreate
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -30,7 +30,7 @@ def _create_label(api_client: TestClient, user: TestUser) -> dict:
 
 
 def _create_food(api_client: TestClient, user: TestUser, label_id: str | None = None) -> dict:
-    data = CreateIngredientFood(name=random_string(10), label_id=label_id).model_dump(mode="json", by_alias=True)
+    data = IngredientFoodCreate(name=random_string(10), label_id=label_id).model_dump(mode="json", by_alias=True)
     response = api_client.post(api_routes.foods, json=data, headers=user.token)
     assert response.status_code == 201
     return response.json()

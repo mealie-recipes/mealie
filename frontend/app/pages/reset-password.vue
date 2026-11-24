@@ -71,6 +71,14 @@
         </v-form>
       </v-card-text>
       <v-btn
+        v-if="state.linkInvalid"
+        class="mx-auto"
+        variant="text"
+        to="/forgot-password"
+      >
+        {{ $t("user.forgot-password") }}
+      </v-btn>
+      <v-btn
         class="mx-auto"
         variant="text"
         to="/login"
@@ -98,6 +106,7 @@ const state = reactive({
   passwordConfirm: "",
   loading: false,
   error: false,
+  linkInvalid: false,
 });
 
 const form = ref<VForm | null>(null);
@@ -128,8 +137,7 @@ async function requestLink() {
   };
 
   state.loading = true;
-  // TODO: Fix Response to send meaningful error
-  const { response } = await api.users.resetPassword({
+  const { response, error } = await api.users.resetPassword({
     token: token.value,
     email: state.email,
     password: state.password,
@@ -142,6 +150,11 @@ async function requestLink() {
     state.error = false;
     alert.success(i18n.t("user.password-updated"));
     await navigateTo("/login");
+  }
+  else if (error?.response?.status === 400) {
+    state.error = true;
+    state.linkInvalid = true;
+    alert.error(i18n.t("user.reset-link-invalid"));
   }
   else {
     state.error = true;

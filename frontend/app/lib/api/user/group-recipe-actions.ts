@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { CreateGroupRecipeAction, GroupRecipeActionOut } from "~/lib/api/types/household";
+import type { GroupRecipeActionCreate, GroupRecipeActionOut } from "~/lib/api/types/household";
 
 const prefix = "/api";
 
@@ -9,7 +9,7 @@ const routes = {
   groupRecipeActionsIdTriggerRecipeSlug: (id: string | number, recipeSlug: string) => `${prefix}/households/recipe-actions/${id}/trigger/${recipeSlug}`,
 };
 
-export class GroupRecipeActionsAPI extends BaseCRUDAPI<CreateGroupRecipeAction, GroupRecipeActionOut> {
+export class GroupRecipeActionsAPI extends BaseCRUDAPI<GroupRecipeActionCreate, GroupRecipeActionOut> {
   baseRoute = routes.groupRecipeActions;
   itemRoute = routes.groupRecipeActionsId;
 

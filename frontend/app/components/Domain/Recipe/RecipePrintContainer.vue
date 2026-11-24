@@ -10,10 +10,10 @@
 
 <script setup lang="ts">
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 
 interface Props {
-  recipe: Recipe;
+  recipe: RecipeOut;
   scale?: number;
 }
 

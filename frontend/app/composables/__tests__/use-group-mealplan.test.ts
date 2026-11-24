@@ -1,13 +1,14 @@
 import { describe, expect, test, vi } from "vitest";
 import { getScaledRecipes, getWeekRange } from "../use-group-mealplan";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
+import { makePlanEntry, makeRecipeSummary } from "~/tests/factories";
 
 vi.mock("~/composables/api", () => ({
   useUserApi: () => ({}),
 }));
 
-function createMeal(id: number, overrides: Partial<ReadPlanEntry> = {}): ReadPlanEntry {
-  return {
+function createMeal(id: number, overrides: Partial<PlanEntryOut> = {}): PlanEntryOut {
+  return makePlanEntry({
     id,
     date: "2026-08-19",
     entryType: "dinner",
@@ -15,13 +16,13 @@ function createMeal(id: number, overrides: Partial<ReadPlanEntry> = {}): ReadPla
     userId: "my-user-id",
     householdId: "my-household-id",
     ...overrides,
-  };
+  });
 }
 
 describe("getScaledRecipes", () => {
   test("gives each recipe the scale of its entry", () => {
-    const pancakes = { id: "pancakes", name: "Pancakes" };
-    const waffles = { id: "waffles", name: "Waffles" };
+    const pancakes = makeRecipeSummary({ id: "pancakes", name: "Pancakes" });
+    const waffles = makeRecipeSummary({ id: "waffles", name: "Waffles" });
 
     expect(getScaledRecipes([
       createMeal(1, { recipe: pancakes, recipeScale: 2 }),
@@ -33,7 +34,7 @@ describe("getScaledRecipes", () => {
   });
 
   test("keeps a recipe that's planned twice as two entries with their own scales", () => {
-    const pancakes = { id: "pancakes", name: "Pancakes" };
+    const pancakes = makeRecipeSummary({ id: "pancakes", name: "Pancakes" });
 
     const recipes = getScaledRecipes([
       createMeal(1, { recipe: pancakes, recipeScale: 2 }),
@@ -44,7 +45,7 @@ describe("getScaledRecipes", () => {
   });
 
   test("treats an entry without a scale as unscaled", () => {
-    const recipes = getScaledRecipes([createMeal(1, { recipe: { id: "pancakes" } })]);
+    const recipes = getScaledRecipes([createMeal(1, { recipe: makeRecipeSummary({ id: "pancakes" }), recipeScale: undefined as unknown as number })]);
     expect(recipes.map(({ scale }) => scale)).toEqual([1]);
   });
 

@@ -3,7 +3,7 @@ from uuid import UUID
 import pytest
 from slugify import slugify
 
-from mealie.schema.cookbook.cookbook import SaveCookBook
+from mealie.schema.cookbook.cookbook import CookBookSave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -15,7 +15,7 @@ def cookbook_data(user: TestUser, **kwargs):
         "household_id": UUID(user.household_id),
     } | kwargs
 
-    return SaveCookBook(**data)
+    return CookBookSave(**data)
 
 
 @pytest.mark.parametrize("use_create_many", [True, False])

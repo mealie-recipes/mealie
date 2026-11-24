@@ -1,5 +1,5 @@
 import { CUSTOMARY_SYSTEMS, STANDARDIZED_UNITS, UNIT_SYSTEMS, type StandardizedUnit, type UnitRung, type UnitSystem } from "./unit-systems";
-import type { CreateIngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientUnitCreate, RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface ConvertibleIngredient {
   quantity: number;
@@ -150,7 +150,7 @@ export function useUnitConversion() {
    * messages under `unit-names`. That data is already translated into every locale Mealie
    * ships, so nothing here is authored per-locale.
    */
-  function unitFromRung(rung: UnitRung): CreateIngredientUnit {
+  function unitFromRung(rung: UnitRung): IngredientUnitCreate {
     const key = `unit-names.${rung.seedKey}`;
     const abbreviation = t(`${key}.abbreviation`);
 

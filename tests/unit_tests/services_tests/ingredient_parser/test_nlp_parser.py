@@ -11,10 +11,10 @@ from text_unidecode import unidecode
 from mealie.db.db_setup import session_context
 from mealie.lang.providers import get_locale_provider
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFood,
-    CreateIngredientUnit,
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodCreate,
+    IngredientFoodOut,
+    IngredientUnitCreate,
+    IngredientUnitOut,
     RecipeIngredient,
 )
 from mealie.services.parser_services import RegisteredParser, get_parser
@@ -130,7 +130,9 @@ async def test_nlp_parser_keeps_all_text(unique_local_group_id: UUID4, source_st
 
 def test_nlp_parser_converts_extra_ingredients(
     unique_local_group_id: UUID4,
-    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    parsed_ingredient_data: tuple[
+        list[IngredientFoodOut], list[IngredientUnitOut]
+    ],  # required so database is populated
 ):
     """
     An alternative naming a known food becomes a food substitution; anything else keeps its text,
@@ -144,12 +146,12 @@ def test_nlp_parser_converts_extra_ingredients(
 
         substitutions = parser._convert_extra_ingredients(
             [
-                RecipeIngredient(food=CreateIngredientFood(name="onion")),
-                RecipeIngredient(food=CreateIngredientFood(name="unobtainium extract")),
+                RecipeIngredient(food=IngredientFoodCreate(name="onion")),
+                RecipeIngredient(food=IngredientFoodCreate(name="unobtainium extract")),
                 RecipeIngredient(
                     quantity=2,
-                    unit=CreateIngredientUnit(name="cups"),
-                    food=CreateIngredientFood(name="onion"),
+                    unit=IngredientUnitCreate(name="cups"),
+                    food=IngredientFoodCreate(name="onion"),
                 ),
             ]
         )
@@ -193,3 +195,23 @@ async def test_nlp_parser_unnamed_amounts_are_not_substitutions(
     note = ing.note or ""
     for amount_text in expected_extra_amounts:
         assert amount_text.replace(" ", "") in note.replace(" ", ""), f"'{amount_text}' missing from note '{note}'"
+
+
+@pytest.mark.parametrize(
+    "source_str",
+    [
+        "2 tbsp apple cider vinegar (30ml)",
+        "2 cups water (480ml)",
+    ],
+)
+@pytest.mark.asyncio
+async def test_nlp_parser_extra_amount_note_confidence(unique_local_group_id: UUID4, source_str: str):
+    """A note that holds only extra amounts must not score 0 and drag the average down."""
+
+    with session_context() as session:
+        parser = get_parser(RegisteredParser.nlp, unique_local_group_id, session, get_locale_provider())
+        parsed = await parser.parse_one(source_str)
+
+    assert parsed.ingredient.note
+    assert parsed.confidence.comment is not None and parsed.confidence.comment > 0.85
+    assert parsed.confidence.average is not None and parsed.confidence.average > 0.85
