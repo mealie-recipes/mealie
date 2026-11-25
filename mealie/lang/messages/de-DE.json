@@ -130,7 +130,7 @@
             "label-updated": "Label aktualisiert",
             "label-deleted": "Label gelöscht"
         },
-        "test-message-body": "Dies ist eine Testnachricht von Mealie",
+        "test-message-body": "Dies ist eine Testnachricht von Mealie.",
         "mealplan-entry-created": "Essensplan-Eintrag für {entry_type} am {date} erstellt",
         "mealplan-entry-updated": "Essensplan-Eintrag für {entry_type} am {date} aktualisiert",
         "mealplan-entry-deleted": "Essensplan-Eintrag für {entry_type} am {date} gelöscht",
