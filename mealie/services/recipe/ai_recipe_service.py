@@ -34,7 +34,7 @@ class AIProviderNotEnabledError(Exception):
 
 
 class DocumentReadError(Exception):
-    """Raised when an uploaded document can't be read; the message names the offending file."""
+    """Raised with an already-translated message, naming the file, when an uploaded document can't be read."""
 
     pass
 
@@ -129,8 +129,14 @@ class AIRecipeService(RecipeService):
         result = await RecipeImportWorkflow().run(ctx)
         return await finalize_scraped_recipe(result.recipe, self.translator, on_progress=on_progress)
 
-    @staticmethod
-    async def _extract_one_document(document: UploadFile) -> tuple[str | None, list[tuple[str, bytes]]]:
+    def _document_read_error(self, filename: str, reason: str) -> DocumentReadError:
+        return DocumentReadError(self.t("recipe.import-errors.document-read-failed", filename=filename, reason=reason))
+
+    def _document_extraction_error(self, filename: str, error: DocumentExtractionError) -> DocumentReadError:
+        reason = self.t(error.key, **error.params)
+        return self._document_read_error(filename, reason)
+
+    async def _extract_one_document(self, document: UploadFile) -> tuple[str | None, list[tuple[str, bytes]]]:
         """
         Reads one uploaded document and extracts either its text, or, for a scanned PDF with no
         text layer, its embedded page images. Parsing runs in a thread so it can't block the event loop.
@@ -143,15 +149,15 @@ class AIRecipeService(RecipeService):
         except EmptyPdfTextError:
             pass
         except DocumentExtractionError as e:
-            raise DocumentReadError(f"Couldn't read {filename}: {e}") from e
+            raise self._document_extraction_error(filename, e) from e
 
         try:
             document_images = await asyncio.to_thread(extract_images_from_pdf, file_bytes)
         except DocumentExtractionError as e:
-            raise DocumentReadError(f"Couldn't read {filename}: {e}") from e
+            raise self._document_extraction_error(filename, e) from e
 
         if not document_images:
-            raise DocumentReadError(f"Couldn't read {filename}: doesn't contain readable text or images.")
+            raise self._document_read_error(filename, self.t("recipe.import-errors.document-no-text-or-images"))
 
         return None, document_images
 

@@ -38,6 +38,13 @@
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "document-no-text": "This file doesn't appear to contain readable text. Scanned/image-only documents aren't supported.",
+            "document-no-text-or-images": "doesn't contain readable text or images.",
+            "document-read-failed": "Couldn't read {filename}: {reason}",
+            "document-too-many-images": "This PDF has too many embedded images to process (more than {max_images}).",
+            "document-unknown-type": "Unsupported file type",
+            "document-unreadable": "This file could not be read. It may be corrupted or in an unsupported format.",
+            "document-unsupported-type": "Unsupported file type: {extension}",
             "image-provider-not-enabled": "AI image services are not enabled",
             "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
             "no-recipe-found": "No recipe was found in the provided source",

@@ -19,7 +19,17 @@ MAX_PDF_IMAGES = 30
 
 
 class DocumentExtractionError(ValueError):
-    """Raised when text can't be extracted from an uploaded document."""
+    """
+    Raised when text can't be extracted from an uploaded document.
+
+    This module has no translator, so the error carries a full translation key and its
+    format params; the caller translates it.
+    """
+
+    def __init__(self, key: str, **params: object) -> None:
+        super().__init__(key)
+        self.key = key
+        self.params = params
 
 
 class EmptyPdfTextError(DocumentExtractionError):
@@ -56,7 +66,7 @@ def extract_images_from_pdf(file_bytes: bytes) -> list[tuple[str, bytes]]:
         for name in page.images.keys():  # noqa: SIM118
             if len(images) >= MAX_PDF_IMAGES:
                 raise DocumentExtractionError(
-                    f"This PDF has too many embedded images to process (more than {MAX_PDF_IMAGES})."
+                    "recipe.import-errors.document-too-many-images", max_images=MAX_PDF_IMAGES
                 )
 
             try:
@@ -115,25 +125,21 @@ def extract_text_from_document(file_bytes: bytes, filename: str) -> str:
     extension = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
     extractor = _EXTRACTORS.get(extension)
     if extractor is None:
-        raise DocumentExtractionError(f"Unsupported file type: .{extension}" if extension else "Unsupported file type")
+        if extension:
+            raise DocumentExtractionError("recipe.import-errors.document-unsupported-type", extension=f".{extension}")
+        raise DocumentExtractionError("recipe.import-errors.document-unknown-type")
 
     try:
         text = extractor(file_bytes)
     except DocumentExtractionError:
         raise
     except Exception as e:
-        raise DocumentExtractionError(
-            "This file could not be read. It may be corrupted or in an unsupported format."
-        ) from e
+        raise DocumentExtractionError("recipe.import-errors.document-unreadable") from e
 
     if len(text.strip()) < MIN_TEXT_LENGTH:
         if extension == "pdf":
-            raise EmptyPdfTextError(
-                "This file doesn't appear to contain readable text. Scanned/image-only documents aren't supported."
-            )
+            raise EmptyPdfTextError("recipe.import-errors.document-no-text")
 
-        raise DocumentExtractionError(
-            "This file doesn't appear to contain readable text. Scanned/image-only documents aren't supported."
-        )
+        raise DocumentExtractionError("recipe.import-errors.document-no-text")
 
     return text
