@@ -70,6 +70,7 @@ jobs:
             packages=dist
           platforms: linux/amd64,linux/arm64
           push: true
+          sbom: true
           tags: |
             hkotel/mealie:${{ inputs.tag }}
             ghcr.io/${{ github.repository }}:${{ inputs.tag }}
