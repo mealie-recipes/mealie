@@ -144,15 +144,15 @@ wheels = [
 
 [[package]]
 name = "authlib"
-version = "1.9.9"
+version = "1.9.10"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cryptography" },
     { name = "joserfc" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/73/69/0215a1818edb1fb6b9dd59b8a3870601f11603b6db1f830ff3f3ea62612f/authlib-1.9.9.tar.gz", hash = "sha256:cca3dffa51c8d80d6df19aee2279e47219dc996f5a527c06ac2e39d0757c99ef", size = 184173, upload-time = "2026-11-17T20:35:21.058Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a9/7c/e1963d10d1d7203ca913a20e377893ec27489db27f5115f25ff50ef7b5bd/authlib-1.9.10.tar.gz", hash = "sha256:f7453c4a3f5975f94cc55223c4d48ff9c7d8d3b4e3d727ed2549edaeb9b85d50", size = 184323, upload-time = "2026-11-20T09:31:59.097Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ba/a5/e79946bc081bfd2e8c0c6125b5a6ae90f8d1541bb224cd7f16ccbb8e71d8/authlib-1.9.9-py2.py3-none-any.whl", hash = "sha256:0199649865fefb4304fc57683eaebb15614523073e41e09d98c72f3268ce5cbc", size = 267584, upload-time = "2026-11-17T20:35:19.249Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/93/a93953ac475b32552eed564d40632ff0ce1db4241a52d9cdcb16ae0480b7/authlib-1.9.10-py2.py3-none-any.whl", hash = "sha256:c62d10e1b23945c6d4c578a16170bfefe4879bd23d4be62edea494993dce70aa", size = 267693, upload-time = "2026-11-20T09:31:57.716Z" },
 ]
 
 [[package]]
@@ -1294,7 +1294,7 @@ docs = [
 requires-dist = [
     { name = "alembic", specifier = "==1.20.1" },
     { name = "apprise", specifier = "==2.3.0" },
-    { name = "authlib", specifier = "==1.9.9" },
+    { name = "authlib", specifier = "==1.9.10" },
     { name = "bcrypt", specifier = "==5.0.0" },
     { name = "beautifulsoup4", specifier = "==4.15.0" },
     { name = "curl-cffi", specifier = "==0.17.0" },
