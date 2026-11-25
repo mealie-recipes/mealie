@@ -32,21 +32,17 @@ from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
 from mealie.pkgs import cache, img, safehttp
+from mealie.pkgs.archive import ArchiveTooLargeError
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.permissions import forbidden, not_found
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
-from mealie.schema.cookbook.cookbook import ReadCookBook
+from mealie.schema.cookbook.cookbook import CookBookOut
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
-from mealie.schema.recipe.recipe import (
-    CreateRecipe,
-    CreateRecipeByUrlBulk,
-    RecipeIn,
-    RecipeLastMade,
-    RecipeSummary,
-)
+from mealie.schema.recipe import RecipeOut, ScrapeRecipe, ScrapeRecipeData
+from mealie.schema.recipe.recipe import RecipeCreate, RecipeDraft, RecipeLastMade, RecipeSummary, RecipeUrlBulkCreate
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_organizers import CategoryDraft, TagDraft
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
@@ -80,7 +76,7 @@ from mealie.services.recipe.recipe_data_service import (
     RecipeDataService,
 )
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
-from mealie.services.scraper.scraped_extras import ScraperContext
+from mealie.services.scraper.scraped_extras import ScrapedExtras, ScraperContext
 from mealie.services.scraper.scraper import create_from_html
 from mealie.services.scraper.scraper_strategies import (
     ForceTimeoutException,
@@ -407,20 +403,22 @@ class RecipeController(BaseRecipeController):
 
         return self._stream_recipe_creation(create)
 
-    def _finish_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData, recipe: Recipe, extras: object) -> str:
-        if req.include_tags:
+    def _finish_recipe_from_web(
+        self, req: ScrapeRecipe | ScrapeRecipeData, recipe: RecipeDraft, extras: ScrapedExtras | None
+    ) -> str:
+        if extras and req.include_tags:
             ctx = ScraperContext(self.repos)
-            recipe.tags = extras.use_tags(ctx)  # type: ignore
+            recipe.tags = [TagDraft.model_validate(tag) for tag in extras.use_tags(ctx)]
 
-        if req.include_categories:
+        if extras and req.include_categories:
             ctx = ScraperContext(self.repos)
-            recipe.recipe_category = extras.use_categories(ctx)  # type: ignore
+            recipe.recipe_category = [CategoryDraft.model_validate(category) for category in extras.use_categories(ctx)]
 
         new_recipe = self.service.create_one(recipe)
         self._publish_recipe_created(new_recipe)
         return new_recipe.slug
 
-    def _publish_recipe_created(self, new_recipe: Recipe) -> None:
+    def _publish_recipe_created(self, new_recipe: RecipeOut) -> None:
         if not new_recipe:
             return
 
@@ -511,7 +509,7 @@ class RecipeController(BaseRecipeController):
         return self._stream_recipe_creation(create)
 
     @router.post("/create/url/bulk", status_code=202)
-    def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
+    def parse_recipe_url_bulk(self, bulk: RecipeUrlBulkCreate, bg_tasks: BackgroundTasks):
         """Takes in a URL and attempts to scrape data and load it into the database"""
         bulk_scraper = RecipeBulkScraperService(self.service, self.repos, self.group, self.translator)
         report_id = bulk_scraper.get_report_id()
@@ -533,7 +531,13 @@ class RecipeController(BaseRecipeController):
     def create_recipe_from_zip(self, archive: UploadFile = File(...)):
         """Create recipe from archive"""
         with get_temporary_zip_path() as temp_path:
-            recipe = self.service.create_from_zip(archive, temp_path)
+            try:
+                recipe = self.service.create_from_zip(archive, temp_path)
+            except ArchiveTooLargeError as e:
+                raise HTTPException(
+                    status_code=status.HTTP_413_CONTENT_TOO_LARGE,
+                    detail=ErrorResponse.respond(message="Archive is too large to import"),
+                ) from e
             self.publish_event(
                 event_type=EventTypes.recipe_created,
                 document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
@@ -579,7 +583,7 @@ class RecipeController(BaseRecipeController):
         foods: list[UUID4 | str] | None = Query(None),
         households: list[UUID4 | str] | None = Query(None),
     ):
-        cookbook_data: ReadCookBook | None = None
+        cookbook_data: CookBookOut | None = None
         if search_query.cookbook:
             if isinstance(search_query.cookbook, UUID):
                 cb_match_attr = "id"
@@ -642,7 +646,7 @@ class RecipeController(BaseRecipeController):
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)
 
-    @router.get("/{slug}", response_model=Recipe)
+    @router.get("/{slug}", response_model=RecipeOut)
     def get_one(self, slug: str = Path(..., description="A recipe's slug or id")):
         """Takes in a recipe's slug or id and returns all data for a recipe"""
         try:
@@ -654,7 +658,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.post("", status_code=201, response_model=str)
-    def create_one(self, data: CreateRecipe) -> str | None:
+    def create_one(self, data: RecipeCreate) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""
         try:
             new_recipe = self.service.create_one(data)
@@ -677,8 +681,8 @@ class RecipeController(BaseRecipeController):
 
         return new_recipe.slug
 
-    @router.post("/{slug}/duplicate", status_code=201, response_model=Recipe)
-    def duplicate_one(self, slug: str, req: RecipeDuplicate) -> Recipe:
+    @router.post("/{slug}/duplicate", status_code=201, response_model=RecipeOut)
+    def duplicate_one(self, slug: str, req: RecipeDuplicate) -> RecipeOut:
         """Duplicates a recipe with a new custom name if given"""
         try:
             new_recipe = self.service.duplicate_one(slug, req)
@@ -699,8 +703,8 @@ class RecipeController(BaseRecipeController):
 
         return new_recipe
 
-    @router.put("/{slug}")
-    def update_one(self, slug: str, data: RecipeIn):
+    @router.put("/{slug}", response_model=RecipeOut)
+    def update_one(self, slug: str, data: RecipeDraft):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.update_one(slug, data)
@@ -722,16 +726,16 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    @router.put("")
-    def update_many(self, data: list[RecipeIn]):
-        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
+    @router.put("", response_model=list[RecipeOut])
+    def update_many(self, data: list[RecipeDraft]):
+        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[RecipeOut]]] = defaultdict(
             lambda: defaultdict(list)
         )
         for recipe in data:
             r = self.service.update_one(recipe.id, recipe)  # type: ignore
             updated_by_group_and_household[r.group_id][r.household_id].append(r)
 
-        all_updated: list[Recipe] = []
+        all_updated: list[RecipeOut] = []
         if updated_by_group_and_household:
             for group_id, household_dict in updated_by_group_and_household.items():
                 for household_id, updated_recipes in household_dict.items():
@@ -747,8 +751,8 @@ class RecipeController(BaseRecipeController):
 
         return all_updated
 
-    @router.patch("/{slug}")
-    def patch_one(self, slug: str, data: RecipeIn):
+    @router.patch("/{slug}", response_model=RecipeOut)
+    def patch_one(self, slug: str, data: RecipeDraft):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.patch_one(slug, data)
@@ -770,16 +774,16 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    @router.patch("")
-    def patch_many(self, data: list[RecipeIn]):
-        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
+    @router.patch("", response_model=list[RecipeOut])
+    def patch_many(self, data: list[RecipeDraft]):
+        updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[RecipeOut]]] = defaultdict(
             lambda: defaultdict(list)
         )
         for recipe in data:
             r = self.service.patch_one(recipe.id, recipe)  # type: ignore
             updated_by_group_and_household[r.group_id][r.household_id].append(r)
 
-        all_updated: list[Recipe] = []
+        all_updated: list[RecipeOut] = []
         if updated_by_group_and_household:
             for group_id, household_dict in updated_by_group_and_household.items():
                 for household_id, updated_recipes in household_dict.items():
@@ -795,7 +799,7 @@ class RecipeController(BaseRecipeController):
 
         return all_updated
 
-    @router.patch("/{slug}/last-made")
+    @router.patch("/{slug}/last-made", response_model=RecipeOut)
     def update_last_made(self, slug: str, data: RecipeLastMade):
         """Update a recipe's last made timestamp"""
 
@@ -819,7 +823,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    @router.delete("/{slug}")
+    @router.delete("/{slug}", response_model=RecipeOut)
     def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
         try:
@@ -954,10 +958,8 @@ class RecipeController(BaseRecipeController):
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        if recipe.assets is not None:
-            recipe.assets.append(asset_in)
-
-        self.service.update_one(slug, recipe)
+        recipe.assets.append(asset_in)
+        self.service.update_one(slug, RecipeDraft.model_validate(recipe.model_dump()))
 
         return asset_in
 

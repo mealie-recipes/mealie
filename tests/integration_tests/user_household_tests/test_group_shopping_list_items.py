@@ -12,7 +12,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListSave,
 )
-from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave, IngredientUnitOut
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -114,7 +114,7 @@ def test_shopping_list_items_auto_assign_label_with_food_without_label(
     api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut
 ):
     database = unique_user.repos
-    food = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
+    food = database.ingredient_foods.create(IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id))
 
     item = create_item(shopping_list.id, food_id=str(food.id))
     response = api_client.post(api_routes.households_shopping_items, json=item, headers=unique_user.token)
@@ -132,7 +132,7 @@ def test_shopping_list_items_auto_assign_label_with_food_with_label(
     database = unique_user.repos
     label = database.group_multi_purpose_labels.create({"name": random_string(10), "group_id": unique_user.group_id})
     food = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id, label_id=label.id)
+        IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id, label_id=label.id)
     )
 
     item = create_item(shopping_list.id, food_id=str(food.id))
@@ -156,7 +156,7 @@ def test_shopping_list_items_auto_assign_label_with_food_search(
     database = unique_user.repos
     label = database.group_multi_purpose_labels.create({"name": random_string(10), "group_id": unique_user.group_id})
     food = database.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(20), group_id=unique_user.group_id, label_id=label.id)
+        IngredientFoodSave(name=random_string(20), group_id=unique_user.group_id, label_id=label.id)
     )
 
     item = create_item(shopping_list.id)
@@ -654,8 +654,8 @@ def test_shopping_list_merge_standard_unit(
     unit_1_out = api_client.post(api_routes.units, json=unit_1_cup_data, headers=unique_user.token)
     unit_2_out = api_client.post(api_routes.units, json=unit_2_cup_data, headers=unique_user.token)
 
-    unit_1 = IngredientUnit.model_validate(unit_1_out.json())
-    unit_2 = IngredientUnit.model_validate(unit_2_out.json())
+    unit_1 = IngredientUnitOut.model_validate(unit_1_out.json())
+    unit_2 = IngredientUnitOut.model_validate(unit_2_out.json())
 
     list_item_1_data = create_item(shopping_list.id, unit_id=str(unit_1.id), note="mealie-food")
     list_item_2_data = create_item(shopping_list.id, unit_id=str(unit_2.id), note="mealie-food")
@@ -684,8 +684,8 @@ def test_shopping_list_merge_standard_unit_different_foods(
     unit_1_out = api_client.post(api_routes.units, json=unit_1_cup_data, headers=unique_user.token)
     unit_2_out = api_client.post(api_routes.units, json=unit_2_cup_data, headers=unique_user.token)
 
-    unit_1 = IngredientUnit.model_validate(unit_1_out.json())
-    unit_2 = IngredientUnit.model_validate(unit_2_out.json())
+    unit_1 = IngredientUnitOut.model_validate(unit_1_out.json())
+    unit_2 = IngredientUnitOut.model_validate(unit_2_out.json())
 
     list_item_1_data = create_item(shopping_list.id, unit_id=str(unit_1.id), note="mealie-food-1")
     list_item_2_data = create_item(shopping_list.id, unit_id=str(unit_2.id), note="mealie-food-2")
@@ -714,8 +714,8 @@ def test_shopping_list_merge_standard_unit_incompatible_units(
     unit_1_out = api_client.post(api_routes.units, json=unit_1_data, headers=unique_user.token)
     unit_2_out = api_client.post(api_routes.units, json=unit_2_data, headers=unique_user.token)
 
-    unit_1 = IngredientUnit.model_validate(unit_1_out.json())
-    unit_2 = IngredientUnit.model_validate(unit_2_out.json())
+    unit_1 = IngredientUnitOut.model_validate(unit_1_out.json())
+    unit_2 = IngredientUnitOut.model_validate(unit_2_out.json())
 
     list_item_1_data = create_item(shopping_list.id, unit_id=str(unit_1.id), note="mealie-food")
     list_item_2_data = create_item(shopping_list.id, unit_id=str(unit_2.id), note="mealie-food")

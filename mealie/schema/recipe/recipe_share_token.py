@@ -5,17 +5,10 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 
-from ...db.models.recipe import (
-    IngredientFoodModel,
-    IngredientFoodSubstitutionModel,
-    RecipeIngredientModel,
-    RecipeIngredientSubstitutionModel,
-    RecipeInstruction,
-    RecipeModel,
-    RecipeShareTokenModel,
-)
-from .recipe import Recipe
+from ...db.models.recipe import RecipeShareTokenModel
+from .recipe import RecipeOut
 
 
 def defaut_expires_at_time() -> datetime:
@@ -35,44 +28,18 @@ class RecipeShareTokenSave(RecipeShareTokenCreate):
     group_id: UUID4
 
 
-class RecipeShareTokenSummary(RecipeShareTokenSave):
+class RecipeShareTokenSummary(RecipeShareTokenSave, MealieOutModel):
     id: UUID4
     created_at: datetime
     model_config = ConfigDict(from_attributes=True)
 
 
-class RecipeShareToken(RecipeShareTokenSummary):
-    recipe: Recipe
+class RecipeShareTokenOut(RecipeShareTokenSummary):
+    recipe: RecipeOut
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        return [
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.recipe_category),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.tags),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.tools),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.nutrition),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.settings),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.assets),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.notes),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.extras),
-            selectinload(RecipeShareTokenModel.recipe).joinedload(RecipeModel.comments),
-            selectinload(RecipeShareTokenModel.recipe)
-            .joinedload(RecipeModel.recipe_instructions)
-            .joinedload(RecipeInstruction.ingredient_references),
-            selectinload(RecipeShareTokenModel.recipe)
-            .joinedload(RecipeModel.recipe_ingredient)
-            .joinedload(RecipeIngredientModel.unit),
-            selectinload(RecipeShareTokenModel.recipe)
-            .joinedload(RecipeModel.recipe_ingredient)
-            .joinedload(RecipeIngredientModel.food),
-            selectinload(RecipeShareTokenModel.recipe)
-            .joinedload(RecipeModel.recipe_ingredient)
-            .joinedload(RecipeIngredientModel.food)
-            .selectinload(IngredientFoodModel.substitutions)
-            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
-            selectinload(RecipeShareTokenModel.recipe)
-            .joinedload(RecipeModel.recipe_ingredient)
-            .selectinload(RecipeIngredientModel.substitutions)
-            .joinedload(RecipeIngredientSubstitutionModel.substitute_food),
-        ]
+        # Reuse the recipe's loaders so independent collections are fetched separately,
+        # rather than multiplying ingredients, instructions, notes, tags, etc. in one query.
+        return [selectinload(RecipeShareTokenModel.recipe).options(*RecipeOut.loader_options())]

@@ -3,9 +3,9 @@ from functools import cached_property
 from uuid import UUID
 
 from dateutil.tz import tzlocal
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, Request
 
-from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.core.exceptions import MealPlanEntriesChanged, mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
@@ -13,11 +13,16 @@ from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.permissions import not_found
 from mealie.schema import mapper
-from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
-from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination, PlanEntryType
+from mealie.schema.meal_plan import PlanEntryCreate, PlanEntryOut, PlanEntrySave, PlanEntryUpdate
+from mealie.schema.meal_plan.new_meal import (
+    PlanEntryPagination,
+    PlanEntryReorderUpdate,
+    PlanEntryType,
+    RandomPlanEntryCreate,
+)
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.recipe.recipe import RecipeOut
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services.event_bus_service.event_types import (
     EventMealplanData,
     EventOperation,
@@ -54,7 +59,7 @@ class GroupMealplanController(BaseCrudController):
         value = getattr(entry_type, "value", entry_type)
         return self.t(f"mealplan.entry-type.{value}", default=str(value))
 
-    def _notification_message(self, operation: EventOperation, entry: ReadPlanEntry) -> str:
+    def _notification_message(self, operation: EventOperation, entry: PlanEntryOut) -> str:
         day_key, range_key = MEALPLAN_NOTIFICATION_KEYS[operation]
         return self.t(
             range_key if entry.end_date else day_key,
@@ -71,7 +76,7 @@ class GroupMealplanController(BaseCrudController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry](
+        return HttpRepo[PlanEntryCreate, PlanEntryOut, PlanEntryUpdate](
             self.repo,
             self.logger,
             self.registered_exceptions,
@@ -79,7 +84,7 @@ class GroupMealplanController(BaseCrudController):
 
     def _get_random_recipes_from_mealplan(
         self, plan_date: date, entry_type: PlanEntryType, limit: int = 1, end_date: date | None = None
-    ) -> list[Recipe]:
+    ) -> list[RecipeOut]:
         """
         Gets rules for a mealplan and returns a list of random recipes based on the rules.
         May return zero recipes if no recipes match the filter criteria.
@@ -109,6 +114,7 @@ class GroupMealplanController(BaseCrudController):
     @router.get("", response_model=PlanEntryPagination)
     def get_all(
         self,
+        request: Request,
         q: PaginationQuery = Depends(PaginationQuery),
         start_date: date | None = None,
         end_date: date | None = None,
@@ -128,12 +134,17 @@ class GroupMealplanController(BaseCrudController):
 
         q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, week_filter, *date_filters)
 
+        if not q.order_by:
+            q.order_by = "date,position"
+            if "orderDirection" not in request.query_params:
+                q.order_direction = OrderDirection.asc
+
         return self.repo.page_all(pagination=q)
 
-    @router.post("", response_model=ReadPlanEntry, status_code=201)
-    def create_one(self, data: CreatePlanEntry):
+    @router.post("", response_model=PlanEntryOut, status_code=201)
+    def create_one(self, data: PlanEntryCreate):
         self._require_group_recipe(data.recipe_id)
-        data = mapper.cast(data, SavePlanEntry, group_id=self.group_id, user_id=self.user.id)
+        data = mapper.cast(data, PlanEntrySave, group_id=self.group_id, user_id=self.user.id)
         result = self.mixins.create_one(data)
 
         self.publish_event(
@@ -159,8 +170,8 @@ class GroupMealplanController(BaseCrudController):
         local_tz = tzlocal()
         return self.repo.get_today(tz=local_tz)
 
-    @router.post("/random", response_model=ReadPlanEntry)
-    def create_random_meal(self, data: CreateRandomEntry):
+    @router.post("/random", response_model=PlanEntryOut)
+    def create_random_meal(self, data: RandomPlanEntryCreate):
         """
         `create_random_meal` is a route that provides the randomized functionality for meal planners.
         It operates by following the rules set out in the household's meal plan settings. If no settings
@@ -175,7 +186,7 @@ class GroupMealplanController(BaseCrudController):
 
         recipe = random_recipes[0]
         result = self.mixins.create_one(
-            SavePlanEntry(
+            PlanEntrySave(
                 date=data.date,
                 end_date=data.end_date,
                 entry_type=data.entry_type,
@@ -203,12 +214,33 @@ class GroupMealplanController(BaseCrudController):
 
         return result
 
-    @router.get("/{item_id}", response_model=ReadPlanEntry)
+    @router.put("/reorder", status_code=204)
+    def reorder(self, days: list[PlanEntryReorderUpdate]):
+        if not days:
+            raise HTTPException(status_code=422, detail="At least one day is required.")
+
+        buckets = [(day.date, day.end_date is not None) for day in days]
+        if len(set(buckets)) != len(buckets):
+            raise HTTPException(status_code=422, detail="Each day or week may only be included once.")
+
+        requested_ids = [entry_id for day in days for entry_id in day.entry_ids]
+        if len(set(requested_ids)) != len(requested_ids):
+            raise HTTPException(status_code=422, detail="A meal plan entry may only be included once.")
+
+        try:
+            self.repo.reorder(days)
+        except MealPlanEntriesChanged:
+            raise HTTPException(
+                status_code=409,
+                detail="Meal plan entries changed. Refresh and try again.",
+            ) from None
+
+    @router.get("/{item_id}", response_model=PlanEntryOut)
     def get_one(self, item_id: int):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=ReadPlanEntry)
-    def update_one(self, item_id: int, data: UpdatePlanEntry):
+    @router.put("/{item_id}", response_model=PlanEntryOut)
+    def update_one(self, item_id: int, data: PlanEntryUpdate):
         self._require_group_recipe(data.recipe_id)
         result = self.mixins.update_one(data, item_id)
 
@@ -230,7 +262,7 @@ class GroupMealplanController(BaseCrudController):
 
         return result
 
-    @router.delete("/{item_id}", response_model=ReadPlanEntry)
+    @router.delete("/{item_id}", response_model=PlanEntryOut)
     def delete_one(self, item_id: int):
         result = self.mixins.delete_one(item_id)
 

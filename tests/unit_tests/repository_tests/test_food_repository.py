@@ -4,14 +4,14 @@ import sqlalchemy as sa
 
 from mealie.db.models.recipe.ingredient import IngredientFoodSubstitutionModel
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_ingredient import (
-    CreateIngredientFoodAlias,
-    CreateIngredientFoodSubstitution,
-    IngredientFood,
+    IngredientFoodAliasCreate,
+    IngredientFoodOut,
+    IngredientFoodSave,
+    IngredientFoodSubstitutionCreate,
     RecipeIngredient,
     RecipeIngredientSubstitution,
-    SaveIngredientFood,
 )
 from mealie.schema.response.pagination import PaginationQuery
 from tests.utils.factories import random_string
@@ -19,26 +19,26 @@ from tests.utils.fixture_schemas import TestUser
 
 
 def test_food_merger(unique_user: TestUser):
-    recipe: Recipe | None = None
+    recipe: RecipeOut | None = None
     database = unique_user.repos
     slug1 = random_string(10)
 
     food_1 = database.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             name=random_string(10),
             group_id=unique_user.group_id,
         )
     )
 
     food_2 = database.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             name=random_string(10),
             group_id=unique_user.group_id,
         )
     )
 
     recipe = database.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=slug1,
             user_id=unique_user.user_id,
             group_id=UUID(unique_user.group_id),
@@ -68,8 +68,8 @@ def test_food_merger_with_shopping_list_reference(unique_user: TestUser):
     """Merging a food that a shopping list item points at should move the reference, not fail."""
     database = unique_user.repos
 
-    food_1 = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
-    food_2 = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
+    food_1 = database.ingredient_foods.create(IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id))
+    food_2 = database.ingredient_foods.create(IngredientFoodSave(name=random_string(10), group_id=unique_user.group_id))
 
     shopping_list = database.group_shopping_lists.create(
         ShoppingListSave(
@@ -95,9 +95,9 @@ def test_food_merger_with_shopping_list_reference(unique_user: TestUser):
     assert updated_item.food_id == food_1.id
 
 
-def create_food_with_substitutions(user: TestUser, *, substitutions=None) -> IngredientFood:
+def create_food_with_substitutions(user: TestUser, *, substitutions=None) -> IngredientFoodOut:
     return user.repos.ingredient_foods.create(
-        SaveIngredientFood(
+        IngredientFoodSave(
             name=random_string(10),
             group_id=user.group_id,
             substitutions=substitutions or [],
@@ -133,7 +133,7 @@ def test_food_merger_moves_outbound_substitutions(unique_user: TestUser):
     target = create_food_with_substitutions(unique_user)
     substitute = create_food_with_substitutions(unique_user)
     source = create_food_with_substitutions(
-        unique_user, substitutions=[CreateIngredientFoodSubstitution(substitute_food_id=substitute.id)]
+        unique_user, substitutions=[IngredientFoodSubstitutionCreate(substitute_food_id=substitute.id)]
     )
 
     unique_user.repos.ingredient_foods.merge(source.id, target.id)
@@ -147,7 +147,7 @@ def test_food_merger_repoints_inbound_substitutions(unique_user: TestUser):
     target = create_food_with_substitutions(unique_user)
     source = create_food_with_substitutions(unique_user)
     referrer = create_food_with_substitutions(
-        unique_user, substitutions=[CreateIngredientFoodSubstitution(substitute_food_id=source.id)]
+        unique_user, substitutions=[IngredientFoodSubstitutionCreate(substitute_food_id=source.id)]
     )
 
     unique_user.repos.ingredient_foods.merge(source.id, target.id)
@@ -163,15 +163,15 @@ def test_food_merger_drops_resulting_self_edges(unique_user: TestUser):
 
     target = create_food_with_substitutions(unique_user)
     source = create_food_with_substitutions(
-        unique_user, substitutions=[CreateIngredientFoodSubstitution(substitute_food_id=target.id)]
+        unique_user, substitutions=[IngredientFoodSubstitutionCreate(substitute_food_id=target.id)]
     )
     unique_user.repos.ingredient_foods.update(
         target.id,
-        SaveIngredientFood(
+        IngredientFoodSave(
             id=target.id,
             name=target.name,
             group_id=unique_user.group_id,
-            substitutions=[CreateIngredientFoodSubstitution(substitute_food_id=source.id)],
+            substitutions=[IngredientFoodSubstitutionCreate(substitute_food_id=source.id)],
         ),
     )
 
@@ -186,10 +186,10 @@ def test_food_merger_collapses_duplicate_substitutions(unique_user: TestUser):
 
     substitute = create_food_with_substitutions(unique_user)
     target = create_food_with_substitutions(
-        unique_user, substitutions=[CreateIngredientFoodSubstitution(substitute_food_id=substitute.id, note="keep me")]
+        unique_user, substitutions=[IngredientFoodSubstitutionCreate(substitute_food_id=substitute.id, note="keep me")]
     )
     source = create_food_with_substitutions(
-        unique_user, substitutions=[CreateIngredientFoodSubstitution(substitute_food_id=substitute.id, note="drop me")]
+        unique_user, substitutions=[IngredientFoodSubstitutionCreate(substitute_food_id=substitute.id, note="drop me")]
     )
 
     unique_user.repos.ingredient_foods.merge(source.id, target.id)
@@ -204,8 +204,8 @@ def test_food_merger_keeps_note_only_substitutions(unique_user: TestUser):
     source = create_food_with_substitutions(
         unique_user,
         substitutions=[
-            CreateIngredientFoodSubstitution(note="water and a bouillon cube"),
-            CreateIngredientFoodSubstitution(note="half butter half applesauce"),
+            IngredientFoodSubstitutionCreate(note="water and a bouillon cube"),
+            IngredientFoodSubstitutionCreate(note="half butter half applesauce"),
         ],
     )
 
@@ -224,12 +224,12 @@ def test_food_delete_leaves_no_orphaned_substitutions(unique_user: TestUser):
     doomed = create_food_with_substitutions(
         unique_user,
         substitutions=[
-            CreateIngredientFoodSubstitution(substitute_food_id=substitute.id),
-            CreateIngredientFoodSubstitution(note="a textual workaround"),
+            IngredientFoodSubstitutionCreate(substitute_food_id=substitute.id),
+            IngredientFoodSubstitutionCreate(note="a textual workaround"),
         ],
     )
     referrer = create_food_with_substitutions(
-        unique_user, substitutions=[CreateIngredientFoodSubstitution(substitute_food_id=doomed.id)]
+        unique_user, substitutions=[IngredientFoodSubstitutionCreate(substitute_food_id=doomed.id)]
     )
 
     unique_user.repos.ingredient_foods.delete(doomed.id)
@@ -240,10 +240,10 @@ def test_food_delete_leaves_no_orphaned_substitutions(unique_user: TestUser):
 
 
 def create_recipe_with_ingredient(
-    user: TestUser, food: IngredientFood | None, substitute_food_ids: list | None = None
-) -> Recipe:
+    user: TestUser, food: IngredientFoodOut | None, substitute_food_ids: list | None = None
+) -> RecipeOut:
     return user.repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             name=random_string(10),
             user_id=user.user_id,
             group_id=UUID(user.group_id),
@@ -261,7 +261,7 @@ def create_recipe_with_ingredient(
     )
 
 
-def recipe_substitute_ids(user: TestUser, recipe: Recipe) -> list:
+def recipe_substitute_ids(user: TestUser, recipe: RecipeOut) -> list:
     """The substitute food ids stored against the recipe's only ingredient."""
 
     stored = user.repos.recipes.get_one(recipe.slug)
@@ -341,10 +341,10 @@ def test_food_listing_query_count_does_not_grow_with_foods(unique_user: TestUser
         for _ in range(n):
             created.add(
                 repo.create(
-                    SaveIngredientFood(
+                    IngredientFoodSave(
                         name=random_string(10),
                         group_id=unique_user.group_id,
-                        aliases=[CreateIngredientFoodAlias(name=random_string(10))],
+                        aliases=[IngredientFoodAliasCreate(name=random_string(10))],
                     )
                 ).id
             )

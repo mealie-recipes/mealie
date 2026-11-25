@@ -33,13 +33,9 @@
         <v-text-field
           v-model="formData.apiKey"
           :label="$t('group.ai-provider-settings.api-key')"
-          :hint="$t(
-            isEdit
-              ? 'group.ai-provider-settings.api-key-description-edit'
-              : 'group.ai-provider-settings.api-key-description-create',
-          )"
+          :hint="$t(apiKeyHint)"
           :persistent-hint="isEdit"
-          :rules="isEdit ? [] : [validators.required]"
+          :rules="apiKeyRequired ? [validators.required] : []"
           density="compact"
           variant="outlined"
           type="password"
@@ -63,6 +59,15 @@
           variant="outlined"
           class="mb-4"
         />
+        <v-alert
+          v-if="hiddenValuesNeedReentry"
+          type="warning"
+          density="compact"
+          variant="tonal"
+          class="mb-4"
+        >
+          {{ $t('group.ai-provider-settings.reenter-hidden-values') }}
+        </v-alert>
         <v-expansion-panels v-model="advancedPanel" variant="accordion">
           <v-expansion-panel>
             <v-expansion-panel-title class="text-subtitle-2" expand-icon="$expand" collapse-icon="$expand">
@@ -153,11 +158,38 @@ const defaultForm = () => ({
 
 const formData = reactive(defaultForm());
 
+// The API returns this in place of stored header and param values (REDACTED_VALUE in
+// mealie/schema/group/ai_providers.py). Sending it back means "keep the stored value".
+const REDACTED_VALUE = "********";
+
+// Stored secrets are bound to the base URL they were saved with, so the backend only reuses
+// them while the URL is unchanged. A new URL needs a new API key and every hidden value retyped.
+const savedBaseUrl = ref<string | null>(null);
+const baseUrlChanged = computed(() => isEdit.value && (formData.baseUrl || null) !== savedBaseUrl.value);
+const apiKeyRequired = computed(() => !isEdit.value || baseUrlChanged.value);
+const hiddenValuesNeedReentry = computed(() => baseUrlChanged.value && [
+  ...Object.values(formData.requestHeaders),
+  ...Object.values(formData.requestParams),
+].includes(REDACTED_VALUE));
+
+const apiKeyHint = computed(() => {
+  if (!isEdit.value) return "group.ai-provider-settings.api-key-description-create";
+  if (baseUrlChanged.value) return "group.ai-provider-settings.api-key-description-base-url-changed";
+  return "group.ai-provider-settings.api-key-description-edit";
+});
+
+watch(hiddenValuesNeedReentry, (needsReentry) => {
+  if (needsReentry) advancedPanel.value = 0;
+});
+
 const testing = ref(false);
 const testResult = ref<AIProviderTestResult | null>(null);
 
 const submitDisabled = computed(() => {
-  return !formData.name?.trim() || !formData.model?.trim() || (!isEdit.value && !formData.apiKey?.trim());
+  return !formData.name?.trim()
+    || !formData.model?.trim()
+    || (apiKeyRequired.value && !formData.apiKey?.trim())
+    || hiddenValuesNeedReentry.value;
 });
 
 const connectionMessage = computed(() => {
@@ -205,6 +237,7 @@ watch(
       formData.model = data.model;
       formData.apiKey = "";
       formData.baseUrl = data.baseUrl ?? "";
+      savedBaseUrl.value = data.baseUrl || null;
       formData.timeout = data.timeout ?? 300;
       formData.requestHeaders = { ...(data.requestHeaders ?? {}) };
       formData.requestParams = { ...(data.requestParams ?? {}) };
@@ -214,9 +247,8 @@ watch(
 );
 
 function handleSubmit() {
-  // Required field guard (button is also disabled, but keep as a safeguard)
-  if (!formData.name?.trim() || !formData.model?.trim()) return;
-  if (!isEdit.value && !formData.apiKey?.trim()) return;
+  // The button is also disabled; this guards submit-on-enter.
+  if (submitDisabled.value) return;
 
   if (isEdit.value && props.providerId) {
     const payload: AIProviderUpdate & { apiKey?: string } = {
@@ -248,6 +280,7 @@ function handleSubmit() {
 
 function resetForm() {
   Object.assign(formData, defaultForm());
+  savedBaseUrl.value = null;
   form.value?.reset();
   advancedPanel.value = undefined;
   testResult.value = null;

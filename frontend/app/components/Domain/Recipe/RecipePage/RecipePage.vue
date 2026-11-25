@@ -139,7 +139,7 @@
         {{ $t("general.save") }}
       </v-tooltip>
     </v-fab>
-    <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
+    <!-- Cook mode displays two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
     <!-- The calc is to account for the navabar height (48px) -->
     <v-sheet
       v-show="isCookMode && !hasLinkedIngredients"
@@ -246,7 +246,7 @@ import {
 } from "~/composables/recipe-page/shared-state";
 import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeIngredient, RecipeStep, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { RecipeOut, CategoryOut, RecipeIngredient, RecipeStep, TagOut, ToolOut } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -257,7 +257,7 @@ import { useNavigationWarning } from "~/composables/use-navigation-warning";
 import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
 import { useHouseholdSelf } from "~/composables/use-households";
 
-const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const recipe = defineModel<RecipeOut>({ required: true });
 
 const display = useDisplay();
 const auth = useMealieAuth();
@@ -294,7 +294,7 @@ const { convertIngredient } = useUnitConversion();
  * mutate in place, so handing them a derived copy would silently drop edits. Conversion is
  * display-only and never reaches anything that saves.
  */
-const displayedRecipe = computed<NoUndefinedField<Recipe>>(() => {
+const displayedRecipe = computed<RecipeOut>(() => {
   if (isEditMode.value || !unitSystem.value) {
     return recipe.value;
   }
@@ -340,7 +340,7 @@ onUnmounted(() => toolbarObserver?.disconnect());
  * this is used to determine if the recipe has been changed since the last save
  * and prompts the user to save if they have unsaved changes.
  */
-const originalRecipe = ref<Recipe | null>(null);
+const originalRecipe = ref<RecipeOut | null>(null);
 const discardDialog = ref(false);
 const pendingRoute = ref<RouteLocationNormalized | null>(null);
 
@@ -358,7 +358,7 @@ function hasUnsavedChanges(): boolean {
 
 function restoreOriginalRecipe() {
   if (originalRecipe.value) {
-    recipe.value = deepCopy(originalRecipe.value) as NoUndefinedField<Recipe>;
+    recipe.value = deepCopy(originalRecipe.value);
   }
 }
 
@@ -401,7 +401,7 @@ onBeforeRouteLeave((to) => {
 
 onUnmounted(() => {
   deactivateNavigationWarning();
-  clearPageState(recipe.value.slug || "");
+  clearPageState(recipe.value.slug);
 });
 const hasLinkedIngredients = computed(() => {
   return recipe.value.recipeInstructions.some(
@@ -456,7 +456,7 @@ watch(isEditMode, (newVal) => {
 });
 
 watch(isParsing, () => {
-  if (!isParsing.value) {
+  if (!isParsing.value && paramsParse.value) {
     paramsParse.value = undefined;
   }
 });
@@ -479,8 +479,8 @@ async function saveRecipe() {
     }
     setMode(PageMode.VIEW);
   }
-  if (data?.slug) {
-    recipe.value = data as NoUndefinedField<Recipe>;
+  if (data) {
+    recipe.value = data;
     originalRecipe.value = deepCopy(recipe.value);
     if (data.slug !== route.params.slug) {
       router.replace(`/g/${groupSlug.value}/r/` + data.slug);
@@ -559,7 +559,7 @@ function addStep(steps: Array<string> | null = null) {
  * RecipeChip Clicked
  */
 
-function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
+function chipClicked(item: TagOut | CategoryOut | ToolOut, itemType: string) {
   if (!item.id) {
     return;
   }

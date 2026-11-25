@@ -1,8 +1,9 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -17,6 +18,7 @@ from mealie.schema.household.group_events import (
     GroupEventPagination,
 )
 from mealie.schema.mapper import cast
+from mealie.schema.response import ErrorResponse
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener
 from mealie.services.event_bus_service.event_bus_service import EventBusService
@@ -45,6 +47,19 @@ class GroupEventsNotifierController(BaseUserController):
 
         return self.repos.group_event_notifier
 
+    def _check_apprise_url(self, apprise_url: str | None) -> None:
+        if apprise_url is None or get_app_settings().is_apprise_url_allowed(apprise_url):
+            return
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            detail=ErrorResponse.respond(
+                message=(
+                    "This notification service is not allowed on this server. "
+                    "A server admin can allow it with APPRISE_ALLOWED_SCHEMAS."
+                )
+            ),
+        )
+
     # =======================================================================
     # CRUD Operations
 
@@ -66,6 +81,7 @@ class GroupEventsNotifierController(BaseUserController):
         "", response_model=GroupEventNotifierOut, status_code=201, dependencies=[require(Perm.HOUSEHOLD_MANAGE)]
     )
     def create_one(self, data: GroupEventNotifierCreate):
+        self._check_apprise_url(data.apprise_url)
         save_data = cast(data, GroupEventNotifierSave, group_id=self.group_id, household_id=self.household_id)
         return self.mixins.create_one(save_data)
 
@@ -80,6 +96,8 @@ class GroupEventsNotifierController(BaseUserController):
                 item_id, override_schema=GroupEventNotifierPrivate
             )
             data.apprise_url = current_data.apprise_url
+        else:
+            self._check_apprise_url(data.apprise_url)
 
         return self.mixins.update_one(data, item_id)
 

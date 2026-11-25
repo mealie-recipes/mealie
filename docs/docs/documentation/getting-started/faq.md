@@ -27,16 +27,12 @@
 
     1. Go to a recipe
     2. Click the Edit button/icon
-    3. Click the Recipe Settings gear and deselect `Disable Ingredient Amounts`
-    4. Save
-    5. The ingredients should now look a little weird (`1 1 cup broth` and so on)
-    6. Click the Edit button/icon again
-    7. Scroll to the ingredients and you should see new fields for Amount, Unit, Food, and Note. The Note in particular will contain the original text of the Recipe.
-    8. Click `Parse` and you will be taken to the ingredient parsing page.
-    9. Choose your parser. The `Natural Language Parser` works very well, but you can also use the `Brute Parser`, or the `AI Parser` if you've [enabled AI support](./installation/ai-providers.md).
-    10. Click `Parse All`, and your ingredients should be separated out into Units and Foods based on your seeding in Step 1 above.
-    11. For ingredients where the Unit or Food was not found, you can click a button to accept an automatically suggested Food to add to the database. Or, manually enter the Unit/Food and hit `Enter` (or click `Create`) to add it to the database
-    12. When done, click `Save All` and you will be taken back to the recipe. Now the Unit and Food fields of the recipe should be filled out.
+    3. Scroll to the ingredients and you should see fields for Amount, Unit, Food, and Note. The Note in particular will contain the original text of the Recipe.
+    4. Click `Parse` and you will be taken to the ingredient parsing page.
+    5. Choose your parser. The `Natural Language Parser` works very well, but you can also use the `Brute Parser`, or the `AI Parser` if you've [enabled AI support](./installation/ai-providers.md).
+    6. Click `Parse All`, and your ingredients should be separated out into Units and Foods based on your seeding in Step 1 above.
+    7. For ingredients where the Unit or Food was not found, you can click a button to accept an automatically suggested Food to add to the database. Or, manually enter the Unit/Food and hit `Enter` (or click `Create`) to add it to the database
+    8. When done, click `Save All` and you will be taken back to the recipe. Now the Unit and Food fields of the recipe should be filled out.
 
     Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 

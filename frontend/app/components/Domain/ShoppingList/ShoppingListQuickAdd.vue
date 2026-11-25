@@ -17,6 +17,7 @@
       clearable
       hide-details
       hide-no-data
+      autocapitalize="none"
       @update:model-value="onSelect"
       @keyup.enter="submit()"
     >
@@ -72,9 +73,9 @@
 import { useFoodName, useFoodPlurality } from "~/composables/recipes/use-recipe-ingredients";
 import { resolveFood, useShoppingListItemEditor } from "~/composables/shopping-list-page/use-shopping-list-item-editor";
 import { useSearch } from "~/composables/use-search";
-import type { IngredientFood, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { IngredientFoodOut, ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
-import type { IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientUnitOut } from "~/lib/api/types/recipe";
 import ShoppingListItemDetails from "./ShoppingListItemDetails.vue";
 
 const listItem = defineModel<ShoppingListItemOut>({ required: true });
@@ -82,7 +83,7 @@ const showDetails = defineModel<boolean>("details", { default: false });
 
 const props = defineProps({
   foods: {
-    type: Array as () => IngredientFood[],
+    type: Array as () => IngredientFoodOut[],
     required: true,
   },
   labels: {
@@ -90,7 +91,7 @@ const props = defineProps({
     required: true,
   },
   units: {
-    type: Array as () => IngredientUnit[],
+    type: Array as () => IngredientUnitOut[],
     required: true,
   },
 });
@@ -105,7 +106,7 @@ const { smAndDown } = useDisplay();
 const menuDirection = computed(() => smAndDown.value ? "top" : "bottom");
 
 const inputRef = ref<{ focus: () => void } | null>(null);
-const selected = ref<IngredientFood | string | null>(null);
+const selected = ref<IngredientFoodOut | string | null>(null);
 const tooltipOpen = ref(false);
 const tooltipText = ref("");
 
@@ -126,7 +127,7 @@ const { search, filtered: filteredFoods } = useSearch(computed(() => props.foods
 // Show suggestions the way the list will display the new item (no quantity or unit)
 const { shouldPluralizeFood } = useFoodPlurality();
 const usePlural = computed(() => shouldPluralizeFood({ quantity: 0 }));
-function foodName(food: IngredientFood | string) {
+function foodName(food: IngredientFoodOut | string) {
   return typeof food === "string" ? food : useFoodName(food, usePlural.value);
 }
 
@@ -142,7 +143,7 @@ function onSelect() {
 
 // Free text is a food only on an exact match; anything else is kept verbatim as a note,
 // combined with anything typed in the note field
-function submit(createdFood?: IngredientFood) {
+function submit(createdFood?: IngredientFoodOut) {
   const text = search.value?.trim() || "";
   const food = createdFood ?? pickedFood.value ?? resolveFood(text, props.foods);
   const note = food ? listItem.value.note : [text, listItem.value.note].filter(Boolean).join(", ");
@@ -150,8 +151,8 @@ function submit(createdFood?: IngredientFood) {
     return;
   }
 
-  listItem.value.food = food;
-  listItem.value.foodId = food?.id;
+  listItem.value.food = food ?? null;
+  listItem.value.foodId = food?.id ?? null;
   if (food && !listItem.value.labelId) {
     listItem.value.label = food.label;
     listItem.value.labelId = food.labelId;
@@ -168,7 +169,7 @@ function submit(createdFood?: IngredientFood) {
 async function createFoodAndSubmit() {
   await createAssignFood(search.value.trim());
   if (listItem.value.foodId) {
-    submit(listItem.value.food as IngredientFood);
+    submit(listItem.value.food as IngredientFoodOut);
   }
 }
 </script>

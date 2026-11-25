@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.84",
+        "--headless",
+        "--isolated",
+        "--block-service-workers",
+        "--output-dir",
+        ".playwright-mcp"
+      ]
+    }
+  }
+}

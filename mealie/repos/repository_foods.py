@@ -10,12 +10,12 @@ from mealie.db.models.recipe.ingredient import (
     RecipeIngredientModel,
     RecipeIngredientSubstitutionModel,
 )
-from mealie.schema.recipe.recipe_ingredient import IngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodOut
 
 from .repository_generic import GroupRepositoryGeneric
 
 
-class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]):
+class RepositoryFood(GroupRepositoryGeneric[IngredientFoodOut, IngredientFoodModel]):
     def _query(self, override_schema=None, with_options=True):
         q = super()._query(override_schema=override_schema, with_options=with_options)
         count_sq = (
@@ -129,7 +129,7 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
                 .values(substitute_food_id=to_food)
             )
 
-    def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
+    def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFoodOut | None:
         from_model = self._get_food(from_food)
         to_model = self._get_food(to_food)
 

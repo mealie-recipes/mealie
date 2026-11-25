@@ -99,3 +99,28 @@ describe("registration result handling", () => {
     expect(mocks.error).not.toHaveBeenCalled();
   });
 });
+
+describe("group details", () => {
+  beforeEach(() => {
+    vi.stubGlobal("definePageMeta", vi.fn());
+    vi.stubGlobal("useRouter", () => ({ push: mocks.push }));
+  });
+
+  afterEach(() => vi.unstubAllGlobals());
+
+  test("rejects a blank group name with the required field message", async () => {
+    const wrapper = mount({ ...RegistrationPage, render: () => null });
+    const vm = wrapper.vm as unknown as {
+      groupDetails: { groupName: { value: string }; next: () => Promise<void> };
+      groupErrorMessages: string[];
+    };
+    try {
+      vm.groupDetails.groupName.value = "   ";
+      await vm.groupDetails.next();
+      expect(vm.groupErrorMessages).toEqual([i18n.global.t("validators.required")]);
+    }
+    finally {
+      wrapper.unmount();
+    }
+  });
+});

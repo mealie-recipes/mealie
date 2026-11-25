@@ -14,9 +14,7 @@
         "made-this-for-dessert": "{name} lagde dette til dessert",
         "recipe-image-deleted": "Oppskriftsbilde slettet",
         "recipe-defaults": {
-            "ingredient-note": "1 kopp mel",
-            "name": "Ny oppskrift",
-            "step-text": "Oppskriftstrinn og andre felt på oppskriftssiden støtter Markdown-syntaks.\n\n**Legg til en lenke**\n\n[Min lenke](https://demo.mealie.io)\n"
+            "name": "Ny oppskrift"
         },
         "servings-text": {
             "makes": "Gir",
@@ -27,6 +25,16 @@
             "yields": "Gir"
         },
         "and-amount": "og {amount}",
+        "pdf": {
+            "cookbook": "Cookbook",
+            "contents": "Contents",
+            "ingredients": "Ingredients",
+            "instructions": "Instructions",
+            "notes": "Notes",
+            "prep-time": "Prep",
+            "cook-time": "Cook",
+            "total-time": "Total"
+        },
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke aktivert",
             "ai-request-failed": "AI-leverandøren kunne ikke fullføre forespørselen. Prøv på nytt",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Oppretter oppskrift fra nettsidedata...",
             "downloading-image": "Laster ned bilde...",
             "downloading-video": "Laster ned video...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Henter ut oppskriftsdata...",
             "fetching-webpage": "Henter nettside...",
             "organizing-recipe": "Organiserer oppskrift...",
@@ -125,9 +134,9 @@
         "mealplan-entry-created": "Måltidsplanoppføring opprettet for {date}: {entry_type}",
         "mealplan-entry-updated": "Måltidsplanoppføring oppdatert for {date}: {entry_type}",
         "mealplan-entry-deleted": "Måltidsplanoppføring slettet for {date}: {entry_type}",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "Måltid lagt til i måltidsplanen for perioden `{date}` til `{end_date}` for `{entry_type}`",
+        "mealplan-range-entry-updated": "Måltid oppdatert i måltidsplanen fra {date} til {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Måltid slettet fra måltidsplanen fra {date} til {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "år|år",

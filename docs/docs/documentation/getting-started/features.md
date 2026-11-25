@@ -82,6 +82,10 @@ Mealie also has the concept of cookbooks. These can be created inside of a group
 
 Mealie uses a calendar like view to help you plan your meals. It shows you the previous day and the next 6 days by default. You can toggle through the calendar by clicking the arrows on the top of the page. In editor mode, you can use the random recipe buttons or manually add an entry.
 
+In edit mode, drag entries to reorder them within a day or move them to another day. Your order is saved and also shown in the planner's view mode. Newly added entries are placed after the last entry of the same meal type, without rearranging existing entries.
+
+Integrations can also [reorder meal plan entries through the API](api-usage.md#meal-plan-ordering).
+
 !!! tip
     You can also add a "Note" type entry to your meal plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 
@@ -164,7 +168,7 @@ Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), whi
 - `json` and `jsons`
 - `xml` and `xmls`
 
-Only users with the **Manage household** permission can view and change notifiers.
+Only users with the **Manage household** permission can view and change notifiers. Notifiers can reach services on your internal network; admins can limit which services are allowed with `APPRISE_ALLOWED_SCHEMAS`. See [Security](./installation/security.md#notifiers-and-webhooks).
 
 [Notifiers Demo](https://demo.mealie.io/household/notifiers){ .md-button .md-button--primary }
 
@@ -193,8 +197,10 @@ https://www.google.com/search?q=pasta-fagioli
 
 A common use case for "link" recipe actions is to integrate with the Bring! shopping list. Simply add a Recipe Action with the following URL:
 ```
-https://api.getbring.com/rest/bringrecipes/deeplink?url=${url}&source=web
+https://api.getbring.com/rest/bringrecipes/deeplink?url=${share-link-expires-seconds-300}&source=web
 ```
+
+`${share-link-expires-seconds-300}` creates a share link for the recipe that expires after 300 seconds, so Bring! can read the recipe even if it isn't public. If your recipes are public, `${url}` works too.
 
 Below is a list of all valid merge fields:
 
@@ -204,6 +210,7 @@ Below is a list of all valid merge fields:
 - ${servings}
 - ${yieldQuantity}
 - ${yieldText}
+- ${share-link-expires-seconds-x} (a share link that expires after x seconds)
 
 To add, modify, or delete Recipe Actions, visit the Data Management page (more on that below).
 
