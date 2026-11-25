@@ -236,6 +236,8 @@
       "audio-provider-description": "Maakt audiotransscriptie functionaliteiten mogelijk, waarmee recepten op basis van video's gemaakt kunnen worden",
       "image-provider": "Afbeeldingsaanbieder",
       "image-provider-description": "Maakt beeldherkenningsfunctionaliteiten mogelijk, waarmee recepten op basis van afbeeldingen gemaakt kunnen worden",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Naam van de aanbieder",
       "api-key": "API-sleutel",
       "api-key-description-create": "Je aanbieder's API-sleutel voor authenticatie. Als je service (bijv. Ollama) geen API-sleutel gebruikt moet je hier alsnog iets invoeren.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "Failed to save prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Build Recipe",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Parse Ingredients",
         "recipes-parse-recipe-video": "Recipe from Video",
         "recipes-resolve-organizers": "Assign Organizers",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
         "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
         "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",

@@ -236,6 +236,8 @@
       "audio-provider-description": "Abilita le funzioni di trascrizione audio, come la creazione di ricette da video",
       "image-provider": "Provider Immagini",
       "image-provider-description": "Abilita le funzionalità di riconoscimento delle immagini, come la creazione di ricette dalle immagini",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Nome provider",
       "api-key": "Chiave API",
       "api-key-description-create": "La chiave API del tuo provider per l'autenticazione. Se il tuo servizio (ad esempio Ollama) non utilizza una chiave API, devi comunque mettere qualcosa qui.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "Impossibile salvare il prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Genera Ricetta",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Analizza ingredienti",
         "recipes-parse-recipe-video": "Ricetta da video",
         "recipes-resolve-organizers": "Assegna Organizzatori",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Trasforma il materiale letto da una pagina web, una foto o un testo in una ricetta strutturata.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Usato dall'analizzatore AI per separare ogni ingrediente in quantità, unità, alimento e nota.",
         "recipes-parse-recipe-video": "Trasforma la trascrizione e la didascalia di un video in una ricetta.",
         "recipes-resolve-organizers": "Sceglie tag, categorie e strumenti per una ricetta importata.",

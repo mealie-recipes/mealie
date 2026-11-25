@@ -1,4 +1,3 @@
-import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
 import { useLocales } from "../use-locales";
 import type { IngredientFoodCreate, IngredientUnitCreate, IngredientFoodOut, IngredientFoodSummary, IngredientUnitOut, RecipeDraft, RecipeIngredient } from "~/lib/api/types/recipe";
@@ -7,13 +6,6 @@ const { frac } = useFraction();
 
 const FRAC_MIN_DENOM = 10;
 const DECIMAL_PRECISION = 3;
-
-export function sanitizeIngredientHTML(rawHtml: string) {
-  return DOMPurify.sanitize(rawHtml, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["b", "q", "i", "strong", "sup"],
-  });
-}
 
 export function useFoodName(food: IngredientFoodCreate | IngredientFoodOut | IngredientFoodSummary | undefined, usePlural: boolean) {
   if (!food) {
@@ -45,7 +37,7 @@ function useRecipeLink(recipe: RecipeDraft | undefined, groupSlug: string | unde
     return undefined;
   }
 
-  return `<a href="/g/${groupSlug}/r/${recipe.slug}">${recipe.name}</a>`;
+  return `<a href="/g/${encodeURIComponent(groupSlug)}/r/${encodeURIComponent(recipe.slug)}">${recipe.name}</a>`;
 }
 
 type ParsedIngredientText = {
@@ -140,10 +132,10 @@ export function useIngredientTextParser() {
     const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
 
     return {
-      quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
-      unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
-      name: ingName ? sanitizeIngredientHTML(ingName) : undefined,
-      note: note ? sanitizeIngredientHTML(note) : undefined,
+      quantity: returnQty || undefined,
+      unit: unitName && quantity ? unitName : undefined,
+      name: ingName || undefined,
+      note: note || undefined,
       recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
     };
   };
@@ -151,8 +143,7 @@ export function useIngredientTextParser() {
   function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
     const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
 
-    const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
-    return sanitizeIngredientHTML(text);
+    return `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
   };
 
   function ingredientToParserString(ingredient: RecipeIngredient): string {

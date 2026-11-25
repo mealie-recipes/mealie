@@ -109,3 +109,48 @@ class OpenAIRecipe(OpenAIBase):
         None,
         description="Nutrition information, only if the source provides it. Do not calculate or estimate it.",
     )
+
+
+class OpenAIInstructionEnrichment(OpenAIBase):
+    step: int = Field(
+        ...,
+        description="The number of the instruction step these details belong to, as numbered in the recipe.",
+    )
+
+    ingredients: list[int] = Field(
+        default_factory=list,
+        description="The numbers of the ingredients this step uses, as numbered in the recipe.",
+    )
+
+    notes: list[int] = Field(
+        default_factory=list,
+        description="The numbers of the notes that are about this step, as numbered in the recipe.",
+    )
+
+    duration: str | None = Field(
+        None,
+        description="The time this step states, as an ISO 8601 duration, e.g., 'PT25M'. Leave empty if it states none.",
+    )
+
+    summary: str | None = Field(
+        None,
+        description=(
+            "The heading this step's text opens with, copied exactly, without the punctuation after it. "
+            "Leave empty if it has none."
+        ),
+    )
+
+    text: str | None = Field(
+        None,
+        description=(
+            "Only when a heading is given: the rest of the step's text, without the heading and the punctuation "
+            "after it, otherwise copied exactly. Leave empty if no heading is given."
+        ),
+    )
+
+
+class OpenAIInstructionEnrichments(OpenAIBase):
+    instructions: list[OpenAIInstructionEnrichment] = Field(
+        default_factory=list,
+        description="Details for each instruction step that has any. Steps without details can be left out.",
+    )

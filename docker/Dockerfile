@@ -1,11 +1,11 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:26@sha256:438603bbb5cda404b9416f0b5c8026f61501ab911760d861ec28c36b5d675725 \
+FROM node:26@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10e0ac \
     AS frontend-builder
 
 # renovate: datasource=npm depName=pnpm
-RUN npm install --global pnpm@12.18.0
+RUN npm install --global pnpm@12.22.0
 
 WORKDIR /frontend
 
@@ -53,7 +53,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # renovate: datasource=pypi depName=uv
-RUN pip install uv==0.13.7
+RUN pip install uv==0.13.9
 
 # Install from the committed lockfile; never re-resolve. The rolling
 # `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise make

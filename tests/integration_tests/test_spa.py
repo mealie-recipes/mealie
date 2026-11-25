@@ -294,15 +294,18 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
 
 
 @pytest.mark.parametrize(
-    "malicious_content, malicious_strings",
+    "malicious_content",
     [
-        ("<script>alert('XSS');</script>", ["<script>", "alert('XSS')"]),
-        ("<img src=x onerror=alert('XSS')>", ["<img", "onerror=alert('XSS')"]),
-        ("<div onmouseover=alert('XSS')>Hover me</div>", ["<div", "onmouseover=alert('XSS')"]),
-        ("<a href='javascript:alert(\"XSS\")'>Click me</a>", ["<a", 'javascript:alert("XSS")']),
+        "<script>alert('XSS');</script>",
+        "</script><script>alert('XSS')</script>",
+        "<img src=x onerror=alert('XSS')>",
+        "<div onmouseover=alert('XSS')>Hover me</div>",
+        "<a href='javascript:alert(\"XSS\")'>Click me</a>",
+        "\" onload=\"alert('XSS')",
+        "<!-- Mac & Cheese -->",
     ],
 )
-def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
+def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str):
     recipe = build_recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
@@ -313,6 +316,19 @@ def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_cont
         settings=RecipeSettings(),
     )
 
-    response = spa.content_with_meta(unique_user.group_id, recipe)
-    for string in malicious_strings:
-        assert string not in response
+    soup = BeautifulSoup(spa.content_with_meta(unique_user.group_id, recipe), "html.parser")
+
+    # The payload must stay text: no new elements, no event-handler attributes, one script (the JSON-LD).
+    assert {tag.name for tag in soup.find_all(True)} <= {"html", "head", "body", "meta", "script"}
+    assert not [attr for tag in soup.find_all(True) for attr in tag.attrs if attr.lower().startswith("on")]
+    scripts = soup.find_all("script")
+    assert len(scripts) == 1
+    assert scripts[0].get("type") == "application/ld+json"
+
+    # ...and it must round-trip unchanged, not double-escaped.
+    schema = json.loads(scripts[0].text)
+    assert schema["name"] == malicious_content
+    assert schema["description"] == malicious_content
+    og_title = soup.find("meta", attrs={"property": "og:title"})
+    assert og_title is not None
+    assert og_title["content"] == malicious_content

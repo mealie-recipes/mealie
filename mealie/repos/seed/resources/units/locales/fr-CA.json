@@ -3,13 +3,13 @@
         "name": "cuillère à thé",
         "plural_name": "cuillères à thé",
         "description": "",
-        "abbreviation": "càc"
+        "abbreviation": "c. à t."
     },
     "tablespoon": {
         "name": "cuillère à soupe",
         "plural_name": "cuillères à soupe",
         "description": "",
-        "abbreviation": "càs"
+        "abbreviation": "c. à s."
     },
     "cup": {
         "name": "tasse",
