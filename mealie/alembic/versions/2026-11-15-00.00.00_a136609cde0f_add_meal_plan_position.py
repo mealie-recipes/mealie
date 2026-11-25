@@ -1,7 +1,7 @@
 """add meal plan position
 
 Revision ID: a136609cde0f
-Revises: f3a1ae61d772
+Revises: 08880d089634
 Create Date: 2026-11-15 00:00:00.000000
 
 """
@@ -12,7 +12,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "a136609cde0f"
-down_revision: str | None = "f3a1ae61d772"
+down_revision: str | None = "08880d089634"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
