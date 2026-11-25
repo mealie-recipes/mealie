@@ -839,7 +839,7 @@
     "secure-site-success-text": "Сайт доступний через localhost або https",
     "server-side-base-url": "URL-адреса сервера",
     "server-side-base-url-error-text": "`BASE_URL` все ще встановлене в стандартне значення на сервері API. Це призведе до проблем з посиланнями, згенерованими на сервері для листів, і т. д.",
-    "server-side-base-url-success-text": "URL-адреса на стороні сервера не відповідає значенню за замовчуванням",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",

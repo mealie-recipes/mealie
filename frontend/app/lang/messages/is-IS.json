@@ -839,7 +839,7 @@
     "secure-site-success-text": "Síðan er aðgengileg í gegnum localhost eð https",
     "server-side-base-url": "Grunnslóð netþjóns",
     "server-side-base-url-error-text": "'BASE_URL' er enn sjálfgefið gildi á API netþjóns. Þetta getur valdið vandræðum með tilkynninga tengla sem netþjónninn býr til fyrir tölvupósta og annað.",
-    "server-side-base-url-success-text": "Slóð netþjóns samsvarar ekki sjálfgefnu gildi",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",

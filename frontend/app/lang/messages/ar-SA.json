@@ -839,7 +839,7 @@
     "secure-site-success-text": "يتم الوصول إلى الموقع بواسطة localhost أو peps",
     "server-side-base-url": "الرابط الأساسي للخادم",
     "server-side-base-url-error-text": "'BASE_URL' لا يزال القيمة الافتراضية على خادم API. وهذا سيسبب مشاكل مع روابط الإشعارات التي تم إنشاؤها على الخادم لرسائل البريد الإلكتروني، إلخ.",
-    "server-side-base-url-success-text": "عنوان الخادم الجانبي لا يتطابق مع عنوان الخادم الافتراضي",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",

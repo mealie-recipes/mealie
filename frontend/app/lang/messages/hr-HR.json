@@ -839,7 +839,7 @@
     "secure-site-success-text": "Pristup web stranici vrši se putem lokalnog poslužitelja (localhost) ili HTTPS protokola",
     "server-side-base-url": "Osnovni URL poslužitelja od ​​strane poslužitelja",
     "server-side-base-url-error-text": "`BASE_URL` još uvijek ima zadanu vrijednost na API poslužitelju. To može uzrokovati probleme s generiranim vezama za obavijesti na poslužitelju za e-poštu i slično.",
-    "server-side-base-url-success-text": "URL na strani poslužitelja se ne podudara sa zadanim URL-om",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",
