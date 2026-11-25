@@ -3,6 +3,7 @@ import type { Day } from "date-fns";
 import { useHouseholdSelf } from "./use-households";
 import { useAsyncKey } from "./use-utils";
 import { alert } from "./use-toast";
+import { useGlobalI18n } from "./use-global-i18n";
 import { useUserApi } from "~/composables/api";
 import type {
   PlanEntryCreate,
@@ -135,7 +136,7 @@ export interface Meal {
 
 export const useMealplans = function (range: Ref<DateRange>) {
   const api = useUserApi();
-  const i18n = useI18n();
+  const i18n = useGlobalI18n();
   const loading = ref(false);
 
   const actions = {

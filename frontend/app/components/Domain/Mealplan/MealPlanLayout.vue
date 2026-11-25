@@ -16,11 +16,12 @@
 <script setup lang="ts">
 import { getScaledRecipes } from "~/composables/use-group-mealplan";
 import type { DaySection, Days, MealsByDate } from "~/composables/use-group-mealplan";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 defineProps<{
   mealplans: MealsByDate[];
 }>();
-const i18n = useI18n();
+const i18n = useGlobalI18n();
 
 const DAY_COLS = { cols: 12, sm: 12, md: 12, lg: 6, xl: 4, xxl: 4 };
 const WEEK_COLS = { cols: 12 };
