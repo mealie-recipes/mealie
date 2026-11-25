@@ -236,6 +236,8 @@
       "audio-provider-description": "Engedélyezi az audió-átírási funkciókat, például a videókból származó receptek létrehozását",
       "image-provider": "Kép szolgáltató",
       "image-provider-description": "Engedélyezi a képfelismerési funkciókat, például a képek alapján történő receptkészítést",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Szolgáltató neve",
       "api-key": "API Kulcs",
       "api-key-description-create": "A szolgáltató hitelesítési API-kulcsa. Ha a szolgáltatása (pl. Ollama) nem használ API-kulcsot, akkor is be kell írnia ide valamit.",

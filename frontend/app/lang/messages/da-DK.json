@@ -236,6 +236,8 @@
       "audio-provider-description": "Slå lydtranskriberingsfunktioner til, såsom at oprette opskrifter fra videoer",
       "image-provider": "Billedudbyder",
       "image-provider-description": "Slår billedgenkendelsesfunktioner til, såsom at oprette opskrifter fra billeder",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Udbydernavn",
       "api-key": "API-nøgle",
       "api-key-description-create": "Din udbyders API-nøgle til godkendelse. Hvis din udbyder ikke benytter en API-nøgle (eks. Ollama), skal du stadig skrive ét eller andet.",

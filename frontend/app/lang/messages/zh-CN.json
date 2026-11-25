@@ -236,6 +236,8 @@
       "audio-provider-description": "启用音频翻译功能，例如从视频创建食谱",
       "image-provider": "图片提供者",
       "image-provider-description": "启用图像识别功能，例如从图像创建食谱",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "提供者名称",
       "api-key": "API 密钥",
       "api-key-description-create": "您提供商用于身份验证的 API 密钥。如果您的服务（例如 Ollama）不使用 API 密钥，您仍然需要在此处填写一些内容。",

@@ -365,6 +365,41 @@ def test_update_settings_clear_providers(api_client: TestClient, unique_user: Te
         api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
+def test_update_settings_enrich_non_ai_imports(api_client: TestClient, unique_user: TestUser):
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+
+    try:
+        update = {
+            "defaultProviderId": str(provider.id),
+            "audioProviderId": None,
+            "imageProviderId": None,
+            "enrichNonAiImports": True,
+        }
+        response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=unique_user.token)
+        assert response.status_code == 200
+
+        settings = response.json()
+        assert settings["enrichNonAiImports"] is True
+        assert settings["enrichNonAiImportsEnabled"] is True
+
+        # the setting is kept without a default provider, but has no effect
+        update["defaultProviderId"] = None
+        response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=unique_user.token)
+        assert response.status_code == 200
+
+        settings = response.json()
+        assert settings["enrichNonAiImports"] is True
+        assert settings["enrichNonAiImportsEnabled"] is False
+    finally:
+        unique_user.repos.group_ai_provider_settings.update(
+            unique_user.repos.group_id,
+            AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
+        )
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
 def test_settings_providers_list_populated(api_client: TestClient, unique_user: TestUser):
     provider = unique_user.repos.group_ai_providers.create(
         AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")

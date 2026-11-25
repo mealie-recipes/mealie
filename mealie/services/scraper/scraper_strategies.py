@@ -112,6 +112,9 @@ class ABCScraperStrategy(ABC):
     is_fallback: bool = False
     """Fallback strategies accept any page, so they run only after a FlareSolverr retry has been tried."""
 
+    uses_ai: bool = False
+    """Whether the strategy builds the recipe with an AI provider. Recipes from other strategies may be enriched."""
+
     def __init__(
         self,
         url: str,
@@ -379,6 +382,7 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
     """
 
     is_fallback = True
+    uses_ai = True
 
     def can_scrape(self) -> bool:
         group_id = self.repos.scoped_group_id
@@ -421,6 +425,8 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
 
 
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
+    uses_ai = True
+
     def can_scrape(self) -> bool:
         if not self.url:
             return False

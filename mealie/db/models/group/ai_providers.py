@@ -174,6 +174,8 @@ class AIProviderSettings(SqlAlchemyBase, BaseMixins):
         post_update=True,
     )
 
+    enrich_non_ai_imports: orm.Mapped[bool] = orm.mapped_column(sa.Boolean, default=False, server_default=sa.false())
+
     @auto_init()
     def __init__(self, **_) -> None:
         pass

@@ -22,7 +22,7 @@
           <v-btn value="brute">
             {{ $t('admin.brute') }}
           </v-btn>
-          <v-btn value="ai-providers">
+          <v-btn value="openai">
             {{ $t('admin.ai-providers') }}
           </v-btn>
         </v-btn-toggle>

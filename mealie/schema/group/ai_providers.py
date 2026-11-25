@@ -175,6 +175,7 @@ class AIProviderSettingsUpdate(MealieModel):
     default_provider_id: UUID4 | None
     audio_provider_id: UUID4 | None
     image_provider_id: UUID4 | None
+    enrich_non_ai_imports: bool = False
 
     @field_validator("default_provider_id", "audio_provider_id", "image_provider_id", mode="before")
     def validate_as_none(val: Any | None) -> Any | None:
@@ -220,6 +221,11 @@ class AIProviderSettingsOut(AIProviderSettingsUpdate, MealieOutModel):
     @property
     def image_provider_enabled(self) -> bool:
         return self.ai_enabled and self.image_provider_id is not None
+
+    @computed_field  # type: ignore[misc]
+    @property
+    def enrich_non_ai_imports_enabled(self) -> bool:
+        return self.ai_enabled and self.enrich_non_ai_imports
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
