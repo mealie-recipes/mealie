@@ -1,3 +1,4 @@
+import asyncio
 import json
 from collections.abc import Generator
 from contextlib import ExitStack, contextmanager
@@ -9,6 +10,7 @@ from fastapi.testclient import TestClient
 from slugify import slugify
 
 import mealie.services.openai.transcription as transcription_module
+import mealie.services.recipe.ai_recipe_service as ai_recipe_service_module
 import mealie.services.recipe.document_text_extraction as document_text_extraction_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 from mealie.core import exceptions
@@ -657,6 +659,30 @@ def test_create_from_document_combines_with_url(
     build_message = messages[0]
     assert page_text in build_message
     assert "Grandma's Pancakes" in build_message
+
+
+def test_document_parsing_runs_in_a_worker_thread(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """Parsing a document is blocking work, so it must not run on the event loop."""
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    threaded_calls: list[str] = []
+    real_to_thread = asyncio.to_thread
+
+    async def spy_to_thread(func, /, *args, **kwargs):
+        threaded_calls.append(func.__name__)
+        return await real_to_thread(func, *args, **kwargs)
+
+    monkeypatch.setattr(ai_recipe_service_module.asyncio, "to_thread", spy_to_thread)
+
+    with document_file(test_data.document_recipe_txt, "recipe.txt", "text/plain") as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 201
+    assert "extract_text_from_document" in threaded_calls
 
 
 def test_create_from_document_empty_text_returns_400(

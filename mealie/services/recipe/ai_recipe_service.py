@@ -1,3 +1,4 @@
+import asyncio
 import shutil
 from collections.abc import Awaitable, Callable
 from pathlib import Path
@@ -9,6 +10,12 @@ from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraper import finalize_scraped_recipe
 
+from .document_text_extraction import (
+    DocumentExtractionError,
+    EmptyPdfTextError,
+    extract_images_from_pdf,
+    extract_text_from_document,
+)
 from .import_workflow import (
     RecipeImportWorkflow,
     WorkflowContext,
@@ -26,6 +33,12 @@ class AIProviderNotEnabledError(Exception):
     pass
 
 
+class DocumentReadError(Exception):
+    """Raised when an uploaded document can't be read; the message names the offending file."""
+
+    pass
+
+
 class AIRecipeService(RecipeService):
     """Creates recipes from arbitrary source material by running the recipe import workflow."""
 
@@ -35,23 +48,26 @@ class AIRecipeService(RecipeService):
         content: str | None = None,
         images: list[UploadFile] | None = None,
         url: str | None = None,
-        document_content: str | None = None,
-        document_images: list[tuple[str, bytes]] | None = None,
+        documents: list[UploadFile] | None = None,
         translate_language: str | None = None,
         create_new_organizers: bool = False,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> RecipeOut:
         """
-        Creates a recipe from any combination of content, images, a URL, text extracted from an
-        uploaded document, and images embedded in an uploaded document (e.g. a scanned PDF's
-        page photos, which are routed through the same vision pipeline as uploaded images).
+        Creates a recipe from any combination of content, images, a URL, and uploaded documents.
+
+        Text is extracted from each document, and images embedded in a scanned PDF are routed
+        through the same vision pipeline as uploaded images. Raises DocumentReadError if a
+        document can't be read.
 
         The first image, if any, becomes the recipe's cover image.
         """
 
+        document_content, document_images = await self._extract_document_content(documents or [])
+
         with get_temporary_path() as temp_path:
             local_images = self._store_images(images or [], temp_path)
-            local_images += self._store_document_images(document_images or [], temp_path)
+            local_images += self._store_document_images(document_images, temp_path)
 
             recipe_data = await self.build_recipe(
                 content=content,
@@ -112,6 +128,59 @@ class AIRecipeService(RecipeService):
 
         result = await RecipeImportWorkflow().run(ctx)
         return await finalize_scraped_recipe(result.recipe, self.translator, on_progress=on_progress)
+
+    @staticmethod
+    async def _extract_one_document(document: UploadFile) -> tuple[str | None, list[tuple[str, bytes]]]:
+        """
+        Reads one uploaded document and extracts either its text, or, for a scanned PDF with no
+        text layer, its embedded page images. Parsing runs in a thread so it can't block the event loop.
+        """
+        file_bytes = await document.read()
+        filename = document.filename or ""
+
+        try:
+            return await asyncio.to_thread(extract_text_from_document, file_bytes, filename), []
+        except EmptyPdfTextError:
+            pass
+        except DocumentExtractionError as e:
+            raise DocumentReadError(f"Couldn't read {filename}: {e}") from e
+
+        try:
+            document_images = await asyncio.to_thread(extract_images_from_pdf, file_bytes)
+        except DocumentExtractionError as e:
+            raise DocumentReadError(f"Couldn't read {filename}: {e}") from e
+
+        if not document_images:
+            raise DocumentReadError(f"Couldn't read {filename}: doesn't contain readable text or images.")
+
+        return None, document_images
+
+    async def _extract_document_content(
+        self, documents: list[UploadFile]
+    ) -> tuple[str | None, list[tuple[str, bytes]]]:
+        """
+        Reads every uploaded document and extracts their text and/or (for a scanned PDF with no
+        text layer) embedded page images. Returns (None, []) if no documents were given.
+
+        A single document's extracted text is returned as-is; with more than one, each is
+        labelled with its filename so the merged text still shows which file each part came from.
+        """
+        texts: list[tuple[str, str]] = []
+        document_images: list[tuple[str, bytes]] = []
+        for document in documents:
+            text, images = await self._extract_one_document(document)
+            if text is not None:
+                texts.append((document.filename or "", text))
+            document_images.extend(images)
+
+        if not texts:
+            document_content = None
+        elif len(texts) == 1:
+            document_content = texts[0][1]
+        else:
+            document_content = "\n\n".join(f"## {filename}\n\n{text}" for filename, text in texts)
+
+        return document_content, document_images
 
     @staticmethod
     def _store_images(images: list[UploadFile], temp_path: Path) -> list[Path]:
