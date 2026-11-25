@@ -18,7 +18,7 @@
               :color="day.endDate ? 'transparent' : undefined"
             >
               <SpinTransition>
-                <div v-for="section in day.sections" :key="section.title">
+                <div v-for="section in day.sections" :key="section.meals[0].id">
                   <div class="py-2 d-flex flex-column">
                     <p class="text-overline my-0">
                       {{ section.title }}
