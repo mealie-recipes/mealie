@@ -4,6 +4,7 @@ from uuid import UUID
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
+from mealie.lang.providers import get_all_translations
 from mealie.schema.household.household_preferences import HouseholdPreferencesUpdate
 from mealie.schema.meal_plan.new_meal import PlanEntryCreate
 from mealie.schema.recipe.recipe import RecipeDraft
@@ -158,7 +159,11 @@ def test_ical_feed_lang(api_client: TestClient, unique_user_fn_scoped: TestUser)
     create_entry(api_client, user, date=JULY_1, entry_type="dinner", title=random_string())
     token = enable_feed(api_client, user)
 
-    assert "SUMMARY:Essen: " in unfold(get_feed(api_client, token, {"lang": "de-DE"}).text)
+    # read the German string from the locale file, since Crowdin owns its exact wording
+    expected_de = get_all_translations("mealplan.entry-type.dinner")["de-DE"]
+    assert expected_de != "Dinner"
+
+    assert f"SUMMARY:{expected_de}: " in unfold(get_feed(api_client, token, {"lang": "de-DE"}).text)
     # unknown locales fall back to English
     assert "SUMMARY:Dinner: " in unfold(get_feed(api_client, token, {"lang": "xx-XX"}).text)
 
