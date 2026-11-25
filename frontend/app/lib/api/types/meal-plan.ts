@@ -37,6 +37,7 @@ export interface PlanEntryOut {
   groupId: string;
   userId: string;
   householdId: string;
+  position: number;
   recipe: RecipeSummary | null;
   updatedAt: string | null;
 }
@@ -89,6 +90,11 @@ export interface ToolOut {
   slug: string;
   recipeCount: number;
   householdsWithTool: string[];
+}
+export interface PlanEntryReorderUpdate {
+  date: string;
+  endDate?: string | null;
+  entryIds: number[];
 }
 export interface PlanEntrySave {
   date: string;
