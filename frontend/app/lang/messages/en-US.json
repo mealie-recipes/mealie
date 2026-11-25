@@ -637,7 +637,7 @@
     "import-with-ai-image-provider-required": "To create recipes from photos, configure an image provider in your group's AI settings.",
     "import-with-ai-error-details": "AI was unable to create a recipe from what you provided. Check that it contains a recipe, and try again.",
     "import-with-ai-upload-files": "Upload files",
-    "import-with-ai-upload-files-hint": "Optional. Upload photos of a recipe, or a PDF, Word, ODT, Markdown, plain text, RTF, or HTML document. You can select more than one, but only when they are parts of the same recipe (for example, a scan split across pages). Everything you upload is merged into a single recipe, so uploading different recipes together will not create separate recipes. A scanned PDF with no text is read using AI vision automatically.",
+    "import-with-ai-upload-files-hint": "Optional. Upload photos of a recipe, or a PDF, Word, ODT, Markdown, text, RTF, or HTML document.",
     "import-with-ai-unsupported-file": "{name} isn't a supported format. Try converting it to .docx, or use a different file.",
     "import-with-ai-unsupported-file-generic": "{name} isn't a supported format.",
     "create-new-organizers": "Create new organizers",
