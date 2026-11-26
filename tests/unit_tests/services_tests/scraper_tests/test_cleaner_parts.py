@@ -157,9 +157,24 @@ image_cleaner_test_cases = (
         expected=["https://img.hellofresh.com/hellofresh_s3/image/image.jpg"],
     ),
     CleanerCase(
-        test_id="other host scaled to width and height",
-        input="https://example.com/h_640,w_1200/image.jpg",
-        expected=["https://example.com/h_640,w_1200/image.jpg"],
+        test_id="cloudinary scaled to width and height",
+        input="https://res.cloudinary.com/demo/image/upload/w_1200,h_640/v1/sample.jpg?x=1",
+        expected=["https://res.cloudinary.com/demo/image/upload/w_1200/v1/sample.jpg?x=1"],
+    ),
+    CleanerCase(
+        test_id="cloudinary on a custom domain with chained transformations",
+        input="https://images.example.com/c_fill,h_100,w_100/w_1200,h_640/sample.jpg",
+        expected=["https://images.example.com/c_fill,h_100,w_100/w_1200/sample.jpg"],
+    ),
+    CleanerCase(
+        test_id="width and height only in the file name",
+        input="https://example.com/images/w_1200,h_640.jpg",
+        expected=["https://example.com/images/w_1200,h_640.jpg"],
+    ),
+    CleanerCase(
+        test_id="path segment that only looks like key_value pairs",
+        input="https://example.com/width_1200,height_640/image.jpg",
+        expected=["https://example.com/width_1200,height_640/image.jpg"],
     ),
 )
 

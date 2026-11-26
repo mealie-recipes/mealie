@@ -22,11 +22,8 @@ NO_IMAGE = "no image"
 """Placeholder stored on a recipe that has no image. Not a URL, and must never be fetched."""
 
 
-CLOUDINARY_IMAGE_HOSTS = {"img.hellofresh.com"}
-""" Image hosts serving Cloudinary-style transformation URLs, e.g. `https://img.hellofresh.com/w_1200,h_640/a.jpg` """
-
-MATCH_CLOUDINARY_TRANSFORM = re.compile(r"^[a-z]+_[^,]+(,[a-z]+_[^,]+)*$")
-""" Matches a Cloudinary transformation path segment `f_auto,q_auto,w_1200,h_640` """
+MATCH_CLOUDINARY_TRANSFORM = re.compile(r"^[a-z]{1,3}_[^,]+(,[a-z]{1,3}_[^,]+)*$")
+""" Matches a Cloudinary transformation path segment `f_auto,q_auto,w_1200,h_640` (parameter names are 1-3 letters) """
 
 
 MATCH_NUMBER = re.compile(r"\d+(?:\.\d+)?")
@@ -177,13 +174,14 @@ def clean_image_url(url: str) -> str:
     Cloudinary scales an image to exactly the requested size when both a width and a height
     are given without a crop mode, so e.g. a 3:2 photo requested as `w_1200,h_640` comes back
     stretched. Dropping the height keeps the requested width and the original aspect ratio.
+
+    Cloudinary is served from `res.cloudinary.com` and from many sites' own domains, so this
+    goes by the URL's path rather than its host.
     """
     parsed = urlparse(url)
-    if parsed.hostname not in CLOUDINARY_IMAGE_HOSTS:
-        return url
-
     segments = parsed.path.split("/")
-    for i, segment in enumerate(segments):
+    # the last segment is the file name, never a transformation
+    for i, segment in enumerate(segments[:-1]):
         if not MATCH_CLOUDINARY_TRANSFORM.match(segment):
             continue
 
