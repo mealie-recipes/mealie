@@ -71,6 +71,7 @@
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
       :edit-form="editForm"
+      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="toolStore.actions.deleteOne"
@@ -79,6 +80,19 @@
       <template #[`item.recipeCount`]="{ item }">
         <NuxtLink v-if="groupSlug && item.recipeCount > 0" :to="`/g/${groupSlug}?tools=${item.id}`">{{ item.recipeCount }}</NuxtLink>
         <span v-else>{{ item.recipeCount || 0 }}</span>
+      </template>
+
+      <template #edit-dialog-bottom>
+        <GroupDataEditDialogRecipes
+          :recipes="editRecipes"
+          :page="editRecipesPage"
+          :total-pages="editRecipesTotalPages"
+          :loading="editRecipesLoading"
+          :load-failed="editRecipesLoadFailed"
+          :group-slug="groupSlug"
+          @load-page="loadEditRecipesPage"
+          @retry="retryEditRecipes"
+        />
       </template>
 
       <template #[`item.onHand`]="{ item }">
@@ -117,6 +131,7 @@ import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
 import { useToolStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
+import { useEditDialogRecipes } from "~/composables/use-edit-dialog-recipes";
 import type { ToolOut, ToolCreate } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
@@ -218,6 +233,25 @@ async function handleEdit(editFormData: RecipeToolWithOnHand) {
 
   await toolStore.actions.updateOne({ ...editFormData, id: editFormData.id } as ToolOut);
   editForm.data = {} as RecipeToolWithOnHand;
+  resetEditRecipes();
+}
+
+// ============================================================
+// Edit Dialog: Associated Recipes
+const {
+  recipes: editRecipes,
+  page: editRecipesPage,
+  totalPages: editRecipesTotalPages,
+  loading: editRecipesLoading,
+  loadFailed: editRecipesLoadFailed,
+  open: openEditRecipes,
+  reset: resetEditRecipes,
+  loadPage: loadEditRecipesPage,
+  retry: retryEditRecipes,
+} = useEditDialogRecipes("tools");
+
+async function onEditDialogOpen(item: ToolOut) {
+  await openEditRecipes(item?.id);
 }
 
 // ============================================================

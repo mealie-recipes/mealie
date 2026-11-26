@@ -73,6 +73,7 @@
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
       :edit-form="editForm"
+      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="categoryStore.actions.deleteOne"
@@ -81,6 +82,19 @@
       <template #[`item.recipeCount`]="{ item }">
         <NuxtLink v-if="groupSlug && item.recipeCount > 0" :to="`/g/${groupSlug}?categories=${item.id}`">{{ item.recipeCount }}</NuxtLink>
         <span v-else>{{ item.recipeCount || 0 }}</span>
+      </template>
+
+      <template #edit-dialog-bottom>
+        <GroupDataEditDialogRecipes
+          :recipes="editRecipes"
+          :page="editRecipesPage"
+          :total-pages="editRecipesTotalPages"
+          :loading="editRecipesLoading"
+          :load-failed="editRecipesLoadFailed"
+          :group-slug="groupSlug"
+          @load-page="loadEditRecipesPage"
+          @retry="retryEditRecipes"
+        />
       </template>
 
       <template #table-button-row>
@@ -107,6 +121,7 @@
 <script setup lang="ts">
 import { useCategoryStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
+import { useEditDialogRecipes } from "~/composables/use-edit-dialog-recipes";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -182,6 +197,25 @@ const editForm = reactive({
 async function handleEdit(editFormData: CategoryOut) {
   await categoryStore.actions.updateOne(editFormData);
   editForm.data = {} as CategoryOut;
+  resetEditRecipes();
+}
+
+// ============================================================
+// Edit Dialog: Associated Recipes
+const {
+  recipes: editRecipes,
+  page: editRecipesPage,
+  totalPages: editRecipesTotalPages,
+  loading: editRecipesLoading,
+  loadFailed: editRecipesLoadFailed,
+  open: openEditRecipes,
+  reset: resetEditRecipes,
+  loadPage: loadEditRecipesPage,
+  retry: retryEditRecipes,
+} = useEditDialogRecipes("categories");
+
+async function onEditDialogOpen(item: CategoryOut) {
+  await openEditRecipes(item?.id);
 }
 
 // ============================================================
