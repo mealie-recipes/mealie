@@ -99,6 +99,47 @@ def test_food_merge_requires_organize_permission(api_client: TestClient, unique_
     assert response.status_code == 200
 
 
+def test_tool_update_on_hand_does_not_require_organize_permission(
+    api_client: TestClient, unique_user_fn_scoped: TestUser
+):
+    """Marking a tool as on hand only changes which households have it, which is
+    household data, not group organization (issue #9270)."""
+    user = unique_user_fn_scoped
+    tool_id = create_item(api_client, user, api_routes.organizers_tools)
+    tool = api_client.get(api_routes.organizers_tools_item_id(tool_id), headers=user.token).json()
+    household = user.repos.households.get_one(user.household_id)
+    assert household
+
+    set_can_organize(user, False)
+
+    payload = {"name": tool["name"], "householdsWithTool": [household.slug]}
+    response = api_client.put(api_routes.organizers_tools_item_id(tool_id), json=payload, headers=user.token)
+    assert response.status_code == 200
+    assert response.json()["householdsWithTool"] == [household.slug]
+
+    payload = {"name": tool["name"], "householdsWithTool": []}
+    response = api_client.put(api_routes.organizers_tools_item_id(tool_id), json=payload, headers=user.token)
+    assert response.status_code == 200
+    assert response.json()["householdsWithTool"] == []
+
+
+def test_tool_rename_requires_organize_permission(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    tool_id = create_item(api_client, user, api_routes.organizers_tools)
+    tool = api_client.get(api_routes.organizers_tools_item_id(tool_id), headers=user.token).json()
+
+    payload = {"name": random_string(10), "householdsWithTool": tool["householdsWithTool"]}
+
+    set_can_organize(user, False)
+    response = api_client.put(api_routes.organizers_tools_item_id(tool_id), json=payload, headers=user.token)
+    assert response.status_code == 403
+
+    set_can_organize(user, True)
+    response = api_client.put(api_routes.organizers_tools_item_id(tool_id), json=payload, headers=user.token)
+    assert response.status_code == 200
+    assert response.json()["name"] == payload["name"]
+
+
 @pytest.mark.parametrize("name, collection, item", RESOURCES, ids=RESOURCE_IDS)
 def test_read_endpoints_do_not_require_organize_permission(
     api_client: TestClient, unique_user_fn_scoped: TestUser, name: str, collection: str, item
