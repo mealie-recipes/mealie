@@ -1,19 +1,53 @@
 # Improving the Ingredient Parser
 
-Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. I believe that the model used is sufficient enough to handle most of the ingredients, therefore, more data to train the model won't necessarily help improve the model.
+Mealie has three ingredient parsers. The user selects one in the ingredient parser dialog.
 
-## Improving The CRF Parser
+| Parser | Value | Code |
+|--------|-------|------|
+| Natural Language Processor | `nlp` | `NLPParser` in `mealie/services/parser_services/ingredient_parser.py` |
+| Brute Parser | `brute` | `BruteForceParser` in the same file, and `mealie/services/parser_services/brute/` |
+| AI Parser | `openai` | `mealie/services/parser_services/openai/`. The UI shows it only when the group has an [AI provider](../../documentation/getting-started/installation/ai-providers.md). |
 
-To improve results with the model, you'll likely need to focus on improving the tokenization and parsing of the original string to aid the model in determine what the ingredient is. Data science is not my forte, but I have done some tokenization to improve the model. You can find that code under `/mealie/services/parser_services/crfpp` along with some other utility functions to aid in the tokenization and processing of ingredient strings.
+The UI selects the Natural Language Processor by default for English, and the Brute Parser for other languages.
 
-The best way to test on improving the parser is to register additional test cases in  `/mealie/tests/unit_tests/test_crfpp_parser.py` and run the test after making changes to the tokenizer. Note that the test cases DO NOT run in the CI environment, therefore you will need to have CRF++ installed on your machine. If you're using a Mac the easiest way to do this is through brew.
+All parsers extend `ABCIngredientParser` in `mealie/services/parser_services/_base.py`. After a parser reads an ingredient, it calls `find_ingredient_match` from the base class. This method matches the food and the unit to the foods and units of the group.
 
-When submitting a PR to improve the parser it is important to provide your test cases, the problem you were trying to solve, and the results of the changes you made. As the tests don't run in CI, not providing these details may delay your PR from being merged.
+## The Natural Language Processor
+
+The Natural Language Processor uses the [ingredient-parser](https://github.com/strangetom/ingredient-parser) Python package (`ingredient-parser-nlp` in `pyproject.toml`). The package contains the trained model, so Mealie does not train or download a model. The model is trained on English recipes.
+
+`NLPParser` does these steps:
+
+1. It gives the names and abbreviations of the group's units to the package as custom units.
+2. It uses the first amount as the quantity and the unit.
+3. It puts the size, preparation, comment, and purpose into the note. It puts other amounts at the start of the note.
+4. It changes alternative ingredients (for example "stock or broth") into substitutions.
+
+If the package reads an ingredient sentence incorrectly, report the problem to the [ingredient-parser project](https://github.com/strangetom/ingredient-parser/issues). If Mealie changes a correct result into an incorrect one, change `NLPParser` in Mealie.
+
+## Testing
+
+The parser tests are in `tests/unit_tests/services_tests/ingredient_parser/`. Each parser has a test file. These tests run in CI with the other tests.
+
+Add a test case for each problem that you fix. To run only the parser tests:
+
+```bash
+mise run py:test -- tests/unit_tests/services_tests/ingredient_parser
+```
+
+In your PR, give the ingredient sentences, the result before your change, and the result after your change.
 
 ## Alternative Parsers
-Alternatively, you can register a new parser by fulfilling the `ABCIngredientParser` interface. Satisfying this single method interface allows us to register additional parsing strategies at runtime and gives the user several options when trying to parse a recipe.
 
+To add a parser:
+
+1. Make a class that extends `ABCIngredientParser` and implements `parse_one` and `parse`.
+2. Add a value to the `RegisteredParser` enum in `mealie/schema/recipe/recipe_ingredient.py`.
+3. Add the class to `__registrar` in `mealie/services/parser_services/ingredient_parser.py`. `get_parser` uses this dictionary.
+4. Run `mise run dev:generate` to update the TypeScript types.
+5. Add the parser to `availableParsers` in `frontend/app/composables/recipes/use-parse-ingredients-dialog.ts`. Add its label to `frontend/app/lang/messages/en-US.json`.
 
 ## Links
-- [Pretrained Model](https://github.com/mealie-recipes/mealie-nlp-model)
-- [CRF++ (Forked)](https://github.com/hay-kot/crfpp)
+
+- [ingredient-parser on GitHub](https://github.com/strangetom/ingredient-parser)
+- [ingredient-parser documentation](https://ingredient-parser.readthedocs.io/en/latest/)

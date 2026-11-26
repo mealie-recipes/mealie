@@ -46,7 +46,7 @@ If you'd rather install them yourself, use the versions in `mise.toml`.
 
 ### Installing Dependencies
 
-Once the prerequisites are installed you can cd into the project base directory and run `mise run setup` to install the python and node dependencies, and download the NLP model.
+Once the prerequisites are installed you can cd into the project base directory and run `mise run setup` to install the python and node dependencies.
 
 === "Linux / macOS"
 
