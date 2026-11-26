@@ -67,9 +67,22 @@ EXPECTED_ROUTE_PERMISSIONS: dict[Perm, set[str]] = {
         "POST    /api/households/invitations/email",
     },
     Perm.HOUSEHOLD_MANAGE: {
+        "GET     /api/households/events/notifications",
+        "POST    /api/households/events/notifications",
+        "GET     /api/households/events/notifications/{item_id}",
+        "PUT     /api/households/events/notifications/{item_id}",
+        "DELETE  /api/households/events/notifications/{item_id}",
+        "POST    /api/households/events/notifications/{item_id}/test",
         "POST    /api/households/mealplans/ical",
         "DELETE  /api/households/mealplans/ical",
         "PUT     /api/households/preferences",
+        "GET     /api/households/webhooks",
+        "POST    /api/households/webhooks",
+        "POST    /api/households/webhooks/rerun",
+        "GET     /api/households/webhooks/{item_id}",
+        "PUT     /api/households/webhooks/{item_id}",
+        "DELETE  /api/households/webhooks/{item_id}",
+        "POST    /api/households/webhooks/{item_id}/test",
     },
 }
 

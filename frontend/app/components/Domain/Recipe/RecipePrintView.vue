@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <div :class="dense ? 'wrapper' : 'wrapper pa-3'">
     <section>
@@ -34,8 +33,7 @@
                 <v-icon start>
                   {{ $globals.icons.potSteam }}
                 </v-icon>
-                <!-- eslint-disable-next-line vue/no-v-html -->
-                <span v-html="recipeYield" />
+                <SafeInlineHtml :html="recipeYield" />
               </div>
             </div>
             <v-row class="d-flex justify-start">
@@ -88,11 +86,9 @@
             :key="`ingredient-${ingredientIndex}`"
             class="ingredient-cell"
           >
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <p
-              class="ingredient-body"
-              v-html="parseText(ingredient)"
-            />
+            <p class="ingredient-body">
+              <SafeInlineHtml :html="parseText(ingredient)" />
+            </p>
             <!-- paper has nothing to tap, so what the menu holds on screen is spelled out here -->
             <SafeMarkdown
               v-if="preferences.showSubstitutions && substitutionSummary(ingredient)"
@@ -158,11 +154,9 @@
                   v-for="(ingredient, ingredientIndex) in stepLinkedIngredients.get(`${sectionIndex}-${stepIndex}`) ?? []"
                   :key="`ingredient-${ingredientIndex}`"
                 >
-                  <!-- eslint-disable-next-line vue/no-v-html -->
-                  <p
-                    class="ingredient-body"
-                    v-html="parseText(ingredient)"
-                  />
+                  <p class="ingredient-body">
+                    <SafeInlineHtml :html="parseText(ingredient)" />
+                  </p>
                 </template>
               </div>
             </div>
@@ -198,6 +192,7 @@
     <div v-if="preferences.showNutrition">
       <v-card-title class="headline pl-0">
         {{ $t("recipe.nutrition") }}
+        <span class="nutrition-per-serving">({{ $t("recipe.per-serving") }})</span>
       </v-card-title>
 
       <section>
@@ -222,11 +217,9 @@
 </template>
 
 <script setup lang="ts">
-import DOMPurify from "dompurify";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
-import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { RecipeOut, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import { ingredientSubstitutionSummary, useFoodPlurality, useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
@@ -244,7 +237,7 @@ type InstructionSection = {
 };
 
 interface Props {
-  recipe: NoUndefinedField<Recipe>;
+  recipe: RecipeOut;
   scale?: number;
   dense?: boolean;
 }
@@ -259,12 +252,6 @@ const { recipeImage } = useStaticRoutes();
 const { imageKey } = usePageState(props.recipe.slug);
 const { labels } = useNutritionLabels();
 
-function sanitizeHTML(rawHtml: string) {
-  return DOMPurify.sanitize(rawHtml, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["strong", "sup"],
-  });
-}
 const servingsDisplay = computed(() => {
   const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeYieldQuantity, props.scale);
   return scaledAmountDisplay || props.recipe.recipeYield
@@ -282,10 +269,10 @@ const yieldDisplay = computed(() => {
 
 const recipeYield = computed(() => {
   if (servingsDisplay.value && yieldDisplay.value) {
-    return sanitizeHTML(`${yieldDisplay.value}; ${servingsDisplay.value}`);
+    return `${yieldDisplay.value}; ${servingsDisplay.value}`;
   }
   else {
-    return sanitizeHTML(yieldDisplay.value || servingsDisplay.value);
+    return yieldDisplay.value || servingsDisplay.value;
   }
 });
 
@@ -508,6 +495,11 @@ ul {
 li {
   list-style-type: none;
   margin-bottom: 0.25rem;
+}
+
+.nutrition-per-serving {
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 
 .nutrition-table {

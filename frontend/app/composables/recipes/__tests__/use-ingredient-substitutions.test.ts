@@ -1,19 +1,20 @@
 import { ref } from "vue";
 import { describe, expect, test } from "vitest";
 import { ingredientSubstitutionSummary, substitutionFoodName, useIngredientSubstitutions } from "../use-ingredient-substitutions";
-import type { IngredientFood, IngredientFoodSummary, RecipeIngredient } from "~/lib/api/types/recipe";
+import { makeIngredientFood } from "~/tests/factories";
+import type { IngredientFoodOut, IngredientFoodSummary, RecipeIngredient } from "~/lib/api/types/recipe";
 
-const broth: IngredientFoodSummary = { id: "broth-id", name: "Chicken broth" };
-const pork: IngredientFoodSummary = { id: "pork-id", name: "Pork" };
+const broth: IngredientFoodSummary = { id: "broth-id", name: "Chicken broth", pluralName: null };
+const pork: IngredientFoodSummary = { id: "pork-id", name: "Pork", pluralName: null };
 const shallot: IngredientFoodSummary = { id: "shallot-id", name: "Shallot", pluralName: "Shallots" };
 
 /** A food carrying its own substitutions, i.e. the ones that apply everywhere it is used. */
-function foodWithSubstitutions(): IngredientFood {
-  return {
+function foodWithSubstitutions(): IngredientFoodOut {
+  return makeIngredientFood({
     id: "stock-id",
     name: "Chicken stock",
     substitutions: [{ substituteFoodId: broth.id, substituteFood: broth }],
-  };
+  });
 }
 
 describe("substitutionFoodName", () => {
@@ -69,7 +70,7 @@ describe("useIngredientSubstitutions", () => {
 
   test("a food that carries no substitutions contributes none", () => {
     const { foodSubstitutions, hasSubstitutions } = useIngredientSubstitutions(() => ({
-      food: { id: "stock-id", name: "Chicken stock" },
+      food: makeIngredientFood({ id: "stock-id", name: "Chicken stock" }),
     }));
 
     expect(foodSubstitutions.value).toStrictEqual([]);

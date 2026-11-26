@@ -14,9 +14,7 @@
         "made-this-for-dessert": "Ο/η {name} έφτιαξε αυτό για επιδόρπιο",
         "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
         "recipe-defaults": {
-            "ingredient-note": "1 Κούπα Αλεύρι",
-            "name": "Νέα συνταγή",
-            "step-text": "Βήματα συνταγής, καθώς και άλλα πεδία στη σύνταξη σήμανσης της σελίδας συνταγής.\n\n**Προσθήκη συνδέσμου**\n\n[Ο σύνδεσμος μου](https://demo.mealie.io)\n"
+            "name": "Νέα συνταγή"
         },
         "servings-text": {
             "makes": "Παράγει",
@@ -27,6 +25,16 @@
             "yields": "Ποσότητα"
         },
         "and-amount": "και {amount}",
+        "pdf": {
+            "cookbook": "Βιβλίο μαγειρικής",
+            "contents": "Περιεχόμενα",
+            "ingredients": "Συστατικά",
+            "instructions": "Οδηγίες",
+            "notes": "Σημειώσεις",
+            "prep-time": "Προετοιμασία",
+            "cook-time": "Μαγείρεμα",
+            "total-time": "Σύνολο"
+        },
         "import-errors": {
             "ai-not-enabled": "Οι υπηρεσίες τεχνητής νοημοσύνης δεν είναι ενεργοποιημένες",
             "ai-request-failed": "Ο πάροχος AI δεν ήταν σε θέση να ολοκληρώσει το αίτημα. Παρακαλώ δοκιμάστε ξανά",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Δημιουργία συνταγής από δεδομένα ιστοσελίδας...",
             "downloading-image": "Λήψη εικόνας...",
             "downloading-video": "Λήψη βίντεο...",
+            "enriching-instructions": "Προσθήκη λεπτομερειών βήματος...",
             "extracting-recipe-data": "Εξαγωγή δεδομένων συνταγής...",
             "fetching-webpage": "Λήψη ιστοσελίδας...",
             "organizing-recipe": "Οργάνωση συνταγής...",
@@ -111,20 +120,23 @@
             "cookbook-created": "Δημιουργήθηκε βιβλίο μαγειρικής",
             "cookbook-updated": "Ενημερώθηκε βιβλίο μαγειρικής",
             "cookbook-deleted": "Διαγράφτηκε βιβλίο μαγειρικής",
-            "tag-created": "Δημιουργήθηκε tag",
-            "tag-updated": "Ενημερώθηκε tag",
-            "tag-deleted": "Διαγράφτηκε tag",
+            "tag-created": "Δημιουργήθηκε ετικέτα συνταγής",
+            "tag-updated": "Ενημερώθηκε ετικέτα συνταγής",
+            "tag-deleted": "Διαγράφτηκε ετικέτα συνταγής",
             "category-created": "Δημιουργήθηκε κατηγορία",
             "category-updated": "Ενημερώθηκε κατηγορία",
             "category-deleted": "Διαγράφτηκε κατηγορία",
-            "label-created": "Δημιουργήθηκε ετικέτα",
-            "label-updated": "Ενημερώθηκε ετικέτα",
-            "label-deleted": "Διαγράφτηκε ετικέτα"
+            "label-created": "Δημιουργήθηκε ετικέτα τροφίμων",
+            "label-updated": "Ενημερώθηκε ετικέτα τροφίμων",
+            "label-deleted": "Διαγράφτηκε ετικέτα τροφίμων"
         },
         "test-message-body": "Αυτή είναι μια δοκιμαστική ειδοποίηση από το Mealie.",
         "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
         "mealplan-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
-        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}"
+        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
+        "mealplan-range-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}",
+        "mealplan-range-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}",
+        "mealplan-range-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων από {date} έως {end_date} για {entry_type}"
     },
     "datetime": {
         "year": "χρόνος | χρόνια",

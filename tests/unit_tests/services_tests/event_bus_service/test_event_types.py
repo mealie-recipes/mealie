@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from mealie.pkgs.i18n.json_provider import JsonProvider
+from mealie.routes.households.controller_mealplan import MEALPLAN_NOTIFICATION_KEYS
 from mealie.services.event_bus_service.event_types import EventBusMessage, EventTypes
 
 
@@ -80,3 +81,13 @@ def test_every_event_type_has_an_english_title_translation():
             missing_keys.append(key)
 
     assert not missing_keys, f"Missing event title translations: {missing_keys}"
+
+
+def test_every_mealplan_notification_key_has_an_english_translation():
+    repo_root = Path(__file__).parents[4]
+    translator = JsonProvider(repo_root / "mealie/lang/messages/en-US.json")
+
+    keys = [key for keys in MEALPLAN_NOTIFICATION_KEYS.values() for key in keys]
+    missing_keys = [key for key in keys if translator.t(key) == key]
+
+    assert not missing_keys, f"Missing meal plan notification translations: {missing_keys}"

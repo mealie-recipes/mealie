@@ -10,7 +10,7 @@
         flat
         class="d-flex flex-column justify-center align-center"
       >
-        <v-card-text>
+        <v-card-text style="max-width: 100%;">
           <div class="d-flex flex-column align-center">
             <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
               {{ recipe.name }}
@@ -100,12 +100,11 @@ import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCardImage.vue";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import { useUserStore } from "~/composables/store/use-user-store";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import type { UserSummary } from "~/lib/api/types/user";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
 interface Props {
-  recipe: NoUndefinedField<Recipe>;
+  recipe: RecipeOut;
   recipeScale?: number;
   landscape: boolean;
 }

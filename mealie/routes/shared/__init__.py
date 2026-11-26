@@ -8,7 +8,7 @@ from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.recipe import RecipeShareTokenSummary
-from mealie.schema.recipe.recipe_share_token import RecipeShareToken, RecipeShareTokenCreate, RecipeShareTokenSave
+from mealie.schema.recipe.recipe_share_token import RecipeShareTokenCreate, RecipeShareTokenOut, RecipeShareTokenSave
 
 router = UserAPIRouter(prefix="/shared/recipes", tags=["Shared: Recipes"])
 
@@ -21,7 +21,7 @@ class RecipeSharedController(BaseUserController):
 
     @cached_property
     def mixins(self):
-        return HttpRepo[RecipeShareTokenSave, RecipeShareToken, RecipeShareTokenCreate](self.repo, self.logger)
+        return HttpRepo[RecipeShareTokenSave, RecipeShareTokenOut, RecipeShareTokenCreate](self.repo, self.logger)
 
     @router.get("", response_model=list[RecipeShareTokenSummary])
     def get_all(self, recipe_id: UUID4 | None = None):
@@ -30,8 +30,8 @@ class RecipeSharedController(BaseUserController):
         else:
             return self.repo.get_all(override=RecipeShareTokenSummary)
 
-    @router.post("", response_model=RecipeShareToken, status_code=201)
-    def create_one(self, data: RecipeShareTokenCreate) -> RecipeShareToken:
+    @router.post("", response_model=RecipeShareTokenOut, status_code=201)
+    def create_one(self, data: RecipeShareTokenCreate) -> RecipeShareTokenOut:
         # check if recipe group id is the same as the user group id
         group_repos = get_repositories(self.repos.session, group_id=self.group_id, household_id=None)
         recipe = group_repos.recipes.get_one(data.recipe_id, "id")
@@ -41,7 +41,7 @@ class RecipeSharedController(BaseUserController):
         save_data = RecipeShareTokenSave(**data.model_dump(), group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
-    @router.get("/{item_id}", response_model=RecipeShareToken)
+    @router.get("/{item_id}", response_model=RecipeShareTokenOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 

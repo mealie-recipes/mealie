@@ -111,6 +111,8 @@ households_mealplans_ical = "/api/households/mealplans/ical"
 """`/api/households/mealplans/ical`"""
 households_mealplans_random = "/api/households/mealplans/random"
 """`/api/households/mealplans/random`"""
+households_mealplans_reorder = "/api/households/mealplans/reorder"
+"""`/api/households/mealplans/reorder`"""
 households_mealplans_rules = "/api/households/mealplans/rules"
 """`/api/households/mealplans/rules`"""
 households_mealplans_today = "/api/households/mealplans/today"
@@ -400,6 +402,11 @@ def households_cookbooks_item_id(item_id):
     return f"{prefix}/households/cookbooks/{item_id}"
 
 
+def households_cookbooks_item_id_pdf(item_id):
+    """`/api/households/cookbooks/{item_id}/pdf`"""
+    return f"{prefix}/households/cookbooks/{item_id}/pdf"
+
+
 def households_events_notifications_item_id(item_id):
     """`/api/households/events/notifications/{item_id}`"""
     return f"{prefix}/households/events/notifications/{item_id}"
@@ -573,6 +580,11 @@ def recipes_slug_duplicate(slug):
 def recipes_slug_exports(slug):
     """`/api/recipes/{slug}/exports`"""
     return f"{prefix}/recipes/{slug}/exports"
+
+
+def recipes_slug_exports_pdf(slug):
+    """`/api/recipes/{slug}/exports/pdf`"""
+    return f"{prefix}/recipes/{slug}/exports/pdf"
 
 
 def recipes_slug_image(slug):

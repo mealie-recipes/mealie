@@ -4,6 +4,7 @@ from typing import Any
 from pydantic import UUID4, ConfigDict, field_validator
 
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.mealie_model import MealieOutModel
 from mealie.schema.response.pagination import PaginationBase
 
 # ==================================================================================================================
@@ -15,7 +16,7 @@ class GroupRecipeActionType(Enum):
     post = "post"
 
 
-class CreateGroupRecipeAction(MealieModel):
+class GroupRecipeActionCreate(MealieModel):
     action_type: GroupRecipeActionType
     title: str
     url: str
@@ -23,7 +24,7 @@ class CreateGroupRecipeAction(MealieModel):
     model_config = ConfigDict(use_enum_values=True)
 
     @field_validator("url")
-    def validate_url_scheme(url: str) -> str:
+    def validate_url_scheme(cls, url: str) -> str:
         """Validate that the URL uses a safe scheme to prevent XSS via javascript: URIs."""
         url_lower = url.lower().strip()
         if not (url_lower.startswith("http://") or url_lower.startswith("https://")):
@@ -31,12 +32,12 @@ class CreateGroupRecipeAction(MealieModel):
         return url
 
 
-class SaveGroupRecipeAction(CreateGroupRecipeAction):
+class GroupRecipeActionSave(GroupRecipeActionCreate):
     group_id: UUID4
     household_id: UUID4
 
 
-class GroupRecipeActionOut(SaveGroupRecipeAction):
+class GroupRecipeActionOut(GroupRecipeActionSave, MealieOutModel):
     id: UUID4
     model_config = ConfigDict(from_attributes=True)
 

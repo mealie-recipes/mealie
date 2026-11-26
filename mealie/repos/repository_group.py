@@ -8,13 +8,13 @@ from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.group import Group
-from mealie.schema.user.user import GroupBase, GroupInDB, UpdateGroup
+from mealie.schema.user.user import GroupBase, GroupOut, GroupUpdate
 
 from .repository_generic import RepositoryGeneric
 
 
-class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
-    def create(self, data: GroupBase | dict) -> GroupInDB:
+class RepositoryGroup(RepositoryGeneric[GroupOut, Group]):
+    def create(self, data: GroupBase | dict) -> GroupOut:  # type: ignore[override]
         if isinstance(data, GroupBase):
             data = data.model_dump()
 
@@ -34,11 +34,11 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
 
                 data["name"] = f"{original_name} ({attempts})"
 
-    def create_many(self, data: Iterable[GroupInDB | dict]) -> list[GroupInDB]:
+    def create_many(self, data: Iterable[GroupBase | dict]) -> list[GroupOut]:  # type: ignore[override]
         # since create uses special logic for resolving slugs, we don't want to use the standard create_many method
         return [self.create(new_group) for new_group in data]
 
-    def update(self, match_value: str | int | UUID4, new_data: UpdateGroup | dict) -> GroupInDB:
+    def update(self, match_value: str | int | UUID4, new_data: GroupUpdate | dict) -> GroupOut:  # type: ignore[override]
         if isinstance(new_data, GroupBase):
             new_data.slug = slugify(new_data.name)
         else:
@@ -46,17 +46,17 @@ class RepositoryGroup(RepositoryGeneric[GroupInDB, Group]):
 
         return super().update(match_value, new_data)
 
-    def update_many(self, data: Iterable[UpdateGroup | dict]) -> list[GroupInDB]:
+    def update_many(self, data: Iterable[GroupUpdate | dict]) -> list[GroupOut]:  # type: ignore[override]
         # since update uses special logic for resolving slugs, we don't want to use the standard update_many method
         return [self.update(group["id"] if isinstance(group, dict) else group.id, group) for group in data]
 
-    def get_by_name(self, name: str) -> GroupInDB | None:
+    def get_by_name(self, name: str) -> GroupOut | None:
         dbgroup = self.session.execute(select(self.model).filter_by(name=name)).scalars().one_or_none()
         if dbgroup is None:
             return None
         return self.schema.model_validate(dbgroup)
 
-    def get_by_slug_or_id(self, slug_or_id: str | UUID) -> GroupInDB | None:
+    def get_by_slug_or_id(self, slug_or_id: str | UUID) -> GroupOut | None:
         if isinstance(slug_or_id, str):
             try:
                 slug_or_id = UUID(slug_or_id)

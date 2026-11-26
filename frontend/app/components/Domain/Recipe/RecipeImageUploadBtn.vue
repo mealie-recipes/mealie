@@ -81,7 +81,6 @@
 </template>
 
 <script setup lang="ts">
-import { alertUnreportedError } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 
 const UPLOAD_EVENT = "upload";
@@ -115,7 +114,6 @@ async function deleteImage() {
   loading.value = false;
 
   if (error) {
-    alertUnreportedError(error, i18n.t("events.something-went-wrong"));
     return;
   }
 
@@ -129,7 +127,6 @@ async function getImageFromURL() {
   loading.value = false;
 
   if (error) {
-    alertUnreportedError(error, i18n.t("events.something-went-wrong"));
     return;
   }
 

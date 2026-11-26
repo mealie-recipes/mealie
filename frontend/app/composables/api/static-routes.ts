@@ -27,8 +27,8 @@ export const useStaticRoutes = () => {
     return `${prefix}/media/recipes/${recipeId}/images/timeline/${timelineEventId}/original.webp`;
   }
 
-  function recipeTimelineEventSmallImage(recipeId: string, timelineEventId: string) {
-    return `${prefix}/media/recipes/${recipeId}/images/timeline/${timelineEventId}/min-original.webp`;
+  function recipeTimelineEventSmallImage(recipeId: string, timelineEventId: string, key: string | number = 1) {
+    return `${prefix}/media/recipes/${recipeId}/images/timeline/${timelineEventId}/min-original.webp?rnd=${key}`;
   }
 
   function recipeTimelineEventTinyImage(recipeId: string, timelineEventId: string) {

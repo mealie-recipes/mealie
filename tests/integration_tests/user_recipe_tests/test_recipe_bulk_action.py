@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 
 from mealie.core.dependencies.dependencies import validate_file_token
 from mealie.schema.recipe.recipe_bulk_actions import ExportTypes
-from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from mealie.schema.recipe.recipe_organizers import CategorySave, TagSave
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string

@@ -335,24 +335,24 @@
         "plural_name": "žampiony portobello"
       },
       "pea": {
-        "name": "pea",
-        "plural_name": "peas"
+        "name": "hrášek",
+        "plural_name": "hrášky"
       },
       "green bean": {
-        "name": "green bean",
-        "plural_name": "green beans"
+        "name": "zelená fazolka",
+        "plural_name": "zelené fazolky"
       },
       "snow pea": {
         "name": "snow pea",
         "plural_name": "snow peas"
       },
       "snap pea": {
-        "name": "snap pea",
-        "plural_name": "snap peas"
+        "name": "hrách cukrový",
+        "plural_name": "cukrové hrachy"
       },
       "bean sprout": {
-        "name": "bean sprout",
-        "plural_name": "bean sprouts"
+        "name": "fazolový klíček",
+        "plural_name": "fazolové klíčky"
       },
       "edamame": {
         "name": "edamame",
@@ -415,23 +415,23 @@
         "plural_name": ""
       },
       "mushroom": {
-        "name": "mushroom",
-        "plural_name": "mushrooms"
+        "name": "houba",
+        "plural_name": "houby"
       },
       "corn": {
-        "name": "corn",
+        "name": "kukuřice",
         "plural_name": ""
       },
       "green onion": {
-        "name": "green onion",
-        "plural_name": "green onions"
+        "name": "zelená cibulka",
+        "plural_name": "zelené cibulky"
       },
       "lemon juice": {
-        "name": "lemon juice",
+        "name": "citronová šťáva",
         "plural_name": ""
       },
       "lime juice": {
-        "name": "lime juice",
+        "name": "limetková šťáva",
         "plural_name": ""
       }
     }
@@ -441,7 +441,7 @@
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
-        "plural_name": "rolled oats"
+        "plural_name": "ovesné vločky"
       },
       "rice": {
         "name": "rýže",
@@ -460,15 +460,15 @@
         "plural_name": ""
       },
       "risotto rice": {
-        "name": "risotto rice",
+        "name": "risotto rýže",
         "plural_name": ""
       },
       "couscous": {
-        "name": "couscous",
+        "name": "kuskus",
         "plural_name": ""
       },
       "wild rice": {
-        "name": "wild rice",
+        "name": "divoká rýže",
         "plural_name": ""
       },
       "semolina": {
@@ -504,7 +504,7 @@
         "plural_name": ""
       },
       "sushi rice": {
-        "name": "sushi rice",
+        "name": "sushi rýže",
         "plural_name": ""
       },
       "hominy": {
@@ -512,12 +512,12 @@
         "plural_name": ""
       },
       "chickpea": {
-        "name": "chickpea",
-        "plural_name": "chickpeas"
+        "name": "cizrna",
+        "plural_name": "cizrny"
       },
       "black bean": {
-        "name": "black bean",
-        "plural_name": "black beans"
+        "name": "černá fazole",
+        "plural_name": "černé fazole"
       },
       "kidney bean": {
         "name": "kidney bean",
@@ -1725,7 +1725,7 @@
       },
       "peppercorn": {
         "name": "pepř černý celý",
-        "plural_name": "peppercorns"
+        "plural_name": "pepř černý celý"
       },
       "mustard seed": {
         "name": "hořčičné semínko",
@@ -2006,7 +2006,7 @@
         "plural_name": ""
       },
       "self-raising flour": {
-        "name": "self-raising flour",
+        "name": "samokypřicí mouka",
         "plural_name": ""
       },
       "shredded coconut": {

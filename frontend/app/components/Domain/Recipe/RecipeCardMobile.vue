@@ -74,7 +74,7 @@
                 :limit="2"
                 small
                 url-prefix="tags"
-                v-bind="$attrs"
+                @item-selected="(item, urlPrefix) => $emit('itemSelected', item, urlPrefix)"
               />
             </div>
           </div>
@@ -109,6 +109,7 @@
                     delete: false,
                     edit: false,
                     download: true,
+                    downloadPdf: true,
                     mealplanner: true,
                     shoppingList: true,
                     print: false,
@@ -135,10 +136,11 @@
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
-import RecipeChips from "./RecipeChips.vue";
+import RecipeChips, { type UrlPrefixParam } from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import type { ContextMenuItem } from "./RecipeContextMenu/RecipeContextMenu.vue";
+import type { TagOut } from "~/lib/api/types/recipe";
 
 interface Props {
   name: string;
@@ -172,6 +174,7 @@ defineEmits<{
   mealplanEdit: [];
   selected: [];
   delete: [slug: string];
+  itemSelected: [item: TagOut, urlPrefix: UrlPrefixParam];
 }>();
 
 const auth = useMealieAuth();

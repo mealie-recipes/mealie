@@ -59,7 +59,7 @@
 import { useShoppingListItemEditor } from "~/composables/shopping-list-page/use-shopping-list-item-editor";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
-import type { IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientUnitOut } from "~/lib/api/types/recipe";
 
 // modelValue as reactive v-model
 const listItem = defineModel<ShoppingListItemOut>({ required: true });
@@ -70,7 +70,7 @@ defineProps({
     required: true,
   },
   units: {
-    type: Array as () => IngredientUnit[],
+    type: Array as () => IngredientUnitOut[],
     required: true,
   },
 });

@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
 import { config } from "../config";
-import type { CategoryIn, RecipeCategoryResponse } from "~/lib/api/types/recipe";
+import type { CategoryCreate, CategoryOut, CategoryWithRecipes } from "~/lib/api/types/recipe";
 
 const prefix = config.PREFIX + "/organizers";
 
@@ -12,19 +12,19 @@ const routes = {
   categoriesMerge: `${prefix}/categories/merge`,
 };
 
-export class CategoriesAPI extends BaseCRUDAPI<CategoryIn, RecipeCategoryResponse> {
+export class CategoriesAPI extends BaseCRUDAPI<CategoryCreate, CategoryOut> {
   baseRoute: string = routes.categories;
   itemRoute = routes.categoriesId;
 
   async bySlug(slug: string) {
-    return await this.requests.get<RecipeCategoryResponse>(routes.categoriesSlug(slug));
+    return await this.requests.get<CategoryWithRecipes>(routes.categoriesSlug(slug));
   }
 
   async getEmpty() {
-    return await this.requests.get<RecipeCategoryResponse[]>(routes.categoriesEmpty);
+    return await this.requests.get<CategoryOut[]>(routes.categoriesEmpty);
   }
 
   merge(fromId: string, toId: string) {
-    return this.requests.post<RecipeCategoryResponse>(routes.categoriesMerge, { fromId, toId });
+    return this.requests.post<CategoryOut>(routes.categoriesMerge, { fromId, toId });
   }
 }

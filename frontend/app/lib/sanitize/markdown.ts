@@ -1,9 +1,5 @@
-import DOMPurify from "isomorphic-dompurify";
-
-enum DOMPurifyHook {
-  UponSanitizeAttribute = "uponSanitizeAttribute",
-  AfterSanitizeAttributes = "afterSanitizeAttributes",
-}
+import createDOMPurify from "dompurify";
+import { marked } from "marked";
 
 const ALLOWED_STYLE_PROPERTIES = [
   "background-color", "color", "font-style", "font-weight", "text-decoration", "text-align",
@@ -11,13 +7,15 @@ const ALLOWED_STYLE_PROPERTIES = [
 
 const BASE_ALLOWED_TAGS = [
   "strong", "em", "b", "i", "u", "p", "code", "pre", "samp", "kbd", "var", "sub", "sup", "dfn", "cite",
-  "small", "address", "hr", "br", "id", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
+  "small", "address", "hr", "br", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
   "ul", "ol", "li", "dl", "dt", "dd", "abbr", "a", "img", "blockquote",
   "del", "ins", "table", "thead", "tbody", "tfoot", "tr", "th", "td", "colgroup",
 ];
 
+// No `class`: Vuetify's utility classes (position-fixed, top-0, w-100, h-screen, bg-white, ...)
+// are enough to build a full-screen overlay out of user content, which the style filter can't stop.
 const BASE_ALLOWED_ATTR = [
-  "href", "src", "alt", "height", "width", "class", "title",
+  "href", "src", "alt", "height", "width", "title",
   "cite", "datetime", "name", "abbr", "target", "border", "start", "style",
 ];
 
@@ -50,6 +48,28 @@ function isAllowedIframeSrc(src: string, allowedHosts: string[]): boolean {
   });
 }
 
+// A private instance, so these hooks never apply to other sanitizers.
+const purifier = createDOMPurify(window);
+
+// Sanitizing is synchronous, so the hooks can read the current call's host list from here.
+let currentIframeHosts: string[] = [];
+
+purifier.addHook("uponSanitizeAttribute", (_node, data) => {
+  if (data.attrName === "style") {
+    const styles = data.attrValue.split(";").filter((style) => {
+      const [property] = style.split(":");
+      return ALLOWED_STYLE_PROPERTIES.includes(property.trim().toLowerCase());
+    });
+    data.attrValue = styles.join(";");
+  }
+});
+
+purifier.addHook("afterSanitizeAttributes", (node) => {
+  if (node.nodeName === "IFRAME" && !isAllowedIframeSrc(node.getAttribute("src") || "", currentIframeHosts)) {
+    node.parentNode?.removeChild(node);
+  }
+});
+
 /**
  * Sanitizes pre-rendered HTML (from markdown) for display in user content such as recipe
  * instructions, notes, and descriptions.
@@ -66,33 +86,23 @@ export function sanitizeMarkdownHtml(rawHtml: string | null | undefined, allowed
   }
 
   const allowIframe = allowedIframeHosts.length > 0;
+  currentIframeHosts = allowedIframeHosts;
 
-  DOMPurify.addHook(DOMPurifyHook.UponSanitizeAttribute, (_node, data) => {
-    if (data.attrName === "style") {
-      const styles = data.attrValue.split(";").filter((style) => {
-        const [property] = style.split(":");
-        return ALLOWED_STYLE_PROPERTIES.includes(property.trim().toLowerCase());
-      });
-      data.attrValue = styles.join(";");
-    }
-  });
-
-  if (allowIframe) {
-    DOMPurify.addHook(DOMPurifyHook.AfterSanitizeAttributes, (node) => {
-      if (node.nodeName === "IFRAME" && !isAllowedIframeSrc(node.getAttribute("src") || "", allowedIframeHosts)) {
-        node.parentNode?.removeChild(node);
-      }
+  try {
+    return purifier.sanitize(rawHtml, {
+      ALLOWED_TAGS: allowIframe ? [...BASE_ALLOWED_TAGS, "iframe"] : BASE_ALLOWED_TAGS,
+      ALLOWED_ATTR: allowIframe ? [...BASE_ALLOWED_ATTR, ...IFRAME_ALLOWED_ATTR] : BASE_ALLOWED_ATTR,
+      // Prefixes `name` values with "user-content-" so user content can't clobber window/document globals.
+      SANITIZE_NAMED_PROPS: true,
     });
   }
+  finally {
+    currentIframeHosts = [];
+  }
+}
 
-  const sanitized = DOMPurify.sanitize(rawHtml, {
-    ALLOWED_TAGS: allowIframe ? [...BASE_ALLOWED_TAGS, "iframe"] : BASE_ALLOWED_TAGS,
-    ALLOWED_ATTR: allowIframe ? [...BASE_ALLOWED_ATTR, ...IFRAME_ALLOWED_ATTR] : BASE_ALLOWED_ATTR,
-  });
-
-  Object.values(DOMPurifyHook).forEach((hook) => {
-    DOMPurify.removeHook(hook);
-  });
-
-  return sanitized;
+/** Renders user-supplied markdown to sanitized HTML. See `sanitizeMarkdownHtml` for what survives. */
+export function renderMarkdown(source: string | null | undefined, allowedIframeHosts: string[] = []): string {
+  const rawHtml = marked.parse(source || "", { async: false, breaks: true });
+  return sanitizeMarkdownHtml(rawHtml, allowedIframeHosts);
 }
