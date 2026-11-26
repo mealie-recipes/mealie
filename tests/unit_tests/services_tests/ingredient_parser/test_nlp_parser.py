@@ -195,3 +195,23 @@ async def test_nlp_parser_unnamed_amounts_are_not_substitutions(
     note = ing.note or ""
     for amount_text in expected_extra_amounts:
         assert amount_text.replace(" ", "") in note.replace(" ", ""), f"'{amount_text}' missing from note '{note}'"
+
+
+@pytest.mark.parametrize(
+    "source_str",
+    [
+        "2 tbsp apple cider vinegar (30ml)",
+        "2 cups water (480ml)",
+    ],
+)
+@pytest.mark.asyncio
+async def test_nlp_parser_extra_amount_note_confidence(unique_local_group_id: UUID4, source_str: str):
+    """A note that holds only extra amounts must not score 0 and drag the average down."""
+
+    with session_context() as session:
+        parser = get_parser(RegisteredParser.nlp, unique_local_group_id, session, get_locale_provider())
+        parsed = await parser.parse_one(source_str)
+
+    assert parsed.ingredient.note
+    assert parsed.confidence.comment is not None and parsed.confidence.comment > 0.85
+    assert parsed.confidence.average is not None and parsed.confidence.average > 0.85

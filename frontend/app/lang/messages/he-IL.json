@@ -839,7 +839,7 @@
     "secure-site-success-text": "האתר נגיש דרך כתובת המערכת בלופבאק או בצורה מאובטחת בעזרת https",
     "server-side-base-url": "כתובת בסיס צד שרת",
     "server-side-base-url-error-text": "'כתובת בסיס' היא עדיין הערך ברירת המחדל בשרת ה- API. הדבר יגרום לבעיות עם קישורי התראות בשרת עבור אימייל וכו'.",
-    "server-side-base-url-success-text": "קישור צד שרת אינו תואם לברירת המחדל",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "אפשר להשתמש ב־{provider}",
     "auth-provider-not-ready": "עדיין אי אפשר להשתמש ב־{provider}",
     "auth-provider-disabled": "השימוש ב־{provider} מושבת",

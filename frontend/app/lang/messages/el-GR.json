@@ -839,7 +839,7 @@
     "secure-site-success-text": "Ο ιστότοπος έχει πρόσβαση από localhost ή https",
     "server-side-base-url": "Βασική διεύθυνση URL πλευράς διακομιστή",
     "server-side-base-url-error-text": "Το `BASE_URL` εξακολουθεί να είναι η προεπιλεγμένη τιμή στο διακομιστή API. Αυτό θα προκαλέσει προβλήματα με τις συνδέσεις ειδοποιήσεων που δημιουργούνται στο διακομιστή για email, κλπ.",
-    "server-side-base-url-success-text": "Η διεύθυνση URL πλευράς διακομιστή δεν ταιριάζει με την προεπιλεγμένη",
+    "server-side-base-url-success-text": "Το `BASE_URL` έχει αλλάξει από την προεπιλεγμένη τιμή στον API server.",
     "auth-provider-ready": "Το {provider} είναι έτοιμο",
     "auth-provider-not-ready": "Το {provider} δεν είναι έτοιμο",
     "auth-provider-disabled": "Το {provider} απενεργοποιήθηκε",

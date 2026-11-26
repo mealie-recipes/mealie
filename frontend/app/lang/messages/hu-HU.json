@@ -839,7 +839,7 @@
     "secure-site-success-text": "Az oldal localhoston vagy Https-en keresztül elérve",
     "server-side-base-url": "Szerver oldali bázis URL",
     "server-side-base-url-error-text": "A 'BASE_URL` továbbra is az alapértelmezett érték az API-kiszolgálón. Ez problémákat okoz az e-mailekhez stb. a szerveren generált értesítési linkeknél.",
-    "server-side-base-url-success-text": "A kiszolgálóoldali URL nem egyezik az alapértelmezettel",
+    "server-side-base-url-success-text": "A `BASE_URL` értéke az alapértelmezett értékről megváltozott az API szerveren.",
     "auth-provider-ready": "{provider} kész",
     "auth-provider-not-ready": "{provider} még nem áll készen",
     "auth-provider-disabled": "{provider} letiltva",

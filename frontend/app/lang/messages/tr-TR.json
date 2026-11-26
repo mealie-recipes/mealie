@@ -839,7 +839,7 @@
     "secure-site-success-text": "Siteye localhost veya https ile erişilmektedir",
     "server-side-base-url": "Sunucu Tarafı Temel URL'si",
     "server-side-base-url-error-text": "\"BASE_URL\", API Sunucusunda hala varsayılan değerdir. Bu, e-postalar vb. için sunucuda oluşturulan bildirim bağlantılarında sorunlara neden olacaktır.",
-    "server-side-base-url-success-text": "Sunucu Tarafı URL'si varsayılanla eşleşmiyor",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Hazır",
     "auth-provider-not-ready": "{provider} Hazır Değil",
     "auth-provider-disabled": "{provider} Devre Dışı",

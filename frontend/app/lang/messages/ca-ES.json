@@ -839,7 +839,7 @@
     "secure-site-success-text": "El web és accedit amb localhost o https",
     "server-side-base-url": "URL base de part del servidor",
     "server-side-base-url-error-text": "'BASE_URL' és encara el valor per defecte a l'API de servidor. Això causarà errors amb enllaços de notificació generats al servidor per correus electrònics, etc.",
-    "server-side-base-url-success-text": "L'URL de part del servidor no correspon amb el predeterminat",
+    "server-side-base-url-success-text": "`BASE_URL` ja no té el valor per defecte a l'API de servidor.",
     "auth-provider-ready": "{provider} a punt",
     "auth-provider-not-ready": "{provider} no està a punt",
     "auth-provider-disabled": "{provider} desactivat",

@@ -839,7 +839,7 @@
     "secure-site-success-text": "Se accede al sitio por localhost o https",
     "server-side-base-url": "URL base del servidor",
     "server-side-base-url-error-text": "`BASE_URL` sigue siendo el valor por defecto en el servidor API. Esto causará problemas con las notificaciones generadas en el servidor de correos electrónicos, etc.",
-    "server-side-base-url-success-text": "La URL del servidor no coincide con la predeterminada",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} listo",
     "auth-provider-not-ready": "{provider} no está listo",
     "auth-provider-disabled": "{provider} desactivado",

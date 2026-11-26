@@ -839,7 +839,7 @@
     "secure-site-success-text": "Toegang tot die webwerf word verkry deur localhost of https",
     "server-side-base-url": "Server-side basis-URL",
     "server-side-base-url-error-text": "`BASE_URL` is steeds die verstekwaarde op die API-bediener. Dit veroorsaak probleme met kennisgewingskakels in e-posse, ens.",
-    "server-side-base-url-success-text": "Bedienerkant-URL pas nie by die standaard nie",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",
