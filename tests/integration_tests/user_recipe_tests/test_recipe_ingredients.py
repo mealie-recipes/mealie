@@ -6,8 +6,8 @@ from pytest import MonkeyPatch
 
 from mealie.lang.locale_config import LocalePluralFoodHandling
 from mealie.schema.recipe.recipe_ingredient import (
-    IngredientFood,
-    IngredientUnit,
+    IngredientFoodOut,
+    IngredientUnitOut,
     RecipeIngredient,
 )
 
@@ -32,7 +32,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name=None,
@@ -46,7 +46,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "tablespoon",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name=None,
@@ -60,7 +60,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "tablespoon",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name=None,
@@ -74,7 +74,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "tbsp",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name=None,
@@ -88,7 +88,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "tbsp",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name="tablespoons",
@@ -102,7 +102,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "tablespoons",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name="tablespoons",
@@ -116,7 +116,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "tablespoons",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name="tablespoons",
@@ -130,7 +130,7 @@ from mealie.schema.recipe.recipe_ingredient import (
             "tbsps",
         ],
         [
-            IngredientUnit(
+            IngredientUnitOut(
                 id=uuid4(),
                 name="tablespoon",
                 plural_name="tablespoons",
@@ -154,12 +154,12 @@ from mealie.schema.recipe.recipe_ingredient import (
             "",
         ],
         [
-            IngredientFood(id=uuid4(), name="chopped onion", plural_name=None),
+            IngredientFoodOut(id=uuid4(), name="chopped onion", plural_name=None),
             "chopped onion",
             "chopped onion",
         ],
         [
-            IngredientFood(id=uuid4(), name="chopped onion", plural_name="chopped onions"),
+            IngredientFoodOut(id=uuid4(), name="chopped onion", plural_name="chopped onions"),
             "chopped onion",
             "chopped onions",
         ],
@@ -178,8 +178,8 @@ def test_ingredient_display(
     quantity: float | None,
     quantity_display_decimal: str,
     quantity_display_fraction: str,
-    unit: IngredientUnit | None,
-    food: IngredientFood | None,
+    unit: IngredientUnitOut | None,
+    food: IngredientFoodOut | None,
     note: str | None,
     expect_display_fraction: bool,
     expect_plural_unit: bool,

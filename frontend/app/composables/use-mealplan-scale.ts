@@ -1,4 +1,4 @@
-import type { ReadPlanEntry, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
 
 export const MEALPLAN_SCALE_SAVE_DELAY_MS = 400;
 
@@ -9,8 +9,8 @@ export const MEALPLAN_SCALE_SAVE_DELAY_MS = 400;
  * through several values results in a single request.
  */
 export function useMealPlanScale(
-  meal: MaybeRefOrGetter<ReadPlanEntry>,
-  save: (payload: UpdatePlanEntry) => unknown,
+  meal: MaybeRefOrGetter<PlanEntryOut>,
+  save: (payload: PlanEntryUpdate) => unknown,
   delay = MEALPLAN_SCALE_SAVE_DELAY_MS,
 ) {
   const savedScale = computed(() => toValue(meal).recipeScale ?? 1);

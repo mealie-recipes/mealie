@@ -48,8 +48,8 @@
         "abbreviation": "mL"
     },
     "centiliter": {
-        "name": "centiliter",
-        "plural_name": "centiliters",
+        "name": "centilitre",
+        "plural_name": "centilitres",
         "description": "",
         "abbreviation": "cl"
     },
@@ -98,7 +98,7 @@
     },
     "dash": {
         "name": "trait",
-        "plural_name": "traits",
+        "plural_name": "tirets",
         "description": "",
         "abbreviation": ""
     },

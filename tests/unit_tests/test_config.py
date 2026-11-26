@@ -28,6 +28,25 @@ def test_non_default_settings(monkeypatch):
     assert app_settings.DOCS_URL is None
 
 
+def test_api_host_defaults_to_automatic_binding(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.delenv("API_HOST", raising=False)
+    get_app_settings.cache_clear()
+    try:
+        assert get_app_settings().API_HOST == ""
+    finally:
+        get_app_settings.cache_clear()
+
+
+@pytest.mark.parametrize("host", ["0.0.0.0", "127.0.0.1", "::", "::1"])
+def test_api_host_explicit_values_survive_parsing(host: str, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("API_HOST", host)
+    get_app_settings.cache_clear()
+    try:
+        assert get_app_settings().API_HOST == host
+    finally:
+        get_app_settings.cache_clear()
+
+
 def test_allowed_iframe_hosts_defaults(monkeypatch):
     monkeypatch.delenv("ALLOWED_IFRAME_HOSTS", raising=False)
     get_app_settings.cache_clear()
@@ -51,6 +70,24 @@ def test_allowed_iframe_hosts_extends_defaults(monkeypatch):
     assert "" not in hosts
     # No duplicates.
     assert len(hosts) == len(set(hosts))
+
+
+@pytest.mark.parametrize(
+    ("allowed", "url", "expected"),
+    [
+        ("", "json://10.0.0.1/hook", True),
+        ("ntfys, Discord", "ntfys://ntfy.sh/topic", True),
+        ("ntfys, Discord", "DISCORD://id/token", True),
+        ("ntfys, Discord", "ntfy://ntfy.sh/topic", False),
+        ("ntfys, Discord", "json://10.0.0.1/hook", False),
+        ("ntfys", "not-a-url", False),
+    ],
+)
+def test_is_apprise_url_allowed(allowed: str, url: str, expected: bool, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("APPRISE_ALLOWED_SCHEMAS", allowed)
+    get_app_settings.cache_clear()
+
+    assert get_app_settings().is_apprise_url_allowed(url) is expected
 
 
 def test_default_connection_args(monkeypatch):

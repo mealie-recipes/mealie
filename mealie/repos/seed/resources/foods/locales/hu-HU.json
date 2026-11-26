@@ -76,7 +76,7 @@
       },
       "sweet potato": {
         "name": "édesburgonya",
-        "plural_name": "sweet potatoes"
+        "plural_name": "édesburgonya"
       },
       "broccoli": {
         "name": "brokkoli",
@@ -88,7 +88,7 @@
       },
       "pumpkin": {
         "name": "sütőtök",
-        "plural_name": "pumpkins"
+        "plural_name": "tök"
       },
       "cauliflower": {
         "name": "karfiol",
@@ -116,7 +116,7 @@
       },
       "eggplant": {
         "name": "padlizsán",
-        "plural_name": "eggplants"
+        "plural_name": "padlizsán"
       },
       "lettuce": {
         "name": "saláta",
@@ -132,11 +132,11 @@
       },
       "beetroot": {
         "name": "cékla",
-        "plural_name": "beetroots"
+        "plural_name": "cékla"
       },
       "brussels sprout": {
         "name": "kelbimbó",
-        "plural_name": "brussels sprouts"
+        "plural_name": "kelbimbó"
       },
       "fennel": {
         "name": "édeskömény",
@@ -224,27 +224,27 @@
       },
       "tomato": {
         "name": "paradicsom",
-        "plural_name": "tomatoes"
+        "plural_name": "paradicsom"
       },
       "lemon": {
         "name": "citrom",
-        "plural_name": "lemons"
+        "plural_name": "citrom"
       },
       "lime": {
         "name": "zöldcitrom",
-        "plural_name": "limes"
+        "plural_name": "lime"
       },
       "apple": {
         "name": "alma",
-        "plural_name": "apples"
+        "plural_name": "alma"
       },
       "banana": {
         "name": "banán",
-        "plural_name": "bananas"
+        "plural_name": "banán"
       },
       "orange": {
         "name": "narancs",
-        "plural_name": "oranges"
+        "plural_name": "narancs"
       },
       "raisin": {
         "name": "mazsola",
@@ -252,31 +252,31 @@
       },
       "pineapple": {
         "name": "ananász",
-        "plural_name": "pineapples"
+        "plural_name": "ananász"
       },
       "mango": {
         "name": "mangó",
-        "plural_name": "mangoes"
+        "plural_name": "mangó"
       },
       "peach": {
         "name": "őszibarack",
-        "plural_name": "peaches"
+        "plural_name": "őszibarack"
       },
       "date": {
         "name": "datolya",
-        "plural_name": "dates"
+        "plural_name": "datolya"
       },
       "coconut": {
         "name": "kókuszdió",
-        "plural_name": "coconuts"
+        "plural_name": "kókusz"
       },
       "pear": {
         "name": "körte",
-        "plural_name": "pears"
+        "plural_name": "körte"
       },
       "grape": {
         "name": "szőlő",
-        "plural_name": "grapes"
+        "plural_name": "szőlő"
       },
       "pomegranate": {
         "name": "gránátalma",
@@ -284,7 +284,7 @@
       },
       "watermelon": {
         "name": "görögdinnye",
-        "plural_name": "watermelons"
+        "plural_name": "görögdinnye"
       },
       "rhubarb": {
         "name": "rebarbara",
@@ -292,7 +292,7 @@
       },
       "kiwi": {
         "name": "kivi",
-        "plural_name": "kiwis"
+        "plural_name": "kiwi"
       },
       "grapefruit": {
         "name": "grapefruit",
@@ -658,7 +658,7 @@
       },
       "beef steak": {
         "name": "marha bélszín",
-        "plural_name": "beef steaks"
+        "plural_name": "marha steak"
       },
       "pork chop": {
         "name": "pork chop",
@@ -823,7 +823,7 @@
       },
       "sausage": {
         "name": "kolbász",
-        "plural_name": "sausages"
+        "plural_name": "kolbász"
       },
       "pepperoni": {
         "name": "pepperoni",
@@ -1045,7 +1045,7 @@
       },
       "egg": {
         "name": "tojás",
-        "plural_name": "eggs"
+        "plural_name": "tojás"
       },
       "milk": {
         "name": "tej",
@@ -2149,7 +2149,7 @@
       },
       "pecan": {
         "name": "pekándió",
-        "plural_name": "pecans"
+        "plural_name": "pekándió"
       },
       "almond": {
         "name": "mandula",
@@ -2181,7 +2181,7 @@
       },
       "pumpkin seed": {
         "name": "tökmag",
-        "plural_name": "pumpkin seeds"
+        "plural_name": "tökmag"
       },
       "hazelnut": {
         "name": "törökmogyoró",

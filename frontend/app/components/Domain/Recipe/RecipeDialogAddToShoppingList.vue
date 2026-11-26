@@ -241,12 +241,14 @@ import { useNewShoppingListForm } from "~/composables/shopping-list-page/use-add
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { RecipeIngredient, ShoppingListAddRecipeParamsBulk, ShoppingListSummary } from "~/lib/api/types/household";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut, RecipeDraft, RecipeSummary } from "~/lib/api/types/recipe";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 
-export interface RecipeWithScale extends Recipe {
+/** Ingredients are fetched on demand when the caller only has a summary. */
+export type RecipeWithScale = RecipeSummary & {
+  recipeIngredient?: RecipeOut["recipeIngredient"];
   scale: number;
-}
+};
 
 export interface ShoppingListIngredient {
   checked: boolean;
@@ -263,7 +265,7 @@ export interface ShoppingListRecipeIngredientSection {
   recipeName: string;
   recipeScale: number;
   ingredientSections: ShoppingListIngredientSection[];
-  parentRecipe?: Recipe;
+  parentRecipe?: Pick<RecipeDraft, "name">;
 }
 
 interface Props {
@@ -360,7 +362,7 @@ function buildIngredientSections(ingredients: ShoppingListIngredient[]): Shoppin
 async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
   const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
 
-  function addSubRecipeToMap(ing: RecipeIngredient, parentQuantity: number, parentScale: number, parentRecipe: Recipe) {
+  function addSubRecipeToMap(ing: RecipeIngredient, parentQuantity: number, parentScale: number, parentRecipe: Pick<RecipeDraft, "name">) {
     const subRecipe = ing.referencedRecipe!;
     const key = subRecipe.id || subRecipe.slug || "";
     const ownIngs: ShoppingListIngredient[] = [];
@@ -403,27 +405,23 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       continue;
     }
 
-    // Create a local copy to avoid mutating props
-    let recipeData = { ...recipe };
-    if (!(recipeData.id && recipeData.name && recipeData.recipeIngredient)) {
-      const { data } = await api.recipes.getOne(recipeData.slug);
-      if (!data?.recipeIngredient?.length) {
+    let recipeData: RecipeOut | RecipeWithScale = recipe;
+    if (!(recipe.id && recipe.name && recipe.recipeIngredient)) {
+      const { data } = await api.recipes.getOne(recipe.slug);
+      if (!data) {
         continue;
       }
-      recipeData = {
-        ...recipeData,
-        id: data.id || "",
-        name: data.name || "",
-        recipeIngredient: data.recipeIngredient,
-      };
+      recipeData = data;
     }
-    else if (!recipeData.recipeIngredient.length) {
+
+    const recipeIngredient = recipeData.recipeIngredient ?? [];
+    if (!recipeIngredient.length) {
       continue;
     }
 
     const ownIngs: ShoppingListIngredient[] = [];
     const subRefIngs: RecipeIngredient[] = [];
-    recipeData.recipeIngredient.forEach((ing) => {
+    recipeIngredient.forEach((ing) => {
       if (ing.referencedRecipe) {
         subRefIngs.push(ing);
       }
@@ -439,11 +437,11 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
     recipeSectionMap.set(recipe.slug, {
       recipeId: recipeData.id,
       recipeName: recipeData.name,
-      recipeScale: recipeData.scale,
+      recipeScale: recipe.scale,
       ingredientSections: buildIngredientSections(ownIngs),
     });
 
-    subRefIngs.forEach(ing => addSubRecipeToMap(ing, ing.quantity || 1, recipeData.scale, recipeData));
+    subRefIngs.forEach(ing => addSubRecipeToMap(ing, ing.quantity || 1, recipe.scale, recipeData));
   }
 
   recipeIngredientSections.value = Array.from(recipeSectionMap.values());

@@ -16,11 +16,10 @@
 <script setup lang="ts">
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import RecipeUnitSystemButton from "~/components/Domain/Recipe/RecipeUnitSystemButton.vue";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { RecipeOut } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 
-const props = defineProps<{ recipe: NoUndefinedField<Recipe> }>();
+const props = defineProps<{ recipe: RecipeOut }>();
 
 const scale = defineModel<number>({ default: 1 });
 

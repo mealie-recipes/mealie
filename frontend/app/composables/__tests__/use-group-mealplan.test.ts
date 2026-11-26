@@ -1,13 +1,14 @@
 import { describe, expect, test, vi } from "vitest";
-import { getScaledRecipes } from "../use-group-mealplan";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import { getScaledRecipes, getWeekRange } from "../use-group-mealplan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
+import { makePlanEntry, makeRecipeSummary } from "~/tests/factories";
 
 vi.mock("~/composables/api", () => ({
   useUserApi: () => ({}),
 }));
 
-function createMeal(id: number, overrides: Partial<ReadPlanEntry> = {}): ReadPlanEntry {
-  return {
+function createMeal(id: number, overrides: Partial<PlanEntryOut> = {}): PlanEntryOut {
+  return makePlanEntry({
     id,
     date: "2026-08-19",
     entryType: "dinner",
@@ -15,13 +16,13 @@ function createMeal(id: number, overrides: Partial<ReadPlanEntry> = {}): ReadPla
     userId: "my-user-id",
     householdId: "my-household-id",
     ...overrides,
-  };
+  });
 }
 
 describe("getScaledRecipes", () => {
   test("gives each recipe the scale of its entry", () => {
-    const pancakes = { id: "pancakes", name: "Pancakes" };
-    const waffles = { id: "waffles", name: "Waffles" };
+    const pancakes = makeRecipeSummary({ id: "pancakes", name: "Pancakes" });
+    const waffles = makeRecipeSummary({ id: "waffles", name: "Waffles" });
 
     expect(getScaledRecipes([
       createMeal(1, { recipe: pancakes, recipeScale: 2 }),
@@ -33,7 +34,7 @@ describe("getScaledRecipes", () => {
   });
 
   test("keeps a recipe that's planned twice as two entries with their own scales", () => {
-    const pancakes = { id: "pancakes", name: "Pancakes" };
+    const pancakes = makeRecipeSummary({ id: "pancakes", name: "Pancakes" });
 
     const recipes = getScaledRecipes([
       createMeal(1, { recipe: pancakes, recipeScale: 2 }),
@@ -44,7 +45,7 @@ describe("getScaledRecipes", () => {
   });
 
   test("treats an entry without a scale as unscaled", () => {
-    const recipes = getScaledRecipes([createMeal(1, { recipe: { id: "pancakes" } })]);
+    const recipes = getScaledRecipes([createMeal(1, { recipe: makeRecipeSummary({ id: "pancakes" }), recipeScale: undefined as unknown as number })]);
     expect(recipes.map(({ scale }) => scale)).toEqual([1]);
   });
 
@@ -53,5 +54,18 @@ describe("getScaledRecipes", () => {
       createMeal(1, { title: "Leftovers" }),
       createMeal(2, { title: "Eat out", recipe: null }),
     ])).toEqual([]);
+  });
+});
+
+describe("getWeekRange", () => {
+  // 2026-08-19 is a Wednesday
+  const wednesday = new Date(2026, 7, 19);
+
+  test.each([
+    [0, new Date(2026, 7, 16), new Date(2026, 7, 22)],
+    [1, new Date(2026, 7, 17), new Date(2026, 7, 23)],
+    [4, new Date(2026, 7, 13), new Date(2026, 7, 19)],
+  ])("starts the week on day %i", (firstDayOfWeek, start, end) => {
+    expect(getWeekRange(wednesday, firstDayOfWeek)).toEqual({ start, end });
   });
 });
