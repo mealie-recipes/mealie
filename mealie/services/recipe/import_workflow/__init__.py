@@ -6,10 +6,11 @@ from .context import (
     WorkflowOptions,
     WorkflowResult,
 )
-from .workflow import DEFAULT_WORKFLOW_STEPS, RecipeImportWorkflow
+from .workflow import DEFAULT_WORKFLOW_STEPS, ENRICHMENT_WORKFLOW_STEPS, RecipeImportWorkflow
 
 __all__ = [
     "DEFAULT_WORKFLOW_STEPS",
+    "ENRICHMENT_WORKFLOW_STEPS",
     "RecipeImportWorkflow",
     "StepOutcome",
     "WorkflowContext",
