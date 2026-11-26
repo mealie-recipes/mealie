@@ -30,7 +30,8 @@ export function useSidebarState() {
     set: (value: boolean) => {
       if (display.lgAndUp.value) {
         preference.value = value;
-      } else {
+      }
+      else {
         // Vuetify updates the temporary drawer during route and breakpoint changes.
         drawerState.value = value;
       }
