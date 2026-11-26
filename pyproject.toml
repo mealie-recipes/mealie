@@ -8,7 +8,7 @@ requires-python = ">=3.14,<3.15"
 dependencies = [
     "Jinja2==3.1.6",
     "Pillow==13.0.0",
-    "PyYAML==6.0.3",
+    "PyYAML==6.0.4",
     "SQLAlchemy==2.1.9",
     "alembic==1.20.1",
     "apprise==2.3.0",
