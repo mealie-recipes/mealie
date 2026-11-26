@@ -1,13 +1,13 @@
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, SaveIngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodCreate, IngredientFoodSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
 def create_food(user: TestUser, api_client: TestClient, substitutions: list[dict] | None = None) -> dict:
-    data = CreateIngredientFood(name=random_string(10)).model_dump(by_alias=True)
+    data = IngredientFoodCreate(name=random_string(10)).model_dump(by_alias=True)
     data["substitutions"] = substitutions or []
 
     response = api_client.post(api_routes.foods, json=data, headers=user.token)
@@ -134,7 +134,7 @@ def test_substitute_food_from_another_group_is_dropped(
     """
 
     foreign_food = g2_user.repos.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(10), group_id=g2_user.group_id)
+        IngredientFoodSave(name=random_string(10), group_id=g2_user.group_id)
     )
 
     food = create_food(
@@ -193,7 +193,7 @@ def test_recipe_substitute_food_from_another_group_is_dropped(
     api_client: TestClient, unique_user: TestUser, g2_user: TestUser
 ):
     foreign_food = g2_user.repos.ingredient_foods.create(
-        SaveIngredientFood(name=random_string(10), group_id=g2_user.group_id)
+        IngredientFoodSave(name=random_string(10), group_id=g2_user.group_id)
     )
 
     recipe = create_recipe_with_substitutions(

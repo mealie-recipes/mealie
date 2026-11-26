@@ -1142,7 +1142,7 @@
       },
       "bread crumb": {
         "name": "bułka tarta",
-        "plural_name": "bread crumbs"
+        "plural_name": "bułka tarta"
       },
       "panko": {
         "name": "bułka tarta panko",
@@ -1150,11 +1150,11 @@
       },
       "flour tortilla": {
         "name": "tortilla pszenna",
-        "plural_name": "flour tortillas"
+        "plural_name": "tortilie pszenne"
       },
       "corn tortilla": {
         "name": "tortilla kukurydziana",
-        "plural_name": "corn tortillas"
+        "plural_name": "tortilie kukurydziane"
       },
       "baguette": {
         "name": "bagietka",
@@ -1162,7 +1162,7 @@
       },
       "pita": {
         "name": "chleb pita",
-        "plural_name": "pitas"
+        "plural_name": "pita"
       },
       "sourdough bread": {
         "name": "chleb na zakwasie",
@@ -1186,7 +1186,7 @@
       },
       "naan": {
         "name": "chleb naan",
-        "plural_name": "naans"
+        "plural_name": "naany"
       },
       "taco shell": {
         "name": "skorupka do taco",
@@ -1231,7 +1231,7 @@
       },
       "canned chickpea": {
         "name": "ciecierzyca z puszki",
-        "plural_name": "canned chickpeas"
+        "plural_name": "ciecieżyca z puszki"
       },
       "black olive": {
         "name": "czarna oliwka",
@@ -1239,7 +1239,7 @@
       },
       "canned black bean": {
         "name": "czarna fasola z puszki",
-        "plural_name": "canned black beans"
+        "plural_name": "czarna fasola z puszki"
       },
       "canned pumpkin": {
         "name": "dynia konserwowa",
@@ -1263,7 +1263,7 @@
       },
       "canned anchovy": {
         "name": "anchois z puszki",
-        "plural_name": "canned anchovies"
+        "plural_name": "anchois z puszki"
       },
       "roasted red pepper": {
         "name": "pieczona czerwona papryka",
@@ -1279,15 +1279,15 @@
       },
       "canned kidney bean": {
         "name": "fasola kidney z puszki",
-        "plural_name": "canned kidney beans"
+        "plural_name": "fasola czerwona z puszki"
       },
       "refried bean": {
         "name": "fasola refried",
-        "plural_name": "refried beans"
+        "plural_name": "smażona pasta z fasoli"
       },
       "canned whole tomato": {
         "name": "całe pomidory w puszce",
-        "plural_name": "canned whole tomatoes"
+        "plural_name": "całe pomidory w puszcze"
       },
       "sweet pickle relish": {
         "name": "słodki relish z ogórków",
@@ -1303,11 +1303,11 @@
       },
       "pickled jalapeño": {
         "name": "jalapeño marynowane",
-        "plural_name": "pickled jalapeños"
+        "plural_name": "marynowane papryczki jalapeño"
       },
       "diced green chile": {
         "name": "zielone chili pokrojone w kostkę",
-        "plural_name": "diced green chiles"
+        "plural_name": "pokrojone w kostkę zielone papryczki chili"
       },
       "sun-dried tomato in oil": {
         "name": "suszony pomidor w oleju",
@@ -1319,7 +1319,7 @@
       },
       "baked bean": {
         "name": "fasola w sosie pomidorowym",
-        "plural_name": "baked beans"
+        "plural_name": "pieczona fasola"
       },
       "canned salmon": {
         "name": "łosoś z puszki",

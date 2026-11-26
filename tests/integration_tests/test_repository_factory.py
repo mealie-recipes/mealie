@@ -13,9 +13,9 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric, RepositoryGeneric
 from mealie.schema._mealie.mealie_model import MealieModel
 from mealie.schema.household.group_shopping_list import ShoppingListCreate
-from mealie.schema.household.webhook import SaveWebhook
-from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
+from mealie.schema.household.webhook import WebhookSave
+from mealie.schema.recipe.recipe import RecipeDraft
+from mealie.schema.recipe.recipe_ingredient import IngredientFoodSave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.household_services.shopping_lists import ShoppingListService
 from tests.utils.factories import random_email, random_string
@@ -121,10 +121,10 @@ def test_group_repositories_filter_by_group(session: Session):
     group_1_repos = get_repositories(session, group_id=group_1.id, household_id=None)
     group_2_repos = get_repositories(session, group_id=group_2.id, household_id=None)
     food_1 = group_1_repos.ingredient_foods.create(
-        SaveIngredientFood(id=uuid4(), group_id=group_1.id, name=random_string())
+        IngredientFoodSave(id=uuid4(), group_id=group_1.id, name=random_string())
     )
     food_2 = group_2_repos.ingredient_foods.create(
-        SaveIngredientFood(id=uuid4(), group_id=group_2.id, name=random_string())
+        IngredientFoodSave(id=uuid4(), group_id=group_2.id, name=random_string())
     )
 
     # unfiltered_repos should find both foods
@@ -154,10 +154,10 @@ def test_household_repositories_filter_by_household(session: Session):
     household_1_repos = get_repositories(session, group_id=group.id, household_id=household_1.id)
     household_2_repos = get_repositories(session, group_id=group.id, household_id=household_2.id)
     webhook_1 = household_1_repos.webhooks.create(
-        SaveWebhook(group_id=group.id, household_id=household_1.id, scheduled_time=time.time())
+        WebhookSave(group_id=group.id, household_id=household_1.id, scheduled_time=time.time())
     )
     webhook_2 = household_2_repos.webhooks.create(
-        SaveWebhook(group_id=group.id, household_id=household_2.id, scheduled_time=time.time())
+        WebhookSave(group_id=group.id, household_id=household_2.id, scheduled_time=time.time())
     )
 
     # unfiltered_repos and group_repos should find both webhooks
@@ -219,14 +219,14 @@ def test_recipe_repo_filter_by_household_with_proxy(session: Session):
     household_1_repos = get_repositories(session, group_id=group.id, household_id=household_1.id)
     household_2_repos = get_repositories(session, group_id=group.id, household_id=household_2.id)
     recipe_1 = household_1_repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user_1.id,
             group_id=group.id,
             name=random_string(),
         )
     )
     recipe_2 = household_2_repos.recipes.create(
-        Recipe(
+        RecipeDraft(
             user_id=user_2.id,
             group_id=group.id,
             name=random_string(),

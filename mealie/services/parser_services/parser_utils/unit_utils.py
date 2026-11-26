@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Literal, overload
 if TYPE_CHECKING:
     from pint import Quantity, Unit, UnitRegistry
 
-    from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
+    from mealie.schema.recipe.recipe_ingredient import IngredientUnitCreate
 
 
 class UnitNotFound(Exception):
@@ -128,7 +128,7 @@ class UnitConverter:
         return float(out.magnitude), out.units
 
 
-def merge_quantity_and_unit[T: CreateIngredientUnit](
+def merge_quantity_and_unit[T: IngredientUnitCreate](
     qty_1: float, unit_1: T, qty_2: float, unit_2: T
 ) -> tuple[float, T]:
     """

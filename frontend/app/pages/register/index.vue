@@ -310,7 +310,7 @@ import { useRouteQuery } from "~/composables/use-router";
 import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import type { CreateUserRegistration } from "~/lib/api/types/user";
+import type { UserRegistrationCreate } from "~/lib/api/types/user";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
@@ -395,7 +395,7 @@ const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
 );
 async function validateGroup() {
   if (!groupName.value || !groupName.value.trim()) {
-    groupErrorMessages.value = [i18n.t("validation.required")];
+    groupErrorMessages.value = [i18n.t("validators.required")];
     return false;
   }
   groupErrorMessages.value = [];
@@ -480,7 +480,7 @@ const confirmationData = computed(() => {
 const api = useUserApi();
 const router = useRouter();
 async function submitRegistration() {
-  const payload: CreateUserRegistration = {
+  const payload: UserRegistrationCreate = {
     email: accountDetails.email.value,
     username: accountDetails.username.value,
     fullName: accountDetails.fullName.value,

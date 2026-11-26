@@ -2,7 +2,7 @@ from collections.abc import Iterator
 from uuid import UUID
 
 from mealie.repos.all_repositories import AllRepositories
-from mealie.schema.recipe import Recipe
+from mealie.schema.recipe import RecipeOut
 
 from ._abc_exporter import ABCExporter, ExportedItem
 
@@ -33,7 +33,7 @@ class RecipeExporter(ABCExporter):
                 model=self.db.recipes.multi_query({"slug": slug, "group_id": self.group_id}, limit=1)[0],
             )
 
-    def _post_export_hook(self, item: Recipe) -> None:
+    def _post_export_hook(self, item: RecipeOut) -> None:  # type: ignore[override]  # items() yields only recipes
         """Copy recipe directory contents into the zip folder"""
         recipe_dir = item.directory
 

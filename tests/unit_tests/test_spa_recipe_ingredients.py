@@ -4,7 +4,7 @@ import pytest
 from bs4 import BeautifulSoup
 
 from mealie.routes import spa
-from mealie.schema.recipe.recipe import Recipe
+from tests.utils.factories import build_recipe
 
 
 @pytest.mark.parametrize(
@@ -50,7 +50,7 @@ from mealie.schema.recipe.recipe import Recipe
 )
 def test_recipe_ingredient_jsonld(ingredient: dict, expected: str, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(spa, "__contents", "<html><head></head><body></body></html>")
-    recipe = Recipe.model_validate({"name": "Test recipe", "recipeIngredient": [ingredient]})
+    recipe = build_recipe(name="Test recipe", recipe_ingredient=[ingredient])
 
     soup = BeautifulSoup(spa.content_with_meta("home", recipe), "html.parser")
     script = soup.find("script", type="application/ld+json")

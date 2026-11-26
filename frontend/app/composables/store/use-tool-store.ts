@@ -1,13 +1,14 @@
 import type { Composer } from "vue-i18n";
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
-import type { RecipeTool } from "~/lib/api/types/recipe";
+import type { ToolOut } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
-interface RecipeToolWithOnHand extends RecipeTool {
+/** A tool with whether the current user's household owns it. */
+export interface RecipeToolWithOnHand extends ToolOut {
   onHand: boolean;
 }
 
-const store: Ref<RecipeTool[]> = ref([]);
+const store: Ref<ToolOut[]> = ref([]);
 const loading = ref(false);
 const initialized = ref(false);
 const publicLoading = ref(false);
@@ -24,8 +25,10 @@ export function resetToolStore() {
 export const useToolData = function () {
   return useData<RecipeToolWithOnHand>({
     id: "",
+    groupId: "",
     name: "",
     slug: "",
+    recipeCount: 0,
     onHand: false,
     householdsWithTool: [],
   });
@@ -33,10 +36,10 @@ export const useToolData = function () {
 
 export const useToolStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<RecipeTool>("tool", store, loading, initialized, api.tools);
+  return useStore<ToolOut>("tool", store, loading, initialized, api.tools);
 };
 
 export const usePublicToolStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<RecipeTool>("tool", store, publicLoading, publicInitialized, api.tools);
+  return useReadOnlyStore<ToolOut>("tool", store, publicLoading, publicInitialized, api.tools);
 };

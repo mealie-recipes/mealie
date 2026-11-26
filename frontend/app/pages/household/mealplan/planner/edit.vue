@@ -9,9 +9,9 @@
     />
     <MealPlanLayout :mealplans="mealplans">
       <template #default="{ plan, index, day }">
-        <MealPlanDay :day="day.date" :recipes="day.recipes" :actions="actions" inline-actions>
+        <MealPlanDay :day="day.date" :end-date="day.endDate" :recipes="day.recipes" :actions="actions" inline-actions>
           <VueDraggable
-            v-model="mealplansByDate[plan.date.toString()]!"
+            v-model="mealplansByDate[planKey(plan)]!"
             tag="div"
             handle=".handle"
             :delay="250"
@@ -19,12 +19,13 @@
             group="meals"
             :data-index="index"
             :data-box="plan.date"
-            style="min-height: 150px"
+            :class="{ 'week-meals': plan.endDate }"
+            :style="{ minHeight: plan.endDate ? '48px' : '150px' }"
             @end="onMoveCallback"
           >
             <SpinTransition>
               <v-card
-                v-for="mealplan in mealplansByDate[plan.date.toString()]"
+                v-for="mealplan in mealplansByDate[planKey(plan)]"
                 :key="mealplan.id"
                 class="my-2 ml-4 mr-1"
                 :class="{ handle: $vuetify.display.smAndUp }"
@@ -130,7 +131,7 @@ import RecipeCardLineItem from "~/components/Domain/Recipe/RecipeCardLineItem.vu
 import { useUserApi } from "~/composables/api";
 import type { MealsByDate, useMealplans } from "~/composables/use-group-mealplan";
 import { getEntryTypeText, usePlanTypeOptions } from "~/composables/use-group-mealplan";
-import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryOut } from "~/lib/api/types/meal-plan";
 
 const props = defineProps<{
   mealplans: MealsByDate[];
@@ -140,37 +141,55 @@ const props = defineProps<{
 const api = useUserApi();
 const planTypeOptions = usePlanTypeOptions();
 
+// a week and the day it starts on share a date, so weeks get their own keys
+function planKey(plan: MealsByDate) {
+  return `${plan.endDate ? "week-" : ""}${plan.date.toString()}`;
+}
+
 // Local mutable meals object
-const mealplansByDate = reactive<{ [date: string]: ReadPlanEntry[] }>({});
+const mealplansByDate = reactive<{ [key: string]: PlanEntryOut[] }>({});
 watch(
   () => props.mealplans,
   (plans) => {
     for (const plan of plans) {
-      mealplansByDate[plan.date.toString()] = plan.meals ? [...plan.meals] : [];
+      mealplansByDate[planKey(plan)] = plan.meals ? [...plan.meals] : [];
     }
     // Remove any dates that no longer exist
-    Object.keys(mealplansByDate).forEach((date) => {
-      if (!plans.find(p => p.date.toString() === date)) {
-        mealplansByDate[date] = [];
+    Object.keys(mealplansByDate).forEach((key) => {
+      if (!plans.find(p => planKey(p) === key)) {
+        mealplansByDate[key] = [];
       }
     });
   },
   { immediate: true, deep: true },
 );
 
-function onMoveCallback(evt: SortableEvent) {
-  // A Meal was moved, set the new date value and make an update request and refresh the meals
+async function onMoveCallback(evt: SortableEvent) {
+  // VueDraggable has already updated the source and destination arrays.
   const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
   const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
-  if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-    const destDate = props.mealplans[toMealsByIndex].date;
-    const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
+  if (Number.isNaN(fromMealsByIndex) || Number.isNaN(toMealsByIndex)) return;
 
-    mealData.date = format(destDate, "yyyy-MM-dd");
+  const fromDay = props.mealplans[fromMealsByIndex];
+  const toDay = props.mealplans[toMealsByIndex];
+  if (!fromDay || !toDay) return;
 
-    props.actions.updateOne(mealData);
-  }
+  const affectedDays = fromMealsByIndex === toMealsByIndex ? [toDay] : [fromDay, toDay];
+  const movedMeal = mealplansByDate[planKey(toDay)][evt.newIndex as number];
+  if (!movedMeal) return;
+
+  // keep the local entry in sync with the destination before saving both lists
+  movedMeal.date = format(toDay.date, "yyyy-MM-dd");
+  movedMeal.endDate = toDay.endDate ? format(toDay.endDate, "yyyy-MM-dd") : null;
+
+  const orderedDays = affectedDays.map(day => ({
+    date: format(day.date, "yyyy-MM-dd"),
+    endDate: day.endDate ? format(day.endDate, "yyyy-MM-dd") : null,
+    entryIds: mealplansByDate[planKey(day)].map(meal => meal.id),
+  }));
+
+  await props.actions.reorder(orderedDays);
 }
 
 // =====================================================
@@ -178,11 +197,11 @@ function onMoveCallback(evt: SortableEvent) {
 
 const dialog = reactive({
   open: false,
-  entry: null as ReadPlanEntry | null,
+  entry: null as PlanEntryOut | null,
   date: null as Date | null,
 });
 
-function editMeal(mealplan: ReadPlanEntry) {
+function editMeal(mealplan: PlanEntryOut) {
   if (!mealplan.entryType) return;
 
   dialog.entry = mealplan;
@@ -190,7 +209,7 @@ function editMeal(mealplan: ReadPlanEntry) {
   dialog.open = true;
 }
 
-async function randomizeMeal(mealplan: ReadPlanEntry) {
+async function randomizeMeal(mealplan: PlanEntryOut) {
   if (!mealplan.entryType) {
     return;
   }
@@ -198,6 +217,7 @@ async function randomizeMeal(mealplan: ReadPlanEntry) {
   // Create the new random entry first, so a failure here doesn't lose the current entry
   const { data: created } = await api.mealplans.setRandom({
     date: mealplan.date,
+    endDate: mealplan.endDate,
     entryType: mealplan.entryType,
   });
 

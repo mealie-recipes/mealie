@@ -9,14 +9,12 @@
         "made-this-for-breakfast": "{name} lavede dette til morgenmad",
         "made-this-for-lunch": "{name} lavede dette til frokost",
         "made-this-for-dinner": "{name} lavede dette til aftensmad",
-        "made-this-for-snack": "{name} lavede dette som  en snack",
+        "made-this-for-snack": "{name} lavede dette som en snack",
         "made-this-for-drink": "{name} lavede dette som en drink",
         "made-this-for-dessert": "{name} lavede dette som dessert",
-        "recipe-image-deleted": "Opskriftsbillede slettet",
+        "recipe-image-deleted": "Opskriftens billede slettet",
         "recipe-defaults": {
-            "ingredient-note": "1 kop mel",
-            "name": "Ny opskrift",
-            "step-text": "Du kan bruge markdown-kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
+            "name": "Ny opskrift"
         },
         "servings-text": {
             "makes": "Udgør",
@@ -27,6 +25,16 @@
             "yields": "Mængde"
         },
         "and-amount": "og {amount}",
+        "pdf": {
+            "cookbook": "Kogebog",
+            "contents": "Indhold",
+            "ingredients": "Ingredienser",
+            "instructions": "Instruktioner",
+            "notes": "Noter",
+            "prep-time": "Forberedelse",
+            "cook-time": "Tilberedning",
+            "total-time": "I alt"
+        },
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke slået til",
             "ai-request-failed": "AI-udbyderen var ikke i stand til at færdiggøre forespørgslen. Prøv igen",
@@ -45,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Opretter opskrift fra data på hjemmeside...",
             "downloading-image": "Downloader billede...",
             "downloading-video": "Downloader video...",
+            "enriching-instructions": "Tilføjer detaljer om skridt...",
             "extracting-recipe-data": "Udtrækker opskriftsdata...",
             "fetching-webpage": "Henter hjemmeside...",
             "organizing-recipe": "Organiserer opskrift...",
@@ -124,7 +133,10 @@
         "test-message-body": "Dette er en testnotifikation fra Mealie",
         "mealplan-entry-created": "Oprettede madplanspunkt til {date} for {entry_type}",
         "mealplan-entry-updated": "Opdaterede madplanspunkt til {date} for {entry_type}",
-        "mealplan-entry-deleted": "Slettede madplanspunkt til {date} for {entry_type}"
+        "mealplan-entry-deleted": "Slettede madplanspunkt til {date} for {entry_type}",
+        "mealplan-range-entry-created": "Madplanspunkt oprettet fra {date} til {end_date} for {entry_type}",
+        "mealplan-range-entry-updated": "Madplanspunkt opdateret fra {date} til {end_date} for {entry_type}",
+        "mealplan-range-entry-deleted": "Madplanspunkt slettet fra {date} til {end_date} for {entry_type}"
     },
     "datetime": {
         "year": "år|år",
