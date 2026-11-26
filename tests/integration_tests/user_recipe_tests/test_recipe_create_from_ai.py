@@ -696,10 +696,8 @@ def test_create_from_document_empty_text_returns_400(
     with document_file(test_data.document_empty_txt, "empty.txt", "text/plain") as files:
         r = post_ai(api_client, unique_user, files=files)
     assert r.status_code == 400
-    assert r.json()["detail"]["message"] == translator.t(
-        "recipe.import-errors.document-read-failed",
-        filename="empty.txt",
-        reason=translator.t("recipe.import-errors.document-no-text"),
+    assert r.json()["detail"]["message"] == (
+        "Couldn't read empty.txt. It may be empty, damaged or password protected, or contain no text."
     )
 
 
@@ -714,10 +712,8 @@ def test_create_from_document_unsupported_extension_returns_400(
     with document_file(test_data.document_recipe_txt, "recipe.doc", "application/msword") as files:
         r = post_ai(api_client, unique_user, files=files)
     assert r.status_code == 400
-    assert r.json()["detail"]["message"] == translator.t(
-        "recipe.import-errors.document-read-failed",
-        filename="recipe.doc",
-        reason=translator.t("recipe.import-errors.document-unsupported-type", extension=".doc"),
+    assert r.json()["detail"]["message"] == (
+        "Couldn't read recipe.doc. It may be empty, damaged or password protected, or contain no text."
     )
 
 
@@ -733,10 +729,8 @@ def test_create_from_document_unreadable_file_returns_400(
     with document_file(test_data.document_recipe_txt, "broken.pdf", "application/pdf") as files:
         r = post_ai(api_client, unique_user, files=files)
     assert r.status_code == 400
-    assert r.json()["detail"]["message"] == translator.t(
-        "recipe.import-errors.document-read-failed",
-        filename="broken.pdf",
-        reason=translator.t("recipe.import-errors.document-unreadable"),
+    assert r.json()["detail"]["message"] == (
+        "Couldn't read broken.pdf. It may be empty, damaged or password protected, or contain no text."
     )
 
 
@@ -754,10 +748,8 @@ def test_create_stream_from_unsupported_document_emits_translated_error(
 
     error = parse_sse_events(r.text)[-1]
     assert error["event"] == "error"
-    assert error["data"]["message"] == translator.t(
-        "recipe.import-errors.document-read-failed",
-        filename="recipe.doc",
-        reason=translator.t("recipe.import-errors.document-unsupported-type", extension=".doc"),
+    assert error["data"]["message"] == (
+        "Couldn't read recipe.doc. It may be empty, damaged or password protected, or contain no text."
     )
 
 

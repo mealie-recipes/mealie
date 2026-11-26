@@ -10,9 +10,11 @@ from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraper import finalize_scraped_recipe
 
+from . import document_text_extraction
 from .document_text_extraction import (
     DocumentExtractionError,
     EmptyPdfTextError,
+    TooManyPdfImagesError,
     extract_images_from_pdf,
     extract_text_from_document,
 )
@@ -129,12 +131,18 @@ class AIRecipeService(RecipeService):
         result = await RecipeImportWorkflow().run(ctx)
         return await finalize_scraped_recipe(result.recipe, self.translator, on_progress=on_progress)
 
-    def _document_read_error(self, filename: str, reason: str) -> DocumentReadError:
-        return DocumentReadError(self.t("recipe.import-errors.document-read-failed", filename=filename, reason=reason))
+    def _document_read_error(self, filename: str, error: DocumentExtractionError | None = None) -> DocumentReadError:
+        if isinstance(error, TooManyPdfImagesError):
+            # read the cap at call time, so the message always matches the limit that was applied
+            message = self.t(
+                "recipe.import-errors.document-too-many-images",
+                filename=filename,
+                max_images=document_text_extraction.MAX_PDF_IMAGES,
+            )
+        else:
+            message = self.t("recipe.import-errors.document-unreadable", filename=filename)
 
-    def _document_extraction_error(self, filename: str, error: DocumentExtractionError) -> DocumentReadError:
-        reason = self.t(error.key, **error.params)
-        return self._document_read_error(filename, reason)
+        return DocumentReadError(message)
 
     async def _extract_one_document(self, document: UploadFile) -> tuple[str | None, list[tuple[str, bytes]]]:
         """
@@ -149,15 +157,15 @@ class AIRecipeService(RecipeService):
         except EmptyPdfTextError:
             pass
         except DocumentExtractionError as e:
-            raise self._document_extraction_error(filename, e) from e
+            raise self._document_read_error(filename, e) from e
 
         try:
             document_images = await asyncio.to_thread(extract_images_from_pdf, file_bytes)
         except DocumentExtractionError as e:
-            raise self._document_extraction_error(filename, e) from e
+            raise self._document_read_error(filename, e) from e
 
         if not document_images:
-            raise self._document_read_error(filename, self.t("recipe.import-errors.document-no-text-or-images"))
+            raise self._document_read_error(filename)
 
         return None, document_images
 
