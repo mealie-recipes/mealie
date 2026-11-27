@@ -614,3 +614,79 @@ async def test_connection_skips_transcription_for_non_audio_provider(settings_st
 
     assert result.success is True
     assert transcriptions.calls == []
+
+
+@pytest.fixture()
+def api_key_files_dir(tmp_path, monkeypatch):
+    keys_dir = tmp_path / "ai-providers"
+    keys_dir.mkdir()
+    monkeypatch.setattr(OpenAIService, "API_KEY_FILES_DIR", keys_dir)
+    return keys_dir
+
+
+def test_resolve_api_key_returns_plain_key_unchanged(settings_stub, api_key_files_dir):
+    assert OpenAIService(_make_mock_repos()).resolve_api_key("sk-test") == "sk-test"
+
+
+def test_resolve_api_key_reads_file_and_strips_whitespace(settings_stub, api_key_files_dir):
+    (api_key_files_dir / "gateway").write_text("sk-from-file\n")
+
+    assert OpenAIService(_make_mock_repos()).resolve_api_key("file:gateway") == "sk-from-file"
+
+
+def test_resolve_api_key_rereads_rotated_file(settings_stub, api_key_files_dir):
+    key_file = api_key_files_dir / "gateway"
+    svc = OpenAIService(_make_mock_repos())
+
+    key_file.write_text("first")
+    assert svc.resolve_api_key("file:gateway") == "first"
+
+    key_file.write_text("second")
+    assert svc.resolve_api_key("file:gateway") == "second"
+
+
+def test_resolve_api_key_follows_kubernetes_volume_symlinks(settings_stub, api_key_files_dir):
+    # Kubernetes mounts <dir>/token -> ..data/token, ..data -> ..<timestamp>/
+    version_dir = api_key_files_dir / "..2026_01_01_00_00_00.000000000"
+    version_dir.mkdir()
+    (version_dir / "token").write_text("projected-token")
+    (api_key_files_dir / "..data").symlink_to(version_dir.name)
+    (api_key_files_dir / "token").symlink_to("..data/token")
+
+    assert OpenAIService(_make_mock_repos()).resolve_api_key("file:token") == "projected-token"
+
+
+@pytest.mark.parametrize("name", ["", "../secret", "nested/key", ".hidden", "..data"])
+def test_resolve_api_key_rejects_invalid_names(settings_stub, api_key_files_dir, name):
+    with pytest.raises(ValueError, match="Invalid API key file name"):
+        OpenAIService(_make_mock_repos()).resolve_api_key(f"file:{name}")
+
+
+def test_resolve_api_key_rejects_symlink_out_of_dir(settings_stub, api_key_files_dir, tmp_path):
+    outside = tmp_path / "postgres-password"
+    outside.write_text("db-password")
+    (api_key_files_dir / "escape").symlink_to(outside)
+
+    with pytest.raises(ValueError, match="not found"):
+        OpenAIService(_make_mock_repos()).resolve_api_key("file:escape")
+
+
+def test_resolve_api_key_missing_file(settings_stub, api_key_files_dir):
+    with pytest.raises(ValueError, match="not found"):
+        OpenAIService(_make_mock_repos()).resolve_api_key("file:missing")
+
+
+def test_resolve_api_key_empty_file(settings_stub, api_key_files_dir):
+    (api_key_files_dir / "gateway").write_text("\n")
+
+    with pytest.raises(ValueError, match="is empty"):
+        OpenAIService(_make_mock_repos()).resolve_api_key("file:gateway")
+
+
+def test_get_client_uses_key_from_file(settings_stub, api_key_files_dir):
+    (api_key_files_dir / "gateway").write_text("sk-from-file")
+    provider = _make_test_provider().model_copy(update={"api_key": "file:gateway"})
+
+    client = OpenAIService(_make_mock_repos()).get_client(provider)
+
+    assert client.api_key == "sk-from-file"

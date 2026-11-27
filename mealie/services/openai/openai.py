@@ -50,6 +50,9 @@ Prompts in this category faithfully transcribe the user's source rather than pro
 so group-wide instructions (e.g. "use metric units") aren't applied to them
 """
 
+API_KEY_FILE_PREFIX = "file:"
+"""An API key of `file:<name>` is read from `OpenAIService.API_KEY_FILES_DIR` on every request"""
+
 
 class OpenAINotEnabledException(Exception):
     def __init__(self, message: str = "OpenAI not enabled"):
@@ -141,6 +144,11 @@ class OpenAILocalAudio(OpenAIAttachment):
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
     TESTING_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "testing"
+    API_KEY_FILES_DIR = Path("/run/secrets/ai-providers")
+    """
+    Kept separate from /run/secrets so a group manager can't point a provider at the server's
+    own secrets (e.g. the database password) and send them to a base_url of their choosing
+    """
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
@@ -166,12 +174,39 @@ class OpenAIService(BaseService):
 
         super().__init__()
 
+    def resolve_api_key(self, api_key: str) -> str:
+        """
+        Return the API key to send, reading `file:<name>` keys from `API_KEY_FILES_DIR`.
+
+        The file is read on every call so a key that is rotated on disk, such as a Kubernetes
+        projected service account token, is picked up without a restart.
+        """
+        if not api_key.startswith(API_KEY_FILE_PREFIX):
+            return api_key
+
+        name = api_key.removeprefix(API_KEY_FILE_PREFIX)
+        if not name or "/" in name or name.startswith("."):
+            raise ValueError(f"Invalid API key file name '{name}'")
+
+        # Resolve symlinks before the containment check: Kubernetes secret and projected volumes
+        # link each file through a hidden timestamped directory inside the mount.
+        keys_dir = self.API_KEY_FILES_DIR.resolve()
+        key_file = (keys_dir / name).resolve()
+        if not key_file.is_relative_to(keys_dir) or not key_file.is_file():
+            raise ValueError(f"API key file '{name}' not found in {self.API_KEY_FILES_DIR}")
+
+        key = key_file.read_text().strip()
+        if not key:
+            raise ValueError(f"API key file '{name}' is empty")
+
+        return key
+
     def get_client(self, provider: AIProviderOut) -> AsyncOpenAI:
         from openai import AsyncOpenAI
 
         return AsyncOpenAI(
             base_url=provider.base_url or None,
-            api_key=provider.api_key,
+            api_key=self.resolve_api_key(provider.api_key),
             timeout=provider.timeout,
             default_headers=provider.request_headers or None,
             default_query=provider.request_params or None,
