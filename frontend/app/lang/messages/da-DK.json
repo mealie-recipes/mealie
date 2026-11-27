@@ -839,7 +839,7 @@
     "secure-site-success-text": "Webstedet tilgås via localhost eller https",
     "server-side-base-url": "Serverens URL",
     "server-side-base-url-error-text": "`BASE_URL` er anvendt som standardværdien på API Server. Dette kan medføre problemer med meddelelser, der indeholder links til serveren, f. eks. i e-mails, osv.",
-    "server-side-base-url-success-text": "`BASE_URL` blevet er ændret fra standardværdien på API-serveren.",
+    "server-side-base-url-success-text": "`BASE_URL` er blevet er ændret fra standardværdien på API-serveren.",
     "auth-provider-ready": "{provider} klar",
     "auth-provider-not-ready": "{provider} ikke klar",
     "auth-provider-disabled": "{provider} deaktiveret",
