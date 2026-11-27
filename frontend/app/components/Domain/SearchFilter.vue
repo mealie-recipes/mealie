@@ -5,6 +5,7 @@
       location="bottom"
       scroll-strategy="reposition"
       :close-on-content-click="false"
+      scroll-strategy="reposition"
     >
       <template #activator="{ props: menuProps }">
         <v-badge
