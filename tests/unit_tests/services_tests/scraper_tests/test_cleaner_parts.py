@@ -1112,8 +1112,23 @@ clean_notes_test_cases = (
         expected=[],
     ),
     CleanerCase(
-        test_id="non-list returns None",
-        input="not a list",
+        test_id="bare string becomes one note",
+        input="A plain text note",
+        expected=[{"title": "", "text": "A plain text note"}],
+    ),
+    CleanerCase(
+        test_id="single dict becomes one note",
+        input={"title": "Storage Tip", "text": "Keep refrigerated up to 3 days"},
+        expected=[{"title": "Storage Tip", "text": "Keep refrigerated up to 3 days"}],
+    ),
+    CleanerCase(
+        test_id="single dict missing title gets empty title",
+        input={"text": "A note without a title"},
+        expected=[{"title": "", "text": "A note without a title"}],
+    ),
+    CleanerCase(
+        test_id="non-list non-string non-dict returns None",
+        input=42,
         expected=None,
     ),
     CleanerCase(
