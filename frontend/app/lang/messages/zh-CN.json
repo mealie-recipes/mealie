@@ -839,7 +839,7 @@
     "secure-site-success-text": "本站点经由本机或https协议访问",
     "server-side-base-url": "服务器端根URL",
     "server-side-base-url-error-text": "环境变量“BASE_URL“仍是API服务器上的默认值。这可能造成服务器自动发送的邮件所包含的通知链接不可用等问题。",
-    "server-side-base-url-success-text": "已配置服务器端URL",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} 已就绪",
     "auth-provider-not-ready": "{provider} 尚未就绪",
     "auth-provider-disabled": "{provider} 已禁用",

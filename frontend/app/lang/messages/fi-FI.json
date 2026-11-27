@@ -839,7 +839,7 @@
     "secure-site-success-text": "Sivustolle pääsee localhost tai https",
     "server-side-base-url": "Palvelimen pohja-URL",
     "server-side-base-url-error-text": "`BASE_URL` on API-palvelimen oletusarvo. Tämä aiheuttaa ongelmia ilmoitusten linkkien kanssa, jotka on luotu palvelimella sähköposteja varten jne.",
-    "server-side-base-url-success-text": "Palvelimen nettiosoite ei vastaa oletusta",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",

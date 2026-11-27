@@ -839,7 +839,7 @@
     "secure-site-success-text": "Web je přístupný přes localhost nebo https",
     "server-side-base-url": "Výchozí URL adresa serveru",
     "server-side-base-url-error-text": "`BASE_URL` je stále výchozí hodnotou na serveru API. To způsobí problémy s odkazy v oznámení generované na serveru pro e-maily atd.",
-    "server-side-base-url-success-text": "Adresa URL na straně serveru neodpovídá výchozímu nastavení",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} připraven",
     "auth-provider-not-ready": "{provider} není připraven",
     "auth-provider-disabled": "{provider} zakázán",

@@ -82,6 +82,10 @@ Mealie also has the concept of cookbooks. These can be created inside of a group
 
 Mealie uses a calendar like view to help you plan your meals. It shows you the previous day and the next 6 days by default. You can toggle through the calendar by clicking the arrows on the top of the page. In editor mode, you can use the random recipe buttons or manually add an entry.
 
+In edit mode, drag entries to reorder them within a day or move them to another day. Your order is saved and also shown in the planner's view mode. Newly added entries are placed after the last entry of the same meal type, without rearranging existing entries.
+
+Integrations can also [reorder meal plan entries through the API](api-usage.md#meal-plan-ordering).
+
 !!! tip
     You can also add a "Note" type entry to your meal plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 

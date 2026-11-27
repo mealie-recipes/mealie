@@ -9,10 +9,10 @@
         "made-this-for-breakfast": "{name} lavede dette til morgenmad",
         "made-this-for-lunch": "{name} lavede dette til frokost",
         "made-this-for-dinner": "{name} lavede dette til aftensmad",
-        "made-this-for-snack": "{name} lavede dette som  en snack",
+        "made-this-for-snack": "{name} lavede dette som en snack",
         "made-this-for-drink": "{name} lavede dette som en drink",
         "made-this-for-dessert": "{name} lavede dette som dessert",
-        "recipe-image-deleted": "Opskriftsbillede slettet",
+        "recipe-image-deleted": "Opskriftens billede slettet",
         "recipe-defaults": {
             "name": "Ny opskrift"
         },

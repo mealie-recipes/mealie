@@ -5,13 +5,13 @@
     "recipe": {
         "unique-name-error": "レシピ名が重複しています",
         "recipe-created": "レシピが作成されました",
-        "made-this-as-side": "{name} made this as a side",
-        "made-this-for-breakfast": "{name} made this for breakfast",
-        "made-this-for-lunch": "{name} made this for lunch",
-        "made-this-for-dinner": "{name} made this for dinner",
-        "made-this-for-snack": "{name} made this for a snack",
-        "made-this-for-drink": "{name} made this for a drink",
-        "made-this-for-dessert": "{name} made this for dessert",
+        "made-this-as-side": "{name} さんが副菜につくりました",
+        "made-this-for-breakfast": "{name} さんが朝食につくりました",
+        "made-this-for-lunch": "{name} さんがランチにつくりました",
+        "made-this-for-dinner": "{name} さんが夕食につくりました",
+        "made-this-for-snack": "{name} さんがおやつにつくりました",
+        "made-this-for-drink": "{name} さんがドリンクとしてつくりました",
+        "made-this-for-dessert": "{name} さんがデザートにつくりました",
         "recipe-image-deleted": "レシピ画像を削除しました",
         "recipe-defaults": {
             "name": "New Recipe"
@@ -26,20 +26,20 @@
         },
         "and-amount": "and {amount}",
         "pdf": {
-            "cookbook": "Cookbook",
-            "contents": "Contents",
-            "ingredients": "Ingredients",
-            "instructions": "Instructions",
-            "notes": "Notes",
-            "prep-time": "Prep",
-            "cook-time": "Cook",
-            "total-time": "Total"
+            "cookbook": "レシピ集",
+            "contents": "目次",
+            "ingredients": "材料",
+            "instructions": "作り方",
+            "notes": "メモ",
+            "prep-time": "下準備にかかる時間",
+            "cook-time": "調理時間",
+            "total-time": "合計時間"
         },
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
-            "invalid-mealie-export": "This looks like a recipe exported from Mealie, but it could not be imported",
+            "invalid-mealie-export": "Mealieからエクスポートされたレシピのようですが、インポートできませんでした。",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
@@ -53,7 +53,7 @@
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Downloading image...",
             "downloading-video": "Downloading video...",
-            "enriching-instructions": "Adding step details...",
+            "enriching-instructions": "手順の詳細を追加しています…",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
             "organizing-recipe": "Organizing recipe...",
@@ -85,7 +85,7 @@
         "report-deleted": "レポートを削除しました。"
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
+        "permission-denied": "この操作を実行する権限がありません\n",
         "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "リクエストされた情報は見つかりませんでした",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -134,9 +134,9 @@
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
         "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "{date}から{end_date}までの{entry_type}の献立を登録しました。",
+        "mealplan-range-entry-updated": "{date}から{end_date}までの{entry_type}の献立を更新しました。",
+        "mealplan-range-entry-deleted": "{date}から{end_date}までの{entry_type}の献立を削除しました。"
     },
     "datetime": {
         "year": "年",
