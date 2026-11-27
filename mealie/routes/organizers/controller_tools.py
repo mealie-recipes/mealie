@@ -6,7 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
-from mealie.routes._base.permissions import Perm, require
+from mealie.routes._base.permissions import Perm, forbidden, require
 from mealie.schema import mapper
 from mealie.schema.recipe.recipe_organizers import OrganizerMerge, ToolCreate, ToolOut, ToolPagination, ToolSave
 from mealie.schema.recipe.recipe_tool import ToolWithRecipes
@@ -63,8 +63,16 @@ class RecipeToolController(BaseUserController):
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=ToolOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
+    @router.put("/{item_id}", response_model=ToolOut)
     def update_one(self, item_id: UUID4, data: ToolCreate):
+        if not self.user.can_organize:
+            # `households_with_tool` is household data, not group organization.
+            # A user without the organize permission may change it, but may not
+            # rename the tool.
+            existing = self.mixins.get_one(item_id)
+            if data.name != existing.name:
+                raise forbidden(self.translator.t("exceptions.permission-denied"))
+
         data = mapper.cast(data, ToolSave, group_id=self.group_id)
         return self.mixins.update_one(data, item_id)
 
