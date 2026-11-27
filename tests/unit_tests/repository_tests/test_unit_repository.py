@@ -5,6 +5,7 @@ import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import AllRepositories, get_repositories
+from mealie.repos.seed.seeders import IngredientUnitsSeeder
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
 from mealie.schema.recipe.recipe import RecipeDraft, RecipeOut
 from mealie.schema.recipe.recipe_ingredient import IngredientUnitAliasCreate, IngredientUnitSave, RecipeIngredient
@@ -224,3 +225,24 @@ def test_unit_listing_query_count_does_not_grow_with_units(unique_user: TestUser
     few = statements_to_list_all()
     add_units(12)
     assert statements_to_list_all() == few
+
+
+def test_qualitative_units_seeding(unique_db: AllRepositories):
+    seeder = IngredientUnitsSeeder(unique_db)
+    seeder.seed("en-US")
+
+    expected_units = [
+        ("slice", "slices", ""),
+        ("stalk", "stalks", ""),
+        ("sheet", "sheets", ""),
+        ("drop", "drops", "dr"),
+    ]
+
+    for name, plural_name, abbreviation in expected_units:
+        unit = unique_db.ingredient_units.get_one(name, "name")
+        assert unit is not None
+        assert unit.name == name
+        assert unit.plural_name == plural_name
+        assert unit.abbreviation == abbreviation
+        assert unit.standard_unit is None
+        assert unit.standard_quantity is None
