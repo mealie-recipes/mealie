@@ -191,7 +191,7 @@ class MealPlanICalService(BaseService):
         for entry in entries:
             lines.extend(self._event_lines(entry, query, tz, group_slug, now))
         lines.append("END:VCALENDAR")
-        return "".join(_fold(line) + "\r\n" for line in lines)
+        return "\r\n".join(_fold(line) for line in lines)
 
     def _merge_fields(self, entry: PlanEntryOut, url: str | None) -> dict[str, str]:
         # when adding or removing fields, also update the "Calendar Feed" list in docs/.../getting-started/features.md
