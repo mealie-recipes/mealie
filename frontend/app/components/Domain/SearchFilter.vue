@@ -55,6 +55,7 @@
               </v-btn>
             </v-btn-toggle>
             <v-spacer />
+            <slot name="actions" />
             <v-btn
               size="small"
               color="accent"

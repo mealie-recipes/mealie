@@ -30,6 +30,7 @@ function getParams(
     search: query?.search,
     cookbook: query?.cookbook,
     households: query?.households,
+    users: query?.users,
     categories: query?.categories,
     requireAllCategories: query?.requireAllCategories,
     tags: query?.tags,
