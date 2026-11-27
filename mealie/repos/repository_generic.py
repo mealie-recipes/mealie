@@ -206,13 +206,17 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                 new_documents.append(new_document)
 
             self.session.add_all(new_documents)
+            self.session.flush()
+            ids = [document.id for document in new_documents]
             self.session.commit()
         except Exception:
             self.session.rollback()
             raise
 
-        for created_document in new_documents:
-            self.session.refresh(created_document)
+        # Load all new rows in one query, with the loader options of the schema.
+        if ids:
+            reload = self._query().where(self.model.id.in_(ids)).execution_options(populate_existing=True)
+            self.session.execute(reload).unique().scalars().all()
 
         return [self.schema.model_validate(x) for x in new_documents]
 
