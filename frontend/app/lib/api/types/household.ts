@@ -352,9 +352,11 @@ export interface IngredientFoodOut {
     [k: string]: unknown;
   } | null;
   labelId: string | null;
+  parentId: string | null;
   aliases: IngredientFoodAlias[];
   substitutions: IngredientFoodSubstitution[];
   householdsWithIngredientFood: string[];
+  parent: IngredientFoodSummary | null;
   label: MultiPurposeLabelSummary | null;
   recipeCount: number;
   createdAt: string | null;
@@ -388,6 +390,7 @@ export interface IngredientFoodCreate {
     [k: string]: unknown;
   } | null;
   labelId?: string | null;
+  parentId?: string | null;
   aliases?: IngredientFoodAliasCreate[];
   substitutions?: IngredientFoodSubstitutionCreate[];
   householdsWithIngredientFood?: string[];

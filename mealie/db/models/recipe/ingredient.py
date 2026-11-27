@@ -219,6 +219,22 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         "Household", secondary=households_to_ingredient_foods, back_populates="ingredient_foods_on_hand"
     )
 
+    parent_id: FilterableColumn[GUID | None] = mapped_column(
+        GUID, ForeignKey("ingredient_foods.id", ondelete="SET NULL"), index=True, nullable=True
+    )
+    parent: Mapped[IngredientFoodModel | None] = orm.relationship(
+        "IngredientFoodModel",
+        remote_side="IngredientFoodModel.id",
+        back_populates="children",
+        foreign_keys=[parent_id],
+    )
+    children: Mapped[list[IngredientFoodModel]] = orm.relationship(
+        "IngredientFoodModel",
+        back_populates="parent",
+        foreign_keys=[parent_id],
+        passive_deletes=True,
+    )
+
     name: FilterableColumn[str | None] = mapped_column(String)
     plural_name: FilterableColumn[str | None] = mapped_column(String)
     description: FilterableColumn[str | None] = mapped_column(String)
@@ -268,6 +284,8 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
             "households_with_ingredient_food",
             # substitutions are resolved explicitly, since auto_init creates rows it can't find
             "substitutions",
+            "parent",
+            "children",
         }
     )
 
@@ -319,9 +337,12 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         plural_name: str | None = None,
         households_with_ingredient_food: list[str] | None = None,
         substitutions: list[dict] | None = None,
+        parent_id: GUID | None = None,
         **_,
     ) -> None:
         from ..household import Household
+
+        self.parent_id = parent_id
 
         if name is not None:
             self.name_normalized = self.normalize(name)
