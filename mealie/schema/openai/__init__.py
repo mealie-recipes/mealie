@@ -14,8 +14,9 @@ from .recipe import (
 from .recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 
 __all__ = [
-    "OpenAIOrganizers",
     "OpenAICompiledSource",
+    "OpenAIText",
+    "OpenAIOrganizers",
     "OpenAIIngredient",
     "OpenAIIngredients",
     "OpenAIInstructionEnrichment",
@@ -25,5 +26,6 @@ __all__ = [
     "OpenAIRecipeInstruction",
     "OpenAIRecipeNotes",
     "OpenAIRecipeNutrition",
-    "OpenAIText",
+    "OpenAIIngredient",
+    "OpenAIIngredients",
 ]
