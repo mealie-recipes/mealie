@@ -3,7 +3,7 @@
     v-if="model.length > 0 || edit"
     class="mt-8"
   >
-    <h2 class="my-4 text-h5 font-weight-medium opacity-80">
+    <h2 class="my-4 text-headline-small font-weight-medium opacity-80">
       {{ $t("recipe.note") }}
     </h2>
     <div
@@ -38,7 +38,7 @@
         </v-card-text>
       </v-card>
       <div v-else>
-        <v-card-title class="text-subtitle-1 font-weight-medium py-1">
+        <v-card-title class="text-body-large font-weight-medium py-1">
           {{ note.title }}
         </v-card-title>
         <v-card-text>

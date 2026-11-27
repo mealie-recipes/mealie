@@ -57,7 +57,7 @@
             <template #label>
               <div>
                 <div>{{ $t("meal-plan.plan-for-the-whole-week") }}</div>
-                <div v-if="isWeekEntry" class="text-caption text-medium-emphasis">
+                <div v-if="isWeekEntry" class="text-body-small text-medium-emphasis">
                   {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
                 </div>
               </div>

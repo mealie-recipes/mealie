@@ -13,7 +13,7 @@
         class="d-flex justify-center"
         dark
       >
-        <v-toolbar-title class="headline text-h4 text-center mx-0">
+        <v-toolbar-title class="headline text-headline-large text-center mx-0">
           Mealie
         </v-toolbar-title>
       </v-toolbar>
@@ -84,7 +84,7 @@
               <v-card-title class="text-headline-medium my-5 justify-center text-center text-break text-pre-wrap">
                 {{ $t('admin.setup.welcome-to-mealie-get-started') }}
               </v-card-title>
-              <p class="text-body-1 text-center">
+              <p class="text-body-large text-center">
                 {{ $t('admin.setup.previous-mealie-instance') }}
               </p>
               <v-btn
@@ -92,7 +92,7 @@
                 rounded
                 variant="outlined"
                 color="primary"
-                class="text-subtitle-2 d-flex mx-auto my-3"
+                class="text-title-small d-flex mx-auto my-3"
                 style="width: fit-content;"
               >
                 {{ $t('settings.backup.restore-backup') }}
@@ -102,7 +102,7 @@
                 rounded
                 variant="outlined"
                 color="grey-lighten-1"
-                class="text-subtitle-2 d-flex mx-auto"
+                class="text-title-small d-flex mx-auto"
                 style="width: fit-content;"
               >
                 {{ $t('admin.setup.already-set-up-bring-to-homepage') }}

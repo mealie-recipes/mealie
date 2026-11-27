@@ -39,7 +39,7 @@
           class="mb-4"
         />
 
-        <p class="text-caption mb-2">
+        <p class="text-body-small mb-2">
           {{ $t("meal-plan.calendar-feed-times-hint") }}
         </p>
         <v-row dense>
@@ -70,12 +70,12 @@
         />
 
         <v-divider class="my-6" />
-        <p class="text-subtitle-1 font-weight-bold">
+        <p class="text-body-large font-weight-bold">
           {{ $t("meal-plan.calendar-feed-event-details") }}
         </p>
 
         <div class="my-1">
-          <p class="text-caption">
+          <p class="text-body-small">
             {{ $t("meal-plan.calendar-feed-event-details-description") }}
           </p>
           <p class="pt-2">
@@ -113,7 +113,7 @@
         </v-text-field>
         <p
           v-if="canManage"
-          class="text-caption"
+          class="text-body-small"
         >
           {{ $t("meal-plan.calendar-feed-reset-hint") }}
         </p>

@@ -54,7 +54,7 @@
             {{ name }}
           </li>
         </ul>
-        <div v-if="unusedLabelNamesRemaining > 0" class="text-body-2 pl-2">
+        <div v-if="unusedLabelNamesRemaining > 0" class="text-body-medium pl-2">
           {{ $t('data-pages.delete-unused-more', { count: unusedLabelNamesRemaining }) }}
         </div>
       </v-card-text>

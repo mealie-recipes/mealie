@@ -12,7 +12,7 @@
       >
         <v-card-text style="max-width: 100%;">
           <div class="d-flex flex-column align-center">
-            <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
+            <v-card-title class="text-headline-small font-weight-regular pa-0 text-wrap text-center opacity-80">
               {{ recipe.name }}
             </v-card-title>
             <RecipeRating

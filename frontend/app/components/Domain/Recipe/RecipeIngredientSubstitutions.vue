@@ -19,13 +19,13 @@
       </v-btn>
     </template>
     <v-card class="ingredient-substitutions">
-      <v-card-text class="py-2 px-3 text-body-2">
+      <v-card-text class="py-2 px-3 text-body-medium">
         <div
           v-for="section, sectionIndex in sections"
           :key="section.key"
           :class="[section.dimmed ? 'food-substitutions' : '', sectionIndex ? 'mt-5' : '']"
         >
-          <div class="text-caption font-weight-medium substitution-header">
+          <div class="text-body-small font-weight-medium substitution-header">
             {{ section.title }}
           </div>
           <div

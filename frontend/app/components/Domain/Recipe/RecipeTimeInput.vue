@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="label"
-      class="text-caption opacity-80"
+      class="text-body-small opacity-80"
     >
       {{ label }}
     </div>

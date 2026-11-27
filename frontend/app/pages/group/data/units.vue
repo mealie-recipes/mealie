@@ -87,7 +87,7 @@
         <v-alert
           v-if="unitStore && unitStore.length > 0"
           type="error"
-          class="mb-0 text-body-2"
+          class="mb-0 text-body-medium"
         >
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>

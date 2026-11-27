@@ -97,7 +97,7 @@
       >
         <v-expansion-panel-title
           disable-icon-rotate
-          class="text-h6"
+          class="text-title-large"
         >
           <div class="d-flex align-center">
             {{ notifier.name }}
