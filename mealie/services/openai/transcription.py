@@ -11,6 +11,10 @@ from mealie.core.root_logger import get_logger
 from .openai import OpenAIService
 
 SUBTITLE_LANGS = ["en", "fr", "es", "de", "it"]
+# yt-dlp lists a video's original-language captions both as "<lang>" and as "<lang>-orig". On a video
+# YouTube has auto-dubbed, "<lang>" also collects translations from every dub track, and yt-dlp picks
+# one of those, which YouTube rejects with HTTP 429. "<lang>-orig" is always the original track.
+SUBTITLE_TRACKS = [track for lang in SUBTITLE_LANGS for track in (f"{lang}-orig", lang)]
 
 logger = get_logger()
 
@@ -68,7 +72,7 @@ def download_video(url: str, temp_path: Path) -> TranscribedAudio:
         "quiet": True,
         "writesubtitles": True,
         "writeautomaticsub": True,
-        "subtitleslangs": SUBTITLE_LANGS,
+        "subtitleslangs": SUBTITLE_TRACKS,
         "skip_download": False,
         "ignoreerrors": True,
         "postprocessors": [
@@ -95,8 +99,8 @@ def download_video(url: str, temp_path: Path) -> TranscribedAudio:
                 )
 
             sub_path = None
-            for lang in SUBTITLE_LANGS:
-                potential_path = output_template.with_suffix(f".{lang}.vtt")
+            for track in SUBTITLE_TRACKS:
+                potential_path = output_template.with_suffix(f".{track}.vtt")
                 if potential_path.exists():
                     sub_path = potential_path
                     break

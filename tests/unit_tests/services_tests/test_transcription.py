@@ -95,3 +95,30 @@ def test_download_video_passes_configured_cookiefile(settings_stub, fake_yt_dlp,
     transcription_module.download_video("https://example.com/video", tmp_path)
 
     assert fake_yt_dlp.last_opts["cookiefile"] == "/data/cookies.txt"
+
+
+def test_download_video_requests_original_captions_before_plain_language(settings_stub, fake_yt_dlp, tmp_path):
+    """
+    On a video YouTube has auto-dubbed, yt-dlp's plain "en" captions are a translation from one of
+    the dub tracks, which YouTube rejects with HTTP 429. "en-orig" is always the original track.
+    """
+
+    transcription_module.download_video("https://example.com/video", tmp_path)
+
+    langs = fake_yt_dlp.last_opts["subtitleslangs"]
+    for lang in transcription_module.SUBTITLE_LANGS:
+        assert langs.index(f"{lang}-orig") < langs.index(lang)
+
+
+def test_download_video_uses_original_captions_when_only_those_downloaded(
+    settings_stub, fake_yt_dlp, monkeypatch, tmp_path
+):
+    def _extract_info(self, url: str, download: bool = True):
+        (tmp_path / "mealie.en-orig.vtt").write_text("WEBVTT\n")
+        return {"title": "Fake Title", "description": "Fake Description", "thumbnail": None}
+
+    monkeypatch.setattr(_FakeYoutubeDL, "extract_info", _extract_info)
+
+    video = transcription_module.download_video("https://example.com/video", tmp_path)
+
+    assert video["subtitle"] == tmp_path / "mealie.en-orig.vtt"
