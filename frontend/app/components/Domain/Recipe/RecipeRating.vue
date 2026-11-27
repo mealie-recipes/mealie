@@ -5,7 +5,7 @@
       :active-color="showGroupAverage ? 'grey-darken-1' : 'secondary'"
       color="secondary-lighten-3"
       length="5"
-      :half-increments="showGroupAverage"
+      half-increments
       :density="small ? 'compact' : 'default'"
       :size="small ? 'x-small' : undefined"
       :readonly="isReadonly"
@@ -74,8 +74,8 @@ async function updateRating(val?: number) {
     return;
   }
 
-  // user ratings are always whole stars
-  let rating = Math.round(val ?? 0);
+  // user ratings are stored in half-star steps
+  let rating = Math.round((val ?? 0) * 2) / 2;
   if (rating === localUserRating.value) {
     rating = 0;
   }
