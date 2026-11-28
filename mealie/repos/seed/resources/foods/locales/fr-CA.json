@@ -344,7 +344,7 @@
       },
       "snow pea": {
         "name": "pois mange-tout",
-        "plural_name": "pois gourmands"
+        "plural_name": "pois mange-tout"
       },
       "snap pea": {
         "name": "pois sucré croquant",
@@ -573,7 +573,7 @@
       },
       "lasagna noodle": {
         "name": "pâtes à lasagne",
-        "plural_name": "lasagnes"
+        "plural_name": "pâtes à lasagne"
       },
       "linguine": {
         "name": "linguines",
@@ -1231,7 +1231,7 @@
       },
       "canned chickpea": {
         "name": "pois chiches en conserve",
-        "plural_name": "pois chiches en boîte"
+        "plural_name": "pois chiches en conserve"
       },
       "black olive": {
         "name": "olives noires",
@@ -1239,7 +1239,7 @@
       },
       "canned black bean": {
         "name": "haricots noirs en conserve",
-        "plural_name": "haricots rouges en conserve"
+        "plural_name": "haricots noirs en conserve"
       },
       "canned pumpkin": {
         "name": "purée de citrouille en conserve",
@@ -1335,7 +1335,7 @@
       },
       "canned sardine": {
         "name": "sardines en conserve",
-        "plural_name": "sardines en boîte"
+        "plural_name": "sardines en conserve"
       },
       "aquafaba": {
         "name": "aquafaba de pois chiches",

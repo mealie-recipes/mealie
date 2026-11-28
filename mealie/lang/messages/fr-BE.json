@@ -26,13 +26,13 @@
         },
         "and-amount": "et {amount}",
         "pdf": {
-            "cookbook": "Cookbook",
-            "contents": "Contents",
-            "ingredients": "Ingredients",
+            "cookbook": "Livre de recettes",
+            "contents": "Contenu",
+            "ingredients": "Ingrédients",
             "instructions": "Instructions",
             "notes": "Notes",
-            "prep-time": "Prep",
-            "cook-time": "Cook",
+            "prep-time": "Préparation",
+            "cook-time": "Cuisson",
             "total-time": "Total"
         },
         "import-errors": {
@@ -53,6 +53,7 @@
             "creating-recipe-from-webpage-data": "Création de la recette à partir des données d'une page web...",
             "downloading-image": "Téléchargement de l'image...",
             "downloading-video": "Téléchargement de la vidéo...",
+            "enriching-instructions": "Adding step details...",
             "extracting-recipe-data": "Extraction des données de la recette...",
             "fetching-webpage": "Récupération de la page web...",
             "organizing-recipe": "Organisation de la recette...",
@@ -133,9 +134,9 @@
         "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
         "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
         "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}",
-        "mealplan-range-entry-created": "Meal plan entry created for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-updated": "Meal plan entry updated for {date} to {end_date} for {entry_type}",
-        "mealplan-range-entry-deleted": "Meal plan entry deleted for {date} to {end_date} for {entry_type}"
+        "mealplan-range-entry-created": "Élément du menu créé du {date} au {end_date} pour {entry_type}",
+        "mealplan-range-entry-updated": "Élément du menu mis à jour du {date} au {end_date} pour {entry_type}",
+        "mealplan-range-entry-deleted": "Élément du menu supprimé du {date} au {end_date} pour {entry_type}"
     },
     "datetime": {
         "year": "année|années",

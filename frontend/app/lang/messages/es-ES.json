@@ -236,6 +236,8 @@
       "audio-provider-description": "Activa las funciones de transcripción de audio, como la creación de recetas a partir de vídeos",
       "image-provider": "Proveedor de imágenes",
       "image-provider-description": "Permite funciones de reconocimiento de imágenes, como la creación de recetas a partir de imágenes",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Nombre del proveedor",
       "api-key": "Clave API",
       "api-key-description-create": "La clave API de tu proveedor para la autenticación. Si tu servicio (por ejemplo, Ollama) no usa una clave API, todavía tienes que poner algo aquí.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "No se pudo guardar el prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Crear receta",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Analizar ingredientes",
         "recipes-parse-recipe-video": "Receta desde vídeo",
         "recipes-resolve-organizers": "Asignar organizadores",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Convierte el material de origen leído de una página web, una foto o un texto en una receta estructurada.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Lo usa el analizador de ingredientes con IA para separar cada ingrediente en cantidad, unidad, alimento y nota.",
         "recipes-parse-recipe-video": "Convierte la transcripción y la descripción de un vídeo en una receta.",
         "recipes-resolve-organizers": "Elige las etiquetas, categorías y utensilios de una receta importada.",
@@ -835,7 +839,7 @@
     "secure-site-success-text": "Se accede al sitio por localhost o https",
     "server-side-base-url": "URL base del servidor",
     "server-side-base-url-error-text": "`BASE_URL` sigue siendo el valor por defecto en el servidor API. Esto causará problemas con las notificaciones generadas en el servidor de correos electrónicos, etc.",
-    "server-side-base-url-success-text": "La URL del servidor no coincide con la predeterminada",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} listo",
     "auth-provider-not-ready": "{provider} no está listo",
     "auth-provider-disabled": "{provider} desactivado",

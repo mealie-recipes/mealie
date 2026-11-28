@@ -2,8 +2,17 @@ import { addDays, format, startOfWeek } from "date-fns";
 import type { Day } from "date-fns";
 import { useHouseholdSelf } from "./use-households";
 import { useAsyncKey } from "./use-utils";
+import { alert } from "./use-toast";
+import { useGlobalI18n } from "./use-global-i18n";
 import { useUserApi } from "~/composables/api";
-import type { PlanEntryCreate, PlanEntryType, PlanEntryOut, RecipeSummary, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
+import type {
+  PlanEntryCreate,
+  PlanEntryType,
+  PlanEntryOut,
+  RecipeSummary,
+  PlanEntryReorderUpdate,
+  PlanEntryUpdate,
+} from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
@@ -83,7 +92,7 @@ export function useMealPlanEntryDates() {
 }
 export type DaySection = {
   title: string;
-  meals: PlanEntryOut[];
+  meals: [PlanEntryOut, ...PlanEntryOut[]];
 };
 
 export type ScaledRecipe = RecipeSummary & { scale: number };
@@ -127,6 +136,7 @@ export interface Meal {
 
 export const useMealplans = function (range: Ref<DateRange>) {
   const api = useUserApi();
+  const i18n = useGlobalI18n();
   const loading = ref(false);
 
   const actions = {
@@ -193,6 +203,20 @@ export const useMealplans = function (range: Ref<DateRange>) {
         this.refreshAll();
       }
       loading.value = false;
+    },
+
+    async reorder(days: PlanEntryReorderUpdate[]) {
+      loading.value = true;
+      try {
+        const { error } = await api.mealplans.reorder(days);
+        await this.refreshAll();
+        if (error) {
+          alert.error(i18n.t("events.something-went-wrong"));
+        }
+      }
+      finally {
+        loading.value = false;
+      }
     },
 
     async deleteOne(id: string | number) {

@@ -236,6 +236,8 @@
       "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
       "image-provider": "Image Provider",
       "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Provider Name",
       "api-key": "API Key",
       "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "Failed to save prompt",
       "prompt-titles": {
         "recipes-build-recipe": "Build Recipe",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Parse Ingredients",
         "recipes-parse-recipe-video": "Recipe from Video",
         "recipes-resolve-organizers": "Assign Organizers",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
         "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
         "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
@@ -835,7 +839,7 @@
     "secure-site-success-text": "Vietnei piekļūst localhost vai https",
     "server-side-base-url": "Servera puses bāzes URL",
     "server-side-base-url-error-text": "`BASE_URL` joprojām ir noklusējuma vērtība API serverī. Tas radīs problēmas ar paziņojumu saitēm, kas serverī ģenerētas e-pasta ziņojumiem utt.",
-    "server-side-base-url-success-text": "Servera puses URL neatbilst noklusējumam",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} Ready",
     "auth-provider-not-ready": "{provider} Not Ready",
     "auth-provider-disabled": "{provider} Disabled",

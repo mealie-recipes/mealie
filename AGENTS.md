@@ -130,6 +130,7 @@ mise run docker:prod                # Build and run production Docker compose
    - Fixtures in `tests/fixtures/`
    - Use `api_client` fixture for integration tests
    - Follow existing patterns in `tests/integration_tests/` and `tests/unit_tests/`
+   - Never hardcode non-English translated strings in assertions; Crowdin can change them at any time. Read the expected value with `get_all_translations(key)[locale]` (`mealie/lang/providers.py`) and assert it differs from the English string
 
 ### Frontend
 

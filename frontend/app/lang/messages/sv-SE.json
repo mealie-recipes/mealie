@@ -236,6 +236,8 @@
       "audio-provider-description": "Möjliggör funktioner för ljudtranskription, till exempel att skapa recept från videor",
       "image-provider": "Bildleverantör",
       "image-provider-description": "Möjliggör bildigenkänningsfunktioner, till exempel att skapa recept från bilder",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Leverantörsnamn",
       "api-key": "API-nyckel",
       "api-key-description-create": "Ange leverantörens API-nyckel för autentisering. Du behöver fylla i fältet även om tjänsten du använder, till exempel Ollama, inte kräver någon API-nyckel.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "Det gick inte att spara instruktionen",
       "prompt-titles": {
         "recipes-build-recipe": "Skapa recept",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "Tolka ingredienser",
         "recipes-parse-recipe-video": "Recept från video",
         "recipes-resolve-organizers": "Välj taggar, kategorier och redskap",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "Skapar ett strukturerat recept av material från en webbsida, ett foto eller en text.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "Används när AI tolkar ingredienser och delar upp varje ingrediens i mängd, enhet, livsmedel och anteckning.",
         "recipes-parse-recipe-video": "Skapar ett recept utifrån videons transkription och tillhörande text.",
         "recipes-resolve-organizers": "Väljer taggar, kategorier och redskap för ett importerat recept.",
@@ -835,7 +839,7 @@
     "secure-site-success-text": "Webbplatsen nås via localhost eller HTTPS",
     "server-side-base-url": "Serverns bas-URL",
     "server-side-base-url-error-text": "`BASE_URL` har fortfarande sitt standardvärde på API-servern. Det ger problem med länkar som servern skapar för aviseringar, exempelvis i e-postmeddelanden.",
-    "server-side-base-url-success-text": "Serverns bas-URL skiljer sig från standardvärdet",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "{provider} är redo",
     "auth-provider-not-ready": "{provider} är inte redo",
     "auth-provider-disabled": "{provider} är inaktiverat",

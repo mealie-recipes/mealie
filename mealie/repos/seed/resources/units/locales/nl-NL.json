@@ -49,7 +49,7 @@
     },
     "centiliter": {
         "name": "centiliter",
-        "plural_name": "centiliters",
+        "plural_name": "centiliter",
         "description": "",
         "abbreviation": "cl"
     },
@@ -98,7 +98,7 @@
     },
     "dash": {
         "name": "snufje",
-        "plural_name": "snuif",
+        "plural_name": "snufjes",
         "description": "",
         "abbreviation": ""
     },

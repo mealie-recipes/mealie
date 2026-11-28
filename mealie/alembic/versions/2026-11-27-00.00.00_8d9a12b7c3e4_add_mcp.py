@@ -1,7 +1,7 @@
 """Add native MCP feature state and OAuth credentials.
 
 Revision ID: 8d9a12b7c3e4
-Revises: f3a1ae61d772
+Revises: a136609cde0f
 """
 
 import sqlalchemy as sa
@@ -10,7 +10,7 @@ from alembic import op
 from mealie.db.migration_types import GUID
 
 revision = "8d9a12b7c3e4"
-down_revision = "f3a1ae61d772"
+down_revision = "a136609cde0f"
 branch_labels = None
 depends_on = None
 

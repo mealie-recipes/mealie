@@ -236,6 +236,8 @@
       "audio-provider-description": "מאפשר תכונות של תמלול אודיו, כמו יצירת מתכונים מסרטונים",
       "image-provider": "ספק תמונות",
       "image-provider-description": "מאפשר תכונות לזיהוי תמונות, כמו יצירת מתכונים מתמונות",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "שם הספק",
       "api-key": "מפתח API",
       "api-key-description-create": "מפתח ה־API של הספק שלך לצורך אימות. אם השירות שלך (למשל Ollama) לא משתמש במפתח API, עדיין צריך להזין כאן משהו.",
@@ -286,6 +288,7 @@
       "prompt-save-failed": "שמירת ההנחיה נכשלה",
       "prompt-titles": {
         "recipes-build-recipe": "יצירת מתכון",
+        "recipes-enrich-instructions": "Add Step Details",
         "recipes-parse-recipe-ingredients": "פענוח מרכיבים",
         "recipes-parse-recipe-video": "מתכון מסרטון",
         "recipes-resolve-organizers": "שיוך מארגנים",
@@ -295,6 +298,7 @@
       },
       "prompt-descriptions": {
         "recipes-build-recipe": "הופך חומר מקור מדף אינטרנט, מתמונה או מטקסט למתכון מובנה.",
+        "recipes-enrich-instructions": "Links each step of an imported recipe to the ingredients and notes it uses, and picks out its duration and heading.",
         "recipes-parse-recipe-ingredients": "משמש לפענוח מרכיבים באמצעות בינה מלאכותית, ומפריד כל מרכיב לכמות, יחידה, אוכל והערה.",
         "recipes-parse-recipe-video": "הופך את התמליל והכתוביות של סרטון למתכון.",
         "recipes-resolve-organizers": "בוחר תגיות, קטגוריות וכלים למתכון שיובא.",
@@ -835,7 +839,7 @@
     "secure-site-success-text": "האתר נגיש דרך כתובת המערכת בלופבאק או בצורה מאובטחת בעזרת https",
     "server-side-base-url": "כתובת בסיס צד שרת",
     "server-side-base-url-error-text": "'כתובת בסיס' היא עדיין הערך ברירת המחדל בשרת ה- API. הדבר יגרום לבעיות עם קישורי התראות בשרת עבור אימייל וכו'.",
-    "server-side-base-url-success-text": "קישור צד שרת אינו תואם לברירת המחדל",
+    "server-side-base-url-success-text": "`BASE_URL` has been changed from the default value on API Server.",
     "auth-provider-ready": "אפשר להשתמש ב־{provider}",
     "auth-provider-not-ready": "עדיין אי אפשר להשתמש ב־{provider}",
     "auth-provider-disabled": "השימוש ב־{provider} מושבת",
