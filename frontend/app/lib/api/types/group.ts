@@ -76,10 +76,12 @@ export interface AIProviderSettingsOut {
   defaultProviderId: string | null;
   audioProviderId: string | null;
   imageProviderId: string | null;
+  enrichNonAiImports: boolean;
   providers: AIProviderSummary[];
   aiEnabled: boolean;
   audioProviderEnabled: boolean;
   imageProviderEnabled: boolean;
+  enrichNonAiImportsEnabled: boolean;
 }
 export interface AIProviderSummary {
   id: string;
@@ -89,6 +91,7 @@ export interface AIProviderSettingsUpdate {
   defaultProviderId: string | null;
   audioProviderId: string | null;
   imageProviderId: string | null;
+  enrichNonAiImports?: boolean;
 }
 export interface AIProviderTestResult {
   success: boolean;

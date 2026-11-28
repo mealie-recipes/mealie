@@ -14,24 +14,34 @@
 </template>
 
 <script setup lang="ts">
-import type { PlanEntryType } from "~/lib/api/types/meal-plan";
+import { getScaledRecipes } from "~/composables/use-group-mealplan";
+import type { DaySection, Days, MealsByDate } from "~/composables/use-group-mealplan";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 defineProps<{
   mealplans: MealsByDate[];
 }>();
-const planTypeOptions = usePlanTypeOptions();
+const i18n = useGlobalI18n();
 
 const DAY_COLS = { cols: 12, sm: 12, md: 12, lg: 6, xl: 4, xxl: 4 };
 const WEEK_COLS = { cols: 12 };
 
 function getDay(day: MealsByDate): Days {
-  const forSection = (key: PlanEntryType) => day.meals.filter(({ entryType }) => entryType === key);
+  // Group only adjacent types so headings never change the saved meal order.
+  const sections: DaySection[] = [];
+  for (const meal of day.meals) {
+    const last = sections.at(-1);
+    if (last && last.meals[0].entryType === meal.entryType) {
+      last.meals.push(meal);
+    }
+    else {
+      sections.push({ title: i18n.t("meal-plan." + meal.entryType), meals: [meal] });
+    }
+  }
   return {
     date: day.date,
     endDate: day.endDate,
-    sections: planTypeOptions
-      .map(({ text, value }) => ({ title: text, meals: forSection(value) }))
-      .filter(({ meals }) => meals.length > 0),
+    sections,
     recipes: getScaledRecipes(day.meals),
   };
 }
