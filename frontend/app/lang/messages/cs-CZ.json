@@ -136,6 +136,7 @@
     "units": "Jednotky",
     "back": "Zpět",
     "next": "Další",
+    "previous": "Previous",
     "start": "Spustit",
     "toggle-view": "Přepnout zobrazení",
     "date": "Datum",
@@ -1112,6 +1113,9 @@
     "combine": "Kombinovat",
     "delete-unused": "Odstranit nepoužité",
     "delete-unused-more": "+ {count} více",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Počet receptů",
     "categories": {
       "edit-category": "Upravit kategorii",
