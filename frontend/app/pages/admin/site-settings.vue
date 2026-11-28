@@ -101,6 +101,40 @@
       </v-card>
     </section>
 
+    <section class="mt-4">
+      <BaseCardSectionTitle
+        class="pb-0"
+        :icon="$globals.icons.api"
+        :title="$t('settings.mcp.title')"
+      />
+      <v-card class="mb-4 pa-4">
+        <v-switch
+          v-model="mcpSettings.enabled"
+          :label="$t('settings.mcp.enabled')"
+          :disabled="mcpSaving || (!!mcpSettings.configuration_error && !mcpSettings.enabled)"
+          :loading="mcpSaving"
+          @update:model-value="saveMcp"
+        />
+        <v-alert v-if="mcpSettings.configuration_error" type="warning">
+          {{ mcpSettings.configuration_error }}
+        </v-alert>
+        <v-text-field
+          v-if="mcpSettings.url"
+          :label="$t('settings.mcp.url')"
+          :model-value="mcpSettings.url"
+          readonly
+          variant="outlined"
+          density="compact"
+        />
+        <p class="text-caption mb-0">
+          {{ $t('settings.mcp.disable-warning') }}
+        </p>
+        <v-alert v-if="mcpError" type="error">
+          {{ mcpError }}
+        </v-alert>
+      </v-card>
+    </section>
+
     <!-- Email -->
     <section>
       <BaseCardSectionTitle
@@ -288,7 +322,7 @@ onMounted(() => {
   setPageLayout("admin");
 });
 
-const { $globals } = useNuxtApp();
+const { $globals, $axios } = useNuxtApp();
 const i18n = useI18n();
 
 const state = reactive({
@@ -329,6 +363,42 @@ function isLocalHostOrHttps() {
 }
 const api = useUserApi();
 const adminApi = useAdminApi();
+interface McpSettings {
+  enabled: boolean;
+  url: string | null;
+  configuration_error: string | null;
+}
+const mcpSettings = ref<McpSettings>({ enabled: false, url: null, configuration_error: null });
+const mcpSaving = ref(false);
+const mcpError = ref("");
+
+async function loadMcp() {
+  try {
+    const response = await $axios.get<McpSettings>("/api/admin/mcp");
+    mcpSettings.value = response.data;
+  }
+  catch {
+    mcpError.value = i18n.t("settings.mcp.load-error");
+  }
+}
+
+async function saveMcp(enabled: boolean | null) {
+  if (enabled === null) return;
+  mcpSettings.value.enabled = enabled;
+  mcpSaving.value = true;
+  mcpError.value = "";
+  try {
+    const response = await $axios.put<McpSettings>("/api/admin/mcp", { enabled: mcpSettings.value.enabled });
+    mcpSettings.value = response.data;
+  }
+  catch {
+    mcpSettings.value.enabled = !mcpSettings.value.enabled;
+    mcpError.value = i18n.t("settings.mcp.save-error");
+  }
+  finally {
+    mcpSaving.value = false;
+  }
+}
 
 const adminStatsText: { [key: string]: string } = {
   totalRecipes: i18n.t("general.recipes"),
@@ -369,6 +439,7 @@ function getAdminStatsTo(key: string) {
 }
 
 onMounted(async () => {
+  await loadMcp();
   const { data } = await adminApi.about.checkApp();
   if (data) {
     appConfig.value = { ...data, isSiteSecure: false };

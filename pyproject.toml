@@ -47,6 +47,7 @@ dependencies = [
     "pint==0.26.2",
     "httpx-curl-cffi==0.1.5",
     "curl-cffi==0.17.0",
+    "mcp==2.2.0",
     "fpdf2==2.9.0",
 ]
 

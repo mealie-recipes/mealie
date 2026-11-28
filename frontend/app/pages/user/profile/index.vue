@@ -116,6 +116,17 @@
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
+        <v-col cols="12" sm="12" md="6">
+          <UserProfileLinkCard
+            :link="{ text: $t('profile.connected-apps'), to: '/user/profile/connected-apps' }"
+            image="/svgs/manage-api-tokens.svg"
+          >
+            <template #title>
+              {{ $t('profile.connected-apps') }}
+            </template>
+            {{ $t('profile.connected-apps-description') }}
+          </UserProfileLinkCard>
+        </v-col>
       </v-row>
     </section>
     <v-divider class="my-7" />
