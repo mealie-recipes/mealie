@@ -164,21 +164,32 @@ watch(
   { immediate: true, deep: true },
 );
 
-function onMoveCallback(evt: SortableEvent) {
-  // A Meal was moved, set the new date value and make an update request and refresh the meals
+async function onMoveCallback(evt: SortableEvent) {
+  // VueDraggable has already updated the source and destination arrays.
   const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
   const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
-  if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-    const dest = props.mealplans[toMealsByIndex];
-    const mealData = mealplansByDate[planKey(dest)][evt.newIndex as number];
+  if (Number.isNaN(fromMealsByIndex) || Number.isNaN(toMealsByIndex)) return;
 
-    // moving between a week and a day schedules or unschedules the meal
-    mealData.date = format(dest.date, "yyyy-MM-dd");
-    mealData.endDate = dest.endDate ? format(dest.endDate, "yyyy-MM-dd") : null;
+  const fromDay = props.mealplans[fromMealsByIndex];
+  const toDay = props.mealplans[toMealsByIndex];
+  if (!fromDay || !toDay) return;
 
-    props.actions.updateOne(mealData);
-  }
+  const affectedDays = fromMealsByIndex === toMealsByIndex ? [toDay] : [fromDay, toDay];
+  const movedMeal = mealplansByDate[planKey(toDay)][evt.newIndex as number];
+  if (!movedMeal) return;
+
+  // keep the local entry in sync with the destination before saving both lists
+  movedMeal.date = format(toDay.date, "yyyy-MM-dd");
+  movedMeal.endDate = toDay.endDate ? format(toDay.endDate, "yyyy-MM-dd") : null;
+
+  const orderedDays = affectedDays.map(day => ({
+    date: format(day.date, "yyyy-MM-dd"),
+    endDate: day.endDate ? format(day.endDate, "yyyy-MM-dd") : null,
+    entryIds: mealplansByDate[planKey(day)].map(meal => meal.id),
+  }));
+
+  await props.actions.reorder(orderedDays);
 }
 
 // =====================================================

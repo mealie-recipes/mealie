@@ -9,6 +9,38 @@ Mealie supports long-live api tokens in the user frontend. These can be created 
 ### Exploring Your Local API
 On your local installation you can access interactive API documentation that provides `curl` examples and expected results. This allows you to easily test and interact with your API to identify places to include your own functionality. You can visit the documentation at `http://<your-mealie-site>/docs` or see the example at the [Demo Site](https://demo.mealie.io/docs).
 
+### Meal Plan Ordering
+
+Meal plan entries have a `position` that determines their order within a day, starting at zero. By default, `GET /api/households/mealplans` returns entries ordered by date and then position. Without ordering parameters, both are sorted ascending.
+
+You can pass `orderDirection=desc` to reverse this order, or use `orderBy` and the other [advanced ordering](#advanced-ordering) parameters to choose your own sort. These parameters only change the order of the results, they do not change the saved positions.
+
+To reorder your household's entries or move them between days or weeks, use `PUT /api/households/mealplans/reorder`. Each request item identifies a bucket by its `date` and, for a week entry, its `endDate`. Omit `endDate` or set it to `null` for a day bucket. A week entry's `endDate` is six days after its `date`. The IDs in each item are meal plan entry IDs in the desired order. For example:
+
+```json
+[
+  {"date": "2026-10-20", "entryIds": [103, 101]},
+  {"date": "2026-10-21", "entryIds": [102, 104]}
+]
+```
+
+If October 20 contains entries `101`, `102`, and `103`, and October 21 contains `104`, this moves entry `102` to October 21 and places `103` before `101` on October 20. These are meal plan entry IDs, not recipe IDs. Dates outside the request are left unchanged.
+
+To move an entry between a day and a week bucket, include both buckets. For example, to move entry `105` from the day list to the week list starting October 20:
+
+```json
+[
+  {"date": "2026-10-20", "entryIds": []},
+  {"date": "2026-10-20", "endDate": "2026-10-26", "entryIds": [105]}
+]
+```
+
+Include every entry currently in each bucket you submit, including an empty ID list when clearing a bucket. Buckets are identified by date and whether they are day or week entries.
+
+Successful requests return `204 No Content`. An empty request, repeated buckets, or repeated IDs returns `422`. If the IDs do not match the entries currently in the submitted buckets, the API returns `409`. Fetch the affected buckets again before retrying.
+
+New meal entries are placed after the last entry of the same meal type. If there are none, Mealie uses the meal type order: breakfast, lunch, dinner, side, snack, drink, dessert. This also applies when changing an entry's date through the regular update endpoint. Existing entries keep their relative order.
+
 ### Extras
 #### Recipe Extras
 Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.

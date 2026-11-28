@@ -48,6 +48,14 @@ class RandomPlanEntryCreate(MealieModel):
     _validate_end_date = field_validator("end_date")(validate_end_date)
 
 
+class PlanEntryReorderUpdate(MealieModel):
+    date: date
+    end_date: datetime.date | None = None
+    entry_ids: list[int]
+
+    _validate_end_date = field_validator("end_date")(validate_end_date)
+
+
 class PlanEntryCreate(MealieModel):
     date: date
     end_date: datetime.date | None = None
@@ -82,6 +90,7 @@ class PlanEntrySave(PlanEntryCreate):
 
 class PlanEntryOut(PlanEntryUpdate, MealieOutModel):
     household_id: UUID
+    position: int = 0
     recipe: RecipeSummary | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
     model_config = ConfigDict(from_attributes=True)

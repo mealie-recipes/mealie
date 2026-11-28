@@ -137,7 +137,7 @@ const { loading, sendTo } = toRefs(state);
 async function sendInvite() {
   state.loading = true;
   if (!token.value) {
-    getSignupLink(selectedGroup.value, selectedHousehold.value);
+    await getSignupLink(selectedGroup.value, selectedHousehold.value);
   }
   const { data } = await api.email.sendInvitation({
     email: state.sendTo,

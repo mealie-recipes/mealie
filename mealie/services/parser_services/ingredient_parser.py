@@ -156,6 +156,11 @@ class NLPParser(ABCIngredientParser):
             note_parts.append(ingredient.purpose.text)
             confidences.append(ingredient.purpose.confidence)
 
+        # extra amounts go into the note too, so their confidence counts toward it;
+        # without this, a note of only extra amounts ("(30 ml)") scores 0
+        if extra_amounts:
+            confidences.extend(amount.confidence for amount in extra_amounts)
+
         # average confidence among all note parts
         confidence = sum(confidences) / len(confidences) if confidences else 0
 

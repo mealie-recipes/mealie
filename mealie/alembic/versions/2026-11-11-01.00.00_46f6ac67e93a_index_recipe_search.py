@@ -9,7 +9,7 @@ from alembic import op
 from mealie.search.index_v1 import install, uninstall
 
 revision = "46f6ac67e93a"
-down_revision = "f3a1ae61d772"
+down_revision = "a136609cde0f"
 branch_labels = None
 depends_on = None
 

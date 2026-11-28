@@ -2,9 +2,8 @@
   <div>
     <v-menu
       v-model="state.menu"
-      offset-y
-      bottom
-      nudge-bottom="3"
+      location="bottom"
+      scroll-strategy="reposition"
       :close-on-content-click="false"
     >
       <template #activator="{ props: menuProps }">

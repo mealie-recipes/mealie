@@ -54,6 +54,31 @@ describe("recipe search", () => {
     expect(result.error.value).toBe("");
   });
 
+  test.each([
+    ["successful", { data: { items: [{ id: "chicken" }] }, error: null }],
+    ["failed", { data: null, error: new Error("Older request failed") }],
+  ])("keeps newer results after an older %s request", async (_, olderResponse) => {
+    let completeOlder!: (value: unknown) => void;
+    const pasta = { id: "pasta" };
+    const search = vi.fn()
+      .mockImplementationOnce(() => new Promise(resolve => completeOlder = resolve))
+      .mockResolvedValueOnce({ data: { items: [pasta] }, error: null });
+    const { result } = setup(search);
+
+    result.query.value = "chicken";
+    const olderRequest = result.trigger();
+    result.query.value = "pasta";
+    await result.trigger();
+    expect(result.data.value).toEqual([pasta]);
+    expect(result.loading.value).toBe(false);
+
+    completeOlder(olderResponse);
+    await olderRequest;
+    expect(result.data.value).toEqual([pasta]);
+    expect(result.error.value).toBe("");
+    expect(result.loading.value).toBe(false);
+  });
+
   test("shows query validation errors and clears old results", async () => {
     const { result } = setup(vi.fn().mockResolvedValue({
       data: null, error: { response: { status: 422 } },

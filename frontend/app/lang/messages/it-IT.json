@@ -236,6 +236,8 @@
       "audio-provider-description": "Abilita le funzioni di trascrizione audio, come la creazione di ricette da video",
       "image-provider": "Provider Immagini",
       "image-provider-description": "Abilita le funzionalità di riconoscimento delle immagini, come la creazione di ricette dalle immagini",
+      "enrich-non-ai-imports": "Enrich Non-AI Imports",
+      "enrich-non-ai-imports-description": "Uses AI to improve recipes imported without it, such as linking ingredients to steps and suggesting tags",
       "provider-name": "Nome provider",
       "api-key": "Chiave API",
       "api-key-description-create": "La chiave API del tuo provider per l'autenticazione. Se il tuo servizio (ad esempio Ollama) non utilizza una chiave API, devi comunque mettere qualcosa qui.",
