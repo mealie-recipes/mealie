@@ -136,6 +136,7 @@
     "units": "Mælieiningar",
     "back": "Til baka",
     "next": "Næst",
+    "previous": "Previous",
     "start": "Byrja",
     "toggle-view": "Skipta um sýn",
     "date": "Dagsetning",
@@ -1112,6 +1113,9 @@
     "combine": "Sameina",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Breyta flokkum",
