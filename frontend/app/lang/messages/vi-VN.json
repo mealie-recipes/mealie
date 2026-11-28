@@ -136,6 +136,7 @@
     "units": "Đơn vị",
     "back": "Trở lại",
     "next": "Tiếp tục",
+    "previous": "Previous",
     "start": "Bắt đầu",
     "toggle-view": "Chuyển đổi chế độ xem",
     "date": "Ngày",
@@ -1112,6 +1113,9 @@
     "combine": "Combine",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Edit Category",
