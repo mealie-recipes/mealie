@@ -68,11 +68,16 @@
           :disabled="state.loading"
         />
 
-        <div v-if="imagesEnabled" class="mt-6">
-          <RecipeImportImages v-model="uploadedImages" :disabled="state.loading" />
+        <div class="mt-6">
+          <RecipeImportImages
+            v-model="uploadedImages"
+            v-model:documents="documentFiles"
+            :images-enabled="imagesEnabled"
+            :disabled="state.loading"
+          />
         </div>
         <v-alert
-          v-else
+          v-if="!imagesEnabled"
           type="info"
           variant="tonal"
           class="mt-6"
@@ -201,6 +206,7 @@ const domUrlForm = ref<VForm | null>(null);
 const recipeUrl = ref<string | null>(null);
 const newRecipeData = ref<string | object | null>(null);
 const uploadedImages = ref<(Blob | File)[]>([]);
+const documentFiles = ref<File[]>([]);
 const createStatus = ref<string | null>(null);
 
 const {
@@ -225,7 +231,7 @@ const contentAsString = computed(() => {
   return typeof data === "string" ? data : JSON.stringify(data);
 });
 
-const hasSource = computed(() => !!(recipeUrl.value || contentAsString.value || uploadedImages.value.length));
+const hasSource = computed(() => !!(recipeUrl.value || contentAsString.value || uploadedImages.value.length || documentFiles.value.length));
 
 function handleIsEditJson() {
   if (state.isEditJSON) {
@@ -269,6 +275,7 @@ async function createRecipe() {
       content: contentAsString.value,
       url: recipeUrl.value,
       images: uploadedImages.value,
+      documents: documentFiles.value,
       translateLanguage: translateRecipe.value ? i18n.locale.value : null,
       createNewOrganizers: createNewOrganizers.value,
     },

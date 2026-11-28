@@ -67,7 +67,7 @@ from mealie.services.event_bus_service.event_types import (
     EventTypes,
 )
 from mealie.services.openai import OpenAINotEnabledException
-from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService
+from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService, DocumentReadError
 from mealie.services.recipe.import_workflow.exceptions import NoRecipeDataError
 from mealie.services.recipe.mealie_export import InvalidMealieExportError, parse_mealie_export
 from mealie.services.recipe.recipe_data_service import (
@@ -279,7 +279,7 @@ class RecipeController(BaseRecipeController):
         if isinstance(ex, exceptions.RateLimitError):
             return self.t("exceptions.rate-limit-error")
 
-        if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError | InvalidMealieExportError):
+        if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError | DocumentReadError | InvalidMealieExportError):
             # these are raised with an already-translated message
             if message := str(ex):
                 return message
@@ -445,10 +445,12 @@ class RecipeController(BaseRecipeController):
         translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
         create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
         images: list[UploadFile] = File(default_factory=list),
+        documents: list[UploadFile] = File(default_factory=list),
     ) -> str:
         """
-        Create a recipe from any combination of content (HTML, JSON, or text), images, and a URL,
-        using AI. Optionally specify a language for it to translate the recipe to.
+        Create a recipe from any combination of content (HTML, JSON, or text), images, a URL, and
+        uploaded documents (PDF, Word, ODT, Markdown, plain text, RTF, or HTML), using AI.
+        Optionally specify a language for it to translate the recipe to.
         """
 
         req = ScrapeRecipeAI(
@@ -457,7 +459,7 @@ class RecipeController(BaseRecipeController):
             translate_language=translate_language,
             create_new_organizers=create_new_organizers,
         )
-        async for event in self._create_recipe_with_ai(req, images):
+        async for event in self._create_recipe_with_ai(req, images, documents):
             if isinstance(event.data, SSEDataEventDone):
                 return event.data.slug
             if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
@@ -474,10 +476,11 @@ class RecipeController(BaseRecipeController):
         translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
         create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
         images: list[UploadFile] = File(default_factory=list),
+        documents: list[UploadFile] = File(default_factory=list),
     ) -> AsyncIterable[ServerSentEvent]:
         """
-        Create a recipe from any combination of content (HTML, JSON, or text), images, and a URL,
-        using AI, streaming progress via SSE
+        Create a recipe from any combination of content (HTML, JSON, or text), images, a URL, and
+        uploaded documents, using AI, streaming progress via SSE
         """
 
         req = ScrapeRecipeAI(
@@ -486,10 +489,15 @@ class RecipeController(BaseRecipeController):
             translate_language=translate_language,
             create_new_organizers=create_new_organizers,
         )
-        async for event in self._create_recipe_with_ai(req, images):
+        async for event in self._create_recipe_with_ai(req, images, documents):
             yield event
 
-    def _create_recipe_with_ai(self, req: ScrapeRecipeAI, images: list[UploadFile]) -> AsyncIterable[ServerSentEvent]:
+    def _create_recipe_with_ai(
+        self,
+        req: ScrapeRecipeAI,
+        images: list[UploadFile],
+        documents: list[UploadFile] | None = None,
+    ) -> AsyncIterable[ServerSentEvent]:
         """Create a recipe using AI, returning progress via SSE"""
 
         ai_service = AIRecipeService(self.repos, self.user, self.household, translator=self.translator)
@@ -499,6 +507,7 @@ class RecipeController(BaseRecipeController):
                 content=req.content,
                 images=images,
                 url=req.url,
+                documents=documents,
                 translate_language=req.translate_language,
                 create_new_organizers=req.create_new_organizers,
                 on_progress=on_progress,
