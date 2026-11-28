@@ -136,6 +136,7 @@
     "units": "Yksiköt",
     "back": "Takaisin",
     "next": "Seuraava",
+    "previous": "Previous",
     "start": "Aloita",
     "toggle-view": "Vaihda näkymää",
     "date": "Päivämäärä",
@@ -1112,6 +1113,9 @@
     "combine": "Yhdistä",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Muuta luokkaa",

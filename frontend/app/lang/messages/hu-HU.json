@@ -136,6 +136,7 @@
     "units": "Mennyiségi egységek",
     "back": "Vissza",
     "next": "Következő",
+    "previous": "Previous",
     "start": "Kezdés",
     "toggle-view": "Nézet váltása",
     "date": "Dátum",
@@ -1112,6 +1113,9 @@
     "combine": "Összevonás",
     "delete-unused": "Nem használt elemek törlése",
     "delete-unused-more": "+ további {count}",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Receptek száma",
     "categories": {
       "edit-category": "Kategória szerkesztése",

@@ -136,6 +136,7 @@
     "units": "Eenhede",
     "back": "Terug",
     "next": "Volgende",
+    "previous": "Previous",
     "start": "Begin",
     "toggle-view": "Wissel aansig",
     "date": "Datum",
@@ -1112,6 +1113,9 @@
     "combine": "Kombineer",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Edit Category",

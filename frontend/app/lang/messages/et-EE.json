@@ -136,6 +136,7 @@
     "units": "Ühikud",
     "back": "Tagasi",
     "next": "Järgmine",
+    "previous": "Previous",
     "start": "Alusta",
     "toggle-view": "Muuda vaadet",
     "date": "Kuupäev",
@@ -1112,6 +1113,9 @@
     "combine": "Kombineeri",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Muuda kategooriat",

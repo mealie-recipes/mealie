@@ -136,6 +136,7 @@
     "units": "Unidades",
     "back": "Volver",
     "next": "Siguiente",
+    "previous": "Previous",
     "start": "Comenzar",
     "toggle-view": "Cambiar vista",
     "date": "Fecha",
@@ -1112,6 +1113,9 @@
     "combine": "Combinar",
     "delete-unused": "Eliminar sin usar",
     "delete-unused-more": "+ {count} más",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Número de recetas",
     "categories": {
       "edit-category": "Editar Categoría",

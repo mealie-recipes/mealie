@@ -136,6 +136,7 @@
     "units": "Enheter",
     "back": "Tillbaka",
     "next": "Nästa",
+    "previous": "Previous",
     "start": "Start",
     "toggle-view": "Växla visning",
     "date": "Datum",
@@ -1112,6 +1113,9 @@
     "combine": "Slå ihop",
     "delete-unused": "Ta bort oanvända",
     "delete-unused-more": "+ {count} till",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Antal recept",
     "categories": {
       "edit-category": "Redigera kategori",

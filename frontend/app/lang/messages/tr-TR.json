@@ -136,6 +136,7 @@
     "units": "Birimler",
     "back": "Geri",
     "next": "Sonraki",
+    "previous": "Previous",
     "start": "Başlat",
     "toggle-view": "Görünümü Değiştir",
     "date": "Tarih",
@@ -1112,6 +1113,9 @@
     "combine": "Birleştir",
     "delete-unused": "Kullanılmayanları Sil",
     "delete-unused-more": "+ {count} tane daha",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Tarif Sayısı",
     "categories": {
       "edit-category": "Kategori Düzenle",

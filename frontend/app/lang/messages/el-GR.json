@@ -136,6 +136,7 @@
     "units": "Μονάδες μέτρησης",
     "back": "Πίσω",
     "next": "Επόμενο",
+    "previous": "Previous",
     "start": "Εναρξη",
     "toggle-view": "Εναλλαγή προβολής",
     "date": "Ημερομηνία",
@@ -1112,6 +1113,9 @@
     "combine": "Συνδυασμός",
     "delete-unused": "Διαγραφή αχρησιμοποίητων",
     "delete-unused-more": "+ {count} ακόμα",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Αριθμός συνταγών",
     "categories": {
       "edit-category": "Επεξεργασία κατηγορίας",

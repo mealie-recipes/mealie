@@ -136,6 +136,7 @@
     "units": "Unități",
     "back": "Înapoi",
     "next": "Continuare",
+    "previous": "Previous",
     "start": "Start",
     "toggle-view": "Activează/dezactivează Vizualizarea",
     "date": "Dată",
@@ -1112,6 +1113,9 @@
     "combine": "Combina",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Editează Categoria",
