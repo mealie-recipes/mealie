@@ -175,9 +175,12 @@ class AIProviderSettingsUpdate(MealieModel):
     default_provider_id: UUID4 | None
     audio_provider_id: UUID4 | None
     image_provider_id: UUID4 | None
+    embedding_provider_id: UUID4 | None = None
     enrich_non_ai_imports: bool = False
 
-    @field_validator("default_provider_id", "audio_provider_id", "image_provider_id", mode="before")
+    @field_validator(
+        "default_provider_id", "audio_provider_id", "image_provider_id", "embedding_provider_id", mode="before"
+    )
     def validate_as_none(val: Any | None) -> Any | None:
         return val or None
 
@@ -198,7 +201,12 @@ class AIProviderSettingsOut(AIProviderSettingsUpdate, MealieOutModel):
     @model_validator(mode="after")
     def validate_providers(self) -> Self:
         existing_ids = {provider.id for provider in self.providers}
-        for provider_id_name in ["default_provider_id", "audio_provider_id", "image_provider_id"]:
+        for provider_id_name in [
+            "default_provider_id",
+            "audio_provider_id",
+            "image_provider_id",
+            "embedding_provider_id",
+        ]:
             if not (val := getattr(self, provider_id_name, None)):
                 continue
 
@@ -221,6 +229,12 @@ class AIProviderSettingsOut(AIProviderSettingsUpdate, MealieOutModel):
     @property
     def image_provider_enabled(self) -> bool:
         return self.ai_enabled and self.image_provider_id is not None
+
+    @computed_field  # type: ignore[misc]
+    @property
+    def embedding_provider_enabled(self) -> bool:
+        # Doesn't need a default provider: embedding recipes involves no chat model
+        return self.embedding_provider_id is not None
 
     @computed_field  # type: ignore[misc]
     @property

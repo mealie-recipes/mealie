@@ -65,6 +65,22 @@
           {{ $t("group.ai-provider-settings.image-provider-description") }}
         </v-card-subtitle>
       </v-col>
+      <v-col v-if="$appInfo.enableSemanticSearch" cols="12">
+        <v-autocomplete
+          v-model="local.embeddingProviderId"
+          :label="$t('group.ai-provider-settings.embedding-provider')"
+          :items="local.providers"
+          item-title="name"
+          item-value="id"
+          clearable
+          hide-details
+          density="compact"
+          variant="outlined"
+        />
+        <v-card-subtitle class="mt-1 text-wrap">
+          {{ $t("group.ai-provider-settings.embedding-provider-description") }}
+        </v-card-subtitle>
+      </v-col>
       <v-col cols="12">
         <v-checkbox
           v-model="local.enrichNonAiImports"

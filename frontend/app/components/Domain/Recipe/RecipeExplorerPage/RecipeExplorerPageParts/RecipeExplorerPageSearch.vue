@@ -102,6 +102,15 @@
                 single-line
                 color="primary"
               />
+              <v-switch
+                v-if="canSearchSemantically"
+                v-model="state.semantic"
+                :label="$t('search.semantic-search')"
+                :hint="$t('search.semantic-search-hint')"
+                persistent-hint
+                class="mb-4"
+                color="primary"
+              />
               <v-btn
                 block
                 color="primary"
@@ -153,6 +162,7 @@ const groupSlug = computed(() => route.params.groupSlug as string || auth.user.v
 const {
   state,
   passedQueryWithSeed,
+  canSearchSemantically,
   search,
   reset,
   toggleOrderDirection,

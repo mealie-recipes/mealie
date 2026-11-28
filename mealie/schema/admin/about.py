@@ -23,6 +23,7 @@ class AppInfo(MealieModel):
     oidc_provider_name: str
     enable_reverse_proxy_auth: bool
     token_time: int
+    enable_semantic_search: bool = False
     allowed_iframe_hosts: list[str] = []
     branding_name: str = "Mealie"
     branding_logo_url: str | None = None

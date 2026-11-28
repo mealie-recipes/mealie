@@ -1,10 +1,11 @@
 import asyncio
+from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.services.scheduler.runner import repeat_every
+from mealie.services.scheduler.runner import NoArgsNoReturnAsyncFuncT, repeat_every
 
 from .scheduler_registry import SchedulerRegistry
 
@@ -22,6 +23,8 @@ class SchedulerService:
     async def start():
         await run_minutely()
         await run_hourly()
+        for func in SchedulerRegistry._minutely_isolated:
+            await run_minutely_isolated(func)()
 
         # Wait to trigger our daily run until our given "daily time", so having asyncio handle it.
         asyncio.create_task(schedule_daily())
@@ -58,6 +61,17 @@ def _scheduled_task_wrapper(callable):
         callable()
     except Exception as e:
         logger.error("Error in scheduled task func='%s': exception='%s'", callable.__name__, e)
+
+
+def run_minutely_isolated(func: Callable) -> NoArgsNoReturnAsyncFuncT:
+    """A schedule of its own for one callback, so that however long it takes, only its own next run waits."""
+
+    @repeat_every(minutes=MINUTES_5, wait_first=True, logger=logger)
+    def run() -> None:
+        logger.debug("Running isolated minutely callback: %s", func.__name__)
+        _scheduled_task_wrapper(func)
+
+    return run
 
 
 @repeat_every(minutes=MINUTES_DAY, wait_first=False, logger=logger)

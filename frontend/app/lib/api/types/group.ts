@@ -76,11 +76,13 @@ export interface AIProviderSettingsOut {
   defaultProviderId: string | null;
   audioProviderId: string | null;
   imageProviderId: string | null;
+  embeddingProviderId: string | null;
   enrichNonAiImports: boolean;
   providers: AIProviderSummary[];
   aiEnabled: boolean;
   audioProviderEnabled: boolean;
   imageProviderEnabled: boolean;
+  embeddingProviderEnabled: boolean;
   enrichNonAiImportsEnabled: boolean;
 }
 export interface AIProviderSummary {
@@ -91,6 +93,7 @@ export interface AIProviderSettingsUpdate {
   defaultProviderId: string | null;
   audioProviderId: string | null;
   imageProviderId: string | null;
+  embeddingProviderId?: string | null;
   enrichNonAiImports?: boolean;
 }
 export interface AIProviderTestResult {

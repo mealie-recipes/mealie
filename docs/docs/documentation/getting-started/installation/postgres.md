@@ -3,7 +3,7 @@
 !!! Warning
     When upgrading postgresql major versions, manual steps are required [Postgres#37](https://github.com/docker-library/postgres/issues/37).
 
-PostgreSQL might be considered if you need to support many concurrent users. In addition, some features are only enabled on PostgreSQL, such as fuzzy search.
+PostgreSQL might be considered if you need to support many concurrent users. In addition, some features are only enabled on PostgreSQL, such as fuzzy search and [smart search](../faq.md#what-is-smart-search-and-how-do-i-use-it).
 
 **For Environment Variable Configuration, see** [Backend Configuration](./backend-config.md)
 

@@ -78,6 +78,7 @@ from ._utils import NOT_SET, NotSet
 from .repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric
 from .repository_group import RepositoryGroup
 from .repository_meals import RepositoryMeals
+from .repository_recipe_embeddings import RepositoryRecipeEmbeddings
 from .repository_recipes import RepositoryRecipes
 from .repository_shopping_list import RepositoryShoppingList
 from .repository_users import RepositoryUserRatings, RepositoryUsers
@@ -289,6 +290,12 @@ class AllRepositories:
         return RepositoryRecipes(
             self.session, PK_SLUG, RecipeModel, RecipeOut, group_id=self.group_id, household_id=self.household_id
         )
+
+    @cached_property
+    def recipe_embeddings(self) -> RepositoryRecipeEmbeddings:
+        if not self.scoped_group_id:
+            raise ValueError("Recipe embeddings are only accessed per group")
+        return RepositoryRecipeEmbeddings(self.session, self.scoped_group_id)
 
     @cached_property
     def ingredient_foods(self) -> RepositoryFood:

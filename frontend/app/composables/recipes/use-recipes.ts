@@ -2,6 +2,7 @@ import { ref } from "vue";
 import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
+import { alert } from "~/composables/use-toast";
 import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 import type { OrderByNullPosition, RecipeSummary } from "~/lib/api/types/recipe";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
@@ -28,6 +29,7 @@ function getParams(
     paginationSeed: query?._searchSeed, // propagate searchSeed to stabilize random order pagination
     searchSeed: query?._searchSeed, // unused, but pass it along for completeness of data
     search: query?.search,
+    semantic: query?.semantic || undefined,
     cookbook: query?.cookbook,
     households: query?.households,
     categories: query?.categories,
@@ -45,6 +47,7 @@ function getParams(
 export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
   const router = useRouter();
   const route = useRoute();
+  const i18n = useI18n();
 
   // passing the group slug switches to using the public API
   const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
@@ -60,11 +63,17 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     query: RecipeSearchQuery | null = null,
     queryFilter: string | null = null,
   ) {
-    const { data, error } = await api.recipes.getAll(
+    const { data, error, response } = await api.recipes.getAll(
       page,
       perPage,
       getParams(orderBy, orderDirection, orderByNullPosition, query, queryFilter),
     );
+
+    // Regular results look just like smart ones, so say when the server couldn't do a smart search.
+    // Only for the first page: the rest of the pages would repeat it.
+    if (page === 1 && response?.headers?.["x-semantic-search-fallback"]) {
+      alert.info(i18n.t("search.semantic-search-unavailable"));
+    }
 
     if (error?.response?.status === 404) {
       const redirect = typeof route.query.redirect === "string" ? route.query.redirect : undefined;

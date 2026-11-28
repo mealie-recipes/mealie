@@ -3,7 +3,7 @@ import io
 import json
 import wave
 from types import SimpleNamespace
-from unittest.mock import MagicMock
+from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
 import httpx
@@ -603,6 +603,48 @@ async def test_connection_skips_transcription_when_provider_has_other_roles(sett
 
     assert result.success is False
     assert transcriptions.calls == []
+
+
+def _patch_embeddings(monkeypatch) -> AsyncMock:
+    """Stubs get_client() so the embedding leg of test_connection never reaches a real provider."""
+    create = AsyncMock()
+    monkeypatch.setattr(
+        OpenAIService, "get_client", lambda self, provider: SimpleNamespace(embeddings=SimpleNamespace(create=create))
+    )
+    return create
+
+
+@pytest.mark.asyncio
+async def test_connection_embedding_only_provider_passes_on_embedding(settings_stub, monkeypatch):
+    # An embedding model can't answer the chat ping, which is set up to fail here
+    create = _patch_embeddings(monkeypatch)
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    repos = _make_mock_repos()
+    repos.group_ai_provider_settings.get_one.return_value.embedding_provider_id = provider.id
+
+    result = await OpenAIService(repos).test_connection(provider)
+
+    assert result.success is True
+    assert create.await_args.kwargs["model"] == provider.model
+
+
+@pytest.mark.asyncio
+async def test_connection_skips_embedding_when_provider_has_other_roles(settings_stub, monkeypatch):
+    create = _patch_embeddings(monkeypatch)
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    repos = _make_mock_repos()
+    settings = repos.group_ai_provider_settings.get_one.return_value
+    settings.embedding_provider_id = provider.id
+    settings.default_provider_id = provider.id
+
+    result = await OpenAIService(repos).test_connection(provider)
+
+    assert result.success is False
+    create.assert_not_awaited()
 
 
 @pytest.mark.asyncio
