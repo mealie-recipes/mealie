@@ -42,6 +42,7 @@
         :items="editForm.items"
         class="py-2"
       />
+      <slot name="edit-dialog-bottom" />
     </div>
     <template #custom-card-action>
       <slot name="edit-dialog-custom-action" />
@@ -193,6 +194,10 @@ const props = defineProps({
     type: Function as PropType<(items: any[]) => Promise<void>>,
     default: null,
   },
+  onEditDialogOpen: {
+    type: Function as PropType<(item: any) => Promise<void>>,
+    default: null,
+  },
 });
 
 // ============================================================
@@ -212,6 +217,12 @@ const editFormValid = ref(false);
 const itemSlotNames = computed(() => Object.keys(slots).filter(slotName => slotName.startsWith("item.")));
 const editEventHandler = (item: any) => {
   editForm.value.data = { ...item };
+  if (props.onEditDialogOpen) {
+    // not awaited, so the dialog opens right away; the page reports its own load failures in the dialog
+    void props.onEditDialogOpen(editForm.value.data).catch((error) => {
+      console.error(error);
+    });
+  }
   editDialog.value = true;
 };
 

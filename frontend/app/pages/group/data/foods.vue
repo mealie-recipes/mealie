@@ -169,6 +169,7 @@
       :create-form="createForm"
       :edit-form="editForm"
       :on-delete-dialog-open="onDeleteDialogOpen"
+      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="foodStore.actions.deleteOne"
@@ -235,6 +236,19 @@
         </BaseButton>
       </template>
 
+      <template #edit-dialog-bottom>
+        <GroupDataEditDialogRecipes
+          :recipes="editRecipes"
+          :page="editRecipesPage"
+          :total-pages="editRecipesTotalPages"
+          :loading="editRecipesLoading"
+          :load-failed="editRecipesLoadFailed"
+          :group-slug="userGroup"
+          @load-page="loadEditRecipesPage"
+          @retry="retryEditRecipes"
+        />
+      </template>
+
       <template #delete-dialog-bottom>
         <v-alert v-if="affectedRecipes.length > 0" type="warning" density="compact" class="mt-4 mb-0">
           {{ $t("data-pages.foods.delete-affects-recipes", { count: affectedRecipesTotal }) }}
@@ -263,6 +277,7 @@ import RecipeDataSubstitutionManagerDialog from "~/components/Domain/Recipe/Reci
 import type { ReverseSubstitutionChanges } from "~/components/Domain/Recipe/RecipeDataSubstitutionManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
+import { useEditDialogRecipes } from "~/composables/use-edit-dialog-recipes";
 import type {
   IngredientFoodCreate,
   IngredientFoodOut,
@@ -470,7 +485,26 @@ async function handleEdit() {
 
   await foodStore.actions.updateOne(editForm.data);
   editForm.data = {} as IngredientFoodWithOnHand;
+  resetEditRecipes();
   await applyReverseSubstitutions(foodId);
+}
+
+// ============================================================
+// Edit Dialog: Associated Recipes
+const {
+  recipes: editRecipes,
+  page: editRecipesPage,
+  totalPages: editRecipesTotalPages,
+  loading: editRecipesLoading,
+  loadFailed: editRecipesLoadFailed,
+  open: openEditRecipes,
+  reset: resetEditRecipes,
+  loadPage: loadEditRecipesPage,
+  retry: retryEditRecipes,
+} = useEditDialogRecipes("foods");
+
+async function onEditDialogOpen(item: IngredientFoodWithOnHand) {
+  await openEditRecipes(item?.id);
 }
 
 // ============================================================

@@ -59,7 +59,10 @@ class TagController(BaseCrudController):
     @router.get("/{item_id}", response_model=TagWithRecipes)
     def get_one(self, item_id: UUID4):
         """Returns a list of recipes associated with the provided tag."""
-        return self.mixins.get_one(item_id)
+        tag = self.repo.get_one(item_id, override_schema=TagWithRecipes)
+        if not tag:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "tag not found")
+        return tag
 
     @router.post("", response_model=TagOut, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def create_one(self, tag: TagCreate):
