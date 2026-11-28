@@ -136,6 +136,7 @@
     "units": "Enheder",
     "back": "Tilbage",
     "next": "Næste",
+    "previous": "Previous",
     "start": "Start",
     "toggle-view": "Skift visning",
     "date": "Dato",
@@ -1112,6 +1113,9 @@
     "combine": "Kombinér",
     "delete-unused": "Slet Ubrugte",
     "delete-unused-more": "+ {count} flere",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Antal Opskrifter",
     "categories": {
       "edit-category": "Rediger kategori",
