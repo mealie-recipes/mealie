@@ -136,6 +136,7 @@
     "units": "Мерни единици",
     "back": "Назад",
     "next": "Напред",
+    "previous": "Previous",
     "start": "Начало",
     "toggle-view": "Смяна на изгледа",
     "date": "Дата",
@@ -1112,6 +1113,9 @@
     "combine": "Обедини",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Редактиране на категория",
