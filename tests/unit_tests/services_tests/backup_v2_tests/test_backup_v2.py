@@ -3,6 +3,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
+import pytest
 from sqlalchemy.orm import Session
 
 import tests.data as test_data
@@ -24,6 +25,14 @@ from mealie.db.models.users.users import User
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
 from mealie.services.backups_v2.backup_v2 import BackupV2
+
+
+@pytest.fixture(autouse=True)
+def release_test_transaction(session: Session):
+    # Restore replaces tables through a separate connection and needs exclusive schema locks.
+    session.rollback()
+    yield
+    session.rollback()
 
 
 def dict_sorter(d: dict) -> Any:
@@ -296,3 +305,26 @@ def test_database_restore_data():
 
     finally:
         backup_v2.restore(original_data_backup)
+
+
+def test_restore_rebuilds_recipe_search(unique_user_fn_scoped):
+    from mealie.repos.all_repositories import get_repositories
+    from mealie.schema.recipe import RecipeDraft
+    from mealie.schema.response.pagination import PaginationQuery
+
+    user = unique_user_fn_scoped
+    recipe = user.repos.recipes.create(
+        RecipeDraft(name="Restore Saffron Soufflé", user_id=user.user_id, group_id=user.group_id)
+    )
+    recipe_id, group_id = recipe.id, user.group_id
+    user.repos.session.rollback()
+    backup = BackupV2(get_app_settings().DB_URL)
+    try:
+        archive = backup.backup()
+        backup.restore(archive)
+        with session_context() as session:
+            repo = get_repositories(session, group_id=group_id, household_id=None).recipes
+            page = repo.page_all(PaginationQuery(), search='"restore saffron souffle"')
+            assert [item.id for item in page.items] == [recipe_id]
+    finally:
+        backup.db_exporter.engine.dispose()

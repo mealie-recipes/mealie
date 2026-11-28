@@ -36,3 +36,13 @@ def test_every_datetime_column_survives_a_backup():
         f"datetime columns missing from AlchemyExporter.look_for_datetime: {sorted(unregistered)}. "
         "Add them, or they will restore as strings."
     )
+
+
+def test_mcp_timestamps_survive_backup_conversion():
+    exporter = AlchemyExporter(get_app_settings().DB_URL)
+    try:
+        converted = exporter.convert_types({"used_at": "2026-11-11T12:30:00", "revoked_at": "2026-11-11T13:00:00"})
+        assert converted["used_at"].isoformat() == "2026-11-11T12:30:00"
+        assert converted["revoked_at"].isoformat() == "2026-11-11T13:00:00"
+    finally:
+        exporter.engine.dispose()

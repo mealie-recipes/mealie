@@ -113,6 +113,9 @@
         @toggle-dense-view="toggleMobileCards()"
       />
     </v-row>
+    <v-alert v-if="searchError" type="error" role="alert" class="mb-4">
+      {{ $t(searchError) }}
+    </v-alert>
     <div v-if="recipes && ready">
       <div class="mt-2">
         <v-row v-if="!useMobileCards">
@@ -268,7 +271,8 @@ const hasMore = ref(true);
 const ready = ref(false);
 const loading = ref(false);
 
-const { fetchMore, getRandom } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+const { fetchMore, getRandom, searchError } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+let queryVersion = 0;
 const { savePosition, getSavedPage, restorePosition } = useScrollPosition();
 const router = useRouter();
 
@@ -315,25 +319,26 @@ onMounted(async () => {
   const savedPage = getSavedPage(route.path);
 
   if (savedPage && savedPage > 2) {
+    const version = ++queryVersion;
     page.value = 1;
     hasMore.value = true;
     const newRecipes = await fetchRecipes(savedPage);
+    if (version !== queryVersion) return;
     if (newRecipes.length < perPage * savedPage) {
       hasMore.value = false;
     }
     page.value = savedPage;
     emit(REPLACE_RECIPES_EVENT, newRecipes);
     ready.value = true;
+    loading.value = false;
     restorePosition(route.path);
   }
   else {
     await initRecipes();
-    ready.value = true;
     if (savedPage) {
       restorePosition(route.path);
     }
   }
-  loading.value = false;
 });
 
 let lastQuery: string | undefined = JSON.stringify(props.query);
@@ -345,12 +350,14 @@ watch(
       lastQuery = newValueString;
       ready.value = false;
       await initRecipes();
-      ready.value = true;
     }
   },
 );
 
 async function initRecipes() {
+  const version = ++queryVersion;
+  loading.value = true;
+  emit(REPLACE_RECIPES_EVENT, []);
   if (effectiveOrderBy.value === "random") {
     randomSeed.value = Date.now().toString();
   }
@@ -360,6 +367,7 @@ async function initRecipes() {
   // we double-up the first call to avoid a bug with large screens that render
   // the entire first page without scrolling, preventing additional loading
   const newRecipes = await fetchRecipes(page.value + 1);
+  if (version !== queryVersion) return;
   if (newRecipes.length < perPage) {
     hasMore.value = false;
   }
@@ -368,6 +376,8 @@ async function initRecipes() {
   page.value = page.value + 1;
 
   emit(REPLACE_RECIPES_EVENT, newRecipes);
+  ready.value = true;
+  loading.value = false;
 }
 
 const infiniteScroll = useThrottleFn(async () => {
@@ -376,9 +386,11 @@ const infiniteScroll = useThrottleFn(async () => {
   }
 
   loading.value = true;
+  const version = queryVersion;
   page.value = page.value + 1;
 
   const newRecipes = await fetchRecipes();
+  if (version !== queryVersion) return;
   if (newRecipes.length < perPage) {
     hasMore.value = false;
   }
@@ -481,9 +493,14 @@ async function sortRecipes(sortType: string) {
 
   sortLoading.value = true;
   loading.value = true;
+  const version = ++queryVersion;
 
   // fetch new recipes
   const newRecipes = await fetchRecipes();
+  if (version !== queryVersion) {
+    sortLoading.value = false;
+    return;
+  }
   emit(REPLACE_RECIPES_EVENT, newRecipes);
 
   sortLoading.value = false;

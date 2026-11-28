@@ -614,6 +614,7 @@ class RecipeController(BaseRecipeController):
             require_all_tools=search_query.require_all_tools,
             require_all_foods=search_query.require_all_foods,
             search=search_query.search,
+            search_mode=search_query.search_mode,
         )
 
         # merge default pagination with the request's query params

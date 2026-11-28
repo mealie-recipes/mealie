@@ -10,7 +10,17 @@ from alembic import command
 from alembic.config import Config
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import Connection, ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
+from sqlalchemy import (
+    Connection,
+    ForeignKey,
+    ForeignKeyConstraint,
+    MetaData,
+    Table,
+    create_engine,
+    insert,
+    inspect,
+    text,
+)
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
@@ -18,6 +28,7 @@ from mealie.db import init_db
 from mealie.db.fixes.fix_migration_data import fix_migration_data
 from mealie.db.init_db import ALEMBIC_DIR
 from mealie.db.models._model_utils.guid import GUID
+from mealie.search.index import rebuild, uninstall
 from mealie.services._base_service import BaseService
 
 
@@ -62,6 +73,8 @@ class AlchemyExporter(BaseService):
         "date_updated",
         "timestamp",
         "expires_at",
+        "used_at",
+        "revoked_at",
         "locked_at",
         "last_made",
         "completed_date",
@@ -163,7 +176,7 @@ class AlchemyExporter(BaseService):
         jsonable_encoder to ensure that the object can be converted to a json string.
         """
         with self.engine.connect() as connection:
-            self.meta.reflect(bind=self.engine)
+            self.meta.reflect(bind=self.engine, only=lambda name, _: not name.startswith("recipe_search_"))
 
             all_tables = self.meta.tables.values()
 
@@ -190,7 +203,7 @@ class AlchemyExporter(BaseService):
                 self.logger.error("Error fixing migration data during export; continuing anyway")
 
         with self.engine.connect() as connection:
-            self.meta.reflect(bind=self.engine)  #  http://docs.sqlalchemy.org/en/rel_0_9/core/reflection.html
+            self.meta.reflect(bind=self.engine, only=lambda name, _: not name.startswith("recipe_search_"))
 
             result = {
                 table.name: [dict(row) for row in connection.execute(table.select()).mappings()]
@@ -218,7 +231,7 @@ class AlchemyExporter(BaseService):
             with ForeignKeyDisabler(connection, self.engine.dialect.name, logger=self.logger):
                 data = self.convert_types(db_dump)
 
-                self.meta.reflect(bind=self.engine)
+                self.meta.reflect(bind=self.engine, only=lambda name, _: not name.startswith("recipe_search_"))
                 for table_name, rows in data.items():
                     if not rows:
                         continue
@@ -252,6 +265,9 @@ class AlchemyExporter(BaseService):
                     )
                     connection.execute(text(dedent(sql)))
 
+            if inspect(connection).has_table("recipe_search_segments"):
+                rebuild(connection)
+
         # Dispose this exporter's engine to release connections back to the database.
         # This prevents connection pool exhaustion when init_db.main() needs connections.
         self.engine.dispose()
@@ -268,6 +284,9 @@ class AlchemyExporter(BaseService):
             # Inspect the open connection, not the engine: inspecting the engine checks out a
             # second connection that is only released when the inspector is garbage collected.
             inspector = inspect(connection)
+            if inspector.has_table("recipe_search_segments"):
+                uninstall(connection)
+                inspector = inspect(connection)
 
             # We need to re-create a minimal metadata with only the required things to
             # successfully emit drop constraints and tables commands for postgres (based

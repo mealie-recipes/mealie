@@ -32,6 +32,7 @@ export interface RecipeSearchQuery {
   requireAllTools?: boolean;
   requireAllFoods?: boolean;
   search?: string | null;
+  searchMode?: "all" | "any";
 }
 export interface RequestQuery {
   orderBy?: string | null;
