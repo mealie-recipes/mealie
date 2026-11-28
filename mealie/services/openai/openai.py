@@ -508,6 +508,16 @@ class OpenAIService(BaseService):
         # the SDK model rejects (e.g. Groq's "on_demand"), which would fail the whole response.
         if isinstance(data, dict):
             data.pop("service_tier", None)
+            # Reasoning models such as Mistral Large 4 send the content as a list of "thinking"
+            # and "text" chunks, which the SDK model rejects. Keep only the text.
+            for choice in data.get("choices") or []:
+                message = choice.get("message") if isinstance(choice, dict) else None
+                if isinstance(message, dict) and isinstance(message.get("content"), list):
+                    message["content"] = "".join(
+                        part.get("text") or ""
+                        for part in message["content"]
+                        if isinstance(part, dict) and part.get("type") == "text"
+                    )
         completion = ChatCompletion.model_validate(data)
 
         for choice in completion.choices:

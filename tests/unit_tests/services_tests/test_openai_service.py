@@ -432,6 +432,24 @@ async def test_get_response_ignores_unknown_service_tier(settings_stub):
 
 
 @pytest.mark.asyncio
+async def test_get_response_reads_text_from_content_chunks(settings_stub):
+    # Mistral Large 4 returns the content as a list of thinking and text chunks
+    body = json.loads(_make_body(""))
+    body["choices"][0]["message"]["content"] = [
+        {"type": "thinking", "thinking": [{"type": "text", "text": "The user wants JSON."}]},
+        {"type": "text", "text": '{"answer": "hi"}'},
+    ]
+    svc = OpenAIService(_make_mock_repos())
+    completions = _FakeCompletions(parse_result=json.dumps(body))
+    svc.get_client = MagicMock(return_value=_FakeClient(completions))
+
+    result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+    assert result is not None
+    assert result.answer == "hi"
+
+
+@pytest.mark.asyncio
 async def test_get_response_returns_none_when_no_choices(settings_stub):
     svc = OpenAIService(_make_mock_repos())
     completions = _FakeCompletions(parse_result=_make_body(None))
