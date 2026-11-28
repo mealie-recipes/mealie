@@ -136,6 +136,7 @@
     "units": "Unitats",
     "back": "Torna",
     "next": "Següent",
+    "previous": "Previous",
     "start": "Comença",
     "toggle-view": "Commuta la visualització",
     "date": "Data",
@@ -1112,6 +1113,9 @@
     "combine": "Combina",
     "delete-unused": "Suprimeix les no utilitzades",
     "delete-unused-more": "+ {count} més",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Nombre de receptes",
     "categories": {
       "edit-category": "Edita categoria",
