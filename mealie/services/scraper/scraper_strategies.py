@@ -300,6 +300,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
         extras.set_tags(try_get_default(scraped_data.keywords, "keywords", "", cleaner.clean_tags))
         extras.set_categories(try_get_default(scraped_data.category, "recipeCategory", "", cleaner.clean_categories))
+        extras.set_tools(try_get_default(None, "tool", [], cleaner.clean_tools))
 
         recipe = RecipeDraft(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),

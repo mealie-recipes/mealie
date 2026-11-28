@@ -705,6 +705,20 @@ def clean_categories(category: str | list) -> list[str]:
             raise TypeError(f"Unexpected type for category: {type(category)}, {category}")
 
 
+def clean_tools(data: typing.Any) -> list[str]:
+    if not isinstance(data, list):
+        data = [data]
+
+    tools = []
+    for tool in data:
+        if isinstance(tool, dict):
+            tool = tool.get("name")
+        if isinstance(tool, str) and tool.strip():
+            tools.append(clean_string(tool))
+
+    return tools
+
+
 def clean_tags(data: str | list[str]) -> list[str]:
     """
     Gets keywords as a list or natural language list and returns

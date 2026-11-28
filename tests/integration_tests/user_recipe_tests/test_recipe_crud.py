@@ -2709,3 +2709,27 @@ def test_create_recipe_slug_length_validation(api_client: TestClient, unique_use
 
     response = api_client.get(api_routes.recipes_slug(created_slug), headers=unique_user.token)
     assert response.status_code == 200
+
+
+@pytest.mark.parametrize("include_organizers", [False, True])
+def test_create_json_ld_persists_tools(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: MonkeyPatch, include_organizers: bool
+):
+    monkeypatch.setattr(RecipeDataService, "scrape_image", lambda *_: "TEST_IMAGE")
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Recipe",
+        "name": "Equipment import regression",
+        "recipeIngredient": ["1 apple"],
+        "recipeInstructions": ["Slice the apple."],
+        "tool": ["Equipment 1"],
+    }
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json,
+        json={"data": json.dumps(data), "include_tags": include_organizers, "include_categories": include_organizers},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 201
+    recipe = api_client.get(api_routes.recipes_slug(response.json()), headers=unique_user.token)
+    assert recipe.status_code == 200
+    assert [tool["name"] for tool in recipe.json()["tools"]] == ["Equipment 1"]
