@@ -194,6 +194,7 @@
                       <v-checkbox
                         hide-details
                         :model-value="ingredientData.checked"
+                        :aria-label="parseIngredientText(ingredientData.ingredient, recipeSection.recipeScale, false)"
                         class="pt-0 my-auto py-auto mr-2"
                         color="secondary"
                         density="compact"
@@ -237,6 +238,7 @@
 <script setup lang="ts">
 import { toRefs } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
+import { useIngredientTextParser } from "~/composables/recipes";
 import { useNewShoppingListForm } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
@@ -287,6 +289,7 @@ const i18n = useI18n();
 const auth = useMealieAuth();
 const api = useUserApi();
 const preferences = useShoppingListPreferences();
+const { parseIngredientText } = useIngredientTextParser();
 const router = useRouter();
 const { form: newListForm, reset: resetNewListForm, create: createShoppingList } = useNewShoppingListForm();
 const ready = ref(false);
