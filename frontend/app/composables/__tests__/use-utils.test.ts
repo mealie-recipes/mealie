@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { normalize, normalizeFilter } from "../use-utils";
+import { findHttpUrl, normalize, normalizeFilter } from "../use-utils";
 
 describe("test normalize", () => {
   test("base case", () => {
@@ -30,5 +30,28 @@ describe("test normalize filter", () => {
     const value = "Cœur de bœuf";
     const query = "coeur";
     expect(normalizeFilter(value, query)).toBeTruthy();
+  });
+});
+
+describe("test findHttpUrl", () => {
+  test("text is only a URL", () => {
+    expect(findHttpUrl("https://fooby.ch/de/rezepte/16252/")).toEqual("https://fooby.ch/de/rezepte/16252/");
+  });
+  test("URL after a title on a new line", () => {
+    expect(findHttpUrl("Schau mal: Spaghetti aglio e olio\nhttps://fooby.ch/de/rezepte/16252/"))
+      .toEqual("https://fooby.ch/de/rezepte/16252/");
+  });
+  test("URL between other words", () => {
+    expect(findHttpUrl("Try this http://example.com/recipe tonight")).toEqual("http://example.com/recipe");
+  });
+  test("first URL wins", () => {
+    expect(findHttpUrl("https://a.example/1 https://b.example/2")).toEqual("https://a.example/1");
+  });
+  test("no URL", () => {
+    expect(findHttpUrl("Spaghetti aglio e olio")).toBeNull();
+    expect(findHttpUrl("")).toBeNull();
+  });
+  test("other protocols are ignored", () => {
+    expect(findHttpUrl("mailto:chef@example.com ftp://example.com/file")).toBeNull();
   });
 });
