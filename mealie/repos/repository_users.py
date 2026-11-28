@@ -2,10 +2,11 @@ import random
 import shutil
 
 from pydantic import UUID4
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from mealie.assets import users as users_assets
 from mealie.core.config import get_app_settings
+from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.schema.user.user import PrivateUser, UserRatingOut
 
@@ -59,10 +60,39 @@ class RepositoryUsers(GroupRepositoryGeneric[PrivateUser, User]):
                 # do not update the default user in demo mode
                 return user_to_delete
 
+        self._reassign_recipes(self._query_one(value, match_key))
         entry = super().delete(value, match_key)
         # Delete the user's directory
         shutil.rmtree(PrivateUser.get_directory(value))
         return entry
+
+    def _reassign_recipes(self, user: User) -> None:
+        """
+        Gives the recipes of the user to another user of the group that holds each recipe.
+        A recipe gets its household from its owner, so the query prefers a user of the same household.
+        """
+        stmt = select(RecipeModel.group_id).filter(RecipeModel.user_id == user.id).distinct()
+        for group_id in self.session.execute(stmt).scalars().all():
+            owner_stmt = (
+                select(User)
+                .filter(User.group_id == group_id, User.id != user.id)
+                .order_by(
+                    (User.household_id == user.household_id).desc().nulls_last(),
+                    User.admin.desc().nulls_last(),
+                    User.can_manage_household.desc().nulls_last(),
+                    User.created_at.asc().nulls_last(),
+                )
+                .limit(1)
+            )
+            new_owner = self.session.execute(owner_stmt).scalars().one_or_none()
+            if new_owner is None:
+                continue
+
+            self.session.execute(
+                update(RecipeModel)
+                .where(RecipeModel.user_id == user.id, RecipeModel.group_id == group_id)
+                .values(user_id=new_owner.id)
+            )
 
     def get_by_username(self, username: str) -> PrivateUser | None:
         stmt = select(User).filter(User.username == username)

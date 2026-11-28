@@ -201,3 +201,113 @@ def test_delete_user_with_rated_and_favorited_recipe(
 
     response = api_client.delete(api_routes.admin_users_item_id(unique_user_fn_scoped.user_id), headers=admin_token)
     assert response.status_code == 200
+
+
+def _create_household_user(
+    api_client: TestClient, admin_token, group: str, household: str, admin: bool = False
+) -> tuple[str, dict]:
+    data = generate_create_data() | {"group": group, "household": household, "admin": admin}
+    response = api_client.post(api_routes.admin_users, json=data, headers=admin_token)
+    assert response.status_code == 201
+
+    token = utils.login({"username": data["email"], "password": data["password"]}, api_client)
+    return response.json()["id"], token
+
+
+def _create_group(api_client: TestClient, admin_token, households: list[str]) -> str:
+    group = random_string()
+    response = api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
+    assert response.status_code == 201
+    group_id = response.json()["id"]
+
+    for household in households:
+        response = api_client.post(
+            api_routes.admin_households, json={"name": household, "groupId": group_id}, headers=admin_token
+        )
+        assert response.status_code == 201
+    return group
+
+
+def test_delete_user_hands_recipes_to_household_member(api_client: TestClient, admin_token):
+    """https://github.com/mealie-recipes/mealie/issues/3171"""
+    group = _create_group(api_client, admin_token, ["Other"])
+    _create_household_user(api_client, admin_token, group, "Other", admin=True)
+    household_user_id, household_user_token = _create_household_user(api_client, admin_token, group, "Family")
+    deleted_user_id, deleted_user_token = _create_household_user(api_client, admin_token, group, "Family")
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=deleted_user_token)
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.delete(api_routes.admin_users_item_id(deleted_user_id), headers=admin_token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(slug), headers=household_user_token)
+    assert response.status_code == 200
+    assert response.json()["userId"] == household_user_id
+
+
+def test_delete_user_prefers_admin(api_client: TestClient, admin_token):
+    """https://github.com/mealie-recipes/mealie/issues/3171"""
+    group = _create_group(api_client, admin_token, [])
+    _create_household_user(api_client, admin_token, group, "Family")
+    admin_id, admin_user_token = _create_household_user(api_client, admin_token, group, "Family", admin=True)
+    deleted_user_id, deleted_user_token = _create_household_user(api_client, admin_token, group, "Family")
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=deleted_user_token)
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.delete(api_routes.admin_users_item_id(deleted_user_id), headers=admin_token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(slug), headers=admin_user_token)
+    assert response.status_code == 200
+    assert response.json()["userId"] == admin_id
+
+
+def test_delete_last_household_user_hands_recipes_to_group_member(api_client: TestClient, admin_token):
+    """https://github.com/mealie-recipes/mealie/issues/3171"""
+    group = _create_group(api_client, admin_token, ["Other"])
+    other_household_user_id, other_household_user_token = _create_household_user(
+        api_client, admin_token, group, "Other"
+    )
+    deleted_user_id, deleted_user_token = _create_household_user(api_client, admin_token, group, "Family")
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=deleted_user_token)
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.delete(api_routes.admin_users_item_id(deleted_user_id), headers=admin_token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(slug), headers=other_household_user_token)
+    assert response.status_code == 200
+    assert response.json()["userId"] == other_household_user_id
+
+
+def test_delete_moved_user_hands_recipes_to_member_of_recipe_group(api_client: TestClient, admin_token):
+    """https://github.com/mealie-recipes/mealie/issues/3171"""
+    old_group = _create_group(api_client, admin_token, [])
+    old_group_user_id, old_group_user_token = _create_household_user(api_client, admin_token, old_group, "Family")
+    deleted_user_id, deleted_user_token = _create_household_user(api_client, admin_token, old_group, "Family")
+    new_group = _create_group(api_client, admin_token, [])
+    _create_household_user(api_client, admin_token, new_group, "Family")
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=deleted_user_token)
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.get(api_routes.admin_users_item_id(deleted_user_id), headers=admin_token)
+    assert response.status_code == 200
+    user = response.json() | {"group": new_group, "household": "Family"}
+    response = api_client.put(api_routes.admin_users_item_id(deleted_user_id), json=user, headers=admin_token)
+    assert response.status_code == 200
+    assert response.json()["group"] == new_group
+
+    response = api_client.delete(api_routes.admin_users_item_id(deleted_user_id), headers=admin_token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(slug), headers=old_group_user_token)
+    assert response.status_code == 200
+    assert response.json()["userId"] == old_group_user_id
