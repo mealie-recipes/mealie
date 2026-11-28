@@ -162,16 +162,15 @@ def test_native_mcp_oauth_flow_and_switch():
         assert "form-action 'self' http://127.0.0.1:5599" in csp
         assert "you will be sent to <strong>127.0.0.1:5599</strong>" in default_consent.text
         assert "registered itself and is not verified" in default_consent.text
-        # Every permission is offered and ticked, even when the client asked for nothing
+        # Read permissions start selected. Write permissions are available for opt-in.
         default_form = _consent_form(default_consent.text)
-        assert default_form["scope"] == [
-            "recipes:read",
-            "recipes:write",
-            "mealplans:read",
-            "mealplans:write",
-            "shopping:read",
-            "shopping:write",
-        ]
+        default_scopes = ["recipes:read", "mealplans:read", "shopping:read"]
+        write_scopes = ["recipes:write", "mealplans:write", "shopping:write"]
+        assert default_form["scope"] == default_scopes
+        assert [
+            item["value"]
+            for item in BeautifulSoup(default_consent.text, "html.parser").select("input[name=scope]:not([checked])")
+        ] == write_scopes
         assert "Create and change your household shopping lists" in default_consent.text
         default_denial = client.post(
             "/oauth/consent", data={**default_form, "decision": "deny"}, follow_redirects=False
@@ -278,7 +277,7 @@ def test_native_mcp_oauth_flow_and_switch():
         _tool_result(_tool(client, access, "get_profile"))
         assert client.put(connection_url, json={"scopes": ["recipes:read"]}, headers=mealie_auth).status_code == 200
 
-        # A separate approval can add a write scope without changing the first grant.
+        # A separate approval can add selected write scopes without changing the first grant.
         write_auth = client.get(
             "/oauth/authorize",
             params={
@@ -299,6 +298,8 @@ def test_native_mcp_oauth_flow_and_switch():
         )
         write_consent = client.get(write_auth.headers["location"])
         write_form = _consent_form(write_consent.text)
+        assert write_form["scope"] == default_scopes
+        write_form["scope"] = default_scopes + write_scopes
         write_approval = client.post(
             "/oauth/consent", data={**write_form, "decision": "approve"}, follow_redirects=False
         )

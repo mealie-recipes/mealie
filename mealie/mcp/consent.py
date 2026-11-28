@@ -98,12 +98,12 @@ async def consent_page(request: Request, session: Session = Depends(generate_ses
     publisher_line = (
         f"Published by {html.escape(publisher)}" if publisher else "This app registered itself and is not verified"
     )
-    # Offer every scope, ticked, even if the client asked for less: many clients never
-    # ask again for write access, so the user decides here and can change it later
+    # Show every scope and require the user to select write permissions.
     scope_items = "".join(
         f"<li>{html.escape(SCOPE_LABELS[scope])}</li>"
         if scope == REQUIRED_SCOPE
-        else f'<li><label><input type="checkbox" name="scope" value="{scope}" checked> '
+        else f'<li><label><input type="checkbox" name="scope" value="{scope}"'
+        f"{' checked' if scope.endswith(':read') else ''}> "
         f"{html.escape(SCOPE_LABELS[scope])}</label></li>"
         for scope in SCOPES
     )
