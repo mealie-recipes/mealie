@@ -1,6 +1,7 @@
+import { recipeSortOptions } from "~/composables/use-recipe-search-options";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { watchDebounced } from "@vueuse/shared";
 import type { IngredientFoodOut, CategoryOut, TagOut, ToolOut } from "~/lib/api/types/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 import {
@@ -21,6 +22,7 @@ import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables
 // Type for the composable return value
 interface RecipeExplorerSearchState {
   state: Ref<{
+    favoritesOnly: boolean;
     auto: boolean;
     ready: boolean;
     search: string;
@@ -40,6 +42,7 @@ interface RecipeExplorerSearchState {
   passedQueryWithSeed: ComputedRef<RecipeSearchQuery & { _searchSeed: string }>;
   search: () => Promise<void>;
   reset: () => void;
+  clearFilters: () => void;
   toggleOrderDirection: () => void;
   setOrderBy: (value: string) => void;
   setRandomOrderBy: () => void;
@@ -51,6 +54,9 @@ interface RecipeExplorerSearchState {
 const memo: Record<string, RecipeExplorerSearchState> = {};
 
 function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): RecipeExplorerSearchState {
+  const auth = useMealieAuth();
+  let hydrating = false;
+  let updatingRoute = false;
   const router = useRouter();
   const route = useRoute();
 
@@ -60,6 +66,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
 
   // State management
   const state = ref({
+    favoritesOnly: false,
     auto: true,
     ready: false,
     search: "",
@@ -117,6 +124,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       : state.value.orderBy;
 
     return {
+      queryFilter: isOwnGroup.value ? (state.value.favoritesOnly && auth.user.value?.id ? `favoritedBy.id = "${auth.user.value.id}"` : "") : undefined,
       search: state.value.search ? state.value.search : "",
       categories: toIDArray(selectedCategories.value),
       foods: toIDArray(selectedFoods.value),
@@ -178,21 +186,26 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   }
 
   // Main functions
-  function reset() {
-    state.value.search = queryDefaults.search;
-    state.value.orderBy = queryDefaults.orderBy;
-    state.value.orderDirection = queryDefaults.orderDirection;
-    sortPreferences.value.orderBy = queryDefaults.orderBy;
-    sortPreferences.value.orderDirection = queryDefaults.orderDirection;
-    state.value.requireAllCategories = queryDefaults.requireAllCategories;
-    state.value.requireAllTags = queryDefaults.requireAllTags;
-    state.value.requireAllTools = queryDefaults.requireAllTools;
-    state.value.requireAllFoods = queryDefaults.requireAllFoods;
+  function clearFilters() {
+    state.value.favoritesOnly = false;
+    state.value.requireAllCategories = false;
+    state.value.requireAllTags = false;
+    state.value.requireAllTools = false;
+    state.value.requireAllFoods = false;
     selectedCategories.value = [];
     selectedFoods.value = [];
     selectedHouseholds.value = [];
     selectedTags.value = [];
     selectedTools.value = [];
+  }
+
+  function reset() {
+    clearFilters();
+    state.value.search = queryDefaults.search;
+    state.value.orderBy = queryDefaults.orderBy;
+    state.value.orderDirection = queryDefaults.orderDirection;
+    sortPreferences.value.orderBy = queryDefaults.orderBy;
+    sortPreferences.value.orderDirection = queryDefaults.orderDirection;
   }
 
   function toggleOrderDirection() {
@@ -213,12 +226,15 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     const oldQueryValueString = JSON.stringify(passedQuery.value);
     const newQueryValue = calcPassedQuery();
     const newQueryValueString = JSON.stringify(newQueryValue);
-    if (oldQueryValueString === newQueryValueString) {
+    if (oldQueryValueString === newQueryValueString && state.value.orderBy !== "random") {
       return;
     }
 
     passedQuery.value = newQueryValue;
     const query = {
+      favoritesOnly: isOwnGroup.value && state.value.favoritesOnly ? "true" : undefined,
+      orderBy: state.value.orderBy,
+      orderDirection: state.value.orderDirection,
       categories: passedQuery.value.categories,
       foods: passedQuery.value.foods,
       tags: passedQuery.value.tags,
@@ -234,7 +250,13 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
         requireAllFoods: passedQuery.value.requireAllFoods ? "true" : undefined,
       },
     };
-    await router.push({ query });
+    updatingRoute = true;
+    try {
+      await router.push({ query });
+    }
+    finally {
+      updatingRoute = false;
+    }
     searchQuerySession.value.recipe = JSON.stringify(query);
   }
 
@@ -255,10 +277,8 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
 
   async function hydrateSearch() {
     const query = router.currentRoute.value.query;
-    if (query.auto?.length) {
-      state.value.auto = query.auto === "true";
-    }
-
+    state.value.favoritesOnly = isOwnGroup.value && query.favoritesOnly === "true";
+    state.value.auto = query.auto !== "false";
     if (query.search?.length) {
       state.value.search = query.search as string;
     }
@@ -266,8 +286,10 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       state.value.search = queryDefaults.search;
     }
 
-    state.value.orderBy = sortPreferences.value.orderBy;
-    state.value.orderDirection = sortPreferences.value.orderDirection as "asc" | "desc";
+    const requestedOrder = typeof query.orderBy === "string" ? query.orderBy : sortPreferences.value.orderBy;
+    state.value.orderBy = recipeSortOptions.some(([field]) => field === requestedOrder) && (isOwnGroup.value || requestedOrder !== "last_made") ? requestedOrder : queryDefaults.orderBy;
+    const requestedDirection = query.orderDirection || sortPreferences.value.orderDirection;
+    state.value.orderDirection = requestedDirection === "asc" ? "asc" : "desc";
 
     if (query.requireAllCategories?.length) {
       state.value.requireAllCategories = query.requireAllCategories === "true";
@@ -407,19 +429,25 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     state.value.ready = true;
   }
 
-  // Watch for route query changes
-  watch(
-    () => route.query,
-    () => {
-      if (!Object.keys(route.query).length) {
-        reset();
-      }
-    },
-  );
+  // Restore search and filters on browser history navigation.
+  watch(() => route.query, async () => {
+    if (!state.value.ready || updatingRoute) return;
+    hydrating = true;
+    try {
+      await hydrateSearch();
+      passedQuery.value = calcPassedQuery();
+      searchQuerySession.value.recipe = JSON.stringify(route.query);
+    }
+    finally {
+      hydrating = false;
+    }
+  });
 
   // Auto-search when parameters change
   watchDebounced(
     [
+      () => state.value.favoritesOnly,
+      () => state.value.randomSeed,
       () => state.value.search,
       () => state.value.requireAllCategories,
       () => state.value.requireAllTags,
@@ -434,7 +462,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       selectedTools,
     ],
     async () => {
-      if (state.value.ready && state.value.auto) {
+      if (state.value.ready && state.value.auto && !hydrating) {
         await search();
       }
     },
@@ -458,6 +486,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     // Methods
     search,
     reset,
+    clearFilters,
     toggleOrderDirection,
     setOrderBy,
     setRandomOrderBy,

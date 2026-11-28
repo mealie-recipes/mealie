@@ -4,6 +4,7 @@
     v-if="categories"
     v-model="selectedCategories"
     v-model:require-all="state.requireAllCategories"
+    class="d-flex align-center"
     :items="categories"
   >
     <v-icon start>
@@ -17,6 +18,7 @@
     v-if="tags"
     v-model="selectedTags"
     v-model:require-all="state.requireAllTags"
+    class="d-flex align-center"
     :items="tags"
   >
     <v-icon start>
@@ -30,6 +32,7 @@
     v-if="tools"
     v-model="selectedTools"
     v-model:require-all="state.requireAllTools"
+    class="d-flex align-center"
     :items="tools"
   >
     <v-icon start>
@@ -43,6 +46,7 @@
     v-if="foods"
     v-model="selectedFoods"
     v-model:require-all="state.requireAllFoods"
+    class="d-flex align-center"
     :items="foods"
   >
     <v-icon start>
@@ -55,6 +59,7 @@
   <SearchFilter
     v-if="households.length > 1"
     v-model="selectedHouseholds"
+    class="d-flex align-center"
     :items="households"
     radio
   >
