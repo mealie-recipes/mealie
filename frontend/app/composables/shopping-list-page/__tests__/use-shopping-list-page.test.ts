@@ -59,6 +59,13 @@ vi.mock("../sub-composables/use-shopping-list-crud", () => ({
   useShoppingListCrud: () => crud,
 }));
 
+const onHand = {
+  markCheckedItemsOnHand: vi.fn(),
+};
+vi.mock("../sub-composables/use-shopping-list-on-hand", () => ({
+  useShoppingListOnHand: () => onHand,
+}));
+
 vi.mock("vue", { spy: true });
 vi.mocked(vue.onUnmounted).mockImplementation(fn => fn());
 vi.mocked(vue.onMounted).mockImplementation(fn => fn());
@@ -74,9 +81,11 @@ describe("useShoppingListPage", () => {
     openCheckAll,
     openUncheckAll,
     openDeleteChecked,
+    openMarkCheckedOnHand,
     checkAll,
     uncheckAll,
     deleteChecked,
+    markCheckedOnHand,
     toggleReorderLabelsDialog,
     saveLabelOrder,
     refresh,
@@ -87,6 +96,7 @@ describe("useShoppingListPage", () => {
     state.checkAllDialog = false;
     state.uncheckAllDialog = false;
     state.deleteCheckedDialog = false;
+    state.markCheckedOnHandDialog = false;
     preserveItemOrder.value = false;
     itemsByLabel.value = { myKey: [] };
     shoppingList.value = {
@@ -143,6 +153,33 @@ describe("useShoppingListPage", () => {
       };
       openDeleteChecked();
       expect(state.deleteCheckedDialog).toBe(false);
+    });
+  });
+  describe("openMarkCheckedOnHand", () => {
+    test("opens the dialog", () => {
+      openMarkCheckedOnHand();
+      expect(state.markCheckedOnHandDialog).toBe(true);
+    });
+    test("skips the dialog if there's nothing checked", () => {
+      shoppingList.value = {
+        ...MOCK_SHOPPING_LIST,
+        listItems: [
+          MOCK_ITEM,
+        ],
+      };
+      openMarkCheckedOnHand();
+      expect(state.markCheckedOnHandDialog).toBe(false);
+    });
+  });
+  describe("markCheckedOnHand", () => {
+    test("closes the dialog", () => {
+      state.markCheckedOnHandDialog = true;
+      markCheckedOnHand();
+      expect(state.markCheckedOnHandDialog).toBe(false);
+    });
+    test("marks the checked items as on hand", () => {
+      markCheckedOnHand();
+      expect(onHand.markCheckedItemsOnHand).toHaveBeenCalled();
     });
   });
   describe("checkAll", () => {
