@@ -1,7 +1,7 @@
 """Add transactional recipe search indexes.
 
 Revision ID: 46f6ac67e93a
-Revises: f3a1ae61d772
+Revises: a136609cde0f
 """
 
 from alembic import op
