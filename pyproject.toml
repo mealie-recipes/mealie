@@ -67,7 +67,7 @@ docs = [
     "zensical==0.1.3",
 ]
 dev = [
-    "coverage==7.17.4",
+    "coverage==7.17.5",
     "coveragepy-lcov==0.1.2",
     "mypy==2.4.1",
     "pre-commit==4.7.0",
