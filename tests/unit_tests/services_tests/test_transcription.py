@@ -1,6 +1,7 @@
 from unittest.mock import Mock
 
 import pytest
+import yt_dlp
 
 import mealie.services.openai.transcription as transcription_module
 from mealie.services.openai import transcription
@@ -95,3 +96,63 @@ def test_download_video_passes_configured_cookiefile(settings_stub, fake_yt_dlp,
     transcription_module.download_video("https://example.com/video", tmp_path)
 
     assert fake_yt_dlp.last_opts["cookiefile"] == "/data/cookies.txt"
+
+
+_RealYoutubeDL = yt_dlp.YoutubeDL
+
+
+def _format(format_id: str, vcodec: str, acodec: str, ext: str, tbr: int) -> dict:
+    return {
+        "format_id": format_id,
+        "ext": ext,
+        "vcodec": vcodec,
+        "acodec": acodec,
+        "tbr": tbr,
+        "url": f"https://example.com/{format_id}",
+        "protocol": "https",
+    }
+
+
+def _tiktok_formats() -> list[dict]:
+    return [
+        _format("audio", "none", "aac", "m4a", 128),
+        _format("download", "h264", "aac", "mp4", 900),
+        _format("bytevc1_540p_773910-0", "h265", "aac", "mp4", 773),
+        _format("h264_720p_1335847-0", "h264", "aac", "mp4", 1335),
+        _format("bytevc1_1080p_2229843-0", "h265", "aac", "mp4", 2229),
+    ]
+
+
+def _youtube_formats() -> list[dict]:
+    return [
+        _format("251", "none", "opus", "webm", 130),
+        _format("18", "avc1", "mp4a", "mp4", 500),
+    ]
+
+
+def _select_format_id(selector: str, formats: list[dict]) -> str:
+    info = {
+        "id": "test",
+        "title": "test",
+        "extractor": "test",
+        "webpage_url": "https://example.com/video",
+        "formats": formats,
+    }
+    with _RealYoutubeDL({"format": selector, "quiet": True}) as ydl:
+        return ydl.process_video_result(info, download=False)["format_id"]
+
+
+def test_download_video_skips_tiktok_post_audio_track(settings_stub, fake_yt_dlp, tmp_path):
+    transcription_module.download_video("https://example.com/video", tmp_path)
+
+    selected = _select_format_id(fake_yt_dlp.last_opts["format"], _tiktok_formats())
+
+    assert selected != "audio"
+
+
+def test_download_video_keeps_audio_only_format_when_available(settings_stub, fake_yt_dlp, tmp_path):
+    transcription_module.download_video("https://example.com/video", tmp_path)
+
+    selected = _select_format_id(fake_yt_dlp.last_opts["format"], _youtube_formats())
+
+    assert selected == "251"
