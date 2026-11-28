@@ -394,21 +394,24 @@ const disabledColor = "grey";
 // it's reported neutrally instead of as a warning.
 interface AuthProvider {
   id: string;
-  // Shown as-is rather than translated, since these are acronyms
+  // Acronyms such as LDAP and OIDC are shown as-is. Other names are translated.
   name: string;
+  // Used in the check title when the name alone does not say that the check is about authentication
+  title?: string;
   // The environment variable that turns the provider on
   envVar: string;
   ready: boolean;
   disabled: boolean;
 }
 
-function authCheckText({ name, ready, disabled }: AuthProvider): string {
+function authCheckText({ name, title, ready, disabled }: AuthProvider): string {
+  const provider = title ?? name;
   if (disabled) {
-    return i18n.t("settings.auth-provider-disabled", { provider: name });
+    return i18n.t("settings.auth-provider-disabled", { provider });
   }
   return ready
-    ? i18n.t("settings.auth-provider-ready", { provider: name })
-    : i18n.t("settings.auth-provider-not-ready", { provider: name });
+    ? i18n.t("settings.auth-provider-ready", { provider })
+    : i18n.t("settings.auth-provider-not-ready", { provider });
 }
 
 function authCheckColor({ ready, disabled }: AuthProvider): string {
@@ -484,7 +487,8 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
     }),
     authProviderCheck({
       id: "reverse-proxy-auth-ready",
-      name: "Reverse Proxy",
+      name: i18n.t("settings.reverse-proxy"),
+      title: i18n.t("settings.reverse-proxy-authentication"),
       envVar: "REVERSE_PROXY_AUTH_ENABLED",
       ready: appConfig.value.reverseProxyAuthReady,
       disabled: appConfig.value.reverseProxyAuthDisabled,
