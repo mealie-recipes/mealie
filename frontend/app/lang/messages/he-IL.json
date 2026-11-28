@@ -136,6 +136,7 @@
     "units": "יחידות",
     "back": "חזרה",
     "next": "הבא",
+    "previous": "Previous",
     "start": "התחלה",
     "toggle-view": "החלף תצוגה",
     "date": "תאריך",
@@ -1112,6 +1113,9 @@
     "combine": "שילוב",
     "delete-unused": "מחיקת פריטים שאינם בשימוש",
     "delete-unused-more": "+ עוד {count}",
+    "associated-recipes": "Associated Recipes",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "מספר המתכונים",
     "categories": {
       "edit-category": "ערוך קטגוריה",
